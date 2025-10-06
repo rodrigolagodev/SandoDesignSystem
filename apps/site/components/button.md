@@ -182,7 +182,7 @@ Key CSS variables you can override:
 --sando-button-size-medium-fontSize
 ```
 
-[See full list in Storybook](http://localhost:6006)
+[See full list in Storybook](/SandoDesignSystem/storybook/)
 
 ## Framework Integration
 

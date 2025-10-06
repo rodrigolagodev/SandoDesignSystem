@@ -4,6 +4,7 @@ export default defineConfig({
   title: 'Sando Design System',
   description: 'A modern, accessible, token-based design system built with Web Components',
   base: '/SandoDesignSystem/docs/',
+  ignoreDeadLinks: true,
 
   themeConfig: {
     logo: '/logo.svg',
@@ -14,7 +15,7 @@ export default defineConfig({
       { text: 'Components', link: '/components/overview' },
       {
         text: 'Storybook',
-        link: 'http://localhost:6006',
+        link: '/SandoDesignSystem/storybook/',
         target: '_blank'
       }
     ],
