@@ -118,7 +118,7 @@ export interface SandoButtonProps {
   /**
    * Accessible label for screen readers (overrides visible text)
    */
-  ariaLabel?: string;
+  ariaLabel?: string | null;
 
   /**
    * Whether the button is in an active/pressed state (toggle)

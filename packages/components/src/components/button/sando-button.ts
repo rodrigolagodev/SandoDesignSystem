@@ -154,7 +154,7 @@ export class SandoButton extends LitElement {
    * Accessible label for screen readers (overrides visible text)
    */
   @property({ reflect: true, attribute: 'aria-label' })
-  ariaLabel?: string;
+  ariaLabel: string | null = null;
 
   /**
    * Whether the button is in an active/pressed state (toggle)
