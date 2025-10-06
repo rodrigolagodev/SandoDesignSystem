@@ -111,7 +111,7 @@ app.innerHTML = `
 ## Interactive Example
 
 ::: warning Coming Soon
-Interactive component demos will be available once the component library is published. For now, see the code examples above or visit the [Storybook](/SandoDesignSystem/storybook/).
+Interactive component demos will be available once the component library is published. For now, see the code examples above or visit the [Storybook](https://rodrigolagodev.github.io/SandoDesignSystem/storybook/).
 :::
 
 ## Using with TypeScript
@@ -209,7 +209,7 @@ Now that you've built your first component, explore:
 - **[Theming Guide](/getting-started/theming)** - Learn how to customize your design system
 - **[Token Architecture](/tokens/architecture)** - Understand the three-layer token system
 - **[Component API](/components/button)** - Explore all available components
-- **[Storybook](/SandoDesignSystem/storybook/)** - Interactive component playground
+- **[Storybook](https://rodrigolagodev.github.io/SandoDesignSystem/storybook/)** - Interactive component playground
 
 ## Common Patterns
 
