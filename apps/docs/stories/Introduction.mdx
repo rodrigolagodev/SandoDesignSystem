@@ -1,0 +1,62 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Introduction" />
+
+# Sando Design System
+
+Welcome to the Sando Design System documentation!
+
+## 🎨 Design Philosophy
+
+Sando follows a three-layer token architecture inspired by the Japanese "katsu sando" sandwich:
+
+### 1. **Ingredients** (Primitives)
+Raw, atomic values with no opinion:
+- Colors: `color-brand-500`, `color-neutral-100`
+- Spacing: `space-base`, `space-2x`
+- Typography: `font-size-base`
+
+### 2. **Flavors** (Semantic)
+Context and meaning to ingredients:
+- `color-background-interactive`
+- `color-text-primary`
+- `spacing-component-gap`
+
+### 3. **Recipes** (Component-specific)
+Tokens consumed by components:
+- `button-background-color`
+- `button-padding-horizontal`
+- `card-border-radius`
+
+## 🚀 Getting Started
+
+```bash
+npm install @sando/components @sando/tokens
+```
+
+```js
+import '@sando/tokens/css';
+import '@sando/components/button';
+```
+
+```html
+<sando-button variant="primary">Click me</sando-button>
+```
+
+## 📦 Packages
+
+- **@sando/tokens** - Design tokens (CSS variables)
+- **@sando/components** - Web Components built with Lit
+
+## 🎭 Theming
+
+All components support theming via the `flavor` attribute:
+
+```html
+<sando-button flavor="original">Original theme</sando-button>
+```
+
+## 🔗 Resources
+
+- [GitHub Repository](https://github.com/your-org/sando-design-system)
+- [NPM Package](https://www.npmjs.com/package/@sando/components)

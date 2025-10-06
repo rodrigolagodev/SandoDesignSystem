@@ -1,0 +1,95 @@
+{
+  "name": "@sando/components",
+  "version": "0.1.0",
+  "description": "Web Components library for Sando Design System built with Lit",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./button": {
+      "import": "./dist/components/button/sando-button.js",
+      "types": "./dist/components/button/sando-button.d.ts"
+    },
+    "./utils": {
+      "import": "./dist/utils/index.js",
+      "types": "./dist/utils/index.d.ts"
+    },
+    "./types": {
+      "import": "./dist/types/index.js",
+      "types": "./dist/types/index.d.ts"
+    },
+    "./styles/tokens": {
+      "import": "./dist/styles/tokens.js",
+      "types": "./dist/styles/tokens.d.ts"
+    },
+    "./styles/shared": {
+      "import": "./dist/styles/shared/index.js",
+      "types": "./dist/styles/shared/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "tsc && vite build",
+    "build:watch": "tsc && vite build --watch",
+    "test": "vitest run",
+    "test:ui": "vitest --ui",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:verbose": "VITEST_REPORTER=verbose vitest run",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:report": "playwright show-report test-results/e2e-report",
+    "lint": "eslint src --ext .ts,.js --max-warnings 0",
+    "lint:fix": "eslint src --ext .ts,.js --fix",
+    "format": "prettier --write \"src/**/*.{ts,js,json}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,js,json}\"",
+    "analyze": "custom-elements-manifest analyze",
+    "clean": "rm -rf dist coverage test-results .turbo"
+  },
+  "keywords": [
+    "web-components",
+    "lit",
+    "design-system",
+    "ui-components",
+    "custom-elements"
+  ],
+  "author": "Sando Design System Team",
+  "license": "MIT",
+  "dependencies": {
+    "@sando/tokens": "workspace:*",
+    "lit": "^3.1.0"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.10.2",
+    "@custom-elements-manifest/analyzer": "^0.9.0",
+    "@open-wc/testing": "^4.0.0",
+    "@playwright/test": "^1.40.0",
+    "@types/node": "^20.10.0",
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "@vitest/coverage-v8": "^3.2.4",
+    "@web/test-runner": "^0.18.0",
+    "@web/test-runner-playwright": "^0.11.0",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-lit": "^1.11.0",
+    "eslint-plugin-wc": "^2.0.4",
+    "jest-axe": "10.0.0",
+    "jsdom": "^23.0.0",
+    "prettier": "^3.1.1",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.8",
+    "vitest": "^3.2.4"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

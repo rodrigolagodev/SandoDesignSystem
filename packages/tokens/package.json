@@ -1,0 +1,65 @@
+{
+  "name": "@sando/tokens",
+  "version": "0.1.0",
+  "description": "Design tokens for Sando Design System - Ingredients, Flavors, and Recipes",
+  "type": "module",
+  "main": "./dist/index.js",
+  "exports": {
+    "./css": "./dist/sando-tokens/css/index.css",
+    "./css/ingredients": "./dist/sando-tokens/css/ingredients/index.css",
+    "./css/ingredients/*": "./dist/sando-tokens/css/ingredients/*.css",
+    "./css/flavors": "./dist/sando-tokens/css/flavors/index.css",
+    "./css/flavors/*": "./dist/sando-tokens/css/flavors/*.css",
+    "./css/recipes": "./dist/sando-tokens/css/recipes/index.css",
+    "./css/recipes/*": "./dist/sando-tokens/css/recipes/*.css",
+    "./ingredients": "./dist/sando-tokens/ts/ingredients/index.ts",
+    "./ingredients/*": "./dist/sando-tokens/ts/ingredients/*.ts",
+    "./flavors": "./dist/sando-tokens/ts/flavors/index.ts",
+    "./flavors/*": "./dist/sando-tokens/ts/flavors/*.ts",
+    "./recipes": "./dist/sando-tokens/ts/recipes/index.ts",
+    "./recipes/*": "./dist/sando-tokens/ts/recipes/*.ts"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "node build/index.js",
+    "build:force": "node build/index.js --force",
+    "build:clean": "node -e \"require('fs').rmSync('dist/sando-tokens', {recursive: true, force: true}); require('fs').rmSync('.build-cache.json', {force: true})\" && npm run build",
+    "dev": "nodemon --watch src --exec npm run build",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:verbose": "vitest run --reporter=verbose",
+    "test:dot": "vitest run --reporter=dot",
+    "test:summary": "vitest run --reporter=default --reporter=summary",
+    "test:structure": "vitest run tests/tokens/token-structure",
+    "test:references": "vitest run tests/tokens/token-references",
+    "test:values": "vitest run tests/tokens/token-values",
+    "test:accessibility": "vitest run tests/accessibility",
+    "test:build": "vitest run tests/build",
+    "test:ui": "vitest --ui",
+    "clean": "rm -rf dist .build-cache.json coverage"
+  },
+  "keywords": [
+    "design-tokens",
+    "css-variables",
+    "design-system",
+    "tokens",
+    "ingredients",
+    "flavors",
+    "recipes"
+  ],
+  "author": "Sando Design System Team",
+  "license": "MIT",
+  "devDependencies": {
+    "style-dictionary": "^4.0.0",
+    "vitest": "^1.0.0",
+    "@vitest/coverage-v8": "^1.0.0",
+    "nodemon": "^3.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

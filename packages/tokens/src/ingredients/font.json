@@ -1,0 +1,146 @@
+{
+  "font": {
+    "family": {
+      "sans": {
+        "value": "system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+        "type": "fontFamily"
+      },
+      "serif": {
+        "value": "Georgia, Cambria, 'Times New Roman', Times, serif",
+        "type": "fontFamily"
+      },
+      "mono": {
+        "value": "'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace",
+        "type": "fontFamily"
+      }
+    },
+    "size": {
+      "50": {
+        "value": "0.625rem",
+        "type": "dimension"
+      },
+      "100": {
+        "value": "0.75rem",
+        "type": "dimension"
+      },
+      "200": {
+        "value": "0.875rem",
+        "type": "dimension"
+      },
+      "300": {
+        "value": "1rem",
+        "type": "dimension"
+      },
+      "400": {
+        "value": "1.125rem",
+        "type": "dimension"
+      },
+      "500": {
+        "value": "1.25rem",
+        "type": "dimension"
+      },
+      "600": {
+        "value": "1.5rem",
+        "type": "dimension"
+      },
+      "700": {
+        "value": "2rem",
+        "type": "dimension"
+      },
+      "800": {
+        "value": "2.5rem",
+        "type": "dimension"
+      },
+      "900": {
+        "value": "3rem",
+        "type": "dimension"
+      }
+    },
+    "weight": {
+      "100": {
+        "value": "100",
+        "type": "fontWeight"
+      },
+      "200": {
+        "value": "200",
+        "type": "fontWeight"
+      },
+      "300": {
+        "value": "300",
+        "type": "fontWeight"
+      },
+      "400": {
+        "value": "400",
+        "type": "fontWeight"
+      },
+      "500": {
+        "value": "500",
+        "type": "fontWeight"
+      },
+      "600": {
+        "value": "600",
+        "type": "fontWeight"
+      },
+      "700": {
+        "value": "700",
+        "type": "fontWeight"
+      },
+      "800": {
+        "value": "800",
+        "type": "fontWeight"
+      },
+      "900": {
+        "value": "900",
+        "type": "fontWeight"
+      }
+    },
+    "lineHeight": {
+      "100": {
+        "value": "1",
+        "type": "number"
+      },
+      "120": {
+        "value": "1.2",
+        "type": "number"
+      },
+      "140": {
+        "value": "1.4",
+        "type": "number"
+      },
+      "150": {
+        "value": "1.5",
+        "type": "number"
+      },
+      "160": {
+        "value": "1.6",
+        "type": "number"
+      },
+      "180": {
+        "value": "1.8",
+        "type": "number"
+      },
+      "200": {
+        "value": "2",
+        "type": "number"
+      }
+    },
+    "letterSpacing": {
+      "0": {
+        "value": "0em",
+        "type": "dimension"
+      },
+      "25": {
+        "value": "0.025em",
+        "type": "dimension"
+      },
+      "50": {
+        "value": "0.05em",
+        "type": "dimension"
+      },
+      "100": {
+        "value": "0.1em",
+        "type": "dimension"
+      }
+    }
+  }
+}

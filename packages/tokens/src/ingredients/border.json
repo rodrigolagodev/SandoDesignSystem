@@ -1,0 +1,76 @@
+{
+  "border": {
+    "radius": {
+      "0": {
+        "value": "0rem",
+        "type": "dimension"
+      },
+      "50": {
+        "value": "0.125rem",
+        "type": "dimension"
+      },
+      "100": {
+        "value": "0.25rem",
+        "type": "dimension"
+      },
+      "200": {
+        "value": "0.5rem",
+        "type": "dimension"
+      },
+      "300": {
+        "value": "0.75rem",
+        "type": "dimension"
+      },
+      "400": {
+        "value": "1rem",
+        "type": "dimension"
+      },
+      "500": {
+        "value": "1.25rem",
+        "type": "dimension"
+      },
+      "600": {
+        "value": "1.5rem",
+        "type": "dimension"
+      },
+      "circle": {
+        "value": "50%",
+        "type": "dimension"
+      },
+      "full": {
+        "value": "9999px",
+        "type": "dimension"
+      }
+    },
+    "width": {
+      "0": {
+        "value": "0px",
+        "type": "dimension"
+      },
+      "50": {
+        "value": "1px",
+        "type": "dimension"
+      },
+      "100": {
+        "value": "2px",
+        "type": "dimension"
+      },
+      "150": {
+        "value": "3px",
+        "type": "dimension"
+      },
+      "200": {
+        "value": "4px",
+        "type": "dimension"
+      },
+      "300": {
+        "value": "6px",
+        "type": "dimension"
+      },
+      "400": {
+        "value": "8px",
+        "type": "dimension"
+      }
+    }
+  }
+}
