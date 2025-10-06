@@ -30,7 +30,9 @@ const meta: Meta = {
       ?full-width="${args.fullWidth}"
       type="${args.type}"
     >
+      ${args.iconStart && args.iconStart !== 'None' ? html`<span slot="icon-start">${args.iconStart}</span>` : ''}
       ${args.label}
+      ${args.iconEnd && args.iconEnd !== 'None' ? html`<span slot="icon-end">${args.iconEnd}</span>` : ''}
     </sando-button>
   `,
   argTypes: {
@@ -97,6 +99,16 @@ const meta: Meta = {
     label: {
       control: 'text',
       description: 'Button text content'
+    },
+    iconStart: {
+      control: 'select',
+      options: ['None', '⭐', '❤️', '✓', '✗', '🔍', '⚙️', '📥', '📤', '➕', '➖', '🗑️', '✏️', '🔒', '🔓', '👤', '🏠'],
+      description: 'Icon to display at the start of the button'
+    },
+    iconEnd: {
+      control: 'select',
+      options: ['None', '→', '←', '↑', '↓', '⭐', '❤️', '✓', '✗', '⚙️', '📥', '📤', '➕', '➖'],
+      description: 'Icon to display at the end of the button'
     }
   }
 };
@@ -116,7 +128,9 @@ export const Default: Story = {
     disabled: false,
     loading: false,
     fullWidth: false,
-    type: 'button'
+    type: 'button',
+    iconStart: 'None',
+    iconEnd: 'None'
   }
 };
 
@@ -132,7 +146,9 @@ export const Solid: Story = {
     disabled: false,
     loading: false,
     fullWidth: false,
-    type: 'button'
+    type: 'button',
+    iconStart: 'None',
+    iconEnd: 'None'
   }
 };
 
@@ -148,7 +164,9 @@ export const Small: Story = {
     disabled: false,
     loading: false,
     fullWidth: false,
-    type: 'button'
+    type: 'button',
+    iconStart: 'None',
+    iconEnd: 'None'
   }
 };
 
@@ -164,7 +182,9 @@ export const Medium: Story = {
     disabled: false,
     loading: false,
     fullWidth: false,
-    type: 'button'
+    type: 'button',
+    iconStart: 'None',
+    iconEnd: 'None'
   }
 };
 
@@ -180,7 +200,9 @@ export const Large: Story = {
     disabled: false,
     loading: false,
     fullWidth: false,
-    type: 'button'
+    type: 'button',
+    iconStart: 'None',
+    iconEnd: 'None'
   }
 };
 
@@ -196,7 +218,9 @@ export const Success: Story = {
     disabled: false,
     loading: false,
     fullWidth: false,
-    type: 'button'
+    type: 'button',
+    iconStart: '✓',
+    iconEnd: 'None'
   }
 };
 
@@ -208,11 +232,13 @@ export const Destructive: Story = {
     variant: 'solid',
     size: 'medium',
     status: 'destructive',
-    label: 'Destructive',
+    label: 'Delete',
     disabled: false,
     loading: false,
     fullWidth: false,
-    type: 'button'
+    type: 'button',
+    iconStart: '🗑️',
+    iconEnd: 'None'
   }
 };
 
@@ -228,7 +254,9 @@ export const Disabled: Story = {
     disabled: true,
     loading: false,
     fullWidth: false,
-    type: 'button'
+    type: 'button',
+    iconStart: 'None',
+    iconEnd: 'None'
   }
 };
 
@@ -240,11 +268,13 @@ export const Loading: Story = {
     variant: 'solid',
     size: 'medium',
     status: 'default',
-    label: 'Loading Button',
+    label: 'Loading...',
     disabled: false,
     loading: true,
     fullWidth: false,
-    type: 'button'
+    type: 'button',
+    iconStart: 'None',
+    iconEnd: 'None'
   }
 };
 
@@ -260,7 +290,9 @@ export const Outline: Story = {
     disabled: false,
     loading: false,
     fullWidth: false,
-    type: 'button'
+    type: 'button',
+    iconStart: 'None',
+    iconEnd: 'None'
   }
 };
 
@@ -276,7 +308,9 @@ export const Ghost: Story = {
     disabled: false,
     loading: false,
     fullWidth: false,
-    type: 'button'
+    type: 'button',
+    iconStart: 'None',
+    iconEnd: 'None'
   }
 };
 
@@ -292,28 +326,16 @@ export const FullWidth: Story = {
     disabled: false,
     loading: false,
     fullWidth: true,
-    type: 'button'
+    type: 'button',
+    iconStart: 'None',
+    iconEnd: 'None'
   }
 };
 
 /**
- * Button with icon start - modify label via controls.
+ * Button with icon start - change icon via controls.
  */
 export const WithIconStart: Story = {
-  render: (args) => html`
-    <sando-button
-      variant="${args.variant}"
-      size="${args.size}"
-      status="${args.status}"
-      ?disabled="${args.disabled}"
-      ?loading="${args.loading}"
-      ?full-width="${args.fullWidth}"
-      type="${args.type}"
-    >
-      <span slot="icon-start">⭐</span>
-      ${args.label}
-    </sando-button>
-  `,
   args: {
     variant: 'solid',
     size: 'medium',
@@ -322,28 +344,16 @@ export const WithIconStart: Story = {
     disabled: false,
     loading: false,
     fullWidth: false,
-    type: 'button'
+    type: 'button',
+    iconStart: '⭐',
+    iconEnd: 'None'
   }
 };
 
 /**
- * Button with icon end - modify label via controls.
+ * Button with icon end - change icon via controls.
  */
 export const WithIconEnd: Story = {
-  render: (args) => html`
-    <sando-button
-      variant="${args.variant}"
-      size="${args.size}"
-      status="${args.status}"
-      ?disabled="${args.disabled}"
-      ?loading="${args.loading}"
-      ?full-width="${args.fullWidth}"
-      type="${args.type}"
-    >
-      ${args.label}
-      <span slot="icon-end">→</span>
-    </sando-button>
-  `,
   args: {
     variant: 'solid',
     size: 'medium',
@@ -352,7 +362,27 @@ export const WithIconEnd: Story = {
     disabled: false,
     loading: false,
     fullWidth: false,
-    type: 'button'
+    type: 'button',
+    iconStart: 'None',
+    iconEnd: '→'
+  }
+};
+
+/**
+ * Button with both icons - change both via controls.
+ */
+export const WithBothIcons: Story = {
+  args: {
+    variant: 'solid',
+    size: 'medium',
+    status: 'default',
+    label: 'Download',
+    disabled: false,
+    loading: false,
+    fullWidth: false,
+    type: 'button',
+    iconStart: '📥',
+    iconEnd: '→'
   }
 };
 
@@ -443,6 +473,8 @@ export const Playground: Story = {
     disabled: false,
     loading: false,
     fullWidth: false,
-    type: 'button'
+    type: 'button',
+    iconStart: 'None',
+    iconEnd: 'None'
   }
 };
