@@ -505,8 +505,8 @@ MIT © Sando Design System Team
 
 ## Support
 
-- **Issues**: [GitHub Issues](https://github.com/rodrigolagodev/SandoDesingSystem/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/rodrigolagodev/SandoDesingSystem/discussions)
+- **Issues**: [GitHub Issues](https://github.com/rodrigolagodev/SandoDesignSystem/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/rodrigolagodev/SandoDesignSystem/discussions)
 - **Documentation**: Storybook (run `pnpm docs:dev`)
 
 ---

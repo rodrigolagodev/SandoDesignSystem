@@ -14,7 +14,7 @@ hero:
       link: /tokens/architecture
     - theme: alt
       text: GitHub
-      link: https://github.com/rodrigolagodev/SandoDesingSystem
+      link: https://github.com/rodrigolagodev/SandoDesignSystem
 
 features:
   - icon: 🎨

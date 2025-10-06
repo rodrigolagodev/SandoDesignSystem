@@ -211,5 +211,5 @@ All values should be `true` for full compatibility.
 If you have questions about browser support:
 
 - Check [Can I Use](https://caniuse.com/) for feature compatibility
-- Ask in [GitHub Discussions](https://github.com/rodrigolagodev/SandoDesingSystem/discussions)
-- Report issues in [GitHub Issues](https://github.com/rodrigolagodev/SandoDesingSystem/issues)
+- Ask in [GitHub Discussions](https://github.com/rodrigolagodev/SandoDesignSystem/discussions)
+- Report issues in [GitHub Issues](https://github.com/rodrigolagodev/SandoDesignSystem/issues)

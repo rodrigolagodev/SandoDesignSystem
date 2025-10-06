@@ -223,7 +223,7 @@ MIT © [Rodrigo Lago](https://github.com/rodrigolagodev)
 
 ## 🔗 Links
 
-- **GitHub**: [rodrigolagodev/SandoDesingSystem](https://github.com/rodrigolagodev/SandoDesingSystem)
-- **Issues**: [Report a bug or request a feature](https://github.com/rodrigolagodev/SandoDesingSystem/issues)
+- **GitHub**: [rodrigolagodev/SandoDesignSystem](https://github.com/rodrigolagodev/SandoDesignSystem)
+- **Issues**: [Report a bug or request a feature](https://github.com/rodrigolagodev/SandoDesignSystem/issues)
 - **Storybook**: Component playground and documentation
 - **VitePress**: Full documentation site

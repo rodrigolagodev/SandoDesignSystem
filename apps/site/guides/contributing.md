@@ -2,13 +2,13 @@
 
 Thank you for your interest in contributing to Sando Design System! This guide will help you get started.
 
-For the complete contributing guidelines, please see our [CONTRIBUTING.md](https://github.com/rodrigolagodev/SandoDesingSystem/blob/master/CONTRIBUTING.md) in the main repository.
+For the complete contributing guidelines, please see our [CONTRIBUTING.md](https://github.com/rodrigolagodev/SandoDesignSystem/blob/master/CONTRIBUTING.md) in the main repository.
 
 ## Quick Links
 
-- [GitHub Repository](https://github.com/rodrigolagodev/SandoDesingSystem)
-- [Issues](https://github.com/rodrigolagodev/SandoDesingSystem/issues)
-- [Discussions](https://github.com/rodrigolagodev/SandoDesingSystem/discussions)
+- [GitHub Repository](https://github.com/rodrigolagodev/SandoDesignSystem)
+- [Issues](https://github.com/rodrigolagodev/SandoDesignSystem/issues)
+- [Discussions](https://github.com/rodrigolagodev/SandoDesignSystem/discussions)
 
 ## Getting Started
 
@@ -22,8 +22,8 @@ For the complete contributing guidelines, please see our [CONTRIBUTING.md](https
 
 \`\`\`bash
 # Clone the repository
-git clone https://github.com/rodrigolagodev/SandoDesingSystem.git
-cd SandoDesingSystem
+git clone https://github.com/rodrigolagodev/SandoDesignSystem.git
+cd SandoDesignSystem
 
 # Install dependencies
 pnpm install
@@ -108,9 +108,9 @@ chore: update dependencies
 
 ## Need Help?
 
-- Ask in [GitHub Discussions](https://github.com/rodrigolagodev/SandoDesingSystem/discussions)
-- Report bugs in [Issues](https://github.com/rodrigolagodev/SandoDesingSystem/issues)
-- Read the full [CONTRIBUTING.md](https://github.com/rodrigolagodev/SandoDesingSystem/blob/master/CONTRIBUTING.md)
+- Ask in [GitHub Discussions](https://github.com/rodrigolagodev/SandoDesignSystem/discussions)
+- Report bugs in [Issues](https://github.com/rodrigolagodev/SandoDesignSystem/issues)
+- Read the full [CONTRIBUTING.md](https://github.com/rodrigolagodev/SandoDesignSystem/blob/master/CONTRIBUTING.md)
 
 ## License
 

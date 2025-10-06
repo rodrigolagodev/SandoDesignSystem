@@ -29,8 +29,8 @@ This project follows a Code of Conduct to ensure a welcoming environment for all
 
 ```bash
 # Clone the repository
-git clone https://github.com/rodrigolagodev/SandoDesingSystem.git
-cd SandoDesingSystem
+git clone https://github.com/rodrigolagodev/SandoDesignSystem.git
+cd SandoDesignSystem
 
 # Install dependencies
 pnpm install
@@ -326,9 +326,9 @@ When adding or modifying tokens:
 
 ## Questions or Issues?
 
-- **Bug reports**: [GitHub Issues](https://github.com/rodrigolagodev/SandoDesingSystem/issues)
-- **Feature requests**: [GitHub Discussions](https://github.com/rodrigolagodev/SandoDesingSystem/discussions)
-- **Questions**: [GitHub Discussions](https://github.com/rodrigolagodev/SandoDesingSystem/discussions)
+- **Bug reports**: [GitHub Issues](https://github.com/rodrigolagodev/SandoDesignSystem/issues)
+- **Feature requests**: [GitHub Discussions](https://github.com/rodrigolagodev/SandoDesignSystem/discussions)
+- **Questions**: [GitHub Discussions](https://github.com/rodrigolagodev/SandoDesignSystem/discussions)
 
 ## License
 

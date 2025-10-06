@@ -1,7 +1,7 @@
 # Components Overview
 
 ::: info Button Component Available
-The Sando Button component is now available! Other components are under active development. Check back soon or [watch the repo](https://github.com/rodrigolagodev/SandoDesingSystem) for updates.
+The Sando Button component is now available! Other components are under active development. Check back soon or [watch the repo](https://github.com/rodrigolagodev/SandoDesignSystem) for updates.
 :::
 
 ## Planned Features
@@ -54,7 +54,7 @@ pnpm add @sando/components @sando/tokens
 The Button component is fully functional with comprehensive tests. Additional components are in development. You can:
 - Explore the [token system](/tokens/architecture) which is fully functional
 - Use the [Button component](/components/button) in your projects
-- Contribute to development on [GitHub](https://github.com/rodrigolagodev/SandoDesingSystem)
+- Contribute to development on [GitHub](https://github.com/rodrigolagodev/SandoDesignSystem)
 :::
 
 ## Planned Usage

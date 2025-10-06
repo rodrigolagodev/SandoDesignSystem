@@ -199,7 +199,7 @@ All Sando components respect this preference.
 
 If you find an accessibility issue:
 
-1. Check if it's already [reported](https://github.com/rodrigolagodev/SandoDesingSystem/issues)
+1. Check if it's already [reported](https://github.com/rodrigolagodev/SandoDesignSystem/issues)
 2. Create a new issue with:
    - WCAG criterion it violates
    - Steps to reproduce
