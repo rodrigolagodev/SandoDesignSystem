@@ -121,144 +121,241 @@ export const Default: Story = {
 };
 
 /**
- * All variants side by side for comparison.
+ * Solid variant - use controls to customize.
  */
-export const Variants: Story = {
-  render: () => html`
-    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-      <sando-button variant="solid">Solid</sando-button>
-      <sando-button variant="outline">Outline</sando-button>
-      <sando-button variant="ghost">Ghost</sando-button>
-    </div>
-  `
+export const Solid: Story = {
+  args: {
+    variant: 'solid',
+    size: 'medium',
+    status: 'default',
+    label: 'Solid Button',
+    disabled: false,
+    loading: false,
+    fullWidth: false,
+    type: 'button'
+  }
 };
 
 /**
- * All sizes side by side for comparison.
+ * Small size variant - use controls to customize.
  */
-export const Sizes: Story = {
-  render: () => html`
-    <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
-      <sando-button size="small">Small</sando-button>
-      <sando-button size="medium">Medium</sando-button>
-      <sando-button size="large">Large</sando-button>
-    </div>
-  `
+export const Small: Story = {
+  args: {
+    variant: 'solid',
+    size: 'small',
+    status: 'default',
+    label: 'Small Button',
+    disabled: false,
+    loading: false,
+    fullWidth: false,
+    type: 'button'
+  }
 };
 
 /**
- * Status variants for success and error states.
+ * Medium size variant - use controls to customize.
  */
-export const StatusStates: Story = {
-  render: () => html`
-    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-      <sando-button status="default">Default</sando-button>
-      <sando-button status="success">Success</sando-button>
-      <sando-button status="destructive">Destructive</sando-button>
-    </div>
-  `
+export const Medium: Story = {
+  args: {
+    variant: 'solid',
+    size: 'medium',
+    status: 'default',
+    label: 'Medium Button',
+    disabled: false,
+    loading: false,
+    fullWidth: false,
+    type: 'button'
+  }
 };
 
 /**
- * Interactive states: hover, active, disabled, loading.
+ * Large size variant - use controls to customize.
  */
-export const States: Story = {
-  render: () => html`
-    <div style="display: flex; gap: 1rem; flex-direction: column; max-width: 300px;">
-      <sando-button>Normal</sando-button>
-      <sando-button disabled>Disabled</sando-button>
-      <sando-button loading>Loading</sando-button>
-    </div>
-  `
+export const Large: Story = {
+  args: {
+    variant: 'solid',
+    size: 'large',
+    status: 'default',
+    label: 'Large Button',
+    disabled: false,
+    loading: false,
+    fullWidth: false,
+    type: 'button'
+  }
 };
 
 /**
- * Outline variant in different sizes.
+ * Success status variant - use controls to customize.
  */
-export const Outline: Story = {
-  render: () => html`
-    <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
-      <sando-button variant="outline" size="small">Small Outline</sando-button>
-      <sando-button variant="outline" size="medium">Medium Outline</sando-button>
-      <sando-button variant="outline" size="large">Large Outline</sando-button>
-    </div>
-  `
+export const Success: Story = {
+  args: {
+    variant: 'solid',
+    size: 'medium',
+    status: 'success',
+    label: 'Success',
+    disabled: false,
+    loading: false,
+    fullWidth: false,
+    type: 'button'
+  }
 };
 
 /**
- * Ghost variant in different sizes.
+ * Destructive status variant - use controls to customize.
  */
-export const Ghost: Story = {
-  render: () => html`
-    <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
-      <sando-button variant="ghost" size="small">Small Ghost</sando-button>
-      <sando-button variant="ghost" size="medium">Medium Ghost</sando-button>
-      <sando-button variant="ghost" size="large">Large Ghost</sando-button>
-    </div>
-  `
+export const Destructive: Story = {
+  args: {
+    variant: 'solid',
+    size: 'medium',
+    status: 'destructive',
+    label: 'Destructive',
+    disabled: false,
+    loading: false,
+    fullWidth: false,
+    type: 'button'
+  }
 };
 
 /**
- * Full width buttons in a vertical layout.
- */
-export const FullWidth: Story = {
-  render: () => html`
-    <div style="display: flex; flex-direction: column; gap: 1rem; max-width: 400px;">
-      <sando-button full-width>Full Width Solid</sando-button>
-      <sando-button full-width variant="outline">Full Width Outline</sando-button>
-      <sando-button full-width variant="ghost">Full Width Ghost</sando-button>
-    </div>
-  `
-};
-
-/**
- * Buttons with icons using slots.
- */
-export const WithIcons: Story = {
-  render: () => html`
-    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-      <sando-button>
-        <span slot="icon-start">⭐</span>
-        With Icon Start
-      </sando-button>
-      <sando-button>
-        With Icon End
-        <span slot="icon-end">→</span>
-      </sando-button>
-      <sando-button>
-        <span slot="icon-start">⬇️</span>
-        Both Icons
-        <span slot="icon-end">⬇️</span>
-      </sando-button>
-    </div>
-  `
-};
-
-/**
- * Loading state with different variants.
- */
-export const Loading: Story = {
-  render: () => html`
-    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-      <sando-button loading>Loading Solid</sando-button>
-      <sando-button loading variant="outline">Loading Outline</sando-button>
-      <sando-button loading variant="ghost">Loading Ghost</sando-button>
-    </div>
-  `
-};
-
-/**
- * Disabled state with different variants.
+ * Disabled state - use controls to customize.
  */
 export const Disabled: Story = {
-  render: () => html`
-    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-      <sando-button disabled>Disabled Solid</sando-button>
-      <sando-button disabled variant="outline">Disabled Outline</sando-button>
-      <sando-button disabled variant="ghost">Disabled Ghost</sando-button>
-    </div>
-  `
+  args: {
+    variant: 'solid',
+    size: 'medium',
+    status: 'default',
+    label: 'Disabled Button',
+    disabled: true,
+    loading: false,
+    fullWidth: false,
+    type: 'button'
+  }
 };
+
+/**
+ * Loading state - use controls to customize.
+ */
+export const Loading: Story = {
+  args: {
+    variant: 'solid',
+    size: 'medium',
+    status: 'default',
+    label: 'Loading Button',
+    disabled: false,
+    loading: true,
+    fullWidth: false,
+    type: 'button'
+  }
+};
+
+/**
+ * Outline variant - use controls to customize.
+ */
+export const Outline: Story = {
+  args: {
+    variant: 'outline',
+    size: 'medium',
+    status: 'default',
+    label: 'Outline Button',
+    disabled: false,
+    loading: false,
+    fullWidth: false,
+    type: 'button'
+  }
+};
+
+/**
+ * Ghost variant - use controls to customize.
+ */
+export const Ghost: Story = {
+  args: {
+    variant: 'ghost',
+    size: 'medium',
+    status: 'default',
+    label: 'Ghost Button',
+    disabled: false,
+    loading: false,
+    fullWidth: false,
+    type: 'button'
+  }
+};
+
+/**
+ * Full width button - use controls to customize.
+ */
+export const FullWidth: Story = {
+  args: {
+    variant: 'solid',
+    size: 'medium',
+    status: 'default',
+    label: 'Full Width Button',
+    disabled: false,
+    loading: false,
+    fullWidth: true,
+    type: 'button'
+  }
+};
+
+/**
+ * Button with icon start - modify label via controls.
+ */
+export const WithIconStart: Story = {
+  render: (args) => html`
+    <sando-button
+      variant="${args.variant}"
+      size="${args.size}"
+      status="${args.status}"
+      ?disabled="${args.disabled}"
+      ?loading="${args.loading}"
+      ?full-width="${args.fullWidth}"
+      type="${args.type}"
+    >
+      <span slot="icon-start">⭐</span>
+      ${args.label}
+    </sando-button>
+  `,
+  args: {
+    variant: 'solid',
+    size: 'medium',
+    status: 'default',
+    label: 'Favorite',
+    disabled: false,
+    loading: false,
+    fullWidth: false,
+    type: 'button'
+  }
+};
+
+/**
+ * Button with icon end - modify label via controls.
+ */
+export const WithIconEnd: Story = {
+  render: (args) => html`
+    <sando-button
+      variant="${args.variant}"
+      size="${args.size}"
+      status="${args.status}"
+      ?disabled="${args.disabled}"
+      ?loading="${args.loading}"
+      ?full-width="${args.fullWidth}"
+      type="${args.type}"
+    >
+      ${args.label}
+      <span slot="icon-end">→</span>
+    </sando-button>
+  `,
+  args: {
+    variant: 'solid',
+    size: 'medium',
+    status: 'default',
+    label: 'Next',
+    disabled: false,
+    loading: false,
+    fullWidth: false,
+    type: 'button'
+  }
+};
+
 
 /**
  * Complete showcase of all combinations.
