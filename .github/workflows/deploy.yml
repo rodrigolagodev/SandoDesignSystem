@@ -1,0 +1,153 @@
+name: Deploy Storybook & Documentation
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8.15.0
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build tokens
+        run: pnpm tokens:build
+
+      - name: Build components
+        run: pnpm components:build
+
+      - name: Build Storybook
+        run: pnpm docs:build
+
+      - name: Build VitePress site
+        run: pnpm site:build
+
+      - name: Prepare deployment directory
+        run: |
+          mkdir -p _site
+          cp -r apps/docs/storybook-static _site/storybook
+          cp -r apps/site/.vitepress/dist _site/docs
+
+      - name: Create index redirect
+        run: |
+          cat > _site/index.html << 'EOF'
+          <!DOCTYPE html>
+          <html lang="es">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Sando Design System</title>
+            <style>
+              body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+                max-width: 800px;
+                margin: 80px auto;
+                padding: 0 20px;
+                line-height: 1.6;
+              }
+              h1 {
+                color: #333;
+                margin-bottom: 1rem;
+              }
+              .links {
+                display: flex;
+                gap: 20px;
+                margin-top: 40px;
+              }
+              .link-card {
+                flex: 1;
+                padding: 30px;
+                border: 2px solid #e0e0e0;
+                border-radius: 8px;
+                text-decoration: none;
+                color: #333;
+                transition: all 0.3s ease;
+              }
+              .link-card:hover {
+                border-color: #007bff;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+              }
+              .link-card h2 {
+                margin: 0 0 10px 0;
+                color: #007bff;
+              }
+              .link-card p {
+                margin: 0;
+                color: #666;
+              }
+            </style>
+          </head>
+          <body>
+            <h1>🎨 Sando Design System</h1>
+            <p>Sistema de diseño moderno, accesible y basado en tokens</p>
+
+            <div class="links">
+              <a href="/storybook/" class="link-card">
+                <h2>📚 Storybook</h2>
+                <p>Explora los componentes interactivos y su documentación</p>
+              </a>
+
+              <a href="/docs/" class="link-card">
+                <h2>📖 Documentación</h2>
+                <p>Guías, arquitectura y mejores prácticas</p>
+              </a>
+            </div>
+          </body>
+          </html>
+          EOF
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
