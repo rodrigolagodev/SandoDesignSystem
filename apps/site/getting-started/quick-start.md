@@ -110,32 +110,9 @@ app.innerHTML = `
 
 ## Interactive Example
 
-Try different variants and sizes:
-
-<div class="demo">
-  <sando-button variant="solid">Solid</sando-button>
-  <sando-button variant="outline">Outline</sando-button>
-  <sando-button variant="ghost">Ghost</sando-button>
-</div>
-
-<script setup>
-import { onMounted } from 'vue'
-
-onMounted(async () => {
-  await import('@sando/components/button')
-})
-</script>
-
-<style>
-.demo {
-  display: flex;
-  gap: 1rem;
-  padding: 2rem;
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 8px;
-  margin: 2rem 0;
-}
-</style>
+::: warning Coming Soon
+Interactive component demos will be available once the component library is published. For now, see the code examples above or visit the [Storybook](http://localhost:6006) when running locally.
+:::
 
 ## Using with TypeScript
 

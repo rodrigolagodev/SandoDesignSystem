@@ -88,5 +88,16 @@ export default defineConfig({
       dark: 'github-dark'
     },
     lineNumbers: true
+  },
+
+  vite: {
+    ssr: {
+      noExternal: ['@sando/tokens']
+    },
+    build: {
+      rollupOptions: {
+        external: ['@sando/components/button', '@sando/components']
+      }
+    }
   }
 })
