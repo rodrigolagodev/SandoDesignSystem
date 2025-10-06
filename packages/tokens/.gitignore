@@ -1,0 +1,9 @@
+# Allow build scripts folder (contains Style Dictionary config)
+!build/
+
+# But ignore build outputs
+dist/
+coverage/
+test-results/
+.build-cache.json
+.turbo/
