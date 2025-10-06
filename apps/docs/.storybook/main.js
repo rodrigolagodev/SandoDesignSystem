@@ -25,6 +25,7 @@ const config = {
 		// Customize Vite config for Storybook
 		return {
 			...config,
+			base: '/SandoDesignSystem/storybook/',
 			resolve: {
 				...config.resolve,
 				alias: {

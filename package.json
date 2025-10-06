@@ -96,12 +96,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/rodrigolagodev/SandoDesingSystem.git"
+    "url": "https://github.com/rodrigolagodev/SandoDesignSystem.git"
   },
   "bugs": {
-    "url": "https://github.com/rodrigolagodev/SandoDesingSystem/issues"
+    "url": "https://github.com/rodrigolagodev/SandoDesignSystem/issues"
   },
-  "homepage": "https://github.com/rodrigolagodev/SandoDesingSystem#readme",
+  "homepage": "https://github.com/rodrigolagodev/SandoDesignSystem#readme",
   "publishConfig": {
     "access": "public"
   }

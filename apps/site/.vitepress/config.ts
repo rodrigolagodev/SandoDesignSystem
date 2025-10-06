@@ -3,7 +3,7 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: 'Sando Design System',
   description: 'A modern, accessible, token-based design system built with Web Components',
-  base: '/',
+  base: '/SandoDesignSystem/docs/',
 
   themeConfig: {
     logo: '/logo.svg',
@@ -69,7 +69,7 @@ export default defineConfig({
     },
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/rodrigolagodev/SandoDesingSystem' }
+      { icon: 'github', link: 'https://github.com/rodrigolagodev/SandoDesignSystem' }
     ],
 
     search: {

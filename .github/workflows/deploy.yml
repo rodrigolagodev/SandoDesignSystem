@@ -122,12 +122,12 @@ jobs:
             <p>Sistema de diseño moderno, accesible y basado en tokens</p>
 
             <div class="links">
-              <a href="/storybook/" class="link-card">
+              <a href="/SandoDesignSystem/storybook/" class="link-card">
                 <h2>📚 Storybook</h2>
                 <p>Explora los componentes interactivos y su documentación</p>
               </a>
 
-              <a href="/docs/" class="link-card">
+              <a href="/SandoDesignSystem/docs/" class="link-card">
                 <h2>📖 Documentación</h2>
                 <p>Guías, arquitectura y mejores prácticas</p>
               </a>
