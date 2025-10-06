@@ -27,6 +27,15 @@ test-results/
 .cache/
 *.cache
 
+# VitePress cache
+.vitepress/cache/
+.vitepress/dist/
+.vitepress/.temp/
+
+# Storybook cache
+.storybook-cache/
+node_modules/.cache/
+
 # Environment variables
 .env.local
 .env.development.local

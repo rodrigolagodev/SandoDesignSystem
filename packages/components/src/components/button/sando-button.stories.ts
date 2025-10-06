@@ -4,34 +4,52 @@ import './sando-button.ts';
 
 /**
  * The Button component is used to trigger actions and events.
+ * Can render as `<button>` or `<a>` based on whether `href` is provided.
  *
  * ## Features
  * - **3 Variants**: solid, outline, ghost
  * - **3 Sizes**: small, medium, large
+ * - **3 Border Radius**: none, default, full (circular)
  * - **Status States**: default, success, destructive
  * - **Interactive States**: hover, active, disabled, loading
- * - **Accessibility**: Full ARIA support, keyboard navigation
+ * - **Icon-only Mode**: Square buttons perfect for icon-only actions
+ * - **Active/Toggle State**: Persistent pressed state for filters and toggles
+ * - **Accessibility**: Full ARIA support (aria-label, aria-pressed, aria-busy)
  * - **Customizable**: Slots for icons and content
+ * - **Semantic HTML**: Renders as `<button>` by default, `<a>` when href is provided
  *
  * ## Design Tokens
  * This component uses design tokens from the `recipes/button` layer.
  * All colors, spacing, and typography are themeable via CSS custom properties.
+ * Tokens follow the 3-layer architecture: Recipes → Flavors → Ingredients.
+ *
+ * ## Accessibility
+ * - Use `aria-label` for icon-only buttons to provide context
+ * - `aria-pressed` automatically set when `active` prop is true
+ * - `aria-busy` set during loading state
+ * - Full keyboard navigation support
  */
 const meta: Meta = {
-  title: 'Components/Button',
+  title: 'Components/Button/Overview',
   tags: ['autodocs'],
   render: (args) => html`
     <sando-button
       variant="${args.variant}"
       size="${args.size}"
       status="${args.status}"
+      radius="${args.radius}"
       ?disabled="${args.disabled}"
       ?loading="${args.loading}"
       ?full-width="${args.fullWidth}"
+      ?icon-only="${args.iconOnly}"
+      ?active="${args.active}"
       type="${args.type}"
+      href="${args.href || ''}"
+      target="${args.target || '_self'}"
+      aria-label="${args.ariaLabel || ''}"
     >
       ${args.iconStart && args.iconStart !== 'None' ? html`<span slot="icon-start">${args.iconStart}</span>` : ''}
-      ${args.label}
+      ${args.iconOnly ? '' : args.label}
       ${args.iconEnd && args.iconEnd !== 'None' ? html`<span slot="icon-end">${args.iconEnd}</span>` : ''}
     </sando-button>
   `,
@@ -87,6 +105,31 @@ const meta: Meta = {
         defaultValue: { summary: 'false' }
       }
     },
+    iconOnly: {
+      control: 'boolean',
+      description: 'Icon-only button (square shape, no text padding)',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' }
+      }
+    },
+    radius: {
+      control: 'select',
+      options: ['none', 'default', 'full'],
+      description: 'Border radius variant',
+      table: {
+        type: { summary: 'none | default | full' },
+        defaultValue: { summary: 'default' }
+      }
+    },
+    active: {
+      control: 'boolean',
+      description: 'Active/pressed state (for toggles and filters)',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' }
+      }
+    },
     type: {
       control: 'select',
       options: ['button', 'submit', 'reset'],
@@ -94,6 +137,29 @@ const meta: Meta = {
       table: {
         type: { summary: 'button | submit | reset' },
         defaultValue: { summary: 'button' }
+      }
+    },
+    ariaLabel: {
+      control: 'text',
+      description: 'Accessible label for screen readers (important for icon-only buttons)',
+      table: {
+        type: { summary: 'string' }
+      }
+    },
+    href: {
+      control: 'text',
+      description: 'URL to navigate to (renders as <a> instead of <button>)',
+      table: {
+        type: { summary: 'string' }
+      }
+    },
+    target: {
+      control: 'select',
+      options: ['_self', '_blank', '_parent', '_top'],
+      description: 'Where to open the linked document (only when href is set)',
+      table: {
+        type: { summary: '_self | _blank | _parent | _top' },
+        defaultValue: { summary: '_self' }
       }
     },
     label: {
@@ -135,14 +201,14 @@ export const Default: Story = {
 };
 
 /**
- * Solid variant - use controls to customize.
+ * Interactive playground - use the controls to customize the button.
  */
-export const Solid: Story = {
+export const Playground: Story = {
   args: {
     variant: 'solid',
     size: 'medium',
     status: 'default',
-    label: 'Solid Button',
+    label: 'Customize me!',
     disabled: false,
     loading: false,
     fullWidth: false,
@@ -152,245 +218,11 @@ export const Solid: Story = {
   }
 };
 
-/**
- * Small size variant - use controls to customize.
- */
-export const Small: Story = {
-  args: {
-    variant: 'solid',
-    size: 'small',
-    status: 'default',
-    label: 'Small Button',
-    disabled: false,
-    loading: false,
-    fullWidth: false,
-    type: 'button',
-    iconStart: 'None',
-    iconEnd: 'None'
-  }
-};
 
 /**
- * Medium size variant - use controls to customize.
+ * Complete showcase of all button variants, sizes, states, and features.
  */
-export const Medium: Story = {
-  args: {
-    variant: 'solid',
-    size: 'medium',
-    status: 'default',
-    label: 'Medium Button',
-    disabled: false,
-    loading: false,
-    fullWidth: false,
-    type: 'button',
-    iconStart: 'None',
-    iconEnd: 'None'
-  }
-};
-
-/**
- * Large size variant - use controls to customize.
- */
-export const Large: Story = {
-  args: {
-    variant: 'solid',
-    size: 'large',
-    status: 'default',
-    label: 'Large Button',
-    disabled: false,
-    loading: false,
-    fullWidth: false,
-    type: 'button',
-    iconStart: 'None',
-    iconEnd: 'None'
-  }
-};
-
-/**
- * Success status variant - use controls to customize.
- */
-export const Success: Story = {
-  args: {
-    variant: 'solid',
-    size: 'medium',
-    status: 'success',
-    label: 'Success',
-    disabled: false,
-    loading: false,
-    fullWidth: false,
-    type: 'button',
-    iconStart: '✓',
-    iconEnd: 'None'
-  }
-};
-
-/**
- * Destructive status variant - use controls to customize.
- */
-export const Destructive: Story = {
-  args: {
-    variant: 'solid',
-    size: 'medium',
-    status: 'destructive',
-    label: 'Delete',
-    disabled: false,
-    loading: false,
-    fullWidth: false,
-    type: 'button',
-    iconStart: '🗑️',
-    iconEnd: 'None'
-  }
-};
-
-/**
- * Disabled state - use controls to customize.
- */
-export const Disabled: Story = {
-  args: {
-    variant: 'solid',
-    size: 'medium',
-    status: 'default',
-    label: 'Disabled Button',
-    disabled: true,
-    loading: false,
-    fullWidth: false,
-    type: 'button',
-    iconStart: 'None',
-    iconEnd: 'None'
-  }
-};
-
-/**
- * Loading state - use controls to customize.
- */
-export const Loading: Story = {
-  args: {
-    variant: 'solid',
-    size: 'medium',
-    status: 'default',
-    label: 'Loading...',
-    disabled: false,
-    loading: true,
-    fullWidth: false,
-    type: 'button',
-    iconStart: 'None',
-    iconEnd: 'None'
-  }
-};
-
-/**
- * Outline variant - use controls to customize.
- */
-export const Outline: Story = {
-  args: {
-    variant: 'outline',
-    size: 'medium',
-    status: 'default',
-    label: 'Outline Button',
-    disabled: false,
-    loading: false,
-    fullWidth: false,
-    type: 'button',
-    iconStart: 'None',
-    iconEnd: 'None'
-  }
-};
-
-/**
- * Ghost variant - use controls to customize.
- */
-export const Ghost: Story = {
-  args: {
-    variant: 'ghost',
-    size: 'medium',
-    status: 'default',
-    label: 'Ghost Button',
-    disabled: false,
-    loading: false,
-    fullWidth: false,
-    type: 'button',
-    iconStart: 'None',
-    iconEnd: 'None'
-  }
-};
-
-/**
- * Full width button - use controls to customize.
- */
-export const FullWidth: Story = {
-  args: {
-    variant: 'solid',
-    size: 'medium',
-    status: 'default',
-    label: 'Full Width Button',
-    disabled: false,
-    loading: false,
-    fullWidth: true,
-    type: 'button',
-    iconStart: 'None',
-    iconEnd: 'None'
-  }
-};
-
-/**
- * Button with icon start - change icon via controls.
- */
-export const WithIconStart: Story = {
-  args: {
-    variant: 'solid',
-    size: 'medium',
-    status: 'default',
-    label: 'Favorite',
-    disabled: false,
-    loading: false,
-    fullWidth: false,
-    type: 'button',
-    iconStart: '⭐',
-    iconEnd: 'None'
-  }
-};
-
-/**
- * Button with icon end - change icon via controls.
- */
-export const WithIconEnd: Story = {
-  args: {
-    variant: 'solid',
-    size: 'medium',
-    status: 'default',
-    label: 'Next',
-    disabled: false,
-    loading: false,
-    fullWidth: false,
-    type: 'button',
-    iconStart: 'None',
-    iconEnd: '→'
-  }
-};
-
-/**
- * Button with both icons - change both via controls.
- */
-export const WithBothIcons: Story = {
-  args: {
-    variant: 'solid',
-    size: 'medium',
-    status: 'default',
-    label: 'Download',
-    disabled: false,
-    loading: false,
-    fullWidth: false,
-    type: 'button',
-    iconStart: '📥',
-    iconEnd: '→'
-  }
-};
-
-
-/**
- * Complete showcase of all combinations.
- */
-export const Showcase: Story = {
+export const AllExamples: Story = {
   render: () => html`
     <div style="display: flex; flex-direction: column; gap: 2rem;">
       <!-- Solid Variants -->
@@ -457,24 +289,52 @@ export const Showcase: Story = {
           </sando-button>
         </div>
       </div>
+
+      <!-- As Links -->
+      <div>
+        <h3 style="margin-bottom: 1rem;">As Links (renders as &lt;a&gt;)</h3>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+          <sando-button href="https://example.com" target="_blank">
+            Visit Site
+            <span slot="icon-end">→</span>
+          </sando-button>
+          <sando-button variant="outline" href="/">
+            <span slot="icon-start">🏠</span>
+            Home
+          </sando-button>
+          <sando-button variant="ghost" href="/docs">
+            Documentation
+          </sando-button>
+        </div>
+      </div>
+
+      <!-- Icon-only Buttons -->
+      <div>
+        <h3 style="margin-bottom: 1rem;">Icon-only (Square)</h3>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
+          <sando-button icon-only size="small">
+            <span slot="icon-start">⭐</span>
+          </sando-button>
+          <sando-button icon-only size="medium">
+            <span slot="icon-start">❤️</span>
+          </sando-button>
+          <sando-button icon-only size="large">
+            <span slot="icon-start">⚙️</span>
+          </sando-button>
+          <sando-button icon-only variant="outline">
+            <span slot="icon-start">🗑️</span>
+          </sando-button>
+          <sando-button icon-only variant="ghost">
+            <span slot="icon-start">✏️</span>
+          </sando-button>
+          <sando-button icon-only status="success">
+            <span slot="icon-start">✓</span>
+          </sando-button>
+          <sando-button icon-only status="destructive">
+            <span slot="icon-start">✗</span>
+          </sando-button>
+        </div>
+      </div>
     </div>
   `
-};
-
-/**
- * Interactive playground - use the controls to customize the button.
- */
-export const Playground: Story = {
-  args: {
-    variant: 'solid',
-    size: 'medium',
-    status: 'default',
-    label: 'Customize me!',
-    disabled: false,
-    loading: false,
-    fullWidth: false,
-    type: 'button',
-    iconStart: 'None',
-    iconEnd: 'None'
-  }
 };

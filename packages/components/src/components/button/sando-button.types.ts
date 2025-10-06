@@ -19,6 +19,11 @@ export type ButtonSize = 'small' | 'medium' | 'large';
 export type ButtonStatus = 'default' | 'success' | 'destructive';
 
 /**
+ * Border radius variants
+ */
+export type ButtonRadius = 'none' | 'default' | 'full';
+
+/**
  * Button type for form submission
  */
 export type ButtonType = 'button' | 'submit' | 'reset';
@@ -70,10 +75,56 @@ export interface SandoButtonProps {
   fullWidth?: boolean;
 
   /**
+   * Icon-only button (square shape, no padding for text)
+   * @default false
+   */
+  iconOnly?: boolean;
+
+  /**
+   * Border radius variant
+   * @default 'default'
+   */
+  radius?: ButtonRadius;
+
+  /**
    * Design system flavor/theme
    * @default 'original'
    */
   flavor?: string;
+
+  /**
+   * URL to navigate to (renders as <a> instead of <button>)
+   */
+  href?: string;
+
+  /**
+   * Where to open the linked document
+   * Only applies when href is set
+   */
+  target?: '_self' | '_blank' | '_parent' | '_top';
+
+  /**
+   * Relationship between current document and linked document
+   * Only applies when href is set
+   */
+  rel?: string;
+
+  /**
+   * Whether to download the linked resource
+   * Only applies when href is set
+   */
+  download?: string | boolean;
+
+  /**
+   * Accessible label for screen readers (overrides visible text)
+   */
+  ariaLabel?: string;
+
+  /**
+   * Whether the button is in an active/pressed state (toggle)
+   * @default false
+   */
+  active?: boolean;
 }
 
 /**
