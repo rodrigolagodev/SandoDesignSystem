@@ -13,7 +13,9 @@ import '../../../packages/tokens/dist/sando-tokens/css/ingredients/z-index.css';
 // Import Recipes (component tokens, always loaded)
 import '../../../packages/tokens/dist/sando-tokens/css/recipes/button.css';
 
-// Flavors will be loaded dynamically based on toolbar selection
+// Import default flavor (original light mode)
+// Other flavors will be loaded dynamically based on toolbar selection
+import '../../../packages/tokens/dist/sando-tokens/css/flavors/original.css';
 
 const preview = {
   parameters: {
