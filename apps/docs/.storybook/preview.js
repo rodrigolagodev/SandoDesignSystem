@@ -81,9 +81,8 @@ const preview = {
       link.setAttribute('data-flavor', flavor);
       document.head.appendChild(link);
 
-      // Update body class for flavor-specific styling
-      document.body.className = document.body.className.replace(/flavor-\w+/g, '');
-      document.body.classList.add(`flavor-${flavor}`);
+      // Set flavor attribute on html element (for CSS selector matching)
+      document.documentElement.setAttribute('flavor', flavor);
 
       // Set background color based on flavor
       const isDark = flavor.includes('dark');
