@@ -1,0 +1,181 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Foundation/Theming" />
+
+# 🎨 Theming System
+
+The Sando Design System uses a **3-layer token architecture** that enables flexible theming through **Flavors**.
+
+## Architecture Overview
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│  RECIPES Layer (Component Tokens)                           │
+│  • Button, Card, Modal, etc.                                │
+│  • --sando-button-solid-backgroundColor-default             │
+└──────────────────────┬──────────────────────────────────────┘
+                       ↓ references
+┌─────────────────────────────────────────────────────────────┐
+│  FLAVORS Layer (Semantic Tokens) ← YOU ARE HERE            │
+│  • Original (Light), Original Dark, etc.                    │
+│  • --sando-color-action-solid-background-default           │
+└──────────────────────┬──────────────────────────────────────┘
+                       ↓ references
+┌─────────────────────────────────────────────────────────────┐
+│  INGREDIENTS Layer (Primitive Tokens)                       │
+│  • Colors, Spacing, Typography                              │
+│  • --sando-color-brand-700: #2563eb                        │
+└─────────────────────────────────────────────────────────────┘
+```
+
+## Available Flavors
+
+### 🌞 Original (Light Mode)
+The default light theme with:
+- Light backgrounds (`neutral.100-200`)
+- Dark text (`neutral.800-950`)
+- Brand colors for actions (`brand.600-800`)
+
+**Use case:** Default theme for most applications
+
+### 🌙 Original Dark
+Dark mode variant with:
+- Dark backgrounds (`neutral.900-950`)
+- Light text (`neutral.50-200`)
+- Lighter brand colors for visibility (`brand.400-600`)
+
+**Use case:** Dark mode, night reading, OLED screens
+
+## How to Switch Flavors
+
+### In Storybook
+
+Use the **Flavor** toolbar button (🎨) at the top:
+- ☀️ Original (Light)
+- 🌙 Original Dark
+
+The entire UI will update instantly!
+
+### In Your Application
+
+#### Option 1: Static Import
+```javascript
+// Light mode
+import '@sando/tokens/css/flavors/original.css';
+
+// Dark mode
+import '@sando/tokens/css/flavors/original-dark.css';
+```
+
+#### Option 2: Dynamic Switching
+```javascript
+function setFlavor(flavor) {
+  // Remove existing flavor
+  const existing = document.querySelector('link[data-flavor]');
+  if (existing) existing.remove();
+
+  // Add new flavor
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = \`/tokens/css/flavors/\${flavor}.css\`;
+  link.setAttribute('data-flavor', flavor);
+  document.head.appendChild(link);
+}
+
+// Switch to dark mode
+setFlavor('original-dark');
+```
+
+#### Option 3: System Preference
+```javascript
+const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+function updateFlavor(e) {
+  setFlavor(e.matches ? 'original-dark' : 'original');
+}
+
+// Initial
+updateFlavor(prefersDark);
+
+// Listen for changes
+prefersDark.addEventListener('change', updateFlavor);
+```
+
+## Creating Custom Flavors
+
+1. **Create JSON file:**
+```json
+// packages/tokens/src/flavors/my-flavor.json
+{
+  "color": {
+    "background": {
+      "base": { "value": "{color.purple.950.value}", "type": "color" }
+    }
+  }
+}
+```
+
+2. **Build tokens:**
+```bash
+cd packages/tokens
+pnpm build
+```
+
+3. **Use your flavor:**
+```javascript
+import '@sando/tokens/css/flavors/my-flavor.css';
+```
+
+## Token Customization
+
+All flavors expose the same CSS custom properties, so components work with any flavor:
+
+```css
+/* These work in ANY flavor */
+.my-component {
+  background: var(--sando-color-background-base);
+  color: var(--sando-color-text-body);
+  padding: var(--sando-space-inset-default);
+}
+```
+
+## Best Practices
+
+### ✅ DO
+- Use semantic tokens from Flavors layer (`--sando-color-background-base`)
+- Test components in both light and dark modes
+- Ensure 4.5:1 contrast ratio for text
+- Provide flavor switching UI for users
+
+### ❌ DON'T
+- Use primitive tokens directly (`--sando-color-neutral-700`) in components
+- Hard-code color values
+- Assume light mode only
+- Ignore accessibility in dark mode
+
+## Accessibility
+
+All flavors are designed to meet **WCAG 2.1 Level AA**:
+- Text contrast ratio ≥ 4.5:1
+- Interactive elements ≥ 3:1
+- Focus indicators clearly visible
+- Tested with screen readers
+
+## Performance
+
+- **CSS size:** ~5-6 KB per flavor (gzipped)
+- **Load time:** Instant with dynamic switching
+- **Tree-shakeable:** Only load flavors you use
+- **No JavaScript required:** Pure CSS
+
+## Roadmap
+
+Future flavors planned:
+- 🎨 **High Contrast:** For accessibility
+- 🌈 **Colorful:** Vibrant palette
+- 💼 **Corporate:** Professional/neutral
+- 🎮 **Gaming:** Bold and energetic
+
+---
+
+**Questions?** Check out the [Design Tokens](/?path=/docs/foundation-design-tokens--docs) documentation.
