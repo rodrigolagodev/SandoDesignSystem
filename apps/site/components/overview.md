@@ -19,12 +19,23 @@ When complete, Sando will provide a collection of accessible Web Components buil
 
 ### ✅ Button
 
-Versatile button component with multiple variants and sizes.
+Versatile, accessible button component with multiple variants, sizes, and advanced features including toggle support, icon-only mode, and link functionality.
 
-**Variants:** solid, outline, ghost
-**Sizes:** small, medium, large
+**Variants:** solid, outline, ghost, text
+**Sizes:** xs, small, medium, large (all WCAG AA compliant 44x44px touch targets)
 **States:** default, hover, active, focus, disabled, loading
 **Status:** default, success, destructive
+**Border Radius:** none, default, full
+**Features:** icon-only, toggle buttons, render as link (href), icon props (start-icon/end-icon)
+
+**NEW in latest version:**
+- ✨ Extra small (xs) size for compact UIs
+- ✨ Text variant for minimal inline links
+- ✨ Icon-only mode with circular option (radius="full")
+- ✨ Toggle button support with aria-pressed
+- ✨ Render as `<a>` tag with href attribute
+- ✨ Icon props (start-icon/end-icon) as alternative to slots
+- ✨ Enhanced accessibility (WCAG 2.1 Level AA)
 
 [View Button Documentation →](/components/button)
 

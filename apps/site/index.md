@@ -22,8 +22,8 @@ features:
     details: Three-layer token system (Ingredients → Flavors → Recipes) fully implemented and production-ready.
 
   - icon: ⚡
-    title: Web Components 🚧
-    details: Component library built with Lit coming soon. Framework-agnostic design for React, Vue, Angular, or vanilla JS.
+    title: Web Components ✅
+    details: Button component available now! Built with Lit for framework-agnostic use. Works with React, Vue, Angular, or vanilla JS. More components coming soon.
 
   - icon: ♿
     title: Accessibility First
@@ -38,8 +38,8 @@ features:
     details: Powered by Turborepo with incremental builds, smart caching, and parallel execution. 73% faster builds.
 
   - icon: 🎭
-    title: Flexible Theming 🚧
-    details: Flavor system ready for multiple themes. Original flavor available, dark mode and custom themes coming soon.
+    title: Flexible Theming ✅
+    details: Flavor system fully functional. Original and Strawberry flavors available. Create custom themes by defining new flavor tokens.
 
   - icon: 🚀
     title: Developer Experience ✅

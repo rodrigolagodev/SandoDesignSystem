@@ -1,14 +1,17 @@
 # Button Component
 
-The `sando-button` component is a versatile, accessible button with multiple variants, sizes, and states.
+The `sando-button` component is a versatile, accessible button with multiple variants, sizes, states, and can render as either a button or link.
 
 ## Features
 
 - ✅ **Fully Tested**: Comprehensive unit and E2E tests
-- ♿ **Accessible**: WCAG 2.1 AA compliant with keyboard navigation
+- ♿ **Accessible**: WCAG 2.1 AA compliant with keyboard navigation and screen reader support
 - 🎨 **Themeable**: Token-driven styling with flavor support
 - 🔒 **Type Safe**: Full TypeScript support
 - ⚡ **Performant**: Lightweight (<8KB gzipped)
+- 🔗 **Dual Mode**: Works as button or link (with href attribute)
+- 🎯 **Icon Support**: Multiple ways to add icons (slots or props)
+- 🔘 **Toggle Support**: Built-in toggle button functionality with aria-pressed
 
 ## Basic Usage
 
@@ -26,7 +29,7 @@ The `sando-button` component is a versatile, accessible button with multiple var
 
 ## Variants
 
-The button comes in three visual styles:
+The button comes in four visual styles:
 
 ### Solid (Default)
 
@@ -52,15 +55,28 @@ Low emphasis button without background or border.
 <sando-button variant="ghost">Ghost Button</sando-button>
 ```
 
-## Sizes
+### Text
 
-Three size options for different contexts:
+Minimal text-only button (useful for inline links).
 
 ```html
+<sando-button variant="text">Text Button</sando-button>
+```
+
+## Sizes
+
+Four WCAG-compliant size options for different contexts:
+
+```html
+<sando-button size="xs">Extra Small</sando-button>
 <sando-button size="small">Small</sando-button>
 <sando-button size="medium">Medium (Default)</sando-button>
 <sando-button size="large">Large</sando-button>
 ```
+
+::: tip Touch Target Compliance
+All button sizes meet WCAG 2.1 Level AA minimum touch target size of 44x44px through padding adjustments.
+:::
 
 ## Status
 
@@ -98,7 +114,19 @@ Make the button span the full container width:
 
 ## With Icons
 
-Use slots to add icons before or after the button text:
+### Method 1: Using Properties (Recommended)
+
+The simplest way to add icons using the new `start-icon` and `end-icon` properties:
+
+```html
+<sando-button start-icon="⭐">Favorite</sando-button>
+<sando-button end-icon="→">Next Page</sando-button>
+<sando-button start-icon="💾" end-icon="✓">Save</sando-button>
+```
+
+### Method 2: Using Slots (Advanced)
+
+For more complex icon requirements or when using icon components:
 
 ```html
 <sando-button>
@@ -110,6 +138,90 @@ Use slots to add icons before or after the button text:
   Send
   <span slot="icon-end">→</span>
 </sando-button>
+```
+
+### Icon-Only Buttons
+
+For buttons with only an icon and no text (must provide `aria-label` for accessibility):
+
+```html
+<sando-button icon-only aria-label="Settings">
+  <span slot="icon-start">⚙️</span>
+</sando-button>
+
+<!-- With border radius -->
+<sando-button icon-only radius="full" aria-label="Add item">
+  <span slot="icon-start">➕</span>
+</sando-button>
+```
+
+## Border Radius
+
+Control the button's corner rounding:
+
+```html
+<sando-button radius="none">No Radius</sando-button>
+<sando-button radius="default">Default (Medium)</sando-button>
+<sando-button radius="full">Fully Rounded (Pill)</sando-button>
+```
+
+::: tip Perfect Circles
+Use `radius="full"` with `icon-only` to create circular icon buttons.
+:::
+
+## As Link (href)
+
+Render the button as an anchor tag by providing an `href` attribute:
+
+```html
+<!-- Basic link -->
+<sando-button href="/about">About Us</sando-button>
+
+<!-- External link with target -->
+<sando-button href="https://example.com" target="_blank">
+  Visit Site
+</sando-button>
+
+<!-- Download link -->
+<sando-button href="/files/document.pdf" download>
+  Download PDF
+</sando-button>
+```
+
+::: info Security
+When using `target="_blank"`, the component automatically adds `rel="noopener noreferrer"` for security unless you specify a custom `rel` attribute.
+:::
+
+## Toggle Buttons
+
+Create toggle buttons with active/inactive states:
+
+```html
+<sando-button toggle active>
+  🔔 Notifications Enabled
+</sando-button>
+
+<sando-button toggle>
+  🔕 Notifications Disabled
+</sando-button>
+```
+
+Toggle buttons automatically include `aria-pressed` for screen reader support.
+
+### Toggle Button with JavaScript
+
+```html
+<sando-button id="filter-btn" toggle>
+  Filter Active
+</sando-button>
+
+<script>
+  const btn = document.getElementById('filter-btn');
+  btn.addEventListener('click', () => {
+    btn.active = !btn.active;
+    console.log('Filter is now:', btn.active ? 'ON' : 'OFF');
+  });
+</script>
 ```
 
 ## Theming
@@ -144,14 +256,25 @@ Override CSS custom properties for fine-grained control:
 
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
-| `variant` | `'solid' \| 'outline' \| 'ghost'` | `'solid'` | Visual style variant |
-| `size` | `'small' \| 'medium' \| 'large'` | `'medium'` | Button size |
+| `variant` | `'solid' \| 'outline' \| 'ghost' \| 'text'` | `'solid'` | Visual style variant |
+| `size` | `'xs' \| 'small' \| 'medium' \| 'large'` | `'medium'` | Button size (all WCAG compliant) |
 | `status` | `'default' \| 'success' \| 'destructive'` | `'default'` | Status variant for semantic meaning |
+| `radius` | `'none' \| 'default' \| 'full'` | `'default'` | Border radius variant |
 | `disabled` | `boolean` | `false` | Whether the button is disabled |
 | `loading` | `boolean` | `false` | Whether the button is in loading state |
 | `type` | `'button' \| 'submit' \| 'reset'` | `'button'` | Button type for forms |
 | `fullWidth` | `boolean` | `false` | Whether button takes full width |
+| `iconOnly` | `boolean` | `false` | Square shape for icon-only buttons |
+| `toggle` | `boolean` | `false` | Enable toggle button behavior |
+| `active` | `boolean` | `false` | Active/pressed state (for toggles) |
 | `flavor` | `string` | `'original'` | Design system theme flavor |
+| `href` | `string` | `undefined` | URL (renders as `<a>` instead of `<button>`) |
+| `target` | `'_self' \| '_blank' \| '_parent' \| '_top'` | `'_self'` | Where to open linked document |
+| `rel` | `string` | `undefined` | Relationship to linked document |
+| `download` | `string \| boolean` | `undefined` | Download linked resource |
+| `startIcon` | `string` | `undefined` | Icon to display at start (alternative to slot) |
+| `endIcon` | `string` | `undefined` | Icon to display at end (alternative to slot) |
+| `ariaLabel` | `string` | `null` | Accessible label (overrides visible text) |
 
 ### Slots
 
@@ -172,17 +295,33 @@ Override CSS custom properties for fine-grained control:
 Key CSS variables you can override:
 
 ```css
+/* Base styles */
+--sando-button-fontFamily
+--sando-button-fontWeight
+--sando-button-borderRadius
+--sando-button-transition-duration
+
+/* Variant-specific (solid/outline/ghost) */
 --sando-button-solid-backgroundColor-default
 --sando-button-solid-backgroundColor-hover
 --sando-button-solid-backgroundColor-active
 --sando-button-solid-textColor-default
---sando-button-borderRadius
+
+/* Size-specific */
 --sando-button-size-medium-paddingBlock
 --sando-button-size-medium-paddingInline
 --sando-button-size-medium-fontSize
+--sando-button-size-medium-lineHeight
+--sando-button-size-medium-gap
+
+/* Status-specific */
+--sando-button-solid-backgroundColor-success
+--sando-button-solid-backgroundColor-destructive
 ```
 
-[See full list in Storybook](https://rodrigolagodev.github.io/SandoDesignSystem/storybook/)
+::: tip Complete Token Reference
+[See full list in Storybook](https://rodrigolagodev.github.io/SandoDesignSystem/storybook/) or check `packages/tokens/src/recipes/button.json`
+:::
 
 ## Framework Integration
 
@@ -257,13 +396,17 @@ export class AppModule {}
 
 ## Accessibility
 
-The Button component is built with accessibility in mind:
+The Button component is built with accessibility in mind and exceeds WCAG 2.1 Level AA requirements:
 
 - ✅ **Keyboard Navigation**: Full keyboard support (Space/Enter)
-- ✅ **Screen Reader Support**: Proper ARIA labels and roles
-- ✅ **Focus Management**: Visible focus indicator
-- ✅ **Color Contrast**: WCAG AA compliant contrast ratios
-- ✅ **State Communication**: Loading and disabled states announced
+- ✅ **Screen Reader Support**: Proper ARIA labels, roles, and live regions
+- ✅ **Focus Management**: Visible focus indicator with sufficient contrast
+- ✅ **Color Contrast**: WCAG AA compliant contrast ratios (4.5:1 for text, 3:1 for UI)
+- ✅ **Touch Targets**: All sizes meet 44x44px minimum (WCAG 2.1 Level AA)
+- ✅ **State Communication**: Loading, disabled, and pressed states announced
+- ✅ **Toggle Support**: Built-in `aria-pressed` for toggle buttons
+- ✅ **Icon-Only Support**: Requires `aria-label` for screen readers
+- ✅ **Loading States**: Includes `aria-busy` and `aria-live="polite"`
 
 ### Keyboard Shortcuts
 
@@ -274,24 +417,41 @@ The Button component is built with accessibility in mind:
 | `Tab` | Focus next element |
 | `Shift + Tab` | Focus previous element |
 
+### ARIA Attributes
+
+The component automatically manages these ARIA attributes:
+
+- `aria-label` - Custom label (overrides visible text)
+- `aria-pressed` - Toggle state (when `toggle` prop is true)
+- `aria-disabled` - Disabled state
+- `aria-busy` - Loading state
+- `aria-live="polite"` - Loading state announcements
+
 ## Best Practices
 
 ### Do ✅
 
-- Use `variant="solid"` for primary actions
+- Use `variant="solid"` for primary actions (one per context)
 - Use `variant="outline"` for secondary actions
 - Use `variant="ghost"` for tertiary/subtle actions
-- Use `status="destructive"` for dangerous actions
-- Provide clear, action-oriented labels
-- Use loading state for async operations
+- Use `variant="text"` for inline text links
+- Use `status="destructive"` for dangerous actions (delete, remove, etc.)
+- Provide clear, action-oriented labels ("Save Changes", not "Click Here")
+- Use `loading` state for async operations
+- Add `aria-label` to `icon-only` buttons
+- Use `toggle` prop for on/off states (filters, settings)
+- Use `href` instead of `onClick` navigation when possible (better for SEO and accessibility)
+- Combine `radius="full"` with `icon-only` for circular buttons
 
 ### Don't ❌
 
-- Don't use multiple solid buttons in the same context
-- Don't use red color for non-destructive actions
-- Don't disable buttons without clear feedback
-- Don't use generic labels like "Click here"
+- Don't use multiple solid buttons in the same context (only one primary action)
+- Don't use red/destructive for non-dangerous actions
+- Don't disable buttons without explaining why (use tooltips or helper text)
+- Don't use generic labels like "Click here" or "Submit"
 - Don't nest interactive elements inside buttons
+- Don't forget `aria-label` on icon-only buttons
+- Don't use `size="xs"` for primary actions (use for compact UIs only)
 
 ## Examples
 
@@ -315,8 +475,8 @@ The Button component is built with accessibility in mind:
 <sando-button
   variant="outline"
   status="destructive"
+  start-icon="🗑️"
 >
-  <span slot="icon-start">🗑️</span>
   Delete Item
 </sando-button>
 ```
@@ -339,6 +499,86 @@ The Button component is built with accessibility in mind:
     }
   });
 </script>
+```
+
+### Navigation Link Button
+
+```html
+<!-- Internal navigation -->
+<sando-button href="/dashboard" variant="solid">
+  Go to Dashboard
+</sando-button>
+
+<!-- External link with icon -->
+<sando-button
+  href="https://github.com"
+  target="_blank"
+  variant="outline"
+  end-icon="↗"
+>
+  View on GitHub
+</sando-button>
+```
+
+### Icon-Only Circular Buttons
+
+```html
+<!-- Floating action button -->
+<sando-button
+  icon-only
+  radius="full"
+  size="large"
+  aria-label="Add new item"
+>
+  <span slot="icon-start">➕</span>
+</sando-button>
+
+<!-- Small icon buttons for toolbar -->
+<sando-button icon-only radius="full" size="xs" aria-label="Edit">
+  <span slot="icon-start">✏️</span>
+</sando-button>
+<sando-button icon-only radius="full" size="xs" aria-label="Delete">
+  <span slot="icon-start">🗑️</span>
+</sando-button>
+```
+
+### Toggle Button Group
+
+```html
+<div role="group" aria-label="Text formatting">
+  <sando-button toggle id="bold-btn" aria-label="Bold">
+    <strong>B</strong>
+  </sando-button>
+  <sando-button toggle id="italic-btn" aria-label="Italic">
+    <em>I</em>
+  </sando-button>
+  <sando-button toggle id="underline-btn" aria-label="Underline">
+    <u>U</u>
+  </sando-button>
+</div>
+
+<script>
+  ['bold', 'italic', 'underline'].forEach(format => {
+    const btn = document.getElementById(`${format}-btn`);
+    btn.addEventListener('click', () => {
+      btn.active = !btn.active;
+      document.execCommand(format);
+    });
+  });
+</script>
+```
+
+### Button with Multiple Icons
+
+```html
+<sando-button
+  start-icon="⬇"
+  end-icon="✓"
+  variant="solid"
+  status="success"
+>
+  Download Complete
+</sando-button>
 ```
 
 ## Browser Support
