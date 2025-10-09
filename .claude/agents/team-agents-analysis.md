@@ -1,14 +1,26 @@
 # Análisis del Equipo de Agentes IA - Sando UI Toolkit
 
-**Fecha de análisis:** 2025-10-01
+**Fecha de análisis:** 2025-10-09
 **Proyecto:** Sando Design System
-**Total de agentes:** 11
+**Total de agentes:** 9 (optimized from 11)
 
 ---
 
 ## Resumen Ejecutivo
 
-El equipo de agentes IA del proyecto Sando UI Toolkit está compuesto por 11 especialistas que cubren el ciclo de vida completo del desarrollo de un design system: desde arquitectura y diseño hasta implementación, testing, documentación, DevOps y gestión de producto.
+El equipo de agentes IA del proyecto Sando UI Toolkit está compuesto por 9 especialistas optimizados que cubren el ciclo de vida completo del desarrollo de un design system: desde arquitectura y diseño hasta implementación, testing, documentación, DevOps y gestión de producto.
+
+### Optimizaciones Recientes (2025-10-09)
+
+**Consolidación de Agentes de Tooling:**
+- `build-engineer`, `dx-optimizer`, y `tooling-engineer` consolidados en → `developer-tooling-specialist`
+- Razón: Eliminación de solapamiento en responsabilidades relacionadas con build systems, developer experience y tooling
+- Beneficio: Un solo punto de contacto para todas las optimizaciones de tooling y DX
+
+**Mejora de Accesibilidad:**
+- `accessibility-tester` mejorado a → `accessibility-advocate`
+- Razón: Ir más allá del testing para incluir educación, advocacy y cultura accessibility-first
+- Beneficio: Accesibilidad proactiva, no reactiva; team education incorporada
 
 ### Stack Tecnológico Principal
 - **Core:** Lit 3+, TypeScript 5+, Vite, Style Dictionary
@@ -23,32 +35,31 @@ El equipo de agentes IA del proyecto Sando UI Toolkit está compuesto por 11 esp
 
 | **Nombre del Agente** | **Objetivo Principal** | **Herramientas Asignadas** | **Capacidades Clave** |
 |----------------------|------------------------|---------------------------|----------------------|
-| **accessibility-tester** | Asegurar cumplimiento WCAG 2.1/2.2 para Web Components y validar accesibilidad con tecnologías asistivas | axe, wave, nvda, jaws, voiceover, lighthouse, pa11y, jest | • Validar WCAG 2.1 AA compliance (100%)<br>• Testing con screen readers (NVDA/JAWS/VoiceOver)<br>• Validación de contraste de color (4.5:1 texto, 3:1 UI)<br>• Navegación por teclado completa<br>• Auditoría Shadow DOM accessibility<br>• Integración en CI/CD |
-| **build-engineer** | Optimizar rendimiento del sistema de build, reducir tiempos de compilación y mejorar feedback loops | vite, rollup, esbuild, typescript, webpack, turbo, nx, Read/Write/MultiEdit, Bash | • Builds en <30s (producción)<br>• HMR <100ms<br>• Configurar Vite/Webpack/Rollup<br>• Caching distribuido (Turbo/Nx)<br>• Bundle analysis y tree-shaking<br>• TypeScript optimization |
+| **accessibility-advocate** | Asegurar cumplimiento WCAG 2.1/2.2, educar equipos, y promover cultura accessibility-first | axe, wave, nvda, jaws, voiceover, lighthouse, pa11y, jest | • Validar WCAG 2.1 AA compliance (100%)<br>• Testing con screen readers (NVDA/JAWS/VoiceOver)<br>• Educación proactiva del equipo<br>• Advocacy y cultura accessibility-first<br>• Documentación educativa<br>• Integración en CI/CD |
 | **design-system-architect** | Establecer arquitectura fundacional: tokens (3 capas), componentes Web, theming y stack tecnológico | Lit, Style Dictionary, Vite, Storybook, Jest, Playwright | • Arquitectura de 3 capas de tokens (Ingredients/Flavors/Recipes)<br>• Framework-agnostic con Web Components<br>• Theming vía HTML attributes<br>• Testing strategy (unit/E2E/a11y)<br>• Configurar Lit + Vite + Storybook |
+| **developer-tooling-specialist** | Optimizar build systems, DX, tooling workflows, y developer productivity end-to-end | Vite, Rollup, esbuild, TypeScript, Turbo, Nx, Style Dictionary, ESLint, Prettier, Husky | • Builds <30s, HMR <100ms<br>• Bundle optimization y tree-shaking<br>• Token pipeline <2s<br>• Monorepo efficiency<br>• Developer satisfaction >4.0/5<br>• Code quality automation<br>• CLI generators |
 | **devops-automation-engineer** | Automatizar CI/CD, publicación NPM, deployment de Storybook, seguridad y monitoreo | GitHub Actions, npm, Vercel/Netlify, Snyk, Dependabot, Terraform, Bash | • CI/CD pipelines completos<br>• Automated NPM publishing con semantic versioning<br>• Storybook deployment automation<br>• Security scanning (vulnerabilidades)<br>• DORA metrics tracking<br>• Infrastructure as Code |
-| **dx-optimizer** | Optimizar experiencia del desarrollador: build speed, HMR, tests, IDE performance y workflow automation | Vite, Webpack, Turbo, Nx, Rush, Lerna, Bazel | • Build times <30s<br>• HMR <100ms<br>• Test execution <2min<br>• Monorepo optimization<br>• Developer satisfaction >4.0/5<br>• Automation de tareas repetitivas |
 | **frontend-developer** | Construir Web Components con Lit + TypeScript: implementar tokens, accesibilidad, tests y Storybook | Lit, TypeScript, Jest, Playwright, @web/test-runner, Storybook | • Implementar componentes Lit con Shadow DOM<br>• Consumir tokens (Recipes layer)<br>• WCAG 2.1 AA compliance<br>• Coverage >85%<br>• Responsive mobile-first<br>• Storybook stories completas |
 | **design-system-pm** | Gestión estratégica del producto: roadmap, priorización (RICE), adopción, métricas y stakeholder communication | jira, productboard, amplitude, mixpanel, figma, slack, Read/Write/Bash | • Roadmap planning y OKRs<br>• RICE prioritization framework<br>• Adoption metrics >75%<br>• Developer NPS >40<br>• Developer research y feedback loops<br>• Stakeholder alignment |
 | **qa-expert** | Asegurar calidad integral: strategy, unit/E2E/a11y tests, defect management y CI/CD integration | Jest, Playwright, axe-core, jira, testrail, browserstack | • Test coverage >90%<br>• Test automation >70%<br>• WCAG 2.1 AA verification (0 violations)<br>• Cross-browser testing<br>• Visual regression testing<br>• Defect tracking y metrics |
 | **technical-writer** | Crear documentación completa: API references, token guides, Storybook docs, developer guides | Storybook, Read/Write/Edit, Mermaid (diagrams), documentation generators | • Component API documentation (100% coverage)<br>• Token architecture docs (3 layers)<br>• Interactive Storybook examples<br>• Developer guides (getting started, contributing)<br>• Migration guides<br>• Readability >60 (Flesch-Kincaid) |
-| **tooling-engineer** | Optimizar workflows: build tools, token pipelines, code quality, CI/CD, CLIs y generators | Vite, Style Dictionary, ESLint, Prettier, Husky, GitHub Actions, Read/Write/Bash | • Token transformation <2s (Style Dictionary)<br>• Vite HMR <50ms<br>• ESLint + Prettier automation<br>• Pre-commit hooks<br>• Component generator CLIs<br>• CI/CD optimization |
 | **ui-designer** | Diseñar interfaces, establecer tokens (Ingredients/Flavors), componentes, accesibilidad WCAG 2.1 AA y design system | Figma, Figma Tokens plugin, design tools, Mermaid (diagrams) | • Design tokens (Ingredients + Flavors)<br>• Component library design<br>• WCAG 2.1 AA compliance (4.5:1 contrast)<br>• Responsive design (320px-1920px)<br>• Dark mode variants<br>• Developer handoff specs |
 
 ---
 
 ## Descripción Detallada por Agente
 
-### 1. accessibility-tester
+### 1. accessibility-advocate
 
-**Rol:** Senior Accessibility Tester
+**Rol:** Senior Accessibility Advocate
 **Modelo:** Sonnet
 
 **Responsabilidades Core:**
 - Garantizar cumplimiento WCAG 2.1/2.2 Level AA (100% conformance)
 - Testing con tecnologías asistivas (NVDA, JAWS, VoiceOver)
-- Validación de navegación por teclado
-- Auditoría de Shadow DOM para accesibilidad
+- Educación proactiva del equipo en accesibilidad
+- Advocacy para cultura accessibility-first
+- Crear recursos educativos y pattern libraries
 - Integración de tests de accesibilidad en CI/CD
 
 **Estándares de Calidad:**
@@ -59,44 +70,18 @@ El equipo de agentes IA del proyecto Sando UI Toolkit está compuesto por 11 esp
 - ✅ Touch targets: ≥44x44px
 - ✅ Automated test score >95 (axe-core, Lighthouse)
 - ✅ Manual test coverage 100% para interacciones críticas
+- ✅ Team accessibility maturity improvement tracked
 
-**Metodología de Testing:**
+**Metodología de Testing & Advocacy:**
 - **Automated (30%):** axe-core, WAVE, Lighthouse, pa11y
 - **Manual Keyboard (30%):** Tab, Shift+Tab, Enter, Space, Arrow keys, Escape
 - **Screen Reader (40%):** NVDA (Windows), JAWS (Windows), VoiceOver (macOS/iOS)
+- **Education:** Workshops, pattern libraries, code review guidelines
+- **Culture:** Accessibility champions, shift-left approach, regular audits
 
 ---
 
-### 2. build-engineer
-
-**Rol:** Senior Build Engineer
-**Modelo:** Sonnet
-
-**Responsabilidades Core:**
-- Optimizar tiempos de build (<30s producción)
-- Configurar HMR ultra-rápido (<100ms)
-- Implementar estrategias de caching (>90% hit rate)
-- Bundle analysis y tree-shaking
-- Optimización de TypeScript compilation
-
-**Targets de Performance:**
-- ✅ Production build time <30s
-- ✅ Development server startup <1s
-- ✅ HMR update time <100ms
-- ✅ Rebuild time <5s (incremental)
-- ✅ Bundle size <15KB gzipped por componente
-- ✅ Cache hit rate >90% (local + CI)
-- ✅ TypeScript compilation <10s
-
-**Herramientas Principales:**
-- **Vite:** Dev server ultra-rápido, HMR optimizado
-- **Rollup:** Library bundling con tree-shaking
-- **esbuild:** JavaScript bundler extremadamente rápido
-- **Turbo/Nx:** Monorepo build systems con caching inteligente
-
----
-
-### 3. design-system-architect
+### 2. design-system-architect
 
 **Rol:** Senior Design System Architect
 **Modelo:** Sonnet
@@ -132,6 +117,53 @@ El equipo de agentes IA del proyecto Sando UI Toolkit está compuesto por 11 esp
 - ✅ Testing strategy establecida
 - ✅ HMR <500ms
 - ✅ Storybook integrado
+
+---
+
+### 3. developer-tooling-specialist
+
+**Rol:** Senior Developer Tooling Specialist
+**Modelo:** Sonnet
+
+**Responsabilidades Core:**
+- Optimizar build systems end-to-end (Vite, Rollup, esbuild)
+- Mejorar developer experience (HMR, test execution, IDE performance)
+- Implementar Style Dictionary token transformation pipeline
+- Configurar code quality automation (ESLint, Prettier, Husky)
+- Crear CLIs y generators para componentes
+- Optimizar monorepo workflows (Turbo, Nx)
+
+**Performance Targets:**
+- ✅ Production build time <30s
+- ✅ Development server startup <1s
+- ✅ HMR update time <100ms
+- ✅ Token transformation <2s
+- ✅ Test suite execution <2min
+- ✅ TypeScript compilation <10s
+- ✅ CI pipeline total <5min
+- ✅ Cache hit rate >90% (local + CI)
+- ✅ Bundle size <15KB gzipped por componente
+
+**Developer Experience Metrics:**
+- ✅ Developer satisfaction >4.0/5
+- ✅ Zero false positives en linting
+- ✅ IDE responsive (no lag)
+- ✅ Automated workflows >80%
+
+**Herramientas Principales:**
+- **Build:** Vite (dev server), Rollup (library bundling), esbuild (speed)
+- **Monorepo:** Turbo, Nx (caching distribuido, task orchestration)
+- **Tokens:** Style Dictionary (transformation pipeline)
+- **Quality:** ESLint, Prettier, Husky (pre-commit hooks)
+- **CI/CD:** GitHub Actions optimization
+
+**Áreas de Optimización:**
+- Build optimization (incremental compilation, parallel processing, caching)
+- Development server performance (fast startup, instant HMR)
+- Testing infrastructure (parallel execution, smart test selection)
+- Token pipeline (fast transformation, multi-platform output)
+- Code quality automation (linting, formatting, pre-commit)
+- Developer tools (CLIs, generators, scaffolding)
 
 ---
 
