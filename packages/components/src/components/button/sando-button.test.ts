@@ -41,11 +41,25 @@ describe('sando-button', () => {
       expect(element.getAttribute('variant')).toBe('outline');
     });
 
+    it('should support text variant', async () => {
+      element.variant = 'text';
+      await element.updateComplete;
+      expect(element.variant).toBe('text');
+      expect(element.getAttribute('variant')).toBe('text');
+    });
+
     it('should update size property', async () => {
       element.size = 'large';
       await element.updateComplete;
       expect(element.size).toBe('large');
       expect(element.getAttribute('size')).toBe('large');
+    });
+
+    it('should support xs size', async () => {
+      element.size = 'xs';
+      await element.updateComplete;
+      expect(element.size).toBe('xs');
+      expect(element.getAttribute('size')).toBe('xs');
     });
 
     it('should update disabled property', async () => {
@@ -128,6 +142,28 @@ describe('sando-button', () => {
       const button = element.shadowRoot?.querySelector('button');
       expect(button?.getAttribute('tabindex')).not.toBe('-1');
     });
+
+    it('should not have aria-pressed by default', async () => {
+      await element.updateComplete;
+      const button = element.shadowRoot?.querySelector('button');
+      expect(button?.getAttribute('aria-pressed')).toBe('');
+    });
+
+    it('should have aria-pressed when toggle is true', async () => {
+      element.toggle = true;
+      element.active = false;
+      await element.updateComplete;
+      const button = element.shadowRoot?.querySelector('button');
+      expect(button?.getAttribute('aria-pressed')).toBe('false');
+    });
+
+    it('should update aria-pressed when active changes on toggle', async () => {
+      element.toggle = true;
+      element.active = true;
+      await element.updateComplete;
+      const button = element.shadowRoot?.querySelector('button');
+      expect(button?.getAttribute('aria-pressed')).toBe('true');
+    });
   });
 
   describe('Slots', () => {
@@ -153,6 +189,39 @@ describe('sando-button', () => {
 
       const slot = element.shadowRoot?.querySelector('slot[name="icon-end"]');
       expect(slot).toBeDefined();
+    });
+  });
+
+  describe('Icon Props', () => {
+    it('should render start-icon prop', async () => {
+      element = await fixture<SandoButton>(html`
+        <sando-button start-icon="⭐">Favorite</sando-button>
+      `);
+
+      const iconStart = element.shadowRoot?.querySelector('.icon-start');
+      expect(iconStart).toBeDefined();
+      expect(iconStart?.textContent).toBe('⭐');
+    });
+
+    it('should render end-icon prop', async () => {
+      element = await fixture<SandoButton>(html`
+        <sando-button end-icon="→">Next</sando-button>
+      `);
+
+      const iconEnd = element.shadowRoot?.querySelector('.icon-end');
+      expect(iconEnd).toBeDefined();
+      expect(iconEnd?.textContent).toBe('→');
+    });
+
+    it('should render both icon props', async () => {
+      element = await fixture<SandoButton>(html`
+        <sando-button start-icon="📥" end-icon="→">Download</sando-button>
+      `);
+
+      const iconStart = element.shadowRoot?.querySelector('.icon-start');
+      const iconEnd = element.shadowRoot?.querySelector('.icon-end');
+      expect(iconStart?.textContent).toBe('📥');
+      expect(iconEnd?.textContent).toBe('→');
     });
   });
 

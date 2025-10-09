@@ -76,12 +76,28 @@ export const baseStyles = css`
     transform: scale(0.98);
   }
 
-  /* Slots */
-  ::slotted([slot="icon-start"]) {
+  /* Icons - Slots and Props */
+  ::slotted([slot="icon-start"]),
+  .icon-start {
     margin-inline-end: 0.25em;
   }
 
-  ::slotted([slot="icon-end"]) {
+  ::slotted([slot="icon-end"]),
+  .icon-end {
     margin-inline-start: 0.25em;
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    button,
+    a {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+    }
+
+    button:active,
+    a:active {
+      transform: none;
+    }
   }
 `;

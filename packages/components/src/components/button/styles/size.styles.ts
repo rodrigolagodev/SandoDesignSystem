@@ -13,12 +13,23 @@ import { css } from 'lit';
 
 export const sizeStyles = css`
   /* ========================================
+     EXTRA SMALL SIZE
+     ======================================== */
+  :host([size="xs"]) button,
+  :host([size="xs"]) a {
+    padding: var(--sando-button-size-xs-paddingBlock) var(--sando-button-size-xs-paddingInline);
+    font-size: var(--sando-button-size-xs-fontSize);
+    min-height: var(--sando-button-size-xs-minHeight);
+  }
+
+  /* ========================================
      SMALL SIZE
      ======================================== */
   :host([size="small"]) button,
   :host([size="small"]) a {
     padding: var(--sando-button-size-small-paddingBlock) var(--sando-button-size-small-paddingInline);
     font-size: var(--sando-button-size-small-fontSize);
+    min-height: var(--sando-button-size-small-minHeight);
   }
 
   /* ========================================
@@ -28,6 +39,7 @@ export const sizeStyles = css`
   :host([size="medium"]) a {
     padding: var(--sando-button-size-medium-paddingBlock) var(--sando-button-size-medium-paddingInline);
     font-size: var(--sando-button-size-medium-fontSize);
+    min-height: var(--sando-button-size-medium-minHeight);
   }
 
   /* ========================================
@@ -37,12 +49,19 @@ export const sizeStyles = css`
   :host([size="large"]) a {
     padding: var(--sando-button-size-large-paddingBlock) var(--sando-button-size-large-paddingInline);
     font-size: var(--sando-button-size-large-fontSize);
+    min-height: var(--sando-button-size-large-minHeight);
   }
 
   /* ========================================
      ICON-ONLY MODE
      Square buttons with 1:1 aspect ratio
      ======================================== */
+  :host([icon-only][size="xs"]) button,
+  :host([icon-only][size="xs"]) a {
+    padding: var(--sando-button-size-xs-paddingBlock);
+    aspect-ratio: 1;
+  }
+
   :host([icon-only][size="small"]) button,
   :host([icon-only][size="small"]) a {
     padding: var(--sando-button-size-small-paddingBlock);

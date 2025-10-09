@@ -3,7 +3,8 @@ import { html } from 'lit';
 import '../sando-button.ts';
 
 /**
- * Button sizes: small, medium, and large.
+ * Button sizes: xs (extra small), small, medium, and large.
+ * Medium size (44px min-height) meets WCAG touch target requirements.
  */
 const meta: Meta = {
   title: 'Components/Button/Sizes',
@@ -30,6 +31,20 @@ const meta: Meta = {
 
 export default meta;
 type Story = StoryObj;
+
+/**
+ * Extra Small size - minimal buttons for very dense UIs.
+ */
+export const ExtraSmall: Story = {
+  args: {
+    variant: 'solid',
+    size: 'xs',
+    status: 'default',
+    label: 'XS Button',
+    disabled: false,
+    loading: false
+  }
+};
 
 /**
  * Small size - compact buttons for dense UIs.
@@ -74,13 +89,14 @@ export const Large: Story = {
 };
 
 /**
- * All sizes comparison.
+ * All sizes comparison - XS to Large.
  */
 export const AllSizes: Story = {
   render: () => html`
     <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
+      <sando-button size="xs">XS</sando-button>
       <sando-button size="small">Small</sando-button>
-      <sando-button size="medium">Medium</sando-button>
+      <sando-button size="medium">Medium (WCAG)</sando-button>
       <sando-button size="large">Large</sando-button>
     </div>
   `

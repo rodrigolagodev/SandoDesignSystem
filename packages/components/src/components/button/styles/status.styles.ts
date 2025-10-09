@@ -22,7 +22,7 @@ export const statusStyles = css`
 
   :host([variant="solid"][status="success"]) button:hover,
   :host([variant="solid"][status="success"]) a:hover {
-    filter: brightness(0.9);
+    background-color: var(--sando-button-status-success-backgroundColorHover);
   }
 
   /* ========================================
@@ -65,7 +65,7 @@ export const statusStyles = css`
 
   :host([variant="solid"][status="destructive"]) button:hover,
   :host([variant="solid"][status="destructive"]) a:hover {
-    filter: brightness(0.9);
+    background-color: var(--sando-button-status-destructive-backgroundColorHover);
   }
 
   /* ========================================

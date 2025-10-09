@@ -145,9 +145,18 @@
 			"emphasis": { "value": "{space.6.value}", "type": "dimension" }
 		},
 		"stack": {
+			"tight": { "value": "{space.1.value}", "type": "dimension" },
 			"muted": { "value": "{space.2.value}", "type": "dimension" },
 			"default": { "value": "{space.4.value}", "type": "dimension" },
 			"emphasis": { "value": "{space.8.value}", "type": "dimension" }
+		}
+	},
+	"sizing": {
+		"control": {
+			"xs": { "value": "{space.8.value}", "type": "dimension" },
+			"small": { "value": "{space.9.value}", "type": "dimension" },
+			"medium": { "value": "{space.11.value}", "type": "dimension" },
+			"large": { "value": "{space.13.value}", "type": "dimension" }
 		}
 	},
 	"elevation": {

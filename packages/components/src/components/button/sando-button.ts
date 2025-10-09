@@ -1,14 +1,14 @@
 /**
  * Sando Button Component
  *
- * A fully accessible button component built with Lit.
+ * A fully accessible button component built with Lit following industry standards.
  * Supports multiple variants, sizes, states, and can render as button or link.
  *
  * @element sando-button
  *
  * @slot - Button content (text, icons, etc.)
- * @slot icon-start - Icon before the button text
- * @slot icon-end - Icon after the button text
+ * @slot icon-start - Icon before the button text (alternative: use start-icon prop)
+ * @slot icon-end - Icon after the button text (alternative: use end-icon prop)
  *
  * @fires click - Fired when the button is clicked (unless disabled)
  *
@@ -17,16 +17,27 @@
  * @cssprop --sando-button-borderRadius - Button border radius
  * @cssprop --sando-button-transition-duration - Transition duration
  *
- * @example Basic usage
- * <sando-button variant="solid" size="medium">
- *   Click me
- * </sando-button>
+ * @example Basic usage with variants
+ * <sando-button variant="solid" size="medium">Solid</sando-button>
+ * <sando-button variant="outline">Outline</sando-button>
+ * <sando-button variant="ghost">Ghost</sando-button>
+ * <sando-button variant="text">Text Link</sando-button>
  *
- * @example With icons
+ * @example With icons (slot method)
  * <sando-button>
  *   <span slot="icon-start">⭐</span>
  *   Favorite
  * </sando-button>
+ *
+ * @example With icons (prop method - NEW!)
+ * <sando-button start-icon="⭐">Favorite</sando-button>
+ * <sando-button end-icon="→">Next</sando-button>
+ *
+ * @example Size variants (xs to large - WCAG compliant)
+ * <sando-button size="xs">Extra Small</sando-button>
+ * <sando-button size="small">Small</sando-button>
+ * <sando-button size="medium">Medium</sando-button>
+ * <sando-button size="large">Large</sando-button>
  *
  * @example Icon-only button
  * <sando-button icon-only aria-label="Settings">
@@ -38,8 +49,8 @@
  *   Visit Site
  * </sando-button>
  *
- * @example Toggle button
- * <sando-button active>
+ * @example Toggle button (with aria-pressed)
+ * <sando-button toggle active>
  *   Active Filter
  * </sando-button>
  *
@@ -172,6 +183,27 @@ export class SandoButton extends LitElement {
   active = false;
 
   /**
+   * Whether this button acts as a toggle (adds aria-pressed)
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  toggle = false;
+
+  /**
+   * Icon to display at the start (alternative to slot)
+   * Accepts HTML string or template
+   */
+  @property({ reflect: true, attribute: 'start-icon' })
+  startIcon?: string;
+
+  /**
+   * Icon to display at the end (alternative to slot)
+   * Accepts HTML string or template
+   */
+  @property({ reflect: true, attribute: 'end-icon' })
+  endIcon?: string;
+
+  /**
    * Component styles - modular CSS imports
    * Order matters for specificity
    */
@@ -206,9 +238,11 @@ export class SandoButton extends LitElement {
     const content = html`
       ${this.loading ? html`<span class="spinner" role="status" aria-label="Loading"></span>` : ''}
       <span class="content">
+        ${this.startIcon ? html`<span class="icon-start">${this.startIcon}</span>` : ''}
         <slot name="icon-start"></slot>
         <slot></slot>
         <slot name="icon-end"></slot>
+        ${this.endIcon ? html`<span class="icon-end">${this.endIcon}</span>` : ''}
       </span>
     `;
 
@@ -223,7 +257,7 @@ export class SandoButton extends LitElement {
           ?download=${typeof this.download === 'boolean' ? this.download : this.download !== undefined}
           download=${typeof this.download === 'string' ? this.download : ''}
           aria-label=${this.ariaLabel || ''}
-          aria-pressed=${this.active ? 'true' : 'false'}
+          aria-pressed=${this.toggle ? (this.active ? 'true' : 'false') : ''}
           aria-disabled=${this.disabled || this.loading ? 'true' : 'false'}
           aria-busy=${this.loading ? 'true' : 'false'}
           aria-live=${this.loading ? 'polite' : 'off'}
@@ -241,7 +275,7 @@ export class SandoButton extends LitElement {
         type=${this.type}
         ?disabled=${this.disabled || this.loading}
         aria-label=${this.ariaLabel || ''}
-        aria-pressed=${this.active ? 'true' : 'false'}
+        aria-pressed=${this.toggle ? (this.active ? 'true' : 'false') : ''}
         aria-disabled=${this.disabled || this.loading ? 'true' : 'false'}
         aria-busy=${this.loading ? 'true' : 'false'}
         aria-live=${this.loading ? 'polite' : 'off'}

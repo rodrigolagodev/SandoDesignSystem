@@ -90,4 +90,33 @@ export const variantStyles = css`
     background-color: var(--sando-button-ghost-backgroundColor-disabled);
     color: var(--sando-button-ghost-textColor-disabled);
   }
+
+  /* ========================================
+     TEXT VARIANT
+     ======================================== */
+  :host([variant="text"]) button,
+  :host([variant="text"]) a {
+    background-color: transparent;
+    color: var(--sando-button-text-textColor-default);
+    border: none;
+    padding: 0;
+    min-height: auto;
+  }
+
+  :host([variant="text"]) button:hover,
+  :host([variant="text"]) a:hover {
+    color: var(--sando-button-text-textColor-hover);
+    text-decoration: underline;
+  }
+
+  :host([variant="text"]) button:active,
+  :host([variant="text"]) a:active {
+    color: var(--sando-button-text-textColor-active);
+  }
+
+  :host([variant="text"][disabled]) button,
+  :host([variant="text"][disabled]) a {
+    color: var(--sando-button-text-textColor-disabled);
+    text-decoration: none;
+  }
 `;

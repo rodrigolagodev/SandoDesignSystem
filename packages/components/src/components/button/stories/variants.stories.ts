@@ -74,7 +74,22 @@ export const Ghost: Story = {
 };
 
 /**
- * All variants comparison.
+ * Text variant - Link-style button with underline on hover.
+ * Best for inline actions and tertiary navigation.
+ */
+export const Text: Story = {
+  args: {
+    variant: 'text',
+    size: 'medium',
+    status: 'default',
+    label: 'Text Link Button',
+    disabled: false,
+    loading: false
+  }
+};
+
+/**
+ * All variants comparison - including new text variant.
  */
 export const AllVariants: Story = {
   render: () => html`
@@ -82,6 +97,7 @@ export const AllVariants: Story = {
       <sando-button variant="solid">Solid</sando-button>
       <sando-button variant="outline">Outline</sando-button>
       <sando-button variant="ghost">Ghost</sando-button>
+      <sando-button variant="text">Text</sando-button>
     </div>
   `
 };

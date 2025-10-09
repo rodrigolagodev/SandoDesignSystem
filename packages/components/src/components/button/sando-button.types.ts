@@ -6,12 +6,12 @@
 /**
  * Visual style variant of the button
  */
-export type ButtonVariant = 'solid' | 'outline' | 'ghost';
+export type ButtonVariant = 'solid' | 'outline' | 'ghost' | 'text';
 
 /**
  * Size variants for the button
  */
-export type ButtonSize = 'small' | 'medium' | 'large';
+export type ButtonSize = 'xs' | 'small' | 'medium' | 'large';
 
 /**
  * Status variants for success/error states
@@ -125,6 +125,24 @@ export interface SandoButtonProps {
    * @default false
    */
   active?: boolean;
+
+  /**
+   * Whether this button acts as a toggle (adds aria-pressed)
+   * @default false
+   */
+  toggle?: boolean;
+
+  /**
+   * Icon to display at the start (alternative to slot)
+   * Accepts HTML string or template
+   */
+  startIcon?: string;
+
+  /**
+   * Icon to display at the end (alternative to slot)
+   * Accepts HTML string or template
+   */
+  endIcon?: string;
 }
 
 /**

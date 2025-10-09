@@ -15,7 +15,7 @@ export default createCSSFormat({
   layerName: 'Flavors',
   selectorFn: (options) => {
     const flavorName = options?.flavorName || 'original';
-    return flavorName === 'original' ? ':root' : `[flavor="${flavorName}"]`;
+    return flavorName === 'original' ? ':root' : `:root[flavor="${flavorName}"]`;
   },
   groupByFn: (token) => token.path[0],
   headerFn: (options) => {
