@@ -7,8 +7,8 @@ import './sando-button.ts';
  * Can render as `<button>` or `<a>` based on whether `href` is provided.
  *
  * ## Features
- * - **3 Variants**: solid, outline, ghost
- * - **3 Sizes**: small, medium, large
+ * - **4 Variants**: solid, outline, ghost, text
+ * - **4 Sizes**: xs, small, medium, large
  * - **3 Border Radius**: none, default, full (circular)
  * - **Status States**: default, success, destructive
  * - **Interactive States**: hover, active, disabled, loading
@@ -66,19 +66,19 @@ const meta: Meta = {
     },
     variant: {
       control: 'select',
-      options: ['solid', 'outline', 'ghost'],
+      options: ['solid', 'outline', 'ghost', 'text'],
       description: 'Visual style variant of the button',
       table: {
-        type: { summary: 'solid | outline | ghost' },
+        type: { summary: 'solid | outline | ghost | text' },
         defaultValue: { summary: 'solid' }
       }
     },
     size: {
       control: 'select',
-      options: ['small', 'medium', 'large'],
+      options: ['xs', 'small', 'medium', 'large'],
       description: 'Size of the button',
       table: {
-        type: { summary: 'small | medium | large' },
+        type: { summary: 'xs | small | medium | large' },
         defaultValue: { summary: 'medium' }
       }
     },
@@ -291,6 +291,29 @@ export const AllExamples: Story = {
         </div>
       </div>
 
+      <!-- Text Variants -->
+      <div>
+        <h3 style="margin-bottom: 1rem;">Text Variant</h3>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+          <sando-button flavor="${args.flavor}" variant="text" size="small">Small</sando-button>
+          <sando-button flavor="${args.flavor}" variant="text" size="medium">Medium</sando-button>
+          <sando-button flavor="${args.flavor}" variant="text" size="large">Large</sando-button>
+          <sando-button flavor="${args.flavor}" variant="text" disabled>Disabled</sando-button>
+          <sando-button flavor="${args.flavor}" variant="text" loading>Loading</sando-button>
+        </div>
+      </div>
+
+      <!-- All Sizes Comparison -->
+      <div>
+        <h3 style="margin-bottom: 1rem;">All Sizes (Solid Variant)</h3>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
+          <sando-button flavor="${args.flavor}" size="xs">Extra Small</sando-button>
+          <sando-button flavor="${args.flavor}" size="small">Small</sando-button>
+          <sando-button flavor="${args.flavor}" size="medium">Medium</sando-button>
+          <sando-button flavor="${args.flavor}" size="large">Large</sando-button>
+        </div>
+      </div>
+
       <!-- Status States -->
       <div>
         <h3 style="margin-bottom: 1rem;">Status States</h3>
@@ -387,6 +410,7 @@ export const ThemeComparison: Story = {
               <sando-button flavor="original" variant="solid">Solid</sando-button>
               <sando-button flavor="original" variant="outline">Outline</sando-button>
               <sando-button flavor="original" variant="ghost">Ghost</sando-button>
+              <sando-button flavor="original" variant="text">Text</sando-button>
             </div>
           </div>
 
@@ -421,6 +445,7 @@ export const ThemeComparison: Story = {
               <sando-button flavor="original-dark" variant="solid">Solid</sando-button>
               <sando-button flavor="original-dark" variant="outline">Outline</sando-button>
               <sando-button flavor="original-dark" variant="ghost">Ghost</sando-button>
+              <sando-button flavor="original-dark" variant="text">Text</sando-button>
             </div>
           </div>
 

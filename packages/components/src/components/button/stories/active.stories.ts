@@ -28,11 +28,11 @@ const meta: Meta = {
     },
     variant: {
       control: 'select',
-      options: ['solid', 'outline', 'ghost']
+      options: ['solid', 'outline', 'ghost', 'text']
     },
     size: {
       control: 'select',
-      options: ['small', 'medium', 'large']
+      options: ['xs', 'small', 'medium', 'large']
     },
     disabled: {
       control: 'boolean'
@@ -116,6 +116,14 @@ export const Comparison: Story = {
         <div style="display: flex; gap: 1rem;">
           <sando-button variant="ghost">Normal</sando-button>
           <sando-button variant="ghost" active>Active</sando-button>
+        </div>
+      </div>
+
+      <div>
+        <h4 style="margin-bottom: 0.5rem;">Text Variant</h4>
+        <div style="display: flex; gap: 1rem;">
+          <sando-button variant="text">Normal</sando-button>
+          <sando-button variant="text" active>Active</sando-button>
         </div>
       </div>
     </div>

@@ -25,7 +25,34 @@ const meta: Meta = {
       ${args.iconOnly ? '' : args.label}
       ${args.iconEnd && args.iconEnd !== 'None' ? html`<span slot="icon-end">${args.iconEnd}</span>` : ''}
     </sando-button>
-  `
+  `,
+  argTypes: {
+    status: {
+      control: 'select',
+      options: ['default', 'success', 'destructive']
+    },
+    variant: {
+      control: 'select',
+      options: ['solid', 'outline', 'ghost', 'text']
+    },
+    size: {
+      control: 'select',
+      options: ['xs', 'small', 'medium', 'large']
+    },
+    disabled: {
+      control: 'boolean'
+    },
+    loading: {
+      control: 'boolean'
+    },
+    label: {
+      control: 'text'
+    },
+    iconStart: {
+      control: 'select',
+      options: ['None', '✓', '✗', '⭐', '❤️', '🗑️', '⚙️']
+    }
+  }
 };
 
 export default meta;

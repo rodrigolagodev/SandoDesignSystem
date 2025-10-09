@@ -25,7 +25,33 @@ const meta: Meta = {
       ${args.iconOnly ? '' : args.label}
       ${args.iconEnd && args.iconEnd !== 'None' ? html`<span slot="icon-end">${args.iconEnd}</span>` : ''}
     </sando-button>
-  `
+  `,
+  argTypes: {
+    fullWidth: {
+      control: 'boolean'
+    },
+    variant: {
+      control: 'select',
+      options: ['solid', 'outline', 'ghost', 'text']
+    },
+    size: {
+      control: 'select',
+      options: ['xs', 'small', 'medium', 'large']
+    },
+    status: {
+      control: 'select',
+      options: ['default', 'success', 'destructive']
+    },
+    disabled: {
+      control: 'boolean'
+    },
+    loading: {
+      control: 'boolean'
+    },
+    label: {
+      control: 'text'
+    }
+  }
 };
 
 export default meta;
@@ -56,6 +82,7 @@ export const FullWidthComparison: Story = {
       <sando-button full-width>Full Width</sando-button>
       <sando-button full-width variant="outline">Full Width Outline</sando-button>
       <sando-button full-width variant="ghost">Full Width Ghost</sando-button>
+      <sando-button full-width variant="text">Full Width Text</sando-button>
     </div>
   `
 };

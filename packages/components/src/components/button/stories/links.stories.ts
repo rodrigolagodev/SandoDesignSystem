@@ -26,7 +26,46 @@ const meta: Meta = {
       ${args.iconOnly ? '' : args.label}
       ${args.iconEnd && args.iconEnd !== 'None' ? html`<span slot="icon-end">${args.iconEnd}</span>` : ''}
     </sando-button>
-  `
+  `,
+  argTypes: {
+    href: {
+      control: 'text',
+      description: 'URL to navigate to (renders as <a> instead of <button>)'
+    },
+    target: {
+      control: 'select',
+      options: ['_self', '_blank', '_parent', '_top']
+    },
+    variant: {
+      control: 'select',
+      options: ['solid', 'outline', 'ghost', 'text']
+    },
+    size: {
+      control: 'select',
+      options: ['xs', 'small', 'medium', 'large']
+    },
+    status: {
+      control: 'select',
+      options: ['default', 'success', 'destructive']
+    },
+    disabled: {
+      control: 'boolean'
+    },
+    loading: {
+      control: 'boolean'
+    },
+    label: {
+      control: 'text'
+    },
+    iconStart: {
+      control: 'select',
+      options: ['None', '🏠', '→', '⭐', '❤️']
+    },
+    iconEnd: {
+      control: 'select',
+      options: ['None', '→', '←', '↗']
+    }
+  }
 };
 
 export default meta;
@@ -98,6 +137,9 @@ export const AllLinks: Story = {
       </sando-button>
       <sando-button variant="ghost" href="/docs">
         Documentation
+      </sando-button>
+      <sando-button variant="text" href="/learn-more">
+        Learn More
       </sando-button>
     </div>
   `

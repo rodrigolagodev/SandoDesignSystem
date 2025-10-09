@@ -30,11 +30,11 @@ const meta: Meta = {
     },
     variant: {
       control: 'select',
-      options: ['solid', 'outline', 'ghost']
+      options: ['solid', 'outline', 'ghost', 'text']
     },
     size: {
       control: 'select',
-      options: ['small', 'medium', 'large']
+      options: ['xs', 'small', 'medium', 'large']
     },
     iconOnly: {
       control: 'boolean'
@@ -170,6 +170,15 @@ export const WithVariants: Story = {
           <sando-button variant="ghost" radius="none">None</sando-button>
           <sando-button variant="ghost" radius="default">Default</sando-button>
           <sando-button variant="ghost" radius="full">Full</sando-button>
+        </div>
+      </div>
+
+      <div>
+        <h4 style="margin-bottom: 0.5rem;">Text</h4>
+        <div style="display: flex; gap: 1rem;">
+          <sando-button variant="text" radius="none">None</sando-button>
+          <sando-button variant="text" radius="default">Default</sando-button>
+          <sando-button variant="text" radius="full">Full</sando-button>
         </div>
       </div>
     </div>
