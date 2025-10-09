@@ -283,35 +283,39 @@ Themes are applied via the `flavor` HTML attribute:
 
 ## AI Agent System
 
-The `.claude/agents/` directory contains 18 specialized AI agents for design system development:
+The `.claude/agents/` directory contains **18 production agents** specialized for design system development:
 
-**Phase 1 - Core (9 agents):**
-- accessibility-advocate
-- design-system-architect
-- design-system-pm
-- developer-tooling-specialist
-- devops-automation-engineer
-- frontend-developer
-- qa-expert
-- technical-writer
-- ui-designer
+**Core Agents (8):**
+- `design-system-architect` - Three-layer token architecture, Web Components, theming
+- `design-system-pm` - Product roadmap, RICE prioritization, adoption metrics
+- `ui-designer` - Interface design, Ingredients/Flavors tokens, WCAG 2.1 AA
+- `frontend-developer` - Lit Web Components, token consumption, accessibility
+- `technical-writer` - API docs, token guides, Storybook documentation
+- `qa-expert` - Test strategy, unit/E2E/a11y tests, WCAG validation
+- `devops-automation-engineer` - CI/CD pipelines, NPM publishing, Storybook deployment
+- `developer-tooling-specialist` - Build optimization, DX, Style Dictionary, tooling
 
-**Phase 2 - Critical Gaps (4 agents):**
-- design-ops-specialist
-- version-migration-manager
-- ecosystem-integration-agent
-- performance-monitor
+**Phase 2 - Design Operations (4):**
+- `design-ops-specialist` - Token versioning, Figma automation, visual regression
+- `version-migration-manager` - Breaking changes, codemods, deprecation tracking
+- `ecosystem-integration-agent` - React/Vue/Angular wrappers, SSR support
+- `performance-monitor` - Core Web Vitals, bundle sizes, Lighthouse CI
 
-**Phase 3 - Quality Enhancement (2 agents):**
-- security-compliance-auditor
-- component-composition-specialist
+**Phase 3 - Quality & Architecture (2):**
+- `security-compliance-auditor` - Vulnerability scanning, XSS prevention, license compliance
+- `component-composition-specialist` - Compound components, headless patterns, layout primitives
 
-**Phase 4 - Community & Insights (3 agents):**
-- community-contribution-manager
-- analytics-insights-agent
-- localization-i18n-specialist
+**Phase 4 - Community & Growth (3):**
+- `community-contribution-manager` - Issue triage, PR reviews, RFC process
+- `analytics-insights-agent` - Usage metrics, adoption tracking, developer satisfaction
+- `localization-i18n-specialist` - Multi-language support, RTL layouts, locale formatting
 
-Each agent has specific expertise and should be consulted for their domain.
+**Meta Agents (3):**
+- `general-purpose` - Complex searches and multi-step tasks
+- `statusline-setup` - Configure Claude Code status line
+- `output-style-setup` - Configure Claude Code output styles
+
+Each agent has specific expertise. See `.claude/agents/team-agents-analysis.md` for collaboration workflows.
 
 ## Important Notes
 
