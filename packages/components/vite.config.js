@@ -32,6 +32,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
+      '@sando/tokens/dist': resolve(__dirname, '../tokens/dist'),
       '@sando/tokens': resolve(__dirname, '../tokens/src')
     }
   }

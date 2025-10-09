@@ -34,6 +34,7 @@ const meta: Meta = {
   tags: ['autodocs'],
   render: (args) => html`
     <sando-button
+      flavor="${args.flavor || 'original'}"
       variant="${args.variant}"
       size="${args.size}"
       status="${args.status}"
@@ -54,6 +55,15 @@ const meta: Meta = {
     </sando-button>
   `,
   argTypes: {
+    flavor: {
+      control: 'select',
+      options: ['original', 'original-dark'],
+      description: 'Design system flavor/theme',
+      table: {
+        type: { summary: 'string' },
+        defaultValue: { summary: 'original' }
+      }
+    },
     variant: {
       control: 'select',
       options: ['solid', 'outline', 'ghost'],
@@ -187,6 +197,7 @@ type Story = StoryObj;
  */
 export const Default: Story = {
   args: {
+    flavor: 'original',
     variant: 'solid',
     size: 'medium',
     status: 'default',
@@ -197,6 +208,11 @@ export const Default: Story = {
     type: 'button',
     iconStart: 'None',
     iconEnd: 'None'
+  },
+  parameters: {
+    backgrounds: {
+      default: 'light'
+    }
   }
 };
 
@@ -205,6 +221,7 @@ export const Default: Story = {
  */
 export const Playground: Story = {
   args: {
+    flavor: 'original',
     variant: 'solid',
     size: 'medium',
     status: 'default',
@@ -215,25 +232,38 @@ export const Playground: Story = {
     type: 'button',
     iconStart: 'None',
     iconEnd: 'None'
+  },
+  parameters: {
+    backgrounds: {
+      default: 'light'
+    }
   }
 };
 
 
 /**
  * Complete showcase of all button variants, sizes, states, and features.
+ * Use the flavor control to test different themes.
+ *
+ * 💡 Tip: When switching flavors, use the Backgrounds toolbar in Storybook to change the background:
+ * - Use 'light' or 'surface-light' for the 'original' flavor
+ * - Use 'dark' or 'surface-dark' for the 'original-dark' flavor
  */
 export const AllExamples: Story = {
-  render: () => html`
+  args: {
+    flavor: 'original'
+  },
+  render: (args) => html`
     <div style="display: flex; flex-direction: column; gap: 2rem;">
       <!-- Solid Variants -->
       <div>
         <h3 style="margin-bottom: 1rem;">Solid Variant</h3>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-          <sando-button size="small">Small</sando-button>
-          <sando-button size="medium">Medium</sando-button>
-          <sando-button size="large">Large</sando-button>
-          <sando-button disabled>Disabled</sando-button>
-          <sando-button loading>Loading</sando-button>
+          <sando-button flavor="${args.flavor}" size="small">Small</sando-button>
+          <sando-button flavor="${args.flavor}" size="medium">Medium</sando-button>
+          <sando-button flavor="${args.flavor}" size="large">Large</sando-button>
+          <sando-button flavor="${args.flavor}" disabled>Disabled</sando-button>
+          <sando-button flavor="${args.flavor}" loading>Loading</sando-button>
         </div>
       </div>
 
@@ -241,11 +271,11 @@ export const AllExamples: Story = {
       <div>
         <h3 style="margin-bottom: 1rem;">Outline Variant</h3>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-          <sando-button variant="outline" size="small">Small</sando-button>
-          <sando-button variant="outline" size="medium">Medium</sando-button>
-          <sando-button variant="outline" size="large">Large</sando-button>
-          <sando-button variant="outline" disabled>Disabled</sando-button>
-          <sando-button variant="outline" loading>Loading</sando-button>
+          <sando-button flavor="${args.flavor}" variant="outline" size="small">Small</sando-button>
+          <sando-button flavor="${args.flavor}" variant="outline" size="medium">Medium</sando-button>
+          <sando-button flavor="${args.flavor}" variant="outline" size="large">Large</sando-button>
+          <sando-button flavor="${args.flavor}" variant="outline" disabled>Disabled</sando-button>
+          <sando-button flavor="${args.flavor}" variant="outline" loading>Loading</sando-button>
         </div>
       </div>
 
@@ -253,11 +283,11 @@ export const AllExamples: Story = {
       <div>
         <h3 style="margin-bottom: 1rem;">Ghost Variant</h3>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-          <sando-button variant="ghost" size="small">Small</sando-button>
-          <sando-button variant="ghost" size="medium">Medium</sando-button>
-          <sando-button variant="ghost" size="large">Large</sando-button>
-          <sando-button variant="ghost" disabled>Disabled</sando-button>
-          <sando-button variant="ghost" loading>Loading</sando-button>
+          <sando-button flavor="${args.flavor}" variant="ghost" size="small">Small</sando-button>
+          <sando-button flavor="${args.flavor}" variant="ghost" size="medium">Medium</sando-button>
+          <sando-button flavor="${args.flavor}" variant="ghost" size="large">Large</sando-button>
+          <sando-button flavor="${args.flavor}" variant="ghost" disabled>Disabled</sando-button>
+          <sando-button flavor="${args.flavor}" variant="ghost" loading>Loading</sando-button>
         </div>
       </div>
 
@@ -265,9 +295,9 @@ export const AllExamples: Story = {
       <div>
         <h3 style="margin-bottom: 1rem;">Status States</h3>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-          <sando-button status="default">Default</sando-button>
-          <sando-button status="success">Success</sando-button>
-          <sando-button status="destructive">Destructive</sando-button>
+          <sando-button flavor="${args.flavor}" status="default">Default</sando-button>
+          <sando-button flavor="${args.flavor}" status="success">Success</sando-button>
+          <sando-button flavor="${args.flavor}" status="destructive">Destructive</sando-button>
         </div>
       </div>
 
@@ -275,15 +305,15 @@ export const AllExamples: Story = {
       <div>
         <h3 style="margin-bottom: 1rem;">With Icons</h3>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-          <sando-button>
+          <sando-button flavor="${args.flavor}">
             <span slot="icon-start">⭐</span>
             Favorite
           </sando-button>
-          <sando-button variant="outline">
+          <sando-button flavor="${args.flavor}" variant="outline">
             <span slot="icon-start">📥</span>
             Download
           </sando-button>
-          <sando-button variant="ghost">
+          <sando-button flavor="${args.flavor}" variant="ghost">
             Settings
             <span slot="icon-end">⚙️</span>
           </sando-button>
@@ -294,15 +324,15 @@ export const AllExamples: Story = {
       <div>
         <h3 style="margin-bottom: 1rem;">As Links (renders as &lt;a&gt;)</h3>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-          <sando-button href="https://example.com" target="_blank">
+          <sando-button flavor="${args.flavor}" href="https://example.com" target="_blank">
             Visit Site
             <span slot="icon-end">→</span>
           </sando-button>
-          <sando-button variant="outline" href="/">
+          <sando-button flavor="${args.flavor}" variant="outline" href="/">
             <span slot="icon-start">🏠</span>
             Home
           </sando-button>
-          <sando-button variant="ghost" href="/docs">
+          <sando-button flavor="${args.flavor}" variant="ghost" href="/docs">
             Documentation
           </sando-button>
         </div>
@@ -312,27 +342,105 @@ export const AllExamples: Story = {
       <div>
         <h3 style="margin-bottom: 1rem;">Icon-only (Square)</h3>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
-          <sando-button icon-only size="small">
+          <sando-button flavor="${args.flavor}" icon-only size="small">
             <span slot="icon-start">⭐</span>
           </sando-button>
-          <sando-button icon-only size="medium">
+          <sando-button flavor="${args.flavor}" icon-only size="medium">
             <span slot="icon-start">❤️</span>
           </sando-button>
-          <sando-button icon-only size="large">
+          <sando-button flavor="${args.flavor}" icon-only size="large">
             <span slot="icon-start">⚙️</span>
           </sando-button>
-          <sando-button icon-only variant="outline">
+          <sando-button flavor="${args.flavor}" icon-only variant="outline">
             <span slot="icon-start">🗑️</span>
           </sando-button>
-          <sando-button icon-only variant="ghost">
+          <sando-button flavor="${args.flavor}" icon-only variant="ghost">
             <span slot="icon-start">✏️</span>
           </sando-button>
-          <sando-button icon-only status="success">
+          <sando-button flavor="${args.flavor}" icon-only status="success">
             <span slot="icon-start">✓</span>
           </sando-button>
-          <sando-button icon-only status="destructive">
+          <sando-button flavor="${args.flavor}" icon-only status="destructive">
             <span slot="icon-start">✗</span>
           </sando-button>
+        </div>
+      </div>
+    </div>
+  `
+};
+
+/**
+ * Theme comparison showing the same buttons in both light (original) and dark (original-dark) themes.
+ * This demonstrates how the flavor attribute changes the button's appearance.
+ */
+export const ThemeComparison: Story = {
+  render: () => html`
+    <div style="display: flex; flex-direction: column; gap: 3rem;">
+      <!-- Original Theme (Light) -->
+      <div style="padding: 2rem; background: var(--sando-color-background-base, #fff); border-radius: 8px;">
+        <h3 style="margin-bottom: 1.5rem; color: var(--sando-color-text-heading);">Original Theme (Light)</h3>
+
+        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+          <div>
+            <h4 style="margin-bottom: 0.5rem; font-size: 0.875rem; color: var(--sando-color-text-caption);">Variants</h4>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+              <sando-button flavor="original" variant="solid">Solid</sando-button>
+              <sando-button flavor="original" variant="outline">Outline</sando-button>
+              <sando-button flavor="original" variant="ghost">Ghost</sando-button>
+            </div>
+          </div>
+
+          <div>
+            <h4 style="margin-bottom: 0.5rem; font-size: 0.875rem; color: var(--sando-color-text-caption);">Status States</h4>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+              <sando-button flavor="original" status="default">Default</sando-button>
+              <sando-button flavor="original" status="success">Success</sando-button>
+              <sando-button flavor="original" status="destructive">Destructive</sando-button>
+            </div>
+          </div>
+
+          <div>
+            <h4 style="margin-bottom: 0.5rem; font-size: 0.875rem; color: var(--sando-color-text-caption);">States</h4>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+              <sando-button flavor="original">Normal</sando-button>
+              <sando-button flavor="original" disabled>Disabled</sando-button>
+              <sando-button flavor="original" loading>Loading</sando-button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Original-Dark Theme -->
+      <div style="padding: 2rem; background: #0a0a0a; border-radius: 8px;">
+        <h3 style="margin-bottom: 1.5rem; color: #f5f5f5;">Original-Dark Theme</h3>
+
+        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+          <div>
+            <h4 style="margin-bottom: 0.5rem; font-size: 0.875rem; color: #a8a8a8;">Variants</h4>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+              <sando-button flavor="original-dark" variant="solid">Solid</sando-button>
+              <sando-button flavor="original-dark" variant="outline">Outline</sando-button>
+              <sando-button flavor="original-dark" variant="ghost">Ghost</sando-button>
+            </div>
+          </div>
+
+          <div>
+            <h4 style="margin-bottom: 0.5rem; font-size: 0.875rem; color: #a8a8a8;">Status States</h4>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+              <sando-button flavor="original-dark" status="default">Default</sando-button>
+              <sando-button flavor="original-dark" status="success">Success</sando-button>
+              <sando-button flavor="original-dark" status="destructive">Destructive</sando-button>
+            </div>
+          </div>
+
+          <div>
+            <h4 style="margin-bottom: 0.5rem; font-size: 0.875rem; color: #a8a8a8;">States</h4>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+              <sando-button flavor="original-dark">Normal</sando-button>
+              <sando-button flavor="original-dark" disabled>Disabled</sando-button>
+              <sando-button flavor="original-dark" loading>Loading</sando-button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

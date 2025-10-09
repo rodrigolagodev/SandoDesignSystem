@@ -15,11 +15,17 @@ export default createCSSFormat({
   layerName: 'Flavors',
   selectorFn: (options) => {
     const flavorName = options?.flavorName || 'original';
-    return flavorName === 'original' ? ':root' : `:root[flavor="${flavorName}"]`;
+    // Generate selectors that work with Web Components
+    // For original: match when no flavor attribute OR when flavor="original"
+    // For others: match only when flavor="name"
+    if (flavorName === 'original') {
+      return ':host:not([flavor]), :host([flavor="original"]), :root:not([flavor]), [flavor="original"]';
+    }
+    return `:host([flavor="${flavorName}"]), [flavor="${flavorName}"]`;
   },
   groupByFn: (token) => token.path[0],
   headerFn: (options) => {
     const flavorName = options?.flavorName || 'original';
-    return `/**\n * Flavors Layer - ${capitalize(flavorName)} Theme\n * Generated on ${new Date().toISOString()}\n * \n * DO NOT EDIT MANUALLY\n * This file is auto-generated from design tokens\n */\n\n`;
+    return `/**\n * Flavors Layer - ${capitalize(flavorName)} Theme\n * Generated on ${new Date().toISOString()}\n * \n * DO NOT EDIT MANUALLY\n * This file is auto-generated from design tokens\n * \n * Selectors:\n * - :host([flavor="${flavorName}"]) - For Web Components\n * - [flavor="${flavorName}"] - For global HTML element\n */\n\n`;
   }
 });

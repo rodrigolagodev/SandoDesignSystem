@@ -64,6 +64,21 @@ StyleDictionary.registerFormat({ name: 'typescript/index-file', format: typescri
 // LAYER DEFINITIONS
 // ============================================
 
+// Flatten flavors configs (array of configs) into individual layers
+const flavorLayers = Array.isArray(flavorsConfig)
+  ? flavorsConfig.map((config, index) => ({
+      name: `Flavors`,
+      emoji: '🎭',
+      config,
+      cacheKey: index === flavorsConfig.length - 1 ? 'flavors' : null // Only last one updates cache
+    }))
+  : [{
+      name: 'Flavors',
+      emoji: '🎭',
+      config: flavorsConfig,
+      cacheKey: 'flavors'
+    }];
+
 const layers = [
   {
     name: 'Ingredients',
@@ -71,12 +86,7 @@ const layers = [
     config: ingredientsConfig,
     cacheKey: 'ingredients'
   },
-  {
-    name: 'Flavors',
-    emoji: '🎭',
-    config: flavorsConfig,
-    cacheKey: 'flavors'
-  },
+  ...flavorLayers,
   {
     name: 'Recipes',
     emoji: '🧩',

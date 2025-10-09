@@ -21,6 +21,7 @@ const config = {
 	},
 	async viteFinal(config) {
 		const tokensPath = join(dirname(dirname(dirname(__dirname))), "packages", "tokens", "dist", "sando-tokens");
+		const tokensDistPath = join(dirname(dirname(dirname(__dirname))), "packages", "tokens", "dist");
 		const componentsPath = join(dirname(dirname(dirname(__dirname))), "packages", "components", "src");
 
 		// Customize Vite config for Storybook
@@ -29,11 +30,13 @@ const config = {
 			base: '/SandoDesignSystem/storybook/',
 			resolve: {
 				...config.resolve,
-				alias: {
-					...config.resolve?.alias,
-					"@sando/tokens": tokensPath,
-					"@sando/components": componentsPath,
-				},
+				alias: [
+					// Order matters: more specific paths first
+					{ find: '@sando/tokens/dist', replacement: tokensDistPath },
+					{ find: '@sando/tokens', replacement: tokensPath },
+					{ find: '@sando/components', replacement: componentsPath },
+					...(Array.isArray(config.resolve?.alias) ? config.resolve.alias : []),
+				],
 			},
 			server: {
 				...config.server,

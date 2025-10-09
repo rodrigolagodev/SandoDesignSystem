@@ -64,6 +64,7 @@ import { LitElement, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import type { ButtonVariant, ButtonSize, ButtonStatus, ButtonRadius } from './sando-button.types.js';
+import { tokenStyles } from '../../styles/tokens.css.js';
 import {
   baseStyles,
   variantStyles,
@@ -208,6 +209,7 @@ export class SandoButton extends LitElement {
    * Order matters for specificity
    */
   static styles = [
+    tokenStyles,     // Design tokens (Ingredients, Flavors, Recipes)
     baseStyles,      // Reset, layout, typography, focus
     variantStyles,   // Solid, outline, ghost
     sizeStyles,      // Small, medium, large, icon-only

@@ -50,50 +50,7 @@ const preview = {
     docs: {
       toc: true
     }
-  },
-
-  globalTypes: {
-    flavor: {
-      name: 'Flavor',
-      description: 'Design system theme flavor',
-      defaultValue: 'original',
-      toolbar: {
-        icon: 'paintbrush',
-        items: [
-          { value: 'original', title: 'Original (Light)', icon: 'sun' },
-          { value: 'original-dark', title: 'Original Dark', icon: 'moon' }
-        ],
-        dynamicTitle: true
-      }
-    }
-  },
-
-  decorators: [
-    (story, context) => {
-      const flavor = context.globals.flavor || 'original';
-
-      // Remove any existing flavor stylesheets
-      const existingFlavors = document.querySelectorAll('link[data-flavor]');
-      existingFlavors.forEach(link => link.remove());
-
-      // Add the selected flavor stylesheet
-      const link = document.createElement('link');
-      link.rel = 'stylesheet';
-      link.href = `../../../packages/tokens/dist/sando-tokens/css/flavors/${flavor}.css`;
-      link.setAttribute('data-flavor', flavor);
-      document.head.appendChild(link);
-
-      // Set flavor attribute on html element (for CSS selector matching)
-      document.documentElement.setAttribute('flavor', flavor);
-
-      // Set background color based on flavor
-      const isDark = flavor.includes('dark');
-      document.body.style.backgroundColor = isDark ? '#0a0a0a' : '#ffffff';
-      document.body.style.color = isDark ? '#e5e5e5' : '#171717';
-
-      return story();
-    }
-  ]
+  }
 };
 
 export default preview;
