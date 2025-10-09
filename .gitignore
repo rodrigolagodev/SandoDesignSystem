@@ -100,5 +100,8 @@ $RECYCLE.BIN/
 # Optional stylelint cache
 .stylelintcache
 
+# VitePress specific cache (apps/site)
+apps/site/.vitepress/cache/
+
 # Vitest
 .vitest/
