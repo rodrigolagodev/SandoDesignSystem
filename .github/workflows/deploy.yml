@@ -12,15 +12,13 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "pages"
-  cancel-in-progress: true
+  group: "pages-${{ github.ref }}"
+  cancel-in-progress: false
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+    timeout-minutes: 15
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -29,6 +27,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
+          cache: 'npm'
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
@@ -139,15 +138,96 @@ jobs:
           </html>
           EOF
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: _site
+          retention-days: 1
 
-      - name: Deploy to GitHub Pages
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Deploy to GitHub Pages (attempt 1)
         id: deployment
         uses: actions/deploy-pages@v4
-        timeout-minutes: 5
+        timeout-minutes: 8
+        continue-on-error: true
+
+      - name: Retry deployment (attempt 2)
+        if: steps.deployment.outcome == 'failure'
+        id: deployment-retry-2
+        uses: actions/deploy-pages@v4
+        timeout-minutes: 8
+        continue-on-error: true
+
+      - name: Retry deployment (attempt 3)
+        if: steps.deployment-retry-2.outcome == 'failure'
+        id: deployment-retry-3
+        uses: actions/deploy-pages@v4
+        timeout-minutes: 8
+
+      - name: Wait for deployment propagation
+        run: |
+          echo "Waiting for deployment to propagate..."
+          sleep 15
+
+      - name: Health check
+        run: |
+          echo "Performing health check..."
+          max_attempts=5
+          attempt=1
+
+          while [ $attempt -le $max_attempts ]; do
+            echo "Health check attempt $attempt of $max_attempts..."
+
+            # Check Storybook
+            storybook_status=$(curl -s -o /dev/null -w "%{http_code}" "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/storybook/" || echo "000")
+            if [ "$storybook_status" = "200" ]; then
+              echo "✅ Storybook is accessible (HTTP $storybook_status)"
+              storybook_ok=true
+            else
+              echo "❌ Storybook check failed (HTTP $storybook_status)"
+              storybook_ok=false
+            fi
+
+            # Check VitePress
+            vitepress_status=$(curl -s -o /dev/null -w "%{http_code}" "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/docs/" || echo "000")
+            if [ "$vitepress_status" = "200" ]; then
+              echo "✅ VitePress is accessible (HTTP $vitepress_status)"
+              vitepress_ok=true
+            else
+              echo "❌ VitePress check failed (HTTP $vitepress_status)"
+              vitepress_ok=false
+            fi
+
+            if [ "$storybook_ok" = true ] && [ "$vitepress_ok" = true ]; then
+              echo "🎉 Deployment health check passed!"
+              echo ""
+              echo "📍 Deployment URLs:"
+              echo "   - Storybook: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/storybook/"
+              echo "   - VitePress: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/docs/"
+              exit 0
+            fi
+
+            if [ $attempt -lt $max_attempts ]; then
+              wait_time=$((30 * attempt))
+              echo "Retrying in ${wait_time} seconds..."
+              sleep $wait_time
+            fi
+
+            attempt=$((attempt + 1))
+          done
+
+          echo "⚠️ Health check did not pass after $max_attempts attempts"
+          echo "Deployment may still be propagating. Check manually at:"
+          echo "- Storybook: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/storybook/"
+          echo "- VitePress: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/docs/"
+          exit 1
