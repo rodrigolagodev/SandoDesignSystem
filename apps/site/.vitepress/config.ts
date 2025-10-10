@@ -59,6 +59,12 @@ export default defineConfig({
 
       '/guides/': [
         {
+          text: 'Philosophy',
+          items: [
+            { text: 'Why Flavors, Not Themes', link: '/guides/flavor-philosophy' }
+          ]
+        },
+        {
           text: 'Guides',
           items: [
             { text: 'Contributing', link: '/guides/contributing' },

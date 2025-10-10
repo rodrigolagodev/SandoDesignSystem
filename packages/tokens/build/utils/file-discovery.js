@@ -35,6 +35,54 @@ export function discoverFiles(dir, pattern = '*.json') {
 }
 
 /**
+ * Discover flavor folders (supports nested folder structure)
+ * @param {string} dir - Directory path relative to project root (default: 'flavors')
+ * @returns {string[]} Array of flavor folder names
+ */
+export function discoverFlavorFolders(dir = 'flavors') {
+  const fullPath = path.join(process.cwd(), 'src', dir);
+
+  if (!fs.existsSync(fullPath)) {
+    return [];
+  }
+
+  const entries = fs.readdirSync(fullPath, { withFileTypes: true });
+
+  return entries
+    .filter(entry => entry.isDirectory())
+    .map(entry => entry.name)
+    .sort();
+}
+
+/**
+ * Get available mode files for a flavor (index.json, dark.json, etc.)
+ * @param {string} flavorName - Flavor folder name
+ * @returns {Object} Object with available modes { light: 'index.json', dark: 'dark.json' }
+ */
+export function getFlavorModes(flavorName) {
+  const flavorPath = path.join(process.cwd(), 'src', 'flavors', flavorName);
+
+  if (!fs.existsSync(flavorPath)) {
+    return {};
+  }
+
+  const files = fs.readdirSync(flavorPath);
+  const modes = {};
+
+  // Check for index.json (light mode default)
+  if (files.includes('index.json')) {
+    modes.light = 'index.json';
+  }
+
+  // Check for dark.json (dark mode overrides)
+  if (files.includes('dark.json')) {
+    modes.dark = 'dark.json';
+  }
+
+  return modes;
+}
+
+/**
  * Extract the top-level category key from a filename
  * @param {string} filename - Filename with or without extension
  * @returns {string} Category name

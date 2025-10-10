@@ -52,6 +52,16 @@ export type {
 } from './types/index.js';
 
 // ========================================
+// Mixins
+// ========================================
+
+export {
+  FlavorableMixin,
+  type FlavorableInterface,
+  type Flavorable
+} from './mixins/index.js';
+
+// ========================================
 // Utilities
 // ========================================
 

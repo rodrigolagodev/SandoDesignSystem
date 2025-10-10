@@ -68,10 +68,11 @@ import { classMap } from 'lit/directives/class-map.js';
 import type { IconName } from './icon-manifest';
 import { loadIconSvg, isValidIconName } from './icon-manifest';
 import type { IconSize, IconColor } from './sando-icon.types';
+import { FlavorableMixin } from '../../mixins/index.js';
 import { tokenStyles } from '../../styles/tokens.css.js';
 
 @customElement('sando-icon')
-export class SandoIcon extends LitElement {
+export class SandoIcon extends FlavorableMixin(LitElement) {
 	/**
 	 * Name of the icon to display
 	 * Must be a valid Lucide icon name
@@ -142,12 +143,9 @@ export class SandoIcon extends LitElement {
 	@property({ type: Boolean, reflect: true })
 	decorative = false;
 
-	/**
-	 * Design system flavor/theme
-	 * @default 'original'
-	 */
-	@property({ reflect: true })
-	flavor = 'original';
+	// Note: `flavor` property comes from FlavorableMixin
+	// Inherited from ancestor or explicitly set via attribute
+	// See: src/mixins/flavorable.ts
 
 	/**
 	 * Stroke width for the SVG

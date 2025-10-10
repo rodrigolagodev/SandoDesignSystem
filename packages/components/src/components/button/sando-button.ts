@@ -64,6 +64,7 @@ import { LitElement, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import type { ButtonVariant, ButtonSize, ButtonStatus, ButtonRadius } from './sando-button.types.js';
+import { FlavorableMixin } from '../../mixins/index.js';
 import { tokenStyles } from '../../styles/tokens.css.js';
 import {
   baseStyles,
@@ -75,7 +76,7 @@ import {
 } from './styles/index.js';
 
 @customElement('sando-button')
-export class SandoButton extends LitElement {
+export class SandoButton extends FlavorableMixin(LitElement) {
   /**
    * Visual style variant of the button
    * @default 'solid'
@@ -139,12 +140,9 @@ export class SandoButton extends LitElement {
   @property({ reflect: true })
   radius: ButtonRadius = 'default';
 
-  /**
-   * Design system flavor/theme
-   * @default 'original'
-   */
-  @property({ reflect: true })
-  flavor = 'original';
+  // Note: `flavor` property comes from FlavorableMixin
+  // Inherited from ancestor or explicitly set via attribute
+  // See: src/mixins/flavorable.ts
 
   /**
    * URL to navigate to (renders as <a> instead of <button>)

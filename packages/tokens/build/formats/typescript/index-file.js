@@ -53,6 +53,12 @@ export default ({ dictionary, file, options }) => {
   const isValuesExport = options?.isValuesExport || false;
   const exportName = isValuesExport ? 'values' : 'tokens';
 
+  // Determine if using folder structure (e.g., ./original/index.js vs ./original.js)
+  const useFolderStructure = options?.useFolderStructure || false;
+  const getImportPath = (category) => {
+    return useFolderStructure ? `./${category}/index.js` : `./${category}.js`;
+  };
+
   // Generate header comment using shared utility
   const header = generateIndexJSDoc({
     layerName: options?.layerName || 'Design Tokens',
@@ -62,12 +68,12 @@ export default ({ dictionary, file, options }) => {
 
   // Generate re-export statements
   const exports = categories
-    .map(category => `export { ${exportName} as ${category} } from './${category}.js';`)
+    .map(category => `export { ${exportName} as ${category} } from '${getImportPath(category)}';`)
     .join('\n');
 
   // Generate type re-exports
   const typeExports = categories
-    .map(category => `export type { Tokens as ${capitalize(category)}Tokens } from './${category}.js';`)
+    .map(category => `export type { Tokens as ${capitalize(category)}Tokens } from '${getImportPath(category)}';`)
     .join('\n');
 
   return `${header}\n\n${exports}\n\n${typeExports}\n`;

@@ -14,6 +14,7 @@ import nameCssSando from './transforms/name-css-sando.js';
 // Import custom formats
 import cssIngredients from './formats/css/ingredients.js';
 import cssFlavors from './formats/css/flavors.js';
+import cssFlavorsModes from './formats/css/flavors-modes.js';
 import cssRecipes from './formats/css/recipes.js';
 import typescriptCSSVariables from './formats/typescript/css-variables.js';
 import typescriptPrimitiveValues from './formats/typescript/primitive-values.js';
@@ -55,6 +56,7 @@ StyleDictionary.registerTransformGroup({
 // Register formats
 StyleDictionary.registerFormat({ name: 'css/ingredients', format: cssIngredients });
 StyleDictionary.registerFormat({ name: 'css/flavors', format: cssFlavors });
+StyleDictionary.registerFormat({ name: 'css/flavors-modes', format: cssFlavorsModes });
 StyleDictionary.registerFormat({ name: 'css/recipes', format: cssRecipes });
 StyleDictionary.registerFormat({ name: 'typescript/css-variables', format: typescriptCSSVariables });
 StyleDictionary.registerFormat({ name: 'typescript/primitive-values', format: typescriptPrimitiveValues });
