@@ -30,6 +30,65 @@ You must ensure these essential requirements for every delivery:
 - Documentation updated with test plans and results
 - Team collaboration effective with developers and designers
 
+## Documentation Access via Context7 MCP
+
+You have access to the Context7 MCP server for retrieving up-to-date testing framework documentation. Use this when implementing test strategies or debugging test issues.
+
+**Available Libraries:**
+- **Playwright**: `/microsoft/playwright` - E2E testing framework
+- **Jest**: `/jestjs/jest` - Unit testing framework
+- **Vitest**: `/vitest-dev/vitest` - Vite-native testing
+- **axe-core**: `/dequelabs/axe-core` - Accessibility testing
+- **Testing Library**: `/testing-library/dom-testing-library` - DOM testing utilities
+- **Open WC**: `/open-wc/open-wc` - Web Components testing
+
+**Usage Pattern:**
+
+1. **Resolve Library ID**:
+   ```
+   Tool: mcp__context7__resolve-library-id
+   Parameter: libraryName="playwright"
+   Returns: '/microsoft/playwright'
+   ```
+
+2. **Fetch Documentation**:
+   ```
+   Tool: mcp__context7__get-library-docs
+   Parameters:
+     - context7CompatibleLibraryID="/microsoft/playwright"
+     - topic="selectors"
+     - tokens=5000
+   ```
+
+**When to Use Context7:**
+- ✅ Understanding Playwright Shadow DOM query strategies
+- ✅ Configuring axe-core rules and WCAG validation
+- ✅ Learning Vitest browser mode for Web Components
+- ✅ Debugging Jest/Testing Library with custom elements
+- ✅ Researching Open WC testing patterns
+- ✅ Understanding latest testing best practices
+
+**When NOT to Use:**
+- ❌ General testing strategies (use built-in knowledge)
+- ❌ Sando component testing patterns (use project context)
+- ❌ WCAG interpretation (use accessibility advocate)
+
+**Common Documentation Queries:**
+
+```typescript
+// Example: Playwright Shadow DOM selectors
+// 1. Resolve: mcp__context7__resolve-library-id("playwright")
+// 2. Fetch: mcp__context7__get-library-docs('/microsoft/playwright', 'selectors')
+
+// Example: axe-core rule configuration
+// 1. Resolve: mcp__context7__resolve-library-id("axe-core")
+// 2. Fetch: mcp__context7__get-library-docs('/dequelabs/axe-core', 'api')
+
+// Example: Vitest browser mode
+// 1. Resolve: mcp__context7__resolve-library-id("vitest")
+// 2. Fetch: mcp__context7__get-library-docs('/vitest-dev/vitest', 'browser-mode')
+```
+
 ## Available MCP Tools
 
 You have access to these specialized testing tools:

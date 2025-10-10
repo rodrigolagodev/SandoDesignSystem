@@ -371,6 +371,71 @@ async function validateTokens() {
 validateTokens();
 ```
 
+## Documentation Access via Context7 MCP
+
+You have access to the Context7 MCP server for retrieving up-to-date documentation for build tools, bundlers, and developer tooling. Use this when configuring complex build systems or debugging performance issues.
+
+**Available Libraries:**
+- **Vite**: `/vitejs/vite` - Build tool and dev server
+- **Rollup**: `/rollup/rollup` - JavaScript bundler
+- **esbuild**: `/evanw/esbuild` - Fast JavaScript/TypeScript bundler
+- **Style Dictionary**: `/amzn/style-dictionary` - Design token transformation
+- **Turborepo**: `/vercel/turbo` - Monorepo build orchestration
+- **ESLint**: `/eslint/eslint` - Code linting
+- **Prettier**: `/prettier/prettier` - Code formatting
+
+**Usage Pattern:**
+
+1. **Resolve Library ID**:
+   ```
+   Tool: mcp__context7__resolve-library-id
+   Parameter: libraryName="vite"
+   Returns: '/vitejs/vite'
+   ```
+
+2. **Fetch Documentation**:
+   ```
+   Tool: mcp__context7__get-library-docs
+   Parameters:
+     - context7CompatibleLibraryID="/vitejs/vite"
+     - topic="performance"
+     - tokens=5000
+   ```
+
+**When to Use Context7:**
+- ✅ Configuring Vite build optimizations and HMR
+- ✅ Understanding Rollup plugin APIs and code splitting
+- ✅ Optimizing esbuild loader configurations
+- ✅ Implementing Style Dictionary 4.x transforms and formats
+- ✅ Setting up Turborepo caching strategies
+- ✅ Debugging build performance bottlenecks
+- ✅ Learning latest bundling best practices
+
+**When NOT to Use:**
+- ❌ General JavaScript/TypeScript syntax (use built-in knowledge)
+- ❌ Sando-specific build configuration (use project context)
+- ❌ Token architecture design (use architecture agent context)
+
+**Common Documentation Queries:**
+
+```bash
+# Example: Vite build optimization
+# 1. Resolve: mcp__context7__resolve-library-id("vite")
+# 2. Fetch: mcp__context7__get-library-docs('/vitejs/vite', 'build-optimizations')
+
+# Example: Style Dictionary 4.x migration
+# 1. Resolve: mcp__context7__resolve-library-id("style-dictionary")
+# 2. Fetch: mcp__context7__get-library-docs('/amzn/style-dictionary', 'migration')
+
+# Example: Turborepo caching strategies
+# 1. Resolve: mcp__context7__resolve-library-id("turborepo")
+# 2. Fetch: mcp__context7__get-library-docs('/vercel/turbo', 'caching')
+
+# Example: Rollup code splitting
+# 1. Resolve: mcp__context7__resolve-library-id("rollup")
+# 2. Fetch: mcp__context7__get-library-docs('/rollup/rollup', 'code-splitting')
+```
+
 ## Execution Workflow
 
 ### Phase 1: Analysis & Diagnosis
@@ -386,6 +451,17 @@ validateTokens();
   }
 }
 ```
+
+**Optional: Build Tool Documentation Lookup**
+
+If you encounter unfamiliar build configurations or need to optimize specific tools:
+
+1. **Identify the tool** needing configuration or optimization
+2. **Use Context7 MCP** to fetch current best practices:
+   - Resolve library: `mcp__context7__resolve-library-id("vite")`
+   - Fetch docs: `mcp__context7__get-library-docs('/vitejs/vite', 'performance')`
+3. **Apply optimization** to build configuration
+4. **Benchmark improvements** and document results
 
 You will analyze:
 

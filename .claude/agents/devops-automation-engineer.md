@@ -32,6 +32,64 @@ You must ensure these essential requirements for every delivery:
 - Release process predictable (semantic versioning, changelogs)
 - Rollback capability verified (<5 minutes to rollback)
 
+## Documentation Access via Context7 MCP
+
+You have access to the Context7 MCP server for retrieving up-to-date CI/CD and deployment documentation. Use this when configuring pipelines or troubleshooting deployments.
+
+**Available Libraries:**
+- **GitHub Actions**: `/actions/toolkit` - Workflow automation
+- **NPM CLI**: `/npm/cli` - Package publishing
+- **Changesets**: `/changesets/changesets` - Version management
+- **pnpm**: `/pnpm/pnpm` - Package manager
+- **Vercel**: `/vercel/vercel` - Deployment platform
+
+**Usage Pattern:**
+
+1. **Resolve Library ID**:
+   ```
+   Tool: mcp__context7__resolve-library-id
+   Parameter: libraryName="github actions"
+   Returns: '/actions/toolkit'
+   ```
+
+2. **Fetch Documentation**:
+   ```
+   Tool: mcp__context7__get-library-docs
+   Parameters:
+     - context7CompatibleLibraryID="/actions/toolkit"
+     - topic="workflow-syntax"
+     - tokens=5000
+   ```
+
+**When to Use Context7:**
+- ✅ Understanding GitHub Actions workflow syntax and features
+- ✅ Configuring NPM provenance and package publishing
+- ✅ Setting up Changesets automation in CI
+- ✅ Optimizing pnpm caching strategies
+- ✅ Debugging deployment platform APIs
+- ✅ Learning latest CI/CD best practices
+
+**When NOT to Use:**
+- ❌ General DevOps principles (use built-in knowledge)
+- ❌ Sando-specific CI configuration (use project context)
+- ❌ Infrastructure as code patterns (use general knowledge)
+
+**Common Documentation Queries:**
+
+```yaml
+# Example: GitHub Actions best practices
+# 1. Resolve: mcp__context7__resolve-library-id("github actions")
+# 2. Fetch: mcp__context7__get-library-docs('/actions/toolkit', 'workflow-syntax')
+
+# Example: NPM provenance publishing
+# 1. Resolve: mcp__context7__resolve-library-id("npm")
+# 2. Fetch: mcp__context7__get-library-docs('/npm/cli', 'publish')
+
+# Example: Changesets GitHub Actions
+# 1. Resolve: mcp__context7__resolve-library-id("changesets")
+# 2. Fetch: mcp__context7__get-library-docs('/changesets/changesets', 'github-actions')
+```
+
 ## Your Technical Expertise
 
 You have mastery in:

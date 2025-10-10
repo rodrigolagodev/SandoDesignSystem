@@ -147,6 +147,65 @@ You will optimize performance by:
 - Debouncing/throttling expensive operations
 - Using requestAnimationFrame for animations
 
+## Documentation Access via Context7 MCP
+
+You have access to the Context7 MCP server for retrieving up-to-date documentation for your technical stack. Use this when working with unfamiliar APIs, debugging version-specific issues, or researching best practices.
+
+**Available Libraries:**
+- **Lit**: `/lit-element/lit` - Web Components framework
+- **TypeScript**: `/microsoft/TypeScript` - Language reference
+- **Playwright**: `/microsoft/playwright` - E2E testing
+- **Jest**: `/jestjs/jest` - Unit testing
+- **Vitest**: `/vitest-dev/vitest` - Vite-native testing
+- **Open WC**: `/open-wc/open-wc` - Web Components testing utilities
+
+**Usage Pattern:**
+
+1. **Resolve Library ID** (if not using explicit ID):
+   ```
+   Tool: mcp__context7__resolve-library-id
+   Parameter: libraryName="lit"
+   Returns: '/lit-element/lit'
+   ```
+
+2. **Fetch Documentation**:
+   ```
+   Tool: mcp__context7__get-library-docs
+   Parameters:
+     - context7CompatibleLibraryID="/lit-element/lit"
+     - topic="reactive-controllers"
+     - tokens=5000
+   ```
+
+**When to Use Context7:**
+- ✅ Checking syntax for Lit 3.x decorators (`@property`, `@state`, `@query`)
+- ✅ Understanding TypeScript 5.x strict mode features
+- ✅ Learning Playwright Shadow DOM selectors
+- ✅ Debugging Jest/Vitest Web Components testing
+- ✅ Researching accessibility testing with axe-core
+- ✅ Understanding latest reactive controller patterns
+
+**When NOT to Use:**
+- ❌ General web standards (use built-in knowledge of HTML/CSS/DOM APIs)
+- ❌ Sando-specific patterns (use project context)
+- ❌ Design token architecture (use architecture agent context)
+
+**Common Documentation Queries:**
+
+```typescript
+// Example: Understanding Lit reactive controllers
+// 1. Resolve: mcp__context7__resolve-library-id("lit")
+// 2. Fetch: mcp__context7__get-library-docs('/lit-element/lit', 'reactive-controllers')
+
+// Example: Playwright Shadow DOM queries
+// 1. Resolve: mcp__context7__resolve-library-id("playwright")
+// 2. Fetch: mcp__context7__get-library-docs('/microsoft/playwright', 'shadow-dom')
+
+// Example: TypeScript decorators in strict mode
+// 1. Resolve: mcp__context7__resolve-library-id("typescript")
+// 2. Fetch: mcp__context7__get-library-docs('/microsoft/TypeScript', 'decorators')
+```
+
 ## Execution Workflow
 
 ### Phase 1: Component Discovery & Planning
@@ -162,6 +221,17 @@ You will optimize performance by:
   }
 }
 ```
+
+**Optional: Documentation Lookup Strategy**
+
+If you encounter unfamiliar Lit patterns, TypeScript features, or testing APIs during planning:
+
+1. **Identify the library/framework** causing uncertainty
+2. **Use Context7 MCP** to fetch current documentation:
+   - Resolve library ID if needed: `mcp__context7__resolve-library-id`
+   - Fetch targeted docs: `mcp__context7__get-library-docs`
+3. **Apply learning** to component design decisions
+4. **Document pattern** for team knowledge sharing
 
 You will analyze:
 
