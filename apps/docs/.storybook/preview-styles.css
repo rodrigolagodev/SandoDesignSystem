@@ -1,0 +1,25 @@
+/**
+ * Storybook Preview Global Styles
+ *
+ * Applies design system tokens to the Storybook preview iframe
+ */
+
+/* Apply background color from design tokens to body */
+body {
+  background-color: var(--sando-color-background-base);
+  color: var(--sando-color-text-body);
+  font-family: var(--sando-font-family-body);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Ensure preview root has full height */
+#storybook-root {
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+/* Reset default margins */
+body {
+  margin: 0;
+  padding: 0;
+}
