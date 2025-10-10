@@ -337,7 +337,7 @@ export const WithText: Story = {
 export const IconCatalog: Story = {
 	render: () => {
 		// Group icons by category based on name patterns
-		const categories = {
+		const categories: Record<string, string[]> = {
 			Arrows: iconNames.filter((name) => name.includes('arrow') || name.includes('chevron')),
 			UI: iconNames.filter((name) =>
 				['menu', 'x', 'plus', 'minus', 'check', 'circle', 'square', 'star'].some((term) => name.includes(term))
