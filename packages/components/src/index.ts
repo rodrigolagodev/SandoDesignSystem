@@ -23,6 +23,19 @@ export type {
   ButtonClickEvent
 } from './components/button/index.js';
 
+export { SandoIcon } from './components/icon/index.js';
+export type {
+  IconName,
+  IconSize,
+  IconColor,
+  SandoIconProps,
+  IconLoadEvent,
+  IconLoadEventDetail,
+  IconErrorEvent,
+  IconErrorEventDetail
+} from './components/icon/index.js';
+export { iconNames, isValidIconName, loadIconSvg, ICON_COUNT } from './components/icon/index.js';
+
 // ========================================
 // Common Types
 // ========================================

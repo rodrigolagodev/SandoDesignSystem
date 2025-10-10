@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import './sando-button.ts';
+import '../icon/sando-icon.ts';
 
 /**
  * The Button component is used to trigger actions and events.
@@ -49,9 +50,9 @@ const meta: Meta = {
       target="${args.target || '_self'}"
       aria-label="${args.ariaLabel || ''}"
     >
-      ${args.iconStart && args.iconStart !== 'None' ? html`<span slot="icon-start">${args.iconStart}</span>` : ''}
+      ${args.iconStart && args.iconStart !== 'None' ? html`<sando-icon slot="icon-start" name="${args.iconStart}" size="small"></sando-icon>` : ''}
       ${args.iconOnly ? '' : args.label}
-      ${args.iconEnd && args.iconEnd !== 'None' ? html`<span slot="icon-end">${args.iconEnd}</span>` : ''}
+      ${args.iconEnd && args.iconEnd !== 'None' ? html`<sando-icon slot="icon-end" name="${args.iconEnd}" size="small"></sando-icon>` : ''}
     </sando-button>
   `,
   argTypes: {
@@ -178,13 +179,13 @@ const meta: Meta = {
     },
     iconStart: {
       control: 'select',
-      options: ['None', '⭐', '❤️', '✓', '✗', '🔍', '⚙️', '📥', '📤', '➕', '➖', '🗑️', '✏️', '🔒', '🔓', '👤', '🏠'],
-      description: 'Icon to display at the start of the button'
+      options: ['None', 'star', 'heart', 'check', 'x', 'search', 'settings', 'download', 'upload', 'plus', 'minus', 'trash-2', 'edit', 'lock', 'unlock', 'user', 'home'],
+      description: 'Icon to display at the start of the button (Lucide icon name)'
     },
     iconEnd: {
       control: 'select',
-      options: ['None', '→', '←', '↑', '↓', '⭐', '❤️', '✓', '✗', '⚙️', '📥', '📤', '➕', '➖'],
-      description: 'Icon to display at the end of the button'
+      options: ['None', 'arrow-right', 'arrow-left', 'arrow-up', 'arrow-down', 'chevron-right', 'chevron-left', 'star', 'heart', 'check', 'x', 'settings', 'download', 'upload', 'plus', 'minus'],
+      description: 'Icon to display at the end of the button (Lucide icon name)'
     }
   }
 };
@@ -326,19 +327,19 @@ export const AllExamples: Story = {
 
       <!-- With Icons -->
       <div>
-        <h3 style="margin-bottom: 1rem;">With Icons</h3>
+        <h3 style="margin-bottom: 1rem;">With Icons (sando-icon)</h3>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
           <sando-button flavor="${args.flavor}">
-            <span slot="icon-start">⭐</span>
+            <sando-icon slot="icon-start" name="star" size="small"></sando-icon>
             Favorite
           </sando-button>
           <sando-button flavor="${args.flavor}" variant="outline">
-            <span slot="icon-start">📥</span>
+            <sando-icon slot="icon-start" name="download" size="small"></sando-icon>
             Download
           </sando-button>
           <sando-button flavor="${args.flavor}" variant="ghost">
             Settings
-            <span slot="icon-end">⚙️</span>
+            <sando-icon slot="icon-end" name="settings" size="small"></sando-icon>
           </sando-button>
         </div>
       </div>
@@ -349,13 +350,14 @@ export const AllExamples: Story = {
         <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
           <sando-button flavor="${args.flavor}" href="https://example.com" target="_blank">
             Visit Site
-            <span slot="icon-end">→</span>
+            <sando-icon slot="icon-end" name="external-link" size="small"></sando-icon>
           </sando-button>
           <sando-button flavor="${args.flavor}" variant="outline" href="/">
-            <span slot="icon-start">🏠</span>
+            <sando-icon slot="icon-start" name="home" size="small"></sando-icon>
             Home
           </sando-button>
           <sando-button flavor="${args.flavor}" variant="ghost" href="/docs">
+            <sando-icon slot="icon-start" name="book" size="small"></sando-icon>
             Documentation
           </sando-button>
         </div>
@@ -363,28 +365,28 @@ export const AllExamples: Story = {
 
       <!-- Icon-only Buttons -->
       <div>
-        <h3 style="margin-bottom: 1rem;">Icon-only (Square)</h3>
+        <h3 style="margin-bottom: 1rem;">Icon-only (Square) with sando-icon</h3>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
-          <sando-button flavor="${args.flavor}" icon-only size="small">
-            <span slot="icon-start">⭐</span>
+          <sando-button flavor="${args.flavor}" icon-only size="small" aria-label="Favorite">
+            <sando-icon slot="icon-start" name="star" size="small"></sando-icon>
           </sando-button>
-          <sando-button flavor="${args.flavor}" icon-only size="medium">
-            <span slot="icon-start">❤️</span>
+          <sando-button flavor="${args.flavor}" icon-only size="medium" aria-label="Like">
+            <sando-icon slot="icon-start" name="heart" size="small"></sando-icon>
           </sando-button>
-          <sando-button flavor="${args.flavor}" icon-only size="large">
-            <span slot="icon-start">⚙️</span>
+          <sando-button flavor="${args.flavor}" icon-only size="large" aria-label="Settings">
+            <sando-icon slot="icon-start" name="settings" size="medium"></sando-icon>
           </sando-button>
-          <sando-button flavor="${args.flavor}" icon-only variant="outline">
-            <span slot="icon-start">🗑️</span>
+          <sando-button flavor="${args.flavor}" icon-only variant="outline" aria-label="Delete">
+            <sando-icon slot="icon-start" name="trash-2" size="small"></sando-icon>
           </sando-button>
-          <sando-button flavor="${args.flavor}" icon-only variant="ghost">
-            <span slot="icon-start">✏️</span>
+          <sando-button flavor="${args.flavor}" icon-only variant="ghost" aria-label="Edit">
+            <sando-icon slot="icon-start" name="edit" size="small"></sando-icon>
           </sando-button>
-          <sando-button flavor="${args.flavor}" icon-only status="success">
-            <span slot="icon-start">✓</span>
+          <sando-button flavor="${args.flavor}" icon-only status="success" aria-label="Confirm">
+            <sando-icon slot="icon-start" name="check" size="small"></sando-icon>
           </sando-button>
-          <sando-button flavor="${args.flavor}" icon-only status="destructive">
-            <span slot="icon-start">✗</span>
+          <sando-button flavor="${args.flavor}" icon-only status="destructive" aria-label="Cancel">
+            <sando-icon slot="icon-start" name="x" size="small"></sando-icon>
           </sando-button>
         </div>
       </div>
