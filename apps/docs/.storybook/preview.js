@@ -84,19 +84,25 @@ const preview = {
 
       // Remove any existing flavor-mode attribute
       document.documentElement.removeAttribute('flavor-mode');
+      document.body.removeAttribute('flavor-mode');
 
       // Apply flavor-mode if not 'auto' (auto uses @media query)
       if (flavorMode === 'light' || flavorMode === 'dark') {
         document.documentElement.setAttribute('flavor-mode', flavorMode);
+        document.body.setAttribute('flavor-mode', flavorMode);
       }
 
-      // Update background based on mode
+      // Update background and color based on mode
       const isDark = flavorMode === 'dark' ||
                      (flavorMode === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
 
-      document.documentElement.style.backgroundColor = isDark
-        ? 'var(--sando-color-background-base, #0a0a0a)'
-        : 'var(--sando-color-background-base, #ffffff)';
+      if (isDark) {
+        document.documentElement.style.backgroundColor = 'var(--sando-color-background-base, #0a0a0a)';
+        document.documentElement.style.color = 'var(--sando-color-text-body, #e5e5e5)';
+      } else {
+        document.documentElement.style.backgroundColor = 'var(--sando-color-background-base, #ffffff)';
+        document.documentElement.style.color = 'var(--sando-color-text-body, #1f2937)';
+      }
 
       return story();
     }

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dark Mode Test - Sando Design System</title>
+
+  <!-- Import Ingredients -->
+  <link rel="stylesheet" href="./packages/tokens/dist/sando-tokens/css/ingredients/color.css">
+  <link rel="stylesheet" href="./packages/tokens/dist/sando-tokens/css/ingredients/space.css">
+  <link rel="stylesheet" href="./packages/tokens/dist/sando-tokens/css/ingredients/font.css">
+
+  <!-- Import Flavors (light + dark) -->
+  <link rel="stylesheet" href="./packages/tokens/dist/sando-tokens/css/flavors/original/index.css">
+  <link rel="stylesheet" href="./packages/tokens/dist/sando-tokens/css/flavors/original/dark.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--sando-font-family-sans);
+      background: var(--sando-color-background-base);
+      color: var(--sando-color-text-body);
+      padding: var(--sando-space-8);
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .controls {
+      display: flex;
+      gap: var(--sando-space-4);
+      margin-bottom: var(--sando-space-8);
+      padding: var(--sando-space-4);
+      background: var(--sando-color-background-surface);
+      border-radius: 8px;
+    }
+
+    button {
+      padding: var(--sando-space-3) var(--sando-space-6);
+      background: var(--sando-color-action-solid-background-default);
+      color: var(--sando-color-action-solid-text-default);
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: var(--sando-font-size-200);
+      font-weight: var(--sando-font-weight-600);
+    }
+
+    button:hover {
+      background: var(--sando-color-action-solid-background-hover);
+    }
+
+    .card {
+      background: var(--sando-color-background-raised);
+      padding: var(--sando-space-6);
+      border-radius: 12px;
+      margin-bottom: var(--sando-space-4);
+      border: 1px solid var(--sando-color-border-default);
+    }
+
+    h1 {
+      color: var(--sando-color-text-heading);
+      font-size: var(--sando-font-size-700);
+      margin-bottom: var(--sando-space-4);
+    }
+
+    h2 {
+      color: var(--sando-color-text-heading);
+      font-size: var(--sando-font-size-500);
+      margin-bottom: var(--sando-space-3);
+    }
+
+    p {
+      color: var(--sando-color-text-body);
+      line-height: var(--sando-font-lineHeight-body);
+      margin-bottom: var(--sando-space-2);
+    }
+
+    .caption {
+      color: var(--sando-color-text-caption);
+      font-size: var(--sando-font-size-caption);
+    }
+
+    .info-banner {
+      padding: var(--sando-space-4);
+      background: var(--sando-color-background-emphasis);
+      border-radius: 8px;
+      margin-top: var(--sando-space-6);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Dark Mode Test</h1>
+
+    <div class="controls">
+      <button onclick="setMode('auto')">☀️ Auto</button>
+      <button onclick="setMode('light')">☀️ Light</button>
+      <button onclick="setMode('dark')">🌙 Dark</button>
+    </div>
+
+    <div class="card">
+      <h2>Current Mode</h2>
+      <p id="current-mode">Auto (System Preference)</p>
+      <p class="caption">Click the buttons above to change the flavor-mode</p>
+    </div>
+
+    <div class="card">
+      <h2>Background Colors</h2>
+      <p>Base: <code id="bg-base">-</code></p>
+      <p>Surface: <code id="bg-surface">-</code></p>
+      <p>Raised: <code id="bg-raised">-</code></p>
+    </div>
+
+    <div class="card">
+      <h2>Text Colors</h2>
+      <p>Heading: <code id="text-heading">-</code></p>
+      <p>Body: <code id="text-body">-</code></p>
+      <p class="caption">Caption: <code id="text-caption">-</code></p>
+    </div>
+
+    <div class="info-banner">
+      <strong>ℹ️ How it works:</strong>
+      <ul>
+        <li><strong>Auto:</strong> Uses @media (prefers-color-scheme: dark)</li>
+        <li><strong>Light:</strong> Sets [flavor-mode="light"] on HTML (overrides @media)</li>
+        <li><strong>Dark:</strong> Sets [flavor-mode="dark"] on HTML</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    function setMode(mode) {
+      const html = document.documentElement;
+
+      if (mode === 'auto') {
+        html.removeAttribute('flavor-mode');
+        document.getElementById('current-mode').textContent = 'Auto (System Preference)';
+      } else if (mode === 'light') {
+        html.setAttribute('flavor-mode', 'light');
+        document.getElementById('current-mode').textContent = 'Light (Manual Override)';
+      } else if (mode === 'dark') {
+        html.setAttribute('flavor-mode', 'dark');
+        document.getElementById('current-mode').textContent = 'Dark (Manual Override)';
+      }
+
+      updateColors();
+    }
+
+    function updateColors() {
+      const root = document.documentElement;
+      const styles = getComputedStyle(root);
+
+      document.getElementById('bg-base').textContent = styles.getPropertyValue('--sando-color-background-base');
+      document.getElementById('bg-surface').textContent = styles.getPropertyValue('--sando-color-background-surface');
+      document.getElementById('bg-raised').textContent = styles.getPropertyValue('--sando-color-background-raised');
+      document.getElementById('text-heading').textContent = styles.getPropertyValue('--sando-color-text-heading');
+      document.getElementById('text-body').textContent = styles.getPropertyValue('--sando-color-text-body');
+      document.getElementById('text-caption').textContent = styles.getPropertyValue('--sando-color-text-caption');
+    }
+
+    // Initial update
+    updateColors();
+  </script>
+</body>
+</html>

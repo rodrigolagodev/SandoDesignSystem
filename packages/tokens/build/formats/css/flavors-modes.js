@@ -66,9 +66,15 @@ function generateHeader(flavorName, mode) {
 function generateLightModeCSS(flavorName, grouped) {
   let output = '';
 
-  // Generate selector for light mode
+  // 1. Default light mode selector
   const selector = generateLightSelector(flavorName);
   output += `${selector} {\n`;
+  output += generateTokens(grouped);
+  output += '}\n\n';
+
+  // 2. Explicit [flavor-mode="light"] selector to override @media dark
+  const lightModeSelector = generateLightModeSelector(flavorName);
+  output += `${lightModeSelector} {\n`;
   output += generateTokens(grouped);
   output += '}\n';
 
@@ -106,6 +112,16 @@ function generateLightSelector(flavorName) {
     return ':host:not([flavor]), :host([flavor="original"]), :root:not([flavor]), [flavor="original"]';
   }
   return `:host([flavor="${flavorName}"]), [flavor="${flavorName}"]`;
+}
+
+/**
+ * Generate explicit light mode selector (overrides @media dark)
+ */
+function generateLightModeSelector(flavorName) {
+  if (flavorName === 'original') {
+    return ':host([flavor-mode="light"]):not([flavor]), :host([flavor="original"][flavor-mode="light"]), :root[flavor-mode="light"]:not([flavor]), [flavor="original"][flavor-mode="light"]';
+  }
+  return `:host([flavor="${flavorName}"][flavor-mode="light"]), [flavor="${flavorName}"][flavor-mode="light"]`;
 }
 
 /**
