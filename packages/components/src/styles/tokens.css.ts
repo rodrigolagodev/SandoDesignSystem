@@ -25,8 +25,8 @@ import ingredientsSpace from '@sando/tokens/dist/sando-tokens/css/ingredients/sp
 import ingredientsZIndex from '@sando/tokens/dist/sando-tokens/css/ingredients/z-index.css?inline';
 
 // Import all flavors
-import flavorOriginal from '@sando/tokens/dist/sando-tokens/css/flavors/original.css?inline';
-import flavorOriginalDark from '@sando/tokens/dist/sando-tokens/css/flavors/original-dark.css?inline';
+import flavorOriginal from '@sando/tokens/dist/sando-tokens/css/flavors/original/index.css?inline';
+import flavorOriginalDark from '@sando/tokens/dist/sando-tokens/css/flavors/original/dark.css?inline';
 
 // Import all recipes
 import recipeButton from '@sando/tokens/dist/sando-tokens/css/recipes/button.css?inline';
