@@ -1,0 +1,265 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Foundations/Color" />
+
+# Color
+
+The Sando Design System uses a carefully crafted color palette built on **Ingredients tokens** (Layer 1). These primitive color values serve as the foundation for all semantic color tokens in the **Flavors** and **Recipes** layers.
+
+## Color Philosophy
+
+Our color system follows a three-layer architecture:
+
+1. **Ingredients** (this page) - Raw, absolute HSL values
+2. **Flavors** - Contextual semantic mappings (e.g., `color.background.base`)
+3. **Recipes** - Component-specific tokens (e.g., `button.solid.backgroundColor`)
+
+---
+
+## Brand Colors
+
+The primary brand palette, inspired by the warm tones of a katsu sando. Used for primary actions, links, and brand moments.
+
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: '16px', marginTop: '24px' }}>
+  {[50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950].map((shade) => (
+    <div key={shade} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+      <div
+        style={{
+          backgroundColor: `var(--sando-color-brand-${shade})`,
+          height: '80px',
+          borderRadius: '8px',
+          border: '1px solid rgba(0,0,0,0.1)',
+          boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
+        }}
+      />
+      <div style={{ fontSize: '12px', fontWeight: '600' }}>brand-{shade}</div>
+      <div style={{ fontSize: '11px', color: 'var(--sando-color-text-caption)', fontFamily: 'monospace' }}>
+        --sando-color-brand-{shade}
+      </div>
+    </div>
+  ))}
+</div>
+
+---
+
+## Neutral Colors
+
+A warm neutral palette for text, backgrounds, and borders. Provides excellent readability in both light and dark modes.
+
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: '16px', marginTop: '24px' }}>
+  {[50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950].map((shade) => (
+    <div key={shade} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+      <div
+        style={{
+          backgroundColor: `var(--sando-color-neutral-${shade})`,
+          height: '80px',
+          borderRadius: '8px',
+          border: '1px solid rgba(0,0,0,0.1)',
+          boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
+        }}
+      />
+      <div style={{ fontSize: '12px', fontWeight: '600' }}>neutral-{shade}</div>
+      <div style={{ fontSize: '11px', color: 'var(--sando-color-text-caption)', fontFamily: 'monospace' }}>
+        --sando-color-neutral-{shade}
+      </div>
+    </div>
+  ))}
+</div>
+
+---
+
+## State Colors
+
+Semantic colors for communicating status, feedback, and actions.
+
+### Error
+
+For destructive actions, errors, and critical warnings.
+
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: '16px', marginTop: '24px' }}>
+  {[100, 300, 400, 500, 600, 700, 900].map((shade) => (
+    <div key={shade} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+      <div
+        style={{
+          backgroundColor: `var(--sando-color-state-error-${shade})`,
+          height: '80px',
+          borderRadius: '8px',
+          border: '1px solid rgba(0,0,0,0.1)',
+          boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
+        }}
+      />
+      <div style={{ fontSize: '12px', fontWeight: '600' }}>error-{shade}</div>
+      <div style={{ fontSize: '11px', color: 'var(--sando-color-text-caption)', fontFamily: 'monospace' }}>
+        --sando-color-state-error-{shade}
+      </div>
+    </div>
+  ))}
+</div>
+
+### Success
+
+For positive feedback, confirmations, and successful operations.
+
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: '16px', marginTop: '24px' }}>
+  {[100, 300, 400, 500, 600, 700, 900].map((shade) => (
+    <div key={shade} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+      <div
+        style={{
+          backgroundColor: `var(--sando-color-state-success-${shade})`,
+          height: '80px',
+          borderRadius: '8px',
+          border: '1px solid rgba(0,0,0,0.1)',
+          boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
+        }}
+      />
+      <div style={{ fontSize: '12px', fontWeight: '600' }}>success-{shade}</div>
+      <div style={{ fontSize: '11px', color: 'var(--sando-color-text-caption)', fontFamily: 'monospace' }}>
+        --sando-color-state-success-{shade}
+      </div>
+    </div>
+  ))}
+</div>
+
+### Warning
+
+For cautionary messages and alerts.
+
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: '16px', marginTop: '24px' }}>
+  {[100, 500, 700].map((shade) => (
+    <div key={shade} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+      <div
+        style={{
+          backgroundColor: `var(--sando-color-state-warning-${shade})`,
+          height: '80px',
+          borderRadius: '8px',
+          border: '1px solid rgba(0,0,0,0.1)',
+          boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
+        }}
+      />
+      <div style={{ fontSize: '12px', fontWeight: '600' }}>warning-{shade}</div>
+      <div style={{ fontSize: '11px', color: 'var(--sando-color-text-caption)', fontFamily: 'monospace' }}>
+        --sando-color-state-warning-{shade}
+      </div>
+    </div>
+  ))}
+</div>
+
+### Info
+
+For informational messages and tips.
+
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: '16px', marginTop: '24px' }}>
+  {[100, 500, 700].map((shade) => (
+    <div key={shade} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+      <div
+        style={{
+          backgroundColor: `var(--sando-color-state-info-${shade})`,
+          height: '80px',
+          borderRadius: '8px',
+          border: '1px solid rgba(0,0,0,0.1)',
+          boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
+        }}
+      />
+      <div style={{ fontSize: '12px', fontWeight: '600' }}>info-{shade}</div>
+      <div style={{ fontSize: '11px', color: 'var(--sando-color-text-caption)', fontFamily: 'monospace' }}>
+        --sando-color-state-info-{shade}
+      </div>
+    </div>
+  ))}
+</div>
+
+---
+
+## Utility Colors
+
+Special-purpose colors for specific use cases.
+
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: '16px', marginTop: '24px' }}>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+    <div
+      style={{
+        backgroundColor: 'var(--sando-color-utility-white)',
+        height: '80px',
+        borderRadius: '8px',
+        border: '1px solid rgba(0,0,0,0.2)',
+        boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
+      }}
+    />
+    <div style={{ fontSize: '12px', fontWeight: '600' }}>white</div>
+    <div style={{ fontSize: '11px', color: 'var(--sando-color-text-caption)', fontFamily: 'monospace' }}>
+      --sando-color-utility-white
+    </div>
+  </div>
+
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+    <div
+      style={{
+        backgroundColor: 'var(--sando-color-utility-black)',
+        height: '80px',
+        borderRadius: '8px',
+        border: '1px solid rgba(0,0,0,0.1)',
+        boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
+      }}
+    />
+    <div style={{ fontSize: '12px', fontWeight: '600' }}>black</div>
+    <div style={{ fontSize: '11px', color: 'var(--sando-color-text-caption)', fontFamily: 'monospace' }}>
+      --sando-color-utility-black
+    </div>
+  </div>
+
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+    <div
+      style={{
+        backgroundColor: 'var(--sando-color-utility-transparent)',
+        height: '80px',
+        borderRadius: '8px',
+        border: '1px dashed rgba(0,0,0,0.3)',
+        boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+        backgroundImage: 'linear-gradient(45deg, #ccc 25%, transparent 25%), linear-gradient(-45deg, #ccc 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #ccc 75%), linear-gradient(-45deg, transparent 75%, #ccc 75%)',
+        backgroundSize: '20px 20px',
+        backgroundPosition: '0 0, 0 10px, 10px -10px, -10px 0px'
+      }}
+    />
+    <div style={{ fontSize: '12px', fontWeight: '600' }}>transparent</div>
+    <div style={{ fontSize: '11px', color: 'var(--sando-color-text-caption)', fontFamily: 'monospace' }}>
+      --sando-color-utility-transparent
+    </div>
+  </div>
+</div>
+
+---
+
+## Usage Guidelines
+
+### Do's
+
+- ✅ Use Ingredients tokens directly in rare cases when building new Flavor tokens
+- ✅ Reference brand colors for primary actions and brand moments
+- ✅ Use neutral colors for text, backgrounds, and UI structure
+- ✅ Apply state colors consistently across all feedback scenarios
+
+### Don'ts
+
+- ❌ Don't use Ingredients tokens directly in components (use Recipes instead)
+- ❌ Don't mix color systems (stay within the design system)
+- ❌ Don't use hardcoded color values in your code
+- ❌ Don't use state colors for decorative purposes
+
+---
+
+## Accessibility
+
+All color combinations in our Flavors layer meet **WCAG 2.1 AA** standards for color contrast:
+- **Text**: Minimum 4.5:1 contrast ratio
+- **Large text**: Minimum 3:1 contrast ratio
+- **UI components**: Minimum 3:1 contrast ratio
+
+The color system is designed to work seamlessly in both light and dark modes.
+
+---
+
+## Related
+
+- **Flavors Layer** - See how these colors are used semantically
+- **Recipes Layer** - Component-specific color applications
+- **Dark Mode** - How colors adapt to dark theme

@@ -1,0 +1,309 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Foundations/Spacing" />
+
+# Spacing
+
+The Sando Design System uses a consistent spacing scale based on a **4px base unit** (0.25rem). This creates visual rhythm and maintains consistency across all components and layouts.
+
+## Spacing Scale
+
+Our spacing system uses numeric tokens that follow a logical progression, making it easy to create balanced layouts.
+
+<div style={{ marginTop: '32px' }}>
+  {[
+    { token: '0', value: '0rem', px: '0px' },
+    { token: '1', value: '0.25rem', px: '4px' },
+    { token: '2', value: '0.5rem', px: '8px' },
+    { token: '3', value: '0.75rem', px: '12px' },
+    { token: '4', value: '1rem', px: '16px' },
+    { token: '5', value: '1.25rem', px: '20px' },
+    { token: '6', value: '1.5rem', px: '24px' },
+    { token: '7', value: '1.75rem', px: '28px' },
+    { token: '8', value: '2rem', px: '32px' },
+    { token: '9', value: '2.25rem', px: '36px' },
+    { token: '10', value: '2.5rem', px: '40px' },
+    { token: '11', value: '2.75rem', px: '44px' },
+    { token: '12', value: '3rem', px: '48px' },
+    { token: '13', value: '3.25rem', px: '52px' },
+    { token: '16', value: '4rem', px: '64px' },
+    { token: '20', value: '5rem', px: '80px' },
+    { token: '24', value: '6rem', px: '96px' },
+    { token: '32', value: '8rem', px: '128px' },
+    { token: '40', value: '10rem', px: '160px' },
+    { token: '48', value: '12rem', px: '192px' },
+    { token: '64', value: '16rem', px: '256px' },
+  ].map(({ token, value, px }) => (
+    <div
+      key={token}
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '24px',
+        padding: '12px 16px',
+        borderBottom: '1px solid var(--sando-color-border-muted)',
+      }}
+    >
+      <div
+        style={{
+          fontFamily: 'monospace',
+          fontSize: '12px',
+          color: 'var(--sando-color-text-caption)',
+          minWidth: '60px',
+        }}
+      >
+        space-{token}
+      </div>
+      <div
+        style={{
+          flex: '0 0 auto',
+          display: 'flex',
+          alignItems: 'center',
+        }}
+      >
+        <div
+          style={{
+            width: `var(--sando-space-${token})`,
+            height: '24px',
+            backgroundColor: 'var(--sando-color-brand-500)',
+            borderRadius: '2px',
+          }}
+        />
+      </div>
+      <div
+        style={{
+          fontFamily: 'monospace',
+          fontSize: '11px',
+          color: 'var(--sando-color-text-muted)',
+          minWidth: '120px',
+        }}
+      >
+        {value} / {px}
+      </div>
+    </div>
+  ))}
+</div>
+
+<div style={{ marginTop: '16px', padding: '12px', backgroundColor: 'var(--sando-color-background-emphasis)', borderRadius: '8px', fontSize: '14px' }}>
+  <strong>Usage:</strong> <code style={{ fontFamily: 'monospace', fontSize: '13px' }}>var(--sando-space-4)</code>
+</div>
+
+---
+
+## Common Use Cases
+
+### Inset Spacing (Padding)
+
+Spacing inside elements like buttons, cards, and containers.
+
+<div style={{ marginTop: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+  <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+    <div
+      style={{
+        padding: 'var(--sando-space-2)',
+        backgroundColor: 'var(--sando-color-brand-100)',
+        border: '2px solid var(--sando-color-brand-500)',
+        borderRadius: '4px',
+        fontFamily: 'monospace',
+        fontSize: '12px',
+      }}
+    >
+      space-2 (8px)
+    </div>
+    <span style={{ fontSize: '14px', color: 'var(--sando-color-text-caption)' }}>
+      Tight padding (badges, tags)
+    </span>
+  </div>
+
+  <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+    <div
+      style={{
+        padding: 'var(--sando-space-4)',
+        backgroundColor: 'var(--sando-color-brand-100)',
+        border: '2px solid var(--sando-color-brand-500)',
+        borderRadius: '4px',
+        fontFamily: 'monospace',
+        fontSize: '12px',
+      }}
+    >
+      space-4 (16px)
+    </div>
+    <span style={{ fontSize: '14px', color: 'var(--sando-color-text-caption)' }}>
+      Default padding (buttons, inputs)
+    </span>
+  </div>
+
+  <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+    <div
+      style={{
+        padding: 'var(--sando-space-6)',
+        backgroundColor: 'var(--sando-color-brand-100)',
+        border: '2px solid var(--sando-color-brand-500)',
+        borderRadius: '4px',
+        fontFamily: 'monospace',
+        fontSize: '12px',
+      }}
+    >
+      space-6 (24px)
+    </div>
+    <span style={{ fontSize: '14px', color: 'var(--sando-color-text-caption)' }}>
+      Comfortable padding (cards, panels)
+    </span>
+  </div>
+</div>
+
+---
+
+### Stack Spacing (Margins/Gap)
+
+Vertical spacing between stacked elements.
+
+<div style={{ marginTop: '24px' }}>
+  <div style={{ marginBottom: 'var(--sando-space-1)' }}>
+    <div style={{ padding: '12px', backgroundColor: 'var(--sando-color-background-surface)', borderRadius: '4px', fontSize: '14px' }}>
+      Element 1
+    </div>
+  </div>
+  <div style={{ fontFamily: 'monospace', fontSize: '11px', color: 'var(--sando-color-text-caption)', marginBottom: 'var(--sando-space-1)', textAlign: 'center' }}>
+    ↕ space-1 (4px) - Tight
+  </div>
+  <div>
+    <div style={{ padding: '12px', backgroundColor: 'var(--sando-color-background-surface)', borderRadius: '4px', fontSize: '14px' }}>
+      Element 2
+    </div>
+  </div>
+</div>
+
+<div style={{ marginTop: '32px' }}>
+  <div style={{ marginBottom: 'var(--sando-space-4)' }}>
+    <div style={{ padding: '12px', backgroundColor: 'var(--sando-color-background-surface)', borderRadius: '4px', fontSize: '14px' }}>
+      Element 1
+    </div>
+  </div>
+  <div style={{ fontFamily: 'monospace', fontSize: '11px', color: 'var(--sando-color-text-caption)', marginBottom: 'var(--sando-space-4)', textAlign: 'center' }}>
+    ↕ space-4 (16px) - Default
+  </div>
+  <div>
+    <div style={{ padding: '12px', backgroundColor: 'var(--sando-color-background-surface)', borderRadius: '4px', fontSize: '14px' }}>
+      Element 2
+    </div>
+  </div>
+</div>
+
+<div style={{ marginTop: '32px' }}>
+  <div style={{ marginBottom: 'var(--sando-space-8)' }}>
+    <div style={{ padding: '12px', backgroundColor: 'var(--sando-color-background-surface)', borderRadius: '4px', fontSize: '14px' }}>
+      Element 1
+    </div>
+  </div>
+  <div style={{ fontFamily: 'monospace', fontSize: '11px', color: 'var(--sando-color-text-caption)', marginBottom: 'var(--sando-space-8)', textAlign: 'center' }}>
+    ↕ space-8 (32px) - Comfortable
+  </div>
+  <div>
+    <div style={{ padding: '12px', backgroundColor: 'var(--sando-color-background-surface)', borderRadius: '4px', fontSize: '14px' }}>
+      Element 2
+    </div>
+  </div>
+</div>
+
+---
+
+### Inline Spacing (Horizontal Gap)
+
+Spacing between inline elements.
+
+<div style={{ marginTop: '24px', display: 'flex', gap: 'var(--sando-space-2)', alignItems: 'center', padding: '16px', backgroundColor: 'var(--sando-color-background-surface)', borderRadius: '8px' }}>
+  <div style={{ padding: '8px 16px', backgroundColor: 'var(--sando-color-brand-500)', color: 'white', borderRadius: '4px', fontSize: '14px' }}>
+    Item
+  </div>
+  <div style={{ padding: '8px 16px', backgroundColor: 'var(--sando-color-brand-500)', color: 'white', borderRadius: '4px', fontSize: '14px' }}>
+    Item
+  </div>
+  <div style={{ padding: '8px 16px', backgroundColor: 'var(--sando-color-brand-500)', color: 'white', borderRadius: '4px', fontSize: '14px' }}>
+    Item
+  </div>
+  <div style={{ fontFamily: 'monospace', fontSize: '11px', color: 'var(--sando-color-text-caption)', marginLeft: 'auto' }}>
+    gap: space-2 (8px)
+  </div>
+</div>
+
+<div style={{ marginTop: '16px', display: 'flex', gap: 'var(--sando-space-4)', alignItems: 'center', padding: '16px', backgroundColor: 'var(--sando-color-background-surface)', borderRadius: '8px' }}>
+  <div style={{ padding: '8px 16px', backgroundColor: 'var(--sando-color-brand-500)', color: 'white', borderRadius: '4px', fontSize: '14px' }}>
+    Item
+  </div>
+  <div style={{ padding: '8px 16px', backgroundColor: 'var(--sando-color-brand-500)', color: 'white', borderRadius: '4px', fontSize: '14px' }}>
+    Item
+  </div>
+  <div style={{ padding: '8px 16px', backgroundColor: 'var(--sando-color-brand-500)', color: 'white', borderRadius: '4px', fontSize: '14px' }}>
+    Item
+  </div>
+  <div style={{ fontFamily: 'monospace', fontSize: '11px', color: 'var(--sando-color-text-caption)', marginLeft: 'auto' }}>
+    gap: space-4 (16px)
+  </div>
+</div>
+
+---
+
+## Spacing Principles
+
+### The 4px Base Unit
+
+All spacing values are multiples of 4px (0.25rem), creating a consistent rhythm:
+
+- **Small spaces (1-4)**: Fine-tune dense UI elements
+- **Medium spaces (5-12)**: Standard component spacing
+- **Large spaces (13-24)**: Section and layout spacing
+- **XL spaces (32-64)**: Page-level layout and whitespace
+
+### Consistent Rhythm
+
+Using a predictable scale helps create visual balance and makes design decisions easier.
+
+<div style={{ marginTop: '24px', padding: '16px', backgroundColor: 'var(--sando-color-background-emphasis)', borderRadius: '8px' }}>
+  <strong>Example hierarchy:</strong>
+  <ul style={{ marginTop: '8px', marginBottom: '0', fontSize: '14px', lineHeight: '1.6' }}>
+    <li>Tight: <code>space-1</code> (4px) - Related items</li>
+    <li>Default: <code>space-4</code> (16px) - Component internal spacing</li>
+    <li>Comfortable: <code>space-6</code> (24px) - Between components</li>
+    <li>Spacious: <code>space-8</code> (32px) - Between sections</li>
+  </ul>
+</div>
+
+---
+
+## Usage Guidelines
+
+### Do's
+
+- ✅ Use tokens from the spacing scale for all margins, padding, and gaps
+- ✅ Prefer larger spacing values for better readability
+- ✅ Use consistent spacing within similar components
+- ✅ Create visual hierarchy with spacing variation
+
+### Don'ts
+
+- ❌ Don't use arbitrary spacing values outside the scale
+- ❌ Don't use too-tight spacing that reduces readability
+- ❌ Don't mix spacing systems (stick to the 4px base)
+- ❌ Don't use spacing tokens for sizing (use sizing tokens instead)
+
+---
+
+## Responsive Spacing
+
+While these tokens provide fixed values, you can use CSS clamp() or media queries to adjust spacing responsively:
+
+```css
+.element {
+  /* Responsive padding */
+  padding: clamp(var(--sando-space-4), 3vw, var(--sando-space-8));
+}
+```
+
+---
+
+## Related
+
+- **Flavors Layer** - Semantic spacing tokens (inset, stack, inline)
+- **Layout** - Grid and container spacing
+- **Components** - Spacing in context
