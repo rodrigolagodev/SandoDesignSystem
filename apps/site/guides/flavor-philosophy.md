@@ -1,7 +1,5 @@
 # Why Flavors, Not Themes
 
-<parameter name="philosophy">
-
 ## The Problem with Traditional Theming
 
 Most design systems use generic approaches like `data-theme` attributes or framework-specific `<ThemeProvider>` wrappers. While functional, these approaches have significant limitations:
