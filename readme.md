@@ -138,10 +138,38 @@ Sando uses a three-layer token system inspired by the "katsu sando" sandwich:
    - Component-specific tokens
    - Examples: `button-background-color`, `button-padding`
 
-**Theming**: Apply different flavors via HTML attribute:
+**Theming & Modes**: Apply different flavors and accessibility modes:
+
 ```html
-<sando-button flavor="strawberry">Click me</sando-button>
+<!-- Flavor (color palette) -->
+<sando-button flavor="original">Click me</sando-button>
+
+<!-- Auto dark mode (via system preference) -->
+<sando-button>Auto adapts to dark mode</sando-button>
+
+<!-- Force dark mode -->
+<html flavor-mode="dark">
+  <sando-button>Dark mode</sando-button>
+</html>
+
+<!-- High contrast for accessibility -->
+<html flavor-mode="high-contrast">
+  <sando-button>Maximum contrast</sando-button>
+</html>
 ```
+
+### Supported Modes
+
+**Color Modes** (mutually exclusive):
+- ✅ **Light** (default) - Base colors
+- ✅ **Dark** (`flavor-mode="dark"`) - Auto via `@media (prefers-color-scheme: dark)` or manual
+- ✅ **High Contrast** (`flavor-mode="high-contrast"`) - WCAG AAA compliance
+- ✅ **Forced Colors** - Windows High Contrast (auto only)
+
+**Motion Mode** (independent):
+- ✅ **Motion Reduce** - Auto via `@media (prefers-reduced-motion: reduce)`
+
+All modes work automatically based on system preferences, with manual override support for color modes.
 
 ## 🛠️ Tech Stack
 

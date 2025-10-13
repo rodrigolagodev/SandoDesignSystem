@@ -24,12 +24,17 @@ import ingredientsOpacity from '@sando/tokens/dist/sando-tokens/css/ingredients/
 import ingredientsSpace from '@sando/tokens/dist/sando-tokens/css/ingredients/space.css?inline';
 import ingredientsZIndex from '@sando/tokens/dist/sando-tokens/css/ingredients/z-index.css?inline';
 
-// Import all flavors
-import flavorOriginal from '@sando/tokens/dist/sando-tokens/css/flavors/original/index.css?inline';
-import flavorOriginalDark from '@sando/tokens/dist/sando-tokens/css/flavors/original/dark.css?inline';
+// Import all flavors - base mode + all mode variants
+import flavorOriginal from '@sando/tokens/dist/sando-tokens/css/flavors/original/flavor.css?inline';
+import flavorOriginalLight from '@sando/tokens/dist/sando-tokens/css/flavors/original/flavor-light.css?inline';
+import flavorOriginalDark from '@sando/tokens/dist/sando-tokens/css/flavors/original/flavor-dark.css?inline';
+import flavorOriginalHighContrast from '@sando/tokens/dist/sando-tokens/css/flavors/original/flavor-high-contrast.css?inline';
+import flavorOriginalForcedColors from '@sando/tokens/dist/sando-tokens/css/flavors/original/flavor-forced-colors.css?inline';
+import flavorOriginalMotionReduce from '@sando/tokens/dist/sando-tokens/css/flavors/original/flavor-motion-reduce.css?inline';
 
 // Import all recipes
 import recipeButton from '@sando/tokens/dist/sando-tokens/css/recipes/button.css?inline';
+import recipeIcon from '@sando/tokens/dist/sando-tokens/css/recipes/icon.css?inline';
 
 /**
  * Combined token styles for Web Components
@@ -49,13 +54,23 @@ export const tokenStyles = css`
   ${unsafeCSS(ingredientsZIndex)}
 
   /* ========================================
-     FLAVORS LAYER - All Themes
+     FLAVORS LAYER - All Themes & Modes
      ======================================== */
+  /* Base mode (default tokens) */
   ${unsafeCSS(flavorOriginal)}
+
+  /* Color modes (mutually exclusive) */
+  ${unsafeCSS(flavorOriginalLight)}
   ${unsafeCSS(flavorOriginalDark)}
+  ${unsafeCSS(flavorOriginalHighContrast)}
+  ${unsafeCSS(flavorOriginalForcedColors)}
+
+  /* Motion mode (independent - combines with any color mode) */
+  ${unsafeCSS(flavorOriginalMotionReduce)}
 
   /* ========================================
      RECIPES LAYER - Component Tokens
      ======================================== */
   ${unsafeCSS(recipeButton)}
+  ${unsafeCSS(recipeIcon)}
 `;

@@ -1,264 +1,307 @@
-# Theming
+# Theming & Color Modes
 
-Learn how to customize and theme Sando using the three-layer token architecture.
+Learn how to customize and theme Sando using the three-layer token architecture with automatic dark mode support.
 
-::: info Current Status
-Currently, only the `original` flavor is implemented. Additional flavors like `dark` and custom themes are planned for future releases. The examples below show the theming capabilities that will be available.
-:::
+## Understanding Flavors vs Modes
 
-## Understanding Flavors
+Sando separates theming into two independent concepts:
 
-Sando uses a concept called **"flavors"** for theming. Just like different sandwiches have different flavors, your design system can have multiple themes:
+### Flavors (Color Palettes)
+**Flavors** are complete color palettes - think of them as different "brands" or "themes":
+- `original` - The default Sando palette ✅ **Available**
+- `strawberry`, `ocean`, `mint` - Custom palettes 🚧 **Coming soon**
 
-- `original` - The default theme ✅ **Available now**
-- `dark` - Dark mode theme 🚧 **Coming soon**
-- Custom flavors - Create your own! 🚧 **Coming soon**
+### Modes (Accessibility Variants)
+**Modes** are accessibility-focused variants that work with ANY flavor:
 
-## How Theming Works
+**Color Modes** (mutually exclusive - only one at a time):
+- **Light** (default) - Base colors for daytime use
+- **Dark** (`flavor-mode="dark"`) - Inverted colors for low-light
+- **High Contrast** (`flavor-mode="high-contrast"`) - Maximum contrast for WCAG AAA
+- **Forced Colors** (system-only) - Windows High Contrast mode
 
-Sando's three-layer architecture enables powerful theming:
+**Motion Mode** (independent - combines with any color mode):
+- **Motion Reduce** (auto via `@media`) - Disables animations for accessibility
+
+## How It Works
 
 ```
-Recipes (Components)
-    ↓ references
-Flavors (Themes) ← You customize this layer!
-    ↓ references
-Ingredients (Primitives)
+┌─────────────────────────────────────────┐
+│  Flavor: original                       │
+│                                         │
+│  ┌─────────────┐  ┌─────────────┐     │
+│  │ Light Mode  │  │ Dark Mode   │     │
+│  │ (default)   │  │ (dark)      │     │
+│  └─────────────┘  └─────────────┘     │
+│                                         │
+│  ┌─────────────┐  ┌─────────────┐     │
+│  │ High        │  │ Forced      │     │
+│  │ Contrast    │  │ Colors      │     │
+│  └─────────────┘  └─────────────┘     │
+│                                         │
+│  + Motion Reduce (works with all)      │
+└─────────────────────────────────────────┘
 ```
 
-By changing the **Flavors** layer, you retheme the entire design system without touching components or primitives.
+Each **flavor** has multiple **mode** variants. Modes are automatically applied based on user preferences or can be manually overridden.
 
-## Applying a Flavor (Future Capability)
+## Automatic Mode Detection
 
-::: tip Future Feature
-The examples below demonstrate planned theming capabilities. Currently, only the `original` flavor is available.
-:::
-
-### Via HTML Attribute
-
-The simplest way to apply a flavor (planned):
+Sando automatically detects and applies modes based on system preferences:
 
 ```html
-<!-- Default flavor - Available now -->
+<!-- User has dark mode enabled? Automatically applies dark colors -->
+<sando-button variant="solid">Auto Dark</sando-button>
+
+<!-- User has reduced motion enabled? Animations disabled automatically -->
+<sando-button variant="solid">No Animations</sando-button>
+
+<!-- User has high contrast enabled? Maximum contrast applied -->
+<sando-button variant="solid">High Contrast</sando-button>
+```
+
+**No JavaScript required!** Sando uses CSS `@media` queries:
+- `@media (prefers-color-scheme: dark)` → Dark mode
+- `@media (prefers-contrast: more)` → High contrast
+- `@media (prefers-reduced-motion: reduce)` → No animations
+- `@media (forced-colors: active)` → Windows High Contrast
+
+## Manual Mode Override
+
+Override automatic detection for testing or user preference:
+
+### Global Override (Entire Page)
+
+```html
+<!-- Force dark mode for entire page -->
+<html flavor-mode="dark">
+  <body>
+    <!-- All components inherit dark mode -->
+    <sando-button variant="solid">Dark Button</sando-button>
+    <sando-card>Dark Card</sando-card>
+  </body>
+</html>
+
+<!-- Force high contrast -->
+<html flavor-mode="high-contrast">
+  <body>
+    <sando-button variant="solid">High Contrast Button</sando-button>
+  </body>
+</html>
+```
+
+### Section Override
+
+```html
+<body>
+  <!-- Light mode section -->
+  <header>
+    <sando-button variant="solid">Light Button</sando-button>
+  </header>
+
+  <!-- Dark mode section -->
+  <section flavor-mode="dark">
+    <sando-button variant="solid">Dark Button</sando-button>
+    <sando-card>Dark Card</sando-card>
+  </section>
+
+  <!-- High contrast footer -->
+  <footer flavor-mode="high-contrast">
+    <sando-button variant="solid">High Contrast Button</sando-button>
+  </footer>
+</body>
+```
+
+### Component Override
+
+```html
+<!-- Override specific component -->
+<sando-button flavor-mode="dark" variant="solid">
+  Dark Button
+</sando-button>
+
+<!-- While others use auto mode -->
 <sando-button variant="solid">
-  Original
-</sando-button>
-
-<!-- Apply custom flavor - Coming soon -->
-<sando-button variant="solid" flavor="dark">
-  Dark Theme
+  Auto Mode Button
 </sando-button>
 ```
 
-### Via Container
+## Dark Mode Toggle
 
-Apply a flavor to all children:
-
-```html
-<div flavor="strawberry">
-  <!-- All Sando components inside inherit the strawberry flavor -->
-  <sando-button variant="solid">Button</sando-button>
-  <sando-input label="Name"></sando-input>
-  <sando-card>Card content</sando-card>
-</div>
-```
-
-### Via CSS Selector
-
-Target specific elements with CSS:
-
-```css
-/* Apply flavor to all buttons in a section */
-.hero-section sando-button {
-  /* Flavor is applied via the [flavor] attribute */
-}
-```
-
-```html
-<div class="hero-section">
-  <sando-button variant="solid" flavor="strawberry">
-    CTA Button
-  </sando-button>
-</div>
-```
-
-## Creating a Custom Flavor
-
-### Step 1: Define Your Flavor Tokens
-
-Create a new flavor file in your project:
-
-```json
-// flavors/mint.json
-{
-  "color": {
-    "background": {
-      "base": {
-        "value": "{color.green.50.value}",
-        "type": "color"
-      },
-      "surface": {
-        "value": "{color.green.100.value}",
-        "type": "color"
-      }
-    },
-    "text": {
-      "body": {
-        "value": "{color.green.900.value}",
-        "type": "color"
-      },
-      "heading": {
-        "value": "{color.green.950.value}",
-        "type": "color"
-      }
-    },
-    "action": {
-      "solid": {
-        "background": {
-          "default": {
-            "value": "{color.green.600.value}",
-            "type": "color"
-          },
-          "hover": {
-            "value": "{color.green.700.value}",
-            "type": "color"
-          }
-        }
-      }
-    }
-  }
-}
-```
-
-### Step 2: Build Your Custom Tokens
-
-Use Style Dictionary to generate CSS:
-
-```js
-// build-tokens.js
-import StyleDictionary from 'style-dictionary'
-
-const sd = new StyleDictionary({
-  source: ['flavors/mint.json'],
-  platforms: {
-    css: {
-      transformGroup: 'css',
-      buildPath: 'dist/css/flavors/',
-      files: [{
-        destination: 'mint.css',
-        format: 'css/variables',
-        options: {
-          selector: '[flavor="mint"]'
-        }
-      }]
-    }
-  }
-})
-
-await sd.buildAllPlatforms()
-```
-
-### Step 3: Import Your Flavor
-
-```ts
-import '@sando/tokens/css'
-import './dist/css/flavors/mint.css'  // Your custom flavor
-```
-
-### Step 4: Use Your Flavor
-
-```html
-<sando-button variant="solid" flavor="mint">
-  Mint Button
-</sando-button>
-```
-
-## Dark Mode
-
-Sando supports dark mode as a flavor:
-
-```html
-<!-- Automatically switches based on system preference -->
-<html class="auto">
-  <sando-button variant="solid">Auto Theme</sando-button>
-</html>
-
-<!-- Force dark mode -->
-<html flavor="dark">
-  <sando-button variant="solid">Dark Theme</sando-button>
-</html>
-
-<!-- Force light mode -->
-<html flavor="light">
-  <sando-button variant="solid">Light Theme</sando-button>
-</html>
-```
-
-### Implementing Dark Mode Toggle
+Implement a dark mode toggle with JavaScript:
 
 ```ts
 function toggleDarkMode() {
   const html = document.documentElement
-  const isDark = html.getAttribute('flavor') === 'dark'
+  const currentMode = html.getAttribute('flavor-mode')
 
-  html.setAttribute('flavor', isDark ? 'light' : 'dark')
-  localStorage.setItem('theme', isDark ? 'light' : 'dark')
+  if (currentMode === 'dark') {
+    // Remove attribute to use auto mode
+    html.removeAttribute('flavor-mode')
+    localStorage.setItem('theme', 'auto')
+  } else {
+    // Force dark mode
+    html.setAttribute('flavor-mode', 'dark')
+    localStorage.setItem('theme', 'dark')
+  }
 }
 
 // Restore theme on load
 const savedTheme = localStorage.getItem('theme')
-if (savedTheme) {
-  document.documentElement.setAttribute('flavor', savedTheme)
+if (savedTheme === 'dark') {
+  document.documentElement.setAttribute('flavor-mode', 'dark')
 }
 ```
 
-## Scoped Theming
+### Three-State Toggle (Auto/Light/Dark)
 
-Apply different themes to different sections:
+```ts
+type Theme = 'auto' | 'light' | 'dark'
+
+function cycleTheme() {
+  const html = document.documentElement
+  const currentMode = html.getAttribute('flavor-mode') || 'auto'
+
+  const modes: Theme[] = ['auto', 'light', 'dark']
+  const currentIndex = modes.indexOf(currentMode as Theme)
+  const nextMode = modes[(currentIndex + 1) % modes.length]
+
+  if (nextMode === 'auto') {
+    html.removeAttribute('flavor-mode')
+  } else {
+    html.setAttribute('flavor-mode', nextMode)
+  }
+
+  localStorage.setItem('theme', nextMode)
+}
+```
+
+## Color Modes Reference
+
+### Light Mode (Default)
 
 ```html
-<div class="container">
-  <!-- Header with dark theme -->
-  <header flavor="dark">
-    <sando-button variant="solid">Sign In</sando-button>
-  </header>
+<!-- No attribute needed - this is the default -->
+<sando-button variant="solid">Light Button</sando-button>
 
-  <!-- Main content with light theme -->
-  <main flavor="light">
-    <sando-card>Content...</sando-card>
-  </main>
-
-  <!-- Footer with custom theme -->
-  <footer flavor="mint">
-    <sando-button variant="outline">Contact</sando-button>
-  </footer>
+<!-- Or explicitly set (same as no attribute) -->
+<div flavor-mode="light">
+  <sando-button variant="solid">Light Button</sando-button>
 </div>
 ```
 
-## Runtime Theme Switching
+**When to use:**
+- Daytime reading
+- Well-lit environments
+- Maximum color fidelity
 
-Switch themes dynamically:
+### Dark Mode
 
-```ts
-function applyTheme(themeName: string) {
-  // Update root element
-  document.documentElement.setAttribute('flavor', themeName)
+```html
+<!-- Auto via system preference -->
+<sando-button variant="solid">Auto Dark</sando-button>
 
-  // Or update specific container
-  const container = document.querySelector('.themed-section')
-  container?.setAttribute('flavor', themeName)
-}
+<!-- Manual override -->
+<div flavor-mode="dark">
+  <sando-button variant="solid">Dark Button</sando-button>
+</div>
+```
 
-// Usage
-applyTheme('strawberry')
+**When to use:**
+- Low-light environments
+- Night reading
+- OLED screen battery saving
+- User preference
+
+**Automatic trigger:** `@media (prefers-color-scheme: dark)`
+
+### High Contrast Mode
+
+```html
+<!-- Auto via system preference -->
+<sando-button variant="solid">Auto High Contrast</sando-button>
+
+<!-- Manual override -->
+<div flavor-mode="high-contrast">
+  <sando-button variant="solid">High Contrast Button</sando-button>
+</div>
+```
+
+**When to use:**
+- Visual impairments
+- Bright sunlight viewing
+- WCAG AAA compliance
+- Maximum readability
+
+**Features:**
+- Black/white colors only
+- Thicker borders
+- Maximum contrast ratios (21:1)
+
+**Automatic trigger:** `@media (prefers-contrast: more)`
+
+### Forced Colors Mode
+
+```html
+<!-- Automatically applied by Windows High Contrast -->
+<sando-button variant="solid">System Colors</sando-button>
+```
+
+**When to use:**
+- Windows High Contrast users
+- System-defined color schemes
+- Screen reader users
+
+**Features:**
+- Uses CSS system colors (`Canvas`, `CanvasText`, `LinkText`, etc.)
+- Automatically applied - no manual override available
+- Respects user's OS color choices
+
+**Automatic trigger:** `@media (forced-colors: active)`
+
+## Motion Reduce Mode
+
+```html
+<!-- Auto via system preference -->
+<sando-button variant="solid">No Animations</sando-button>
+```
+
+**When to use:**
+- Vestibular disorders
+- Motion sensitivity
+- Reduced distraction
+- Better performance
+
+**Features:**
+- All animation durations set to `0ms`
+- Transitions disabled
+- Auto-applied via CSS media query
+- No manual override needed
+
+**Automatic trigger:** `@media (prefers-reduced-motion: reduce)`
+
+## Combining Modes
+
+Motion mode is **independent** and combines with any color mode:
+
+```html
+<!-- User has BOTH dark mode AND reduced motion enabled -->
+<!-- Result: Dark colors + No animations -->
+<sando-button variant="solid">Dark + No Motion</sando-button>
+
+<!-- User has high contrast AND reduced motion -->
+<!-- Result: High contrast colors + No animations -->
+<div flavor-mode="high-contrast">
+  <sando-button variant="solid">High Contrast + No Motion</sando-button>
+</div>
 ```
 
 ## Customizing Individual Components
 
-Override specific tokens for a component:
+Override specific tokens without changing modes:
 
 ```css
-/* Override button colors without creating a full flavor */
+/* Override button colors */
 .custom-button {
   --sando-button-solid-backgroundColor-default: #ff6b6b;
   --sando-button-solid-backgroundColor-hover: #ff5252;
@@ -272,128 +315,101 @@ Override specific tokens for a component:
 </sando-button>
 ```
 
-## Available Flavor Tokens
+## Mode-Specific Tokens
 
-All flavor tokens follow this pattern:
-
-### Colors
+### Color Tokens (vary by mode)
 
 ```css
-/* Backgrounds */
+/* Backgrounds - adapt to light/dark/high-contrast */
 --sando-color-background-base
 --sando-color-background-surface
 --sando-color-background-raised
 --sando-color-background-overlay
 
-/* Text */
+/* Text - optimal contrast for each mode */
 --sando-color-text-body
 --sando-color-text-heading
 --sando-color-text-caption
---sando-color-text-muted
 
-/* Actions */
+/* Actions - accessible in all modes */
 --sando-color-action-solid-background-default
 --sando-color-action-solid-background-hover
---sando-color-action-solid-background-active
---sando-color-action-solid-textColor-default
-
-/* Borders */
---sando-color-border-default
---sando-color-border-emphasis
---sando-color-border-muted
-
-/* State */
---sando-color-state-success-background
---sando-color-state-destructive-background
---sando-color-state-warning-background
 ```
 
-### Spacing (rarely customized per flavor)
+### Animation Tokens (vary by motion mode)
 
 ```css
---sando-spacing-comfortable
---sando-spacing-compact
+/* Durations - 0ms when motion reduced */
+--sando-animation-duration-fast
+--sando-animation-duration-normal
+--sando-animation-duration-slow
 ```
 
 ## Best Practices
 
 ### ✅ DO
 
-- Use the `flavor` attribute for theming
-- Create semantic flavor names (`dark`, `light`, `brand`)
-- Keep flavors consistent across components
-- Test color contrast in all flavors (WCAG AA)
+- **Respect system preferences** - Use auto mode by default
+- **Provide manual override** - Let users choose their preference
+- **Test all modes** - Verify components work in all modes
+- **Maintain contrast** - Ensure WCAG AA in light/dark, AAA in high-contrast
+- **Persist user choice** - Save theme preference to localStorage
 
 ### ❌ DON'T
 
-- Override ingredient tokens directly (use flavors instead)
-- Create too many flavors (2-3 is usually enough)
-- Mix flavors inconsistently
-- Forget to test accessibility
+- **Force a mode** - Let users control their experience
+- **Assume light mode** - Many users prefer dark
+- **Forget motion reduce** - Critical for accessibility
+- **Override system colors** - Forced colors mode must be respected
+- **Hardcode colors** - Use tokens for themability
 
-## Advanced: Flavor-Specific Components
+## Accessibility Compliance
 
-Some components might need flavor-specific behavior:
+| Mode | WCAG Level | Min Contrast |
+|------|------------|--------------|
+| Light | AA | 4.5:1 |
+| Dark | AA | 4.5:1 |
+| High Contrast | AAA | 7:1 |
+| Forced Colors | System | System-defined |
+
+All Sando modes meet or exceed WCAG 2.1 Level AA. High Contrast mode achieves Level AAA.
+
+## Testing Modes
+
+### In Browser DevTools
+
+**Chrome/Edge:**
+1. Open DevTools → Rendering
+2. Emulate CSS media features:
+   - `prefers-color-scheme: dark`
+   - `prefers-contrast: more`
+   - `prefers-reduced-motion: reduce`
+   - `forced-colors: active`
+
+**Firefox:**
+1. Open DevTools → Accessibility
+2. Simulate: Dark theme, High contrast, Reduced motion
+
+### Programmatically
 
 ```ts
-import { LitElement, html } from 'lit'
-import { property } from 'lit/decorators.js'
+// Check current system preference
+const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+const prefersHighContrast = window.matchMedia('(prefers-contrast: more)').matches
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-class MyComponent extends LitElement {
-  @property() flavor = 'original'
-
-  render() {
-    return html`
-      <div class="component" flavor="${this.flavor}">
-        ${this.flavor === 'dark'
-          ? html`<icon-moon></icon-moon>`
-          : html`<icon-sun></icon-sun>`
-        }
-      </div>
-    `
-  }
-}
+// Listen for changes
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+  console.log('Dark mode:', e.matches)
+})
 ```
 
-## Flavor Showcase
+## Advanced: Creating Custom Flavors
 
-Here's how different flavors look:
-
-<div class="flavor-showcase">
-  <div flavor="original">
-    <h4>Original</h4>
-    <sando-button variant="solid">Button</sando-button>
-  </div>
-
-  <div flavor="strawberry">
-    <h4>Strawberry</h4>
-    <sando-button variant="solid">Button</sando-button>
-  </div>
-
-  <div flavor="dark">
-    <h4>Dark</h4>
-    <sando-button variant="solid">Button</sando-button>
-  </div>
-</div>
-
-<style>
-.flavor-showcase {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
-  margin: 2rem 0;
-}
-
-.flavor-showcase > div {
-  padding: 2rem;
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 8px;
-  text-align: center;
-}
-</style>
+Coming soon - custom flavor creation guide for `strawberry`, `ocean`, etc.
 
 ## Next Steps
 
-- **[Token Architecture](/tokens/architecture)** - Deep dive into the three-layer system
-- **[Flavors Reference](/tokens/flavors)** - All available flavor tokens
-- **[Accessibility Guide](/guides/accessibility)** - Ensure your themes are accessible
+- **[Flavor Tokens](/tokens/flavors)** - All available flavor tokens
+- **[Accessibility Guide](/guides/accessibility)** - Complete accessibility documentation
+- **[Component Theming](/components/theming)** - Per-component theme customization

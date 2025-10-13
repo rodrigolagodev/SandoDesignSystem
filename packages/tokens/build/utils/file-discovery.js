@@ -55,9 +55,16 @@ export function discoverFlavorFolders(dir = 'flavors') {
 }
 
 /**
- * Get available mode files for a flavor (index.json, dark.json, etc.)
+ * Get available mode files for a flavor
+ * Supports new naming convention: flavor.json (base), flavor-{mode}.json (variants)
+ * Also supports legacy: index.json (base), dark.json (dark mode)
+ *
  * @param {string} flavorName - Flavor folder name
- * @returns {Object} Object with available modes { light: 'index.json', dark: 'dark.json' }
+ * @returns {Object} Object with available modes and their filenames
+ *
+ * @example
+ * getFlavorModes('original')
+ * // Returns: { base: 'flavor.json', dark: 'flavor-dark.json', 'high-contrast': 'flavor-high-contrast.json' }
  */
 export function getFlavorModes(flavorName) {
   const flavorPath = path.join(process.cwd(), 'src', 'flavors', flavorName);
@@ -69,13 +76,24 @@ export function getFlavorModes(flavorName) {
   const files = fs.readdirSync(flavorPath);
   const modes = {};
 
-  // Check for index.json (light mode default)
-  if (files.includes('index.json')) {
-    modes.light = 'index.json';
+  // Check for base mode files (new: flavor.json, legacy: index.json)
+  if (files.includes('flavor.json')) {
+    modes.base = 'flavor.json';
+  } else if (files.includes('index.json')) {
+    modes.base = 'index.json'; // Legacy support
   }
 
-  // Check for dark.json (dark mode overrides)
-  if (files.includes('dark.json')) {
+  // Check for mode variant files (new convention)
+  const modeFiles = files.filter(file => file.startsWith('flavor-') && file.endsWith('.json'));
+
+  modeFiles.forEach(file => {
+    // Extract mode name: 'flavor-dark.json' -> 'dark'
+    const modeName = file.replace('flavor-', '').replace('.json', '');
+    modes[modeName] = file;
+  });
+
+  // Legacy support: dark.json -> flavor-dark.json
+  if (files.includes('dark.json') && !modes.dark) {
     modes.dark = 'dark.json';
   }
 

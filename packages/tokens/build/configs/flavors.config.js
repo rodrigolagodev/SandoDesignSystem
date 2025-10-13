@@ -1,14 +1,19 @@
 /**
  * Build Configuration: Flavors Layer
  *
- * Builds semantic design tokens (theme-specific) with light/dark mode support
+ * Builds semantic design tokens with mode support:
  * - Discovers flavor folders (e.g., src/flavors/original/)
- * - Each flavor has: index.json (light mode) + dark.json (dark mode overrides)
- * - Generates CSS with @media (prefers-color-scheme: dark) and [flavor-mode] selectors
+ * - Each flavor has: flavor.json (base) + flavor-{mode}.json (mode variants)
+ * - Generates CSS with @media queries and [flavor-mode] selectors
+ *
+ * Supported modes:
+ * - Base: flavor.json (default/light)
+ * - Color modes: flavor-dark.json, flavor-high-contrast.json, flavor-forced-colors.json
+ * - Motion mode: flavor-motion-reduce.json
  *
  * Output:
- * - CSS: {flavor}.css (light mode) + {flavor}-dark.css (dark mode)
- * - TypeScript: {flavor}.ts (merged light + dark tokens)
+ * - CSS: flavor.css (base) + flavor-{mode}.css (per mode)
+ * - TypeScript: {flavor}.ts (merged all modes)
  *
  * IMPORTANT: Returns MULTIPLE configs - one per flavor/mode + one for TypeScript
  */
@@ -23,27 +28,30 @@ const flavorConfigs = flavorFolders.flatMap(flavorName => {
 	const modes = getFlavorModes(flavorName);
 	const configs = [];
 
-	// Light mode config (always required)
-	if (modes.light) {
+	// Base mode config (always required: flavor.json or index.json)
+	if (modes.base) {
+		const baseFile = modes.base; // 'flavor.json' or 'index.json' (legacy)
+		const destFile = baseFile === 'flavor.json' ? 'flavor.css' : 'index.css'; // Legacy: keep index.css
+
 		configs.push({
-			source: [`src/ingredients/**/*.json`, `src/flavors/${flavorName}/index.json`],
+			source: [`src/ingredients/**/*.json`, `src/flavors/${flavorName}/${baseFile}`],
 			log: {
 				warnings: "disabled",
 				errors: "error",
 				verbosity: "verbose",
 			},
 			platforms: {
-				[`css-flavors-${flavorName}-light`]: {
+				[`css-flavors-${flavorName}-base`]: {
 					transformGroup: 'sando/css/flavors',
 					buildPath: `dist/sando-tokens/css/flavors/${flavorName}/`,
 					files: [
 						{
-							destination: 'index.css',
+							destination: destFile,
 							format: 'css/flavors-modes',
 							filter: (token) => token.filePath && token.filePath.includes('/flavors/'),
 							options: {
 								flavorName,
-								mode: 'light',
+								mode: 'base',
 								outputReferences: true
 							}
 						}
@@ -53,31 +61,41 @@ const flavorConfigs = flavorFolders.flatMap(flavorName => {
 		});
 	}
 
-	// Dark mode config (if dark.json exists)
-	if (modes.dark) {
+	// Mode variant configs (dark, high-contrast, forced-colors, motion-reduce, etc.)
+	Object.entries(modes).forEach(([modeName, modeFile]) => {
+		// Skip base mode (already processed)
+		if (modeName === 'base') return;
+
+		// Destination filename: flavor-dark.css, flavor-high-contrast.css, etc.
+		const destFile = modeFile.replace('.json', '.css');
+
 		configs.push({
-			// Merge light + dark tokens (dark overrides light)
-			source: [`src/ingredients/**/*.json`, `src/flavors/${flavorName}/index.json`, `src/flavors/${flavorName}/dark.json`],
+			// Include ingredients + base + mode file
+			source: [
+				`src/ingredients/**/*.json`,
+				`src/flavors/${flavorName}/${modes.base}`,
+				`src/flavors/${flavorName}/${modeFile}`
+			],
 			log: {
 				warnings: "disabled",
 				errors: "error",
 				verbosity: "verbose",
 			},
 			platforms: {
-				[`css-flavors-${flavorName}-dark`]: {
+				[`css-flavors-${flavorName}-${modeName}`]: {
 					transformGroup: 'sando/css/flavors',
 					buildPath: `dist/sando-tokens/css/flavors/${flavorName}/`,
 					files: [
 						{
-							destination: 'dark.css',
+							destination: destFile,
 							format: 'css/flavors-modes',
 							filter: (token) => {
-								// Only include tokens from dark.json (overrides)
-								return token.filePath && token.filePath.includes(`/flavors/${flavorName}/dark.json`);
+								// Only include tokens from the mode file (overrides)
+								return token.filePath && token.filePath.includes(`/flavors/${flavorName}/${modeFile}`);
 							},
 							options: {
 								flavorName,
-								mode: 'dark',
+								mode: modeName,
 								outputReferences: true
 							}
 						}
@@ -85,7 +103,7 @@ const flavorConfigs = flavorFolders.flatMap(flavorName => {
 				}
 			}
 		});
-	}
+	});
 
 	return configs;
 });

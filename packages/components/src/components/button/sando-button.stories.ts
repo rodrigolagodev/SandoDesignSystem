@@ -36,6 +36,7 @@ const meta: Meta = {
   render: (args) => html`
     <sando-button
       flavor="${args.flavor || 'original'}"
+      ${args.flavorMode ? `flavor-mode="${args.flavorMode}"` : ''}
       variant="${args.variant}"
       size="${args.size}"
       status="${args.status}"
@@ -58,11 +59,20 @@ const meta: Meta = {
   argTypes: {
     flavor: {
       control: 'select',
-      options: ['original', 'original-dark'],
-      description: 'Design system flavor/theme',
+      options: ['original'],
+      description: 'Design system flavor/theme (color palette)',
       table: {
         type: { summary: 'string' },
         defaultValue: { summary: 'original' }
+      }
+    },
+    flavorMode: {
+      control: 'select',
+      options: ['', 'light', 'dark', 'high-contrast'],
+      description: 'Color mode variant (auto uses system preference, or force specific mode)',
+      table: {
+        type: { summary: 'light | dark | high-contrast' },
+        defaultValue: { summary: 'undefined (auto)' }
       }
     },
     variant: {
@@ -395,19 +405,19 @@ export const AllExamples: Story = {
 };
 
 /**
- * Theme comparison showing the same buttons in both light (original) and dark (original-dark) themes.
- * This demonstrates how the flavor attribute changes the button's appearance.
+ * Color Mode comparison showing the same buttons in light, dark, and high-contrast modes.
+ * This demonstrates how the flavor-mode attribute changes the button's appearance.
  */
-export const ThemeComparison: Story = {
+export const ColorModeComparison: Story = {
   render: () => html`
     <div style="display: flex; flex-direction: column; gap: 3rem;">
-      <!-- Original Theme (Light) -->
-      <div style="padding: 2rem; background: var(--sando-color-background-base, #fff); border-radius: 8px;">
-        <h3 style="margin-bottom: 1.5rem; color: var(--sando-color-text-heading);">Original Theme (Light)</h3>
+      <!-- Light Mode (default) -->
+      <div style="padding: 2rem; background: #ffffff; border-radius: 8px;">
+        <h3 style="margin-bottom: 1.5rem; color: #1f2937;">Light Mode (flavor="original")</h3>
 
         <div style="display: flex; flex-direction: column; gap: 1.5rem;">
           <div>
-            <h4 style="margin-bottom: 0.5rem; font-size: 0.875rem; color: var(--sando-color-text-caption);">Variants</h4>
+            <h4 style="margin-bottom: 0.5rem; font-size: 0.875rem; color: #6b7280;">Variants</h4>
             <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
               <sando-button flavor="original" variant="solid">Solid</sando-button>
               <sando-button flavor="original" variant="outline">Outline</sando-button>
@@ -417,55 +427,63 @@ export const ThemeComparison: Story = {
           </div>
 
           <div>
-            <h4 style="margin-bottom: 0.5rem; font-size: 0.875rem; color: var(--sando-color-text-caption);">Status States</h4>
+            <h4 style="margin-bottom: 0.5rem; font-size: 0.875rem; color: #6b7280;">Status States</h4>
             <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
               <sando-button flavor="original" status="default">Default</sando-button>
               <sando-button flavor="original" status="success">Success</sando-button>
               <sando-button flavor="original" status="destructive">Destructive</sando-button>
             </div>
           </div>
-
-          <div>
-            <h4 style="margin-bottom: 0.5rem; font-size: 0.875rem; color: var(--sando-color-text-caption);">States</h4>
-            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-              <sando-button flavor="original">Normal</sando-button>
-              <sando-button flavor="original" disabled>Disabled</sando-button>
-              <sando-button flavor="original" loading>Loading</sando-button>
-            </div>
-          </div>
         </div>
       </div>
 
-      <!-- Original-Dark Theme -->
+      <!-- Dark Mode -->
       <div style="padding: 2rem; background: #0a0a0a; border-radius: 8px;">
-        <h3 style="margin-bottom: 1.5rem; color: #f5f5f5;">Original-Dark Theme</h3>
+        <h3 style="margin-bottom: 1.5rem; color: #f5f5f5;">Dark Mode (flavor-mode="dark")</h3>
 
         <div style="display: flex; flex-direction: column; gap: 1.5rem;">
           <div>
             <h4 style="margin-bottom: 0.5rem; font-size: 0.875rem; color: #a8a8a8;">Variants</h4>
             <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-              <sando-button flavor="original-dark" variant="solid">Solid</sando-button>
-              <sando-button flavor="original-dark" variant="outline">Outline</sando-button>
-              <sando-button flavor="original-dark" variant="ghost">Ghost</sando-button>
-              <sando-button flavor="original-dark" variant="text">Text</sando-button>
+              <sando-button flavor="original" flavor-mode="dark" variant="solid">Solid</sando-button>
+              <sando-button flavor="original" flavor-mode="dark" variant="outline">Outline</sando-button>
+              <sando-button flavor="original" flavor-mode="dark" variant="ghost">Ghost</sando-button>
+              <sando-button flavor="original" flavor-mode="dark" variant="text">Text</sando-button>
             </div>
           </div>
 
           <div>
             <h4 style="margin-bottom: 0.5rem; font-size: 0.875rem; color: #a8a8a8;">Status States</h4>
             <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-              <sando-button flavor="original-dark" status="default">Default</sando-button>
-              <sando-button flavor="original-dark" status="success">Success</sando-button>
-              <sando-button flavor="original-dark" status="destructive">Destructive</sando-button>
+              <sando-button flavor="original" flavor-mode="dark" status="default">Default</sando-button>
+              <sando-button flavor="original" flavor-mode="dark" status="success">Success</sando-button>
+              <sando-button flavor="original" flavor-mode="dark" status="destructive">Destructive</sando-button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- High Contrast Mode -->
+      <div style="padding: 2rem; background: #ffffff; border: 2px solid #000000; border-radius: 8px;">
+        <h3 style="margin-bottom: 1.5rem; color: #000000;">High Contrast Mode (flavor-mode="high-contrast")</h3>
+
+        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+          <div>
+            <h4 style="margin-bottom: 0.5rem; font-size: 0.875rem; color: #000000;">Variants</h4>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+              <sando-button flavor="original" flavor-mode="high-contrast" variant="solid">Solid</sando-button>
+              <sando-button flavor="original" flavor-mode="high-contrast" variant="outline">Outline</sando-button>
+              <sando-button flavor="original" flavor-mode="high-contrast" variant="ghost">Ghost</sando-button>
+              <sando-button flavor="original" flavor-mode="high-contrast" variant="text">Text</sando-button>
             </div>
           </div>
 
           <div>
-            <h4 style="margin-bottom: 0.5rem; font-size: 0.875rem; color: #a8a8a8;">States</h4>
+            <h4 style="margin-bottom: 0.5rem; font-size: 0.875rem; color: #000000;">Status States</h4>
             <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-              <sando-button flavor="original-dark">Normal</sando-button>
-              <sando-button flavor="original-dark" disabled>Disabled</sando-button>
-              <sando-button flavor="original-dark" loading>Loading</sando-button>
+              <sando-button flavor="original" flavor-mode="high-contrast" status="default">Default</sando-button>
+              <sando-button flavor="original" flavor-mode="high-contrast" status="success">Success</sando-button>
+              <sando-button flavor="original" flavor-mode="high-contrast" status="destructive">Destructive</sando-button>
             </div>
           </div>
         </div>
