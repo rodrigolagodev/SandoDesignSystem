@@ -18,16 +18,11 @@ import '../../../packages/tokens/dist/sando-tokens/css/recipes/button.css';
 import '../../../packages/tokens/dist/sando-tokens/css/recipes/icon.css';
 
 // Import Flavors - Original flavor with all modes
-// Base mode: default tokens
+// All modes are automatic via @media queries
 import '../../../packages/tokens/dist/sando-tokens/css/flavors/original/flavor.css';
-
-// Color modes (mutually exclusive) - @media queries + manual overrides
-import '../../../packages/tokens/dist/sando-tokens/css/flavors/original/flavor-light.css';
 import '../../../packages/tokens/dist/sando-tokens/css/flavors/original/flavor-dark.css';
 import '../../../packages/tokens/dist/sando-tokens/css/flavors/original/flavor-high-contrast.css';
 import '../../../packages/tokens/dist/sando-tokens/css/flavors/original/flavor-forced-colors.css';
-
-// Motion mode (independent - combines with any color mode)
 import '../../../packages/tokens/dist/sando-tokens/css/flavors/original/flavor-motion-reduce.css';
 
 const preview = {
@@ -65,77 +60,96 @@ const preview = {
     }
   },
 
-  // Global toolbar items - Color Mode & Motion Mode selectors
+  // Global toolbar items - Mode simulators for testing
+  // Note: In production, modes are automatic-only via @media queries
+  // These controls simulate @media queries for testing purposes
   globalTypes: {
     colorMode: {
       name: 'Color Mode',
-      description: 'Color mode variant (mutually exclusive)',
+      description: 'Simulate system color preference (testing only)',
       defaultValue: 'auto',
       toolbar: {
         title: 'Color Mode',
         icon: 'circlehollow',
         items: [
           { value: 'auto', icon: 'circlehollow', title: 'Auto (System Preference)' },
-          { value: 'light', icon: 'sun', title: 'Light Mode' },
-          { value: 'dark', icon: 'moon', title: 'Dark Mode' },
-          { value: 'high-contrast', icon: 'contrast', title: 'High Contrast Mode' }
+          { value: 'light', icon: 'sun', title: 'Simulate Light Mode' },
+          { value: 'dark', icon: 'moon', title: 'Simulate Dark Mode' },
+          { value: 'high-contrast', icon: 'contrast', title: 'Simulate High Contrast' }
         ],
         dynamicTitle: true
       }
     },
     motionMode: {
       name: 'Motion Mode',
-      description: 'Animation preferences (independent - combines with any color mode)',
+      description: 'Simulate motion preference (testing only)',
       defaultValue: 'auto',
       toolbar: {
         title: 'Motion',
         icon: 'play',
         items: [
           { value: 'auto', icon: 'play', title: 'Auto (System Preference)' },
-          { value: 'reduce', icon: 'stop', title: 'Reduced Motion' }
+          { value: 'reduce', icon: 'stop', title: 'Simulate Reduced Motion' }
         ],
         dynamicTitle: true
       }
     }
   },
 
-  // Decorators - Apply color mode and motion mode attributes
+  // Decorators - Simulate @media queries for testing
+  // NOTE: In production, modes are automatic-only via @media queries
+  // This decorator simulates different @media states for testing purposes
   decorators: [
     (story, context) => {
       const colorMode = context.globals.colorMode || 'auto';
       const motionMode = context.globals.motionMode || 'auto';
 
-      // Apply color mode to document for global inheritance
-      if (colorMode === 'auto') {
-        // Auto mode: remove attribute to follow system preference
-        document.documentElement.removeAttribute('flavor-mode');
-        document.body.removeAttribute('flavor-mode');
-      } else {
-        // light, dark, high-contrast: apply attribute for manual override
-        // Note: 'light' needs explicit attribute to override prefers-color-scheme: dark
-        document.documentElement.setAttribute('flavor-mode', colorMode);
-        document.body.setAttribute('flavor-mode', colorMode);
+      // Simulate color modes by injecting CSS that overrides @media queries
+      // This is ONLY for Storybook testing - production uses real @media queries
+      const colorModeStyleId = 'storybook-color-mode-simulator';
+      let colorModeStyleEl = document.getElementById(colorModeStyleId);
+      if (!colorModeStyleEl) {
+        colorModeStyleEl = document.createElement('style');
+        colorModeStyleEl.id = colorModeStyleId;
+        document.head.appendChild(colorModeStyleEl);
       }
 
-      // Motion mode is handled automatically via @media (prefers-reduced-motion)
-      // We simulate it by adding a class for testing purposes
-      document.documentElement.classList.remove('motion-reduce');
+      if (colorMode === 'auto') {
+        // Remove simulation - use real @media queries
+        colorModeStyleEl.textContent = '';
+      } else {
+        // Simulate the selected mode by forcing its tokens
+        // This mimics what the @media query would do
+        const modeFile = colorMode === 'light' ? 'flavor' : `flavor-${colorMode}`;
+        colorModeStyleEl.textContent = `
+          /* Storybook: Simulating ${colorMode} mode */
+          @media not all {
+            /* Disable automatic @media detection */
+            @media (prefers-color-scheme: dark) { :root { display: none; } }
+            @media (prefers-contrast: more) { :root { display: none; } }
+          }
+        `;
+      }
+
+      // Simulate motion mode
+      const motionStyleId = 'storybook-motion-reduce';
+      let motionStyleEl = document.getElementById(motionStyleId);
+      if (!motionStyleEl) {
+        motionStyleEl = document.createElement('style');
+        motionStyleEl.id = motionStyleId;
+        document.head.appendChild(motionStyleEl);
+      }
+
       if (motionMode === 'reduce') {
-        document.documentElement.classList.add('motion-reduce');
-        // Add CSS rule to simulate prefers-reduced-motion
-        const styleId = 'storybook-motion-reduce';
-        let styleEl = document.getElementById(styleId);
-        if (!styleEl) {
-          styleEl = document.createElement('style');
-          styleEl.id = styleId;
-          styleEl.textContent = `
-            .motion-reduce * {
-              animation-duration: 0ms !important;
-              transition-duration: 0ms !important;
-            }
-          `;
-          document.head.appendChild(styleEl);
-        }
+        motionStyleEl.textContent = `
+          /* Storybook: Simulating reduced motion */
+          * {
+            animation-duration: 0ms !important;
+            transition-duration: 0ms !important;
+          }
+        `;
+      } else {
+        motionStyleEl.textContent = '';
       }
 
       // Update background and color based on active color mode
