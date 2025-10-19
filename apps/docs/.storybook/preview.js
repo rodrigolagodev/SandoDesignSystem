@@ -17,13 +17,14 @@ import '../../../packages/tokens/dist/sando-tokens/css/ingredients/z-index.css';
 import '../../../packages/tokens/dist/sando-tokens/css/recipes/button.css';
 import '../../../packages/tokens/dist/sando-tokens/css/recipes/icon.css';
 
-// Import Flavors - Original flavor with all modes
-// All modes are automatic via @media queries
+// Import Flavors - Original flavor with mode support
 import '../../../packages/tokens/dist/sando-tokens/css/flavors/original/flavor.css';
 import '../../../packages/tokens/dist/sando-tokens/css/flavors/original/flavor-dark.css';
 import '../../../packages/tokens/dist/sando-tokens/css/flavors/original/flavor-high-contrast.css';
-import '../../../packages/tokens/dist/sando-tokens/css/flavors/original/flavor-forced-colors.css';
 import '../../../packages/tokens/dist/sando-tokens/css/flavors/original/flavor-motion-reduce.css';
+
+// NOTE: These modes activate automatically via @media queries
+// The flavor-mode attribute allows manual testing in Storybook
 
 const preview = {
   parameters: {
@@ -96,60 +97,26 @@ const preview = {
     }
   },
 
-  // Decorators - Simulate @media queries for testing
+  // Decorators - Allow manual mode switching for testing
   // NOTE: In production, modes are automatic-only via @media queries
-  // This decorator simulates different @media states for testing purposes
+  // This decorator allows Storybook to manually set modes for visual testing
   decorators: [
     (story, context) => {
       const colorMode = context.globals.colorMode || 'auto';
       const motionMode = context.globals.motionMode || 'auto';
 
-      // Simulate color modes by injecting CSS that overrides @media queries
-      // This is ONLY for Storybook testing - production uses real @media queries
-      const colorModeStyleId = 'storybook-color-mode-simulator';
-      let colorModeStyleEl = document.getElementById(colorModeStyleId);
-      if (!colorModeStyleEl) {
-        colorModeStyleEl = document.createElement('style');
-        colorModeStyleEl.id = colorModeStyleId;
-        document.head.appendChild(colorModeStyleEl);
-      }
-
-      if (colorMode === 'auto') {
-        // Remove simulation - use real @media queries
-        colorModeStyleEl.textContent = '';
+      // Set flavor-mode attribute for manual mode testing
+      if (colorMode === 'auto' || colorMode === 'light') {
+        document.documentElement.removeAttribute('flavor-mode');
       } else {
-        // Simulate the selected mode by forcing its tokens
-        // This mimics what the @media query would do
-        const modeFile = colorMode === 'light' ? 'flavor' : `flavor-${colorMode}`;
-        colorModeStyleEl.textContent = `
-          /* Storybook: Simulating ${colorMode} mode */
-          @media not all {
-            /* Disable automatic @media detection */
-            @media (prefers-color-scheme: dark) { :root { display: none; } }
-            @media (prefers-contrast: more) { :root { display: none; } }
-          }
-        `;
+        document.documentElement.setAttribute('flavor-mode', colorMode);
       }
 
-      // Simulate motion mode
-      const motionStyleId = 'storybook-motion-reduce';
-      let motionStyleEl = document.getElementById(motionStyleId);
-      if (!motionStyleEl) {
-        motionStyleEl = document.createElement('style');
-        motionStyleEl.id = motionStyleId;
-        document.head.appendChild(motionStyleEl);
-      }
-
+      // Set motion mode attribute
       if (motionMode === 'reduce') {
-        motionStyleEl.textContent = `
-          /* Storybook: Simulating reduced motion */
-          * {
-            animation-duration: 0ms !important;
-            transition-duration: 0ms !important;
-          }
-        `;
-      } else {
-        motionStyleEl.textContent = '';
+        document.documentElement.setAttribute('flavor-mode', 'motion-reduce');
+      } else if (colorMode === 'auto' || colorMode === 'light') {
+        document.documentElement.removeAttribute('flavor-mode');
       }
 
       // Update background and color based on active color mode

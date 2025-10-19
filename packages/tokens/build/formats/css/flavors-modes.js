@@ -31,18 +31,18 @@ const MODE_CONFIGS = {
     name: 'dark',
     label: 'Dark',
     mediaQuery: '(prefers-color-scheme: dark)',
-    attribute: null,
-    allowManual: false,
-    description: 'Automatically applied via @media (prefers-color-scheme: dark) - respects system preference only'
+    attribute: 'flavor-mode="dark"',
+    allowManual: true, // Allows Storybook testing while being automatic-first
+    description: 'Automatically applied via @media (prefers-color-scheme: dark) - manual override available for testing'
   },
   'flavor-high-contrast': {
     type: 'color',
     name: 'high-contrast',
     label: 'High Contrast',
     mediaQuery: '(prefers-contrast: more)',
-    attribute: null,
-    allowManual: false,
-    description: 'Automatically applied via @media (prefers-contrast: more) - respects system preference only'
+    attribute: 'flavor-mode="high-contrast"',
+    allowManual: true, // Allows Storybook testing while being automatic-first
+    description: 'Automatically applied via @media (prefers-contrast: more) - manual override available for testing'
   },
   'flavor-forced-colors': {
     type: 'color',
