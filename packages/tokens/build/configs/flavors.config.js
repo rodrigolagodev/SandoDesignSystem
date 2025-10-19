@@ -147,5 +147,5 @@ const typescriptConfig = {
 	}
 };
 
-// Export all configs
+// Export all configs: individual mode files + typescript
 export default [...flavorConfigs, typescriptConfig];

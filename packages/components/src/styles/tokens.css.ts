@@ -24,9 +24,8 @@ import ingredientsOpacity from '@sando/tokens/dist/sando-tokens/css/ingredients/
 import ingredientsSpace from '@sando/tokens/dist/sando-tokens/css/ingredients/space.css?inline';
 import ingredientsZIndex from '@sando/tokens/dist/sando-tokens/css/ingredients/z-index.css?inline';
 
-// Import all flavors - base mode + all mode variants
+// Import all flavor modes (base + variants)
 import flavorOriginal from '@sando/tokens/dist/sando-tokens/css/flavors/original/flavor.css?inline';
-import flavorOriginalLight from '@sando/tokens/dist/sando-tokens/css/flavors/original/flavor-light.css?inline';
 import flavorOriginalDark from '@sando/tokens/dist/sando-tokens/css/flavors/original/flavor-dark.css?inline';
 import flavorOriginalHighContrast from '@sando/tokens/dist/sando-tokens/css/flavors/original/flavor-high-contrast.css?inline';
 import flavorOriginalForcedColors from '@sando/tokens/dist/sando-tokens/css/flavors/original/flavor-forced-colors.css?inline';
@@ -54,18 +53,22 @@ export const tokenStyles = css`
   ${unsafeCSS(ingredientsZIndex)}
 
   /* ========================================
-     FLAVORS LAYER - All Themes & Modes
+     FLAVORS LAYER - Original Flavor (All Modes)
+     All modes are automatic via @media queries
      ======================================== */
-  /* Base mode (default tokens) */
+  /* Base/Light mode */
   ${unsafeCSS(flavorOriginal)}
 
-  /* Color modes (mutually exclusive) */
-  ${unsafeCSS(flavorOriginalLight)}
+  /* Dark mode (@media prefers-color-scheme: dark) */
   ${unsafeCSS(flavorOriginalDark)}
+
+  /* High Contrast mode (@media prefers-contrast: more) */
   ${unsafeCSS(flavorOriginalHighContrast)}
+
+  /* Forced Colors mode (@media forced-colors: active) */
   ${unsafeCSS(flavorOriginalForcedColors)}
 
-  /* Motion mode (independent - combines with any color mode) */
+  /* Motion Reduce mode (@media prefers-reduced-motion: reduce) */
   ${unsafeCSS(flavorOriginalMotionReduce)}
 
   /* ========================================

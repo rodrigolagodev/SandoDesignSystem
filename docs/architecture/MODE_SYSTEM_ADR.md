@@ -1,9 +1,24 @@
 # Architecture Decision Record: Mode System Refactoring
 
-**Status:** Proposed
+**Status:** SUPERSEDED (See MODE_SYSTEM_SIMPLIFIED.md)
 **Date:** 2025-10-12
+**Superseded By:** [MODE_SYSTEM_SIMPLIFIED.md](./MODE_SYSTEM_SIMPLIFIED.md) on 2025-10-13
 **Author:** Design System Architect Agent
 **Decision Type:** Architecture - Critical
+
+---
+
+## ⚠️ This Document is Superseded
+
+This ADR proposed a complex system with both automatic @media detection AND manual flavor-mode overrides.
+
+**New Decision:** Manual mode overrides have been removed. See [MODE_SYSTEM_SIMPLIFIED.md](./MODE_SYSTEM_SIMPLIFIED.md) for the current architecture.
+
+**Reason:** Manual mode overrides added unnecessary complexity without solving real problems. The simplified system is easier to use, maintain, and ensures better accessibility compliance.
+
+---
+
+## Original Proposal (Historical Reference)
 
 ---
 

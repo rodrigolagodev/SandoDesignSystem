@@ -43,7 +43,7 @@ Sando separates theming into two independent concepts:
 └─────────────────────────────────────────┘
 ```
 
-Each **flavor** has multiple **mode** variants. Modes are automatically applied based on user preferences or can be manually overridden.
+Each **flavor** has multiple **mode** variants. Modes are **automatically applied** based on user system preferences and cannot be manually overridden.
 
 ## Automatic Mode Detection
 
@@ -66,168 +66,52 @@ Sando automatically detects and applies modes based on system preferences:
 - `@media (prefers-reduced-motion: reduce)` → No animations
 - `@media (forced-colors: active)` → Windows High Contrast
 
-## Manual Mode Override
-
-Override automatic detection for testing or user preference:
-
-### Global Override (Entire Page)
-
-```html
-<!-- Force dark mode for entire page -->
-<html flavor-mode="dark">
-  <body>
-    <!-- All components inherit dark mode -->
-    <sando-button variant="solid">Dark Button</sando-button>
-    <sando-card>Dark Card</sando-card>
-  </body>
-</html>
-
-<!-- Force high contrast -->
-<html flavor-mode="high-contrast">
-  <body>
-    <sando-button variant="solid">High Contrast Button</sando-button>
-  </body>
-</html>
-```
-
-### Section Override
-
-```html
-<body>
-  <!-- Light mode section -->
-  <header>
-    <sando-button variant="solid">Light Button</sando-button>
-  </header>
-
-  <!-- Dark mode section -->
-  <section flavor-mode="dark">
-    <sando-button variant="solid">Dark Button</sando-button>
-    <sando-card>Dark Card</sando-card>
-  </section>
-
-  <!-- High contrast footer -->
-  <footer flavor-mode="high-contrast">
-    <sando-button variant="solid">High Contrast Button</sando-button>
-  </footer>
-</body>
-```
-
-### Component Override
-
-```html
-<!-- Override specific component -->
-<sando-button flavor-mode="dark" variant="solid">
-  Dark Button
-</sando-button>
-
-<!-- While others use auto mode -->
-<sando-button variant="solid">
-  Auto Mode Button
-</sando-button>
-```
-
-## Dark Mode Toggle
-
-Implement a dark mode toggle with JavaScript:
-
-```ts
-function toggleDarkMode() {
-  const html = document.documentElement
-  const currentMode = html.getAttribute('flavor-mode')
-
-  if (currentMode === 'dark') {
-    // Remove attribute to use auto mode
-    html.removeAttribute('flavor-mode')
-    localStorage.setItem('theme', 'auto')
-  } else {
-    // Force dark mode
-    html.setAttribute('flavor-mode', 'dark')
-    localStorage.setItem('theme', 'dark')
-  }
-}
-
-// Restore theme on load
-const savedTheme = localStorage.getItem('theme')
-if (savedTheme === 'dark') {
-  document.documentElement.setAttribute('flavor-mode', 'dark')
-}
-```
-
-### Three-State Toggle (Auto/Light/Dark)
-
-```ts
-type Theme = 'auto' | 'light' | 'dark'
-
-function cycleTheme() {
-  const html = document.documentElement
-  const currentMode = html.getAttribute('flavor-mode') || 'auto'
-
-  const modes: Theme[] = ['auto', 'light', 'dark']
-  const currentIndex = modes.indexOf(currentMode as Theme)
-  const nextMode = modes[(currentIndex + 1) % modes.length]
-
-  if (nextMode === 'auto') {
-    html.removeAttribute('flavor-mode')
-  } else {
-    html.setAttribute('flavor-mode', nextMode)
-  }
-
-  localStorage.setItem('theme', nextMode)
-}
-```
+**Note:** Modes are **automatic only** and respect system preferences. They cannot be manually overridden via HTML attributes. This ensures accessibility preferences are always honored.
 
 ## Color Modes Reference
 
 ### Light Mode (Default)
 
 ```html
-<!-- No attribute needed - this is the default -->
+<!-- Default mode when no system preference is set -->
 <sando-button variant="solid">Light Button</sando-button>
-
-<!-- Or explicitly set (same as no attribute) -->
-<div flavor-mode="light">
-  <sando-button variant="solid">Light Button</sando-button>
-</div>
 ```
 
 **When to use:**
 - Daytime reading
 - Well-lit environments
 - Maximum color fidelity
+- Default when no system preference
 
 ### Dark Mode
 
 ```html
-<!-- Auto via system preference -->
-<sando-button variant="solid">Auto Dark</sando-button>
-
-<!-- Manual override -->
-<div flavor-mode="dark">
-  <sando-button variant="solid">Dark Button</sando-button>
-</div>
+<!-- Automatically applies when system dark mode is enabled -->
+<sando-button variant="solid">Dark Button</sando-button>
 ```
 
-**When to use:**
+**When applied:**
+- User has dark mode enabled in system settings
+- `@media (prefers-color-scheme: dark)` matches
+
+**Benefits:**
 - Low-light environments
 - Night reading
 - OLED screen battery saving
-- User preference
-
-**Automatic trigger:** `@media (prefers-color-scheme: dark)`
+- Reduced eye strain
 
 ### High Contrast Mode
 
 ```html
-<!-- Auto via system preference -->
-<sando-button variant="solid">Auto High Contrast</sando-button>
-
-<!-- Manual override -->
-<div flavor-mode="high-contrast">
-  <sando-button variant="solid">High Contrast Button</sando-button>
-</div>
+<!-- Automatically applies when system high contrast is enabled -->
+<sando-button variant="solid">High Contrast Button</sando-button>
 ```
 
-**When to use:**
+**When applied:**
+- User has high contrast enabled in system settings
+- `@media (prefers-contrast: more)` matches
+
+**Benefits:**
 - Visual impairments
 - Bright sunlight viewing
 - WCAG AAA compliance
@@ -237,8 +121,6 @@ function cycleTheme() {
 - Black/white colors only
 - Thicker borders
 - Maximum contrast ratios (21:1)
-
-**Automatic trigger:** `@media (prefers-contrast: more)`
 
 ### Forced Colors Mode
 
@@ -286,14 +168,12 @@ Motion mode is **independent** and combines with any color mode:
 
 ```html
 <!-- User has BOTH dark mode AND reduced motion enabled -->
-<!-- Result: Dark colors + No animations -->
+<!-- Result: Dark colors + No animations (both applied automatically) -->
 <sando-button variant="solid">Dark + No Motion</sando-button>
 
 <!-- User has high contrast AND reduced motion -->
-<!-- Result: High contrast colors + No animations -->
-<div flavor-mode="high-contrast">
-  <sando-button variant="solid">High Contrast + No Motion</sando-button>
-</div>
+<!-- Result: High contrast colors + No animations (both applied automatically) -->
+<sando-button variant="solid">High Contrast + No Motion</sando-button>
 ```
 
 ## Customizing Individual Components
@@ -349,19 +229,19 @@ Override specific tokens without changing modes:
 
 ### ✅ DO
 
-- **Respect system preferences** - Use auto mode by default
-- **Provide manual override** - Let users choose their preference
-- **Test all modes** - Verify components work in all modes
+- **Respect system preferences** - Modes are automatic and honor user settings
+- **Test all modes** - Verify components work in light, dark, and high contrast modes
 - **Maintain contrast** - Ensure WCAG AA in light/dark, AAA in high-contrast
-- **Persist user choice** - Save theme preference to localStorage
+- **Use design tokens** - All colors should reference token CSS variables
+- **Support DevTools testing** - Use browser emulation to test different modes
 
 ### ❌ DON'T
 
-- **Force a mode** - Let users control their experience
-- **Assume light mode** - Many users prefer dark
-- **Forget motion reduce** - Critical for accessibility
+- **Try to override modes** - System preferences are always honored for accessibility
+- **Assume light mode** - Many users prefer dark mode by default
+- **Forget motion reduce** - Critical for users with vestibular disorders
 - **Override system colors** - Forced colors mode must be respected
-- **Hardcode colors** - Use tokens for themability
+- **Hardcode colors** - Use tokens for automatic theme adaptation
 
 ## Accessibility Compliance
 

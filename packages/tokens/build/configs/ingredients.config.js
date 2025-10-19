@@ -12,9 +12,9 @@ import { discoverFiles, getTopLevelKey } from '../utils/file-discovery.js';
 // Discover all ingredient token files
 const tokenFiles = discoverFiles('ingredients');
 
-// Generate file configurations dynamically
+// Generate file configurations dynamically for individual files
 const files = tokenFiles.map(filename => ({
-	destination: `${filename}.css`,
+	destination: `ingredients/${filename}.css`,
 	format: 'css/ingredients',
 	filter: (token) => token.path[0] === getTopLevelKey(filename)
 }));
@@ -25,8 +25,8 @@ export default {
 	platforms: {
 		"css-ingredients": {
 			transformGroup: "sando/css/ingredients",
-			buildPath: "dist/sando-tokens/css/ingredients/",
-			files
+			buildPath: "dist/sando-tokens/css/",
+			files: files // Individual files only: dist/sando-tokens/css/ingredients/{name}.css
 		},
 		"ts-ingredients": {
 			transformGroup: "js",

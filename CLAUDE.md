@@ -39,17 +39,20 @@ sando-design-system/
 This is the CORE architectural pattern of the design system:
 
 **Layer 1: Ingredients** (Primitives)
+
 - Raw, absolute values with NO references to other tokens
 - Examples: `color-brand-500: #f97415`, `space-base: 4px`
 - Location: `packages/tokens/src/ingredients/*.json`
 
 **Layer 2: Flavors** (Semantic)
+
 - ONLY reference Ingredients (never other Flavors or Recipes)
 - Provide contextual meaning and enable theming
 - Examples: `color-background-base: {color.neutral.100}`, `spacing-comfortable: {space.base}`
 - Location: `packages/tokens/src/flavors/*.json`
 
 **Layer 3: Recipes** (Component-specific)
+
 - ONLY reference Flavors (never Ingredients directly)
 - Component-specific tokens
 - Examples: `button-background-color: {color.action.solid.background.default}`
@@ -211,6 +214,7 @@ packages/tokens/build/
 ```
 
 Build outputs:
+
 - `dist/sando-tokens/css/` - CSS custom properties
 - `dist/sando-tokens/ts/` - TypeScript (CSS var names + absolute values)
 
@@ -265,19 +269,19 @@ Themes are applied via the `flavor` HTML attribute:
 ```html
 <!-- Global theme -->
 <html flavor="dark">
-  <body>
-    <sando-button>Dark button</sando-button>
-  </body>
+	<body>
+		<sando-button>Dark button</sando-button>
+	</body>
 </html>
 
 <!-- Section theme -->
 <div flavor="strawberry">
-  <sando-button>Strawberry themed</sando-button>
+	<sando-button>Strawberry themed</sando-button>
 </div>
 
 <!-- Component override via CSS -->
 <sando-button style="--sando-button-solid-backgroundColor-default: #custom;">
-  Custom color
+	Custom color
 </sando-button>
 ```
 
@@ -286,6 +290,7 @@ Themes are applied via the `flavor` HTML attribute:
 The `.claude/agents/` directory contains **18 production agents** specialized for design system development:
 
 **Core Agents (8):**
+
 - `design-system-architect` - Three-layer token architecture, Web Components, theming
 - `design-system-pm` - Product roadmap, RICE prioritization, adoption metrics
 - `ui-designer` - Interface design, Ingredients/Flavors tokens, WCAG 2.1 AA
@@ -296,26 +301,30 @@ The `.claude/agents/` directory contains **18 production agents** specialized fo
 - `developer-tooling-specialist` - Build optimization, DX, Style Dictionary, tooling
 
 **Phase 2 - Design Operations (4):**
+
 - `design-ops-specialist` - Token versioning, Figma automation, visual regression
 - `version-migration-manager` - Breaking changes, codemods, deprecation tracking
 - `ecosystem-integration-agent` - React/Vue/Angular wrappers, SSR support
 - `performance-monitor` - Core Web Vitals, bundle sizes, Lighthouse CI
 
 **Phase 3 - Quality & Architecture (2):**
+
 - `security-compliance-auditor` - Vulnerability scanning, XSS prevention, license compliance
 - `component-composition-specialist` - Compound components, headless patterns, layout primitives
 
 **Phase 4 - Community & Growth (3):**
+
 - `community-contribution-manager` - Issue triage, PR reviews, RFC process
 - `analytics-insights-agent` - Usage metrics, adoption tracking, developer satisfaction
 - `localization-i18n-specialist` - Multi-language support, RTL layouts, locale formatting
 
 **Meta Agents (3):**
+
 - `general-purpose` - Complex searches and multi-step tasks
 - `statusline-setup` - Configure Claude Code status line
 - `output-style-setup` - Configure Claude Code output styles
 
-Each agent has specific expertise. See `.claude/agents/team-agents-analysis.md` for collaboration workflows.
+Each agent has specific expertise. See `.claude/agents/team-agents-analysis.md` for collaboration workflows. Use this agents for specific tasks.
 
 ## Important Notes
 
@@ -350,6 +359,7 @@ Requires Node.js >=18.0.0 (specified in package.json engines)
 Optional: Copy `.env.example` to `.env.local` to customize ports.
 
 Default ports:
+
 - Storybook: 6006
 - VitePress: 3000
 

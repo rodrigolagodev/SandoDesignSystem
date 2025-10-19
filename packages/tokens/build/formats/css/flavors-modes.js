@@ -31,18 +31,18 @@ const MODE_CONFIGS = {
     name: 'dark',
     label: 'Dark',
     mediaQuery: '(prefers-color-scheme: dark)',
-    attribute: 'flavor-mode="dark"',
-    allowManual: true,
-    description: 'Automatically applied via @media (prefers-color-scheme: dark) and [flavor-mode="dark"]'
+    attribute: null,
+    allowManual: false,
+    description: 'Automatically applied via @media (prefers-color-scheme: dark) - respects system preference only'
   },
   'flavor-high-contrast': {
     type: 'color',
     name: 'high-contrast',
     label: 'High Contrast',
     mediaQuery: '(prefers-contrast: more)',
-    attribute: 'flavor-mode="high-contrast"',
-    allowManual: true,
-    description: 'Automatically applied via @media (prefers-contrast: more) and [flavor-mode="high-contrast"]'
+    attribute: null,
+    allowManual: false,
+    description: 'Automatically applied via @media (prefers-contrast: more) - respects system preference only'
   },
   'flavor-forced-colors': {
     type: 'color',
@@ -187,17 +187,15 @@ function generateBaseSelector(flavorName) {
 
 /**
  * Generate selector for @media query (automatic mode activation)
- * ONLY matches elements WITHOUT explicit flavor-mode attribute
- * This ensures @media queries don't override manual mode selection
+ * Modes are ONLY automatic - no manual override via attributes
  */
 function generateMediaSelector(flavorName, modeConfig) {
   if (flavorName === 'original') {
     // For original flavor: match elements without flavor OR with flavor="original"
-    // CRITICAL: :not([flavor-mode]) ensures @media ONLY applies when NO manual override is set
-    return `:host:not([flavor]):not([flavor-mode]), :host([flavor="original"]):not([flavor-mode]), :root:not([flavor]):not([flavor-mode]), [flavor="original"]:not([flavor-mode])`;
+    return `:host:not([flavor]), :host([flavor="original"]), :root:not([flavor]), [flavor="original"]`;
   }
 
-  return `:host([flavor="${flavorName}"]):not([flavor-mode]), [flavor="${flavorName}"]:not([flavor-mode])`;
+  return `:host([flavor="${flavorName}"]), [flavor="${flavorName}"]`;
 }
 
 /**

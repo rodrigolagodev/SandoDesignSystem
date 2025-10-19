@@ -15,9 +15,9 @@ const recipeFiles = discoverFiles('recipes');
 // Alias for clarity in recipes context
 const getComponentName = getTopLevelKey;
 
-// Generate file configurations dynamically
+// Generate file configurations dynamically for individual files
 const files = recipeFiles.map(filename => ({
-	destination: `${filename}.css`,
+	destination: `recipes/${filename}.css`,
 	format: 'css/recipes',
 	filter: (token) => {
 		const componentName = getComponentName(filename);
@@ -44,8 +44,8 @@ export default {
 	platforms: {
 		"css-recipes": {
 			transformGroup: "sando/css/recipes",
-			buildPath: "dist/sando-tokens/css/recipes/",
-			files
+			buildPath: "dist/sando-tokens/css/",
+			files: files // Individual files only: dist/sando-tokens/css/recipes/{name}.css
 		},
 		"ts-recipes": {
 			transformGroup: "js",
