@@ -137,11 +137,22 @@ function generateHeader(flavorName, modeConfig) {
 
 /**
  * Generate base mode CSS (flavor.json)
- * Single declaration - no duplication
+ * Includes base selector + manual light mode override for Storybook testing
  */
 function generateBaseMode(flavorName, grouped) {
+  let output = '';
+
+  // 1. Base selector (default light mode)
   const selector = generateBaseSelector(flavorName);
-  return `${selector} {\n${generateTokens(grouped)}}\n`;
+  output += `${selector} {\n${generateTokens(grouped)}}\n`;
+  output += '\n';
+
+  // 2. Manual light mode selector (for Storybook testing)
+  // This allows forcing light mode even when system is in dark mode
+  const lightModeSelector = generateLightModeSelector(flavorName);
+  output += `${lightModeSelector} {\n${generateTokens(grouped)}}\n`;
+
+  return output;
 }
 
 /**
@@ -196,6 +207,20 @@ function generateMediaSelector(flavorName, modeConfig) {
   }
 
   return `:host([flavor="${flavorName}"]), [flavor="${flavorName}"]`;
+}
+
+/**
+ * Generate selector for manual light mode override (for base flavor.json)
+ * Allows Storybook to force light mode even when system is in dark mode
+ */
+function generateLightModeSelector(flavorName) {
+  const modeAttr = 'flavor-mode="light"';
+
+  if (flavorName === 'original') {
+    return `:host([${modeAttr}]):not([flavor]), :host([flavor="original"][${modeAttr}]), :root[${modeAttr}]:not([flavor]), [flavor="original"][${modeAttr}], [${modeAttr}] :host:not([flavor]), [${modeAttr}] :host([flavor="original"]), [${modeAttr}] [flavor="original"]`;
+  }
+
+  return `:host([flavor="${flavorName}"][${modeAttr}]), [flavor="${flavorName}"][${modeAttr}], [${modeAttr}] :host([flavor="${flavorName}"]), [${modeAttr}] [flavor="${flavorName}"]`;
 }
 
 /**

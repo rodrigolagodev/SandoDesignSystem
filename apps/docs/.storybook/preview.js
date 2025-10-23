@@ -105,19 +105,17 @@ const preview = {
       const colorMode = context.globals.colorMode || 'auto';
       const motionMode = context.globals.motionMode || 'auto';
 
-      // Set flavor-mode attribute for manual mode testing
-      if (colorMode === 'auto' || colorMode === 'light') {
+      // Set flavor-mode attribute for manual color mode testing
+      // Note: motion-reduce is automatic-only via @media query
+      if (colorMode === 'auto') {
         document.documentElement.removeAttribute('flavor-mode');
       } else {
+        // Set flavor-mode for light, dark, or high-contrast
         document.documentElement.setAttribute('flavor-mode', colorMode);
       }
 
-      // Set motion mode attribute
-      if (motionMode === 'reduce') {
-        document.documentElement.setAttribute('flavor-mode', 'motion-reduce');
-      } else if (colorMode === 'auto' || colorMode === 'light') {
-        document.documentElement.removeAttribute('flavor-mode');
-      }
+      // Motion mode is automatic-only - no manual override needed
+      // It activates automatically via @media (prefers-reduced-motion: reduce)
 
       // Update background and color based on active color mode
       let effectiveColorMode = colorMode;
