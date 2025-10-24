@@ -7,9 +7,12 @@ import { test, expect } from '@playwright/test';
 
 test.describe('sando-button E2E', () => {
   test.beforeEach(async ({ page }) => {
-    // Navigate to a test page with the button component
-    // This assumes you have a dev server running with examples
-    await page.goto('/');
+    // Navigate to the button component story in Storybook
+    // Format: /iframe.html?id={title-kebab-case}--{story-name-kebab-case}
+    await page.goto('/iframe.html?id=components-button-overview--default&viewMode=story');
+
+    // Wait for Storybook to load the component
+    await page.waitForSelector('sando-button', { state: 'visible', timeout: 10000 });
   });
 
   test('should render button with default variant', async ({ page }) => {

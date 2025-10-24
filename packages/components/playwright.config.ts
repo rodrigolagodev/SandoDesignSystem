@@ -38,8 +38,8 @@ export default defineConfig({
 
   // Shared settings for all projects
   use: {
-    // Base URL to use in actions like `await page.goto('/')`
-    baseURL: 'http://localhost:5173',
+    // Base URL points to Storybook for component testing
+    baseURL: 'http://localhost:6006',
 
     // Collect trace when retrying the failed test
     trace: 'on-first-retry',
@@ -76,10 +76,10 @@ export default defineConfig({
     }
   ],
 
-  // Run local dev server before starting the tests
+  // E2E tests run against Storybook stories for visual/interaction testing
   webServer: {
-    command: 'pnpm dev',
-    url: 'http://localhost:5173',
+    command: 'pnpm --filter @sando/docs dev',
+    url: 'http://localhost:6006',
     reuseExistingServer: !process.env.CI,
     timeout: 120000
   },
