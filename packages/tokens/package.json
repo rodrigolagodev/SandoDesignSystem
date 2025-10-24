@@ -10,6 +10,7 @@
     "./css/ingredients/*": "./dist/sando-tokens/css/ingredients/*.css",
     "./css/flavors": "./dist/sando-tokens/css/flavors/index.css",
     "./css/flavors/*": "./dist/sando-tokens/css/flavors/*.css",
+    "./css/flavors/*/*": "./dist/sando-tokens/css/flavors/*/*.css",
     "./css/recipes": "./dist/sando-tokens/css/recipes/index.css",
     "./css/recipes/*": "./dist/sando-tokens/css/recipes/*.css",
     "./ingredients": "./dist/sando-tokens/ts/ingredients/index.ts",

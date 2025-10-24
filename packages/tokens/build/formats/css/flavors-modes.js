@@ -16,16 +16,6 @@ import { capitalize } from '../../utils/formatting.js';
  * Mode configuration by filename
  */
 const MODE_CONFIGS = {
-  'flavor-light': {
-    type: 'color',
-    name: 'light',
-    label: 'Light',
-    mediaQuery: null, // No automatic @media query - only manual override
-    attribute: 'flavor-mode="light"',
-    allowManual: true,
-    manualOnly: true,
-    description: 'Manual override only via [flavor-mode="light"] - use to force light mode when system is dark'
-  },
   'flavor-dark': {
     type: 'color',
     name: 'dark',

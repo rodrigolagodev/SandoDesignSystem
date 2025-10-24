@@ -15,25 +15,25 @@
 import { css, unsafeCSS } from 'lit';
 
 // Import all token CSS files
-import ingredientsAnimation from '@sando/tokens/dist/sando-tokens/css/ingredients/animation.css?inline';
-import ingredientsBorder from '@sando/tokens/dist/sando-tokens/css/ingredients/border.css?inline';
-import ingredientsColor from '@sando/tokens/dist/sando-tokens/css/ingredients/color.css?inline';
-import ingredientsElevation from '@sando/tokens/dist/sando-tokens/css/ingredients/elevation.css?inline';
-import ingredientsFont from '@sando/tokens/dist/sando-tokens/css/ingredients/font.css?inline';
-import ingredientsOpacity from '@sando/tokens/dist/sando-tokens/css/ingredients/opacity.css?inline';
-import ingredientsSpace from '@sando/tokens/dist/sando-tokens/css/ingredients/space.css?inline';
-import ingredientsZIndex from '@sando/tokens/dist/sando-tokens/css/ingredients/z-index.css?inline';
+import ingredientsAnimation from '@sando/tokens/css/ingredients/animation.css?inline';
+import ingredientsBorder from '@sando/tokens/css/ingredients/border.css?inline';
+import ingredientsColor from '@sando/tokens/css/ingredients/color.css?inline';
+import ingredientsElevation from '@sando/tokens/css/ingredients/elevation.css?inline';
+import ingredientsFont from '@sando/tokens/css/ingredients/font.css?inline';
+import ingredientsOpacity from '@sando/tokens/css/ingredients/opacity.css?inline';
+import ingredientsSpace from '@sando/tokens/css/ingredients/space.css?inline';
+import ingredientsZIndex from '@sando/tokens/css/ingredients/z-index.css?inline';
 
 // Import all flavor modes (base + variants)
-import flavorOriginal from '@sando/tokens/dist/sando-tokens/css/flavors/original/flavor.css?inline';
-import flavorOriginalDark from '@sando/tokens/dist/sando-tokens/css/flavors/original/flavor-dark.css?inline';
-import flavorOriginalHighContrast from '@sando/tokens/dist/sando-tokens/css/flavors/original/flavor-high-contrast.css?inline';
-import flavorOriginalForcedColors from '@sando/tokens/dist/sando-tokens/css/flavors/original/flavor-forced-colors.css?inline';
-import flavorOriginalMotionReduce from '@sando/tokens/dist/sando-tokens/css/flavors/original/flavor-motion-reduce.css?inline';
+import flavorOriginal from '@sando/tokens/css/flavors/original/flavor.css?inline';
+import flavorOriginalDark from '@sando/tokens/css/flavors/original/flavor-dark.css?inline';
+import flavorOriginalHighContrast from '@sando/tokens/css/flavors/original/flavor-high-contrast.css?inline';
+import flavorOriginalForcedColors from '@sando/tokens/css/flavors/original/flavor-forced-colors.css?inline';
+import flavorOriginalMotionReduce from '@sando/tokens/css/flavors/original/flavor-motion-reduce.css?inline';
 
 // Import all recipes
-import recipeButton from '@sando/tokens/dist/sando-tokens/css/recipes/button.css?inline';
-import recipeIcon from '@sando/tokens/dist/sando-tokens/css/recipes/icon.css?inline';
+import recipeButton from '@sando/tokens/css/recipes/button.css?inline';
+import recipeIcon from '@sando/tokens/css/recipes/icon.css?inline';
 
 /**
  * Combined token styles for Web Components

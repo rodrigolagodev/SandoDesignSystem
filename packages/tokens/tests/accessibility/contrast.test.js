@@ -98,7 +98,7 @@ function loadTokens() {
   const colors = JSON.parse(fs.readFileSync(colorFile, 'utf8'));
 
   // Load flavors
-  const originalFile = path.join(flavorsPath, 'original.json');
+  const originalFile = path.join(flavorsPath, 'original/flavor.json');
   const flavors = JSON.parse(fs.readFileSync(originalFile, 'utf8'));
 
   return { ingredients: colors, flavors };

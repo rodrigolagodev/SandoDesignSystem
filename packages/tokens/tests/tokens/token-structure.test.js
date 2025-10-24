@@ -55,7 +55,7 @@ function findTokens(obj, path = []) {
 }
 
 /**
- * Load all JSON files from a directory
+ * Load all JSON files from a directory (recursively searches subdirectories)
  */
 function loadJsonFiles(directory) {
   const files = {};
@@ -65,14 +65,24 @@ function loadJsonFiles(directory) {
     return files;
   }
 
-  const fileNames = fs.readdirSync(dirPath).filter(f => f.endsWith('.json'));
+  function loadFromDir(dir, prefix = '') {
+    const entries = fs.readdirSync(dir, { withFileTypes: true });
 
-  for (const fileName of fileNames) {
-    const filePath = path.join(dirPath, fileName);
-    const content = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-    files[fileName] = content;
+    for (const entry of entries) {
+      const fullPath = path.join(dir, entry.name);
+
+      if (entry.isDirectory()) {
+        // Recursively load from subdirectories
+        loadFromDir(fullPath, prefix ? `${prefix}/${entry.name}` : entry.name);
+      } else if (entry.name.endsWith('.json')) {
+        const content = JSON.parse(fs.readFileSync(fullPath, 'utf8'));
+        const key = prefix ? `${prefix}/${entry.name}` : entry.name;
+        files[key] = content;
+      }
+    }
   }
 
+  loadFromDir(dirPath);
   return files;
 }
 
@@ -138,7 +148,11 @@ describe('Token Structure - Flavors Layer', () => {
   });
 
   it('should have an "original" flavor (default theme)', () => {
-    expect(flavorFiles).toHaveProperty('original.json');
+    // Check for original/flavor.json (new structure)
+    const hasOriginalFlavor = Object.keys(flavorFiles).some(key =>
+      key.includes('original/flavor.json') || key === 'original.json'
+    );
+    expect(hasOriginalFlavor).toBe(true);
   });
 
   Object.entries(flavorFiles).forEach(([fileName, content]) => {

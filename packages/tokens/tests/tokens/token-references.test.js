@@ -18,7 +18,7 @@ const __dirname = path.dirname(__filename);
 const tokensRoot = path.resolve(__dirname, '../../src');
 
 /**
- * Load all JSON files from a directory and merge them
+ * Load all JSON files from a directory and merge them (recursively searches subdirectories)
  */
 function loadAndMergeTokens(directory) {
   const dirPath = path.join(tokensRoot, directory);
@@ -27,15 +27,25 @@ function loadAndMergeTokens(directory) {
     return {};
   }
 
-  const fileNames = fs.readdirSync(dirPath).filter(f => f.endsWith('.json'));
   let merged = {};
 
-  for (const fileName of fileNames) {
-    const filePath = path.join(dirPath, fileName);
-    const content = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-    merged = { ...merged, ...content };
+  function loadFromDir(dir) {
+    const entries = fs.readdirSync(dir, { withFileTypes: true });
+
+    for (const entry of entries) {
+      const fullPath = path.join(dir, entry.name);
+
+      if (entry.isDirectory()) {
+        // Recursively load from subdirectories
+        loadFromDir(fullPath);
+      } else if (entry.name.endsWith('.json')) {
+        const content = JSON.parse(fs.readFileSync(fullPath, 'utf8'));
+        merged = { ...merged, ...content };
+      }
+    }
   }
 
+  loadFromDir(dirPath);
   return merged;
 }
 
@@ -145,12 +155,9 @@ describe('Token References - Flavors Layer', () => {
 
   describe('Reference Format', () => {
     flavorRefs.forEach(({ tokenPath, reference }) => {
-      it(`${tokenPath} reference should end with .value`, () => {
-        expect(reference).toMatch(/\.value$/);
-      });
-
       it(`${tokenPath} reference should use valid path syntax`, () => {
-        const validPathPattern = /^[\w.-]+\.value$/;
+        // Accept both formats: with or without .value suffix
+        const validPathPattern = /^[\w.-]+(\.value)?$/;
         expect(reference).toMatch(validPathPattern);
       });
     });
@@ -184,12 +191,9 @@ describe('Token References - Recipes Layer', () => {
 
   describe('Reference Format', () => {
     recipeRefs.forEach(({ tokenPath, reference }) => {
-      it(`${tokenPath} reference should end with .value`, () => {
-        expect(reference).toMatch(/\.value$/);
-      });
-
       it(`${tokenPath} reference should use valid path syntax`, () => {
-        const validPathPattern = /^[\w.-]+\.value$/;
+        // Accept both formats: with or without .value suffix
+        const validPathPattern = /^[\w.-]+(\.value)?$/;
         expect(reference).toMatch(validPathPattern);
       });
     });

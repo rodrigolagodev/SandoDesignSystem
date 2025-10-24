@@ -32,8 +32,11 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@sando/tokens/dist': resolve(__dirname, '../tokens/dist'),
-      '@sando/tokens': resolve(__dirname, '../tokens/src')
+      '@sando/tokens/css': resolve(__dirname, '../tokens/dist/sando-tokens/css'),
+      '@sando/tokens/ingredients': resolve(__dirname, '../tokens/dist/sando-tokens/ts/ingredients'),
+      '@sando/tokens/flavors': resolve(__dirname, '../tokens/dist/sando-tokens/ts/flavors'),
+      '@sando/tokens/recipes': resolve(__dirname, '../tokens/dist/sando-tokens/ts/recipes'),
+      '@sando/tokens': resolve(__dirname, '../tokens/dist/sando-tokens')
     }
   }
 });

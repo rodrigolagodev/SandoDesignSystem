@@ -67,8 +67,8 @@ describe('CSS Output - File Structure', () => {
   });
 
   describe('Flavors Files', () => {
-    it('should have original.css (default theme)', () => {
-      const filePath = path.join(distPath, 'flavors/original.css');
+    it('should have original/flavor.css (default theme)', () => {
+      const filePath = path.join(distPath, 'flavors/original/flavor.css');
       expect(fs.existsSync(filePath)).toBe(true);
     });
   });
@@ -179,12 +179,13 @@ describe('CSS Output - Flavors Layer', () => {
   let content;
 
   beforeAll(() => {
-    const filePath = path.join(distPath, 'flavors/original.css');
+    const filePath = path.join(distPath, 'flavors/original/flavor.css');
     content = fs.readFileSync(filePath, 'utf8');
   });
 
-  it('should use :root selector (default theme)', () => {
-    expect(content).toMatch(/:root\s*\{/);
+  it('should include :root in selector (default theme)', () => {
+    // Flavor files use complex selectors including :root
+    expect(content).toMatch(/:root/);
   });
 
   it('should have DO NOT EDIT warning', () => {
@@ -274,10 +275,29 @@ describe('CSS Output - Recipes Layer', () => {
 
 describe('CSS Output - Variable Naming', () => {
   it('all variables should start with --sando-', () => {
+    // Recursively collect all CSS files
+    function collectCssFiles(dir, prefix = '') {
+      const files = [];
+      const entries = fs.readdirSync(dir, { withFileTypes: true });
+
+      for (const entry of entries) {
+        const fullPath = path.join(dir, entry.name);
+        const relativePath = prefix ? `${prefix}/${entry.name}` : entry.name;
+
+        if (entry.isDirectory()) {
+          files.push(...collectCssFiles(fullPath, relativePath));
+        } else if (entry.name.endsWith('.css')) {
+          files.push(relativePath);
+        }
+      }
+
+      return files;
+    }
+
     const allFiles = [
-      ...fs.readdirSync(path.join(distPath, 'ingredients')).map(f => `ingredients/${f}`),
-      ...fs.readdirSync(path.join(distPath, 'flavors')).map(f => `flavors/${f}`),
-      ...fs.readdirSync(path.join(distPath, 'recipes')).map(f => `recipes/${f}`)
+      ...collectCssFiles(path.join(distPath, 'ingredients'), 'ingredients'),
+      ...collectCssFiles(path.join(distPath, 'flavors'), 'flavors'),
+      ...collectCssFiles(path.join(distPath, 'recipes'), 'recipes')
     ];
 
     allFiles.forEach(file => {
@@ -310,7 +330,7 @@ describe('CSS Output - Variable Naming', () => {
 describe('CSS Output - Reference Chain Integrity', () => {
   it('should have valid reference chain: Recipes → Flavors → Ingredients', () => {
     const recipesContent = fs.readFileSync(path.join(distPath, 'recipes/button.css'), 'utf8');
-    const flavorsContent = fs.readFileSync(path.join(distPath, 'flavors/original.css'), 'utf8');
+    const flavorsContent = fs.readFileSync(path.join(distPath, 'flavors/original/flavor.css'), 'utf8');
     const ingredientsColor = fs.readFileSync(path.join(distPath, 'ingredients/color.css'), 'utf8');
 
     // Example: trace button-solid-backgroundColor-default
@@ -330,7 +350,7 @@ describe('CSS Output - File Sizes', () => {
     const maxSizes = {
       'ingredients/color.css': 5000, // ~5KB
       'ingredients/font.css': 3000,
-      'flavors/original.css': 10000, // ~10KB
+      'flavors/original/flavor.css': 15000, // ~15KB (includes all mode variants)
       'recipes/button.css': 8000
     };
 
@@ -362,6 +382,6 @@ describe('CSS Output - File Sizes', () => {
     countDirSize(distPath);
 
     console.log(`\n📦 Total CSS bundle size: ${(totalSize / 1024).toFixed(2)} KB`);
-    expect(totalSize).toBeLessThan(50000); // Less than 50KB total
+    expect(totalSize).toBeLessThan(55000); // Less than 55KB total (increased to accommodate mode variants)
   });
 });

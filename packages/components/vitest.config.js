@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitest/config';
+import { resolve } from 'path';
 
 export default defineConfig({
   server: {
@@ -7,6 +8,15 @@ export default defineConfig({
     hmr: {
       protocol: 'ws',
       host: '127.0.0.1'
+    }
+  },
+  resolve: {
+    alias: {
+      '@sando/tokens/css': resolve(__dirname, '../tokens/dist/sando-tokens/css'),
+      '@sando/tokens/ingredients': resolve(__dirname, '../tokens/dist/sando-tokens/ts/ingredients'),
+      '@sando/tokens/flavors': resolve(__dirname, '../tokens/dist/sando-tokens/ts/flavors'),
+      '@sando/tokens/recipes': resolve(__dirname, '../tokens/dist/sando-tokens/ts/recipes'),
+      '@sando/tokens': resolve(__dirname, '../tokens/dist/sando-tokens')
     }
   },
   test: {
