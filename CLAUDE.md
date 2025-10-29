@@ -352,7 +352,7 @@ Force rebuild: `rm .build-cache.json && pnpm build`
 
 ### Node Version
 
-Requires Node.js >=18.0.0 (specified in package.json engines)
+Requires Node.js >=20.0.0 (specified in package.json engines)
 
 ### Environment Variables
 
