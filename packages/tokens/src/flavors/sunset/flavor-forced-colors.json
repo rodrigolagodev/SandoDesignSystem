@@ -1,0 +1,103 @@
+{
+	"$description": "Forced colors mode for 'sunset' flavor. Uses CSS system colors for Windows High Contrast mode and other forced-colors environments. Automatically applied via @media (forced-colors: active). Cannot be manually overridden.",
+	"color": {
+		"background": {
+			"base": { "value": "Canvas", "type": "color" },
+			"surface": { "value": "Canvas", "type": "color" },
+			"raised": { "value": "Canvas", "type": "color" },
+			"overlay": { "value": "Canvas", "type": "color" },
+			"emphasis": { "value": "Canvas", "type": "color" }
+		},
+		"focus": {
+			"ring": { "value": "Highlight", "type": "color" },
+			"ring-offset": { "value": "Canvas", "type": "color" },
+			"background": { "value": "Highlight", "type": "color" },
+			"text": { "value": "HighlightText", "type": "color" }
+		},
+		"text": {
+			"heading": { "value": "CanvasText", "type": "color" },
+			"body": { "value": "CanvasText", "type": "color" },
+			"caption": { "value": "CanvasText", "type": "color" },
+			"link": {
+				"default": { "value": "LinkText", "type": "color" },
+				"hover": { "value": "LinkText", "type": "color" },
+				"active": { "value": "ActiveText", "type": "color" },
+				"visited": { "value": "VisitedText", "type": "color" },
+				"focus": { "value": "LinkText", "type": "color" }
+			},
+			"muted": { "value": "GrayText", "type": "color" },
+			"on-solid": { "value": "ButtonText", "type": "color" }
+		},
+		"icon": {
+			"default": { "value": "CanvasText", "type": "color" },
+			"muted": { "value": "GrayText", "type": "color" },
+			"emphasis": { "value": "CanvasText", "type": "color" },
+			"interactive": { "value": "LinkText", "type": "color" },
+			"on-solid": { "value": "ButtonText", "type": "color" }
+		},
+		"border": {
+			"muted": { "value": "CanvasText", "type": "color" },
+			"default": { "value": "CanvasText", "type": "color" },
+			"emphasis": { "value": "CanvasText", "type": "color" }
+		},
+		"action": {
+			"solid": {
+				"background": {
+					"default": { "value": "ButtonFace", "type": "color" },
+					"hover": { "value": "ButtonFace", "type": "color" }
+				},
+				"text": {
+					"default": { "value": "ButtonText", "type": "color" }
+				}
+			},
+			"outline": {
+				"border": {
+					"default": { "value": "ButtonText", "type": "color" },
+					"hover": { "value": "ButtonText", "type": "color" }
+				},
+				"text": {
+					"default": { "value": "ButtonText", "type": "color" }
+				}
+			},
+			"ghost": {
+				"background": {
+					"hover": { "value": "Canvas", "type": "color" }
+				},
+				"text": {
+					"default": { "value": "CanvasText", "type": "color" }
+				}
+			},
+			"disabled": {
+				"background": { "value": "Canvas", "type": "color" },
+				"text": { "value": "GrayText", "type": "color" },
+				"border": { "value": "GrayText", "type": "color" },
+				"opacity": { "value": "1", "type": "number" }
+			}
+		},
+		"state": {
+			"destructive": {
+				"background": {
+					"value": "Mark",
+					"type": "color"
+				},
+				"text": { "value": "MarkText", "type": "color" },
+				"border": { "value": "MarkText", "type": "color" }
+			},
+			"success": {
+				"background": {
+					"value": "Mark",
+					"type": "color"
+				},
+				"text": { "value": "MarkText", "type": "color" },
+				"border": {
+					"value": "MarkText",
+					"type": "color"
+				}
+			}
+		},
+		"selection": {
+			"background": { "value": "Highlight", "type": "color" },
+			"text": { "value": "HighlightText", "type": "color" }
+		}
+	}
+}

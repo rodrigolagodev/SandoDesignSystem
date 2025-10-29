@@ -29,6 +29,8 @@
     "build:force": "node build/index.js --force",
     "build:clean": "node -e \"require('fs').rmSync('dist/sando-tokens', {recursive: true, force: true}); require('fs').rmSync('.build-cache.json', {force: true})\" && npm run build",
     "dev": "nodemon --watch src --exec npm run build",
+    "generate:palettes": "node scripts/generate-palettes.js",
+    "consolidate:palettes": "node scripts/consolidate-palettes.js",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
@@ -40,7 +42,7 @@
     "test:values": "vitest run tests/tokens/token-values",
     "test:accessibility": "vitest run tests/accessibility",
     "test:build": "vitest run tests/build",
-    "test:ui": "vitest --ui",
+    "test:ui": "vitest --ui --watch",
     "clean": "rm -rf dist .build-cache.json coverage"
   },
   "keywords": [
@@ -55,10 +57,12 @@
   "author": "Sando Design System Team",
   "license": "MIT",
   "devDependencies": {
+    "@vitest/coverage-v8": "^4.0.4",
+    "@vitest/ui": "^4.0.4",
+    "culori": "4.0.2",
+    "nodemon": "^3.0.0",
     "style-dictionary": "^4.0.0",
-    "vitest": "^1.0.0",
-    "@vitest/coverage-v8": "^1.0.0",
-    "nodemon": "^3.0.0"
+    "vitest": "^4.0.4"
   },
   "publishConfig": {
     "access": "public"

@@ -14,7 +14,7 @@ The name "Sando" is inspired by the Japanese "katsu sando" sandwich - a metaphor
 - **Components**: Lit 3.3.1 (Web Components)
 - **Tokens**: Style Dictionary 4.0.0
 - **Build**: Vite 5.0.8
-- **Testing**: Vitest 3.2.4 + Playwright 1.55.1
+- **Testing**: Vitest 4.0.4 (@vitest/ui 4.0.4 + @vitest/coverage-v8 4.0.4) + Playwright 1.55.1
 - **Docs**: Storybook 8.6.14 + VitePress 1.6.4
 - **Language**: TypeScript 5.9.3 (strict mode)
 

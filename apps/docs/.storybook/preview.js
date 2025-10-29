@@ -17,13 +17,38 @@ import '../../../packages/tokens/dist/sando-tokens/css/ingredients/z-index.css';
 import '../../../packages/tokens/dist/sando-tokens/css/recipes/button.css';
 import '../../../packages/tokens/dist/sando-tokens/css/recipes/icon.css';
 
-// Import Flavors - Original flavor with mode support
+// Import ALL Flavors with mode support
+// Original (Default flavor - base theme)
 import '../../../packages/tokens/dist/sando-tokens/css/flavors/original/flavor.css';
 import '../../../packages/tokens/dist/sando-tokens/css/flavors/original/flavor-dark.css';
 import '../../../packages/tokens/dist/sando-tokens/css/flavors/original/flavor-high-contrast.css';
 import '../../../packages/tokens/dist/sando-tokens/css/flavors/original/flavor-motion-reduce.css';
 
-// NOTE: These modes activate automatically via @media queries
+// Strawberry (Orange-based)
+import '../../../packages/tokens/dist/sando-tokens/css/flavors/strawberry/flavor.css';
+import '../../../packages/tokens/dist/sando-tokens/css/flavors/strawberry/flavor-dark.css';
+import '../../../packages/tokens/dist/sando-tokens/css/flavors/strawberry/flavor-high-contrast.css';
+import '../../../packages/tokens/dist/sando-tokens/css/flavors/strawberry/flavor-motion-reduce.css';
+
+// Ocean (Blue-based)
+import '../../../packages/tokens/dist/sando-tokens/css/flavors/ocean/flavor.css';
+import '../../../packages/tokens/dist/sando-tokens/css/flavors/ocean/flavor-dark.css';
+import '../../../packages/tokens/dist/sando-tokens/css/flavors/ocean/flavor-high-contrast.css';
+import '../../../packages/tokens/dist/sando-tokens/css/flavors/ocean/flavor-motion-reduce.css';
+
+// Forest (Green-based)
+import '../../../packages/tokens/dist/sando-tokens/css/flavors/forest/flavor.css';
+import '../../../packages/tokens/dist/sando-tokens/css/flavors/forest/flavor-dark.css';
+import '../../../packages/tokens/dist/sando-tokens/css/flavors/forest/flavor-high-contrast.css';
+import '../../../packages/tokens/dist/sando-tokens/css/flavors/forest/flavor-motion-reduce.css';
+
+// Sunset (Orange + Warm neutrals)
+import '../../../packages/tokens/dist/sando-tokens/css/flavors/sunset/flavor.css';
+import '../../../packages/tokens/dist/sando-tokens/css/flavors/sunset/flavor-dark.css';
+import '../../../packages/tokens/dist/sando-tokens/css/flavors/sunset/flavor-high-contrast.css';
+import '../../../packages/tokens/dist/sando-tokens/css/flavors/sunset/flavor-motion-reduce.css';
+
+// NOTE: Color modes activate automatically via @media queries
 // The flavor-mode attribute allows manual testing in Storybook
 
 const preview = {
@@ -99,7 +124,7 @@ const preview = {
 
   // Decorators - Allow manual mode switching for testing
   // NOTE: In production, modes are automatic-only via @media queries
-  // This decorator allows Storybook to manually set modes for visual testing
+  // This decorator allows Storybook to manually set color modes for visual testing
   decorators: [
     (story, context) => {
       const colorMode = context.globals.colorMode || 'auto';

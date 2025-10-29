@@ -108,29 +108,50 @@ const flavorConfigs = flavorFolders.flatMap(flavorName => {
 	return configs;
 });
 
-// TypeScript config - merged light + dark tokens for each flavor
-const typescriptConfig = {
-	source: ["src/ingredients/**/*.json", "src/flavors/**/*.json"],
+// TypeScript configs - one per flavor to avoid token path collisions
+const typescriptConfigs = flavorFolders.map(flavorName => {
+	return {
+		source: ["src/ingredients/**/*.json", `src/flavors/${flavorName}/**/*.json`],
+		log: {
+			warnings: "disabled",
+			errors: "error",
+			verbosity: "verbose",
+		},
+		platforms: {
+			[`ts-flavors-${flavorName}`]: {
+				transformGroup: 'js',
+				buildPath: 'dist/sando-tokens/ts/flavors/',
+				files: [
+					{
+						destination: `${flavorName}.ts`,
+						format: 'typescript/css-variables',
+						filter: (token) => {
+							// Only include tokens defined in this specific flavor folder
+							return token.filePath?.includes(`/flavors/${flavorName}/`);
+						},
+						options: {
+							layerName: 'Flavors'
+						}
+					}
+				]
+			}
+		}
+	};
+});
+
+// Index file config (separate)
+const indexConfig = {
+	source: ["src/flavors/**/*.json"],
 	log: {
 		warnings: "disabled",
 		errors: "error",
 		verbosity: "verbose",
 	},
 	platforms: {
-		'ts-flavors': {
+		'ts-flavors-index': {
 			transformGroup: 'js',
 			buildPath: 'dist/sando-tokens/ts/flavors/',
 			files: [
-				// Individual flavor files (merged light + dark) - flat structure
-				...flavorFolders.map(flavorName => ({
-					destination: `${flavorName}.ts`,
-					format: 'typescript/css-variables',
-					filter: (token) => token.filePath?.includes(`/flavors/${flavorName}/`),
-					options: {
-						layerName: 'Flavors'
-					}
-				})),
-				// Index file with re-exports
 				{
 					destination: 'index.ts',
 					format: 'typescript/index-file',
@@ -147,5 +168,5 @@ const typescriptConfig = {
 	}
 };
 
-// Export all configs: individual mode files + typescript
-export default [...flavorConfigs, typescriptConfig];
+// Export all configs: individual mode files + typescript configs + index
+export default [...flavorConfigs, ...typescriptConfigs, indexConfig];

@@ -25,6 +25,8 @@ import ingredientsSpace from '@sando/tokens/css/ingredients/space.css?inline';
 import ingredientsZIndex from '@sando/tokens/css/ingredients/z-index.css?inline';
 
 // Import all flavor modes (base + variants)
+// Note: Only Original flavor is imported here. Other flavors (strawberry, ocean, forest, sunset)
+// are loaded globally in Storybook/app and inherited via CSS custom properties
 import flavorOriginal from '@sando/tokens/css/flavors/original/flavor.css?inline';
 import flavorOriginalDark from '@sando/tokens/css/flavors/original/flavor-dark.css?inline';
 import flavorOriginalHighContrast from '@sando/tokens/css/flavors/original/flavor-high-contrast.css?inline';
@@ -37,7 +39,10 @@ import recipeIcon from '@sando/tokens/css/recipes/icon.css?inline';
 
 /**
  * Combined token styles for Web Components
- * Includes all layers: Ingredients, Flavors (all themes), and Recipes
+ * Includes all layers: Ingredients, Flavors (original only), and Recipes
+ *
+ * Note: Other flavors (strawberry, ocean, forest, sunset) are loaded globally
+ * and their CSS custom properties inherit into the Shadow DOM automatically
  */
 export const tokenStyles = css`
   /* ========================================

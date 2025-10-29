@@ -1,0 +1,17 @@
+{
+	"$description": "Reduced motion mode for 'ocean' flavor. Disables animations for users with motion sensitivity. Automatically applied via @media (prefers-reduced-motion: reduce). Cannot be manually overridden. This mode is INDEPENDENT and can combine with any color mode (light/dark/high-contrast/forced-colors).",
+	"animation": {
+		"duration": {
+			"instant": {
+				"value": "0ms",
+				"type": "duration"
+			},
+			"fast": { "value": "0ms", "type": "duration" },
+			"normal": {
+				"value": "0ms",
+				"type": "duration"
+			},
+			"slow": { "value": "0ms", "type": "duration" }
+		}
+	}
+}

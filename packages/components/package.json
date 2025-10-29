@@ -44,15 +44,12 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "test:verbose": "VITEST_REPORTER=verbose vitest run",
-    "test:e2e": "playwright test",
-    "test:e2e:ui": "playwright test --ui",
-    "test:e2e:report": "playwright show-report test-results/e2e-report",
     "lint": "eslint src --ext .ts,.js --max-warnings 0",
     "lint:fix": "eslint src --ext .ts,.js --fix",
     "format": "prettier --write \"src/**/*.{ts,js,json}\"",
     "format:check": "prettier --check \"src/**/*.{ts,js,json}\"",
     "analyze": "custom-elements-manifest analyze",
-    "clean": "rm -rf dist coverage test-results .turbo"
+    "clean": "rm -rf dist coverage .turbo"
   },
   "keywords": [
     "web-components",
@@ -68,16 +65,12 @@
     "lit": "^3.1.0"
   },
   "devDependencies": {
-    "@axe-core/playwright": "4.10.2",
     "@custom-elements-manifest/analyzer": "^0.9.0",
     "@open-wc/testing": "^4.0.0",
-    "@playwright/test": "^1.40.0",
     "@types/node": "^20.10.0",
     "@typescript-eslint/eslint-plugin": "^6.15.0",
     "@typescript-eslint/parser": "^6.15.0",
     "@vitest/coverage-v8": "^3.2.4",
-    "@web/test-runner": "^0.18.0",
-    "@web/test-runner-playwright": "^0.11.0",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-lit": "^1.11.0",

@@ -1,5 +1,5 @@
 {
-	"$description": "High contrast mode for 'original' flavor. Maximum contrast ratios for enhanced accessibility (WCAG AAA compliance). Automatically applied via @media (prefers-contrast: more) and [flavor-mode='high-contrast'].",
+	"$description": "High contrast mode for 'forest' flavor. Maximum contrast ratios for enhanced accessibility (WCAG AAA compliance). Automatically applied via @media (prefers-contrast: more) and [flavor-mode='high-contrast'].",
 	"color": {
 		"background": {
 			"base": { "value": "{color.utility.white.value}", "type": "color" },
@@ -19,10 +19,10 @@
 			"body": { "value": "{color.utility.black.value}", "type": "color" },
 			"caption": { "value": "{color.neutralWarm.800.value}", "type": "color" },
 			"link": {
-				"default": { "value": "{color.orange.950.value}", "type": "color" },
+				"default": { "value": "{color.green.950.value}", "type": "color" },
 				"hover": { "value": "{color.utility.black.value}", "type": "color" },
 				"active": { "value": "{color.utility.black.value}", "type": "color" },
-				"visited": { "value": "{color.orange.900.value}", "type": "color" },
+				"visited": { "value": "{color.green.900.value}", "type": "color" },
 				"focus": { "value": "{color.utility.black.value}", "type": "color" }
 			},
 			"muted": { "value": "{color.neutralWarm.700.value}", "type": "color" },
@@ -32,7 +32,7 @@
 			"default": { "value": "{color.utility.black.value}", "type": "color" },
 			"muted": { "value": "{color.neutralWarm.700.value}", "type": "color" },
 			"emphasis": { "value": "{color.utility.black.value}", "type": "color" },
-			"interactive": { "value": "{color.orange.950.value}", "type": "color" },
+			"interactive": { "value": "{color.green.950.value}", "type": "color" },
 			"on-solid": { "value": "{color.utility.white.value}", "type": "color" }
 		},
 		"border": {

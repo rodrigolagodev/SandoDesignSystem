@@ -8,8 +8,10 @@ Sando separates theming into two independent concepts:
 
 ### Flavors (Color Palettes)
 **Flavors** are complete color palettes - think of them as different "brands" or "themes":
-- `original` - The default Sando palette ✅ **Available**
-- `strawberry`, `ocean`, `mint` - Custom palettes 🚧 **Coming soon**
+- `original` - The default Sando flavor (neutral-based) ✅ **Available**
+- `strawberry` (orange-based), `ocean` (blue-based), `forest` (green-based), `sunset` (orange+warm) ✅ **Available**
+
+Flavors are built from our **8 curated color palettes**: orange, blue, green, red, purple, pink + 3 neutral variants (neutral, neutral-warm, neutral-cool).
 
 ### Modes (Accessibility Variants)
 **Modes** are accessibility-focused variants that work with ANY flavor:
@@ -286,10 +288,47 @@ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e)
 
 ## Advanced: Creating Custom Flavors
 
-Coming soon - custom flavor creation guide for `strawberry`, `ocean`, etc.
+### Using Our Curated Palettes
+
+Create flavors by mapping our 8 color palettes to semantic roles:
+
+```json
+// packages/tokens/src/flavors/lavender.json
+{
+  "color": {
+    "action": {
+      "solid": {
+        "background": {
+          "default": { "value": "{color.purple.600.value}", "type": "color" }
+        }
+      }
+    },
+    "background": {
+      "base": { "value": "{color.neutral-cool.50.value}", "type": "color" }
+    }
+  }
+}
+```
+
+Then build: `pnpm build`
+
+### Generating Brand-Specific Colors (Coming Soon)
+
+::: warning Generator Under Development
+Need an exact brand color (#FF6B00)? We're building a flavor generator:
+
+```bash
+npx @sando/flavor-generator create --color "#FF6B00"
+```
+
+This will generate a scientifically designed palette using OKLCH and create ready-to-use flavor files.
+
+**Status:** Under development | **Timeline:** Q2 2025 | [Track progress →](https://github.com/your-org/sando-design-system/issues/XX)
+:::
 
 ## Next Steps
 
+- **[Color Philosophy](/docs/COLOR-PHILOSOPHY.md)** - Why 8 curated palettes
 - **[Flavor Tokens](/tokens/flavors)** - All available flavor tokens
 - **[Accessibility Guide](/guides/accessibility)** - Complete accessibility documentation
 - **[Component Theming](/components/theming)** - Per-component theme customization

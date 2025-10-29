@@ -1,5 +1,5 @@
 {
-	"$description": "High contrast mode for 'original' flavor. Maximum contrast ratios for enhanced accessibility (WCAG AAA compliance). Automatically applied via @media (prefers-contrast: more) and [flavor-mode='high-contrast'].",
+	"$description": "High contrast mode for 'sunset' flavor. Maximum contrast ratios for enhanced accessibility (WCAG AAA compliance). Automatically applied via @media (prefers-contrast: more) and [flavor-mode='high-contrast'].",
 	"color": {
 		"background": {
 			"base": { "value": "{color.utility.white.value}", "type": "color" },

@@ -55,7 +55,19 @@ export default defineConfig({
       json: './test-results/results.json'
     },
 
-    // Watch mode
-    watch: false
+    // Watch mode - enabled for UI, disabled for regular test runs
+    watch: false,
+
+    // UI configuration - keep connection alive even with failing tests
+    ui: {
+      enabled: true,
+      open: false, // Don't auto-open browser
+    },
+
+    // Don't fail CI on no tests
+    passWithNoTests: false,
+
+    // Continue on test failures (important for UI to stay connected)
+    bail: 0
   }
 });

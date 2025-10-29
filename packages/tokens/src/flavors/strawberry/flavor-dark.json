@@ -1,5 +1,5 @@
 {
-	"$description": "Dark mode overrides for 'original' flavor. Only includes tokens that differ from light mode (index.json). Automatically applied via @media (prefers-color-scheme: dark) and [flavor-mode='dark'].",
+	"$description": "Dark mode overrides for 'strawberry' flavor. Only includes tokens that differ from light mode (index.json). Automatically applied via @media (prefers-color-scheme: dark) and [flavor-mode='dark'].",
 	"color": {
 		"background": {
 			"base": { "value": "{color.neutralWarm.950.value}", "type": "color" },

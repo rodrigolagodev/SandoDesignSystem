@@ -28,23 +28,53 @@ The Sando Design System uses a **3-layer token architecture** that enables flexi
 └─────────────────────────────────────────────────────────────┘
 ```
 
+## Sando's Color Philosophy
+
+Sando provides **8 curated color palettes** + **3 neutral variants**, all scientifically designed using OKLCH for guaranteed accessibility and perceptual uniformity.
+
+**Why 8 palettes?**
+- ✅ Instant start (pick a palette, begin coding in 2 minutes)
+- ✅ Scientific design (OKLCH, perceptually uniform)
+- ✅ WCAG AA guaranteed (all palettes pass accessibility)
+- ✅ Cover 95% of use cases
+
 ## Available Flavors
 
-### 🌞 Original (Light Mode)
-The default light theme with:
-- Light backgrounds (`neutral.100-200`)
-- Dark text (`neutral.800-950`)
-- Brand colors for actions (`brand.600-800`)
+### 🍓 Strawberry (Default - Orange-based)
+**Currently available** - The default light theme with:
+- Warm backgrounds (`neutral-warm.100-200`)
+- Dark text (`neutral-warm.800-950`)
+- Orange brand colors for actions (`orange.600-800`)
 
-**Use case:** Default theme for most applications
+**Palette:** Orange + Neutral Warm
+**Use case:** Startups, creative agencies, food & beverage
 
-### 🌙 Original Dark
-Dark mode variant with:
-- Dark backgrounds (`neutral.900-950`)
-- Light text (`neutral.50-200`)
-- Lighter brand colors for visibility (`brand.400-600`)
+### 🌊 Ocean (Blue-based)
+**Coming soon** - Professional theme with:
+- Cool backgrounds (`neutral-cool.50-100`)
+- Dark text (`neutral-cool.900-950`)
+- Blue brand colors (`blue.600-800`)
 
-**Use case:** Dark mode, night reading, OLED screens
+**Palette:** Blue + Neutral Cool
+**Use case:** SaaS, finance, healthcare, corporate
+
+### 🌲 Forest (Green-based)
+**Coming soon** - Natural, growth-focused theme with:
+- Neutral backgrounds (`neutral.50-100`)
+- Dark text (`neutral.900-950`)
+- Green brand colors (`green.600-800`)
+
+**Palette:** Green + Neutral
+**Use case:** Sustainability, health & wellness, finance
+
+### 🌅 Sunset (Orange + Red)
+**Coming soon** - Vibrant, bold theme with:
+- Warm backgrounds (`neutral-warm.50-100`)
+- Orange primary actions (`orange.600`)
+- Red accent actions (`red.500`)
+
+**Palette:** Orange + Red + Neutral Warm
+**Use case:** Events, entertainment, creative work
 
 ## How to Switch Flavors
 
@@ -103,13 +133,22 @@ prefersDark.addEventListener('change', updateFlavor);
 
 ## Creating Custom Flavors
 
+### Option 1: Using Our Curated Palettes (Recommended)
+
 1. **Create JSON file:**
 ```json
-// packages/tokens/src/flavors/my-flavor.json
+// packages/tokens/src/flavors/lavender.json
 {
   "color": {
+    "action": {
+      "solid": {
+        "background": {
+          "default": { "value": "{color.purple.600.value}", "type": "color" }
+        }
+      }
+    },
     "background": {
-      "base": { "value": "{color.purple.950.value}", "type": "color" }
+      "base": { "value": "{color.neutral-cool.50.value}", "type": "color" }
     }
   }
 }
@@ -123,8 +162,30 @@ pnpm build
 
 3. **Use your flavor:**
 ```javascript
-import '@sando/tokens/css/flavors/my-flavor.css';
+import '@sando/tokens/css/flavors/lavender.css';
 ```
+
+### Option 2: Generate Brand-Specific Palette (Coming Soon)
+
+<div style={{ padding: '24px', background: '#FFF4E6', borderRadius: '8px', border: '2px solid #FFB020', marginTop: '24px' }}>
+  <h4 style={{ marginTop: 0, color: '#C77700' }}>⚠️ Flavor Generator - Coming Soon</h4>
+  <p>
+    If none of our 8 palettes match your exact brand color, we're building a flavor generator:
+  </p>
+  <pre style={{ background: '#2D2D2D', color: '#E6E6E6', padding: '16px', borderRadius: '6px', overflow: 'auto' }}>
+    <code>npx @sando/flavor-generator create --color "#FF6B00"</code>
+  </pre>
+  <p style={{ fontSize: '14px' }}>
+    <strong>What it does:</strong><br/>
+    • Generates a scientifically designed 11-step palette using OKLCH<br/>
+    • Validates WCAG AA accessibility automatically<br/>
+    • Creates light + dark mode flavor variants<br/>
+    • Outputs ready-to-use token files
+  </p>
+  <p style={{ fontSize: '14px', marginBottom: 0 }}>
+    <strong>Status:</strong> Under development | <strong>Timeline:</strong> Q2 2025 | <strong>Priority:</strong> High
+  </p>
+</div>
 
 ## Token Customization
 

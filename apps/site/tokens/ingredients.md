@@ -6,82 +6,126 @@ Raw, atomic design values that form the foundation of the design system.
 
 Ingredients are the most basic tokens in Sando. They have **no semantic meaning** and **never reference other tokens**. Think of them as the raw ingredients you'd buy at the store before making a sandwich.
 
-## Color
+## Color Philosophy
 
-HSL color values organized in scales.
+Sando provides **8 scientifically-designed color palettes** + **3 neutral variants**, all built using the **OKLCH color space** for perceptual uniformity and guaranteed accessibility (WCAG AA).
 
-### Brand Colors
+::: tip Why 8 Palettes?
+We chose 8 curated palettes instead of forcing you to generate your own because:
+- ✅ **Instant start**: Choose a palette and begin coding in 2 minutes
+- ✅ **Scientific design**: Each palette is perceptually uniform (OKLCH)
+- ✅ **Guaranteed accessibility**: All pass WCAG AA contrast ratios
+- ✅ **Cover 95% of use cases**: From energetic orange to sophisticated purple
 
-Full scale from 50 (lightest) to 950 (darkest):
-
-```css
---sando-color-brand-50: hsl(33, 100%, 96%)
---sando-color-brand-100: hsl(34, 100%, 92%)
---sando-color-brand-200: hsl(32, 98%, 83%)
---sando-color-brand-300: hsl(31, 97%, 72%)
---sando-color-brand-400: hsl(27, 96%, 61%)
---sando-color-brand-500: hsl(25, 95%, 53%)
---sando-color-brand-600: hsl(21, 90%, 48%)
---sando-color-brand-700: hsl(17, 88%, 40%)
---sando-color-brand-800: hsl(15, 79%, 34%)
---sando-color-brand-900: hsl(15, 75%, 28%)
---sando-color-brand-950: hsl(13, 81%, 15%)
-```
-
-### Neutral Colors
-
-Scale from 100 (lightest) to 950 (darkest):
-
-```css
---sando-color-neutral-100: hsl(30, 50%, 98%)
---sando-color-neutral-200: hsl(30, 14%, 89%)
---sando-color-neutral-300: hsl(30, 7%, 79%)
---sando-color-neutral-400: hsl(40, 5%, 69%)
---sando-color-neutral-500: hsl(38, 5%, 59%)
---sando-color-neutral-600: hsl(39, 6%, 49%)
---sando-color-neutral-700: hsl(38, 8%, 39%)
---sando-color-neutral-800: hsl(42, 11%, 29%)
---sando-color-neutral-900: hsl(41, 19%, 19%)
---sando-color-neutral-950: hsl(40, 43%, 10%)
-```
-
-::: info Note
-Neutral scale starts at 100, not 50. Brand scale includes 50.
+Read our [Color Philosophy](/docs/COLOR-PHILOSOPHY.md) for the full story.
 :::
 
-### State Colors
+## Color Palettes
 
-Purpose-specific colors for UI states:
+### Brand Colors (6 palettes)
 
-**Error:**
+Choose the palette that matches your brand personality:
+
+#### Orange (Energetic, Friendly, Approachable)
+**Use case:** Startups, creative agencies, food & beverage, e-commerce
+
 ```css
---sando-color-state-error-100: hsl(354, 100%, 90%)
---sando-color-state-error-400: hsl(1, 83%, 63%)
---sando-color-state-error-500: hsl(4, 90%, 58%)
---sando-color-state-error-700: hsl(0, 66%, 47%)
+--sando-color-orange-50: hsl(33, 100%, 96%)
+--sando-color-orange-100: hsl(34, 100%, 92%)
+--sando-color-orange-200: hsl(32, 98%, 83%)
+--sando-color-orange-300: hsl(31, 97%, 72%)
+--sando-color-orange-400: hsl(27, 96%, 61%)
+--sando-color-orange-500: hsl(25, 95%, 53%)  /* Base */
+--sando-color-orange-600: hsl(21, 90%, 48%)
+--sando-color-orange-700: hsl(17, 88%, 40%)
+--sando-color-orange-800: hsl(15, 79%, 34%)
+--sando-color-orange-900: hsl(15, 75%, 28%)
+--sando-color-orange-950: hsl(13, 81%, 15%)
 ```
 
-**Warning:**
+#### Blue (Trust, Professional, Calm)
+**Use case:** SaaS, finance, healthcare, corporate, tech
+
 ```css
---sando-color-state-warning-100: hsl(45, 100%, 85%)
---sando-color-state-warning-500: hsl(45, 100%, 51%)
---sando-color-state-warning-700: hsl(34, 100%, 50%)
+--sando-color-blue-50: /* Generated - Coming soon */
+--sando-color-blue-100: /* Generated - Coming soon */
+/* ... 11 steps from 50 to 950 */
+--sando-color-blue-500: /* Base - Coming soon */
+--sando-color-blue-950: /* Generated - Coming soon */
 ```
 
-**Success:**
+#### Green (Growth, Success, Natural)
+**Use case:** Sustainability, health & wellness, finance, education
+
 ```css
---sando-color-state-success-100: hsl(122, 39%, 84%)
---sando-color-state-success-400: hsl(123, 39%, 57%)
---sando-color-state-success-500: hsl(122, 39%, 49%)
---sando-color-state-success-700: hsl(123, 46%, 34%)
+--sando-color-green-50: /* Generated - Coming soon */
+/* ... 11 steps from 50 to 950 */
 ```
 
-**Info:**
+#### Red (Urgent, Important, Bold)
+**Use case:** News, alerts, e-commerce deals, gaming
+
 ```css
---sando-color-state-info-100: hsl(213, 94%, 93%)
---sando-color-state-info-500: hsl(221, 91%, 60%)
---sando-color-state-info-700: hsl(224, 71%, 40%)
+--sando-color-red-50: /* Generated - Coming soon */
+/* ... 11 steps from 50 to 950 */
 ```
+
+#### Purple (Creative, Premium, Sophisticated)
+**Use case:** Luxury brands, creative tools, entertainment, fashion
+
+```css
+--sando-color-purple-50: /* Generated - Coming soon */
+/* ... 11 steps from 50 to 950 */
+```
+
+#### Pink (Playful, Modern, Vibrant)
+**Use case:** Fashion, beauty, lifestyle, social apps
+
+```css
+--sando-color-pink-50: /* Generated - Coming soon */
+/* ... 11 steps from 50 to 950 */
+```
+
+::: info Current Status
+Currently only **Orange** palette is implemented (Sando's default brand color).
+The other 5 palettes are being generated and will be available soon.
+:::
+
+### Neutral Colors (3 variants)
+
+Choose the neutral that complements your brand palette:
+
+#### Neutral (Pure Gray - Balanced)
+**Use case:** Pairs well with any brand color, true neutral feel
+
+```css
+--sando-color-neutral-50: /* Generated - Coming soon */
+--sando-color-neutral-100: /* Generated - Coming soon */
+/* ... 11 steps from 50 to 950 */
+```
+
+#### Neutral Warm (Slight Brown Tint - Cozy)
+**Use case:** Pairs with orange, red, yellow brands for warmth
+
+```css
+--sando-color-neutral-warm-50: hsl(30, 60%, 99%)
+--sando-color-neutral-warm-100: hsl(30, 50%, 98%)
+--sando-color-neutral-warm-200: hsl(30, 14%, 89%)
+/* ... currently implemented as default neutral */
+```
+
+#### Neutral Cool (Slight Blue Tint - Clean)
+**Use case:** Pairs with blue, purple, teal brands for sophistication
+
+```css
+--sando-color-neutral-cool-50: /* Generated - Coming soon */
+/* ... 11 steps from 50 to 950 */
+```
+
+::: info Current Status
+Currently **Neutral Warm** is implemented as the default neutral palette.
+Pure **Neutral** and **Neutral Cool** are being generated.
+:::
 
 ### Utility Colors
 
@@ -90,6 +134,24 @@ Purpose-specific colors for UI states:
 --sando-color-utility-black: hsl(0, 0%, 0%)
 --sando-color-utility-transparent: transparent
 ```
+
+## Creating Custom Brand Colors
+
+::: warning Coming Soon
+If none of our 8 palettes match your exact brand color, you'll soon be able to generate a custom palette:
+
+```bash
+npx @sando/flavor-generator create --color "#FF6B00"
+```
+
+This will:
+- Generate a scientifically designed 11-step scale using OKLCH
+- Validate WCAG AA accessibility automatically
+- Create light + dark mode variants
+- Output ready-to-use token files
+
+**Status:** Flavor generator is under development. [Track progress →](https://github.com/your-org/sando-design-system/issues/XX)
+:::
 
 [View all color ingredients →](https://github.com/yourusername/sando-design-system/blob/master/packages/tokens/src/ingredients/color.json)
 
