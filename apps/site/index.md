@@ -4,7 +4,7 @@ layout: home
 hero:
   name: Sando
   text: Design System
-  tagline: A modern, accessible, token-based design system with a powerful three-layer token architecture
+  tagline: The perfect recipe for building delicious UIs
   actions:
     - theme: brand
       text: Get Started
@@ -55,13 +55,11 @@ features:
 ```html
 <!-- Install the package -->
 <script type="module">
-  import '@sando/components/button'
+	import "@sando/components/button";
 </script>
 
 <!-- Use the component -->
-<sando-button variant="solid" flavor="strawberry">
-  Click me
-</sando-button>
+<sando-button variant="solid" flavor="strawberry"> Click me </sando-button>
 ```
 
 ## Philosophy

@@ -15,7 +15,7 @@ export default defineConfig({
       { text: 'Components', link: '/components/overview' },
       {
         text: 'Storybook',
-        link: 'https://rodrigolagodev.github.io/SandoDesignSystem/storybook/',
+        link: 'https://rodrigolagodev.github.io/SandoDesignSystem/storybook/?path=/docs/introduction--docs',
         target: '_blank'
       }
     ],
