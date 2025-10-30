@@ -1,257 +1,118 @@
 # 🥪 Sando Design System
 
-A modern, accessible, token-based design system monorepo built with Turborepo.
+**The perfect recipe for building delicious UIs.**
 
-"Sando" is inspired by the Japanese "katsu sando" sandwich analogy. A flexible UI toolkit built as a Web Components library that serves as a portfolio piece and starter kit for future projects, ensuring visual consistency while allowing easy customization through a theming system.
+Just like a perfectly crafted Japanese katsu sando combines quality **Ingredients**, balanced **Flavors**, and a proven **Recipe** to create something extraordinary, Sando Design System brings these three layers together to help you craft consistent, accessible, and beautiful user interfaces.
 
-## 📦 Packages
+We believe that great design systems, like great food, start with quality basics. Our three-layer token architecture gives you the foundation to build once and theme infinitely—whether you're serving light mode, dark mode, or your own custom flavor. Built with Web Components and powered by design tokens, Sando works seamlessly with React, Vue, Angular, or vanilla JavaScript.
 
-### [@sando/tokens](./packages/tokens)
-Design tokens following a three-layer architecture:
-- **Ingredients** - Primitive values (colors, spacing, typography)
-- **Flavors** - Semantic tokens (theme-specific)
-- **Recipes** - Component-specific tokens
+**Start with quality Ingredients.** Define your primitives—colors, spacing, typography—as the raw materials of your design language.
 
-### [@sando/components](./packages/components)
-Web Components library built with Lit:
-- Framework-agnostic components
-- Token-driven styling
-- Full TypeScript support
-- WCAG 2.1 AA compliant
+**Season with distinctive Flavors.** Transform primitives into semantic tokens that give your interface its unique character and enable effortless theming.
 
-### [@sando/docs](./apps/docs)
-Storybook - Interactive component playground and visual testing
+**Follow proven Recipes.** Use component-specific tokens that ensure every button, card, and input tastes just right, every time.
 
-### [@sando/site](./apps/site)
-VitePress - Main documentation site with guides, tutorials, and API reference
+The result? A design system that's accessible by default (WCAG 2.1 AA), framework-agnostic, fully typed with TypeScript, and ready to serve across your entire product ecosystem.
+
+Start with the basics, season with meaning, and serve with style.
+
+---
+
+## ✨ Features
+
+- **🎨 Three-Layer Token Architecture** - Ingredients → Flavors → Recipes for scalable design
+- **🌐 Framework-Agnostic** - Web Components that work with React, Vue, Angular, or vanilla JS
+- **♿ Accessible by Default** - WCAG 2.1 AA compliant components out of the box
+- **🎭 Multi-Theme Support** - Light, dark, high-contrast, and custom flavors
+- **📦 Monorepo Structure** - Turborepo-powered with optimized caching and parallel builds
+- **🔒 Type-Safe** - Full TypeScript support with strict mode enabled
+- **🧪 Well-Tested** - Comprehensive unit, E2E, and accessibility tests
+- **📚 Fully Documented** - Interactive Storybook playground and VitePress guides
+- **🤖 AI-Powered Workflow** - 20 specialized agents, skills, and commands for development automation
+
+## 🤖 AI-Powered Development
+
+Sando comes with a complete AI agent system built for Claude Code, making design system development faster and more consistent:
+
+### 20 Specialized Agents
+
+Work with expert agents for every aspect of design system development:
+
+- **Core Development** (8 agents): `design-system-architect`, `design-system-pm`, `ui-designer`, `frontend-developer`, `technical-writer`, `qa-expert`, `devops-automation-engineer`, `developer-tooling-specialist`
+- **Design Operations** (4 agents): `design-ops-specialist`, `version-migration-manager`, `ecosystem-integration-agent`, `performance-monitor`
+- **Quality & Architecture** (2 agents): `security-compliance-auditor`, `component-composition-specialist`
+- **Community & Growth** (3 agents): `community-contribution-manager`, `analytics-insights-agent`, `localization-i18n-specialist`
+- **Meta Agents** (3 agents): `accessibility-advocate`, `component-builder`, `agent-system-optimizer`
+
+### Skills for Common Tasks
+
+Execute complex workflows with a single command:
+
+- **`component-creator`** - Generate boilerplate for new Web Components
+- **`command-creator`** - Create custom slash commands for your workflow
+- **`skill-creator`** - Build new skills to extend Claude's capabilities
+
+### Slash Commands
+
+Quick shortcuts for common operations:
+
+- **`/project-status`** - Comprehensive project health check (git, builds, tests, coverage)
+
+> Use agents, skills, and commands via [Claude Code](https://claude.com/code) to streamline your development workflow.
 
 ## 🚀 Quick Start
 
 ```bash
-# Install pnpm (if not already installed)
-npm install -g pnpm
-
-# Install dependencies
+# Install dependencies (requires pnpm)
 pnpm install
 
 # Build all packages
 pnpm build
 
-# Start development mode (all packages in parallel)
+# Start development mode
 pnpm dev
-
-# Run tests
-pnpm test
 ```
 
-### 🌐 Development Ports
-
-When running `pnpm dev`, the following applications will be available:
-
-- **Storybook** (Component Development & Playground): http://localhost:6006
-- **VitePress** (Documentation Site): http://localhost:3000
-
-> **Note**: Ports can be customized by copying `.env.example` to `.env.local` and modifying the port values.
-
-## 📋 Available Scripts
-
-### Root Commands
-
-```bash
-pnpm build              # Build all packages with Turborepo
-pnpm dev                # Dev mode for all packages (parallel)
-pnpm test               # Run tests in all packages
-pnpm test:coverage      # Coverage for all packages
-pnpm lint               # Lint all packages
-pnpm clean              # Clean all build artifacts
-```
-
-### Package-Specific Commands
-
-```bash
-pnpm tokens:build       # Build only tokens
-pnpm tokens:dev         # Dev mode for tokens (watch mode)
-
-pnpm components:build   # Build only components
-
-pnpm docs:dev           # Start Storybook (localhost:6006)
-pnpm docs:build         # Build Storybook
-
-pnpm site:dev           # Start VitePress docs (localhost:3000)
-pnpm site:build         # Build VitePress docs
-pnpm site:preview       # Preview built docs (localhost:3001)
-```
-
-### Versioning & Publishing
-
-```bash
-pnpm changeset          # Create a changeset
-pnpm version-packages   # Bump versions
-pnpm release            # Build and publish to npm
-```
-
-## 🏗️ Monorepo Structure
-
-```
-sando-design-system/
-├── packages/
-│   ├── tokens/           # @sando/tokens
-│   │   ├── src/          # Token JSON files
-│   │   ├── build/        # Style Dictionary config
-│   │   ├── tests/        # Token tests
-│   │   └── dist/         # Built CSS tokens
-│   │
-│   └── components/       # @sando/components
-│       ├── src/          # Lit components
-│       ├── tests/        # Component tests
-│       └── dist/         # Built components
-│
-├── apps/
-│   ├── docs/             # @sando/docs (Storybook)
-│   │   ├── .storybook/   # Storybook config
-│   │   └── stories/      # Documentation
-│   │
-│   └── site/             # @sando/site (VitePress)
-│       └── docs/         # Documentation content
-│
-├── .env.example          # Environment variables template
-├── .env                  # Local environment variables (ports, etc.)
-├── turbo.json            # Turborepo configuration
-├── pnpm-workspace.yaml   # Workspace definition
-└── package.json          # Root package
-```
-
-## 🎨 Token Architecture
-
-Sando uses a three-layer token system inspired by the "katsu sando" sandwich:
-
-1. **Ingredients (Primitives)**
-   - Raw, atomic values with no opinion
-   - Examples: `color-brand-500`, `space-base`, `font-size-base`
-
-2. **Flavors (Semantic)**
-   - Context and meaning to ingredients
-   - Define theme character
-   - Examples: `color-background-interactive`, `spacing-comfortable`
-
-3. **Recipes (Component)**
-   - Component-specific tokens
-   - Examples: `button-background-color`, `button-padding`
-
-**Theming & Modes**: Apply different flavors and accessibility modes:
-
-```html
-<!-- Flavor (color palette) -->
-<sando-button flavor="original">Click me</sando-button>
-
-<!-- Auto dark mode (via system preference) -->
-<sando-button>Auto adapts to dark mode</sando-button>
-
-<!-- Force dark mode -->
-<html flavor-mode="dark">
-  <sando-button>Dark mode</sando-button>
-</html>
-
-<!-- High contrast for accessibility -->
-<html flavor-mode="high-contrast">
-  <sando-button>Maximum contrast</sando-button>
-</html>
-```
-
-### Supported Modes
-
-**Color Modes** (mutually exclusive):
-- ✅ **Light** (default) - Base colors
-- ✅ **Dark** (`flavor-mode="dark"`) - Auto via `@media (prefers-color-scheme: dark)` or manual
-- ✅ **High Contrast** (`flavor-mode="high-contrast"`) - WCAG AAA compliance
-- ✅ **Forced Colors** - Windows High Contrast (auto only)
-
-**Motion Mode** (independent):
-- ✅ **Motion Reduce** - Auto via `@media (prefers-reduced-motion: reduce)`
-
-All modes work automatically based on system preferences, with manual override support for color modes.
+**Development servers will be available at:**
+- 📖 Storybook: http://localhost:6006
+- 📚 VitePress: http://localhost:3000
 
 ## 🛠️ Tech Stack
 
-- **Monorepo**: [Turborepo](https://turbo.build/repo) 2.5.8 - High-performance build system
-- **Package Manager**: [pnpm](https://pnpm.io) 8.15.0 with workspaces
-- **Components**: [Lit](https://lit.dev) 3.3.1 - Modern web components
-- **Tokens**: [Style Dictionary](https://amzn.github.io/style-dictionary) 4.0.0
-- **Testing**: [Vitest](https://vitest.dev) 3.2.4 + [Playwright](https://playwright.dev) 1.55.1
-- **Docs**: [Storybook](https://storybook.js.org) 8.6.14 + [VitePress](https://vitepress.dev) 1.6.4
+Built with modern tools for maximum developer experience:
+
+- **Monorepo**: Turborepo 2.5.8 + pnpm workspaces
+- **Components**: Lit 3.3.1 (Web Components)
+- **Tokens**: Style Dictionary 4.0.0
+- **Testing**: Vitest 4.0.4 + Playwright 1.55.1
+- **Docs**: Storybook 8.6.14 + VitePress 1.6.4
 - **Language**: TypeScript 5.9.3
-- **Build Tool**: Vite 5.0.8
-- **Linting**: ESLint 8.56.0 + Prettier 3.6.2
+- **Build**: Vite 5.0.8
 
-## 📈 Performance with Turborepo
+## 📚 Documentation
 
-- ⚡ **Incremental builds** - Only rebuild what changed
-- 🔄 **Smart caching** - Local and remote caching
-- ⏱️ **Parallel execution** - Run tasks concurrently
-- 📊 **Build visualization** - Understand your build graph
+For detailed guides, API references, and interactive examples:
 
-## 🧪 Testing
+- **[Storybook](http://localhost:6006)** - Component playground and visual documentation
+- **[VitePress](http://localhost:3000)** - Full guides on installation, theming, and architecture
 
-```bash
-# Run all tests (clean output)
-pnpm test
+## 📦 Packages
 
-# Watch mode (auto-rerun on changes)
-pnpm test:watch
+This monorepo contains:
 
-# Coverage report
-pnpm test:coverage
-
-# Interactive test UI (run individually per package)
-pnpm --filter @sando/tokens test:ui       # Tokens UI
-pnpm --filter @sando/components test:ui   # Components UI
-```
-
-### Test Commands per Package
-
-**Tokens**:
-```bash
-pnpm test:verbose          # Detailed output
-pnpm test:structure        # Token structure tests
-pnpm test:references       # Token reference tests
-pnpm test:values           # Token value tests
-```
-
-**Components**:
-```bash
-pnpm test:verbose          # Detailed test output
-pnpm test:e2e              # End-to-end tests
-pnpm test:e2e:ui           # E2E tests UI
-```
-
-**Tip**: Use `pnpm test` for CI/terminal or `pnpm test:ui` for interactive debugging.
-
-## 📝 Publishing
-
-This project uses [Changesets](https://github.com/changesets/changesets) for versioning and publishing:
-
-```bash
-# Create a changeset
-pnpm changeset
-
-# Version packages
-pnpm version-packages
-
-# Build and publish to npm
-pnpm release
-```
+- **[@sando/tokens](./packages/tokens)** - Design tokens (Ingredients, Flavors, Recipes)
+- **[@sando/components](./packages/components)** - Web Components library
+- **[@sando/docs](./apps/docs)** - Storybook documentation
+- **[@sando/site](./apps/site)** - VitePress documentation site
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Contributions are welcome! Please feel free to submit issues or pull requests.
 
 ## 📄 License
 
 MIT © [Rodrigo Lago](https://github.com/rodrigolagodev)
 
-## 🔗 Links
+---
 
-- **GitHub**: [rodrigolagodev/SandoDesignSystem](https://github.com/rodrigolagodev/SandoDesignSystem)
-- **Issues**: [Report a bug or request a feature](https://github.com/rodrigolagodev/SandoDesignSystem/issues)
-- **Storybook**: Component playground and documentation
-- **VitePress**: Full documentation site
+**Built with ❤️ and a passion for great design systems.**
