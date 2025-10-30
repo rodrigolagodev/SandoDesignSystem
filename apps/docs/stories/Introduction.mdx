@@ -91,11 +91,22 @@ All components support theming via the `flavor` attribute:
   <sando-button>Strawberry themed</sando-button>
 </div>
 
-<!-- Dark mode -->
-<html flavor-mode="dark">
-  <sando-button>Dark mode button</sando-button>
-</html>
+<!-- Forest flavor -->
+<div flavor="forest">
+  <sando-button>Forest themed</sando-button>
+</div>
 ```
+
+### Automatic Dark Mode Support
+
+Dark mode is automatic! Components adapt to your system preferences:
+
+```html
+<!-- Automatically switches to dark colors when user enables dark mode in system settings -->
+<sando-button>Auto dark mode</sando-button>
+```
+
+**No manual configuration needed.** Sando respects `prefers-color-scheme` and other accessibility preferences automatically.
 
 ## ✨ What Makes Sando Special?
 

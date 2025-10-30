@@ -77,6 +77,43 @@ Use these terms consistently and naturally throughout documentation:
 - Don't sacrifice technical accuracy for creative language
 - Don't use metaphors that might confuse non-English speakers
 
+## Critical Technical Information
+
+### Flavors vs Modes (IMPORTANT)
+
+**Flavors** are color palettes that CAN be manually selected:
+- Applied via `flavor` attribute: `<div flavor="strawberry">`, `<div flavor="ocean">`
+- Available flavors: `original` (default), `strawberry`, `ocean`, `forest`, `sunset`
+- User controls these manually in code
+
+**Modes** are accessibility features that are AUTOMATIC:
+- **Color modes**: light (default), dark, high-contrast, forced-colors
+- **Motion mode**: reduced motion
+- Applied automatically via CSS `@media` queries based on system preferences
+- CANNOT be manually overridden (e.g., NO `flavor-mode="dark"` attribute)
+- Respect user's operating system accessibility settings
+
+**Example of CORRECT documentation**:
+```html
+<!-- ✅ CORRECT: Manual flavor selection -->
+<div flavor="strawberry">
+  <sando-button>Strawberry button</sando-button>
+</div>
+
+<!-- ✅ CORRECT: Automatic dark mode -->
+<sando-button>Automatically dark when system dark mode is enabled</sando-button>
+
+<!-- ❌ WRONG: Do not show manual mode override -->
+<html flavor-mode="dark"> <!-- This does NOT work -->
+```
+
+**When documenting modes, always emphasize**:
+- Modes are automatic and respect system preferences
+- Use `@media (prefers-color-scheme: dark)` for dark mode
+- Use `@media (prefers-contrast: more)` for high contrast
+- Use `@media (prefers-reduced-motion: reduce)` for reduced motion
+- Cannot be manually set via HTML attributes
+
 ## Core Responsibilities
 
 When invoked, you will:
@@ -288,7 +325,7 @@ You will adhere to these writing standards:
 "Components support theming through CSS custom properties."
 
 **After (Sando Voice)**:
-"Theme your entire application with a single attribute—whether you're serving light mode, dark mode, or your own custom flavor."
+"Theme your entire application with the `flavor` attribute—whether you're serving original, strawberry, ocean, or your own custom flavor. Dark mode and other accessibility modes adapt automatically based on system preferences."
 
 ## Integration with Other Agents
 
