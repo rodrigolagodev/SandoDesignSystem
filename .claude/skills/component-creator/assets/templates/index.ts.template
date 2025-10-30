@@ -1,0 +1,2 @@
+export { Sando{{COMPONENT_CLASS}} } from './sando-{{COMPONENT_NAME}}';
+export type * from './sando-{{COMPONENT_NAME}}.types';

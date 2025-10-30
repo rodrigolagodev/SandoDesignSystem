@@ -1,0 +1,10 @@
+/**
+ * Type definitions for sando-{{COMPONENT_NAME}} component
+ */
+
+/**
+ * Props for the Sando{{COMPONENT_CLASS}} component
+ */
+export interface Sando{{COMPONENT_CLASS}}Props {
+  // TODO: Add component props with JSDoc comments
+}

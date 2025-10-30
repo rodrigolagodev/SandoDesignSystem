@@ -1,0 +1,109 @@
+# {{COMPONENT_CLASS}} Component
+
+{{COMPONENT_DESCRIPTION}}
+
+## Installation
+
+```bash
+npm install @sando/components
+```
+
+## Basic Usage
+
+```html
+<sando-{{COMPONENT_NAME}}>
+  Content
+</sando-{{COMPONENT_NAME}}>
+```
+
+## API Reference
+
+### Properties
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| - | - | - | TODO: Add properties |
+
+### Events
+
+| Event | Description |
+|-------|-------------|
+| - | TODO: Add events or remove section if none |
+
+### Slots
+
+| Slot | Description |
+|------|-------------|
+| Default | TODO: Describe default slot content |
+
+### CSS Custom Properties
+
+| Property | Default | Description |
+|----------|---------|-------------|
+| - | - | TODO: Add CSS custom properties after creating Recipe tokens |
+
+## Examples
+
+### Basic Example
+
+```html
+<!-- TODO: Add basic usage example -->
+<sando-{{COMPONENT_NAME}}>
+  Example content
+</sando-{{COMPONENT_NAME}}>
+```
+
+## Accessibility
+
+<!-- TODO: Document accessibility features -->
+
+- [ ] Keyboard navigation
+- [ ] Screen reader support
+- [ ] ARIA attributes
+- [ ] Focus management
+- [ ] Color contrast compliance
+
+## Framework Integration
+
+### React
+
+```tsx
+import '@sando/components/{{COMPONENT_NAME}}';
+
+function App() {
+  return (
+    <sando-{{COMPONENT_NAME}}>
+      Content
+    </sando-{{COMPONENT_NAME}}>
+  );
+}
+```
+
+### Vue 3
+
+```vue
+<template>
+  <sando-{{COMPONENT_NAME}}>
+    Content
+  </sando-{{COMPONENT_NAME}}>
+</template>
+
+<script setup>
+import '@sando/components/{{COMPONENT_NAME}}';
+</script>
+```
+
+## TODO: Complete Documentation
+
+- [ ] Add all usage examples
+- [ ] Document all props with examples
+- [ ] Document all events with examples
+- [ ] Add accessibility notes
+- [ ] Document CSS custom properties
+- [ ] Add best practices section
+- [ ] Add "Do's and Don'ts" section
+
+## Related
+
+- [Component Overview](/components/overview)
+- [Button Component](/components/button) (reference example)

@@ -1,0 +1,28 @@
+import type { Meta, StoryObj } from '@storybook/web-components';
+import { html } from 'lit';
+import './sando-{{COMPONENT_NAME}}';
+import type { Sando{{COMPONENT_CLASS}} } from './sando-{{COMPONENT_NAME}}';
+
+const meta: Meta<Sando{{COMPONENT_CLASS}}> = {
+  title: 'Components/{{COMPONENT_CLASS}}',
+  component: 'sando-{{COMPONENT_NAME}}',
+  tags: ['autodocs'],
+};
+
+export default meta;
+type Story = StoryObj<Sando{{COMPONENT_CLASS}}>;
+
+export const Default: Story = {
+  render: () => html`
+    <sando-{{COMPONENT_NAME}}>
+      {{COMPONENT_CLASS}} Content
+    </sando-{{COMPONENT_NAME}}>
+  `,
+};
+
+// TODO: Add more stories
+// - Variants (if applicable)
+// - Sizes (if applicable)
+// - Different states
+// - With different props
+// - Interactive examples

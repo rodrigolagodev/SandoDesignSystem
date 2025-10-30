@@ -1,0 +1,28 @@
+import { LitElement, html } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
+
+/**
+ * @tag sando-{{COMPONENT_NAME}}
+ * @summary {{COMPONENT_DESCRIPTION}}
+ *
+ * @slot - Default slot content
+ */
+@customElement('sando-{{COMPONENT_NAME}}')
+export class Sando{{COMPONENT_CLASS}} extends LitElement {
+  // TODO: Add static styles = css`...` when ready to style the component
+
+  // TODO: Add @property decorators for component props
+
+  render() {
+    return html`
+      <!-- TODO: Implement component template -->
+      <slot></slot>
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'sando-{{COMPONENT_NAME}}': Sando{{COMPONENT_CLASS}};
+  }
+}

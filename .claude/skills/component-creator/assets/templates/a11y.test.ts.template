@@ -1,0 +1,19 @@
+import { fixture, expect, html } from '@open-wc/testing';
+import './sando-{{COMPONENT_NAME}}';
+import type { Sando{{COMPONENT_CLASS}} } from './sando-{{COMPONENT_NAME}}';
+
+describe('sando-{{COMPONENT_NAME}} Accessibility', () => {
+  it('should be accessible', async () => {
+    const el = await fixture<Sando{{COMPONENT_CLASS}}>(html`
+      <sando-{{COMPONENT_NAME}}>Accessible content</sando-{{COMPONENT_NAME}}>
+    `);
+
+    await expect(el).to.be.accessible();
+  });
+
+  // TODO: Add specific accessibility tests
+  // - Test keyboard navigation
+  // - Test ARIA attributes
+  // - Test focus management
+  // - Test screen reader announcements
+});
