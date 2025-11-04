@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(if [ -f \"coverage/coverage-summary.json\" ])",
+      "Bash(then cat coverage/coverage-summary.json)",
+      "Bash(else echo \"NO_COVERAGE\")",
+      "Bash(fi:*)",
+      "Bash(cat:*)",
+      "Bash(curl:*)",
+      "WebSearch",
+      "WebFetch(domain:design-system.strapi.io)",
+      "WebFetch(domain:handbook.strapi.io)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
