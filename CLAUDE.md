@@ -77,6 +77,32 @@ packages/components/src/components/button/
 
 **Benefits**: Portable, easy to find everything, clear ownership, minimal shared dependencies.
 
+## Development Workflow
+
+### GitHub Flow
+
+Sando Design System follows **GitHub Flow** for all development:
+
+1. **Master is always deployable** - Never commit broken code to master
+2. **Create feature branches** - Use `type/description` naming (e.g., `feat/button-component`)
+3. **Commit frequently** - Small, atomic commits with conventional format
+4. **Open PRs early** - Get feedback early, iterate quickly
+5. **Merge when CI passes** - Automated deployment to production
+6. **Delete merged branches** - Keep repository clean (automatic)
+
+**Workflow Example:**
+
+```bash
+git checkout master && git pull
+git checkout -b feat/add-tooltip
+# Make changes...
+git commit -m "feat(components): add tooltip component"
+git push -u origin feat/add-tooltip
+# Create PR → CI validates → Review → Merge → Auto-deploy
+```
+
+For complete details, see `.claude/guidelines/03-development/GIT_WORKFLOW.md`
+
 ## Common Development Commands
 
 ### Root-Level Commands
@@ -269,19 +295,19 @@ Themes are applied via the `flavor` HTML attribute:
 ```html
 <!-- Global theme -->
 <html flavor="dark">
-	<body>
-		<sando-button>Dark button</sando-button>
-	</body>
+  <body>
+    <sando-button>Dark button</sando-button>
+  </body>
 </html>
 
 <!-- Section theme -->
 <div flavor="strawberry">
-	<sando-button>Strawberry themed</sando-button>
+  <sando-button>Strawberry themed</sando-button>
 </div>
 
 <!-- Component override via CSS -->
 <sando-button style="--sando-button-solid-backgroundColor-default: #custom;">
-	Custom color
+  Custom color
 </sando-button>
 ```
 

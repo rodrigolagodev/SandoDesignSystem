@@ -6,6 +6,7 @@ Thank you for your interest in contributing to Sando Design System! This documen
 
 - [Code of Conduct](#code-of-conduct)
 - [Getting Started](#getting-started)
+- [GitHub Flow](#github-flow)
 - [Development Workflow](#development-workflow)
 - [Project Structure](#project-structure)
 - [Coding Standards](#coding-standards)
@@ -43,8 +44,64 @@ pnpm dev
 ```
 
 This will start:
+
 - **Storybook** on http://localhost:6006
 - **VitePress docs** on http://localhost:3000
+
+## GitHub Flow
+
+Sando Design System follows **GitHub Flow** - a lightweight, branch-based workflow designed for rapid iteration and continuous deployment.
+
+### Core Principles
+
+1. **Master is always deployable** - Every commit to `master` is production-ready
+2. **Feature branches are short-lived** - Merge within 3 days to avoid drift
+3. **Pull requests are the unit of work** - All changes go through PR review
+4. **Deploy frequently** - Continuous deployment from `master`
+5. **Delete branches after merge** - Keep repository clean
+
+### Typical Workflow
+
+```bash
+# 1. Create feature branch from master
+git checkout master
+git pull
+git checkout -b feat/add-tooltip-component
+
+# 2. Make changes and commit frequently
+git add .
+git commit -m "feat(components): add tooltip base structure"
+git commit -m "feat(components): add tooltip positioning logic"
+
+# 3. Push branch and create PR
+git push -u origin feat/add-tooltip-component
+# Open PR on GitHub
+
+# 4. Address review feedback
+git add .
+git commit -m "fix(components): address review feedback"
+git push
+
+# 5. Merge when CI passes and approved
+# Merging triggers automatic deployment to production
+# Branch is automatically deleted after merge
+```
+
+### Branch Naming Convention
+
+Use the format: `type/description`
+
+**Examples:**
+
+- `feat/button-component` - New feature
+- `fix/dark-mode-contrast` - Bug fix
+- `docs/theming-guide` - Documentation
+- `refactor/flavor-mixin` - Code refactoring
+- `chore/upgrade-lit` - Maintenance
+
+**Why This Matters:** Short-lived branches reduce merge conflicts and enable rapid feedback loops.
+
+For complete details, see [`.claude/guidelines/03-development/GIT_WORKFLOW.md`](.claude/guidelines/03-development/GIT_WORKFLOW.md)
 
 ## Development Workflow
 
@@ -88,6 +145,7 @@ git commit -m "chore: update dependencies"
 ```
 
 **Types:**
+
 - `feat`: New feature
 - `fix`: Bug fix
 - `docs`: Documentation only
@@ -134,14 +192,14 @@ sando-design-system/
 class SandoButton extends LitElement {}
 
 // Files: kebab-case
-sando-button.ts
-sando-button.test.ts
-
-// CSS classes: kebab-case
-.button-primary
+sando - button.ts;
+sando -
+  // CSS classes: kebab-case
+  button.test.ts.button -
+  primary;
 
 // CSS custom properties: kebab-case with --sando- prefix
---sando-button-background-color
+--sando - button - background - color;
 
 // Functions: camelCase
 function handleClick() {}
@@ -223,21 +281,26 @@ Before submitting a PR, ensure:
 
 ```markdown
 ## Description
+
 Brief description of what this PR does
 
 ## Type of Change
+
 - [ ] Bug fix (non-breaking change which fixes an issue)
 - [ ] New feature (non-breaking change which adds functionality)
 - [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
 - [ ] Documentation update
 
 ## Testing
+
 Describe the tests you ran and how to reproduce them
 
 ## Screenshots (if applicable)
+
 Add screenshots or GIFs demonstrating the changes
 
 ## Related Issues
+
 Closes #issue_number
 ```
 
@@ -310,6 +373,7 @@ When adding or modifying tokens:
    - **Recipes**: Component-specific tokens
 
 2. **Use references**:
+
 ```json
 {
   "button": {

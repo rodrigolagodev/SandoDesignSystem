@@ -43,6 +43,9 @@ node_modules/.cache/
 .env.production.local
 .env*.local
 
+# MCP configuration (contains sensitive tokens)
+.mcp.json
+
 # IDE and editors
 .vscode/*
 !.vscode/settings.json

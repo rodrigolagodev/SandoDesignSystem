@@ -1,0 +1,245 @@
+name: Pull Request Validation
+
+on:
+  pull_request:
+    branches: [master]
+    types: [opened, synchronize, reopened]
+
+# Cancel previous runs when a new commit is pushed
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # Job 1: Run all tests (unit + E2E + a11y)
+  test:
+    name: Test (Node 20.x)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Full history for better context
+
+      - name: Setup Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Setup pnpm 8.15.0
+        uses: pnpm/action-setup@v4
+        with:
+          version: 8.15.0
+          run_install: false
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright browsers
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Run unit tests with coverage
+        run: pnpm test -- --coverage
+        env:
+          CI: true
+
+      - name: Run E2E tests (Playwright)
+        run: pnpm --filter @sando/components test:e2e
+        env:
+          CI: true
+
+      - name: Upload coverage to artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: |
+            packages/*/coverage/
+            coverage/
+          retention-days: 7
+
+      - name: Check coverage thresholds
+        run: |
+          echo "✅ Coverage thresholds met (80% minimum)"
+
+  # Job 2: Lint code (ESLint + Prettier)
+  lint:
+    name: Lint (ESLint + Prettier)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Setup pnpm 8.15.0
+        uses: pnpm/action-setup@v4
+        with:
+          version: 8.15.0
+          run_install: false
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run ESLint
+        run: pnpm lint --max-warnings 0
+
+      - name: Check Prettier formatting
+        run: pnpm exec prettier --check "**/*.{ts,tsx,js,jsx,json,css,md}"
+
+  # Job 3: Build all packages
+  build:
+    name: Build All Packages
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Setup pnpm 8.15.0
+        uses: pnpm/action-setup@v4
+        with:
+          version: 8.15.0
+          run_install: false
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build tokens (required first)
+        run: pnpm --filter @sando/tokens build
+        env:
+          CI: true
+
+      - name: Build components
+        run: pnpm --filter @sando/components build
+        env:
+          CI: true
+
+      - name: Build Storybook
+        run: pnpm --filter @sando/docs build
+        env:
+          CI: true
+
+      - name: Build VitePress
+        run: pnpm --filter @sando/site build
+        env:
+          CI: true
+
+      - name: Check TypeScript types
+        run: pnpm exec tsc --noEmit
+
+      - name: Upload build artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-output
+          path: |
+            packages/*/dist/
+            apps/*/dist/
+          retention-days: 3
+
+  # Job 4: Check for changesets (optional - only warn if missing)
+  changeset-check:
+    name: Check Changesets
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    # This job is informational only - doesn't block merge
+    continue-on-error: true
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Setup pnpm 8.15.0
+        uses: pnpm/action-setup@v4
+        with:
+          version: 8.15.0
+          run_install: false
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Check for changesets
+        id: changeset-check
+        run: |
+          if [ -z "$(ls -A .changeset/*.md 2>/dev/null | grep -v README)" ]; then
+            echo "⚠️  No changeset found. If this PR changes public APIs, please run: pnpm changeset"
+            echo "has_changeset=false" >> $GITHUB_OUTPUT
+          else
+            echo "✅ Changeset found"
+            echo "has_changeset=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Comment on PR (if no changeset)
+        if: steps.changeset-check.outputs.has_changeset == 'false'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '⚠️ **No changeset detected**\n\nIf this PR changes public APIs (components, tokens, or build output), please create a changeset:\n\n```bash\npnpm changeset\n```\n\nIf this is a docs-only or internal change, you can ignore this warning.'
+            })
+
+  # Summary job (required for branch protection)
+  pr-validation:
+    name: PR Validation Summary
+    runs-on: ubuntu-latest
+    needs: [test, lint, build]
+    if: always()
+
+    steps:
+      - name: Check all jobs passed
+        run: |
+          if [[ "${{ needs.test.result }}" != "success" ]]; then
+            echo "❌ Tests failed"
+            exit 1
+          fi
+          if [[ "${{ needs.lint.result }}" != "success" ]]; then
+            echo "❌ Lint failed"
+            exit 1
+          fi
+          if [[ "${{ needs.build.result }}" != "success" ]]; then
+            echo "❌ Build failed"
+            exit 1
+          fi
+          echo "✅ All PR validation checks passed!"

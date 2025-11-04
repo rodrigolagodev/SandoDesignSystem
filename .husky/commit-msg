@@ -1,0 +1,46 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Validate conventional commit format: type(scope): description
+# Types: feat, fix, docs, refactor, perf, test, chore, style, build, ci
+
+commit_msg_file="$1"
+commit_msg=$(cat "$commit_msg_file")
+
+# Regex pattern for conventional commits
+# Matches: type(scope): description OR type: description
+# Allows optional breaking change indicator (!)
+conventional_commit_regex="^(feat|fix|docs|refactor|perf|test|chore|style|build|ci)(\(.+\))?!?: .{3,}"
+
+# Check if commit message matches pattern
+if ! echo "$commit_msg" | grep -qE "$conventional_commit_regex"; then
+  echo ""
+  echo "❌ Invalid commit message format!"
+  echo ""
+  echo "Commit messages must follow Conventional Commits:"
+  echo "  type(scope): description"
+  echo ""
+  echo "Examples:"
+  echo "  ✅ feat(components): add sando-button component"
+  echo "  ✅ fix(tokens): correct contrast ratios"
+  echo "  ✅ docs: update README"
+  echo "  ✅ feat!: breaking change (major version)"
+  echo ""
+  echo "Valid types:"
+  echo "  feat     - New features"
+  echo "  fix      - Bug fixes"
+  echo "  docs     - Documentation only"
+  echo "  refactor - Code changes (no behavior change)"
+  echo "  perf     - Performance improvements"
+  echo "  test     - Test additions/changes"
+  echo "  chore    - Maintenance tasks"
+  echo "  style    - Code style/formatting"
+  echo "  build    - Build system changes"
+  echo "  ci       - CI configuration changes"
+  echo ""
+  echo "See: .claude/guidelines/03-development/GIT_WORKFLOW.md"
+  echo ""
+  exit 1
+fi
+
+echo "✅ Commit message format is valid"
