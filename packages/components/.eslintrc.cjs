@@ -16,7 +16,8 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
-    project: './tsconfig.json'
+    project: './tsconfig.eslint.json',
+    tsconfigRootDir: __dirname
   },
   plugins: ['@typescript-eslint', 'wc', 'lit'],
   rules: {
@@ -38,12 +39,12 @@ module.exports = {
     'lit/no-useless-template-literals': 'warn',
     'lit/no-value-attribute': 'error',
     'lit/no-legacy-template-syntax': 'error',
-    'lit/attribute-value-entities': 'warn',
+    'lit/attribute-value-entities': 'off', // Disabled - causes false positives with arrow functions in event handlers
 
     // General code quality
     'no-console': ['warn', { allow: ['warn', 'error'] }],
     'prefer-const': 'error',
     'no-var': 'error'
   },
-  ignorePatterns: ['dist', 'coverage', 'node_modules', '*.config.js', '*.config.ts']
+  ignorePatterns: ['dist', 'coverage', 'node_modules', '*.config.js', '*.config.ts', '**/scripts/**']
 };

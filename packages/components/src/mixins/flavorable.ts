@@ -42,7 +42,7 @@ import { property } from 'lit/decorators.js';
 /**
  * Type for constructor that accepts LitElement or any subclass
  */
-type Constructor<T = {}> = new (...args: any[]) => T;
+type Constructor<T = object> = new (...args: any[]) => T;
 
 /**
  * Interface for Flavorable components
