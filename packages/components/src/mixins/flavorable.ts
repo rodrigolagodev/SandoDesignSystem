@@ -42,6 +42,7 @@ import { property } from 'lit/decorators.js';
 /**
  * Type for constructor that accepts LitElement or any subclass
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Constructor<T = object> = new (...args: any[]) => T;
 
 /**

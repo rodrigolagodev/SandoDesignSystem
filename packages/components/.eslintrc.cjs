@@ -28,7 +28,7 @@ module.exports = {
     '@typescript-eslint/no-non-null-assertion': 'warn',
 
     // Web Components best practices
-    'wc/guard-super-call': 'error',
+    'wc/guard-super-call': 'off', // Disabled - not needed with Lit (LitElement always has lifecycle methods)
     'wc/no-closed-shadow-root': 'error',
     'wc/no-constructor-attributes': 'error',
     'wc/no-invalid-element-name': 'error',
@@ -46,5 +46,15 @@ module.exports = {
     'prefer-const': 'error',
     'no-var': 'error'
   },
+  overrides: [
+    {
+      // Relax rules for test files
+      files: ['**/*.test.ts', '**/*.spec.ts', '**/*.a11y.test.ts'],
+      rules: {
+        '@typescript-eslint/no-non-null-assertion': 'off',
+        '@typescript-eslint/no-explicit-any': 'off'
+      }
+    }
+  ],
   ignorePatterns: ['dist', 'coverage', 'node_modules', '*.config.js', '*.config.ts', '**/scripts/**']
 };

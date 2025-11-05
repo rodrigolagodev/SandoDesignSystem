@@ -329,9 +329,7 @@ export class SandoIcon extends FlavorableMixin(LitElement) {
    * Load icon SVG when component connects to DOM
    */
   connectedCallback() {
-    if (super.connectedCallback) {
-      super.connectedCallback();
-    }
+    super.connectedCallback();
     this.loadIcon();
   }
 

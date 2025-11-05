@@ -61,7 +61,7 @@ export interface InteractiveComponentProps extends BaseComponentProps {
  * Base type for custom event details
  */
 export interface CustomEventDetail {
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 /**
