@@ -21,6 +21,7 @@ Establish testing approach for Sando Design System ensuring quality, accessibili
 All components follow the test pyramid: 80% unit coverage, 100% accessibility for public components, E2E for critical flows only.
 
 **Pattern**:
+
 ```typescript
 // ✅ Complete coverage
 // sando-button.test.ts (unit)
@@ -29,6 +30,7 @@ All components follow the test pyramid: 80% unit coverage, 100% accessibility fo
 ```
 
 **Anti-pattern**:
+
 ```typescript
 // ❌ Only E2E tests (slow, brittle, expensive)
 // ❌ No accessibility tests (WCAG violations)
@@ -45,6 +47,7 @@ All components follow the test pyramid: 80% unit coverage, 100% accessibility fo
 Use Vitest with @open-wc/testing for all component unit tests.
 
 **Required patterns**:
+
 - Fixture pattern for rendering
 - `updateComplete` for reactivity
 - Shadow DOM queries
@@ -64,12 +67,13 @@ Use Vitest with @open-wc/testing for all component unit tests.
 100% accessibility coverage for all public components using jest-axe.
 
 **Pattern**:
+
 ```typescript
-import { fixture } from '@open-wc/testing';
-import { axe, toHaveNoViolations } from 'jest-axe';
+import { fixture } from "@open-wc/testing";
+import { axe, toHaveNoViolations } from "jest-axe";
 expect.extend(toHaveNoViolations);
 
-test('meets accessibility standards', async () => {
+test("meets accessibility standards", async () => {
   const el = await fixture(html`<sando-button>Text</sando-button>`);
   const results = await axe(el);
   expect(results).toHaveNoViolations();
@@ -89,6 +93,7 @@ test('meets accessibility standards', async () => {
 Validate token structure, references, contrast ratios, and build output.
 
 **Test categories**:
+
 - Structure: Schema validation, layer integrity
 - References: No broken token references
 - Accessibility: WCAG contrast ratios
@@ -105,6 +110,7 @@ Validate token structure, references, contrast ratios, and build output.
 Monolithic structure with all test files colocated with component.
 
 **Structure**:
+
 ```
 button/
 ├── sando-button.ts              # Implementation
@@ -122,12 +128,12 @@ button/
 
 ## Test Pyramid
 
-| Layer | Coverage | Tools | Files | Purpose | When to Write |
-|-------|----------|-------|-------|---------|--------------|
-| Unit | 80% | Vitest + @open-wc | `*.test.ts` | Component behavior, props, events | Always |
-| A11y | 100% | jest-axe | `*.a11y.test.ts` | WCAG compliance | All public components |
-| E2E | Critical | Playwright | `*.spec.ts` | User flows, integration | Multi-component flows |
-| Token | 100% | Vitest | `tokens/tests/` | Build output, integrity | On token changes |
+| Layer | Coverage | Tools             | Files            | Purpose                           | When to Write         |
+| ----- | -------- | ----------------- | ---------------- | --------------------------------- | --------------------- |
+| Unit  | 80%      | Vitest + @open-wc | `*.test.ts`      | Component behavior, props, events | Always                |
+| A11y  | 100%     | jest-axe          | `*.a11y.test.ts` | WCAG compliance                   | All public components |
+| E2E   | Critical | Playwright        | `*.spec.ts`      | User flows, integration           | Multi-component flows |
+| Token | 100%     | Vitest            | `tokens/tests/`  | Build output, integrity           | On token changes      |
 
 **Pyramid ratio**: 70% unit : 20% a11y : 10% E2E
 
@@ -142,6 +148,7 @@ button/
 **Location**: `packages/components/vitest.config.js`
 
 **Key settings**:
+
 - Environment: `jsdom` (Web Components support)
 - Coverage: 80% threshold (lines, functions, branches, statements)
 - Globals: `true` (describe, it, expect)
@@ -153,25 +160,33 @@ button/
 
 **Required patterns**:
 
-| Pattern | Purpose | Example |
-|---------|---------|---------|
-| Fixture | Render component | `await fixture<T>(html\`...\`)` |
-| updateComplete | Wait for reactivity | `await element.updateComplete` |
-| Shadow DOM | Query internal elements | `element.shadowRoot?.querySelector()` |
-| Property reflection | Test property/attribute sync | `element.disabled = true` |
-| Event testing | Verify event dispatch | `element.addEventListener('click', ...)` |
-| Slot testing | Verify slot content | `element.querySelector('[slot="icon"]')` |
+| Pattern             | Purpose                      | Example                                  |
+| ------------------- | ---------------------------- | ---------------------------------------- |
+| Fixture             | Render component             | `await fixture<T>(html\`...\`)`          |
+| updateComplete      | Wait for reactivity          | `await element.updateComplete`           |
+| Shadow DOM          | Query internal elements      | `element.shadowRoot?.querySelector()`    |
+| Property reflection | Test property/attribute sync | `element.disabled = true`                |
+| Event testing       | Verify event dispatch        | `element.addEventListener('click', ...)` |
+| Slot testing        | Verify slot content          | `element.querySelector('[slot="icon"]')` |
 
 ### Test Organization
 
 Use `describe` blocks for logical grouping:
 
 ```typescript
-describe('sando-button', () => {
-  describe('rendering', () => { /* ... */ });
-  describe('properties', () => { /* ... */ });
-  describe('events', () => { /* ... */ });
-  describe('accessibility', () => { /* ... */ });
+describe("sando-button", () => {
+  describe("rendering", () => {
+    /* ... */
+  });
+  describe("properties", () => {
+    /* ... */
+  });
+  describe("events", () => {
+    /* ... */
+  });
+  describe("accessibility", () => {
+    /* ... */
+  });
 });
 ```
 
@@ -208,24 +223,24 @@ pnpm --filter @sando/components test:ui
 
 **Required test cases**:
 
-| Test Case | Purpose |
-|-----------|---------|
-| Default state | Baseline accessibility |
-| All variants | Variant-specific rules |
-| Disabled state | Disabled semantics |
-| Interactive states | Focus, hover, active |
-| With icons | Icon accessibility |
-| Custom content | Slot content validation |
+| Test Case          | Purpose                 |
+| ------------------ | ----------------------- |
+| Default state      | Baseline accessibility  |
+| All variants       | Variant-specific rules  |
+| Disabled state     | Disabled semantics      |
+| Interactive states | Focus, hover, active    |
+| With icons         | Icon accessibility      |
+| Custom content     | Slot content validation |
 
 ### Common Violations
 
-| Violation | Fix |
-|-----------|-----|
-| Missing label | Add aria-label or text content |
-| Low contrast | Adjust token values |
-| Missing role | Add ARIA role |
-| Keyboard trap | Fix focus management |
-| Missing alt text | Add alt to images |
+| Violation        | Fix                            |
+| ---------------- | ------------------------------ |
+| Missing label    | Add aria-label or text content |
+| Low contrast     | Adjust token values            |
+| Missing role     | Add ARIA role                  |
+| Keyboard trap    | Fix focus management           |
+| Missing alt text | Add alt to images              |
 
 **Reference**: [WCAG 2.1 Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
 
@@ -237,21 +252,21 @@ pnpm --filter @sando/components test:ui
 
 **Location**: `packages/tokens/tests/`
 
-| Suite | File | Purpose | Validation |
-|-------|------|---------|------------|
-| Structure | `structure/*.test.ts` | Schema validation | Token format, required fields |
-| References | `tokens/*.test.ts` | Reference integrity | No broken references, correct layer |
-| Accessibility | `accessibility/*.test.ts` | WCAG contrast | 4.5:1 AA, 7:1 AAA, 3:1 UI |
-| Build | `build/*.test.ts` | Output validation | Valid CSS/TS, correct transforms |
+| Suite         | File                      | Purpose             | Validation                          |
+| ------------- | ------------------------- | ------------------- | ----------------------------------- |
+| Structure     | `structure/*.test.ts`     | Schema validation   | Token format, required fields       |
+| References    | `tokens/*.test.ts`        | Reference integrity | No broken references, correct layer |
+| Accessibility | `accessibility/*.test.ts` | WCAG contrast       | 4.5:1 AA, 7:1 AAA, 3:1 UI           |
+| Build         | `build/*.test.ts`         | Output validation   | Valid CSS/TS, correct transforms    |
 
 ### Contrast Requirements
 
-| Use Case | Ratio | Standard | Test |
-|----------|-------|----------|------|
-| Body text | 4.5:1 | WCAG AA | Normal text |
-| Large text (18pt+) | 3:1 | WCAG AA | Headings |
-| UI components | 3:1 | WCAG AA | Borders, icons |
-| Enhanced | 7:1 | WCAG AAA | High contrast |
+| Use Case           | Ratio | Standard | Test           |
+| ------------------ | ----- | -------- | -------------- |
+| Body text          | 4.5:1 | WCAG AA  | Normal text    |
+| Large text (18pt+) | 3:1   | WCAG AA  | Headings       |
+| UI components      | 3:1   | WCAG AA  | Borders, icons |
+| Enhanced           | 7:1   | WCAG AAA | High contrast  |
 
 **Formula**: `(L1 + 0.05) / (L2 + 0.05)` where L1 is lighter color
 
@@ -277,6 +292,7 @@ pnpm --filter @sando/tokens test:coverage
 ### When to Write E2E Tests
 
 **Write E2E tests for**:
+
 - Multi-component interactions
 - Critical user flows
 - Form submissions
@@ -284,6 +300,7 @@ pnpm --filter @sando/tokens test:coverage
 - State persistence
 
 **Don't write E2E tests for**:
+
 - Component variants (use unit tests)
 - Property changes (use unit tests)
 - Styling (use visual regression)
@@ -313,17 +330,18 @@ pnpm --filter @sando/components test:e2e:ui
 
 From `packages/components/vitest.config.js`:
 
-| Metric | Threshold | Applies To |
-|--------|-----------|------------|
-| Lines | 80% | All component code |
-| Functions | 80% | All exported functions |
-| Branches | 80% | All code paths |
-| Statements | 80% | All statements |
-| A11y | 100% | Public components only |
+| Metric     | Threshold | Applies To             |
+| ---------- | --------- | ---------------------- |
+| Lines      | 80%       | All component code     |
+| Functions  | 80%       | All exported functions |
+| Branches   | 80%       | All code paths         |
+| Statements | 80%       | All statements         |
+| A11y       | 100%      | Public components only |
 
 ### Exclusions
 
 Files excluded from coverage:
+
 - `*.stories.ts` (Storybook documentation)
 - `*.types.ts` (TypeScript types)
 - `index.ts` (Barrel exports)

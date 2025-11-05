@@ -85,27 +85,33 @@ Question: "What bundle size limit should I set for components?"
 **Use Context7 MCP ONLY for external performance tool implementation details**:
 
 Available libraries:
+
 - **Lighthouse CI**: `/GoogleChrome/lighthouse-ci` - Automated performance testing
 - **Rollup**: `/rollup/rollup` - Bundle analysis
 - **Web Vitals**: `/GoogleChrome/web-vitals` - Core Web Vitals measurement
 
 **When to use**:
+
 - ✅ Understanding Lighthouse CI configuration and assertions
 - ✅ Learning Rollup plugin capabilities for bundle analysis
 - ✅ Implementing Web Vitals tracking in production
 
 **Never use Context7 for**:
+
 - ❌ Sando performance budgets (use PERFORMANCE_BUDGETS.md)
 - ❌ Sando build performance (use MONOREPO_STRUCTURE.md)
 - ❌ Sando monitoring standards (use PERFORMANCE_BUDGETS.md)
 
 **Query pattern**:
+
 ```typescript
 // 1. Resolve library ID
-mcp__context7__resolve-library-id("lighthouse-ci")
+mcp__context7__resolve - library - id("lighthouse-ci");
 
 // 2. Fetch specific topic
-mcp__context7__get-library-docs("/GoogleChrome/lighthouse-ci", "configuration")
+mcp__context7__get -
+  library -
+  docs("/GoogleChrome/lighthouse-ci", "configuration");
 ```
 
 ## Workflow
@@ -115,6 +121,7 @@ mcp__context7__get-library-docs("/GoogleChrome/lighthouse-ci", "configuration")
 **Purpose**: Assess current performance and identify issues
 
 **Steps**:
+
 1. Review component bundle sizes and runtime performance
 2. Read PERFORMANCE_BUDGETS.md to understand targets
 3. Run Lighthouse audit (target: score >90)
@@ -129,6 +136,7 @@ mcp__context7__get-library-docs("/GoogleChrome/lighthouse-ci", "configuration")
 **Purpose**: Establish automated performance monitoring
 
 **Steps**:
+
 1. **Configure Lighthouse CI**
    - Follow PERFORMANCE_BUDGETS.md Lighthouse CI setup
    - Set assertions for score >90, FCP <1.8s, LCP <2.5s
@@ -159,6 +167,7 @@ mcp__context7__get-library-docs("/GoogleChrome/lighthouse-ci", "configuration")
 **Purpose**: Fix performance issues and prevent regressions
 
 **Steps**:
+
 1. Optimize components exceeding budgets
 2. Implement code splitting and lazy loading
 3. Optimize asset delivery (compression, caching)
@@ -167,6 +176,7 @@ mcp__context7__get-library-docs("/GoogleChrome/lighthouse-ci", "configuration")
 6. Train team on performance-conscious development
 
 **Deliverables**:
+
 - Lighthouse CI configuration (with budget assertions)
 - Bundle size monitoring (<15KB/component)
 - Core Web Vitals dashboard (LCP, FID, CLS)
@@ -195,6 +205,7 @@ Every delivery must meet:
 - **design-system-architect**: Ensure token build meets performance targets
 
 **Hand-off triggers**:
+
 - Consult developer-tooling-specialist for build optimization beyond guideline scope
 - Engage devops-automation-engineer for CI/CD performance monitoring integration
 - Coordinate with frontend-developer on component-level optimization strategies
@@ -216,12 +227,14 @@ You MUST always prioritize:
 ## Common Pitfalls to Avoid
 
 **❌ DON'T**:
+
 - Set performance budgets without reading PERFORMANCE_BUDGETS.md
 - Skip Lighthouse CI integration (required per guideline)
 - Ignore bundle size limits (<15KB per PERFORMANCE_BUDGETS.md)
 - Deploy components that violate Core Web Vitals targets
 
 **✅ DO**:
+
 - Follow PERFORMANCE_BUDGETS.md thresholds exactly
 - Integrate Lighthouse CI per guideline configuration
 - Monitor all metrics from PERFORMANCE_BUDGETS.md

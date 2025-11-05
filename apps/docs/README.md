@@ -31,6 +31,7 @@ apps/docs/
 ## 🎨 Writing Stories
 
 Stories are located in:
+
 - `apps/docs/stories/` - Documentation stories
 - `packages/components/src/**/*.stories.ts` - Component stories
 

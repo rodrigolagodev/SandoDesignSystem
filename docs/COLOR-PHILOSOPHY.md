@@ -9,11 +9,13 @@
 ### The Industry's Broken Promise
 
 Most design systems promise flexibility:
+
 - "Generate any color you want!"
 - "Infinite customization!"
 - "Build your perfect palette!"
 
 **The reality:**
+
 - 3 hours choosing the perfect shade of blue
 - Another 2 hours ensuring WCAG compliance
 - 4 more hours generating complementary scales
@@ -26,6 +28,7 @@ We took a different path:
 > "What if we did the hard work for you?"
 
 Instead of giving you infinite options, we give you **8 scientifically-designed color palettes** that cover 95% of use cases. Each one:
+
 - ✅ Perceptually uniform (OKLCH color space)
 - ✅ WCAG AA compliant (guaranteed)
 - ✅ Light + dark mode variants (built-in)
@@ -55,6 +58,7 @@ NEUTRALS (for backgrounds, text, borders):
 ```
 
 **Why these 8?**
+
 - Cover the complete hue spectrum
 - Perceptually distinct from each other
 - Combine well together
@@ -71,7 +75,7 @@ You create flavors by **mapping our palettes to semantic roles**:
     "action": {
       "solid": {
         "background": {
-          "default": "{color.blue.500}",  // Choose from our palettes
+          "default": "{color.blue.500}", // Choose from our palettes
           "hover": "{color.blue.600}"
         }
       }
@@ -115,6 +119,7 @@ Blue:   hsl(240, 100%, 50%)  → Appears quite dark   ❌
 ```
 
 Same lightness value, completely different perceived brightness. This makes:
+
 - ❌ Accessibility unpredictable
 - ❌ Color scales inconsistent
 - ❌ Dark mode generation broken
@@ -131,12 +136,14 @@ Blue:   oklch(60% 0.25 250)  → Predictable contrast    ✅
 ```
 
 **What this means for you:**
+
 - ✅ Contrast ratios are predictable
 - ✅ Color scales feel harmonious
 - ✅ Dark mode "just works"
 - ✅ Accessibility is guaranteed
 
 **Browser Support (2025):**
+
 - Chrome 111+ (March 2023)
 - Safari 15.4+ (March 2022)
 - Firefox 113+ (May 2023)
@@ -151,9 +158,15 @@ Blue:   oklch(60% 0.25 250)  → Predictable contrast    ✅
 **Use a pre-designed flavor:**
 
 ```html
-<html flavor="ocean">   <!-- blue palette -->
-<html flavor="forest">  <!-- green palette -->
-<html flavor="sunset">  <!-- orange palette -->
+<html flavor="ocean">
+  <!-- blue palette -->
+  <html flavor="forest">
+    <!-- green palette -->
+    <html flavor="sunset">
+      <!-- orange palette -->
+    </html>
+  </html>
+</html>
 ```
 
 **Time investment:** 0 minutes
@@ -172,7 +185,7 @@ Blue:   oklch(60% 0.25 250)  → Predictable contrast    ✅
     "action": {
       "solid": {
         "background": {
-          "default": "{color.purple.500}"  // Your choice
+          "default": "{color.purple.500}" // Your choice
         }
       }
     }
@@ -211,18 +224,21 @@ npx @sando/flavor-generator create \
 ### 1. **Speed Without Compromise**
 
 **Traditional approach:**
+
 - 3-6 hours choosing colors
 - 2-4 hours generating scales
 - 2-3 hours testing accessibility
 - **Total: 7-13 hours**
 
 **Sando approach:**
+
 - Choose from 8 pre-validated palettes
 - **Total: 2 minutes**
 
 ### 2. **Guaranteed Quality**
 
 Every palette in Sando is:
+
 - ✅ Scientifically designed using OKLCH
 - ✅ WCAG AA compliant (4.5:1 minimum contrast)
 - ✅ Perceptually uniform across all hues
@@ -234,6 +250,7 @@ Every palette in Sando is:
 ### 3. **Consistency Across Projects**
 
 All Sando projects share the same:
+
 - Color scale structure (11 steps: 50, 100...950)
 - Semantic mappings (action.solid.background.default)
 - Component behavior (button looks like a button)
@@ -243,6 +260,7 @@ All Sando projects share the same:
 ### 4. **Learn By Example**
 
 Instead of reading color theory, you **see it in action**:
+
 - Open Storybook
 - Switch between flavors
 - See how orange vs blue affects the entire system
@@ -253,6 +271,7 @@ Instead of reading color theory, you **see it in action**:
 ### 5. **Future-Proof**
 
 When you need a new color (new brand color, rebrand, client work):
+
 - Existing: Map to one of 8 palettes (2 minutes)
 - Custom: Generate with validator (15 minutes)
 
@@ -285,17 +304,20 @@ When you need a new color (new brand color, rebrand, client work):
 ### A katsu sando has:
 
 **FIXED (The Recipe):**
+
 - Bread (2 slices, crust removed)
 - Protein (breaded, fried)
 - Cabbage (finely shredded)
 - Sauce (applied between layers)
 
 **VARIABLE (Your Flavor):**
+
 - Protein type: pork / chicken / vegetarian
 - Sauce: tonkatsu / spicy / curry
 - Bread: white / wheat / brioche
 
 **NEVER CHANGES:**
+
 - The structure (bread-protein-cabbage-sauce-bread)
 - The technique (crispy breading, perfect fry)
 - The proportions (balanced, not overwhelming)
@@ -304,17 +326,20 @@ When you need a new color (new brand color, rebrand, client work):
 ### Sando Design System has:
 
 **FIXED (Ingredients):**
+
 - 8 color palettes (scientifically designed)
 - 1 spacing scale (0.25rem base)
 - 1 typography scale (modular 1.25 ratio)
 - Component recipes (button variants, card elevations)
 
 **VARIABLE (Your Flavor):**
+
 - Brand color: orange / blue / purple / pink
 - Neutral warmth: warm / neutral / cool
 - Spacing density: compact / comfortable / spacious
 
 **NEVER CHANGES:**
+
 - The structure (3-layer token architecture)
 - The technique (OKLCH, WCAG validation)
 - The proportions (semantic mappings)
@@ -330,13 +355,13 @@ When you need a new color (new brand color, rebrand, client work):
 
 ## 📊 Comparison with Other Systems
 
-| System | Palettes | Custom Colors | WCAG Guarantee | Setup Time | Our Take |
-|--------|----------|---------------|----------------|------------|----------|
-| **Tailwind** | 22 pre-defined | ✅ Full control | ❌ Manual testing | 2-4 hours | Too many options, no guardrails |
-| **Radix Colors** | 30 pre-defined | ❌ None | ✅ Guaranteed | 30 min | Great palettes, but zero customization |
-| **Material Design** | 1 (generated) | ✅ Via generator | ✅ Guaranteed | 1 hour | Opinionated, but Material-specific |
-| **Chakra UI** | 14 pre-defined | ✅ Full control | 🟡 Helpers only | 1-2 hours | Good DX, but accessibility optional |
-| **🥪 Sando** | **8 curated** | **✅ Via validator** | **✅ Guaranteed** | **2 min - 15 min** | Best of all worlds |
+| System              | Palettes       | Custom Colors        | WCAG Guarantee    | Setup Time         | Our Take                               |
+| ------------------- | -------------- | -------------------- | ----------------- | ------------------ | -------------------------------------- |
+| **Tailwind**        | 22 pre-defined | ✅ Full control      | ❌ Manual testing | 2-4 hours          | Too many options, no guardrails        |
+| **Radix Colors**    | 30 pre-defined | ❌ None              | ✅ Guaranteed     | 30 min             | Great palettes, but zero customization |
+| **Material Design** | 1 (generated)  | ✅ Via generator     | ✅ Guaranteed     | 1 hour             | Opinionated, but Material-specific     |
+| **Chakra UI**       | 14 pre-defined | ✅ Full control      | 🟡 Helpers only   | 1-2 hours          | Good DX, but accessibility optional    |
+| **🥪 Sando**        | **8 curated**  | **✅ Via validator** | **✅ Guaranteed** | **2 min - 15 min** | Best of all worlds                     |
 
 ---
 
@@ -349,6 +374,7 @@ When you need a new color (new brand color, rebrand, client work):
 **Solution:** Use `flavor="ocean"` (blue palette)
 
 **Result:**
+
 - Setup: 2 minutes
 - Professional blue theme
 - Fully accessible
@@ -361,10 +387,12 @@ When you need a new color (new brand color, rebrand, client work):
 **Need:** Match client's brand color (#8B5CF6)
 
 **Decision process:**
+
 1. Check our purple palette → Close enough? Use it (2 min)
 2. Need exact match? Generate custom (15 min)
 
 **Result:**
+
 - Client sees their brand color
 - You didn't spend hours on color theory
 - Still WCAG AA compliant
@@ -376,11 +404,13 @@ When you need a new color (new brand color, rebrand, client work):
 **Need:** Professional system, full control, long-term maintenance
 
 **Solution:**
+
 - Start with our palettes (learn patterns)
 - Create custom flavors for each product
 - Generate brand-specific palettes when needed
 
 **Result:**
+
 - Consistent architecture across products
 - Freedom to customize where it matters
 - Guardrails prevent accessibility violations
@@ -392,18 +422,22 @@ When you need a new color (new brand color, rebrand, client work):
 ### 1. Choose Your Path
 
 **Path A: Use Our Palettes (Recommended)**
+
 ```html
-<html flavor="ocean">  <!-- Start coding immediately -->
+<html flavor="ocean">
+  <!-- Start coding immediately -->
+</html>
 ```
 
 **Path B: Create Custom Flavor**
+
 ```json
 {
   "color": {
     "action": {
       "solid": {
         "background": {
-          "default": "{color.blue.500}"  // Map to our palette
+          "default": "{color.blue.500}" // Map to our palette
         }
       }
     }
@@ -412,6 +446,7 @@ When you need a new color (new brand color, rebrand, client work):
 ```
 
 **Path C: Generate Brand Colors**
+
 ```bash
 npx @sando/flavor-generator create --color "#FF6B00"
 ```
@@ -429,6 +464,7 @@ Components automatically consume your flavor:
 ### 3. Ship with Confidence
 
 Every color in Sando has been:
+
 - ✅ Scientifically validated (OKLCH)
 - ✅ Accessibility tested (WCAG AA)
 - ✅ Dark mode optimized
@@ -445,6 +481,7 @@ Every color in Sando has been:
 **Research shows:** More than 7-9 options leads to decision paralysis and regret.
 
 We chose 8 because:
+
 - Covers full color spectrum (warm to cool)
 - Matches common brand archetypes
 - Perceptually distinct from each other
@@ -465,6 +502,7 @@ We chose the harder implementation (OKLCH) so you get easier results (guaranteed
 **Freedom without guardrails leads to chaos.**
 
 We've seen teams spend months building design systems, then:
+
 - Use 37 shades of gray (inconsistent)
 - Create inaccessible color combinations (illegal)
 - Build components that don't scale (technical debt)
@@ -519,6 +557,7 @@ We've seen teams spend months building design systems, then:
 ### "Can I contribute a new palette?"
 
 **Absolutely!** If you've generated a custom palette that:
+
 - Serves a common use case
 - Passes our quality standards (OKLCH, WCAG AA)
 - Fills a gap in our 8 core palettes
@@ -542,18 +581,21 @@ Submit a PR. We'd love to include it.
 ### The Sando Color Promise
 
 **We promise:**
+
 1. Every color palette is scientifically designed (OKLCH)
 2. Every palette passes WCAG AA minimum (4.5:1 contrast)
 3. Every palette works in light + dark mode
 4. Every palette has been tested in production
 
 **You get:**
+
 1. Setup in minutes, not hours
 2. Guaranteed accessibility
 3. Consistent visual language
 4. Freedom to customize (with guardrails)
 
 **Together we achieve:**
+
 - Beautiful, accessible interfaces
 - Faster development cycles
 - Lower maintenance burden
@@ -580,5 +622,5 @@ The result? Always delicious. Always consistent. Always Sando.
 
 ---
 
-*Built with care by the Sando team*
-*Inspired by katsu sandos, powered by color science*
+_Built with care by the Sando team_
+_Inspired by katsu sandos, powered by color science_

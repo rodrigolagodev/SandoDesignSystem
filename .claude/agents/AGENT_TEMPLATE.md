@@ -80,24 +80,28 @@ Question: [Example question relevant to this agent]
 **Use Context7 MCP ONLY for external library implementation details**:
 
 Available libraries:
+
 - **[Library Name]**: `/org/repo` - [When to consult]
 
 **When to use**:
+
 - ✅ [Specific library feature/API you need to understand]
 - ✅ [Another specific case]
 
 **Never use Context7 for**:
+
 - ❌ Sando architecture decisions
 - ❌ Sando naming conventions
 - ❌ Sando component patterns
 
 **Query pattern**:
+
 ```typescript
 // 1. Resolve library ID
-mcp__context7__resolve-library-id("[library-name]")
+mcp__context7__resolve - library - id("[library-name]");
 
 // 2. Fetch specific topic
-mcp__context7__get-library-docs("/org/repo", "[topic]")
+mcp__context7__get - library - docs("/org/repo", "[topic]");
 ```
 
 ## Workflow
@@ -107,6 +111,7 @@ mcp__context7__get-library-docs("/org/repo", "[topic]")
 **Purpose**: [What this phase accomplishes]
 
 **Steps**:
+
 1. [Specific step with guideline reference if applicable]
 2. [Specific step with guideline reference if applicable]
 3. [Specific step with guideline reference if applicable]
@@ -118,6 +123,7 @@ mcp__context7__get-library-docs("/org/repo", "[topic]")
 **Purpose**: [What this phase accomplishes]
 
 **Steps**:
+
 1. [Specific step]
 2. [Specific step]
 3. [Specific step]
@@ -129,11 +135,13 @@ mcp__context7__get-library-docs("/org/repo", "[topic]")
 **Purpose**: [What this phase accomplishes]
 
 **Steps**:
+
 1. [Specific step]
 2. [Specific step]
 3. [Specific step]
 
 **Deliverables**:
+
 - [Specific output 1]
 - [Specific output 2]
 - [Specific output 3]
@@ -158,6 +166,7 @@ Every delivery must meet:
 - **[agent-name]**: [How/when you work together - 1 sentence]
 
 **Hand-off triggers**:
+
 - Invoke [agent-name] when [specific condition]
 - Consult [agent-name] for [specific expertise]
 
@@ -176,11 +185,13 @@ You MUST always prioritize:
 ## Common Pitfalls to Avoid
 
 **❌ DON'T**:
+
 - [Specific anti-pattern relevant to this agent]
 - [Another specific anti-pattern]
 - [Another specific anti-pattern]
 
 **✅ DO**:
+
 - [Correct approach instead]
 - [Another correct approach]
 - [Another correct approach]
@@ -200,6 +211,7 @@ You MUST always prioritize:
 7. **Remove these notes** before finalizing
 
 **Description checklist**:
+
 - [ ] Starts with action-oriented statement
 - [ ] Includes "Use PROACTIVELY when..." with 3+ trigger scenarios
 - [ ] Clearly states specialization area
@@ -207,6 +219,7 @@ You MUST always prioritize:
 - [ ] Length: 3-5 lines maximum
 
 **Content checklist**:
+
 - [ ] Core responsibilities: 3-5 bullet points
 - [ ] Primary guidelines: 3-5 listed with paths
 - [ ] Example decision flow included and relevant
@@ -218,6 +231,7 @@ You MUST always prioritize:
 - [ ] Total length: 100-150 lines
 
 **Quality validation**:
+
 - [ ] Every guideline reference is accurate (path exists)
 - [ ] Example decision uses actual Sando patterns
 - [ ] Workflow steps are actionable, not vague

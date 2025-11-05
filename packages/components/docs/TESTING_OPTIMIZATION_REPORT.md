@@ -13,18 +13,21 @@ Successfully optimized the Sando Design System component testing infrastructure 
 ### Current State Analysis
 
 ✅ **No E2E Infrastructure Found**
+
 - No `*.spec.ts` files for components
 - No `playwright.config.ts` in components package
 - No visual snapshot directories
 - Clean, optimized testing setup already in place
 
 ✅ **Efficient Unit Testing**
+
 - **44 tests** running in **~1.4 seconds**
 - Vitest + @open-wc/testing for Web Components
 - jest-axe for automated accessibility testing
 - Coverage: **79.59%** statements (button component: **80.41%**)
 
 ✅ **Fast Execution Performance**
+
 - **Total test time**: 1.43s
 - **Unit tests**: 33 tests in ~531ms (16ms/test average)
 - **Accessibility tests**: 11 tests in ~531ms (48ms/test average)
@@ -56,6 +59,7 @@ expect(button?.hasAttribute('disabled')).toBe(false);
 **Deliverable**: `packages/components/TESTING.md`
 
 **Contents**:
+
 - Testing philosophy (what to test, what NOT to test)
 - Tool explanations (Vitest, @open-wc, jest-axe)
 - Test patterns and examples
@@ -68,6 +72,7 @@ expect(button?.hasAttribute('disabled')).toBe(false);
 **Key Guidelines**:
 
 ✅ **What to Test**:
+
 - Props and attributes
 - Events and interactions
 - Conditional rendering
@@ -77,6 +82,7 @@ expect(button?.hasAttribute('disabled')).toBe(false);
 - Accessibility (axe-core)
 
 ❌ **What NOT to Test**:
+
 - E2E tests (component libraries don't need them)
 - Visual snapshots (use Storybook instead)
 - Cross-browser tests (Web Components are standards-compliant)
@@ -93,6 +99,7 @@ button/styles/*    |     100 |      100 |     100 |     100
 ```
 
 **Uncovered Lines**:
+
 - Lines 231-234: Click handler preventDefault (tested but not detected by v8)
 - Lines 260-278: `<a>` tag rendering (when `href` is provided)
 
@@ -102,21 +109,21 @@ button/styles/*    |     100 |      100 |     100 |     100
 
 **Test Execution Speed**:
 
-| Metric | Value | Target | Status |
-|--------|-------|--------|--------|
-| Total test time | 1.43s | <3s | ✅ PASS |
-| Unit tests | 33 in 531ms | <1s | ✅ PASS |
-| A11y tests | 11 in 531ms | <1s | ✅ PASS |
-| Average per test | ~32ms | <100ms | ✅ PASS |
-| Coverage >80% | 80.41% | >80% | ✅ PASS |
+| Metric           | Value       | Target | Status  |
+| ---------------- | ----------- | ------ | ------- |
+| Total test time  | 1.43s       | <3s    | ✅ PASS |
+| Unit tests       | 33 in 531ms | <1s    | ✅ PASS |
+| A11y tests       | 11 in 531ms | <1s    | ✅ PASS |
+| Average per test | ~32ms       | <100ms | ✅ PASS |
+| Coverage >80%    | 80.41%      | >80%   | ✅ PASS |
 
 **Comparison vs. E2E Approach**:
 
-| Approach | Test Time | Maintenance | Flakiness |
-|----------|-----------|-------------|-----------|
-| **Current (Unit only)** | 1.43s | Low | Minimal |
-| **With Playwright E2E** | 30s+ | High | Common |
-| **Performance Gain** | **21x faster** | **3x less work** | **10x more stable** |
+| Approach                | Test Time      | Maintenance      | Flakiness           |
+| ----------------------- | -------------- | ---------------- | ------------------- |
+| **Current (Unit only)** | 1.43s          | Low              | Minimal             |
+| **With Playwright E2E** | 30s+           | High             | Common              |
+| **Performance Gain**    | **21x faster** | **3x less work** | **10x more stable** |
 
 ## Quality Metrics
 
@@ -174,16 +181,16 @@ Button Styles Coverage:
 
 ## Testing Strategy Decision Matrix
 
-| Scenario | Unit Test | E2E Test | Decision |
-|----------|-----------|----------|----------|
-| Button click event | ✅ Yes | ❌ No | Unit test sufficient |
-| Disabled state | ✅ Yes | ❌ No | Unit test sufficient |
-| Keyboard navigation | ✅ Yes | ❌ No | Unit test sufficient |
-| ARIA attributes | ✅ Yes | ❌ No | Unit test sufficient |
-| Accessibility (axe) | ✅ Yes | ❌ No | Automated axe-core |
-| Visual appearance | ❌ No | ❌ No | Use Storybook |
-| Multi-page flows | ❌ No | ❌ No | Not applicable |
-| Cross-browser | ❌ No | ❌ No | Web Components standard |
+| Scenario            | Unit Test | E2E Test | Decision                |
+| ------------------- | --------- | -------- | ----------------------- |
+| Button click event  | ✅ Yes    | ❌ No    | Unit test sufficient    |
+| Disabled state      | ✅ Yes    | ❌ No    | Unit test sufficient    |
+| Keyboard navigation | ✅ Yes    | ❌ No    | Unit test sufficient    |
+| ARIA attributes     | ✅ Yes    | ❌ No    | Unit test sufficient    |
+| Accessibility (axe) | ✅ Yes    | ❌ No    | Automated axe-core      |
+| Visual appearance   | ❌ No     | ❌ No    | Use Storybook           |
+| Multi-page flows    | ❌ No     | ❌ No    | Not applicable          |
+| Cross-browser       | ❌ No     | ❌ No    | Web Components standard |
 
 **Conclusion**: Component libraries need **unit tests + accessibility tests only**.
 
@@ -238,14 +245,14 @@ pnpm test:verbose
 
 ## Success Criteria
 
-| Criterion | Target | Actual | Status |
-|-----------|--------|--------|--------|
-| All tests passing | 100% | 100% (44/44) | ✅ |
-| Test execution time | <3s | 1.43s | ✅ |
-| Code coverage | >80% | 80.41% | ✅ |
-| Accessibility violations | 0 | 0 | ✅ |
-| Documentation complete | Yes | Yes | ✅ |
-| No E2E overhead | Yes | Yes | ✅ |
+| Criterion                | Target | Actual       | Status |
+| ------------------------ | ------ | ------------ | ------ |
+| All tests passing        | 100%   | 100% (44/44) | ✅     |
+| Test execution time      | <3s    | 1.43s        | ✅     |
+| Code coverage            | >80%   | 80.41%       | ✅     |
+| Accessibility violations | 0      | 0            | ✅     |
+| Documentation complete   | Yes    | Yes          | ✅     |
+| No E2E overhead          | Yes    | Yes          | ✅     |
 
 ## Conclusion
 

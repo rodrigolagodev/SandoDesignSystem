@@ -30,27 +30,29 @@ Stories MUST be organized into three top-level sections following Strapi's struc
 **Section 3: Patterns** - Composition examples and usage patterns
 
 **Pattern**:
+
 ```typescript
 // Design Tokens stories
 const meta: Meta = {
-  title: 'Design Tokens/Colors/Brand',
-  tags: ['autodocs'],
+  title: "Design Tokens/Colors/Brand",
+  tags: ["autodocs"],
 };
 
 // Component stories
 const meta: Meta = {
-  title: 'Components/Button',
-  tags: ['autodocs'],
+  title: "Components/Button",
+  tags: ["autodocs"],
 };
 
 // Pattern stories
 const meta: Meta = {
-  title: 'Patterns/Forms/Login Form',
-  tags: ['autodocs'],
+  title: "Patterns/Forms/Login Form",
+  tags: ["autodocs"],
 };
 ```
 
 **Directory structure**:
+
 ```
 packages/components/src/
 ├── tokens/
@@ -79,11 +81,12 @@ packages/components/src/
 Each component MUST have ONE main story file (`sando-component.stories.ts`) that serves as the comprehensive reference and entry point.
 
 **Pattern**:
+
 ```typescript
 // packages/components/src/components/button/sando-button.stories.ts
-import { html } from 'lit';
-import type { Meta, StoryObj } from '@storybook/web-components';
-import './sando-button';
+import { html } from "lit";
+import type { Meta, StoryObj } from "@storybook/web-components";
+import "./sando-button";
 
 /**
  * # Button Component
@@ -107,78 +110,78 @@ import './sando-button';
  * - Loading state announced to screen readers
  */
 const meta: Meta = {
-  title: 'Components/Button',
-  component: 'sando-button',
-  tags: ['autodocs'],
+  title: "Components/Button",
+  component: "sando-button",
+  tags: ["autodocs"],
   argTypes: {
     // Variants
     variant: {
-      control: 'select',
-      options: ['solid', 'outline', 'ghost'],
-      description: 'Visual style of the button',
+      control: "select",
+      options: ["solid", "outline", "ghost"],
+      description: "Visual style of the button",
       table: {
-        category: 'Appearance',
-        defaultValue: { summary: 'solid' },
+        category: "Appearance",
+        defaultValue: { summary: "solid" },
       },
     },
 
     // Sizes
     size: {
-      control: 'select',
-      options: ['small', 'medium', 'large'],
-      description: 'Size of the button',
+      control: "select",
+      options: ["small", "medium", "large"],
+      description: "Size of the button",
       table: {
-        category: 'Appearance',
-        defaultValue: { summary: 'medium' },
+        category: "Appearance",
+        defaultValue: { summary: "medium" },
       },
     },
 
     // States
     disabled: {
-      control: 'boolean',
-      description: 'Disabled state prevents interaction',
+      control: "boolean",
+      description: "Disabled state prevents interaction",
       table: {
-        category: 'State',
+        category: "State",
         defaultValue: { summary: false },
       },
     },
 
     loading: {
-      control: 'boolean',
-      description: 'Loading state shows spinner',
+      control: "boolean",
+      description: "Loading state shows spinner",
       table: {
-        category: 'State',
+        category: "State",
         defaultValue: { summary: false },
       },
     },
 
     // Theming (flavor)
     flavor: {
-      control: 'select',
-      options: ['original', 'strawberry', 'ocean', 'forest', 'sunset'],
-      description: 'Theme flavor (inherited from ancestor)',
+      control: "select",
+      options: ["original", "strawberry", "ocean", "forest", "sunset"],
+      description: "Theme flavor (inherited from ancestor)",
       table: {
-        category: 'Theming',
-        defaultValue: { summary: 'original' },
+        category: "Theming",
+        defaultValue: { summary: "original" },
       },
     },
 
     // Content
     label: {
-      control: 'text',
-      description: 'Button text content',
+      control: "text",
+      description: "Button text content",
       table: {
-        category: 'Content',
+        category: "Content",
       },
     },
   },
   args: {
-    variant: 'solid',
-    size: 'medium',
+    variant: "solid",
+    size: "medium",
     disabled: false,
     loading: false,
-    flavor: 'original',
-    label: 'Button',
+    flavor: "original",
+    label: "Button",
   },
 };
 
@@ -191,7 +194,7 @@ type Story = StoryObj;
  */
 export const Default: Story = {
   args: {
-    label: 'Click me',
+    label: "Click me",
   },
 };
 
@@ -234,7 +237,9 @@ export const AllVariants: Story = {
  */
 export const AllSizes: Story = {
   render: () => html`
-    <div style="display: flex; gap: 16px; align-items: center; flex-wrap: wrap;">
+    <div
+      style="display: flex; gap: 16px; align-items: center; flex-wrap: wrap;"
+    >
       <sando-button size="small">Small</sando-button>
       <sando-button size="medium">Medium</sando-button>
       <sando-button size="large">Large</sando-button>
@@ -273,15 +278,16 @@ export const States: Story = {
 Flavor modes (light, dark, high-contrast) are **automatic via CSS @media queries** and MUST NOT be manually controllable in Storybook.
 
 **Pattern**:
-```typescript
+
+````typescript
 // ✅ CORRECT - No flavorMode in argTypes
 const meta: Meta = {
-  title: 'Components/Button',
+  title: "Components/Button",
   argTypes: {
     flavor: {
-      control: 'select',
-      options: ['original', 'strawberry', 'ocean', 'forest', 'sunset'],
-      description: 'Theme flavor (inherited from ancestor)',
+      control: "select",
+      options: ["original", "strawberry", "ocean", "forest", "sunset"],
+      description: "Theme flavor (inherited from ancestor)",
     },
     // ❌ DO NOT add flavorMode control - it's automatic
   },
@@ -333,7 +339,7 @@ export const FlavorModes: Story = {
     },
   },
 };
-```
+````
 
 **Why**: Flavor modes use `@media (prefers-color-scheme)` for automatic system preference detection. Manual controls would contradict this behavior and confuse users.
 
@@ -346,22 +352,23 @@ export const FlavorModes: Story = {
 All interactive component properties MUST have complete argTypes configuration with controls, descriptions, categories, and default values.
 
 **Pattern**:
+
 ```typescript
 const meta: Meta = {
   argTypes: {
     propertyName: {
       // Control type (select, boolean, text, number, etc.)
-      control: 'select',
-      options: ['option1', 'option2'],
+      control: "select",
+      options: ["option1", "option2"],
 
       // Human-readable description
-      description: 'Clear explanation of what this property does',
+      description: "Clear explanation of what this property does",
 
       // Organize related properties
       table: {
-        category: 'Appearance', // or 'State', 'Content', 'Behavior', 'Theming'
-        defaultValue: { summary: 'default' },
-        type: { summary: 'string' },
+        category: "Appearance", // or 'State', 'Content', 'Behavior', 'Theming'
+        defaultValue: { summary: "default" },
+        type: { summary: "string" },
       },
     },
   },
@@ -369,6 +376,7 @@ const meta: Meta = {
 ```
 
 **Category conventions**:
+
 - **Appearance**: Visual styles (variant, size, color)
 - **State**: Interactive states (disabled, loading, error)
 - **Content**: Text, icons, slots
@@ -376,6 +384,7 @@ const meta: Meta = {
 - **Theming**: Flavor, mode-related properties
 
 **Control types**:
+
 ```typescript
 // Select dropdown
 control: 'select',
@@ -412,16 +421,17 @@ control: false
 Complex components MAY have additional focused story files in a `stories/` subdirectory for specialized documentation.
 
 **Pattern**:
+
 ```typescript
 // packages/components/src/components/button/stories/icons.stories.ts
-import { html } from 'lit';
-import type { Meta, StoryObj } from '@storybook/web-components';
-import '../sando-button';
+import { html } from "lit";
+import type { Meta, StoryObj } from "@storybook/web-components";
+import "../sando-button";
 
 const meta: Meta = {
-  title: 'Components/Button/Icons',
-  component: 'sando-button',
-  tags: ['autodocs'],
+  title: "Components/Button/Icons",
+  component: "sando-button",
+  tags: ["autodocs"],
 };
 
 export default meta;
@@ -434,7 +444,7 @@ export const LeadingIcon: Story = {
   render: () => html`
     <sando-button>
       <svg slot="icon-start" width="16" height="16">
-        <path d="M8 2L2 8l6 6 6-6z"/>
+        <path d="M8 2L2 8l6 6 6-6z" />
       </svg>
       With Icon
     </sando-button>
@@ -448,7 +458,7 @@ export const IconOnly: Story = {
   render: () => html`
     <sando-button aria-label="Settings">
       <svg slot="icon-start" width="16" height="16">
-        <path d="M8 2L2 8l6 6 6-6z"/>
+        <path d="M8 2L2 8l6 6 6-6z" />
       </svg>
     </sando-button>
   `,
@@ -456,6 +466,7 @@ export const IconOnly: Story = {
 ```
 
 **When to create focused stories**:
+
 - Component has 5+ variants/states/sizes
 - Special use cases (icons, forms, compositions)
 - Integration examples (with other components)
@@ -470,10 +481,10 @@ export const IconOnly: Story = {
 
 ### Design Tokens Story Template
 
-```typescript
+````typescript
 // packages/components/src/tokens/stories/colors.stories.ts
-import { html } from 'lit';
-import type { Meta, StoryObj } from '@storybook/web-components';
+import { html } from "lit";
+import type { Meta, StoryObj } from "@storybook/web-components";
 
 /**
  * # Color Tokens
@@ -499,8 +510,8 @@ import type { Meta, StoryObj } from '@storybook/web-components';
  * All color combinations meet WCAG 2.1 AA contrast requirements (4.5:1 for text, 3:1 for UI).
  */
 const meta: Meta = {
-  title: 'Design Tokens/Colors',
-  tags: ['autodocs'],
+  title: "Design Tokens/Colors",
+  tags: ["autodocs"],
 };
 
 export default meta;
@@ -511,20 +522,26 @@ type Story = StoryObj;
  */
 export const BrandColors: Story = {
   render: () => html`
-    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px;">
-      ${[50, 100, 200, 300, 400, 500, 600, 700, 800, 900].map(shade => html`
-        <div style="display: flex; flex-direction: column; gap: 8px;">
-          <div style="
+    <div
+      style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px;"
+    >
+      ${[50, 100, 200, 300, 400, 500, 600, 700, 800, 900].map(
+        (shade) => html`
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div
+              style="
             background: var(--sando-color-brand-${shade});
             height: 80px;
             border-radius: 8px;
             border: 1px solid var(--sando-color-border-default);
-          "></div>
-          <div style="font-size: 12px; text-align: center;">
-            brand-${shade}
+          "
+            ></div>
+            <div style="font-size: 12px; text-align: center;">
+              brand-${shade}
+            </div>
           </div>
-        </div>
-      `)}
+        `,
+      )}
     </div>
   `,
   parameters: {
@@ -538,27 +555,31 @@ export const BrandColors: Story = {
 export const SemanticColors: Story = {
   render: () => html`
     <div style="display: grid; gap: 16px;">
-      ${['success', 'warning', 'error', 'info'].map(type => html`
-        <div style="display: flex; align-items: center; gap: 16px;">
-          <div style="
+      ${["success", "warning", "error", "info"].map(
+        (type) => html`
+          <div style="display: flex; align-items: center; gap: 16px;">
+            <div
+              style="
             background: var(--sando-color-${type}-background);
             color: var(--sando-color-${type}-text);
             padding: 16px 24px;
             border-radius: 8px;
             border: 1px solid var(--sando-color-${type}-border);
             flex: 1;
-          ">
-            ${type.charAt(0).toUpperCase() + type.slice(1)} message
+          "
+            >
+              ${type.charAt(0).toUpperCase() + type.slice(1)} message
+            </div>
           </div>
-        </div>
-      `)}
+        `,
+      )}
     </div>
   `,
   parameters: {
     controls: { disable: true },
   },
 };
-```
+````
 
 ---
 
@@ -566,10 +587,10 @@ export const SemanticColors: Story = {
 
 ```typescript
 // packages/components/src/patterns/stories/forms.stories.ts
-import { html } from 'lit';
-import type { Meta, StoryObj } from '@storybook/web-components';
-import '../../components/input/sando-input';
-import '../../components/button/sando-button';
+import { html } from "lit";
+import type { Meta, StoryObj } from "@storybook/web-components";
+import "../../components/input/sando-input";
+import "../../components/button/sando-button";
 
 /**
  * # Form Patterns
@@ -585,8 +606,8 @@ import '../../components/button/sando-button';
  * - Announce errors to screen readers
  */
 const meta: Meta = {
-  title: 'Patterns/Forms',
-  tags: ['autodocs'],
+  title: "Patterns/Forms",
+  tags: ["autodocs"],
 };
 
 export default meta;
@@ -597,7 +618,9 @@ type Story = StoryObj;
  */
 export const LoginForm: Story = {
   render: () => html`
-    <form style="max-width: 400px; display: flex; flex-direction: column; gap: 24px;">
+    <form
+      style="max-width: 400px; display: flex; flex-direction: column; gap: 24px;"
+    >
       <h2 style="margin: 0;">Sign In</h2>
 
       <sando-input
@@ -637,24 +660,26 @@ export const LoginForm: Story = {
 ### Naming Conventions
 
 **Story titles** (meta.title):
+
 ```typescript
 // Design Tokens section
-'Design Tokens/Colors'
-'Design Tokens/Spacing'
-'Design Tokens/Typography'
+"Design Tokens/Colors";
+"Design Tokens/Spacing";
+"Design Tokens/Typography";
 
 // Components section
-'Components/Button'
-'Components/Input'
-'Components/Card'
+"Components/Button";
+"Components/Input";
+"Components/Card";
 
 // Patterns section
-'Patterns/Forms'
-'Patterns/Navigation'
-'Patterns/Layouts'
+"Patterns/Forms";
+"Patterns/Navigation";
+"Patterns/Layouts";
 ```
 
 **Story names** (export names):
+
 ```typescript
 // Use PascalCase
 export const Default: Story = {};
@@ -668,18 +693,19 @@ export const ResponsiveGrid: Story = {};
 ```
 
 **File names**:
+
 ```typescript
 // Main story per component
-sando-button.stories.ts
-sando-input.stories.ts
+sando - button.stories.ts;
+sando - input.stories.ts;
 
 // Token stories
-colors.stories.ts
-spacing.stories.ts
+colors.stories.ts;
+spacing.stories.ts;
 
 // Pattern stories
-forms.stories.ts
-navigation.stories.ts
+forms.stories.ts;
+navigation.stories.ts;
 ```
 
 ---
@@ -688,7 +714,7 @@ navigation.stories.ts
 
 **JSDoc comments** provide context in Storybook UI:
 
-```typescript
+````typescript
 /**
  * Short one-line summary.
  *
@@ -711,7 +737,7 @@ navigation.stories.ts
  * Important a11y notes here.
  */
 export const StoryName: Story = {};
-```
+````
 
 **Story parameters** for additional metadata:
 
@@ -724,22 +750,22 @@ export const StoryName: Story = {
     // Custom documentation
     docs: {
       description: {
-        story: 'Additional context shown in docs page',
+        story: "Additional context shown in docs page",
       },
     },
 
     // Custom backgrounds
     backgrounds: {
-      default: 'dark',
+      default: "dark",
       values: [
-        { name: 'dark', value: '#1a1a1a' },
-        { name: 'light', value: '#ffffff' },
+        { name: "dark", value: "#1a1a1a" },
+        { name: "light", value: "#ffffff" },
       ],
     },
 
     // Viewport sizes
     viewport: {
-      defaultViewport: 'mobile1',
+      defaultViewport: "mobile1",
     },
   },
 };
@@ -758,11 +784,13 @@ export const StoryName: Story = {
 export const AllVariants: Story = {
   render: () => html`
     <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-      ${['solid', 'outline', 'ghost'].map(variant => html`
-        <sando-button variant="${variant}">
-          ${variant.charAt(0).toUpperCase() + variant.slice(1)}
-        </sando-button>
-      `)}
+      ${["solid", "outline", "ghost"].map(
+        (variant) => html`
+          <sando-button variant="${variant}">
+            ${variant.charAt(0).toUpperCase() + variant.slice(1)}
+          </sando-button>
+        `,
+      )}
     </div>
   `,
   parameters: {
@@ -783,16 +811,23 @@ export const AllVariants: Story = {
 export const AllFlavors: Story = {
   render: () => html`
     <div style="display: grid; gap: 24px;">
-      ${['original', 'strawberry', 'ocean', 'forest', 'sunset'].map(flavor => html`
-        <div flavor="${flavor}" style="padding: 24px; border-radius: 8px; background: var(--sando-color-background-base);">
-          <h3 style="margin: 0 0 16px; text-transform: capitalize;">${flavor}</h3>
-          <div style="display: flex; gap: 12px;">
-            <sando-button variant="solid">Solid</sando-button>
-            <sando-button variant="outline">Outline</sando-button>
-            <sando-button variant="ghost">Ghost</sando-button>
+      ${["original", "strawberry", "ocean", "forest", "sunset"].map(
+        (flavor) => html`
+          <div
+            flavor="${flavor}"
+            style="padding: 24px; border-radius: 8px; background: var(--sando-color-background-base);"
+          >
+            <h3 style="margin: 0 0 16px; text-transform: capitalize;">
+              ${flavor}
+            </h3>
+            <div style="display: flex; gap: 12px;">
+              <sando-button variant="solid">Solid</sando-button>
+              <sando-button variant="outline">Outline</sando-button>
+              <sando-button variant="ghost">Ghost</sando-button>
+            </div>
           </div>
-        </div>
-      `)}
+        `,
+      )}
     </div>
   `,
   parameters: {
@@ -835,7 +870,9 @@ export const Responsive: Story = {
   render: () => html`
     <div style="display: grid; gap: 16px;">
       <sando-button style="width: 100%;">Full Width Mobile</sando-button>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px;">
+      <div
+        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px;"
+      >
         <sando-button>Action 1</sando-button>
         <sando-button>Action 2</sando-button>
         <sando-button>Action 3</sando-button>
@@ -844,7 +881,7 @@ export const Responsive: Story = {
   `,
   parameters: {
     viewport: {
-      defaultViewport: 'mobile1',
+      defaultViewport: "mobile1",
     },
   },
 };
@@ -857,9 +894,9 @@ export const Responsive: Story = {
 ### Testing Accessibility
 
 ```typescript
-import { expect } from '@storybook/jest';
-import { within, userEvent } from '@storybook/testing-library';
-import { axe, toHaveNoViolations } from 'jest-axe';
+import { expect } from "@storybook/jest";
+import { within, userEvent } from "@storybook/testing-library";
+import { axe, toHaveNoViolations } from "jest-axe";
 
 expect.extend(toHaveNoViolations);
 
@@ -956,11 +993,13 @@ export const KeyboardNavigation: Story = {
 ## External References
 
 **Storybook Documentation**:
+
 - [Storybook 8 Docs](https://storybook.js.org/docs) - Official documentation
 - [Web Components in Storybook](https://storybook.js.org/docs/web-components/get-started/introduction) - Framework setup
 - [ArgTypes](https://storybook.js.org/docs/api/arg-types) - Control configuration
 
 **Design System References**:
+
 - [Strapi Design System](https://design-system.strapi.io/) - Organization inspiration
 - [Material Design](https://m3.material.io/) - Component documentation patterns
 - [Carbon Design System](https://carbondesignsystem.com/) - Story structure examples
@@ -970,6 +1009,7 @@ export const KeyboardNavigation: Story = {
 ## Changelog
 
 ### 1.0.0 (2025-11-03)
+
 - Initial guideline creation following Strapi Design System patterns
 - Three-section organization (Design Tokens, Components, Patterns)
 - Main story file pattern with comprehensive argTypes

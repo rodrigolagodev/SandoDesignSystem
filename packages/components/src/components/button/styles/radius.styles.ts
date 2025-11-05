@@ -13,8 +13,8 @@ export const radiusStyles = css`
   /* ========================================
      NONE - Sharp corners
      ======================================== */
-  :host([radius="none"]) button,
-  :host([radius="none"]) a {
+  :host([radius='none']) button,
+  :host([radius='none']) a {
     border-radius: 0;
   }
 
@@ -28,8 +28,8 @@ export const radiusStyles = css`
      FULL - Fully rounded/circular
      Perfect for icon-only buttons
      ======================================== */
-  :host([radius="full"]) button,
-  :host([radius="full"]) a {
+  :host([radius='full']) button,
+  :host([radius='full']) a {
     border-radius: 9999px;
   }
 `;

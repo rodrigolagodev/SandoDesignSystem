@@ -55,11 +55,7 @@ export type {
 // Mixins
 // ========================================
 
-export {
-  FlavorableMixin,
-  type FlavorableInterface,
-  type Flavorable
-} from './mixins/index.js';
+export { FlavorableMixin, type FlavorableInterface, type Flavorable } from './mixins/index.js';
 
 // ========================================
 // Utilities

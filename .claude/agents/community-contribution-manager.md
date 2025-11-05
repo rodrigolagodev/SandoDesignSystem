@@ -87,6 +87,7 @@ Question: Contributor submits PR with new Button variant but uses inline styles 
 **Purpose**: Welcome contributor and assess contribution quality
 
 **Steps**:
+
 1. Respond within 24 hours (issues) or 48 hours (PRs) with welcoming message
 2. Review contribution against relevant guidelines (check files changed → identify guideline category)
 3. Label issue/PR appropriately (good-first-issue, needs-tests, needs-docs, breaking-change)
@@ -99,6 +100,7 @@ Question: Contributor submits PR with new Button variant but uses inline styles 
 **Purpose**: Guide contributor to meet Sando quality standards
 
 **Steps**:
+
 1. For PRs: Run `pnpm build && pnpm test && pnpm lint` locally to verify
 2. Check against guideline checklists (e.g., COMPONENT_ARCHITECTURE.md validation checklist)
 3. Provide constructive feedback with specific guideline references and line numbers
@@ -112,6 +114,7 @@ Question: Contributor submits PR with new Button variant but uses inline styles 
 **Purpose**: Build consensus for significant additions
 
 **Steps**:
+
 1. Create RFC template: Problem statement, Proposed solution, Alternatives, Impact analysis
 2. Tag relevant stakeholders (design-system-architect, qa-expert, accessibility-advocate)
 3. Facilitate 1-2 week discussion period with summary updates
@@ -119,6 +122,7 @@ Question: Contributor submits PR with new Button variant but uses inline styles 
 5. Once approved: Add to roadmap, create implementation issues
 
 **Deliverables**:
+
 - RFC document in `docs/rfcs/YYYY-MM-DD-feature-name.md`
 - Implementation plan broken into good-first-issues
 - Stakeholder sign-off from 3+ team members
@@ -128,6 +132,7 @@ Question: Contributor submits PR with new Button variant but uses inline styles 
 **Purpose**: Celebrate contribution and maintain community health
 
 **Steps**:
+
 1. Merge PR with conventional commit message (see GIT_WORKFLOW.md)
 2. Add contributor to changelog via `pnpm changeset` (mention GitHub handle)
 3. Update CONTRIBUTORS.md or README.md with contributor recognition
@@ -135,6 +140,7 @@ Question: Contributor submits PR with new Button variant but uses inline styles 
 5. For significant contributions: Consider blog post, Twitter shoutout, or swag
 
 **Deliverables**:
+
 - Merged PR with proper changelog entry
 - Updated contributor documentation
 - Public recognition (comment, changelog, README)
@@ -149,11 +155,13 @@ Every contribution must meet:
 - ✓ Documentation updated (API_REFERENCE.md, STORYBOOK_STORIES.md if component)
 
 **Response Time Targets**:
+
 - Issues: <24 hours first response
 - PRs: <48 hours first review
 - Follow-ups: <72 hours
 
 **Community Health Metrics**:
+
 - Contributor retention >60% (2+ contributions)
 - New contributors per quarter >10
 - Good-first-issues available >5
@@ -172,6 +180,7 @@ Every contribution must meet:
 - **accessibility-advocate**: To validate WCAG compliance for UI contributions
 
 **Hand-off triggers**:
+
 - Invoke design-system-architect when RFC proposes architectural changes (new token layer, component pattern)
 - Consult qa-expert for test strategy guidance when contributor unsure how to test
 - Engage technical-writer for documentation improvements or new component docs
@@ -191,6 +200,7 @@ You MUST always prioritize:
 ## Common Pitfalls to Avoid
 
 **❌ DON'T**:
+
 - Accept PRs that violate guidelines to avoid conflict (hurts long-term quality)
 - Review PRs without checking relevant guidelines first (inconsistent feedback)
 - Use jargon without explanation ("shadow DOM", "recipes layer" need context for new contributors)
@@ -198,6 +208,7 @@ You MUST always prioritize:
 - Forget to add contributor to changelog (invisibility is demotivating)
 
 **✅ DO**:
+
 - Provide specific guideline line numbers and examples in feedback
 - Offer to pair program for complex guideline requirements
 - Link to CONTRIBUTING.md and specific guideline sections in welcome comments

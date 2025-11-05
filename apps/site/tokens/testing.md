@@ -100,15 +100,17 @@ pnpm test:coverage
 ### Workflow
 
 1. **Write test first**:
+
 ```js
-it('should have button-background-color', () => {
-  expect(recipes.button.backgroundColor).toBeDefined()
-})
+it("should have button-background-color", () => {
+  expect(recipes.button.backgroundColor).toBeDefined();
+});
 ```
 
 2. **Run test** (fails): `pnpm test:watch`
 
 3. **Implement token**:
+
 ```json
 {
   "button": {
@@ -138,13 +140,13 @@ See [TESTING.md](https://github.com/yourusername/sando-design-system/blob/master
 
 ## Coverage Goals
 
-| Category | Target | Status |
-|----------|--------|--------|
-| Structure | 100% | ✅ |
-| References | 100% | ✅ |
-| Values | 95% | ✅ |
-| Accessibility | 100% | ✅ |
-| Build | 90% | ✅ |
+| Category      | Target | Status |
+| ------------- | ------ | ------ |
+| Structure     | 100%   | ✅     |
+| References    | 100%   | ✅     |
+| Values        | 95%    | ✅     |
+| Accessibility | 100%   | ✅     |
+| Build         | 90%    | ✅     |
 
 ## Next Steps
 

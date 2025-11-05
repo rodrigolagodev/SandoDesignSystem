@@ -24,6 +24,7 @@ Most design systems use generic approaches like `data-theme` attributes or frame
 ```
 
 **Problems:**
+
 - ❌ Requires extra wrapper elements for individual overrides
 - ❌ Cannot mix themes easily in the same context
 - ❌ Creates unnecessary DOM nesting
@@ -33,7 +34,7 @@ Most design systems use generic approaches like `data-theme` attributes or frame
 
 ```tsx
 // ❌ React-only approach
-import { ThemeProvider } from '@my-design-system/react';
+import { ThemeProvider } from "@my-design-system/react";
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
 ```
 
 **Problems:**
+
 - ❌ Only works in specific frameworks (React, Vue, Angular)
 - ❌ Breaks the promise of Web Components (framework-agnostic)
 - ❌ Requires different implementations for each framework
@@ -63,6 +65,7 @@ function App() {
 ```
 
 **Problems:**
+
 - ❌ Hard to create exceptions or highlights
 - ❌ Requires complex CSS overrides
 - ❌ Not intuitive for developers
@@ -78,6 +81,7 @@ Inspired by the Japanese **"katsu sando" (sandwich)**, Sando uses a **flavor-bas
 > **"Every component can have its own flavor, while respecting inherited context"**
 
 Think of it like a sandwich shop:
+
 - 🍞 **Ingredients** (bottom bread): Raw materials (colors, spacing)
 - 🥓 **Flavors** (filling): The theme/taste (original, strawberry, chocolate, dark)
 - 🍞 **Recipes** (top bread): Final component styling
@@ -102,6 +106,7 @@ Think of it like a sandwich shop:
 ```
 
 **Benefits:**
+
 - ✅ **Granular control**: Change individual components
 - ✅ **No wrappers**: Direct attribute on component
 - ✅ **Mix and match**: Different flavors in same context
@@ -161,9 +166,7 @@ Think of it like a sandwich shop:
     </sando-button>
 
     <!-- Primary actions use vibrant flavor -->
-    <sando-button flavor="vibrant">
-      Upgrade to Pro
-    </sando-button>
+    <sando-button flavor="vibrant"> Upgrade to Pro </sando-button>
   </main>
 </div>
 ```
@@ -213,22 +216,22 @@ Think of it like a sandwich shop:
 Flavors follow a **hierarchical inheritance model**:
 
 ```html
-<html flavor="dark">          <!-- Level 1: Global -->
+<html flavor="dark">
+  <!-- Level 1: Global -->
   <body>
-    <div flavor="ocean">      <!-- Level 2: Section -->
-      <article>               <!-- Level 3: Inherits ocean -->
+    <div flavor="ocean">
+      <!-- Level 2: Section -->
+      <article>
+        <!-- Level 3: Inherits ocean -->
 
         <!-- Inherits ocean from ancestor -->
         <sando-button>Ocean button</sando-button>
 
         <!-- Override to strawberry -->
-        <sando-button flavor="strawberry">
-          Strawberry button
-        </sando-button>
+        <sando-button flavor="strawberry"> Strawberry button </sando-button>
 
         <!-- Back to ocean -->
         <sando-button>Ocean button</sando-button>
-
       </article>
     </div>
 
@@ -239,6 +242,7 @@ Flavors follow a **hierarchical inheritance model**:
 ```
 
 **Inheritance Rules:**
+
 1. Component looks for explicit `flavor` attribute on itself
 2. If none, looks for nearest ancestor with `flavor` attribute
 3. If none found, uses default `flavor="original"`
@@ -247,16 +251,16 @@ Flavors follow a **hierarchical inheritance model**:
 
 ## Comparison Table
 
-| Feature | Traditional `data-theme` | Strapi `ThemeProvider` | **Sando `flavor`** |
-|---------|--------------------------|------------------------|-------------------|
-| **Framework Agnostic** | ✅ Yes | ❌ React-only | ✅ Yes |
-| **Individual Overrides** | ⚠️ Requires wrapper | ⚠️ Requires nested provider | ✅ Direct attribute |
-| **Mix Themes** | ❌ Difficult | ❌ Difficult | ✅ Natural |
-| **Performance** | ✅ Good | ⚠️ Re-renders | ✅ Excellent |
-| **Intuitive API** | ⚠️ Generic | ✅ Framework-native | ✅ Flavor analogy |
-| **Type Safety** | ❌ No | ✅ Yes | ⚠️ Partial (via TS) |
-| **DOM Overhead** | ⚠️ Extra wrappers | ⚠️ Extra providers | ✅ None |
-| **Unique Philosophy** | ❌ Generic | ❌ Common | ✅ Sandwich analogy |
+| Feature                  | Traditional `data-theme` | Strapi `ThemeProvider`      | **Sando `flavor`**  |
+| ------------------------ | ------------------------ | --------------------------- | ------------------- |
+| **Framework Agnostic**   | ✅ Yes                   | ❌ React-only               | ✅ Yes              |
+| **Individual Overrides** | ⚠️ Requires wrapper      | ⚠️ Requires nested provider | ✅ Direct attribute |
+| **Mix Themes**           | ❌ Difficult             | ❌ Difficult                | ✅ Natural          |
+| **Performance**          | ✅ Good                  | ⚠️ Re-renders               | ✅ Excellent        |
+| **Intuitive API**        | ⚠️ Generic               | ✅ Framework-native         | ✅ Flavor analogy   |
+| **Type Safety**          | ❌ No                    | ✅ Yes                      | ⚠️ Partial (via TS) |
+| **DOM Overhead**         | ⚠️ Extra wrappers        | ⚠️ Extra providers          | ✅ None             |
+| **Unique Philosophy**    | ❌ Generic               | ❌ Common                   | ✅ Sandwich analogy |
 
 ---
 
@@ -265,6 +269,7 @@ Flavors follow a **hierarchical inheritance model**:
 ### What is a Katsu Sando?
 
 A **katsu sando** is a Japanese sandwich consisting of:
+
 1. **Bread** (top and bottom)
 2. **Katsu** (breaded cutlet - the star)
 3. **Sauce & fixings**
@@ -288,11 +293,13 @@ A **katsu sando** is a Japanese sandwich consisting of:
 - **Recipes** = Final assembled dish (button, card, modal)
 
 Just like you can make:
+
 - **Original katsu sando** (classic tonkatsu sauce)
 - **Strawberry sando** (sweet fruit filling)
 - **Chocolate sando** (dessert version)
 
 You can create:
+
 - **`flavor="original"`** (default theme)
 - **`flavor="strawberry"`** (pink/red theme)
 - **`flavor="chocolate"`** (brown theme)
@@ -307,17 +314,17 @@ You can create:
 
 ```typescript
 // 1. Component has flavor property
-@customElement('sando-button')
+@customElement("sando-button")
 export class SandoButton extends LitElement {
   @property({ reflect: true })
-  flavor = 'original';
+  flavor = "original";
 
   connectedCallback() {
     super.connectedCallback();
 
     // If no explicit flavor, inherit from ancestor
-    if (!this.hasAttribute('flavor')) {
-      const inherited = this.closest('[flavor]')?.getAttribute('flavor');
+    if (!this.hasAttribute("flavor")) {
+      const inherited = this.closest("[flavor]")?.getAttribute("flavor");
       if (inherited) {
         this.flavor = inherited;
       }
@@ -363,12 +370,14 @@ export class SandoButton extends LitElement {
   style="
     --sando-button-backgroundColor: purple;
     --sando-button-textColor: white;
-  ">
+  "
+>
   Custom Purple
 </sando-button>
 ```
 
 **Three levels of customization:**
+
 1. **Flavor attribute** - Broad theme change
 2. **CSS variables** - Surgical overrides
 3. **Inline styles** - One-off customizations
@@ -416,11 +425,13 @@ export class SandoButton extends LitElement {
 ### DO ✅
 
 1. **Use flavor for broad theme changes**
+
    ```html
    <sando-button flavor="dark">Dark theme</sando-button>
    ```
 
 2. **Leverage inheritance for sections**
+
    ```html
    <section flavor="ocean">
      <!-- All buttons here are ocean -->
@@ -429,6 +440,7 @@ export class SandoButton extends LitElement {
    ```
 
 3. **Override individuals when needed**
+
    ```html
    <div flavor="dark">
      <sando-button>Dark</sando-button>
@@ -440,7 +452,8 @@ export class SandoButton extends LitElement {
    ```html
    <sando-button
      flavor="original"
-     style="--sando-button-backgroundColor: #custom;">
+     style="--sando-button-backgroundColor: #custom;"
+   >
      Custom
    </sando-button>
    ```
@@ -448,6 +461,7 @@ export class SandoButton extends LitElement {
 ### DON'T ❌
 
 1. **Don't create wrapper divs for theming**
+
    ```html
    <!-- ❌ Bad -->
    <div flavor="dark">
@@ -459,6 +473,7 @@ export class SandoButton extends LitElement {
    ```
 
 2. **Don't override every component**
+
    ```html
    <!-- ❌ Bad (repetitive) -->
    <sando-button flavor="dark">Button 1</sando-button>
@@ -474,6 +489,7 @@ export class SandoButton extends LitElement {
    ```
 
 3. **Don't mix theming paradigms**
+
    ```html
    <!-- ❌ Confusing -->
    <div data-theme="dark" flavor="light">
@@ -493,6 +509,7 @@ export class SandoButton extends LitElement {
 ### Planned Features
 
 1. **Auto-generated Flavor Palettes**
+
    ```css
    /* Generate entire flavor from single color */
    :host([flavor="custom"]) {
@@ -503,17 +520,18 @@ export class SandoButton extends LitElement {
    ```
 
 2. **Flavor Presets**
+
    ```typescript
    // Import pre-made flavor palettes
-   import { oceanFlavor, sunsetFlavor } from '@sando/flavors';
+   import { oceanFlavor, sunsetFlavor } from "@sando/flavors";
    ```
 
 3. **Dynamic Flavor Creation**
    ```typescript
    // Runtime flavor generation
-   createFlavor('brand', {
-     primary: '#ff6b6b',
-     contrast: 'auto', // Automatically ensure WCAG compliance
+   createFlavor("brand", {
+     primary: "#ff6b6b",
+     contrast: "auto", // Automatically ensure WCAG compliance
    });
    ```
 
@@ -526,6 +544,7 @@ The Sando flavor system is more than just theming—it's a **philosophy**:
 > **"Flexibility without complexity, consistency without rigidity"**
 
 By treating themes as "flavors" rather than rigid contexts, Sando empowers developers to:
+
 - Mix themes freely
 - Override individuals without wrappers
 - Stay framework-agnostic

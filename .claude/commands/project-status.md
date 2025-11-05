@@ -24,6 +24,7 @@ git diff --stat
 ```
 
 Analyze the git state:
+
 - Are there uncommitted changes?
 - Are there untracked files?
 - What branch are we on?
@@ -36,12 +37,14 @@ Check build artifacts for all packages and compare timestamps with source files 
 ## @sando/tokens
 
 Check if `packages/tokens/dist/sando-tokens/` exists:
+
 - If exists: Compare modification time with source files in `packages/tokens/src/`
 - If dist is older than source → ⚠️ "Tokens need rebuild"
 - If dist is recent → ✅ "Tokens are fresh"
 - If dist doesn't exist → ❌ "Tokens not built"
 
 Files to check:
+
 - `packages/tokens/dist/sando-tokens/css/ingredients.css`
 - `packages/tokens/dist/sando-tokens/css/flavors/`
 - `packages/tokens/dist/sando-tokens/css/recipes/`
@@ -49,6 +52,7 @@ Files to check:
 ## @sando/components
 
 Check if `packages/components/dist/` exists:
+
 - If exists: Compare with source files in `packages/components/src/`
 - If dist is older than source → ⚠️ "Components need rebuild"
 - If dist is recent → ✅ "Components are fresh"
@@ -57,12 +61,14 @@ Check if `packages/components/dist/` exists:
 ## @sando/docs (Storybook)
 
 Check if `apps/docs/storybook-static/` exists:
+
 - If exists → ✅ "Storybook built"
 - If not exists → ⚠️ "Storybook not built (run `pnpm docs:build`)"
 
 ## @sando/site (VitePress)
 
 Check if `apps/site/.vitepress/dist/` exists:
+
 - If exists → ✅ "VitePress built"
 - If not exists → ⚠️ "VitePress not built (run `pnpm site:build`)"
 
@@ -73,6 +79,7 @@ Check if coverage reports exist and parse them:
 ## Coverage Analysis
 
 If `coverage/coverage-summary.json` exists:
+
 1. Read and parse the JSON file
 2. Extract overall coverage percentage
 3. Extract per-package coverage:
@@ -82,11 +89,13 @@ If `coverage/coverage-summary.json` exists:
 5. Show summary with visual indicators
 
 If coverage doesn't exist:
+
 - ⚠️ "No coverage data (run `pnpm test:coverage`)"
 
 ## Recent Test Results
 
 Check if tests have been run recently:
+
 - Look for test result files or recent test output
 - If recent test failures exist, flag them
 
@@ -95,33 +104,39 @@ Check if tests have been run recently:
 Based on all the gathered information, provide actionable recommendations:
 
 ## Scenario 1: Everything is Good ✅
+
 - All builds are fresh (dist newer than source)
 - No uncommitted changes or only safe untracked files
 - Test coverage >85% across all packages
 - Recommendation: **"Ready to develop"**
 
 ## Scenario 2: Builds are Stale ⚠️
+
 - Tokens source newer than dist
 - Components depend on stale tokens
 - Recommendation: **"Run `pnpm build` to rebuild stale artifacts"**
 - Explain: "Tokens were modified 2 hours ago but components dist is 3 hours old"
 
 ## Scenario 3: Tests Failing ❌
+
 - Test failures detected
 - Recommendation: **"Fix failing tests before continuing"**
 - List which tests are failing if known
 
 ## Scenario 4: Uncommitted Changes 🚧
+
 - Multiple uncommitted files detected
 - Recommendation: **"Review uncommitted changes in X files before commit"**
 - List the files with changes
 
 ## Scenario 5: Missing Builds ❌
+
 - dist/ folders don't exist
 - Recommendation: **"Run `pnpm build` to build all packages"**
 - Explain build order: tokens → components → docs/site
 
 ## Scenario 6: Coverage Below Threshold ⚠️
+
 - Some packages below 85% coverage
 - Recommendation: **"Increase test coverage for @sando/components (currently 78%)"**
 
@@ -202,8 +217,9 @@ Overall Status: ⚠️  Ready to develop after rebuilding components
 ```
 
 Use these status indicators:
+
 - ✅ Good / Success / Fresh
-- ⚠️  Warning / Action Recommended / Stale
+- ⚠️ Warning / Action Recommended / Stale
 - ❌ Error / Critical / Missing / Failing
 - 🚧 In Progress / Uncommitted
 - 💡 Recommendation / Suggestion
@@ -226,6 +242,7 @@ Use these status indicators:
 **Estimated tokens per use:** ~800-1200 tokens
 
 **Value added:**
+
 - Saves 5-10 minutes of manual checking across git, multiple dist/ folders, and coverage reports
 - Prevents build errors by detecting stale dependencies
 - Provides actionable next steps instead of raw data
@@ -233,6 +250,7 @@ Use these status indicators:
 **ROI:** Positive after 1 use (time saved > token cost)
 
 **Use cases:**
+
 - Daily: Check project health before starting work
 - Before commits: Ensure builds are fresh and tests pass
 - After pulls: Verify if rebuilds are needed

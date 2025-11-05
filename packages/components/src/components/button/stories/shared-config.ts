@@ -93,7 +93,25 @@ export const sharedArgTypes = {
   },
   iconStart: {
     control: 'select',
-    options: ['None', '⭐', '❤️', '✓', '✗', '🔍', '⚙️', '📥', '📤', '➕', '➖', '🗑️', '✏️', '🔒', '🔓', '👤', '🏠'],
+    options: [
+      'None',
+      '⭐',
+      '❤️',
+      '✓',
+      '✗',
+      '🔍',
+      '⚙️',
+      '📥',
+      '📤',
+      '➕',
+      '➖',
+      '🗑️',
+      '✏️',
+      '🔒',
+      '🔓',
+      '👤',
+      '🏠'
+    ],
     description: 'Icon to display at the start of the button'
   },
   iconEnd: {

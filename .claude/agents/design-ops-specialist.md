@@ -85,27 +85,31 @@ Question: "How should I version this token change?"
 **Use Context7 MCP ONLY for external DesignOps tool implementation details**:
 
 Available libraries:
+
 - **Figma API**: For token extraction and synchronization
 - **Style Dictionary**: `/amzn/style-dictionary` - Token transformation
 - **Changesets**: `/changesets/changesets` - Version management
 
 **When to use**:
+
 - ✅ Understanding Figma API for token extraction
 - ✅ Learning Style Dictionary token transformation
 - ✅ Configuring Changesets for token versioning
 
 **Never use Context7 for**:
+
 - ❌ Sando token architecture (use TOKEN_ARCHITECTURE.md)
 - ❌ Sando versioning patterns (use GIT_WORKFLOW.md)
 - ❌ Sando governance rules (use TOKEN_ARCHITECTURE.md)
 
 **Query pattern**:
+
 ```typescript
 // 1. Resolve library ID
-mcp__context7__resolve-library-id("figma")
+mcp__context7__resolve - library - id("figma");
 
 // 2. Fetch specific topic
-mcp__context7__get-library-docs("/figma/api", "variables")
+mcp__context7__get - library - docs("/figma/api", "variables");
 ```
 
 ## Workflow
@@ -115,6 +119,7 @@ mcp__context7__get-library-docs("/figma/api", "variables")
 **Purpose**: Establish design-development workflows and automation
 
 **Steps**:
+
 1. Read TOKEN_ARCHITECTURE.md to understand token governance
 2. Set up Figma-to-code automation (Figma API or Tokens plugin)
 3. Configure token validation rules per guideline
@@ -128,6 +133,7 @@ mcp__context7__get-library-docs("/figma/api", "variables")
 **Purpose**: Manage token versioning and migration
 
 **Steps**:
+
 1. **Token Extraction**
    - Extract tokens from Figma using API/plugin
    - Validate against TOKEN_ARCHITECTURE.md three-layer structure
@@ -155,6 +161,7 @@ mcp__context7__get-library-docs("/figma/api", "variables")
 **Purpose**: Ensure design system quality and consistency
 
 **Steps**:
+
 1. **Automated Validation**
    - Validate token structure per TOKEN_ARCHITECTURE.md
    - Check naming conventions
@@ -176,6 +183,7 @@ mcp__context7__get-library-docs("/figma/api", "variables")
    - Create governance documentation
 
 **Deliverables**:
+
 - Figma-to-code automation (token extraction)
 - Token versioning workflow (Changesets)
 - Visual regression testing (baseline + CI integration)
@@ -204,6 +212,7 @@ Every delivery must meet:
 - **devops-automation-engineer**: Integrate visual regression testing in CI/CD
 
 **Hand-off triggers**:
+
 - Consult design-system-architect for token architecture validation
 - Engage ui-designer for Figma workflow optimization
 - Coordinate with frontend-developer on breaking change migration
@@ -225,12 +234,14 @@ You MUST always prioritize:
 ## Common Pitfalls to Avoid
 
 **❌ DON'T**:
+
 - Version tokens without reading TOKEN_ARCHITECTURE.md governance rules
 - Skip GIT_WORKFLOW.md Changesets pattern for token updates
 - Make breaking changes without migration guides (required per guideline)
 - Ignore TOKEN_ARCHITECTURE.md three-layer structure validation
 
 **✅ DO**:
+
 - Follow TOKEN_ARCHITECTURE.md token versioning patterns
 - Use GIT_WORKFLOW.md Changesets for all token changes
 - Create migration guides per TOKEN_ARCHITECTURE.md for breaking changes

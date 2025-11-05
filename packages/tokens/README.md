@@ -15,7 +15,9 @@ pnpm add @sando/tokens
 Three-layer architecture for scalable design tokens:
 
 ### Layer 1: Ingredients (Primitives)
+
 **Absolute values** - Raw materials of the design system
+
 ```json
 {
   "color": {
@@ -27,7 +29,9 @@ Three-layer architecture for scalable design tokens:
 ```
 
 ### Layer 2: Flavors (Semantic)
+
 **References to Ingredients** - Contextual meaning and theming
+
 ```json
 {
   "color": {
@@ -39,13 +43,18 @@ Three-layer architecture for scalable design tokens:
 ```
 
 ### Layer 3: Recipes (Component-specific)
+
 **References to Flavors** - Component tokens
+
 ```json
 {
   "button": {
     "solid": {
       "backgroundColor": {
-        "default": { "value": "{color.action.solid.background.default.value}", "type": "color" }
+        "default": {
+          "value": "{color.action.solid.background.default.value}",
+          "type": "color"
+        }
       }
     }
   }
@@ -58,24 +67,25 @@ Three-layer architecture for scalable design tokens:
 
 ```css
 /* Import all tokens */
-@import '@sando/tokens/css/ingredients';
-@import '@sando/tokens/css/flavors';
-@import '@sando/tokens/css/recipes';
+@import "@sando/tokens/css/ingredients";
+@import "@sando/tokens/css/flavors";
+@import "@sando/tokens/css/recipes";
 
 /* Use in your components */
 .my-button {
   background: var(--sando-button-solid-backgroundColor-default);
   color: var(--sando-button-solid-textColor-default);
-  padding: var(--sando-button-size-medium-paddingBlock) var(--sando-button-size-medium-paddingInline);
+  padding: var(--sando-button-size-medium-paddingBlock)
+    var(--sando-button-size-medium-paddingInline);
 }
 ```
 
 ### TypeScript Usage (Type-Safe)
 
 ```typescript
-import { tokens } from '@sando/tokens/recipes';
-import { values } from '@sando/tokens/ingredients/color';
-import { css, LitElement } from 'lit';
+import { tokens } from "@sando/tokens/recipes";
+import { values } from "@sando/tokens/ingredients/color";
+import { css, LitElement } from "lit";
 
 class MyButton extends LitElement {
   static styles = css`
@@ -205,6 +215,7 @@ npm run test:build          # CSS/TypeScript output validation
 ```
 
 **From monorepo root:**
+
 ```bash
 # Run tests for tokens package only
 pnpm --filter @sando/tokens test
@@ -214,6 +225,7 @@ pnpm --filter @sando/tokens test:coverage
 ```
 
 **Reporter Options:**
+
 - **`default`** (recommended): Clean summary, only shows failures
 - **`dot`**: Minimal (best for CI), just shows pass/fail dots
 - **`verbose`**: Shows every single test (very long output)
@@ -222,29 +234,33 @@ pnpm --filter @sando/tokens test:coverage
 ## 📖 Token Naming Convention
 
 ### CSS Custom Properties
+
 ```
 --sando-{category}-{property}-{variant?}-{state?}
 ```
 
 **Examples:**
+
 - `--sando-color-brand-500` (ingredient)
 - `--sando-color-background-base` (flavor)
 - `--sando-button-solid-backgroundColor-hover` (recipe)
 
 ### TypeScript Imports
+
 ```typescript
 // Absolute primitive values (ingredients)
-import { values } from '@sando/tokens/ingredients/color';
-values.brand[500] // '#f97415'
+import { values } from "@sando/tokens/ingredients/color";
+values.brand[500]; // '#f97415'
 
 // CSS variable names (flavors/recipes)
-import { tokens } from '@sando/tokens/recipes';
-tokens.button.solid.backgroundColor.default // '--sando-button-solid-backgroundColor-default'
+import { tokens } from "@sando/tokens/recipes";
+tokens.button.solid.backgroundColor.default; // '--sando-button-solid-backgroundColor-default'
 ```
 
 ## 🔄 Adding New Tokens
 
 ### 1. Add to Source Files
+
 ```json
 // src/ingredients/color.json
 {
@@ -257,11 +273,13 @@ tokens.button.solid.backgroundColor.default // '--sando-button-solid-backgroundC
 ```
 
 ### 2. Build
+
 ```bash
 npm run build
 ```
 
 ### 3. Use
+
 ```css
 .success-button {
   background: var(--sando-color-success-500);
@@ -270,11 +288,11 @@ npm run build
 
 ## 🎯 Output Formats
 
-| Format | Layer | Purpose | Example |
-|--------|-------|---------|---------|
-| **CSS** | All | Runtime styling | `var(--sando-color-brand-500)` |
+| Format            | Layer            | Purpose                 | Example                                          |
+| ----------------- | ---------------- | ----------------------- | ------------------------------------------------ |
+| **CSS**           | All              | Runtime styling         | `var(--sando-color-brand-500)`                   |
 | **TS (CSS vars)** | Flavors, Recipes | Type-safe CSS var names | `'--sando-button-solid-backgroundColor-default'` |
-| **TS (Values)** | Ingredients | JS calculations | `'#f97415'` |
+| **TS (Values)**   | Ingredients      | JS calculations         | `'#f97415'`                                      |
 
 ## 📝 License
 

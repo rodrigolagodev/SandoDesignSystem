@@ -33,6 +33,7 @@ The Sando Design System uses a **streamlined, efficient testing approach** focus
 **❌ E2E Tests (Playwright/Cypress)**
 
 Component libraries don't need E2E tests because:
+
 - Components are **isolated**, not full pages
 - No complex user flows spanning multiple pages
 - No real backend/API integration needed
@@ -77,6 +78,7 @@ packages/components/src/components/button/
 ### Vitest (Unit Testing)
 
 **Why Vitest?**
+
 - Fast (uses Vite's transform pipeline)
 - Native ES modules support
 - Compatible with Jest APIs
@@ -99,6 +101,7 @@ packages/components/src/components/button/
 ### @open-wc/testing
 
 **Why @open-wc?**
+
 - Purpose-built for Web Components
 - Provides `fixture()` for rendering components in tests
 - Includes accessibility assertions
@@ -107,6 +110,7 @@ packages/components/src/components/button/
 ### jest-axe (Accessibility Testing)
 
 **Why axe-core?**
+
 - Industry standard for automated accessibility testing
 - Catches ~57% of WCAG issues automatically
 - Integrates with Vitest via jest-axe
@@ -126,9 +130,7 @@ describe('sando-button', () => {
   let element: SandoButton;
 
   beforeEach(async () => {
-    element = await fixture<SandoButton>(
-      html`<sando-button>Click me</sando-button>`
-    );
+    element = await fixture<SandoButton>(html`<sando-button>Click me</sando-button>`);
   });
 
   it('should update variant property', async () => {
@@ -177,9 +179,7 @@ describe('sando-button Accessibility', () => {
   let element: SandoButton;
 
   beforeEach(async () => {
-    element = await fixture<SandoButton>(
-      html`<sando-button>Click me</sando-button>`
-    );
+    element = await fixture<SandoButton>(html`<sando-button>Click me</sando-button>`);
     await element.updateComplete;
   });
 
@@ -450,6 +450,7 @@ pnpm test:ui
 ```
 
 Opens interactive UI with:
+
 - Test tree view
 - Console output
 - Coverage visualization
@@ -462,6 +463,7 @@ pnpm test:verbose
 ```
 
 Shows detailed test results with:
+
 - Individual test names
 - Timing information
 - Console logs
@@ -474,6 +476,7 @@ pnpm test:coverage
 ```
 
 Generates:
+
 - `coverage/index.html` - Interactive HTML report
 - `coverage/lcov.info` - LCOV format for CI/CD
 - Terminal summary

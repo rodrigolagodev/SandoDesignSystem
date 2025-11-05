@@ -25,6 +25,7 @@ Establish performance budgets for the Sando Design System to ensure fast, effici
 Individual components MUST stay under 10KB (gzipped), full library under 100KB (gzipped).
 
 **Pattern**:
+
 ```javascript
 // vite.config.js
 build: {
@@ -81,25 +82,31 @@ Documentation sites (Storybook, VitePress) MUST meet Core Web Vitals thresholds 
 Storybook and VitePress sites MUST score ≥90 in Lighthouse Performance audits.
 
 **Pattern** (Lighthouse CI):
+
 ```yaml
 # .lighthouserc.json
 {
-  "ci": {
-    "assert": {
-      "preset": "lighthouse:recommended",
-      "assertions": {
-        "categories:performance": ["error", {"minScore": 0.9}],
-        "categories:accessibility": ["error", {"minScore": 1.0}],
-        "first-contentful-paint": ["error", {"maxNumericValue": 1800}],
-        "largest-contentful-paint": ["error", {"maxNumericValue": 2500}],
-        "cumulative-layout-shift": ["error", {"maxNumericValue": 0.1}]
-      }
-    }
-  }
+  "ci":
+    {
+      "assert":
+        {
+          "preset": "lighthouse:recommended",
+          "assertions":
+            {
+              "categories:performance": ["error", { "minScore": 0.9 }],
+              "categories:accessibility": ["error", { "minScore": 1.0 }],
+              "first-contentful-paint": ["error", { "maxNumericValue": 1800 }],
+              "largest-contentful-paint":
+                ["error", { "maxNumericValue": 2500 }],
+              "cumulative-layout-shift": ["error", { "maxNumericValue": 0.1 }],
+            },
+        },
+    },
 }
 ```
 
 **Enforcement**:
+
 - CI runs Lighthouse on every PR
 - Scores <90 block merge
 - Generate before/after comparison reports
@@ -115,6 +122,7 @@ Storybook and VitePress sites MUST score ≥90 in Lighthouse Performance audits.
 Components MUST support tree-shaking. Documentation sites MUST use code splitting for routes.
 
 **Pattern** (Vite preserveModules):
+
 ```javascript
 // From packages/components/vite.config.js
 build: {
@@ -129,12 +137,13 @@ build: {
 ```
 
 **Result**: Users import only what they use:
+
 ```javascript
 // ✅ CORRECT - Tree-shakable (only button loaded)
-import { SandoButton } from '@sando/components/button';
+import { SandoButton } from "@sando/components/button";
 
 // ❌ WRONG - Imports entire library
-import { SandoButton } from '@sando/components';
+import { SandoButton } from "@sando/components";
 ```
 
 **Why**: Tree-shaking eliminates dead code. A user importing 1 button should not download 50 components.
@@ -148,6 +157,7 @@ import { SandoButton } from '@sando/components';
 Track bundle sizes and Core Web Vitals over time to detect regressions early.
 
 **Pattern**:
+
 ```bash
 # Generate bundle analysis
 pnpm --filter @sando/components build
@@ -158,6 +168,7 @@ echo "Button: $(gzip -c dist/components/button/sando-button.js | wc -c) bytes" >
 ```
 
 **Tools**:
+
 - **Bundlephobia**: Analyze published package sizes
 - **Lighthouse CI Trend**: Track Core Web Vitals over time
 - **Size Limit**: Automated bundle size checks in CI
@@ -174,15 +185,16 @@ echo "Button: $(gzip -c dist/components/button/sando-button.js | wc -c) bytes" >
 
 From `sando-button` analysis (~8KB gzipped):
 
-| Component | Uncompressed | Gzipped | Brotli | Status |
-|-----------|--------------|---------|--------|--------|
-| sando-button | 28KB | 8KB | 6KB | ✅ Baseline |
-| sando-input | <30KB | <10KB | <8KB | 🎯 Target |
-| sando-select | <35KB | <12KB | <10KB | 🎯 Target (complex) |
-| sando-modal | <40KB | <14KB | <12KB | 🎯 Target (overlay) |
-| sando-card | <25KB | <8KB | <6KB | 🎯 Target (simple) |
+| Component    | Uncompressed | Gzipped | Brotli | Status              |
+| ------------ | ------------ | ------- | ------ | ------------------- |
+| sando-button | 28KB         | 8KB     | 6KB    | ✅ Baseline         |
+| sando-input  | <30KB        | <10KB   | <8KB   | 🎯 Target           |
+| sando-select | <35KB        | <12KB   | <10KB  | 🎯 Target (complex) |
+| sando-modal  | <40KB        | <14KB   | <12KB  | 🎯 Target (overlay) |
+| sando-card   | <25KB        | <8KB    | <6KB   | 🎯 Target (simple)  |
 
 **Component size categories**:
+
 - **Simple** (button, icon, badge): <10KB gzipped
 - **Medium** (input, checkbox, radio): <12KB gzipped
 - **Complex** (select, dropdown, tabs): <15KB gzipped
@@ -190,24 +202,25 @@ From `sando-button` analysis (~8KB gzipped):
 
 ### Library-Level Budgets
 
-| Bundle Type | Uncompressed | Gzipped | Brotli | Notes |
-|-------------|--------------|---------|--------|-------|
-| Full library (@sando/components) | <300KB | <100KB | <80KB | All components |
-| Tokens (@sando/tokens CSS) | <150KB | <40KB | <30KB | All flavors CSS |
-| Individual component import | <40KB | <12KB | <10KB | Average component |
-| Vendor dependencies (Lit) | External | External | External | Peer dependency |
+| Bundle Type                      | Uncompressed | Gzipped  | Brotli   | Notes             |
+| -------------------------------- | ------------ | -------- | -------- | ----------------- |
+| Full library (@sando/components) | <300KB       | <100KB   | <80KB    | All components    |
+| Tokens (@sando/tokens CSS)       | <150KB       | <40KB    | <30KB    | All flavors CSS   |
+| Individual component import      | <40KB        | <12KB    | <10KB    | Average component |
+| Vendor dependencies (Lit)        | External     | External | External | Peer dependency   |
 
 **Future optimization targets**:
+
 - Lazy-load component variants (defer ghost/outline until needed)
 - Split modular styles (load only used size/variant CSS)
 - Minify SVG icons aggressively
 
 ### Documentation Site Budgets
 
-| Site | Initial Load | Gzipped | LCP Target | Notes |
-|------|--------------|---------|------------|-------|
-| Storybook (@sando/docs) | <500KB | <150KB | <2.0s | Component showcase |
-| VitePress (@sando/site) | <300KB | <100KB | <1.8s | Marketing/docs |
+| Site                    | Initial Load | Gzipped | LCP Target | Notes              |
+| ----------------------- | ------------ | ------- | ---------- | ------------------ |
+| Storybook (@sando/docs) | <500KB       | <150KB  | <2.0s      | Component showcase |
+| VitePress (@sando/site) | <300KB       | <100KB  | <1.8s      | Marketing/docs     |
 
 **Storybook specific**: Storybook bundles are large by nature (~3MB). Focus on component iframe performance, not Storybook shell.
 
@@ -218,44 +231,50 @@ From `sando-button` analysis (~8KB gzipped):
 ### Measurement Strategy
 
 **1. Lab data (synthetic)**:
+
 - Lighthouse CI (automated)
 - WebPageTest (manual spot checks)
 - Chrome DevTools Performance panel
 
 **2. Field data (real users)**:
+
 - Chrome User Experience Report (CrUX)
 - Real User Monitoring (RUM) - future
 - Google Search Console Core Web Vitals report
 
 **3. Frequency**:
+
 - Every PR (Lighthouse CI)
 - Weekly (WebPageTest)
 - Monthly (CrUX review)
 
 ### Target Breakdown
 
-| Metric | Target | Measurement | Impact |
-|--------|--------|-------------|--------|
-| **LCP** | <2.5s | Time to largest content | Page load speed |
-| **FID** | <100ms | First input delay | Interactivity |
-| **CLS** | <0.1 | Layout shift score | Visual stability |
-| **INP** | <200ms | Interaction delay (new) | Responsiveness |
-| **TTFB** | <800ms | Server response time | CDN/hosting |
-| **TBT** | <200ms | Total blocking time | Main thread work |
+| Metric   | Target | Measurement             | Impact           |
+| -------- | ------ | ----------------------- | ---------------- |
+| **LCP**  | <2.5s  | Time to largest content | Page load speed  |
+| **FID**  | <100ms | First input delay       | Interactivity    |
+| **CLS**  | <0.1   | Layout shift score      | Visual stability |
+| **INP**  | <200ms | Interaction delay (new) | Responsiveness   |
+| **TTFB** | <800ms | Server response time    | CDN/hosting      |
+| **TBT**  | <200ms | Total blocking time     | Main thread work |
 
 **LCP optimization**:
+
 - Preload critical resources
 - Optimize images (WebP, AVIF)
 - Minimize render-blocking JavaScript
 - Use CDN for static assets
 
 **FID/INP optimization**:
+
 - Minimize main thread work
 - Break up long tasks (<50ms chunks)
 - Use web workers for heavy computation
 - Defer non-critical JavaScript
 
 **CLS optimization**:
+
 - Reserve space for images/iframes (width/height)
 - Avoid inserting content above existing content
 - Use transform/opacity for animations (not top/left)
@@ -268,14 +287,12 @@ From `sando-button` analysis (~8KB gzipped):
 ### Configuration
 
 **.lighthouserc.json**:
+
 ```json
 {
   "ci": {
     "collect": {
-      "url": [
-        "http://localhost:6006",
-        "http://localhost:3000"
-      ],
+      "url": ["http://localhost:6006", "http://localhost:3000"],
       "numberOfRuns": 3,
       "settings": {
         "preset": "desktop",
@@ -289,14 +306,14 @@ From `sando-button` analysis (~8KB gzipped):
     "assert": {
       "preset": "lighthouse:recommended",
       "assertions": {
-        "categories:performance": ["error", {"minScore": 0.9}],
-        "categories:accessibility": ["error", {"minScore": 1.0}],
-        "categories:best-practices": ["warn", {"minScore": 0.9}],
-        "first-contentful-paint": ["error", {"maxNumericValue": 1800}],
-        "largest-contentful-paint": ["error", {"maxNumericValue": 2500}],
-        "total-blocking-time": ["warn", {"maxNumericValue": 200}],
-        "cumulative-layout-shift": ["error", {"maxNumericValue": 0.1}],
-        "max-potential-fid": ["error", {"maxNumericValue": 100}]
+        "categories:performance": ["error", { "minScore": 0.9 }],
+        "categories:accessibility": ["error", { "minScore": 1.0 }],
+        "categories:best-practices": ["warn", { "minScore": 0.9 }],
+        "first-contentful-paint": ["error", { "maxNumericValue": 1800 }],
+        "largest-contentful-paint": ["error", { "maxNumericValue": 2500 }],
+        "total-blocking-time": ["warn", { "maxNumericValue": 200 }],
+        "cumulative-layout-shift": ["error", { "maxNumericValue": 0.1 }],
+        "max-potential-fid": ["error", { "maxNumericValue": 100 }]
       }
     },
     "upload": {
@@ -421,6 +438,7 @@ pnpm exec size-limit
 ### 1. Code Splitting
 
 **Route-based splitting** (VitePress):
+
 ```javascript
 // .vitepress/config.js
 export default {
@@ -429,36 +447,38 @@ export default {
       rollupOptions: {
         output: {
           manualChunks(id) {
-            if (id.includes('node_modules')) {
-              return 'vendor';
+            if (id.includes("node_modules")) {
+              return "vendor";
             }
-            if (id.includes('/components/')) {
-              return 'components';
+            if (id.includes("/components/")) {
+              return "components";
             }
-          }
-        }
-      }
-    }
-  }
-}
+          },
+        },
+      },
+    },
+  },
+};
 ```
 
 ### 2. Lazy Loading
 
 **Component lazy loading**:
+
 ```javascript
 // Defer non-critical components
-const SandoModal = () => import('@sando/components/modal');
+const SandoModal = () => import("@sando/components/modal");
 ```
 
 ### 3. Image Optimization
 
 **Use modern formats**:
+
 ```html
 <picture>
-  <source srcset="image.avif" type="image/avif">
-  <source srcset="image.webp" type="image/webp">
-  <img src="image.jpg" alt="Description" width="800" height="600">
+  <source srcset="image.avif" type="image/avif" />
+  <source srcset="image.webp" type="image/webp" />
+  <img src="image.jpg" alt="Description" width="800" height="600" />
 </picture>
 ```
 
@@ -467,15 +487,23 @@ const SandoModal = () => import('@sando/components/modal');
 ### 4. Font Optimization
 
 **Preload critical fonts**:
+
 ```html
-<link rel="preload" href="/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
+<link
+  rel="preload"
+  href="/fonts/inter.woff2"
+  as="font"
+  type="font/woff2"
+  crossorigin
+/>
 ```
 
 **Use font-display: swap**:
+
 ```css
 @font-face {
-  font-family: 'Inter';
-  src: url('/fonts/inter.woff2') format('woff2');
+  font-family: "Inter";
+  src: url("/fonts/inter.woff2") format("woff2");
   font-display: swap; /* Prevents FOIT (Flash of Invisible Text) */
 }
 ```
@@ -483,17 +511,28 @@ const SandoModal = () => import('@sando/components/modal');
 ### 5. CSS Optimization
 
 **Critical CSS inlining**:
+
 ```html
 <style>
   /* Inline critical above-the-fold CSS */
-  body { font-family: Inter, sans-serif; }
-  .hero { /* ... */ }
+  body {
+    font-family: Inter, sans-serif;
+  }
+  .hero {
+    /* ... */
+  }
 </style>
 ```
 
 **Defer non-critical CSS**:
+
 ```html
-<link rel="preload" href="/styles/non-critical.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<link
+  rel="preload"
+  href="/styles/non-critical.css"
+  as="style"
+  onload="this.onload=null;this.rel='stylesheet'"
+/>
 ```
 
 ---
@@ -503,6 +542,7 @@ const SandoModal = () => import('@sando/components/modal');
 ### CI Budget Enforcement
 
 **Bundle size check** (GitHub Actions):
+
 ```yaml
 - name: Check bundle size
   run: |
@@ -516,6 +556,7 @@ const SandoModal = () => import('@sando/components/modal');
 ### Performance Regression Detection
 
 **Compare against main branch**:
+
 ```yaml
 - name: Compare bundle sizes
   run: |
@@ -529,12 +570,12 @@ const SandoModal = () => import('@sando/components/modal');
 
 ### Alerting Strategy
 
-| Threshold | Action | Notification |
-|-----------|--------|--------------|
-| 80% of budget | Warning in PR | GitHub comment |
-| 100% of budget | Block merge | CI failure + Slack |
-| Lighthouse <90 | Block merge | CI failure + PR comment |
-| CrUX "Poor" rating | Investigation | Weekly report |
+| Threshold          | Action        | Notification            |
+| ------------------ | ------------- | ----------------------- |
+| 80% of budget      | Warning in PR | GitHub comment          |
+| 100% of budget     | Block merge   | CI failure + Slack      |
+| Lighthouse <90     | Block merge   | CI failure + PR comment |
+| CrUX "Poor" rating | Investigation | Weekly report           |
 
 ---
 
@@ -586,16 +627,19 @@ const SandoModal = () => import('@sando/components/modal');
 ## External References
 
 **Core Web Vitals**:
+
 - [Web Vitals](https://web.dev/vitals/) - Official documentation
 - [Chrome User Experience Report](https://developers.google.com/web/tools/chrome-user-experience-report) - Field data
 
 **Tools**:
+
 - [Lighthouse CI](https://github.com/GoogleChrome/lighthouse-ci) - Automated audits
 - [Bundlephobia](https://bundlephobia.com/) - Package size analysis
 - [Size Limit](https://github.com/ai/size-limit) - Bundle size enforcement
 - [WebPageTest](https://www.webpagetest.org/) - Real-world testing
 
 **Optimization**:
+
 - [web.dev Performance](https://web.dev/performance/) - Best practices
 - [Vite Build Optimizations](https://vitejs.dev/guide/build.html) - Tree-shaking and code splitting
 
@@ -604,6 +648,7 @@ const SandoModal = () => import('@sando/components/modal');
 ## Changelog
 
 ### 1.0.0 (2025-11-03)
+
 - Initial guideline creation
 - Component budgets: <10KB gzipped (simple), <15KB (complex)
 - Library budget: <100KB gzipped (full library)

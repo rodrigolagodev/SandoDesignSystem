@@ -12,8 +12,9 @@ This skill generates **minimal boilerplate structure** for new Web Components fo
 **CRITICAL**: All scaffolding MUST follow official Sando guidelines in `.claude/guidelines/`.
 
 **Primary Guidelines for Scaffolding**:
+
 - **02-architecture/COMPONENT_ARCHITECTURE.md** - 7-file monolithic pattern (MANDATORY structure)
-- **03-development/NAMING_CONVENTIONS.md** - Component naming (sando-*, PascalCase classes)
+- **03-development/NAMING_CONVENTIONS.md** - Component naming (sando-\*, PascalCase classes)
 - **03-development/CODE_STYLE.md** - TypeScript conventions, imports, JSDoc
 - **03-development/TESTING_STRATEGY.md** - Test file structure (unit + E2E + a11y)
 - **06-documentation/STORYBOOK_STORIES.md** - Story structure and argTypes
@@ -22,6 +23,7 @@ This skill generates **minimal boilerplate structure** for new Web Components fo
 **Full Index**: `.claude/guidelines/GUIDELINES_INDEX.md`
 
 **Guideline Priority**:
+
 1. **Sando Guidelines** - HIGHEST PRIORITY (structure from COMPONENT_ARCHITECTURE.md)
 2. **User Requirements** - What developer explicitly requests (props, slots, variants)
 3. **Minimal Defaults** - Only add if guideline requires it
@@ -29,6 +31,7 @@ This skill generates **minimal boilerplate structure** for new Web Components fo
 ## When to Use This Skill
 
 Invoke when user requests:
+
 - "Create a new component"
 - "I need a Card component"
 - "Scaffold a Modal component"
@@ -70,6 +73,7 @@ Use AskUserQuestion tool. **DO NOT assume anything.**
 ## Step 2: Validate Requirements Against Guidelines
 
 Before generating:
+
 1. Read **COMPONENT_ARCHITECTURE.md** (lines X-Y: 7-file structure)
 2. Read **NAMING_CONVENTIONS.md** (lines X-Y: component naming rules)
 3. Validate:
@@ -201,7 +205,7 @@ Per **API_REFERENCE.md** format.
 Add to `packages/components/src/index.ts`:
 
 ```typescript
-export * from './components/{{COMPONENT_NAME}}';
+export * from "./components/{{COMPONENT_NAME}}";
 ```
 
 ## Step 6: Inform Developer
@@ -250,6 +254,7 @@ export * from './components/{{COMPONENT_NAME}}';
 ## Important Rules
 
 **DO**:
+
 - ✅ Ask first, generate only requested features
 - ✅ Follow COMPONENT_ARCHITECTURE.md 7-file structure EXACTLY
 - ✅ Use NAMING_CONVENTIONS.md for all names
@@ -257,6 +262,7 @@ export * from './components/{{COMPONENT_NAME}}';
 - ✅ Reference guidelines in generated comments
 
 **DO NOT**:
+
 - ❌ Add variants/sizes not requested
 - ❌ Add CSS styles by default (developer adds when tokens ready)
 - ❌ Generate code that violates guidelines

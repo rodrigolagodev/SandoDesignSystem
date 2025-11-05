@@ -21,35 +21,38 @@ Establishes motion and animation principles using token-based durations and easi
 **All animations use token-based durations**, not hardcoded values.
 
 **Pattern**:
+
 ```json
 {
   "animation": {
     "duration": {
-      "0": { "value": "0ms", "type": "duration" },       // Instant
-      "200": { "value": "200ms", "type": "duration" },   // Fast
-      "300": { "value": "300ms", "type": "duration" },   // Normal (default)
-      "500": { "value": "500ms", "type": "duration" }    // Slow
+      "0": { "value": "0ms", "type": "duration" }, // Instant
+      "200": { "value": "200ms", "type": "duration" }, // Fast
+      "300": { "value": "300ms", "type": "duration" }, // Normal (default)
+      "500": { "value": "500ms", "type": "duration" } // Slow
     }
   }
 }
 ```
 
 **Usage in Recipes**:
+
 ```json
 {
   "button": {
     "transition": {
-      "duration": { "value": "{animation.duration.200.value}" }  // Fast hover
+      "duration": { "value": "{animation.duration.200.value}" } // Fast hover
     }
   }
 }
 ```
 
 **Anti-pattern**:
+
 ```css
 /* ❌ Hardcoded duration */
 .button {
-  transition: background-color 200ms;  /* Not responsive to prefers-reduced-motion */
+  transition: background-color 200ms; /* Not responsive to prefers-reduced-motion */
 }
 
 /* ✅ Token-based */
@@ -67,6 +70,7 @@ Establishes motion and animation principles using token-based durations and easi
 **System automatically disables animations** for users with `prefers-reduced-motion: reduce`.
 
 **Pattern** (`flavor-motion-reduce.json` for ALL Flavors):
+
 ```json
 {
   "$description": "Reduced motion mode. Disables animations for users with motion sensitivity.",
@@ -84,6 +88,7 @@ Establishes motion and animation principles using token-based durations and easi
 **Build System**: Wraps in `@media (prefers-reduced-motion: reduce)` automatically.
 
 **Component-Level Fallback** (optional defense-in-depth):
+
 ```css
 @media (prefers-reduced-motion: reduce) {
   * {
@@ -92,7 +97,7 @@ Establishes motion and animation principles using token-based durations and easi
   }
 
   .button:active {
-    transform: none;  /* Remove scale transforms */
+    transform: none; /* Remove scale transforms */
   }
 }
 ```
@@ -109,36 +114,38 @@ Establishes motion and animation principles using token-based durations and easi
 
 **Duration Guidelines**:
 
-| Duration | Value | Use Case |
-|----------|-------|----------|
-| **instant** | 0ms | Reduced motion mode, immediate state changes |
-| **fast** | 200ms | **Hover, focus, small transitions (most common)** |
-| **normal** | 300ms | Modal entrance, dropdown, tab switching |
-| **slow** | 500ms | Page transitions, complex animations |
+| Duration    | Value | Use Case                                          |
+| ----------- | ----- | ------------------------------------------------- |
+| **instant** | 0ms   | Reduced motion mode, immediate state changes      |
+| **fast**    | 200ms | **Hover, focus, small transitions (most common)** |
+| **normal**  | 300ms | Modal entrance, dropdown, tab switching           |
+| **slow**    | 500ms | Page transitions, complex animations              |
 
 **Pattern**:
+
 ```json
 {
   "button": {
     "transition": {
-      "duration": { "value": "{animation.duration.fast.value}" }  // 200ms - snappy
+      "duration": { "value": "{animation.duration.fast.value}" } // 200ms - snappy
     }
   },
   "modal": {
     "animation": {
-      "duration": { "value": "{animation.duration.normal.value}" }  // 300ms - noticeable but not slow
+      "duration": { "value": "{animation.duration.normal.value}" } // 300ms - noticeable but not slow
     }
   }
 }
 ```
 
 **Anti-pattern**:
+
 ```json
 // ❌ Too slow - feels sluggish
 {
   "button": {
     "transition": {
-      "duration": { "value": "1000ms" }  // Users perceive as lag
+      "duration": { "value": "1000ms" } // Users perceive as lag
     }
   }
 }
@@ -151,17 +158,20 @@ Establishes motion and animation principles using token-based durations and easi
 **Animate ONLY GPU-accelerated properties** to avoid layout thrashing.
 
 **✅ ALWAYS use** (hardware accelerated):
+
 - `transform` (translate, scale, rotate)
 - `opacity`
 - `filter` (blur, brightness)
 
 **❌ NEVER animate** (triggers layout/paint):
+
 - `width`, `height`
 - `margin`, `padding`
 - `top`, `left`, `right`, `bottom` (use `transform: translate()` instead)
 - `font-size`
 
 **Pattern**:
+
 ```css
 /* ✅ Good - GPU accelerated */
 .modal {
@@ -171,7 +181,7 @@ Establishes motion and animation principles using token-based durations and easi
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(8px);  /* GPU accelerated */
+    transform: translateY(8px); /* GPU accelerated */
   }
   to {
     opacity: 1;
@@ -186,7 +196,7 @@ Establishes motion and animation principles using token-based durations and easi
 
 @keyframes slideDown {
   from {
-    top: -20px;  /* Causes layout reflow */
+    top: -20px; /* Causes layout reflow */
   }
   to {
     top: 0;
@@ -203,24 +213,27 @@ Establishes motion and animation principles using token-based durations and easi
 **Use semantic easing tokens** matched to animation context.
 
 **Pattern**:
+
 ```json
 {
   "animation": {
     "easing": {
-      "default": { "value": "cubic-bezier(0.4, 0, 0.2, 1)" },      // Smooth transitions
-      "entrance": { "value": "cubic-bezier(0, 0, 0.2, 1)" },       // Elements entering (ease-out)
-      "exit": { "value": "cubic-bezier(0.4, 0, 1, 1)" }            // Elements leaving (ease-in)
+      "default": { "value": "cubic-bezier(0.4, 0, 0.2, 1)" }, // Smooth transitions
+      "entrance": { "value": "cubic-bezier(0, 0, 0.2, 1)" }, // Elements entering (ease-out)
+      "exit": { "value": "cubic-bezier(0.4, 0, 1, 1)" } // Elements leaving (ease-in)
     }
   }
 }
 ```
 
 **Usage Guidelines**:
+
 - **entrance** (ease-out): Elements appearing—starts fast, settles into place
 - **exit** (ease-in): Elements leaving—accelerates away
 - **default** (ease-in-out): State transitions—smooth throughout
 
 **Pattern**:
+
 ```css
 /* Entrance animations */
 .modal {
@@ -245,6 +258,7 @@ Establishes motion and animation principles using token-based durations and easi
 ### Layer 1: Ingredients (Primitives)
 
 **Duration Scale** (milliseconds):
+
 ```json
 {
   "animation": {
@@ -261,14 +275,24 @@ Establishes motion and animation principles using token-based durations and easi
 ```
 
 **Easing Functions**:
+
 ```json
 {
   "animation": {
     "easing": {
       "linear": { "value": "linear", "type": "cubicBezier" },
-      "ease-in": { "value": "cubic-bezier(0.4, 0, 1, 1)", "type": "cubicBezier" },
-      "ease-out": { "value": "cubic-bezier(0, 0, 0.2, 1)", "type": "cubicBezier" },
-      "ease-in-out": { "value": "cubic-bezier(0.4, 0, 0.2, 1)", "type": "cubicBezier" }
+      "ease-in": {
+        "value": "cubic-bezier(0.4, 0, 1, 1)",
+        "type": "cubicBezier"
+      },
+      "ease-out": {
+        "value": "cubic-bezier(0, 0, 0.2, 1)",
+        "type": "cubicBezier"
+      },
+      "ease-in-out": {
+        "value": "cubic-bezier(0.4, 0, 0.2, 1)",
+        "type": "cubicBezier"
+      }
     }
   }
 }
@@ -279,6 +303,7 @@ Establishes motion and animation principles using token-based durations and easi
 ### Layer 2: Flavors (Semantic)
 
 **Semantic Duration Tokens**:
+
 ```json
 {
   "animation": {
@@ -293,6 +318,7 @@ Establishes motion and animation principles using token-based durations and easi
 ```
 
 **Semantic Easing Tokens**:
+
 ```json
 {
   "animation": {
@@ -306,6 +332,7 @@ Establishes motion and animation principles using token-based durations and easi
 ```
 
 **Mode Override** (`flavor-motion-reduce.json`):
+
 ```json
 {
   "animation": {
@@ -326,6 +353,7 @@ Establishes motion and animation principles using token-based durations and easi
 Components consume semantic animation tokens:
 
 **Pattern**:
+
 ```json
 {
   "button": {
@@ -353,11 +381,14 @@ Components consume semantic animation tokens:
 **Use for**: Interactive elements changing state.
 
 **Pattern**:
+
 ```css
 .button {
   transition-property: background-color, transform, box-shadow;
-  transition-duration: var(--sando-button-transition-duration);  /* 200ms */
-  transition-timing-function: var(--sando-button-transition-timing);  /* ease-in-out */
+  transition-duration: var(--sando-button-transition-duration); /* 200ms */
+  transition-timing-function: var(
+    --sando-button-transition-timing
+  ); /* ease-in-out */
 }
 
 .button:hover {
@@ -365,7 +396,7 @@ Components consume semantic animation tokens:
 }
 
 .button:active {
-  transform: scale(0.98);  /* Subtle press feedback */
+  transform: scale(0.98); /* Subtle press feedback */
 }
 ```
 
@@ -378,6 +409,7 @@ Components consume semantic animation tokens:
 **Use for**: Elements appearing in viewport.
 
 **Pattern**:
+
 ```css
 @keyframes fadeIn {
   from {
@@ -391,7 +423,8 @@ Components consume semantic animation tokens:
 }
 
 .modal {
-  animation: fadeIn var(--sando-animation-duration-normal) var(--sando-animation-easing-entrance);
+  animation: fadeIn var(--sando-animation-duration-normal)
+    var(--sando-animation-easing-entrance);
 }
 ```
 
@@ -402,6 +435,7 @@ Components consume semantic animation tokens:
 **Use for**: Elements leaving viewport.
 
 **Pattern**:
+
 ```css
 @keyframes fadeOut {
   from {
@@ -415,7 +449,8 @@ Components consume semantic animation tokens:
 }
 
 .notification-leaving {
-  animation: fadeOut var(--sando-animation-duration-fast) var(--sando-animation-easing-exit);
+  animation: fadeOut var(--sando-animation-duration-fast)
+    var(--sando-animation-easing-exit);
 }
 ```
 
@@ -426,6 +461,7 @@ Components consume semantic animation tokens:
 ### Complete Pattern: Button with Transitions
 
 **Recipe Tokens**:
+
 ```json
 {
   "button": {
@@ -438,8 +474,9 @@ Components consume semantic animation tokens:
 ```
 
 **Component Consumption**:
+
 ```typescript
-import { css } from 'lit';
+import { css } from "lit";
 
 export const buttonStyles = css`
   .button {
@@ -459,6 +496,7 @@ export const buttonStyles = css`
 **This pattern applies to**: All interactive components (Buttons, Inputs, Links, Cards with hover)
 
 **Special cases**:
+
 - **Loading spinners**: Use `linear` easing, longer duration (600ms)
 - **Modals/Dialogs**: Use `entrance` easing for opening, `exit` for closing
 - **Micro-interactions** (checkbox check, toggle switch): 200ms with slight scale
@@ -472,6 +510,7 @@ export const buttonStyles = css`
 **Motion operates independently** from color modes (dark, high-contrast).
 
 **Pattern**: User can have:
+
 - `flavor="original"` (brand theme) +
 - `prefers-color-scheme: dark` (dark mode) +
 - `prefers-reduced-motion: reduce` (motion disabled)
@@ -485,12 +524,14 @@ See [THEMING_STRATEGY.md](THEMING_STRATEGY.md) for complete Flavors vs Modes exp
 ## Validation Checklist
 
 ### Token Structure
+
 - [ ] Ingredients use millisecond values: `"200ms"`
 - [ ] Flavors reference ONLY Ingredients: `{animation.duration.200.value}`
 - [ ] Recipes reference ONLY Flavors: `{animation.duration.fast.value}`
 - [ ] All Flavors have `flavor-motion-reduce.json` with 0ms durations
 
 ### Component Implementation
+
 - [ ] Uses token-based durations: `var(--sando-button-transition-duration)`
 - [ ] Animates ONLY GPU properties: `transform`, `opacity`, `filter`
 - [ ] No layout properties animated: `width`, `height`, `top`, `margin`
@@ -499,6 +540,7 @@ See [THEMING_STRATEGY.md](THEMING_STRATEGY.md) for complete Flavors vs Modes exp
 - [ ] No flashing content (>3 flashes/second)
 
 ### Accessibility
+
 - [ ] Motion has clear functional purpose (not decorative only)
 - [ ] `prefers-reduced-motion` disables/reduces motion
 - [ ] Doesn't interfere with keyboard navigation or screen readers
@@ -516,6 +558,7 @@ See [THEMING_STRATEGY.md](THEMING_STRATEGY.md) for complete Flavors vs Modes exp
 ## Changelog
 
 ### 2.0.0 (2025-11-02)
+
 - **BREAKING**: Consolidated 5 animation patterns to 3 core patterns
 - **BREAKING**: Removed duplicate explanations (reduced from 631 to ~400 lines)
 - **BREAKING**: Removed extensive anti-pattern examples
@@ -524,4 +567,5 @@ See [THEMING_STRATEGY.md](THEMING_STRATEGY.md) for complete Flavors vs Modes exp
 - Reduced from 631 to ~400 lines (37% reduction)
 
 ### 1.0.0 (2025-11-02)
+
 - Initial motion design guideline with duration scales, easing patterns, accessibility

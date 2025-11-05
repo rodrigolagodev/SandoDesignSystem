@@ -93,6 +93,7 @@ Question: Card component needs header, body, footer. Use props or composition?
 **Purpose**: Identify bloat and composition opportunities
 
 **Steps**:
+
 1. Audit component API (count props, identify configuration-heavy patterns)
 2. Identify which props could be separate components (IconButton vs Button with iconName prop)
 3. Find duplicated logic across components (extract headless primitive candidates)
@@ -106,6 +107,7 @@ Question: Card component needs header, body, footer. Use props or composition?
 **Purpose**: Design composable API using slots and compound components
 
 **Steps**:
+
 1. Design slot structure per COMPONENT_ARCHITECTURE.md (named slots, default slot)
 2. Create compound components if multi-part (Card + CardHeader + CardBody)
 3. Extract headless components for shared behavior (Dropdown logic → DropdownHeadless)
@@ -114,6 +116,7 @@ Question: Card component needs header, body, footer. Use props or composition?
 6. Add TypeScript types per CODE_STYLE.md (slot types, prop types)
 
 **Deliverables**:
+
 - Component API design (slots, compound components, or headless primitive)
 - TypeScript interfaces for all parts
 - Composition examples in Storybook
@@ -123,6 +126,7 @@ Question: Card component needs header, body, footer. Use props or composition?
 **Purpose**: Guide frontend-developer through composition patterns
 
 **Steps**:
+
 1. Provide implementation skeleton following COMPONENT_ARCHITECTURE.md structure
 2. Show slot usage examples (named slots, default slot, slot forwarding)
 3. Document compound component relationships (parent-child communication if needed)
@@ -130,6 +134,7 @@ Question: Card component needs header, body, footer. Use props or composition?
 5. Add VitePress guide for composition pattern per VITEPRESS_GUIDES.md
 
 **Deliverables**:
+
 - Implementation guide with code examples
 - Storybook stories showing composition variants
 - VitePress composition pattern documentation
@@ -146,6 +151,7 @@ Every composition design must meet:
 - ✓ Composition examples in Storybook per STORYBOOK_STORIES.md
 
 **Composition Patterns to Use**:
+
 - **Compound Components**: Multi-part UI (Tabs + TabList + Tab + TabPanel)
 - **Content Projection**: Slots for user-provided content (Dialog with header/body/footer slots)
 - **Headless Components**: Behavior without UI (DropdownHeadless for Select/Combobox/Autocomplete)
@@ -165,6 +171,7 @@ Every composition design must meet:
 - **qa-expert**: Test composed components in various configurations (edge cases)
 
 **Hand-off triggers**:
+
 - Invoke frontend-developer to implement compound components following composition design
 - Consult ui-designer for visual design of compound component parts
 - Engage technical-writer for composition pattern guides per VITEPRESS_GUIDES.md
@@ -184,6 +191,7 @@ You MUST always prioritize:
 ## Common Pitfalls to Avoid
 
 **❌ DON'T**:
+
 - Add props for every customization (creates bloated API, violates COMPONENT_DESIGN.md)
 - Use configuration props when composition works (headerText prop vs slot="header")
 - Tightly couple compound components (each should work independently per COMPONENT_ARCHITECTURE.md)
@@ -191,6 +199,7 @@ You MUST always prioritize:
 - Duplicate logic across components (extract headless primitive instead)
 
 **✅ DO**:
+
 - Prefer slots for content projection per COMPONENT_ARCHITECTURE.md (header slot vs headerText prop)
 - Create compound components for multi-part UI (Tabs + TabList + Tab + TabPanel)
 - Extract headless components for shared behavior (Dropdown logic → DropdownHeadless)

@@ -25,6 +25,7 @@ Ensure comprehensive test coverage across the Sando Design System through automa
 All production code MUST meet 80% coverage across lines, functions, branches, and statements.
 
 **Pattern**:
+
 ```javascript
 // From packages/components/vitest.config.js
 coverage: {
@@ -36,6 +37,7 @@ coverage: {
 ```
 
 **Metrics defined**:
+
 - **Lines**: % of executable lines covered by tests
 - **Functions**: % of functions/methods called during tests
 - **Branches**: % of conditional paths (if/else, switch, ternary) tested
@@ -52,17 +54,21 @@ coverage: {
 All public components MUST have dedicated `.a11y.test.ts` files with jest-axe validation for ALL states, variants, and flavors.
 
 **Pattern**:
+
 ```typescript
 // sando-button.a11y.test.ts
-describe.each(['original', 'strawberry', 'ocean'])('flavor: %s', (flavor) => {
-  it('meets WCAG 2.1 AA', async () => {
-    const el = await fixture(`<div flavor="${flavor}"><sando-button>Test</sando-button></div>`);
+describe.each(["original", "strawberry", "ocean"])("flavor: %s", (flavor) => {
+  it("meets WCAG 2.1 AA", async () => {
+    const el = await fixture(
+      `<div flavor="${flavor}"><sando-button>Test</sando-button></div>`,
+    );
     expect(await axe(el)).toHaveNoViolations();
   });
 });
 ```
 
 **Coverage includes**:
+
 - Default state
 - All variants (solid, outline, ghost, etc.)
 - All sizes (small, medium, large)
@@ -81,6 +87,7 @@ describe.each(['original', 'strawberry', 'ocean'])('flavor: %s', (flavor) => {
 CI MUST fail if coverage drops below 80% threshold or if accessibility tests fail.
 
 **Pattern** (GitHub Actions):
+
 ```yaml
 - name: Run tests with coverage
   run: pnpm test:coverage
@@ -92,6 +99,7 @@ CI MUST fail if coverage drops below 80% threshold or if accessibility tests fai
 ```
 
 **Enforcement**:
+
 - Vitest exits with code 1 if below 80%
 - PR merge blocked automatically
 - Coverage report uploaded to PR comments
@@ -107,17 +115,18 @@ CI MUST fail if coverage drops below 80% threshold or if accessibility tests fai
 Test files, stories, type definitions, and barrel exports MUST be excluded from coverage calculation.
 
 **Pattern**:
+
 ```javascript
 // From vitest.config.js
 coverage: {
   exclude: [
-    '**/*.test.ts',      // Unit tests
-    '**/*.spec.ts',      // E2E tests
-    '**/*.a11y.test.ts', // Accessibility tests
-    '**/*.stories.ts',   // Storybook documentation
-    '**/*.types.ts',     // TypeScript type definitions
-    'index.ts'           // Barrel exports
-  ]
+    "**/*.test.ts", // Unit tests
+    "**/*.spec.ts", // E2E tests
+    "**/*.a11y.test.ts", // Accessibility tests
+    "**/*.stories.ts", // Storybook documentation
+    "**/*.types.ts", // TypeScript type definitions
+    "index.ts", // Barrel exports
+  ];
 }
 ```
 
@@ -132,6 +141,7 @@ coverage: {
 Track coverage over time to detect regressions and identify low-coverage areas.
 
 **Pattern**:
+
 ```bash
 # Generate coverage report
 pnpm test:coverage
@@ -143,6 +153,7 @@ open packages/components/coverage/index.html
 ```
 
 **Metrics to track**:
+
 - Overall coverage % (target: 80%+)
 - Per-file coverage (identify gaps)
 - Trend over time (detect regressions)
@@ -160,12 +171,12 @@ open packages/components/coverage/index.html
 
 From `packages/components/vitest.config.js`:
 
-| Metric | Threshold | Applies To | Enforcement |
-|--------|-----------|------------|-------------|
-| Lines | 80% | All `.ts` files in `src/` | Vitest exits 1 if below |
-| Functions | 80% | All exported functions | Vitest exits 1 if below |
-| Branches | 80% | All conditional paths | Vitest exits 1 if below |
-| Statements | 80% | All statements | Vitest exits 1 if below |
+| Metric     | Threshold | Applies To                | Enforcement             |
+| ---------- | --------- | ------------------------- | ----------------------- |
+| Lines      | 80%       | All `.ts` files in `src/` | Vitest exits 1 if below |
+| Functions  | 80%       | All exported functions    | Vitest exits 1 if below |
+| Branches   | 80%       | All conditional paths     | Vitest exits 1 if below |
+| Statements | 80%       | All statements            | Vitest exits 1 if below |
 
 **Exclusions**: `*.test.ts`, `*.spec.ts`, `*.a11y.test.ts`, `*.stories.ts`, `*.types.ts`, `index.ts`
 
@@ -173,12 +184,12 @@ From `packages/components/vitest.config.js`:
 
 From `packages/tokens/vitest.config.js`:
 
-| Metric | Threshold | Applies To | Enforcement |
-|--------|-----------|------------|-------------|
-| Lines | 80% | Build scripts in `build/` | Vitest exits 1 if below |
-| Functions | 80% | Build orchestrator, transforms | Vitest exits 1 if below |
-| Branches | 80% | Conditional logic in builds | Vitest exits 1 if below |
-| Statements | 80% | All statements | Vitest exits 1 if below |
+| Metric     | Threshold | Applies To                     | Enforcement             |
+| ---------- | --------- | ------------------------------ | ----------------------- |
+| Lines      | 80%       | Build scripts in `build/`      | Vitest exits 1 if below |
+| Functions  | 80%       | Build orchestrator, transforms | Vitest exits 1 if below |
+| Branches   | 80%       | Conditional logic in builds    | Vitest exits 1 if below |
+| Statements | 80%       | All statements                 | Vitest exits 1 if below |
 
 **Exclusions**: `tests/`, `*.test.js`, `*.spec.js`, `vitest.config.js`
 
@@ -186,12 +197,12 @@ From `packages/tokens/vitest.config.js`:
 
 ### Accessibility Coverage (Manual)
 
-| Requirement | Threshold | Enforcement |
-|-------------|-----------|-------------|
-| Public components | 100% | Manual checklist verification |
-| Component states | 100% | All states/variants tested |
-| Flavors | 100% | All 5 flavors validated |
-| WCAG violations | 0 | jest-axe toHaveNoViolations |
+| Requirement       | Threshold | Enforcement                   |
+| ----------------- | --------- | ----------------------------- |
+| Public components | 100%      | Manual checklist verification |
+| Component states  | 100%      | All states/variants tested    |
+| Flavors           | 100%      | All 5 flavors validated       |
+| WCAG violations   | 0         | jest-axe toHaveNoViolations   |
 
 **Reference**: [WCAG_COMPLIANCE.md](../04-accessibility/WCAG_COMPLIANCE.md)
 
@@ -224,14 +235,15 @@ coverage: {
 
 ### Report Formats
 
-| Format | Purpose | Generated File | View Command |
-|--------|---------|----------------|--------------|
-| `text` | Terminal output | stdout | Automatic in CI |
-| `html` | Interactive browser UI | `coverage/index.html` | `open coverage/index.html` |
-| `lcov` | CI integration (Codecov) | `coverage/lcov.info` | Upload to Codecov/Coveralls |
-| `json` | Programmatic parsing | `coverage/coverage-final.json` | Parse with scripts |
+| Format | Purpose                  | Generated File                 | View Command                |
+| ------ | ------------------------ | ------------------------------ | --------------------------- |
+| `text` | Terminal output          | stdout                         | Automatic in CI             |
+| `html` | Interactive browser UI   | `coverage/index.html`          | `open coverage/index.html`  |
+| `lcov` | CI integration (Codecov) | `coverage/lcov.info`           | Upload to Codecov/Coveralls |
+| `json` | Programmatic parsing     | `coverage/coverage-final.json` | Parse with scripts          |
 
 **Example text output**:
+
 ```
 File                   | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
 -----------------------|---------|----------|---------|---------|-------------------
@@ -257,6 +269,7 @@ open coverage/index.html
 ```
 
 **HTML report features**:
+
 - File-by-file breakdown
 - Line-by-line highlighting (green=covered, red=uncovered, yellow=partial branch)
 - Sortable by coverage %
@@ -303,11 +316,13 @@ jobs:
 ```
 
 **Coverage enforcement**:
+
 - Vitest exits with code 1 if below thresholds
 - GitHub Actions marks job as failed
 - PR merge blocked by branch protection rules
 
 **Future enhancements**:
+
 - Upload to Codecov/Coveralls for PR comments
 - Generate coverage badges
 - Trend tracking over time
@@ -319,6 +334,7 @@ jobs:
 ### Identifying Gaps
 
 **1. View HTML report**:
+
 ```bash
 pnpm test:coverage
 open coverage/index.html
@@ -332,50 +348,55 @@ open coverage/index.html
 
 ### Common Low-Coverage Patterns
 
-| Pattern | Coverage | Why | Solution |
-|---------|----------|-----|----------|
-| Error handlers | 40-60% | Hard to trigger | Mock errors, test edge cases |
-| Private methods | 0% | Not called directly | Test via public API |
-| Legacy code | 20-40% | Pre-testing era | Incremental refactoring + tests |
-| Complex conditionals | 50-70% | Many branches | Parametrized tests (`describe.each`) |
-| Async code | 60-75% | Race conditions | Use `await` properly, test all states |
+| Pattern              | Coverage | Why                 | Solution                              |
+| -------------------- | -------- | ------------------- | ------------------------------------- |
+| Error handlers       | 40-60%   | Hard to trigger     | Mock errors, test edge cases          |
+| Private methods      | 0%       | Not called directly | Test via public API                   |
+| Legacy code          | 20-40%   | Pre-testing era     | Incremental refactoring + tests       |
+| Complex conditionals | 50-70%   | Many branches       | Parametrized tests (`describe.each`)  |
+| Async code           | 60-75%   | Race conditions     | Use `await` properly, test all states |
 
 ### Strategies for Improvement
 
 **Parametrized tests** (cover many cases with one test):
+
 ```typescript
 describe.each([
-  ['small', '32px'],
-  ['medium', '40px'],
-  ['large', '48px']
-])('size: %s', (size, expectedHeight) => {
+  ["small", "32px"],
+  ["medium", "40px"],
+  ["large", "48px"],
+])("size: %s", (size, expectedHeight) => {
   it(`renders ${size} with ${expectedHeight} height`, async () => {
-    const el = await fixture(`<sando-button size="${size}">Test</sando-button>`);
+    const el = await fixture(
+      `<sando-button size="${size}">Test</sando-button>`,
+    );
     expect(el.clientHeight).toBe(parseInt(expectedHeight));
   });
 });
 ```
 
 **Test edge cases**:
+
 ```typescript
-it('handles empty string gracefully', () => {
-  element.label = '';
-  expect(element.hasAttribute('aria-label')).toBe(false);
+it("handles empty string gracefully", () => {
+  element.label = "";
+  expect(element.hasAttribute("aria-label")).toBe(false);
 });
 
-it('handles very long text', () => {
-  element.label = 'A'.repeat(1000);
+it("handles very long text", () => {
+  element.label = "A".repeat(1000);
   expect(element.shadowRoot.textContent.length).toBeLessThanOrEqual(1000);
 });
 ```
 
 **Mock external dependencies**:
-```typescript
-import { vi } from 'vitest';
 
-it('handles fetch errors', async () => {
-  vi.spyOn(window, 'fetch').mockRejectedValue(new Error('Network error'));
-  await expect(fetchData()).rejects.toThrow('Network error');
+```typescript
+import { vi } from "vitest";
+
+it("handles fetch errors", async () => {
+  vi.spyOn(window, "fetch").mockRejectedValue(new Error("Network error"));
+  await expect(fetchData()).rejects.toThrow("Network error");
 });
 ```
 
@@ -386,19 +407,21 @@ it('handles fetch errors', async () => {
 ### Anti-Pattern 1: Testing Implementation Details
 
 **❌ WRONG**:
+
 ```typescript
-it('calls _handleClick private method', () => {
-  const spy = vi.spyOn(element, '_handleClick');
+it("calls _handleClick private method", () => {
+  const spy = vi.spyOn(element, "_handleClick");
   element.click();
   expect(spy).toHaveBeenCalled();
 });
 ```
 
 **✅ CORRECT**:
+
 ```typescript
-it('dispatches click event when clicked', () => {
+it("dispatches click event when clicked", () => {
   const handler = vi.fn();
-  element.addEventListener('click', handler);
+  element.addEventListener("click", handler);
   element.click();
   expect(handler).toHaveBeenCalled();
 });
@@ -409,16 +432,18 @@ it('dispatches click event when clicked', () => {
 ### Anti-Pattern 2: Coverage for Coverage's Sake
 
 **❌ WRONG**:
+
 ```typescript
-it('covers line 127', () => {
+it("covers line 127", () => {
   element._internalFlag = true; // Just to hit the line
   expect(element._internalFlag).toBe(true);
 });
 ```
 
 **✅ CORRECT**:
+
 ```typescript
-it('disables button when loading', () => {
+it("disables button when loading", () => {
   element.loading = true;
   expect(element.disabled).toBe(true);
 });
@@ -429,23 +454,25 @@ it('disables button when loading', () => {
 ### Anti-Pattern 3: Ignoring Branch Coverage
 
 **❌ WRONG** (only tests happy path):
+
 ```typescript
-it('validates email', () => {
-  expect(validateEmail('test@example.com')).toBe(true);
+it("validates email", () => {
+  expect(validateEmail("test@example.com")).toBe(true);
 });
 ```
 
 **✅ CORRECT** (tests both branches):
+
 ```typescript
-describe('email validation', () => {
-  it('accepts valid emails', () => {
-    expect(validateEmail('test@example.com')).toBe(true);
+describe("email validation", () => {
+  it("accepts valid emails", () => {
+    expect(validateEmail("test@example.com")).toBe(true);
   });
 
-  it('rejects invalid emails', () => {
-    expect(validateEmail('invalid')).toBe(false);
-    expect(validateEmail('')).toBe(false);
-    expect(validateEmail('test@')).toBe(false);
+  it("rejects invalid emails", () => {
+    expect(validateEmail("invalid")).toBe(false);
+    expect(validateEmail("")).toBe(false);
+    expect(validateEmail("test@")).toBe(false);
   });
 });
 ```
@@ -506,15 +533,18 @@ describe('email validation', () => {
 ## External References
 
 **Coverage Tools**:
+
 - [Vitest Coverage](https://vitest.dev/guide/coverage.html) - Official Vitest coverage documentation
 - [v8 Coverage](https://v8.dev/blog/javascript-code-coverage) - V8 native coverage
 - [Istanbul](https://istanbul.js.org/) - Alternative coverage tool
 
 **Best Practices**:
+
 - [Martin Fowler - Test Coverage](https://martinfowler.com/bliki/TestCoverage.html) - Coverage philosophy
 - [Google Testing Blog](https://testing.googleblog.com/) - Industry best practices
 
 **CI Integration**:
+
 - [Codecov](https://codecov.io/) - Coverage tracking service
 - [Coveralls](https://coveralls.io/) - Coverage badges and trends
 
@@ -523,6 +553,7 @@ describe('email validation', () => {
 ## Changelog
 
 ### 1.0.0 (2025-11-03)
+
 - Initial guideline creation
 - 80% coverage threshold across lines, functions, branches, statements
 - 100% accessibility coverage requirement for public components

@@ -55,7 +55,7 @@ Recipes are the top layer of the token system. They are consumed directly by com
   background-color: var(--sando-button-solid-backgroundColor-default);
   color: var(--sando-button-solid-textColor-default);
   padding: var(--sando-button-size-medium-paddingBlock)
-           var(--sando-button-size-medium-paddingInline);
+    var(--sando-button-size-medium-paddingInline);
 }
 
 .button--solid:hover {
@@ -65,11 +65,11 @@ Recipes are the top layer of the token system. They are consumed directly by com
 
 ## All Available Recipes
 
-| Component | Recipe File | Tokens |
-|-----------|-------------|--------|
-| **Button** | `button.json` | Variants, sizes, states |
-| **Card** | Coming soon | Padding, borders, backgrounds |
-| **Input** | Coming soon | Borders, focus, validation |
+| Component  | Recipe File   | Tokens                        |
+| ---------- | ------------- | ----------------------------- |
+| **Button** | `button.json` | Variants, sizes, states       |
+| **Card**   | Coming soon   | Padding, borders, backgrounds |
+| **Input**  | Coming soon   | Borders, focus, validation    |
 
 ## Creating a New Recipe
 

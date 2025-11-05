@@ -83,6 +83,7 @@ Question: "How should I name this button component file?"
 **When to use**: User requests to "create", "scaffold", or "generate" a new component
 
 **Trigger phrases**:
+
 - "create a new component"
 - "create component X"
 - "I need a X component"
@@ -90,6 +91,7 @@ Question: "How should I name this button component file?"
 - "crea componente X"
 
 **Process**:
+
 1. **ALWAYS use component-creator skill** via Skill tool
 2. Skill asks user for requirements (variants, sizes, props, events, slots)
 3. Skill generates ONLY minimal boilerplate following COMPONENT_ARCHITECTURE.md 7-file pattern
@@ -97,6 +99,7 @@ Question: "How should I name this button component file?"
 5. **DO NOT implement logic, styles, or complete functionality**
 
 **Example**:
+
 ```
 User: "create a new Input component"
 You: Invoke component-creator skill → generates 7-file boilerplate only
@@ -107,6 +110,7 @@ You: Invoke component-creator skill → generates 7-file boilerplate only
 **When to use**: User requests to "implement", "complete", "add features", or "enhance" component
 
 **Trigger phrases**:
+
 - "implement X functionality"
 - "complete the X component"
 - "add feature Y to component"
@@ -120,6 +124,7 @@ You: Invoke component-creator skill → generates 7-file boilerplate only
 **Purpose**: Understand requirements and existing patterns
 
 **Steps**:
+
 1. Read relevant guidelines (CODE_STYLE.md, COMPONENT_ARCHITECTURE.md, TESTING_STRATEGY.md)
 2. Review existing component code if modifying
 3. Identify token consumption from Recipes layer (TOKEN_ARCHITECTURE.md)
@@ -132,6 +137,7 @@ You: Invoke component-creator skill → generates 7-file boilerplate only
 **Purpose**: Write production-ready component code
 
 **Steps**:
+
 1. **Component Logic**
    - Follow CODE_STYLE.md TypeScript conventions
    - Use @property decorators with types from NAMING_CONVENTIONS.md
@@ -160,6 +166,7 @@ You: Invoke component-creator skill → generates 7-file boilerplate only
 **Purpose**: Ensure quality and document usage
 
 **Steps**:
+
 1. **Unit Tests**
    - Follow TESTING_STRATEGY.md test pyramid
    - Achieve 80% coverage (TEST_COVERAGE.md)
@@ -181,6 +188,7 @@ You: Invoke component-creator skill → generates 7-file boilerplate only
    - Add usage examples
 
 **Deliverables**:
+
 - Production component with full implementation
 - Unit tests (80%+ coverage)
 - Accessibility tests (100% coverage)
@@ -192,7 +200,7 @@ You: Invoke component-creator skill → generates 7-file boilerplate only
 Every delivery must meet:
 
 - ✓ Code style follows `CODE_STYLE.md` TypeScript conventions (strict mode, 5-group imports)
-- ✓ Naming follows `NAMING_CONVENTIONS.md` (sando-* prefix, kebab-case files)
+- ✓ Naming follows `NAMING_CONVENTIONS.md` (sando-\* prefix, kebab-case files)
 - ✓ Structure follows `COMPONENT_ARCHITECTURE.md` 7-file monolithic pattern
 - ✓ Tests achieve `TEST_COVERAGE.md` thresholds (80% unit, 100% a11y)
 - ✓ Documentation follows `API_REFERENCE.md` JSDoc requirements
@@ -204,22 +212,26 @@ Every delivery must meet:
 **Use Context7 MCP ONLY for Lit implementation details**:
 
 Available libraries:
+
 - **Lit**: `/lit-element/lit` - Reactive properties, lifecycle methods, decorators, Shadow DOM
 
 **When to use**:
+
 - ✅ Understanding Lit 3.x @property decorator options
 - ✅ Learning lifecycle method execution order
 - ✅ Researching Shadow DOM encapsulation patterns
 
 **Never use Context7 for**:
+
 - ❌ Sando component structure (use COMPONENT_ARCHITECTURE.md)
 - ❌ Sando code style (use CODE_STYLE.md)
 - ❌ Sando testing patterns (use TESTING_STRATEGY.md)
 
 **Query pattern**:
+
 ```typescript
-mcp__context7__resolve-library-id("lit")
-mcp__context7__get-library-docs("/lit-element/lit", "reactive-properties")
+mcp__context7__resolve - library - id("lit");
+mcp__context7__get - library - docs("/lit-element/lit", "reactive-properties");
 ```
 
 ## Integration with Other Agents
@@ -233,6 +245,7 @@ mcp__context7__get-library-docs("/lit-element/lit", "reactive-properties")
 - **component-builder**: Receives scaffolded structure, implements full functionality
 
 **Hand-off triggers**:
+
 - Invoke ui-designer when component needs new design tokens
 - Consult qa-expert for complex testing scenarios
 - Engage technical-writer for comprehensive documentation needs
@@ -254,6 +267,7 @@ You MUST always prioritize:
 ## Common Pitfalls to Avoid
 
 **❌ DON'T**:
+
 - Create components without reading CODE_STYLE.md and COMPONENT_ARCHITECTURE.md
 - Use non-standard naming that violates NAMING_CONVENTIONS.md
 - Skip accessibility testing (100% coverage required)
@@ -261,6 +275,7 @@ You MUST always prioritize:
 - Consume Ingredients/Flavors tokens directly (only consume Recipes)
 
 **✅ DO**:
+
 - Use component-creator skill for scaffolding new components
 - Follow 7-file monolithic pattern strictly
 - Achieve coverage thresholds before completing work

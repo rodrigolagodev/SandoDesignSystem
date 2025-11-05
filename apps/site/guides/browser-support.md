@@ -6,22 +6,22 @@ Sando Design System is built with modern web standards and supports all evergree
 
 ### Desktop
 
-| Browser | Minimum Version | Status |
-|---------|----------------|--------|
-| **Chrome** | 90+ | ✅ Fully Supported |
-| **Edge** | 90+ | ✅ Fully Supported |
-| **Firefox** | 88+ | ✅ Fully Supported |
-| **Safari** | 14+ | ✅ Fully Supported |
-| **Opera** | 76+ | ✅ Fully Supported |
+| Browser     | Minimum Version | Status             |
+| ----------- | --------------- | ------------------ |
+| **Chrome**  | 90+             | ✅ Fully Supported |
+| **Edge**    | 90+             | ✅ Fully Supported |
+| **Firefox** | 88+             | ✅ Fully Supported |
+| **Safari**  | 14+             | ✅ Fully Supported |
+| **Opera**   | 76+             | ✅ Fully Supported |
 
 ### Mobile
 
-| Browser | Minimum Version | Status |
-|---------|----------------|--------|
-| **Chrome Mobile** | 90+ | ✅ Fully Supported |
-| **Safari iOS** | 14+ | ✅ Fully Supported |
-| **Samsung Internet** | 15+ | ✅ Fully Supported |
-| **Firefox Mobile** | 88+ | ✅ Fully Supported |
+| Browser              | Minimum Version | Status             |
+| -------------------- | --------------- | ------------------ |
+| **Chrome Mobile**    | 90+             | ✅ Fully Supported |
+| **Safari iOS**       | 14+             | ✅ Fully Supported |
+| **Samsung Internet** | 15+             | ✅ Fully Supported |
+| **Firefox Mobile**   | 88+             | ✅ Fully Supported |
 
 ## Required Web Platform Features
 
@@ -96,10 +96,10 @@ Our CI/CD pipeline runs tests on multiple browsers using Playwright:
 // playwright.config.ts
 export default {
   projects: [
-    { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
-    { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
-    { name: 'webkit', use: { ...devices['Desktop Safari'] } },
-  ]
+    { name: "chromium", use: { ...devices["Desktop Chrome"] } },
+    { name: "firefox", use: { ...devices["Desktop Firefox"] } },
+    { name: "webkit", use: { ...devices["Desktop Safari"] } },
+  ],
 };
 ```
 
@@ -132,12 +132,12 @@ We recommend using feature detection for progressive enhancement:
 
 ```javascript
 // Check for Web Components support
-if ('customElements' in window) {
+if ("customElements" in window) {
   // Load Web Components
-  import('@sando/components/button');
+  import("@sando/components/button");
 } else {
   // Provide fallback or load polyfills
-  console.warn('Web Components not supported');
+  console.warn("Web Components not supported");
 }
 ```
 
@@ -190,10 +190,10 @@ Want to verify your browser is compatible? Open your browser's console and run:
 
 ```javascript
 console.log({
-  customElements: 'customElements' in window,
-  shadowDOM: 'attachShadow' in Element.prototype,
-  cssVariables: CSS.supports('(--a: 0)'),
-  esModules: 'noModule' in HTMLScriptElement.prototype
+  customElements: "customElements" in window,
+  shadowDOM: "attachShadow" in Element.prototype,
+  cssVariables: CSS.supports("(--a: 0)"),
+  esModules: "noModule" in HTMLScriptElement.prototype,
 });
 ```
 

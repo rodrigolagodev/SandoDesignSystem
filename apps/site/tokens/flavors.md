@@ -19,6 +19,7 @@ Same Ingredients + Different Flavors = Different Themes
 ```
 
 **The Sando Philosophy:**
+
 - We provide **8 curated color palettes** (orange, blue, green, red, purple, pink + 3 neutrals)
 - You create **flavors** by mapping these palettes to semantic roles
 - Components consume flavors, never ingredients directly
@@ -44,7 +45,7 @@ Flavors reference **ingredients only**, never recipes or other flavors.
       "solid": {
         "background": {
           "default": {
-            "value": "{color.blue.500.value}",  // Maps palette to semantic role
+            "value": "{color.blue.500.value}", // Maps palette to semantic role
             "type": "color"
           },
           "hover": {
@@ -56,7 +57,7 @@ Flavors reference **ingredients only**, never recipes or other flavors.
     },
     "background": {
       "base": {
-        "value": "{color.neutral-cool.50.value}",  // Choose neutral variant
+        "value": "{color.neutral-cool.50.value}", // Choose neutral variant
         "type": "color"
       }
     }
@@ -77,8 +78,8 @@ Neutral-based flavor - the base theme and default for all components.
 ```css
 /* Key tokens */
 --sando-color-action-solid-background-default: var(--sando-color-neutral-700)
---sando-color-background-base: var(--sando-color-neutral-100)
---sando-color-text-body: var(--sando-color-neutral-900)
+  --sando-color-background-base: var(--sando-color-neutral-100)
+  --sando-color-text-body: var(--sando-color-neutral-900);
 ```
 
 [View original flavor →](https://github.com/yourusername/sando-design-system/blob/master/packages/tokens/src/flavors/original.json)
@@ -94,8 +95,8 @@ Orange-based flavor with warm neutral - **currently available**.
 ```css
 /* Key tokens */
 --sando-color-action-solid-background-default: var(--sando-color-orange-700)
---sando-color-background-base: var(--sando-color-neutral-warm-100)
---sando-color-text-body: var(--sando-color-neutral-warm-900)
+  --sando-color-background-base: var(--sando-color-neutral-warm-100)
+  --sando-color-text-body: var(--sando-color-neutral-warm-900);
 ```
 
 [View strawberry flavor →](https://github.com/yourusername/sando-design-system/blob/master/packages/tokens/src/flavors/strawberry.json)
@@ -111,8 +112,8 @@ Blue-based flavor - **currently available**.
 ```css
 /* Key tokens */
 --sando-color-action-solid-background-default: var(--sando-color-blue-700)
---sando-color-background-base: var(--sando-color-neutral-cool-100)
---sando-color-text-body: var(--sando-color-neutral-cool-800)
+  --sando-color-background-base: var(--sando-color-neutral-cool-100)
+  --sando-color-text-body: var(--sando-color-neutral-cool-800);
 ```
 
 [View ocean flavor →](https://github.com/yourusername/sando-design-system/blob/master/packages/tokens/src/flavors/ocean.json)
@@ -128,8 +129,8 @@ Green-based flavor - **currently available**.
 ```css
 /* Key tokens */
 --sando-color-action-solid-background-default: var(--sando-color-green-700)
---sando-color-background-base: var(--sando-color-neutral-100)
---sando-color-text-body: var(--sando-color-neutral-900)
+  --sando-color-background-base: var(--sando-color-neutral-100)
+  --sando-color-text-body: var(--sando-color-neutral-900);
 ```
 
 [View forest flavor →](https://github.com/yourusername/sando-design-system/blob/master/packages/tokens/src/flavors/forest.json)
@@ -145,8 +146,8 @@ Orange with warm neutrals flavor - **currently available**.
 ```css
 /* Key tokens */
 --sando-color-action-solid-background-default: var(--sando-color-orange-700)
---sando-color-background-base: var(--sando-color-neutral-warm-100)
---sando-color-text-body: var(--sando-color-neutral-warm-900)
+  --sando-color-background-base: var(--sando-color-neutral-warm-100)
+  --sando-color-text-body: var(--sando-color-neutral-warm-900);
 ```
 
 [View sunset flavor →](https://github.com/yourusername/sando-design-system/blob/master/packages/tokens/src/flavors/sunset.json)
@@ -236,7 +237,7 @@ Create a new file in `packages/tokens/src/flavors/`:
       "solid": {
         "background": {
           "default": {
-            "value": "{color.purple.600.value}",  // Choose from 8 palettes
+            "value": "{color.purple.600.value}", // Choose from 8 palettes
             "type": "color"
           },
           "hover": {
@@ -248,7 +249,7 @@ Create a new file in `packages/tokens/src/flavors/`:
     },
     "background": {
       "base": {
-        "value": "{color.neutral-cool.50.value}",  // Choose neutral variant
+        "value": "{color.neutral-cool.50.value}", // Choose neutral variant
         "type": "color"
       }
     },
@@ -294,6 +295,7 @@ npx @sando/flavor-generator create \
 ```
 
 **What it does:**
+
 - Generates a scientifically designed 11-step palette using OKLCH
 - Validates WCAG AA accessibility automatically
 - Creates light + dark mode flavor variants

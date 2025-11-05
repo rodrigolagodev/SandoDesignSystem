@@ -18,13 +18,11 @@ The `sando-button` component is a versatile, accessible button with multiple var
 ```html
 <!-- Import the component -->
 <script type="module">
-  import '@sando/components/button';
+  import "@sando/components/button";
 </script>
 
 <!-- Use it -->
-<sando-button variant="solid">
-  Click me
-</sando-button>
+<sando-button variant="solid"> Click me </sando-button>
 ```
 
 ## Variants
@@ -183,9 +181,7 @@ Render the button as an anchor tag by providing an `href` attribute:
 </sando-button>
 
 <!-- Download link -->
-<sando-button href="/files/document.pdf" download>
-  Download PDF
-</sando-button>
+<sando-button href="/files/document.pdf" download> Download PDF </sando-button>
 ```
 
 ::: info Security
@@ -197,13 +193,9 @@ When using `target="_blank"`, the component automatically adds `rel="noopener no
 Create toggle buttons with active/inactive states:
 
 ```html
-<sando-button toggle active>
-  🔔 Notifications Enabled
-</sando-button>
+<sando-button toggle active> 🔔 Notifications Enabled </sando-button>
 
-<sando-button toggle>
-  🔕 Notifications Disabled
-</sando-button>
+<sando-button toggle> 🔕 Notifications Disabled </sando-button>
 ```
 
 Toggle buttons automatically include `aria-pressed` for screen reader support.
@@ -211,15 +203,13 @@ Toggle buttons automatically include `aria-pressed` for screen reader support.
 ### Toggle Button with JavaScript
 
 ```html
-<sando-button id="filter-btn" toggle>
-  Filter Active
-</sando-button>
+<sando-button id="filter-btn" toggle> Filter Active </sando-button>
 
 <script>
-  const btn = document.getElementById('filter-btn');
-  btn.addEventListener('click', () => {
+  const btn = document.getElementById("filter-btn");
+  btn.addEventListener("click", () => {
     btn.active = !btn.active;
-    console.log('Filter is now:', btn.active ? 'ON' : 'OFF');
+    console.log("Filter is now:", btn.active ? "ON" : "OFF");
   });
 </script>
 ```
@@ -254,40 +244,40 @@ Override CSS custom properties for fine-grained control:
 
 ### Properties
 
-| Property | Type | Default | Description |
-|----------|------|---------|-------------|
-| `variant` | `'solid' \| 'outline' \| 'ghost' \| 'text'` | `'solid'` | Visual style variant |
-| `size` | `'xs' \| 'small' \| 'medium' \| 'large'` | `'medium'` | Button size (all WCAG compliant) |
-| `status` | `'default' \| 'success' \| 'destructive'` | `'default'` | Status variant for semantic meaning |
-| `radius` | `'none' \| 'default' \| 'full'` | `'default'` | Border radius variant |
-| `disabled` | `boolean` | `false` | Whether the button is disabled |
-| `loading` | `boolean` | `false` | Whether the button is in loading state |
-| `type` | `'button' \| 'submit' \| 'reset'` | `'button'` | Button type for forms |
-| `fullWidth` | `boolean` | `false` | Whether button takes full width |
-| `iconOnly` | `boolean` | `false` | Square shape for icon-only buttons |
-| `toggle` | `boolean` | `false` | Enable toggle button behavior |
-| `active` | `boolean` | `false` | Active/pressed state (for toggles) |
-| `flavor` | `string` | `'original'` | Design system theme flavor |
-| `href` | `string` | `undefined` | URL (renders as `<a>` instead of `<button>`) |
-| `target` | `'_self' \| '_blank' \| '_parent' \| '_top'` | `'_self'` | Where to open linked document |
-| `rel` | `string` | `undefined` | Relationship to linked document |
-| `download` | `string \| boolean` | `undefined` | Download linked resource |
-| `startIcon` | `string` | `undefined` | Icon to display at start (alternative to slot) |
-| `endIcon` | `string` | `undefined` | Icon to display at end (alternative to slot) |
-| `ariaLabel` | `string` | `null` | Accessible label (overrides visible text) |
+| Property    | Type                                         | Default      | Description                                    |
+| ----------- | -------------------------------------------- | ------------ | ---------------------------------------------- |
+| `variant`   | `'solid' \| 'outline' \| 'ghost' \| 'text'`  | `'solid'`    | Visual style variant                           |
+| `size`      | `'xs' \| 'small' \| 'medium' \| 'large'`     | `'medium'`   | Button size (all WCAG compliant)               |
+| `status`    | `'default' \| 'success' \| 'destructive'`    | `'default'`  | Status variant for semantic meaning            |
+| `radius`    | `'none' \| 'default' \| 'full'`              | `'default'`  | Border radius variant                          |
+| `disabled`  | `boolean`                                    | `false`      | Whether the button is disabled                 |
+| `loading`   | `boolean`                                    | `false`      | Whether the button is in loading state         |
+| `type`      | `'button' \| 'submit' \| 'reset'`            | `'button'`   | Button type for forms                          |
+| `fullWidth` | `boolean`                                    | `false`      | Whether button takes full width                |
+| `iconOnly`  | `boolean`                                    | `false`      | Square shape for icon-only buttons             |
+| `toggle`    | `boolean`                                    | `false`      | Enable toggle button behavior                  |
+| `active`    | `boolean`                                    | `false`      | Active/pressed state (for toggles)             |
+| `flavor`    | `string`                                     | `'original'` | Design system theme flavor                     |
+| `href`      | `string`                                     | `undefined`  | URL (renders as `<a>` instead of `<button>`)   |
+| `target`    | `'_self' \| '_blank' \| '_parent' \| '_top'` | `'_self'`    | Where to open linked document                  |
+| `rel`       | `string`                                     | `undefined`  | Relationship to linked document                |
+| `download`  | `string \| boolean`                          | `undefined`  | Download linked resource                       |
+| `startIcon` | `string`                                     | `undefined`  | Icon to display at start (alternative to slot) |
+| `endIcon`   | `string`                                     | `undefined`  | Icon to display at end (alternative to slot)   |
+| `ariaLabel` | `string`                                     | `null`       | Accessible label (overrides visible text)      |
 
 ### Slots
 
-| Slot | Description |
-|------|-------------|
-| Default | Button content (text, icons, etc.) |
+| Slot         | Description                            |
+| ------------ | -------------------------------------- |
+| Default      | Button content (text, icons, etc.)     |
 | `icon-start` | Icon or content before the button text |
-| `icon-end` | Icon or content after the button text |
+| `icon-end`   | Icon or content after the button text  |
 
 ### Events
 
-| Event | Type | Description |
-|-------|------|-------------|
+| Event   | Type          | Description                                               |
+| ------- | ------------- | --------------------------------------------------------- |
 | `click` | `CustomEvent` | Fired when button is clicked (unless disabled or loading) |
 
 ### CSS Custom Properties
@@ -328,20 +318,16 @@ Key CSS variables you can override:
 ### React
 
 ```tsx
-import '@sando/components/button';
-import type { SandoButton } from '@sando/components';
+import "@sando/components/button";
+import type { SandoButton } from "@sando/components";
 
 function App() {
   const handleClick = (e: CustomEvent) => {
-    console.log('Button clicked!', e.detail);
+    console.log("Button clicked!", e.detail);
   };
 
   return (
-    <sando-button
-      variant="solid"
-      size="medium"
-      onClick={handleClick}
-    >
+    <sando-button variant="solid" size="medium" onClick={handleClick}>
       Click me
     </sando-button>
   );
@@ -352,20 +338,16 @@ function App() {
 
 ```vue
 <template>
-  <sando-button
-    variant="solid"
-    size="medium"
-    @click="handleClick"
-  >
+  <sando-button variant="solid" size="medium" @click="handleClick">
     Click me
   </sando-button>
 </template>
 
 <script setup lang="ts">
-import '@sando/components/button';
+import "@sando/components/button";
 
 const handleClick = (e: CustomEvent) => {
-  console.log('Button clicked!', e.detail);
+  console.log("Button clicked!", e.detail);
 };
 </script>
 ```
@@ -374,22 +356,18 @@ const handleClick = (e: CustomEvent) => {
 
 ```typescript
 // app.module.ts
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import '@sando/components/button';
+import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "@sando/components/button";
 
 @NgModule({
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule {}
 ```
 
 ```html
 <!-- component.html -->
-<sando-button
-  variant="solid"
-  size="medium"
-  (click)="handleClick($event)"
->
+<sando-button variant="solid" size="medium" (click)="handleClick($event)">
   Click me
 </sando-button>
 ```
@@ -410,11 +388,11 @@ The Button component is built with accessibility in mind and exceeds WCAG 2.1 Le
 
 ### Keyboard Shortcuts
 
-| Key | Action |
-|-----|--------|
-| `Space` | Activate button |
-| `Enter` | Activate button |
-| `Tab` | Focus next element |
+| Key           | Action                 |
+| ------------- | ---------------------- |
+| `Space`       | Activate button        |
+| `Enter`       | Activate button        |
+| `Tab`         | Focus next element     |
 | `Shift + Tab` | Focus previous element |
 
 ### ARIA Attributes
@@ -459,11 +437,7 @@ The component automatically manages these ARIA attributes:
 
 ```html
 <form>
-  <sando-button
-    type="submit"
-    variant="solid"
-    full-width
-  >
+  <sando-button type="submit" variant="solid" full-width>
     Submit Form
   </sando-button>
 </form>
@@ -472,11 +446,7 @@ The component automatically manages these ARIA attributes:
 ### Destructive Action
 
 ```html
-<sando-button
-  variant="outline"
-  status="destructive"
-  start-icon="🗑️"
->
+<sando-button variant="outline" status="destructive" start-icon="🗑️">
   Delete Item
 </sando-button>
 ```
@@ -484,13 +454,11 @@ The component automatically manages these ARIA attributes:
 ### Loading State with Async Action
 
 ```html
-<sando-button id="save-btn" variant="solid">
-  Save Changes
-</sando-button>
+<sando-button id="save-btn" variant="solid"> Save Changes </sando-button>
 
 <script>
-  const button = document.getElementById('save-btn');
-  button.addEventListener('click', async () => {
+  const button = document.getElementById("save-btn");
+  button.addEventListener("click", async () => {
     button.loading = true;
     try {
       await saveData();
@@ -505,9 +473,7 @@ The component automatically manages these ARIA attributes:
 
 ```html
 <!-- Internal navigation -->
-<sando-button href="/dashboard" variant="solid">
-  Go to Dashboard
-</sando-button>
+<sando-button href="/dashboard" variant="solid"> Go to Dashboard </sando-button>
 
 <!-- External link with icon -->
 <sando-button
@@ -524,12 +490,7 @@ The component automatically manages these ARIA attributes:
 
 ```html
 <!-- Floating action button -->
-<sando-button
-  icon-only
-  radius="full"
-  size="large"
-  aria-label="Add new item"
->
+<sando-button icon-only radius="full" size="large" aria-label="Add new item">
   <span slot="icon-start">➕</span>
 </sando-button>
 
@@ -558,9 +519,9 @@ The component automatically manages these ARIA attributes:
 </div>
 
 <script>
-  ['bold', 'italic', 'underline'].forEach(format => {
+  ["bold", "italic", "underline"].forEach((format) => {
     const btn = document.getElementById(`${format}-btn`);
-    btn.addEventListener('click', () => {
+    btn.addEventListener("click", () => {
       btn.active = !btn.active;
       document.execCommand(format);
     });
@@ -571,12 +532,7 @@ The component automatically manages these ARIA attributes:
 ### Button with Multiple Icons
 
 ```html
-<sando-button
-  start-icon="⬇"
-  end-icon="✓"
-  variant="solid"
-  status="success"
->
+<sando-button start-icon="⬇" end-icon="✓" variant="solid" status="success">
   Download Complete
 </sando-button>
 ```

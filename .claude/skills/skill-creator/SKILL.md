@@ -45,11 +45,13 @@ skill-name/
 #### Bundled Resources (optional)
 
 **scripts/** - Executable code for deterministic reliability or repeated rewrites
+
 - **When:** Same code rewritten repeatedly or determinism needed
 - **Example:** `scripts/rotate_pdf.py`
 - **Benefits:** Token efficient, deterministic, may execute without loading context
 
 **references/** - Documentation loaded as needed
+
 - **When:** Documentation Claude should reference while working
 - **Examples:** `references/finance.md` (schemas), `references/api_docs.md` (API specs)
 - **Benefits:** Keeps SKILL.md lean, loaded only when needed
@@ -57,6 +59,7 @@ skill-name/
 - **Avoid duplication:** Info lives in SKILL.md OR references, not both
 
 **assets/** - Files used in output, not loaded into context
+
 - **When:** Skill needs files for final output
 - **Examples:** `assets/logo.png` (brand), `assets/frontend-template/` (boilerplate)
 - **Benefits:** Separates output resources from docs
@@ -67,9 +70,9 @@ Three-level loading for context efficiency:
 
 1. **Metadata (name + description)** - Always in context (~100 words)
 2. **SKILL.md body** - When skill triggers (<5k words)
-3. **Bundled resources** - As needed (Unlimited*)
+3. **Bundled resources** - As needed (Unlimited\*)
 
-*Unlimited because scripts execute without loading context.
+\*Unlimited because scripts execute without loading context.
 
 ## Skill Creation Process
 
@@ -82,11 +85,13 @@ Follow in order, skip only if clearly not applicable.
 Skip only when usage patterns already clear. Valuable even for existing skills.
 
 **Questions to ask:**
+
 - "What functionality should this skill support?"
 - "Can you give examples of how this would be used?"
 - "What would a user say that should trigger this skill?"
 
 **Example (image-editor):**
+
 - "Remove red-eye from this image"
 - "Rotate this image"
 - What triggers: "edit image", "rotate photo", etc.
@@ -98,20 +103,24 @@ Skip only when usage patterns already clear. Valuable even for existing skills.
 **Purpose:** Identify what scripts, references, assets helpful for repeated execution.
 
 Analyze each example by:
+
 1. Consider execution from scratch
 2. Identify helpful resources when executing repeatedly
 
 **Examples:**
 
 **pdf-editor** (query: "Rotate this PDF")
+
 - Analysis: Rotating PDF requires rewriting same code
 - Resource: `scripts/rotate_pdf.py` helpful
 
 **frontend-webapp-builder** (query: "Build todo app")
+
 - Analysis: Frontend needs same boilerplate each time
 - Resource: `assets/hello-world/` template with boilerplate
 
 **big-query** (query: "How many users logged in today?")
+
 - Analysis: Querying requires rediscovering schemas
 - Resource: `references/schema.md` documenting tables
 
@@ -130,6 +139,7 @@ scripts/init_skill.py <skill-name> --path <output-directory>
 ```
 
 Script creates:
+
 - Skill directory at path
 - SKILL.md template with frontmatter + TODOs
 - Example resource directories: `scripts/`, `references/`, `assets/`
@@ -168,12 +178,14 @@ Add "Guidelines: Single Source of Truth" section referencing `.claude/guidelines
 **CRITICAL**: [Skill functionality] must follow Sando guidelines in `.claude/guidelines/`.
 
 **Primary Guidelines**:
+
 - **guideline1.md** - What it defines
 - **guideline2.md** - What it defines
 
 **Full Index**: `.claude/guidelines/GUIDELINES_INDEX.md`
 
 **Guideline Priority**:
+
 1. **Sando Guidelines** - HIGHEST PRIORITY
 2. **[External standards]** - For [specific purpose]
 3. **[Context]** - When guidelines don't specify
@@ -188,11 +200,13 @@ scripts/package_skill.py <path/to/skill-folder>
 ```
 
 Optional output directory:
+
 ```bash
 scripts/package_skill.py <path/to/skill-folder> ./dist
 ```
 
 Script will:
+
 1. **Validate** automatically:
    - YAML frontmatter format + required fields
    - Naming conventions + directory structure
@@ -210,6 +224,7 @@ If validation fails: Reports errors, exits without package. Fix and rerun.
 **Purpose:** Improve skill based on real usage.
 
 **Workflow:**
+
 1. Use skill on real tasks
 2. Notice struggles/inefficiencies
 3. Identify SKILL.md or resource updates needed
@@ -231,12 +246,14 @@ All Sando skills must reference `.claude/guidelines/` as single source of truth:
 - Reference guidelines in instructions (e.g., "per COMPONENT_ARCHITECTURE.md")
 
 **Example skills:**
+
 - `component-creator`: References COMPONENT_ARCHITECTURE.md (7-file pattern)
 - `command-creator`: References validation thresholds from TEST_COVERAGE.md, PERFORMANCE_BUDGETS.md
 
 ### 2. Three-Layer Token Architecture
 
 Skills working with tokens must understand TOKEN_ARCHITECTURE.md:
+
 - Ingredients (primitives, no references)
 - Flavors (semantic, reference Ingredients only)
 - Recipes (component-specific, reference Flavors only)
@@ -244,6 +261,7 @@ Skills working with tokens must understand TOKEN_ARCHITECTURE.md:
 ### 3. Monolithic Component Structure
 
 Skills scaffolding components must follow COMPONENT_ARCHITECTURE.md:
+
 - 7 mandatory files
 - Token consumption from Recipes only
 - WCAG 2.1 AA compliance
@@ -251,6 +269,7 @@ Skills scaffolding components must follow COMPONENT_ARCHITECTURE.md:
 ### 4. Quality Standards
 
 Skills analyzing quality must apply guideline thresholds:
+
 - TEST_COVERAGE.md: >85% unit, 100% a11y
 - PERFORMANCE_BUDGETS.md: <10KB/component
 - WCAG_COMPLIANCE.md: WCAG 2.1 AA
@@ -258,6 +277,7 @@ Skills analyzing quality must apply guideline thresholds:
 ## Best Practices
 
 **DO:**
+
 - ✅ Start with concrete examples (Step 1)
 - ✅ Use imperative/infinitive form in SKILL.md
 - ✅ Reference guidelines explicitly (Sando skills)
@@ -265,6 +285,7 @@ Skills analyzing quality must apply guideline thresholds:
 - ✅ Test with real examples before finalizing
 
 **DON'T:**
+
 - ❌ Skip understanding usage patterns (Step 1)
 - ❌ Duplicate info in SKILL.md and references
 - ❌ Use second person ("you should...")

@@ -93,6 +93,7 @@ Question: Team wants to rename Button "variant" prop to "appearance". Is this br
 **Purpose**: Categorize changes and determine version bump
 
 **Steps**:
+
 1. Inventory all proposed changes (component API, tokens, behavior, build)
 2. Classify breaking vs non-breaking per GIT_WORKFLOW.md SemVer rules
 3. Categorize severity: low (5-10 projects), medium (10-50), high (50+ affected)
@@ -106,6 +107,7 @@ Question: Team wants to rename Button "variant" prop to "appearance". Is this br
 **Purpose**: Automate breaking change migrations (70-90% coverage target)
 
 **Steps**:
+
 1. Identify automatable changes (property renames, token updates, import changes)
 2. Write jscodeshift transformations for each change
 3. Test codemods on 3-5 sample consumer projects (internal codebases)
@@ -114,6 +116,7 @@ Question: Team wants to rename Button "variant" prop to "appearance". Is this br
 6. Document codemod usage in migration guide
 
 **Deliverables**:
+
 - Codemods in `codemods/` directory (JSCodeshift transformations)
 - CLI tool: `@sando/migrate` package with dry-run and interactive modes
 - Test results from sample projects (success rate, edge cases)
@@ -123,6 +126,7 @@ Question: Team wants to rename Button "variant" prop to "appearance". Is this br
 **Purpose**: Warn users before removal (3-6 month migration period)
 
 **Steps**:
+
 1. Add deprecation warnings in code (console.warn with migration instructions per guideline)
 2. Mark APIs as @deprecated in TypeScript/JSDoc per INLINE_CODE_DOCS.md
 3. Update documentation with "DEPRECATED" badges and migration path
@@ -136,6 +140,7 @@ Question: Team wants to rename Button "variant" prop to "appearance". Is this br
 **Purpose**: Inform consumers and coordinate smooth transition
 
 **Steps**:
+
 1. Create migration guide following VITEPRESS_GUIDES.md format (before/after, codemod instructions)
 2. Generate changelog following GIT_WORKFLOW.md format (Keep a Changelog standard)
 3. Announce breaking changes 30+ days before major release (Slack, email, blog post)
@@ -144,6 +149,7 @@ Question: Team wants to rename Button "variant" prop to "appearance". Is this br
 6. Monitor support channels, patch critical migration issues quickly (v3.0.1)
 
 **Deliverables**:
+
 - Migration guide: `docs/migrations/v2-to-v3.md` with step-by-step instructions
 - Changelog: `CHANGELOG.md` entry following Keep a Changelog format
 - Communication plan: Announcement timing, support channel setup, Q&A session
@@ -161,12 +167,14 @@ Every migration must meet:
 - ✓ Communication 30+ days before major release (announcement, beta period, support channel)
 
 **Breaking Change Categories**:
+
 - Component API: prop removed/renamed/type changed, event signature changed, slot removed
 - Design Tokens: token removed, token value changed significantly (>30%)
 - Behavior: component behavior changed, default value changed
 - Build: peer dependency major bump, build target changed
 
 **Codemod Requirements**:
+
 - Idempotent (safe to run multiple times)
 - Dry-run mode available (preview without writing)
 - Clear success/failure reporting
@@ -187,6 +195,7 @@ Every migration must meet:
 - **devops-automation-engineer**: Coordinate release pipeline; automate migration testing in CI
 
 **Hand-off triggers**:
+
 - Invoke design-ops-specialist when token breaking changes need Figma sync
 - Consult developer-tooling-specialist for codemod optimization (performance, AST parsing)
 - Engage technical-writer for migration guide creation per VITEPRESS_GUIDES.md format
@@ -206,6 +215,7 @@ You MUST always prioritize:
 ## Common Pitfalls to Avoid
 
 **❌ DON'T**:
+
 - Make breaking changes in minor/patch versions (violates SemVer per GIT_WORKFLOW.md)
 - Remove APIs without deprecation period (causes surprise breakage for consumers)
 - Write codemods without testing on real projects (edge cases will break consumer migrations)
@@ -213,6 +223,7 @@ You MUST always prioritize:
 - Release major version without 30-day warning (insufficient migration time for consumers)
 
 **✅ DO**:
+
 - Follow GIT_WORKFLOW.md SemVer rules strictly (breaking → major, features → minor, fixes → patch)
 - Deprecate for 3-6 months before removal (add console.warn, @deprecated JSDoc)
 - Test codemods on 3+ sample projects (internal codebases, different use cases)

@@ -51,9 +51,13 @@ const meta: Meta = {
       target="${args.target || '_self'}"
       aria-label="${args.ariaLabel || ''}"
     >
-      ${args.iconStart && args.iconStart !== 'None' ? html`<sando-icon slot="icon-start" name="${args.iconStart}" size="small"></sando-icon>` : ''}
+      ${args.iconStart && args.iconStart !== 'None'
+        ? html`<sando-icon slot="icon-start" name="${args.iconStart}" size="small"></sando-icon>`
+        : ''}
       ${args.iconOnly ? '' : args.label}
-      ${args.iconEnd && args.iconEnd !== 'None' ? html`<sando-icon slot="icon-end" name="${args.iconEnd}" size="small"></sando-icon>` : ''}
+      ${args.iconEnd && args.iconEnd !== 'None'
+        ? html`<sando-icon slot="icon-end" name="${args.iconEnd}" size="small"></sando-icon>`
+        : ''}
     </sando-button>
   `,
   argTypes: {
@@ -189,12 +193,47 @@ const meta: Meta = {
     },
     iconStart: {
       control: 'select',
-      options: ['None', 'star', 'heart', 'check', 'x', 'search', 'settings', 'download', 'upload', 'plus', 'minus', 'trash-2', 'edit', 'lock', 'unlock', 'user', 'home'],
+      options: [
+        'None',
+        'star',
+        'heart',
+        'check',
+        'x',
+        'search',
+        'settings',
+        'download',
+        'upload',
+        'plus',
+        'minus',
+        'trash-2',
+        'edit',
+        'lock',
+        'unlock',
+        'user',
+        'home'
+      ],
       description: 'Icon to display at the start of the button (Lucide icon name)'
     },
     iconEnd: {
       control: 'select',
-      options: ['None', 'arrow-right', 'arrow-left', 'arrow-up', 'arrow-down', 'chevron-right', 'chevron-left', 'star', 'heart', 'check', 'x', 'settings', 'download', 'upload', 'plus', 'minus'],
+      options: [
+        'None',
+        'arrow-right',
+        'arrow-left',
+        'arrow-up',
+        'arrow-down',
+        'chevron-right',
+        'chevron-left',
+        'star',
+        'heart',
+        'check',
+        'x',
+        'settings',
+        'download',
+        'upload',
+        'plus',
+        'minus'
+      ],
       description: 'Icon to display at the end of the button (Lucide icon name)'
     }
   }
@@ -251,7 +290,6 @@ export const Playground: Story = {
   }
 };
 
-
 /**
  * Complete showcase of all button variants, sizes, states, and features.
  * Use the flavor control to test different themes.
@@ -283,7 +321,9 @@ export const AllExamples: Story = {
         <h3 style="margin-bottom: 1rem;">Outline Variant</h3>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
           <sando-button flavor="${args.flavor}" variant="outline" size="small">Small</sando-button>
-          <sando-button flavor="${args.flavor}" variant="outline" size="medium">Medium</sando-button>
+          <sando-button flavor="${args.flavor}" variant="outline" size="medium"
+            >Medium</sando-button
+          >
           <sando-button flavor="${args.flavor}" variant="outline" size="large">Large</sando-button>
           <sando-button flavor="${args.flavor}" variant="outline" disabled>Disabled</sando-button>
           <sando-button flavor="${args.flavor}" variant="outline" loading>Loading</sando-button>
@@ -427,7 +467,9 @@ export const ColorModeComparison: Story = {
           </div>
 
           <div>
-            <h4 style="margin-bottom: 0.5rem; font-size: 0.875rem; color: #6b7280;">Status States</h4>
+            <h4 style="margin-bottom: 0.5rem; font-size: 0.875rem; color: #6b7280;">
+              Status States
+            </h4>
             <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
               <sando-button flavor="original" status="default">Default</sando-button>
               <sando-button flavor="original" status="success">Success</sando-button>
@@ -445,45 +487,79 @@ export const ColorModeComparison: Story = {
           <div>
             <h4 style="margin-bottom: 0.5rem; font-size: 0.875rem; color: #a8a8a8;">Variants</h4>
             <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-              <sando-button flavor="original" flavor-mode="dark" variant="solid">Solid</sando-button>
-              <sando-button flavor="original" flavor-mode="dark" variant="outline">Outline</sando-button>
-              <sando-button flavor="original" flavor-mode="dark" variant="ghost">Ghost</sando-button>
+              <sando-button flavor="original" flavor-mode="dark" variant="solid"
+                >Solid</sando-button
+              >
+              <sando-button flavor="original" flavor-mode="dark" variant="outline"
+                >Outline</sando-button
+              >
+              <sando-button flavor="original" flavor-mode="dark" variant="ghost"
+                >Ghost</sando-button
+              >
               <sando-button flavor="original" flavor-mode="dark" variant="text">Text</sando-button>
             </div>
           </div>
 
           <div>
-            <h4 style="margin-bottom: 0.5rem; font-size: 0.875rem; color: #a8a8a8;">Status States</h4>
+            <h4 style="margin-bottom: 0.5rem; font-size: 0.875rem; color: #a8a8a8;">
+              Status States
+            </h4>
             <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-              <sando-button flavor="original" flavor-mode="dark" status="default">Default</sando-button>
-              <sando-button flavor="original" flavor-mode="dark" status="success">Success</sando-button>
-              <sando-button flavor="original" flavor-mode="dark" status="destructive">Destructive</sando-button>
+              <sando-button flavor="original" flavor-mode="dark" status="default"
+                >Default</sando-button
+              >
+              <sando-button flavor="original" flavor-mode="dark" status="success"
+                >Success</sando-button
+              >
+              <sando-button flavor="original" flavor-mode="dark" status="destructive"
+                >Destructive</sando-button
+              >
             </div>
           </div>
         </div>
       </div>
 
       <!-- High Contrast Mode -->
-      <div style="padding: 2rem; background: #ffffff; border: 2px solid #000000; border-radius: 8px;">
-        <h3 style="margin-bottom: 1.5rem; color: #000000;">High Contrast Mode (flavor-mode="high-contrast")</h3>
+      <div
+        style="padding: 2rem; background: #ffffff; border: 2px solid #000000; border-radius: 8px;"
+      >
+        <h3 style="margin-bottom: 1.5rem; color: #000000;">
+          High Contrast Mode (flavor-mode="high-contrast")
+        </h3>
 
         <div style="display: flex; flex-direction: column; gap: 1.5rem;">
           <div>
             <h4 style="margin-bottom: 0.5rem; font-size: 0.875rem; color: #000000;">Variants</h4>
             <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-              <sando-button flavor="original" flavor-mode="high-contrast" variant="solid">Solid</sando-button>
-              <sando-button flavor="original" flavor-mode="high-contrast" variant="outline">Outline</sando-button>
-              <sando-button flavor="original" flavor-mode="high-contrast" variant="ghost">Ghost</sando-button>
-              <sando-button flavor="original" flavor-mode="high-contrast" variant="text">Text</sando-button>
+              <sando-button flavor="original" flavor-mode="high-contrast" variant="solid"
+                >Solid</sando-button
+              >
+              <sando-button flavor="original" flavor-mode="high-contrast" variant="outline"
+                >Outline</sando-button
+              >
+              <sando-button flavor="original" flavor-mode="high-contrast" variant="ghost"
+                >Ghost</sando-button
+              >
+              <sando-button flavor="original" flavor-mode="high-contrast" variant="text"
+                >Text</sando-button
+              >
             </div>
           </div>
 
           <div>
-            <h4 style="margin-bottom: 0.5rem; font-size: 0.875rem; color: #000000;">Status States</h4>
+            <h4 style="margin-bottom: 0.5rem; font-size: 0.875rem; color: #000000;">
+              Status States
+            </h4>
             <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-              <sando-button flavor="original" flavor-mode="high-contrast" status="default">Default</sando-button>
-              <sando-button flavor="original" flavor-mode="high-contrast" status="success">Success</sando-button>
-              <sando-button flavor="original" flavor-mode="high-contrast" status="destructive">Destructive</sando-button>
+              <sando-button flavor="original" flavor-mode="high-contrast" status="default"
+                >Default</sando-button
+              >
+              <sando-button flavor="original" flavor-mode="high-contrast" status="success"
+                >Success</sando-button
+              >
+              <sando-button flavor="original" flavor-mode="high-contrast" status="destructive"
+                >Destructive</sando-button
+              >
             </div>
           </div>
         </div>

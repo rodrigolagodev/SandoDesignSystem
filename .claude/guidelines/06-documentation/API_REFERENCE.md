@@ -25,6 +25,7 @@ Establish comprehensive standards for documenting component APIs in the Sando De
 Every component file MUST include a complete JSDoc header with @element, description, @slot, @fires, @cssprop tags, and usage examples.
 
 **Pattern**:
+
 ```typescript
 /**
  * Component Name and Brief Description
@@ -52,6 +53,7 @@ Every component file MUST include a complete JSDoc header with @element, descrip
 ```
 
 **Real example from sando-button.ts**:
+
 ```typescript
 /**
  * Sando Button Component
@@ -100,19 +102,21 @@ Every component file MUST include a complete JSDoc header with @element, descrip
 Every component guide in VitePress MUST include a comprehensive Properties table with columns: Property, Type, Default, Description.
 
 **Pattern**:
+
 ```markdown
 ## API Reference
 
 ### Properties
 
-| Property | Type | Default | Description |
-|----------|------|---------|-------------|
-| `propertyName` | `'value1' \| 'value2'` | `'value1'` | Human-readable description of what this property does |
-| `booleanProp` | `boolean` | `false` | Description of boolean behavior |
-| `optionalProp` | `string` | `undefined` | Description (note: undefined means optional) |
+| Property       | Type                   | Default     | Description                                           |
+| -------------- | ---------------------- | ----------- | ----------------------------------------------------- |
+| `propertyName` | `'value1' \| 'value2'` | `'value1'`  | Human-readable description of what this property does |
+| `booleanProp`  | `boolean`              | `false`     | Description of boolean behavior                       |
+| `optionalProp` | `string`               | `undefined` | Description (note: undefined means optional)          |
 ```
 
 **Type notation conventions**:
+
 - Union types: `'solid' \| 'outline' \| 'ghost'`
 - Literal escape: Use backticks and `\|` for pipe character
 - Boolean: `boolean` (lowercase)
@@ -120,16 +124,17 @@ Every component guide in VitePress MUST include a comprehensive Properties table
 - Complex types: Link to TypeScript definition
 
 **Real example from button.md**:
+
 ```markdown
 ### Properties
 
-| Property | Type | Default | Description |
-|----------|------|---------|-------------|
-| `variant` | `'solid' \| 'outline' \| 'ghost' \| 'text'` | `'solid'` | Visual style variant |
-| `size` | `'xs' \| 'small' \| 'medium' \| 'large'` | `'medium'` | Button size (all WCAG compliant) |
-| `disabled` | `boolean` | `false` | Whether the button is disabled |
-| `href` | `string` | `undefined` | URL (renders as `<a>` instead of `<button>`) |
-| `ariaLabel` | `string` | `null` | Accessible label (overrides visible text) |
+| Property    | Type                                        | Default     | Description                                  |
+| ----------- | ------------------------------------------- | ----------- | -------------------------------------------- |
+| `variant`   | `'solid' \| 'outline' \| 'ghost' \| 'text'` | `'solid'`   | Visual style variant                         |
+| `size`      | `'xs' \| 'small' \| 'medium' \| 'large'`    | `'medium'`  | Button size (all WCAG compliant)             |
+| `disabled`  | `boolean`                                   | `false`     | Whether the button is disabled               |
+| `href`      | `string`                                    | `undefined` | URL (renders as `<a>` instead of `<button>`) |
+| `ariaLabel` | `string`                                    | `null`      | Accessible label (overrides visible text)    |
 ```
 
 **Why**: Tables provide scannable reference format. Developers can quickly find property types, defaults, and usage without reading full documentation.
@@ -143,6 +148,7 @@ Every component guide in VitePress MUST include a comprehensive Properties table
 Every @property decorator MUST have JSDoc comment with description and @default tag showing the default value.
 
 **Pattern**:
+
 ```typescript
 /**
  * Human-readable description of what this property does.
@@ -167,6 +173,7 @@ optionalProperty?: string;
 ```
 
 **Real examples from sando-button.ts**:
+
 ```typescript
 /**
  * Visual style variant of the button
@@ -200,26 +207,29 @@ href?: string;
 Components MUST document slots, events, and CSS custom properties in both JSDoc header and VitePress API tables.
 
 **Slots table pattern**:
+
 ```markdown
 ### Slots
 
-| Slot | Description |
-|------|-------------|
-| Default | Default slot description (what goes in unnamed slot) |
-| `named-slot` | Named slot description and usage |
+| Slot         | Description                                          |
+| ------------ | ---------------------------------------------------- |
+| Default      | Default slot description (what goes in unnamed slot) |
+| `named-slot` | Named slot description and usage                     |
 ```
 
 **Events table pattern**:
+
 ```markdown
 ### Events
 
-| Event | Type | Description |
-|-------|------|-------------|
+| Event        | Type                       | Description                                     |
+| ------------ | -------------------------- | ----------------------------------------------- |
 | `event-name` | `CustomEvent<PayloadType>` | When this event fires and what data it contains |
 ```
 
 **CSS Custom Properties pattern**:
-```markdown
+
+````markdown
 ### CSS Custom Properties
 
 Key CSS variables you can override:
@@ -228,12 +238,13 @@ Key CSS variables you can override:
 /* Category: Base Styles */
 --component-property: /* Description and default value */
 
-/* Category: Variant-Specific */
---component-variant-property: /* Description */
+/* Category: Variant-Specific */ --component-variant-property: /* Description */;
 ```
+````
 
 Full list of all CSS custom properties available in the component.
-```
+
+````
 
 **Real example from button.md**:
 ```markdown
@@ -263,8 +274,9 @@ Full list of all CSS custom properties available in the component.
 /* Variant-specific: solid */
 --sando-button-solid-backgroundColor-default
 --sando-button-solid-textColor-default
-```
-```
+````
+
+````
 
 **Why**: Complete API reference requires slots, events, and CSS properties. Developers need to know customization points and interaction patterns.
 
@@ -301,9 +313,10 @@ export interface ComponentConfig {
    */
   optionalProperty?: boolean;
 }
-```
+````
 
 **Real example from sando-button.types.ts**:
+
 ```typescript
 /**
  * Visual style variant of the button.
@@ -313,7 +326,7 @@ export interface ComponentConfig {
  * - `ghost`: Low emphasis without background or border
  * - `text`: Minimal text-only style for inline links
  */
-export type ButtonVariant = 'solid' | 'outline' | 'ghost' | 'text';
+export type ButtonVariant = "solid" | "outline" | "ghost" | "text";
 
 /**
  * Size variants for the button.
@@ -325,7 +338,7 @@ export type ButtonVariant = 'solid' | 'outline' | 'ghost' | 'text';
  * - `medium`: Default size for most use cases
  * - `large`: Large for primary actions
  */
-export type ButtonSize = 'xs' | 'small' | 'medium' | 'large';
+export type ButtonSize = "xs" | "small" | "medium" | "large";
 ```
 
 **Why**: Type definitions are part of public API. JSDoc comments explain allowed values, constraints, and usage patterns. Documentation generators extract this information.
@@ -338,7 +351,7 @@ export type ButtonSize = 'xs' | 'small' | 'medium' | 'large';
 
 ### Standard Component Page Template
 
-```markdown
+````markdown
 # Component Name
 
 Brief one-sentence description of the component.
@@ -356,14 +369,13 @@ Brief one-sentence description of the component.
 ```html
 <!-- Import -->
 <script type="module">
-  import '@sando/components/component-name';
+  import "@sando/components/component-name";
 </script>
 
 <!-- Use -->
-<component-name attribute="value">
-  Content
-</component-name>
+<component-name attribute="value"> Content </component-name>
 ```
+````
 
 ## Variants
 
@@ -416,20 +428,20 @@ Description of what this variant does.
 ### Properties
 
 | Property | Type | Default | Description |
-|----------|------|---------|-------------|
-| ... | ... | ... | ... |
+| -------- | ---- | ------- | ----------- |
+| ...      | ...  | ...     | ...         |
 
 ### Slots
 
 | Slot | Description |
-|------|-------------|
-| ... | ... |
+| ---- | ----------- |
+| ...  | ...         |
 
 ### Events
 
 | Event | Type | Description |
-|-------|------|-------------|
-| ... | ... | ... |
+| ----- | ---- | ----------- |
+| ...   | ...  | ...         |
 
 ### CSS Custom Properties
 
@@ -472,7 +484,7 @@ Description of the example.
 ### React
 
 ```tsx
-import '@sando/components/component-name';
+import "@sando/components/component-name";
 
 function App() {
   return <component-name attribute="value">Content</component-name>;
@@ -486,7 +498,8 @@ function App() {
   <component-name attribute="value">Content</component-name>
 </template>
 ```
-```
+
+````
 
 **Why**: Consistent structure helps developers find information quickly. Template ensures all components document the same sections in the same order.
 
@@ -505,9 +518,10 @@ function App() {
  */
 @property({ reflect: true })
 variant: 'solid' | 'outline' | 'ghost' = 'solid';
-```
+````
 
 **VitePress table**:
+
 ```markdown
 | `variant` | `'solid' \| 'outline' \| 'ghost'` | `'solid'` | Visual style variant |
 ```
@@ -526,6 +540,7 @@ disabled = false;
 ```
 
 **VitePress table**:
+
 ```markdown
 | `disabled` | `boolean` | `false` | Whether the button is disabled |
 ```
@@ -543,6 +558,7 @@ href?: string;
 ```
 
 **VitePress table**:
+
 ```markdown
 | `href` | `string` | `undefined` | URL (renders as `<a>` instead of `<button>`) |
 ```
@@ -563,6 +579,7 @@ tabindex = 0;
 ```
 
 **VitePress table**:
+
 ```markdown
 | `tabindex` | `number` | `0` | Tab index for keyboard navigation |
 ```
@@ -581,12 +598,14 @@ config?: ComponentConfig;
 ```
 
 **VitePress table**:
+
 ```markdown
 | `config` | `ComponentConfig` | `undefined` | Configuration object (see [ComponentConfig](#componentconfig)) |
 ```
 
 **Include type definition in docs**:
-```markdown
+
+````markdown
 #### ComponentConfig
 
 ```typescript
@@ -595,7 +614,9 @@ interface ComponentConfig {
   propertyB: boolean;
 }
 ```
-```
+````
+
+````
 
 ---
 
@@ -617,9 +638,10 @@ private dispatchChangeEvent() {
     })
   );
 }
-```
+````
 
 **In JSDoc header**:
+
 ```typescript
 /**
  * @fires change - Fired when selection changes
@@ -628,11 +650,12 @@ private dispatchChangeEvent() {
 ```
 
 **In VitePress**:
+
 ```markdown
 ### Events
 
-| Event | Type | Description |
-|-------|------|-------------|
+| Event    | Type                             | Description                                                                   |
+| -------- | -------------------------------- | ----------------------------------------------------------------------------- |
 | `change` | `CustomEvent<{ value: string }>` | Fired when selection changes. Contains the new value in `event.detail.value`. |
 ```
 
@@ -641,6 +664,7 @@ private dispatchChangeEvent() {
 ### Native Events
 
 **In JSDoc header**:
+
 ```typescript
 /**
  * @fires click - Native click event (fired unless disabled or loading)
@@ -648,6 +672,7 @@ private dispatchChangeEvent() {
 ```
 
 **In VitePress**:
+
 ```markdown
 | `click` | `MouseEvent` | Native click event (only fires when not disabled or loading) |
 ```
@@ -658,7 +683,7 @@ private dispatchChangeEvent() {
 
 ### Grouping by Category
 
-```markdown
+````markdown
 ### CSS Custom Properties
 
 #### Base Styles
@@ -671,6 +696,7 @@ Variables that apply to all variants:
 --component-fontWeight
 --component-lineHeight
 ```
+````
 
 #### Variant-Specific: Solid
 
@@ -694,7 +720,8 @@ Variables that apply to all variants:
 --component-disabled-opacity
 --component-loading-spinnerColor
 ```
-```
+
+````
 
 **Why**: Grouping helps developers find the right CSS variable. Categories match component structure (base, variants, states).
 
@@ -714,7 +741,7 @@ This component consumes tokens from the `button` Recipe:
 - `--sando-button-solid-textColor-default`
 
 See [Token Architecture](../../design-system/tokens) for the complete three-layer system.
-```
+````
 
 **Why**: Helps designers understand token usage and enables refactoring. Links component implementation to design system foundations.
 
@@ -725,6 +752,7 @@ See [Token Architecture](../../design-system/tokens) for the complete three-laye
 ### Default Slot
 
 **In JSDoc**:
+
 ```typescript
 /**
  * @slot - Default slot for button content (text, icons, HTML)
@@ -732,6 +760,7 @@ See [Token Architecture](../../design-system/tokens) for the complete three-laye
 ```
 
 **In VitePress**:
+
 ```markdown
 | Default | Button content (text, icons, HTML elements) |
 ```
@@ -741,6 +770,7 @@ See [Token Architecture](../../design-system/tokens) for the complete three-laye
 ### Named Slots
 
 **In JSDoc**:
+
 ```typescript
 /**
  * @slot icon-start - Icon or content before the button text
@@ -749,12 +779,14 @@ See [Token Architecture](../../design-system/tokens) for the complete three-laye
 ```
 
 **In VitePress**:
+
 ```markdown
 | `icon-start` | Icon or content before the button text |
 | `icon-end` | Icon or content after the button text |
 ```
 
 **Usage example**:
+
 ```html
 <sando-button>
   <svg slot="icon-start">...</svg>
@@ -772,12 +804,12 @@ See [Token Architecture](../../design-system/tokens) for the complete three-laye
 ```markdown
 ## Accessibility
 
-| WCAG Criterion | Level | Status | Implementation |
-|----------------|-------|--------|----------------|
-| 1.4.3 Contrast (Minimum) | AA | ✅ Pass | All text meets 4.5:1 contrast ratio |
-| 2.1.1 Keyboard | A | ✅ Pass | Fully keyboard accessible (Tab, Enter, Space) |
-| 2.4.7 Focus Visible | AA | ✅ Pass | Visible focus indicator with 3:1 contrast |
-| 4.1.2 Name, Role, Value | A | ✅ Pass | Proper role, accessible name, and states |
+| WCAG Criterion           | Level | Status  | Implementation                                |
+| ------------------------ | ----- | ------- | --------------------------------------------- |
+| 1.4.3 Contrast (Minimum) | AA    | ✅ Pass | All text meets 4.5:1 contrast ratio           |
+| 2.1.1 Keyboard           | A     | ✅ Pass | Fully keyboard accessible (Tab, Enter, Space) |
+| 2.4.7 Focus Visible      | AA    | ✅ Pass | Visible focus indicator with 3:1 contrast     |
+| 4.1.2 Name, Role, Value  | A     | ✅ Pass | Proper role, accessible name, and states      |
 ```
 
 ---
@@ -787,11 +819,11 @@ See [Token Architecture](../../design-system/tokens) for the complete three-laye
 ```markdown
 ### Keyboard Navigation
 
-| Key | Action |
-|-----|--------|
-| `Tab` | Move focus to/from button |
-| `Enter` or `Space` | Activate button |
-| `Escape` | (For dialogs) Close and return focus |
+| Key                | Action                               |
+| ------------------ | ------------------------------------ |
+| `Tab`              | Move focus to/from button            |
+| `Enter` or `Space` | Activate button                      |
+| `Escape`           | (For dialogs) Close and return focus |
 ```
 
 ---
@@ -814,19 +846,19 @@ See [Token Architecture](../../design-system/tokens) for the complete three-laye
 
 ### Basic Example Pattern
 
-```markdown
+````markdown
 ### Example Title
 
 Brief description of what this example demonstrates.
 
 ```html
-<component-name attribute="value">
-  Content
-</component-name>
+<component-name attribute="value"> Content </component-name>
 ```
+````
 
 **Result**: What the user sees or experiences.
-```
+
+````
 
 ---
 
@@ -849,8 +881,9 @@ Shows how to update properties programmatically.
     button.textContent = `Clicked ${count} times`;
   });
 </script>
-```
-```
+````
+
+````
 
 ---
 
@@ -876,24 +909,20 @@ function App() {
     </sando-button>
   );
 }
-```
+````
 
 ### Vue 3 Example
 
 ```vue
 <template>
-  <sando-button
-    variant="solid"
-    @click="handleClick"
-  >
-    Click Me
-  </sando-button>
+  <sando-button variant="solid" @click="handleClick"> Click Me </sando-button>
 </template>
 
 <script setup lang="ts">
-const handleClick = () => console.log('Clicked');
+const handleClick = () => console.log("Clicked");
 </script>
 ```
+
 ```
 
 ---
@@ -998,3 +1027,4 @@ const handleClick = () => console.log('Clicked');
 ---
 
 **API documentation is the user's first impression of component quality. Invest in clear, complete, accurate reference documentation.**
+```

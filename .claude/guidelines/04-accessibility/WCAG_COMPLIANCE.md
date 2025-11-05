@@ -21,10 +21,11 @@ Ensure all Sando Design System components meet WCAG 2.1 Level AA standards throu
 All components MUST pass WCAG 2.1 Level AA automated testing. Aim for AAA where feasible.
 
 **Pattern**:
-```typescript
-import { axe, toHaveNoViolations } from 'jest-axe';
 
-it('should have no a11y violations', async () => {
+```typescript
+import { axe, toHaveNoViolations } from "jest-axe";
+
+it("should have no a11y violations", async () => {
   const results = await axe(element);
   expect(results).toHaveNoViolations();
 });
@@ -41,11 +42,12 @@ it('should have no a11y violations', async () => {
 Every component MUST have `.a11y.test.ts` file using jest-axe with 100% state coverage.
 
 **Pattern**:
+
 ```typescript
 // sando-button.a11y.test.ts
-describe('accessibility', () => {
-  it('default state', async () => {
-    const el = await fixture('<sando-button>Click</sando-button>');
+describe("accessibility", () => {
+  it("default state", async () => {
+    const el = await fixture("<sando-button>Click</sando-button>");
     expect(await axe(el)).toHaveNoViolations();
   });
 });
@@ -62,6 +64,7 @@ describe('accessibility', () => {
 Use native HTML elements over ARIA whenever possible. Progressive enhancement required.
 
 **Pattern**:
+
 ```html
 <!-- ✅ CORRECT -->
 <button type="button">Submit</button>
@@ -81,6 +84,7 @@ Use native HTML elements over ARIA whenever possible. Progressive enhancement re
 Follow WAI-ARIA Authoring Practices. Use ARIA only when semantic HTML insufficient.
 
 **The 5 Rules of ARIA**:
+
 1. Use native HTML if possible
 2. Don't change native semantics
 3. All interactive ARIA controls must be keyboard accessible
@@ -96,10 +100,13 @@ Follow WAI-ARIA Authoring Practices. Use ARIA only when semantic HTML insufficie
 Test ALL component states, ALL flavors, ALL modes (dark, high-contrast, reduced motion).
 
 **Pattern**:
+
 ```typescript
-describe.each(['original', 'strawberry', 'ocean'])('flavor: %s', (flavor) => {
-  it('meets contrast requirements', async () => {
-    const el = await fixture(`<div flavor="${flavor}"><sando-button>Test</sando-button></div>`);
+describe.each(["original", "strawberry", "ocean"])("flavor: %s", (flavor) => {
+  it("meets contrast requirements", async () => {
+    const el = await fixture(
+      `<div flavor="${flavor}"><sando-button>Test</sando-button></div>`,
+    );
     expect(await axe(el)).toHaveNoViolations();
   });
 });
@@ -115,18 +122,19 @@ describe.each(['original', 'strawberry', 'ocean'])('flavor: %s', (flavor) => {
 
 **Key criteria for design systems** (see [full spec](https://www.w3.org/WAI/WCAG21/quickref/)):
 
-| Criteria | Level | Requirement | Design System Impact |
-|----------|-------|-------------|---------------------|
-| 1.4.3 Contrast (Minimum) | AA | 4.5:1 normal text, 3:1 large text | Token contrast validation |
-| 1.4.6 Contrast (Enhanced) | AAA | 7:1 normal text, 4.5:1 large text | Color system design |
-| 1.4.11 Non-text Contrast | AA | 3:1 UI components | Icons, borders, focus indicators |
-| 2.1.1 Keyboard | A | All functionality via keyboard | Component interaction design |
-| 2.1.2 No Keyboard Trap | A | No focus traps | Modal, dialog, overlay patterns |
-| 2.4.7 Focus Visible | AA | Visible focus indicator | Focus ring tokens |
-| 4.1.2 Name, Role, Value | A | Accessible names/roles | ARIA labels, semantic HTML |
-| 4.1.3 Status Messages | AA | Status announcements | aria-live, role="status" |
+| Criteria                  | Level | Requirement                       | Design System Impact             |
+| ------------------------- | ----- | --------------------------------- | -------------------------------- |
+| 1.4.3 Contrast (Minimum)  | AA    | 4.5:1 normal text, 3:1 large text | Token contrast validation        |
+| 1.4.6 Contrast (Enhanced) | AAA   | 7:1 normal text, 4.5:1 large text | Color system design              |
+| 1.4.11 Non-text Contrast  | AA    | 3:1 UI components                 | Icons, borders, focus indicators |
+| 2.1.1 Keyboard            | A     | All functionality via keyboard    | Component interaction design     |
+| 2.1.2 No Keyboard Trap    | A     | No focus traps                    | Modal, dialog, overlay patterns  |
+| 2.4.7 Focus Visible       | AA    | Visible focus indicator           | Focus ring tokens                |
+| 4.1.2 Name, Role, Value   | A     | Accessible names/roles            | ARIA labels, semantic HTML       |
+| 4.1.3 Status Messages     | AA    | Status announcements              | aria-live, role="status"         |
 
 **Additional relevant criteria**:
+
 - 1.3.1 Info and Relationships (A) - Semantic structure
 - 2.4.3 Focus Order (A) - Logical tab order
 - 3.2.1 On Focus (A) - No unexpected context changes
@@ -134,6 +142,7 @@ describe.each(['original', 'strawberry', 'ocean'])('flavor: %s', (flavor) => {
 - 3.3.2 Labels or Instructions (A) - Form labels
 
 **Testing approach**:
+
 - Automated: axe-core catches Level A and AA violations
 - Manual: Keyboard navigation, screen reader testing
 - Color contrast: Token validation tests
@@ -145,21 +154,23 @@ describe.each(['original', 'strawberry', 'ocean'])('flavor: %s', (flavor) => {
 ### jest-axe Setup
 
 **Installation** (already configured in Sando):
+
 ```bash
 pnpm add -D jest-axe @axe-core/playwright
 ```
 
 **Basic test pattern**:
+
 ```typescript
-import { fixture, expect } from '@open-wc/testing';
-import { axe, toHaveNoViolations } from 'jest-axe';
-import './sando-button';
+import { fixture, expect } from "@open-wc/testing";
+import { axe, toHaveNoViolations } from "jest-axe";
+import "./sando-button";
 
 expect.extend(toHaveNoViolations);
 
-describe('sando-button a11y', () => {
-  it('should have no violations', async () => {
-    const el = await fixture('<sando-button>Click me</sando-button>');
+describe("sando-button a11y", () => {
+  it("should have no violations", async () => {
+    const el = await fixture("<sando-button>Click me</sando-button>");
     const results = await axe(el);
     expect(results).toHaveNoViolations();
   });
@@ -169,14 +180,15 @@ describe('sando-button a11y', () => {
 ### Testing All States
 
 **Pattern** from `sando-button.a11y.test.ts`:
+
 ```typescript
-it('disabled state', async () => {
-  const el = await fixture('<sando-button disabled>Disabled</sando-button>');
+it("disabled state", async () => {
+  const el = await fixture("<sando-button disabled>Disabled</sando-button>");
   expect(await axe(el)).toHaveNoViolations();
 });
 
-it('loading state', async () => {
-  const el = await fixture('<sando-button loading>Loading</sando-button>');
+it("loading state", async () => {
+  const el = await fixture("<sando-button loading>Loading</sando-button>");
   expect(await axe(el)).toHaveNoViolations();
 });
 ```
@@ -184,10 +196,10 @@ it('loading state', async () => {
 ### Testing All Flavors
 
 ```typescript
-const flavors = ['original', 'strawberry', 'ocean', 'forest', 'sunset'];
+const flavors = ["original", "strawberry", "ocean", "forest", "sunset"];
 
-describe.each(flavors)('flavor: %s', (flavor) => {
-  it('meets accessibility standards', async () => {
+describe.each(flavors)("flavor: %s", (flavor) => {
+  it("meets accessibility standards", async () => {
     const el = await fixture(`
       <div flavor="${flavor}">
         <sando-button>Test</sando-button>
@@ -199,6 +211,7 @@ describe.each(flavors)('flavor: %s', (flavor) => {
 ```
 
 **Reference**:
+
 - `packages/components/src/components/button/sando-button.a11y.test.ts`
 - [axe-core rules](https://github.com/dequelabs/axe-core/blob/develop/doc/rule-descriptions.md)
 - [jest-axe docs](https://github.com/nickcolley/jest-axe)
@@ -209,12 +222,12 @@ describe.each(flavors)('flavor: %s', (flavor) => {
 
 ### Minimum Ratios
 
-| Content Type | Size | WCAG AA | WCAG AAA | Notes |
-|--------------|------|---------|----------|-------|
-| Normal text | <18pt or <14pt bold | 4.5:1 | 7:1 | Body copy, labels |
-| Large text | ≥18pt or ≥14pt bold | 3:1 | 4.5:1 | Headings, large UI |
-| UI components | Any | 3:1 | - | Borders, icons, focus rings |
-| Graphical objects | Any | 3:1 | - | Charts, diagrams, controls |
+| Content Type      | Size                | WCAG AA | WCAG AAA | Notes                       |
+| ----------------- | ------------------- | ------- | -------- | --------------------------- |
+| Normal text       | <18pt or <14pt bold | 4.5:1   | 7:1      | Body copy, labels           |
+| Large text        | ≥18pt or ≥14pt bold | 3:1     | 4.5:1    | Headings, large UI          |
+| UI components     | Any                 | 3:1     | -        | Borders, icons, focus rings |
+| Graphical objects | Any                 | 3:1     | -        | Charts, diagrams, controls  |
 
 ### Token Validation
 
@@ -222,8 +235,8 @@ Sando tokens are automatically validated for contrast compliance:
 
 ```javascript
 // packages/tokens/tests/accessibility/contrast.test.js
-describe('WCAG contrast compliance', () => {
-  it('text meets AA (4.5:1)', () => {
+describe("WCAG contrast compliance", () => {
+  it("text meets AA (4.5:1)", () => {
     const ratio = getContrastRatio(textColor, backgroundColor);
     expect(ratio).toBeGreaterThanOrEqual(4.5);
   });
@@ -231,11 +244,13 @@ describe('WCAG contrast compliance', () => {
 ```
 
 **Contrast calculation**:
+
 1. Convert HSL → RGB
 2. Calculate relative luminance
 3. Compute contrast ratio: (L1 + 0.05) / (L2 + 0.05)
 
 **Tools**:
+
 - [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/)
 - [Contrast Ratio Calculator](https://contrast-ratio.com/)
 
@@ -248,6 +263,7 @@ describe('WCAG contrast compliance', () => {
 ### Use Native Elements
 
 **Correct patterns**:
+
 ```html
 <!-- Buttons -->
 <button type="button">Action</button>
@@ -259,11 +275,14 @@ describe('WCAG contrast compliance', () => {
 <!-- Form controls -->
 <input type="text" id="name" />
 <label for="name">Name</label>
-<select id="options"><option>One</option></select>
+<select id="options">
+  <option>One</option>
+</select>
 <textarea id="comments"></textarea>
 ```
 
 **Avoid these anti-patterns**:
+
 ```html
 <!-- ❌ WRONG - div/span with roles -->
 <div role="button" tabindex="0" onclick="...">Click</div>
@@ -278,14 +297,18 @@ describe('WCAG contrast compliance', () => {
 3. **Enhance with JS**: Interactive behavior, ARIA states
 
 **Example**:
+
 ```html
 <!-- Works without JS -->
-<button type="button" class="toggle">
-  Show details
-</button>
+<button type="button" class="toggle">Show details</button>
 
 <!-- Enhanced with JS -->
-<button type="button" class="toggle" aria-pressed="false" aria-controls="details">
+<button
+  type="button"
+  class="toggle"
+  aria-pressed="false"
+  aria-controls="details"
+>
   Show details
 </button>
 ```
@@ -299,11 +322,13 @@ describe('WCAG contrast compliance', () => {
 ### When to Use ARIA
 
 Use ARIA only when:
+
 1. No native HTML element exists
 2. Need to add states/properties not in HTML
 3. Building complex widgets (combobox, tree, tabs)
 
 **5 Rules of ARIA**:
+
 1. Use native HTML if possible
 2. Don't change native semantics (e.g., `<button role="heading">`)
 3. All interactive ARIA controls must be keyboard accessible
@@ -312,27 +337,28 @@ Use ARIA only when:
 
 ### Common ARIA Patterns
 
-| Pattern | Role | Key States/Properties | Keyboard | Reference |
-|---------|------|----------------------|----------|-----------|
-| Button | button | aria-pressed, aria-disabled | Space, Enter | sando-button |
-| Alert | alert | aria-live="assertive" | - | Toast |
-| Status | status | aria-live="polite" | - | Loading indicator |
-| Toggle | button | aria-pressed | Space, Enter | Toggle button |
-| Modal | dialog | aria-modal, aria-labelledby | Esc, Tab trap | Dialog |
+| Pattern | Role   | Key States/Properties       | Keyboard      | Reference         |
+| ------- | ------ | --------------------------- | ------------- | ----------------- |
+| Button  | button | aria-pressed, aria-disabled | Space, Enter  | sando-button      |
+| Alert   | alert  | aria-live="assertive"       | -             | Toast             |
+| Status  | status | aria-live="polite"          | -             | Loading indicator |
+| Toggle  | button | aria-pressed                | Space, Enter  | Toggle button     |
+| Modal   | dialog | aria-modal, aria-labelledby | Esc, Tab trap | Dialog            |
 
 ### ARIA in Components
 
 **sando-button example**:
+
 ```typescript
 // Disabled state
-this.hasAttribute('disabled')
-  ? html`<button aria-disabled="true" ...>`
-  : html`<button ...>`;
+this.hasAttribute("disabled")
+  ? html`<button aria-disabled="true" ...></button>`
+  : html`<button ...></button>`;
 
 // Loading state
 html`
   <button aria-busy="${this.loading}" aria-live="polite">
-    ${this.loading ? 'Loading...' : 'Submit'}
+    ${this.loading ? "Loading..." : "Submit"}
   </button>
 `;
 
@@ -341,13 +367,15 @@ html`
   <button
     type="button"
     aria-pressed="${this.pressed}"
-    @click="${this._handleToggle}">
+    @click="${this._handleToggle}"
+  >
     ${this.label}
   </button>
 `;
 ```
 
 **Common ARIA attributes**:
+
 - `aria-label`: Accessible name when text content insufficient
 - `aria-labelledby`: Reference to labeling element(s)
 - `aria-describedby`: Reference to description element(s)
@@ -358,6 +386,7 @@ html`
 - `aria-expanded`: Collapsible content state
 
 **Reference**:
+
 - [WAI-ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/)
 - [ARIA in HTML](https://www.w3.org/TR/html-aria/)
 - `packages/components/src/components/button/sando-button.ts`
@@ -369,6 +398,7 @@ html`
 ### Requirements
 
 **100% coverage for**:
+
 - All public components
 - All component states (default, hover, focus, active, disabled, loading, error, success)
 - All variants (solid, outline, ghost, etc.)
@@ -447,10 +477,12 @@ pnpm test:watch -- --grep "a11y"
 ## Related Guidelines
 
 **Design System**:
+
 - [TESTING_STRATEGY.md](../03-development/TESTING_STRATEGY.md) - Testing requirements
 - [COMPONENT_API_STANDARDS.md](../02-design/COMPONENT_API_STANDARDS.md) - Component API design
 
 **Accessibility** (future guidelines):
+
 - `KEYBOARD_NAVIGATION.md` - Keyboard interaction patterns
 - `SCREEN_READER_SUPPORT.md` - Screen reader testing guide
 - `COLOR_CONTRAST.md` - Color system accessibility
@@ -474,6 +506,7 @@ pnpm test:watch -- --grep "a11y"
 ## Changelog
 
 ### 1.0.0 (2025-11-03)
+
 - Initial guideline creation
 - WCAG 2.1 Level AA compliance requirements
 - jest-axe automated testing patterns

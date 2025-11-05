@@ -1,58 +1,58 @@
 {
-	"icon": {
-		"size": {
-			"xs": {
-				"value": "{sizing.icon.xs.value}",
-				"type": "dimension",
-				"description": "Extra small icon size (12px) - matches font.size.100"
-			},
-			"small": {
-				"value": "{sizing.icon.small.value}",
-				"type": "dimension",
-				"description": "Small icon size (14px) - matches font.size.200"
-			},
-			"medium": {
-				"value": "{sizing.icon.medium.value}",
-				"type": "dimension",
-				"description": "Medium icon size (18px) - matches font.size.400"
-			},
-			"large": {
-				"value": "{sizing.icon.large.value}",
-				"type": "dimension",
-				"description": "Large icon size (24px) - matches font.size.600"
-			},
-			"xl": {
-				"value": "{sizing.icon.xl.value}",
-				"type": "dimension",
-				"description": "Extra large icon size (32px) - matches font.size.700"
-			}
-		},
-		"color": {
-			"default": {
-				"value": "{color.icon.default.value}",
-				"type": "color",
-				"description": "Default icon color - neutral 700 (light) / neutral 400 (dark)"
-			},
-			"muted": {
-				"value": "{color.icon.muted.value}",
-				"type": "color",
-				"description": "Muted icon color - neutral 500 (both themes)"
-			},
-			"emphasis": {
-				"value": "{color.icon.emphasis.value}",
-				"type": "color",
-				"description": "Emphasized icon color - neutral 900 (light) / neutral 100 (dark)"
-			},
-			"brand": {
-				"value": "{color.icon.interactive.value}",
-				"type": "color",
-				"description": "Brand colored icon - brand 700 (light) / brand 400 (dark)"
-			},
-			"onSolid": {
-				"value": "{color.icon.on-solid.value}",
-				"type": "color",
-				"description": "Icon color on solid backgrounds - neutral 100 (light) / neutral 950 (dark)"
-			}
-		}
-	}
+  "icon": {
+    "size": {
+      "xs": {
+        "value": "{sizing.icon.xs.value}",
+        "type": "dimension",
+        "description": "Extra small icon size (12px) - matches font.size.100"
+      },
+      "small": {
+        "value": "{sizing.icon.small.value}",
+        "type": "dimension",
+        "description": "Small icon size (14px) - matches font.size.200"
+      },
+      "medium": {
+        "value": "{sizing.icon.medium.value}",
+        "type": "dimension",
+        "description": "Medium icon size (18px) - matches font.size.400"
+      },
+      "large": {
+        "value": "{sizing.icon.large.value}",
+        "type": "dimension",
+        "description": "Large icon size (24px) - matches font.size.600"
+      },
+      "xl": {
+        "value": "{sizing.icon.xl.value}",
+        "type": "dimension",
+        "description": "Extra large icon size (32px) - matches font.size.700"
+      }
+    },
+    "color": {
+      "default": {
+        "value": "{color.icon.default.value}",
+        "type": "color",
+        "description": "Default icon color - neutral 700 (light) / neutral 400 (dark)"
+      },
+      "muted": {
+        "value": "{color.icon.muted.value}",
+        "type": "color",
+        "description": "Muted icon color - neutral 500 (both themes)"
+      },
+      "emphasis": {
+        "value": "{color.icon.emphasis.value}",
+        "type": "color",
+        "description": "Emphasized icon color - neutral 900 (light) / neutral 100 (dark)"
+      },
+      "brand": {
+        "value": "{color.icon.interactive.value}",
+        "type": "color",
+        "description": "Brand colored icon - brand 700 (light) / brand 400 (dark)"
+      },
+      "onSolid": {
+        "value": "{color.icon.on-solid.value}",
+        "type": "color",
+        "description": "Icon color on solid backgrounds - neutral 100 (light) / neutral 950 (dark)"
+      }
+    }
+  }
 }

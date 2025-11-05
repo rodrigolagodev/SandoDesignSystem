@@ -17,7 +17,9 @@ const meta: Meta = {
       ?active="${args.active}"
       ?disabled="${args.disabled}"
     >
-      ${args.iconStart && args.iconStart !== 'None' ? html`<span slot="icon-start">${args.iconStart}</span>` : ''}
+      ${args.iconStart && args.iconStart !== 'None'
+        ? html`<span slot="icon-start">${args.iconStart}</span>`
+        : ''}
       ${args.label}
     </sando-button>
   `,
@@ -150,15 +152,16 @@ export const FilterButtons: Story = {
 export const Tabs: Story = {
   render: () => html`
     <div style="display: flex; gap: 0; border-bottom: 2px solid #e5e7eb;">
-      <sando-button variant="ghost" active radius="none" style="border-bottom: 2px solid currentColor; margin-bottom: -2px;">
+      <sando-button
+        variant="ghost"
+        active
+        radius="none"
+        style="border-bottom: 2px solid currentColor; margin-bottom: -2px;"
+      >
         Dashboard
       </sando-button>
-      <sando-button variant="ghost" radius="none">
-        Analytics
-      </sando-button>
-      <sando-button variant="ghost" radius="none">
-        Settings
-      </sando-button>
+      <sando-button variant="ghost" radius="none"> Analytics </sando-button>
+      <sando-button variant="ghost" radius="none"> Settings </sando-button>
     </div>
   `
 };

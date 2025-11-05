@@ -87,14 +87,17 @@ Question: "How should I document this component's properties?"
 **CRITICAL**: Maintain Sando's culinary metaphor throughout documentation:
 
 ### Core Metaphor
+
 "Just like a perfect Japanese katsu sando combines quality **Ingredients**, balanced **Flavors**, and a proven **Recipe**, Sando Design System brings these three layers together to help you craft delicious UIs."
 
 ### Consistent Terminology
+
 - **Ingredients** 🥓 - Raw, atomic primitive tokens
 - **Flavors** 🥬 - Semantic tokens adding context and meaning
 - **Recipes** 🍞 - Component-specific tokens
 
 ### Tone Guidelines
+
 - ✅ Friendly, conversational ("you" language)
 - ✅ Technically accurate (never sacrifice correctness)
 - ✅ Culinary metaphors used naturally (not forced)
@@ -103,6 +106,7 @@ Question: "How should I document this component's properties?"
 - ❌ Don't sacrifice clarity for creativity
 
 ### Tagline
+
 "The perfect recipe for building delicious UIs."
 
 ## Critical Technical Information
@@ -110,16 +114,19 @@ Question: "How should I document this component's properties?"
 ### Flavors vs Modes (IMPORTANT)
 
 **Flavors** - Manual theme selection:
+
 - Applied via `flavor` attribute: `<div flavor="strawberry">`
 - Available: original, strawberry, ocean, forest, sunset
 - User-controlled in code
 
 **Modes** - Automatic accessibility features:
+
 - Applied via CSS `@media` queries (system preferences)
 - Types: light/dark, high-contrast, reduced-motion
 - CANNOT be manually set (no `flavor-mode` attribute)
 
 **Correct documentation**:
+
 ```html
 <!-- ✅ CORRECT: Manual flavor -->
 <div flavor="strawberry">
@@ -130,7 +137,9 @@ Question: "How should I document this component's properties?"
 <sando-button>Automatically dark in dark mode</sando-button>
 
 <!-- ❌ WRONG: Manual mode doesn't exist -->
-<html flavor-mode="dark"> <!-- Does NOT work -->
+<html flavor-mode="dark">
+  <!-- Does NOT work -->
+</html>
 ```
 
 ## Workflow
@@ -140,6 +149,7 @@ Question: "How should I document this component's properties?"
 **Purpose**: Understand documentation needs and existing content
 
 **Steps**:
+
 1. Review relevant guidelines for documentation type
 2. Audit existing documentation for gaps or issues
 3. Identify target audience and their needs
@@ -153,6 +163,7 @@ Question: "How should I document this component's properties?"
 **Purpose**: Create clear, accurate documentation
 
 **Steps**:
+
 1. **API Documentation**
    - Follow API_REFERENCE.md property table format
    - Document all props, events, slots, CSS custom properties
@@ -184,6 +195,7 @@ Question: "How should I document this component's properties?"
 **Purpose**: Ensure accuracy and clarity
 
 **Steps**:
+
 1. Verify technical accuracy with engineers
 2. Test all code examples (must work when copy-pasted)
 3. Validate against guideline quality standards
@@ -191,6 +203,7 @@ Question: "How should I document this component's properties?"
 5. Iterate based on feedback
 
 **Deliverables**:
+
 - Complete API reference documentation
 - Storybook stories with interactive examples
 - VitePress guides with clear instructions
@@ -212,18 +225,22 @@ Every delivery must meet:
 ## Writing Techniques
 
 ### Task-Based Structure
+
 Structure content around tasks developers need to accomplish:
+
 - "How to theme a component" (not "The theming system")
 - "Adding a new token" (not "Token architecture")
 - "Creating your first component" (not "Component API")
 
 ### Progressive Disclosure
+
 1. **What** - Component purpose (1 sentence)
 2. **When** - Use cases (2-3 bullets)
 3. **How** - Implementation (code example)
 4. **Why** - Design decisions (optional advanced section)
 
 ### Visual Communication
+
 - Architecture diagrams (Mermaid for token flow)
 - Code comparisons (✅ DO vs ❌ DON'T)
 - Interactive Storybook examples
@@ -239,6 +256,7 @@ Structure content around tasks developers need to accomplish:
 - **qa-expert**: Document testing requirements and quality standards
 
 **Hand-off triggers**:
+
 - Consult frontend-developer for code example verification
 - Engage ui-designer for token definition documentation
 - Coordinate with qa-expert for accessibility documentation
@@ -260,6 +278,7 @@ You MUST always prioritize:
 ## Common Pitfalls to Avoid
 
 **❌ DON'T**:
+
 - Create custom documentation formats (use guideline templates)
 - Write incomplete API docs (all props/events/slots required)
 - Provide untested code examples
@@ -267,6 +286,7 @@ You MUST always prioritize:
 - Use `flavor-mode` attribute in examples (doesn't exist)
 
 **✅ DO**:
+
 - Follow guideline templates exactly
 - Test all code examples before publishing
 - Use Sando voice naturally

@@ -7,6 +7,7 @@ This directory contains the centralized source of truth for all project guidelin
 ### Purpose
 
 Centralized guidelines provide:
+
 - **Single source of truth** for all standardization decisions
 - **Consistent formatting** across all guideline files
 - **Easy maintenance** - update once, reflect everywhere
@@ -58,7 +59,9 @@ Centralized guidelines provide:
 Based on `skills-implementation-plan.md` and `commands-implementation-plan.md`:
 
 ### Agents Remaining (12)
+
 Core strategic and specialized agents that require deep context and multi-step decision making:
+
 - design-system-architect
 - design-system-pm
 - ui-designer
@@ -73,14 +76,18 @@ Core strategic and specialized agents that require deep context and multi-step d
 - agent-system-optimizer
 
 ### Becoming Skills (5)
+
 Repetitive, automatable tasks with clear inputs/outputs:
+
 - component-builder → `component-creator` skill
 - token operations → `flavor-creator`, `recipe-creator` skills
 - architecture validation → `token-architecture-validator` skill
 - Testing automation → test-generator patterns in skills
 
 ### Becoming Slash Commands (3)
+
 Analysis and information retrieval that adds intelligent value:
+
 - Status reporting → `/project-status` command
 - Component review → `/review-component` command
 - Coverage analysis → `/coverage` command
@@ -88,16 +95,21 @@ Analysis and information retrieval that adds intelligent value:
 ## Guideline Usage
 
 ### For Agents
+
 Agents reference guidelines in their context to:
+
 - Understand design philosophy and brand identity
 - Follow architectural patterns and conventions
 - Apply consistent standards across tasks
 - Make decisions aligned with project vision
 
 **Example reference in agent prompt:**
+
 ```markdown
 ## Design Guidelines
+
 Refer to `.claude/guidelines/design-system/visual-identity.md` for:
+
 - OKLCH color system and brand palette
 - Typography scale and font families
 - Spacing system and grid
@@ -105,22 +117,28 @@ Refer to `.claude/guidelines/design-system/visual-identity.md` for:
 ```
 
 ### For Skills
+
 Skills embed guideline references to:
+
 - Generate code following conventions
 - Create tokens with correct naming
 - Scaffold components with proper structure
 - Validate outputs against standards
 
 **Example in skill:**
+
 ```markdown
 When creating components, follow:
+
 - `.claude/guidelines/technical-architecture/component-architecture.md`
 - `.claude/guidelines/development-standards/naming-conventions.md`
 - `.claude/guidelines/design-system/token-architecture.md`
 ```
 
 ### For Slash Commands
+
 Commands use guidelines to:
+
 - Analyze code against standards
 - Report deviations from conventions
 - Provide context-aware recommendations
@@ -129,6 +147,7 @@ Commands use guidelines to:
 ## Guideline Maintenance
 
 ### When to Update
+
 - New architectural decisions
 - Design system evolution
 - Framework/tool version changes
@@ -136,12 +155,14 @@ Commands use guidelines to:
 - Accessibility standard updates
 
 ### How to Update
+
 1. **Edit the specific guideline file** in `.claude/guidelines/`
 2. **Update version/date** in the guideline frontmatter
 3. **Test with affected agents/skills/commands** to ensure references work
 4. **Document the change** in the guideline's changelog section
 
 ### Benefits of Centralization
+
 - ✅ Update once, reflect everywhere
 - ✅ No agent prompt duplication
 - ✅ Easier to maintain consistency
@@ -167,33 +188,42 @@ related_guidelines: [list-of-related-ids]
 # Title
 
 ## Overview
+
 Brief description of what this guideline covers and why it exists.
 
 ## Principles
+
 Core principles and philosophy behind these standards.
 
 ## Standards
+
 Specific, actionable standards with examples.
 
 ## Examples
+
 Code examples, before/after comparisons, usage patterns.
 
 ## Anti-patterns
+
 What NOT to do, common mistakes to avoid.
 
 ## Validation
+
 How to validate compliance with this guideline.
 
 ## References
+
 Links to external resources, RFCs, documentation.
 
 ## Changelog
+
 Version history of this guideline.
 ```
 
 ## Quick Reference
 
 ### Most Referenced Guidelines
+
 1. **visual-identity.md** - Brand colors, typography, spacing (from packages/tokens/src/ JSON source files)
 2. **token-architecture.md** - 3-layer system, Ingredients → Flavors → Recipes
 3. **component-architecture.md** - Monolithic 7-file structure
@@ -201,6 +231,7 @@ Version history of this guideline.
 5. **accessibility-standards.md** - WCAG 2.1 AA compliance requirements
 
 ### Getting Started
+
 1. Read this README to understand the architecture
 2. Review `_TEMPLATE.md` to understand guideline format
 3. Explore `design-system/` for design-related standards
@@ -210,6 +241,7 @@ Version history of this guideline.
 ## Integration with Project Plans
 
 This guidelines architecture aligns with:
+
 - **skills-implementation-plan.md**: Skills reference guidelines for code generation
 - **commands-implementation-plan.md**: Commands analyze against guideline standards
 - **action-plan.md**: Progressive release incorporates guideline compliance at each phase
@@ -217,6 +249,7 @@ This guidelines architecture aligns with:
 ## Contributing
 
 To propose a new guideline or modify existing ones:
+
 1. Open a discussion in the team about the proposed standard
 2. Draft using `_TEMPLATE.md` format
 3. Get review from relevant agent specialists (design-system-architect, ui-designer, etc.)

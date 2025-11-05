@@ -31,6 +31,7 @@ your-component/
 ```
 
 **Why this structure?**
+
 - **Portable**: Copy the folder to another project and it works
 - **Discoverable**: Everything about the component is in one place
 - **Testable**: Tests live next to the code they test
@@ -188,25 +189,25 @@ export class SandoYourComponent extends LitElement {
     }
 
     /* Variant styles */
-    :host([variant="solid"]) .container {
+    :host([variant='solid']) .container {
       background: var(--sando-your-component-solid-bg);
     }
 
-    :host([variant="outline"]) .container {
+    :host([variant='outline']) .container {
       background: transparent;
       border: 1px solid var(--sando-your-component-outline-border);
     }
 
     /* Size styles */
-    :host([size="small"]) .container {
+    :host([size='small']) .container {
       padding: var(--sando-your-component-size-small-padding);
     }
 
-    :host([size="medium"]) .container {
+    :host([size='medium']) .container {
       padding: var(--sando-your-component-size-medium-padding);
     }
 
-    :host([size="large"]) .container {
+    :host([size='large']) .container {
       padding: var(--sando-your-component-size-large-padding);
     }
   `;
@@ -496,6 +497,7 @@ Add to `package.json` exports (if needed):
 Before considering a component complete, ensure ALL files are created:
 
 **Required Files in Component Folder:**
+
 - [ ] `sando-{name}.ts` - Component implementation with all variants
 - [ ] `sando-{name}.types.ts` - All type definitions
 - [ ] `sando-{name}.stories.ts` - Storybook stories with Controls
@@ -505,6 +507,7 @@ Before considering a component complete, ensure ALL files are created:
 - [ ] `index.ts` - Barrel export
 
 **Quality Standards:**
+
 - [ ] Comprehensive JSDoc documentation
 - [ ] Accessibility compliance (WCAG 2.1 AA)
 - [ ] Keyboard navigation support
@@ -515,6 +518,7 @@ Before considering a component complete, ensure ALL files are created:
 - [ ] Export in `package.json` (if needed)
 
 **Benefits of This Structure:**
+
 - Component is fully self-contained
 - Easy to find all related files
 - Tests live next to the code

@@ -42,9 +42,7 @@ import '@sando/components/button';
 ```
 
 ```html
-<sando-button variant="solid" size="medium">
-  Click me
-</sando-button>
+<sando-button variant="solid" size="medium"> Click me </sando-button>
 ```
 
 ## Framework Integration
@@ -54,21 +52,21 @@ import '@sando/components/button';
 ```html
 <!DOCTYPE html>
 <html>
-<head>
-  <link rel="stylesheet" href="node_modules/@sando/tokens/dist/css/tokens.css">
-</head>
-<body>
-  <sando-button variant="solid">Click me</sando-button>
+  <head>
+    <link rel="stylesheet" href="node_modules/@sando/tokens/dist/css/tokens.css" />
+  </head>
+  <body>
+    <sando-button variant="solid">Click me</sando-button>
 
-  <script type="module">
-    import '@sando/components/button';
+    <script type="module">
+      import '@sando/components/button';
 
-    const button = document.querySelector('sando-button');
-    button.addEventListener('click', (e) => {
-      console.log('Clicked!', e.detail);
-    });
-  </script>
-</body>
+      const button = document.querySelector('sando-button');
+      button.addEventListener('click', (e) => {
+        console.log('Clicked!', e.detail);
+      });
+    </script>
+  </body>
 </html>
 ```
 
@@ -117,13 +115,7 @@ declare global {
 
 ```vue
 <template>
-  <sando-button
-    variant="solid"
-    size="medium"
-    @click="handleClick"
-  >
-    Click me
-  </sando-button>
+  <sando-button variant="solid" size="medium" @click="handleClick"> Click me </sando-button>
 </template>
 
 <script setup lang="ts">
@@ -167,13 +159,7 @@ export class AppModule {}
 
 ```html
 <!-- app.component.html -->
-<sando-button
-  variant="solid"
-  size="medium"
-  (click)="handleClick($event)"
->
-  Click me
-</sando-button>
+<sando-button variant="solid" size="medium" (click)="handleClick($event)"> Click me </sando-button>
 ```
 
 ### Svelte
@@ -239,10 +225,10 @@ Fine-grained control via CSS custom properties:
 
 ## Available Components
 
-| Component | Description | Status |
-|-----------|-------------|--------|
-| `sando-button` | Interactive button with multiple variants and sizes | ✅ Stable |
-| More coming soon... | Additional components in development | 🚧 Planned |
+| Component           | Description                                         | Status     |
+| ------------------- | --------------------------------------------------- | ---------- |
+| `sando-button`      | Interactive button with multiple variants and sizes | ✅ Stable  |
+| More coming soon... | Additional components in development                | 🚧 Planned |
 
 ## Component APIs
 
@@ -255,16 +241,16 @@ import type { SandoButton, ButtonVariant, ButtonSize } from '@sando/components';
 
 **Properties:**
 
-| Property | Type | Default | Description |
-|----------|------|---------|-------------|
-| `variant` | `'solid' \| 'outline' \| 'ghost'` | `'solid'` | Visual style variant |
-| `size` | `'small' \| 'medium' \| 'large'` | `'medium'` | Button size |
-| `status` | `'default' \| 'success' \| 'destructive'` | `'default'` | Status variant |
-| `disabled` | `boolean` | `false` | Whether button is disabled |
-| `loading` | `boolean` | `false` | Whether button is in loading state |
-| `type` | `'button' \| 'submit' \| 'reset'` | `'button'` | Button type for forms |
-| `fullWidth` | `boolean` | `false` | Whether button takes full width |
-| `flavor` | `string` | `'original'` | Design system theme |
+| Property    | Type                                      | Default      | Description                        |
+| ----------- | ----------------------------------------- | ------------ | ---------------------------------- |
+| `variant`   | `'solid' \| 'outline' \| 'ghost'`         | `'solid'`    | Visual style variant               |
+| `size`      | `'small' \| 'medium' \| 'large'`          | `'medium'`   | Button size                        |
+| `status`    | `'default' \| 'success' \| 'destructive'` | `'default'`  | Status variant                     |
+| `disabled`  | `boolean`                                 | `false`      | Whether button is disabled         |
+| `loading`   | `boolean`                                 | `false`      | Whether button is in loading state |
+| `type`      | `'button' \| 'submit' \| 'reset'`         | `'button'`   | Button type for forms              |
+| `fullWidth` | `boolean`                                 | `false`      | Whether button takes full width    |
+| `flavor`    | `string`                                  | `'original'` | Design system theme                |
 
 **Slots:**
 
@@ -415,6 +401,7 @@ packages/components/
 ```
 
 **Benefits of Monolithic Structure:**
+
 - Each component folder is portable - copy it to another project and it works
 - Easy to find everything related to a component
 - Tests live next to the code they test
@@ -476,6 +463,7 @@ This ensures every component is self-contained and fully tested.
 - Samsung Internet 15+
 
 All modern browsers that support:
+
 - ES2020
 - Web Components (Custom Elements v1, Shadow DOM v1)
 - CSS Custom Properties
@@ -483,6 +471,7 @@ All modern browsers that support:
 ## Contributing
 
 See the main repository [CONTRIBUTING.md](../../CONTRIBUTING.md) for:
+
 - Development workflow
 - Code style guidelines
 - Pull request process

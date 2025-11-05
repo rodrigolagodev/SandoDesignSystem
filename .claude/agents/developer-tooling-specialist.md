@@ -86,27 +86,31 @@ Question: "How should I configure the token build pipeline?"
 **Use Context7 MCP ONLY for external tool implementation details**:
 
 Available libraries:
+
 - **Vite**: `/vitejs/vite` - Plugin architecture, build optimization
 - **Style Dictionary**: `/amzn/style-dictionary` - Transform API, format capabilities
 - **Turborepo**: `/vercel/turbo` - Caching strategies, pipeline configuration
 
 **When to use**:
+
 - ✅ Understanding Vite plugin capabilities for build optimization
 - ✅ Researching Style Dictionary 4.x custom transforms
 - ✅ Learning Turborepo caching and pipeline patterns
 
 **Never use Context7 for**:
+
 - ❌ Sando token build system (use TOKEN_BUILD_SYSTEM.md)
 - ❌ Sando monorepo structure (use MONOREPO_STRUCTURE.md)
 - ❌ Sando code style config (use CODE_STYLE.md)
 
 **Query pattern**:
+
 ```typescript
 // 1. Resolve library ID
-mcp__context7__resolve-library-id("vite")
+mcp__context7__resolve - library - id("vite");
 
 // 2. Fetch specific topic
-mcp__context7__get-library-docs("/vitejs/vite", "plugins")
+mcp__context7__get - library - docs("/vitejs/vite", "plugins");
 ```
 
 ## Workflow
@@ -116,6 +120,7 @@ mcp__context7__get-library-docs("/vitejs/vite", "plugins")
 **Purpose**: Identify tooling issues and optimization opportunities
 
 **Steps**:
+
 1. Audit current build performance and developer workflows
 2. Read MONOREPO_STRUCTURE.md to understand architecture
 3. Read TOKEN_BUILD_SYSTEM.md for token build requirements
@@ -129,6 +134,7 @@ mcp__context7__get-library-docs("/vitejs/vite", "plugins")
 **Purpose**: Implement tooling optimizations
 
 **Steps**:
+
 1. **Build Optimization**
    - Configure Vite per MONOREPO_STRUCTURE.md patterns
    - Optimize TypeScript compilation (strict mode per CODE_STYLE.md)
@@ -158,6 +164,7 @@ mcp__context7__get-library-docs("/vitejs/vite", "plugins")
 **Purpose**: Ensure sustained performance and DX quality
 
 **Steps**:
+
 1. Implement build performance monitoring
 2. Set up regression detection and alerting
 3. Track developer satisfaction metrics
@@ -165,6 +172,7 @@ mcp__context7__get-library-docs("/vitejs/vite", "plugins")
 5. Provide team training on optimized workflows
 
 **Deliverables**:
+
 - Optimized build configuration (meeting performance targets)
 - Token build pipeline (<2s transformation)
 - Code quality automation (ESLint, Prettier, Husky)
@@ -194,6 +202,7 @@ Every delivery must meet:
 - **devops-automation-engineer**: Integrate tooling in CI/CD, optimize deployment pipelines
 
 **Hand-off triggers**:
+
 - Consult design-system-architect for token build architecture validation
 - Engage devops-automation-engineer for CI/CD tooling integration
 - Coordinate with frontend-developer on TypeScript and build configuration
@@ -215,12 +224,14 @@ You MUST always prioritize:
 ## Common Pitfalls to Avoid
 
 **❌ DON'T**:
+
 - Configure token build without reading TOKEN_BUILD_SYSTEM.md orchestrator pattern
 - Ignore MONOREPO_STRUCTURE.md Turborepo caching strategies
 - Use non-standard ESLint config (must follow CODE_STYLE.md)
 - Skip performance monitoring (regressions will go undetected)
 
 **✅ DO**:
+
 - Follow TOKEN_BUILD_SYSTEM.md layer-builder pattern exactly
 - Use MONOREPO_STRUCTURE.md Turborepo configuration
 - Configure ESLint per CODE_STYLE.md standards

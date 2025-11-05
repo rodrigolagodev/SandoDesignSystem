@@ -32,16 +32,14 @@ pnpm add @sando/components @sando/tokens
 
 ```ts
 // main.ts or App.tsx
-import '@sando/tokens/css'
-import '@sando/components/button'
+import "@sando/tokens/css";
+import "@sando/components/button";
 ```
 
 ## Step 4: Use Your First Component
 
 ```html
-<sando-button variant="solid" size="medium">
-  Hello Sando!
-</sando-button>
+<sando-button variant="solid" size="medium"> Hello Sando! </sando-button>
 ```
 
 ## Full Example
@@ -53,23 +51,23 @@ Here's a complete working example:
 ```html [index.html]
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Sando App</title>
-</head>
-<body>
-  <div id="app"></div>
-  <script type="module" src="/main.ts"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Sando App</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/main.ts"></script>
+  </body>
 </html>
 ```
 
 ```ts [main.ts]
-import '@sando/tokens/css'
-import '@sando/components/button'
+import "@sando/tokens/css";
+import "@sando/components/button";
 
-const app = document.querySelector('#app')!
+const app = document.querySelector("#app")!;
 
 app.innerHTML = `
   <div style="padding: 2rem;">
@@ -103,7 +101,7 @@ app.innerHTML = `
       </sando-button>
     </div>
   </div>
-`
+`;
 ```
 
 :::
@@ -126,15 +124,16 @@ Enable full type safety and autocomplete:
 Now you get full IntelliSense:
 
 ```tsx
-import { SandoButton } from '@sando/components/button'
+import { SandoButton } from "@sando/components/button";
 
 // TypeScript knows all props and methods
-const button = new SandoButton()
-button.variant = 'solid'  // ✅ Autocomplete works!
-button.size = 'medium'    // ✅ Type-checked
-button.onClick = (e) => { // ✅ Event types
-  console.log(e)
-}
+const button = new SandoButton();
+button.variant = "solid"; // ✅ Autocomplete works!
+button.size = "medium"; // ✅ Type-checked
+button.onClick = (e) => {
+  // ✅ Event types
+  console.log(e);
+};
 ```
 
 ## Adding Event Listeners
@@ -142,20 +141,17 @@ button.onClick = (e) => { // ✅ Event types
 Sando components emit standard DOM events:
 
 ```ts
-const button = document.querySelector('sando-button')
+const button = document.querySelector("sando-button");
 
-button?.addEventListener('click', (event) => {
-  console.log('Button clicked!', event)
-})
+button?.addEventListener("click", (event) => {
+  console.log("Button clicked!", event);
+});
 ```
 
 In React:
 
 ```tsx
-<sando-button
-  variant="solid"
-  onClick={(e) => console.log('Clicked!', e)}
->
+<sando-button variant="solid" onClick={(e) => console.log("Clicked!", e)}>
   Click me
 </sando-button>
 ```
@@ -190,9 +186,7 @@ Apply different flavors to components:
 
 ```html
 <!-- Default flavor (original) -->
-<sando-button variant="solid">
-  Original Flavor
-</sando-button>
+<sando-button variant="solid"> Original Flavor </sando-button>
 
 <!-- Strawberry flavor -->
 <sando-button variant="solid" flavor="strawberry">
@@ -224,15 +218,9 @@ Now that you've built your first component, explore:
     required
   ></sando-input>
 
-  <sando-input
-    label="Password"
-    type="password"
-    required
-  ></sando-input>
+  <sando-input label="Password" type="password" required></sando-input>
 
-  <sando-button variant="solid" type="submit">
-    Sign In
-  </sando-button>
+  <sando-button variant="solid" type="submit"> Sign In </sando-button>
 </form>
 ```
 
@@ -266,8 +254,8 @@ Now that you've built your first component, explore:
 Make sure you've imported both the CSS tokens and the component:
 
 ```ts
-import '@sando/tokens/css'      // ← Don't forget this!
-import '@sando/components/button'
+import "@sando/tokens/css"; // ← Don't forget this!
+import "@sando/components/button";
 ```
 
 ### TypeScript errors in JSX?

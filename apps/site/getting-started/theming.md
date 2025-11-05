@@ -7,22 +7,27 @@ Learn how to customize and theme Sando using the three-layer token architecture 
 Sando separates theming into two independent concepts:
 
 ### Flavors (Color Palettes)
+
 **Flavors** are complete color palettes - think of them as different "brands" or "themes":
+
 - `original` - The default Sando flavor (neutral-based) ✅ **Available**
 - `strawberry` (orange-based), `ocean` (blue-based), `forest` (green-based), `sunset` (orange+warm) ✅ **Available**
 
 Flavors are built from our **8 curated color palettes**: orange, blue, green, red, purple, pink + 3 neutral variants (neutral, neutral-warm, neutral-cool).
 
 ### Modes (Accessibility Variants)
+
 **Modes** are accessibility-focused variants that work with ANY flavor:
 
 **Color Modes** (mutually exclusive - only one at a time):
+
 - **Light** (default) - Base colors for daytime use
 - **Dark** (`flavor-mode="dark"`) - Inverted colors for low-light
 - **High Contrast** (`flavor-mode="high-contrast"`) - Maximum contrast for WCAG AAA
 - **Forced Colors** (system-only) - Windows High Contrast mode
 
 **Motion Mode** (independent - combines with any color mode):
+
 - **Motion Reduce** (auto via `@media`) - Disables animations for accessibility
 
 ## How It Works
@@ -63,6 +68,7 @@ Sando automatically detects and applies modes based on system preferences:
 ```
 
 **No JavaScript required!** Sando uses CSS `@media` queries:
+
 - `@media (prefers-color-scheme: dark)` → Dark mode
 - `@media (prefers-contrast: more)` → High contrast
 - `@media (prefers-reduced-motion: reduce)` → No animations
@@ -80,6 +86,7 @@ Sando automatically detects and applies modes based on system preferences:
 ```
 
 **When to use:**
+
 - Daytime reading
 - Well-lit environments
 - Maximum color fidelity
@@ -93,10 +100,12 @@ Sando automatically detects and applies modes based on system preferences:
 ```
 
 **When applied:**
+
 - User has dark mode enabled in system settings
 - `@media (prefers-color-scheme: dark)` matches
 
 **Benefits:**
+
 - Low-light environments
 - Night reading
 - OLED screen battery saving
@@ -110,16 +119,19 @@ Sando automatically detects and applies modes based on system preferences:
 ```
 
 **When applied:**
+
 - User has high contrast enabled in system settings
 - `@media (prefers-contrast: more)` matches
 
 **Benefits:**
+
 - Visual impairments
 - Bright sunlight viewing
 - WCAG AAA compliance
 - Maximum readability
 
 **Features:**
+
 - Black/white colors only
 - Thicker borders
 - Maximum contrast ratios (21:1)
@@ -132,11 +144,13 @@ Sando automatically detects and applies modes based on system preferences:
 ```
 
 **When to use:**
+
 - Windows High Contrast users
 - System-defined color schemes
 - Screen reader users
 
 **Features:**
+
 - Uses CSS system colors (`Canvas`, `CanvasText`, `LinkText`, etc.)
 - Automatically applied - no manual override available
 - Respects user's OS color choices
@@ -151,12 +165,14 @@ Sando automatically detects and applies modes based on system preferences:
 ```
 
 **When to use:**
+
 - Vestibular disorders
 - Motion sensitivity
 - Reduced distraction
 - Better performance
 
 **Features:**
+
 - All animation durations set to `0ms`
 - Transitions disabled
 - Auto-applied via CSS media query
@@ -247,12 +263,12 @@ Override specific tokens without changing modes:
 
 ## Accessibility Compliance
 
-| Mode | WCAG Level | Min Contrast |
-|------|------------|--------------|
-| Light | AA | 4.5:1 |
-| Dark | AA | 4.5:1 |
-| High Contrast | AAA | 7:1 |
-| Forced Colors | System | System-defined |
+| Mode          | WCAG Level | Min Contrast   |
+| ------------- | ---------- | -------------- |
+| Light         | AA         | 4.5:1          |
+| Dark          | AA         | 4.5:1          |
+| High Contrast | AAA        | 7:1            |
+| Forced Colors | System     | System-defined |
 
 All Sando modes meet or exceed WCAG 2.1 Level AA. High Contrast mode achieves Level AAA.
 
@@ -261,6 +277,7 @@ All Sando modes meet or exceed WCAG 2.1 Level AA. High Contrast mode achieves Le
 ### In Browser DevTools
 
 **Chrome/Edge:**
+
 1. Open DevTools → Rendering
 2. Emulate CSS media features:
    - `prefers-color-scheme: dark`
@@ -269,6 +286,7 @@ All Sando modes meet or exceed WCAG 2.1 Level AA. High Contrast mode achieves Le
    - `forced-colors: active`
 
 **Firefox:**
+
 1. Open DevTools → Accessibility
 2. Simulate: Dark theme, High contrast, Reduced motion
 
@@ -276,14 +294,20 @@ All Sando modes meet or exceed WCAG 2.1 Level AA. High Contrast mode achieves Le
 
 ```ts
 // Check current system preference
-const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-const prefersHighContrast = window.matchMedia('(prefers-contrast: more)').matches
-const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+const prefersHighContrast = window.matchMedia(
+  "(prefers-contrast: more)",
+).matches;
+const prefersReducedMotion = window.matchMedia(
+  "(prefers-reduced-motion: reduce)",
+).matches;
 
 // Listen for changes
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-  console.log('Dark mode:', e.matches)
-})
+window
+  .matchMedia("(prefers-color-scheme: dark)")
+  .addEventListener("change", (e) => {
+    console.log("Dark mode:", e.matches);
+  });
 ```
 
 ## Advanced: Creating Custom Flavors
