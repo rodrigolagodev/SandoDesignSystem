@@ -55,7 +55,7 @@ features:
 ```html
 <!-- Install the package -->
 <script type="module">
-	import "@sando/components/button";
+  import "@sando/components/button";
 </script>
 
 <!-- Use the component -->

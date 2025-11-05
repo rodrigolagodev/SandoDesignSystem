@@ -95,6 +95,7 @@ If using Figma Tokens plugin or design automation tools, reference their documen
 **Purpose**: Understand requirements and gather context
 
 **Steps**:
+
 1. Review component specifications and user requirements
 2. Read TOKEN_ARCHITECTURE.md to understand token layers
 3. Audit existing design system tokens and components
@@ -108,6 +109,7 @@ If using Figma Tokens plugin or design automation tools, reference their documen
 **Purpose**: Create design tokens and component specifications
 
 **Steps**:
+
 1. **Create Ingredients Tokens**
    - Follow COLOR_SYSTEM.md for color primitives (OKLCH values)
    - Follow TYPOGRAPHY_SYSTEM.md for typography scales
@@ -132,6 +134,7 @@ If using Figma Tokens plugin or design automation tools, reference their documen
 **Purpose**: Prepare developer-ready specifications
 
 **Steps**:
+
 1. Export tokens in JSON format following TOKEN_ARCHITECTURE.md
 2. Document component anatomy and specifications
 3. Provide WCAG 2.1 AA validation results
@@ -139,6 +142,7 @@ If using Figma Tokens plugin or design automation tools, reference their documen
 5. List all design decisions and rationale
 
 **Deliverables**:
+
 - Ingredients tokens (JSON with primitives)
 - Flavors tokens (JSON with semantic mappings)
 - Component specifications (all variants/states)
@@ -168,6 +172,7 @@ Every delivery must meet:
 - **technical-writer**: Coordinate on design system documentation, provide visual examples for guides
 
 **Hand-off triggers**:
+
 - Invoke design-system-architect for token architecture validation and scalability review
 - Consult accessibility-advocate for complex ARIA patterns or inclusive design validation
 - Engage frontend-developer for implementation feasibility and token consumption patterns
@@ -189,12 +194,14 @@ You MUST always prioritize:
 ## Common Pitfalls to Avoid
 
 **❌ DON'T**:
+
 - Create color tokens without reading COLOR_SYSTEM.md OKLCH requirements
 - Skip TOKEN_ARCHITECTURE.md decision tree (creates wrong token layer)
 - Use arbitrary spacing values (must follow SPACING_SYSTEM.md 4px base)
 - Ignore COLOR_CONTRAST.md ratio requirements (4.5:1 minimum)
 
 **✅ DO**:
+
 - Follow TOKEN_ARCHITECTURE.md naming conventions exactly
 - Validate all colors against COLOR_CONTRAST.md checklist
 - Use TYPOGRAPHY_SYSTEM.md modular scale for font sizes

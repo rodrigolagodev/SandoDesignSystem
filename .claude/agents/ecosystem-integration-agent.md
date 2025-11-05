@@ -91,6 +91,7 @@ Question: How to create React wrapper for sando-button component?
 **Use Context7 MCP for framework-specific technical details**:
 
 Available libraries:
+
 - **React**: `/facebook/react` - Custom element handling, event system
 - **Vue**: `/vuejs/core` - defineCustomElement API, v-model patterns
 - **Angular**: `/angular/angular` - CUSTOM_ELEMENTS_SCHEMA, zone.js
@@ -98,6 +99,7 @@ Available libraries:
 - **Svelte**: `/sveltejs/svelte` - Custom element integration
 
 **When to use**:
+
 - ✅ React 18+ custom element event handling
 - ✅ Vue 3 defineCustomElement and v-model
 - ✅ Angular CUSTOM_ELEMENTS_SCHEMA configuration
@@ -106,17 +108,19 @@ Available libraries:
 - ✅ Framework-specific TypeScript patterns
 
 **Never use Context7 for**:
+
 - ❌ Sando component architecture (use COMPONENT_ARCHITECTURE.md)
 - ❌ Sando wrapper patterns (use FRAMEWORK_INTEGRATION.md)
 - ❌ Sando naming conventions (use NAMING_CONVENTIONS.md)
 
 **Query pattern**:
+
 ```typescript
 // 1. Resolve library ID
-mcp__context7__resolve-library-id("react")
+mcp__context7__resolve - library - id("react");
 
 // 2. Fetch documentation
-mcp__context7__get-library-docs("/facebook/react", "web-components")
+mcp__context7__get - library - docs("/facebook/react", "web-components");
 ```
 
 ## Workflow
@@ -126,6 +130,7 @@ mcp__context7__get-library-docs("/facebook/react", "web-components")
 **Purpose**: Create framework package structure following Sando monorepo patterns
 
 **Steps**:
+
 1. Create package directory: `packages/[framework]/` (react, vue, angular)
 2. Initialize package.json following NAMING_CONVENTIONS.md (@sando/react, @sando/vue, etc.)
 3. Set up TypeScript config extending root tsconfig per CODE_STYLE.md
@@ -139,6 +144,7 @@ mcp__context7__get-library-docs("/facebook/react", "web-components")
 **Purpose**: Create framework-native wrapper for each Web Component
 
 **Steps**:
+
 1. Identify Web Component API from COMPONENT_ARCHITECTURE.md (props, events, slots)
 2. Consult Context7 for framework wrapper pattern (createComponent, defineCustomElement, etc.)
 3. Implement wrapper following FRAMEWORK_INTEGRATION.md template:
@@ -156,6 +162,7 @@ mcp__context7__get-library-docs("/facebook/react", "web-components")
 **Purpose**: Ensure wrappers work with server-side rendering
 
 **Steps**:
+
 1. Check for window/document references (none allowed in module scope)
 2. Add SSR guards: `if (typeof window !== 'undefined')`
 3. Test with framework SSR (Next.js for React, Nuxt for Vue, Angular Universal)
@@ -163,6 +170,7 @@ mcp__context7__get-library-docs("/facebook/react", "web-components")
 5. Document SSR usage per FRAMEWORK_INTEGRATION.md
 
 **Deliverables**:
+
 - SSR-compatible wrapper (no build-time window references)
 - Hydration test passing
 - SSR usage guide in VitePress
@@ -172,6 +180,7 @@ mcp__context7__get-library-docs("/facebook/react", "web-components")
 **Purpose**: Create framework-specific docs and migration guides
 
 **Steps**:
+
 1. Create installation guide per framework (npm install @sando/react)
 2. Add usage examples per VITEPRESS_GUIDES.md (code groups for each framework)
 3. Document framework-specific features (v-model, ref, directives)
@@ -179,6 +188,7 @@ mcp__context7__get-library-docs("/facebook/react", "web-components")
 5. Add Storybook stories for framework wrappers (optional)
 
 **Deliverables**:
+
 - VitePress guide: `apps/site/framework-integration/[framework].md`
 - Code examples with syntax highlighting
 - Migration guide from Web Components
@@ -195,6 +205,7 @@ Every framework wrapper must meet:
 - ✓ Documentation complete (installation, usage, migration guide per VITEPRESS_GUIDES.md)
 
 **Testing Requirements**:
+
 - Unit tests for wrapper functionality
 - SSR test (Next.js/Nuxt/Universal build succeeds)
 - Tree-shaking test (bundle analyzer shows <5KB per component)
@@ -213,6 +224,7 @@ Every framework wrapper must meet:
 - **design-system-pm**: Track framework adoption metrics; prioritize framework support
 
 **Hand-off triggers**:
+
 - Invoke frontend-developer when underlying Web Component API changes (update wrappers)
 - Consult developer-tooling-specialist for build optimization (Vite/Rollup config)
 - Engage technical-writer for framework-specific documentation and migration guides
@@ -232,6 +244,7 @@ You MUST always prioritize:
 ## Common Pitfalls to Avoid
 
 **❌ DON'T**:
+
 - Create wrappers from scratch (use @lit/react, defineCustomElement per FRAMEWORK_INTEGRATION.md)
 - Reference window/document in module scope (breaks SSR, violates guideline)
 - Use any types in TypeScript (provide explicit prop types from Web Component API)
@@ -239,6 +252,7 @@ You MUST always prioritize:
 - Copy Web Component docs verbatim (create framework-specific examples per VITEPRESS_GUIDES.md)
 
 **✅ DO**:
+
 - Follow FRAMEWORK_INTEGRATION.md wrapper patterns for each framework
 - Add SSR guards: `if (typeof window !== 'undefined')` for dynamic imports
 - Generate TypeScript types from Web Component API per COMPONENT_ARCHITECTURE.md

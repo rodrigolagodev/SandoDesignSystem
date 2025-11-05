@@ -63,7 +63,12 @@
 import { LitElement, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
-import type { ButtonVariant, ButtonSize, ButtonStatus, ButtonRadius } from './sando-button.types.js';
+import type {
+  ButtonVariant,
+  ButtonSize,
+  ButtonStatus,
+  ButtonRadius
+} from './sando-button.types.js';
 import { FlavorableMixin } from '../../mixins/index.js';
 import { tokenStyles } from '../../styles/tokens.css.js';
 import {
@@ -72,7 +77,7 @@ import {
   sizeStyles,
   radiusStyles,
   statusStyles,
-  stateStyles,
+  stateStyles
 } from './styles/index.js';
 
 @customElement('sando-button')
@@ -207,13 +212,13 @@ export class SandoButton extends FlavorableMixin(LitElement) {
    * Order matters for specificity
    */
   static styles = [
-    tokenStyles,     // Design tokens (Ingredients, Flavors, Recipes)
-    baseStyles,      // Reset, layout, typography, focus
-    variantStyles,   // Solid, outline, ghost
-    sizeStyles,      // Small, medium, large, icon-only
-    radiusStyles,    // None, default, full
-    statusStyles,    // Success, destructive
-    stateStyles,     // Loading, disabled, active
+    tokenStyles, // Design tokens (Ingredients, Flavors, Recipes)
+    baseStyles, // Reset, layout, typography, focus
+    variantStyles, // Solid, outline, ghost
+    sizeStyles, // Small, medium, large, icon-only
+    radiusStyles, // None, default, full
+    statusStyles, // Success, destructive
+    stateStyles // Loading, disabled, active
   ];
 
   private handleClick(e: MouseEvent) {
@@ -254,7 +259,9 @@ export class SandoButton extends FlavorableMixin(LitElement) {
           href=${this.href}
           target=${this.target || '_self'}
           rel=${this.rel || (this.target === '_blank' ? 'noopener noreferrer' : '')}
-          ?download=${typeof this.download === 'boolean' ? this.download : this.download !== undefined}
+          ?download=${typeof this.download === 'boolean'
+            ? this.download
+            : this.download !== undefined}
           download=${typeof this.download === 'string' ? this.download : ''}
           aria-label=${this.ariaLabel || ''}
           aria-pressed=${this.toggle ? (this.active ? 'true' : 'false') : ''}

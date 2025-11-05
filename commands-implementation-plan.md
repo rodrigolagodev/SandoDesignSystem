@@ -671,12 +671,12 @@ Code change:
 ```css
 /* Before */
 :host([disabled]) .button {
-	color: var(--sando-color-neutral-400); /* 3.2:1 */
+  color: var(--sando-color-neutral-400); /* 3.2:1 */
 }
 
 /* After */
 :host([disabled]) .button {
-	color: var(--sando-color-neutral-700); /* 5.2:1 ✅ */
+  color: var(--sando-color-neutral-700); /* 5.2:1 ✅ */
 }
 ```
 
@@ -1043,17 +1043,17 @@ From code, extract:
 ```html
 <!-- Global theme -->
 <html flavor="ocean">
-	<sando-$ARGUMENTS>Ocean themed</sando-$ARGUMENTS>
+  <sando-$ARGUMENTS>Ocean themed</sando-$ARGUMENTS>
 </html>
 
 <!-- Section theme -->
 <div flavor="sunset">
-	<sando-$ARGUMENTS>Sunset themed</sando-$ARGUMENTS>
+  <sando-$ARGUMENTS>Sunset themed</sando-$ARGUMENTS>
 </div>
 
 <!-- CSS override -->
 <sando-$ARGUMENTS style="--sando-$ARGUMENTS-backgroundColor: #custom;">
-	Custom color
+  Custom color
 </sando-$ARGUMENTS>
 ```
 
@@ -1221,24 +1221,24 @@ Code Issue:
 ```typescript
 // Current test (WRONG)
 test("should close on Escape", async ({ page }) => {
-	await page.press("Escape");
-	// ❌ Modal not opened first!
-	await expect(modal).not.toBeVisible();
+  await page.press("Escape");
+  // ❌ Modal not opened first!
+  await expect(modal).not.toBeVisible();
 });
 
 // Fixed test
 test("should close on Escape", async ({ page }) => {
-	const modal = page.locator("sando-modal");
+  const modal = page.locator("sando-modal");
 
-	// 1. Open modal first
-	await modal.evaluate((el) => (el.open = true));
-	await expect(modal).toBeVisible();
+  // 1. Open modal first
+  await modal.evaluate((el) => (el.open = true));
+  await expect(modal).toBeVisible();
 
-	// 2. Then press Escape
-	await page.press("Escape");
+  // 2. Then press Escape
+  await page.press("Escape");
 
-	// 3. Verify closed
-	await expect(modal).not.toBeVisible();
+  // 3. Verify closed
+  await expect(modal).not.toBeVisible();
 });
 ```
 
@@ -1270,13 +1270,13 @@ Update Recipe token in packages/tokens/src/recipes/dropdown.json:
 
 ```json
 {
-	"dropdown": {
-		"item": {
-			"textColor": {
-				"disabled": "{color.neutral.600}" // Was: neutral.400
-			}
-		}
-	}
+  "dropdown": {
+    "item": {
+      "textColor": {
+        "disabled": "{color.neutral.600}" // Was: neutral.400
+      }
+    }
+  }
 }
 ```
 
@@ -1438,8 +1438,8 @@ Fix (Recommended):
 ```typescript
 // NEW FILE: packages/components/src/types/shared.ts
 export interface BaseComponentProps {
-	size: "small" | "medium" | "large";
-	disabled: boolean;
+  size: "small" | "medium" | "large";
+  disabled: boolean;
 }
 
 // sando-button.ts

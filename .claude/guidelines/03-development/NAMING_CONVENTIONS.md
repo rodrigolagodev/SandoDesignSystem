@@ -21,9 +21,10 @@ Establish consistent naming patterns for components, files, variables, tokens, a
 **Web Component tag names MUST use the `sando-` prefix with kebab-case. Class names MUST use the `Sando` prefix with PascalCase.**
 
 **Pattern**:
+
 ```typescript
 // ✅ CORRECT: Component naming from sando-button.ts
-@customElement('sando-button')
+@customElement("sando-button")
 export class SandoButton extends FlavorableMixin(LitElement) {
   // Component implementation
 }
@@ -31,24 +32,25 @@ export class SandoButton extends FlavorableMixin(LitElement) {
 // Global type declaration
 declare global {
   interface HTMLElementTagNameMap {
-    'sando-button': SandoButton;
+    "sando-button": SandoButton;
   }
 }
 ```
 
 **Anti-pattern**:
+
 ```typescript
 // ❌ WRONG: Missing prefix
-@customElement('button')
+@customElement("button")
 export class Button extends LitElement {}
 
 // ❌ WRONG: Wrong case for tag name
-@customElement('SandoButton')  // Must be kebab-case
+@customElement("SandoButton") // Must be kebab-case
 export class SandoButton extends LitElement {}
 
 // ❌ WRONG: Missing prefix on class
-@customElement('sando-button')
-export class Button extends LitElement {}  // Must be SandoButton
+@customElement("sando-button")
+export class Button extends LitElement {} // Must be SandoButton
 ```
 
 **Why This Matters**: The `sando-` prefix prevents naming conflicts with native HTML elements and future web standards. Kebab-case is required by the Custom Elements spec. PascalCase for class names follows TypeScript/JavaScript conventions.
@@ -60,6 +62,7 @@ export class Button extends LitElement {}  // Must be SandoButton
 **File names MUST use kebab-case with specific suffixes indicating file purpose.**
 
 **Pattern**:
+
 ```
 ✅ CORRECT: Monolithic component structure
 packages/components/src/components/button/
@@ -73,6 +76,7 @@ packages/components/src/components/button/
 ```
 
 **Anti-pattern**:
+
 ```
 ❌ WRONG: Inconsistent file naming
 ├── SandoButton.ts               # PascalCase (wrong for files)
@@ -97,6 +101,7 @@ packages/components/src/components/button/
 **CSS Naming Formula**: `--sando-{category}-{property}-{variant?}-{state?}`
 
 **Pattern**:
+
 ```css
 /* ✅ CORRECT: Token naming at each layer */
 
@@ -109,11 +114,16 @@ packages/components/src/components/button/
 --sando-color-action-solid-background-default: var(--sando-color-orange-700);
 
 /* Layer 3: Recipes (component-specific) */
---sando-button-solid-backgroundColor-default: var(--sando-color-action-solid-background-default);
---sando-button-solid-backgroundColor-hover: var(--sando-color-action-solid-background-hover);
+--sando-button-solid-backgroundColor-default: var(
+  --sando-color-action-solid-background-default
+);
+--sando-button-solid-backgroundColor-hover: var(
+  --sando-color-action-solid-background-hover
+);
 ```
 
 **Anti-pattern**:
+
 ```css
 /* ❌ WRONG: Missing --sando- prefix */
 --button-color: #f97415;
@@ -132,6 +142,7 @@ packages/components/src/components/button/
 **Variables and properties use camelCase. Types and classes use PascalCase. Constants use UPPER_SNAKE_CASE.**
 
 **Pattern**:
+
 ```typescript
 // ✅ CORRECT: Variable naming
 
@@ -161,17 +172,18 @@ private handleClick(e: MouseEvent) {}
 ```
 
 **Anti-pattern**:
+
 ```typescript
 // ❌ WRONG: Inconsistent casing
-const ButtonVariant = 'solid';  // Should be camelCase
-const button_size = 'medium';   // Should be camelCase
+const ButtonVariant = "solid"; // Should be camelCase
+const button_size = "medium"; // Should be camelCase
 
 // ❌ WRONG: Type naming
-type buttonVariant = 'solid';   // Should be PascalCase
+type buttonVariant = "solid"; // Should be PascalCase
 
 // ❌ WRONG: Unclear boolean naming
-const loading = true;           // Better: isLoading
-const error = false;            // Better: hasError
+const loading = true; // Better: isLoading
+const error = false; // Better: hasError
 ```
 
 **Why This Matters**: Consistent casing conventions improve code readability, prevent naming collisions, follow TypeScript/JavaScript community standards, and enable better IDE autocomplete.
@@ -183,31 +195,33 @@ const error = false;            // Better: hasError
 **Use named exports (not default exports). Export types separately with the `type` keyword. Use barrel exports via `index.ts`.**
 
 **Pattern**:
+
 ```typescript
 // ✅ CORRECT: Named exports (from sando-button.ts)
-@customElement('sando-button')
+@customElement("sando-button")
 export class SandoButton extends FlavorableMixin(LitElement) {
   // Component implementation
 }
 
 // ✅ CORRECT: Type exports (from sando-button.types.ts)
-export type ButtonVariant = 'solid' | 'outline' | 'ghost' | 'text';
+export type ButtonVariant = "solid" | "outline" | "ghost" | "text";
 export interface SandoButtonProps {
   variant?: ButtonVariant;
 }
 
 // ✅ CORRECT: Barrel export (from index.ts)
-export { SandoButton } from './sando-button.js';
-export type { ButtonVariant, SandoButtonProps } from './sando-button.types.js';
+export { SandoButton } from "./sando-button.js";
+export type { ButtonVariant, SandoButtonProps } from "./sando-button.types.js";
 ```
 
 **Anti-pattern**:
+
 ```typescript
 // ❌ WRONG: Default exports
 export default class SandoButton extends LitElement {}
 
 // ❌ WRONG: Not using type keyword for type-only exports
-export { ButtonVariant };  // Should be: export type { ButtonVariant }
+export { ButtonVariant }; // Should be: export type { ButtonVariant }
 ```
 
 **Why This Matters**: Named exports provide better IDE autocomplete, clearer import statements, easier refactoring, and better tree-shaking. The `type` keyword enables TypeScript to strip type imports at compile time.
@@ -220,14 +234,15 @@ export { ButtonVariant };  // Should be: export type { ButtonVariant }
 
 **Format**: `sando-{component-name}` → `Sando{ComponentName}`
 
-| Tag Name | Class Name | Usage |
-|----------|------------|-------|
-| `sando-button` | `SandoButton` | Single word component |
-| `sando-card` | `SandoCard` | Single word component |
-| `sando-text-field` | `SandoTextField` | Multi-word component |
-| `sando-date-picker` | `SandoDatePicker` | Multi-word component |
+| Tag Name            | Class Name        | Usage                 |
+| ------------------- | ----------------- | --------------------- |
+| `sando-button`      | `SandoButton`     | Single word component |
+| `sando-card`        | `SandoCard`       | Single word component |
+| `sando-text-field`  | `SandoTextField`  | Multi-word component  |
+| `sando-date-picker` | `SandoDatePicker` | Multi-word component  |
 
 **Rules**:
+
 1. All lowercase for tag name
 2. Use hyphens for multi-word names
 3. Class name mirrors tag name in PascalCase
@@ -240,7 +255,7 @@ Always declare component in global `HTMLElementTagNameMap`:
 ```typescript
 declare global {
   interface HTMLElementTagNameMap {
-    'sando-button': SandoButton;
+    "sando-button": SandoButton;
   }
 }
 ```
@@ -255,11 +270,11 @@ declare global {
 
 ### Three-Layer Naming Formula
 
-| Layer | Format | Example |
-|-------|--------|---------|
-| **Ingredients** (Primitives) | `--sando-{category}-{scale}` | `--sando-color-orange-700` |
-| **Flavors** (Semantic) | `--sando-{context}-{property}-{variant?}` | `--sando-color-background-base` |
-| **Recipes** (Component) | `--sando-{component}-{variant}-{property}-{state?}` | `--sando-button-solid-backgroundColor-default` |
+| Layer                        | Format                                              | Example                                        |
+| ---------------------------- | --------------------------------------------------- | ---------------------------------------------- |
+| **Ingredients** (Primitives) | `--sando-{category}-{scale}`                        | `--sando-color-orange-700`                     |
+| **Flavors** (Semantic)       | `--sando-{context}-{property}-{variant?}`           | `--sando-color-background-base`                |
+| **Recipes** (Component)      | `--sando-{component}-{variant}-{property}-{state?}` | `--sando-button-solid-backgroundColor-default` |
 
 ### Token JSON Naming
 
@@ -287,12 +302,12 @@ declare global {
 
 ### Type Suffix Patterns
 
-| Pattern | Example | Usage |
-|---------|---------|-------|
-| `{Component}Props` | `SandoButtonProps` | Component props interface |
-| `{Component}{Property}` | `ButtonVariant` | Variant unions |
-| `{Component}{Event}Detail` | `ButtonClickEventDetail` | Event detail interfaces |
-| `{Component}{Event}Event` | `ButtonClickEvent` | Custom event types |
+| Pattern                    | Example                  | Usage                     |
+| -------------------------- | ------------------------ | ------------------------- |
+| `{Component}Props`         | `SandoButtonProps`       | Component props interface |
+| `{Component}{Property}`    | `ButtonVariant`          | Variant unions            |
+| `{Component}{Event}Detail` | `ButtonClickEventDetail` | Event detail interfaces   |
+| `{Component}{Event}Event`  | `ButtonClickEvent`       | Custom event types        |
 
 ### Types vs Interfaces
 
@@ -300,7 +315,7 @@ declare global {
 
 ```typescript
 // ✅ CORRECT: Type for union types
-export type ButtonVariant = 'solid' | 'outline' | 'ghost' | 'text';
+export type ButtonVariant = "solid" | "outline" | "ghost" | "text";
 
 // ✅ CORRECT: Interface for object shapes
 export interface SandoButtonProps {
@@ -313,12 +328,12 @@ export interface SandoButtonProps {
 
 ```typescript
 // ✅ CORRECT: Union types (preferred)
-export type ButtonVariant = 'solid' | 'outline' | 'ghost' | 'text';
+export type ButtonVariant = "solid" | "outline" | "ghost" | "text";
 
 // ❌ WRONG: Enums (avoid)
 export enum ButtonVariant {
-  Solid = 'solid',
-  Outline = 'outline'
+  Solid = "solid",
+  Outline = "outline",
 }
 ```
 
@@ -330,16 +345,16 @@ export enum ButtonVariant {
 
 ### File Suffix Table
 
-| Suffix | Purpose | Example |
-|--------|---------|---------|
-| `.ts` | Component implementation | `sando-button.ts` |
-| `.types.ts` | Type definitions | `sando-button.types.ts` |
-| `.stories.ts` | Storybook documentation | `sando-button.stories.ts` |
-| `.test.ts` | Unit tests (Vitest) | `sando-button.test.ts` |
-| `.spec.ts` | E2E tests (Playwright) | `sando-button.spec.ts` |
-| `.a11y.test.ts` | Accessibility tests | `sando-button.a11y.test.ts` |
-| `.styles.ts` | Style files | `base.styles.ts`, `variant.styles.ts` |
-| `index.ts` | Barrel export | `index.ts` |
+| Suffix          | Purpose                  | Example                               |
+| --------------- | ------------------------ | ------------------------------------- |
+| `.ts`           | Component implementation | `sando-button.ts`                     |
+| `.types.ts`     | Type definitions         | `sando-button.types.ts`               |
+| `.stories.ts`   | Storybook documentation  | `sando-button.stories.ts`             |
+| `.test.ts`      | Unit tests (Vitest)      | `sando-button.test.ts`                |
+| `.spec.ts`      | E2E tests (Playwright)   | `sando-button.spec.ts`                |
+| `.a11y.test.ts` | Accessibility tests      | `sando-button.a11y.test.ts`           |
+| `.styles.ts`    | Style files              | `base.styles.ts`, `variant.styles.ts` |
+| `index.ts`      | Barrel export            | `index.ts`                            |
 
 **Reference**: [COMPONENT_ARCHITECTURE.md](../../02-architecture/COMPONENT_ARCHITECTURE.md) for complete component folder structure.
 
@@ -368,8 +383,8 @@ const hasError = false;
 const canSubmit = true;
 
 // ✅ CORRECT: Common short forms (acceptable for component props)
-const disabled = false;   // Common prop, clear meaning
-const loading = true;     // Common prop, clear meaning
+const disabled = false; // Common prop, clear meaning
+const loading = true; // Common prop, clear meaning
 ```
 
 **Guideline**: Use descriptive prefixes (`is*`, `has*`, `can*`, `should*`) for local variables. Short forms acceptable for component properties.
@@ -395,7 +410,7 @@ interface Props {
 ```typescript
 // ✅ CORRECT: True constants
 const MAX_RETRIES = 3;
-const DEFAULT_VARIANT = 'solid';
+const DEFAULT_VARIANT = "solid";
 
 // ✅ CORRECT: camelCase for computed/configuration values
 const defaultConfig = { timeout: 5000 };
@@ -408,24 +423,28 @@ const defaultConfig = { timeout: 5000 };
 ## Validation Checklist
 
 ### Component Names
+
 - [ ] Tag name uses `sando-` prefix and kebab-case
 - [ ] Class name uses `Sando` prefix and PascalCase matching tag name
 - [ ] Global `HTMLElementTagNameMap` declaration present
 - [ ] Multi-word components use hyphens in tag, PascalCase in class
 
 ### File Names
+
 - [ ] All files use kebab-case
 - [ ] Component file matches tag name: `sando-{name}.ts`
 - [ ] Test files use correct suffixes (`.test.ts`, `.spec.ts`, `.a11y.test.ts`)
 - [ ] Barrel export file is `index.ts`
 
 ### Token Names
+
 - [ ] CSS variables start with `--sando-`
 - [ ] Token path is kebab-case
 - [ ] Token structure follows layer convention (Ingredients/Flavors/Recipes)
 - [ ] JSON source tokens use camelCase for keys
 
 ### Variable Names
+
 - [ ] Variables and properties are camelCase
 - [ ] Types and interfaces are PascalCase
 - [ ] Constants are UPPER_SNAKE_CASE (true constants only)
@@ -433,12 +452,14 @@ const defaultConfig = { timeout: 5000 };
 - [ ] Event handlers use `handle*` prefix, callback props use `on*` prefix
 
 ### Type Names
+
 - [ ] Component props interfaces use `{Component}Props` suffix
 - [ ] Variant types use descriptive names (`ButtonVariant`, `ButtonSize`)
 - [ ] Event detail interfaces use `{Component}{Event}Detail` pattern
 - [ ] Union types used instead of enums
 
 ### Export Names
+
 - [ ] Named exports used (not default exports)
 - [ ] Type exports use `type` keyword
 - [ ] Barrel exports via `index.ts`
@@ -466,6 +487,7 @@ const defaultConfig = { timeout: 5000 };
 ## Changelog
 
 ### 2.0.0 (2025-11-03)
+
 - **BREAKING**: Reduced file from 858 lines to ~420 lines (51% reduction) for AI agent optimization
 - Removed verbose token architecture explanations (referenced TOKEN_ARCHITECTURE.md instead)
 - Reduced examples from 51 to 20 (1-2 per rule)
@@ -477,6 +499,7 @@ const defaultConfig = { timeout: 5000 };
 - Optimized for AI agent context windows (400-600 line sweet spot)
 
 ### 1.0.0 (2025-11-03)
+
 - Initial NAMING_CONVENTIONS.md guideline created
 - Established 5 Core Rules: Component naming, file naming, token naming, variable naming, export naming
 

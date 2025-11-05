@@ -1,109 +1,112 @@
 {
-	"name": "sando-design-system",
-	"version": "0.1.0",
-	"private": true,
-	"description": "Sando Design System - A modern, accessible, token-based design system monorepo",
-	"type": "module",
-	"packageManager": "pnpm@8.15.0",
-	"workspaces": [
-		"packages/*",
-		"apps/*"
-	],
-	"scripts": {
-		"build": "turbo run build",
-		"dev": "turbo run dev --parallel",
-		"test": "turbo run test",
-		"test:ui": "turbo run test:ui",
-		"test:watch": "turbo run test:watch",
-		"test:coverage": "turbo run test:coverage",
-		"lint": "turbo run lint",
-		"lint:fix": "turbo run lint --",
-		"format": "prettier --write \"**/*.{ts,js,json,css,md}\"",
-		"format:check": "prettier --check \"**/*.{ts,js,json,css,md}\"",
-		"clean": "turbo run clean && rm -rf node_modules",
-		"tokens:build": "turbo run build --filter=@sando/tokens",
-		"tokens:dev": "turbo run dev --filter=@sando/tokens",
-		"components:build": "turbo run build --filter=@sando/components",
-		"docs:dev": "turbo run dev --filter=@sando/docs",
-		"docs:build": "turbo run build --filter=@sando/docs",
-		"site:dev": "turbo run dev --filter=@sando/site",
-		"site:build": "turbo run build --filter=@sando/site",
-		"site:preview": "turbo run preview --filter=@sando/site",
-		"changeset": "changeset",
-		"version-packages": "changeset version",
-		"release": "pnpm build && changeset publish",
-		"prepare": "husky install"
-	},
-	"keywords": [
-		"design-system",
-		"web-components",
-		"lit",
-		"tokens",
-		"accessibility",
-		"wcag",
-		"ui-toolkit",
-		"components"
-	],
-	"author": "Sando Design System Team",
-	"license": "MIT",
-	"devDependencies": {
-		"@changesets/cli": "2.29.7",
-		"@custom-elements-manifest/analyzer": "0.9.0",
-		"@open-wc/testing": "4.0.0",
-		"@playwright/test": "1.55.1",
-		"@storybook/addon-a11y": "8.6.14",
-		"@storybook/addon-essentials": "8.6.14",
-		"@storybook/addon-links": "8.6.14",
-		"@storybook/blocks": "8.6.14",
-		"@storybook/web-components": "8.6.14",
-		"@storybook/web-components-vite": "8.6.14",
-		"@types/node": "20.10.0",
-		"@typescript-eslint/eslint-plugin": "6.15.0",
-		"@typescript-eslint/parser": "6.15.0",
-		"@vitest/coverage-v8": "3.2.4",
-		"@vitest/ui": "3.2.4",
-		"@web/test-runner": "0.18.0",
-		"@web/test-runner-playwright": "0.11.0",
-		"eslint": "8.56.0",
-		"eslint-config-prettier": "9.1.0",
-		"eslint-plugin-lit": "1.11.0",
-		"eslint-plugin-wc": "2.0.4",
-		"husky": "8.0.3",
-		"jsdom": "23.0.0",
-		"lint-staged": "15.2.0",
-		"lit": "3.3.1",
-		"prettier": "3.6.2",
-		"react": "18.2.0",
-		"react-dom": "18.2.0",
-		"storybook": "8.6.14",
-		"style-dictionary": "4.0.0",
-		"turbo": "2.5.8",
-		"typescript": "5.9.3",
-		"vite": "5.0.8",
-		"vitest": "3.2.4"
-	},
-	"lint-staged": {
-		"*.{ts,js}": [
-			"eslint --fix",
-			"prettier --write"
-		],
-		"*.{json,css,md}": [
-			"prettier --write"
-		]
-	},
-	"engines": {
-		"node": ">=20.0.0",
-		"pnpm": ">=8.15.0"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/rodrigolagodev/SandoDesignSystem.git"
-	},
-	"bugs": {
-		"url": "https://github.com/rodrigolagodev/SandoDesignSystem/issues"
-	},
-	"homepage": "https://github.com/rodrigolagodev/SandoDesignSystem#readme",
-	"publishConfig": {
-		"access": "public"
-	}
+  "name": "sando-design-system",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Sando Design System - A modern, accessible, token-based design system monorepo",
+  "type": "module",
+  "packageManager": "pnpm@8.15.0",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel",
+    "test": "turbo run test",
+    "test:ui": "turbo run test:ui",
+    "test:watch": "turbo run test:watch",
+    "test:coverage": "turbo run test:coverage",
+    "lint": "turbo run lint",
+    "lint:fix": "turbo run lint --",
+    "format": "prettier --write \"**/*.{ts,js,json,css,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,js,json,css,md}\"",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "tokens:build": "turbo run build --filter=@sando/tokens",
+    "tokens:dev": "turbo run dev --filter=@sando/tokens",
+    "components:build": "turbo run build --filter=@sando/components",
+    "docs:dev": "turbo run dev --filter=@sando/docs",
+    "docs:build": "turbo run build --filter=@sando/docs",
+    "site:dev": "turbo run dev --filter=@sando/site",
+    "site:build": "turbo run build --filter=@sando/site",
+    "site:preview": "turbo run preview --filter=@sando/site",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "pnpm build && changeset publish",
+    "prepare": "husky install"
+  },
+  "keywords": [
+    "design-system",
+    "web-components",
+    "lit",
+    "tokens",
+    "accessibility",
+    "wcag",
+    "ui-toolkit",
+    "components"
+  ],
+  "author": "Sando Design System Team",
+  "license": "MIT",
+  "devDependencies": {
+    "@changesets/cli": "2.29.7",
+    "@custom-elements-manifest/analyzer": "0.9.0",
+    "@open-wc/testing": "4.0.0",
+    "@playwright/test": "1.55.1",
+    "@storybook/addon-a11y": "8.6.14",
+    "@storybook/addon-essentials": "8.6.14",
+    "@storybook/addon-links": "8.6.14",
+    "@storybook/blocks": "8.6.14",
+    "@storybook/web-components": "8.6.14",
+    "@storybook/web-components-vite": "8.6.14",
+    "@types/node": "20.10.0",
+    "@typescript-eslint/eslint-plugin": "6.15.0",
+    "@typescript-eslint/parser": "6.15.0",
+    "@vitest/coverage-v8": "3.2.4",
+    "@vitest/ui": "3.2.4",
+    "@web/test-runner": "0.18.0",
+    "@web/test-runner-playwright": "0.11.0",
+    "eslint": "8.56.0",
+    "eslint-config-prettier": "9.1.0",
+    "eslint-plugin-lit": "1.11.0",
+    "eslint-plugin-wc": "2.0.4",
+    "husky": "8.0.3",
+    "jsdom": "23.0.0",
+    "lint-staged": "15.2.0",
+    "lit": "3.3.1",
+    "prettier": "3.6.2",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "storybook": "8.6.14",
+    "style-dictionary": "4.0.0",
+    "turbo": "2.5.8",
+    "typescript": "5.9.3",
+    "vite": "5.0.8",
+    "vitest": "3.2.4"
+  },
+  "lint-staged": {
+    "packages/components/**/*.{ts,js}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{ts,js}": [
+      "prettier --write"
+    ],
+    "*.{json,css,md}": [
+      "prettier --write"
+    ]
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=8.15.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rodrigolagodev/SandoDesignSystem.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rodrigolagodev/SandoDesignSystem/issues"
+  },
+  "homepage": "https://github.com/rodrigolagodev/SandoDesignSystem#readme",
+  "publishConfig": {
+    "access": "public"
+  }
 }

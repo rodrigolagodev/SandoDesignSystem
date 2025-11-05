@@ -22,14 +22,12 @@ async function generateManifest() {
 
   // Read all SVG files
   const files = await readdir(ICONS_DIR);
-  const svgFiles = files.filter(file => file.endsWith('.svg'));
+  const svgFiles = files.filter((file) => file.endsWith('.svg'));
 
   console.log(`✅ Found ${svgFiles.length} SVG icons`);
 
   // Extract icon names (remove .svg extension)
-  const iconNames = svgFiles
-    .map(file => basename(file, '.svg'))
-    .sort(); // Alphabetical order
+  const iconNames = svgFiles.map((file) => basename(file, '.svg')).sort(); // Alphabetical order
 
   // Generate TypeScript content
   const content = `/**
@@ -50,7 +48,7 @@ async function generateManifest() {
  * Total: ${iconNames.length} icons
  */
 export const iconNames = [
-${iconNames.map(name => `  '${name}',`).join('\n')}
+${iconNames.map((name) => `  '${name}',`).join('\n')}
 ] as const;
 
 /**
@@ -108,7 +106,7 @@ export const ICON_COUNT = ${iconNames.length};
 }
 
 // Run the script
-generateManifest().catch(error => {
+generateManifest().catch((error) => {
   console.error('❌ Error generating manifest:', error);
   process.exit(1);
 });

@@ -9,11 +9,13 @@
 ## Progress Status
 
 **Completed**: 15/27 guidelines (56%)
+
 - ✅ 01-design-system: 7/7 (100%)
 - ✅ 02-architecture: 4/4 (100%)
 - ✅ 03-development: 4/4 (100%) 🎉 **JUST COMPLETED**
 
 **Remaining**: 12/27 guidelines (44%)
+
 - ⏳ 04-accessibility: 0/4 (WCAG_COMPLIANCE, KEYBOARD_NAVIGATION, SCREEN_READER_SUPPORT, COLOR_CONTRAST)
 - ⏳ 05-quality: 0/4 (TEST_COVERAGE, PERFORMANCE_BUDGETS, SECURITY_STANDARDS, VISUAL_REGRESSION)
 - ⏳ 06-documentation: 0/4 (API_REFERENCE, STORYBOOK_STORIES, VITEPRESS_GUIDES, INLINE_CODE_DOCS)
@@ -25,6 +27,7 @@
 ### 1. ❌ CRITICAL ERRORS TO AVOID
 
 #### Error: Using `flavor="dark"`
+
 ```html
 <!-- ❌ WRONG -->
 <div flavor="dark">Content</div>
@@ -42,19 +45,26 @@
 ---
 
 #### Error: Duplicating Content
-```markdown
+
+````markdown
 <!-- ❌ WRONG: Copying template code -->
+
 ## Button Component Template
+
 ```typescript
-import { LitElement } from 'lit';
+import { LitElement } from "lit";
 // ... 50 lines of boilerplate code ...
 ```
+````
 
 <!-- ✅ CORRECT: Referencing existing files -->
+
 ## Button Component Template
+
 **Reference**: See `.claude/skills/component-creator/assets/templates/component.ts.template` for boilerplate.
 **Example**: See `packages/components/src/components/button/sando-button.ts` for production implementation.
-```
+
+````
 
 **Why**: Templates and examples already exist. Guidelines provide PRINCIPLES, not full code copies.
 
@@ -71,7 +81,7 @@ The three-layer token system consists of:
 
 <!-- ✅ CORRECT: Simple reference -->
 **Reference**: See [TOKEN_ARCHITECTURE.md](../01-design-system/TOKEN_ARCHITECTURE.md) for the three-layer token system.
-```
+````
 
 **Why**: TOKEN_ARCHITECTURE.md is the single source of truth. Other guidelines only need to link to it.
 
@@ -80,28 +90,34 @@ The three-layer token system consists of:
 ### 2. ✅ SUCCESSFUL PATTERNS
 
 #### Pattern: Reference-Based Approach
+
 - **Guidelines**: Explain principles and patterns
 - **Source files**: Contain exact values (JSON tokens, TypeScript types)
 - **Templates**: Contain boilerplate code
 - **Examples**: Show production usage
 
 **Example**:
-```markdown
+
+````markdown
 ## Color Tokens
 
 **Principles**:
+
 - Use OKLCH color space for perceptual uniformity
 - Generate scales algorithmically for consistency
 
 **Complete palette**: See `packages/tokens/src/ingredients/color.json` (165 tokens)
 
 **Example usage**:
+
 ```css
 .button {
   background: var(--sando-color-orange-700);
 }
 ```
-```
+````
+
+````
 
 ---
 
@@ -138,16 +154,18 @@ Every guideline has exactly **5 Core Rules** with:
 export class SandoCard extends LitElement {
   static styles = css`...`;
 }
-```
+````
 
 **Anti-pattern**:
+
 ```typescript
 // ❌ WRONG: Disabling Shadow DOM
 createRenderRoot() { return this; }
 ```
 
 **Why This Matters**: Shadow DOM provides style encapsulation and prevents CSS leaks.
-```
+
+````
 
 ---
 
@@ -168,13 +186,13 @@ Every guideline ends with a **Validation Checklist** - actionable items to verif
 - [ ] No hardcoded colors/spacing
 - [ ] Uses Recipe tokens: `var(--sando-{component}-*)`
 - [ ] No direct Flavor or Ingredient variables
-```
+````
 
 ---
 
 ### 3. 📋 TEMPLATE STRUCTURE (Follow This)
 
-```markdown
+````markdown
 # [Guideline Title]
 
 **Category**: [01-design-system / 02-architecture / 03-development / etc.]
@@ -198,11 +216,14 @@ Every guideline ends with a **Validation Checklist** - actionable items to verif
 [Clear statement of the rule]
 
 **Pattern**:
+
 ```[language]
 // ✅ CORRECT example
 ```
+````
 
 **Anti-pattern**:
+
 ```[language]
 // ❌ WRONG example
 ```
@@ -225,10 +246,12 @@ Every guideline ends with a **Validation Checklist** - actionable items to verif
 ## Validation Checklist
 
 ### [Category 1]
+
 - [ ] Checkable item 1
 - [ ] Checkable item 2
 
 ### [Category 2]
+
 - [ ] Checkable item 3
 - [ ] Checkable item 4
 
@@ -251,6 +274,7 @@ Every guideline ends with a **Validation Checklist** - actionable items to verif
 ## Changelog
 
 ### 1.0.0 (2025-11-0X)
+
 - Initial guideline created
 - [List key features documented]
 - Agent-optimized format (~XXX lines)
@@ -258,6 +282,7 @@ Every guideline ends with a **Validation Checklist** - actionable items to verif
 ---
 
 **[Closing statement emphasizing key principle or importance]**
+
 ```
 
 ---
@@ -298,35 +323,40 @@ Before finalizing ANY guideline, verify:
 
 ### Token Source Files
 ```
+
 packages/tokens/src/
 ├── ingredients/
-│   ├── color.json          # 165 color tokens
-│   ├── space.json          # Spacing scale
-│   ├── font.json           # Typography
-│   └── [others].json
+│ ├── color.json # 165 color tokens
+│ ├── space.json # Spacing scale
+│ ├── font.json # Typography
+│ └── [others].json
 ├── flavors/
-│   ├── original/
-│   │   ├── flavor.json           # Base (light mode)
-│   │   ├── flavor-dark.json      # Dark mode overrides
-│   │   └── [modes].json
-│   └── [other-flavors]/
+│ ├── original/
+│ │ ├── flavor.json # Base (light mode)
+│ │ ├── flavor-dark.json # Dark mode overrides
+│ │ └── [modes].json
+│ └── [other-flavors]/
 └── recipes/
-    ├── button.json         # Button tokens
-    └── [component].json
+├── button.json # Button tokens
+└── [component].json
+
 ```
 
 ### Component Examples
 ```
+
 packages/components/src/components/
 ├── button/
-│   ├── sando-button.ts            # Production example
-│   ├── sando-button.types.ts
-│   └── [other files]
+│ ├── sando-button.ts # Production example
+│ ├── sando-button.types.ts
+│ └── [other files]
 └── [other-components]/
+
 ```
 
 ### Templates
 ```
+
 .claude/skills/component-creator/assets/templates/
 ├── component.ts.template
 ├── types.ts.template
@@ -334,25 +364,28 @@ packages/components/src/components/
 ├── a11y.test.ts.template
 ├── stories.ts.template
 └── index.ts.template
+
 ```
 
 ### Existing Guidelines
 ```
+
 .claude/guidelines/
 ├── 01-design-system/
-│   ├── TOKEN_ARCHITECTURE.md      # Three-layer system (REFERENCE THIS)
-│   ├── THEMING_STRATEGY.md        # Flavors vs Modes (REFERENCE THIS)
-│   ├── COLOR_SYSTEM.md
-│   ├── TYPOGRAPHY_SYSTEM.md
-│   ├── SPACING_SYSTEM.md
-│   ├── COMPONENT_DESIGN.md
-│   └── MOTION_DESIGN.md
+│ ├── TOKEN_ARCHITECTURE.md # Three-layer system (REFERENCE THIS)
+│ ├── THEMING_STRATEGY.md # Flavors vs Modes (REFERENCE THIS)
+│ ├── COLOR_SYSTEM.md
+│ ├── TYPOGRAPHY_SYSTEM.md
+│ ├── SPACING_SYSTEM.md
+│ ├── COMPONENT_DESIGN.md
+│ └── MOTION_DESIGN.md
 ├── 02-architecture/
-│   ├── MONOREPO_STRUCTURE.md
-│   ├── COMPONENT_ARCHITECTURE.md
-│   ├── TOKEN_BUILD_SYSTEM.md
-│   └── FRAMEWORK_INTEGRATION.md
-└── GUIDELINES_INDEX.md            # Update this after creating guidelines
+│ ├── MONOREPO_STRUCTURE.md
+│ ├── COMPONENT_ARCHITECTURE.md
+│ ├── TOKEN_BUILD_SYSTEM.md
+│ └── FRAMEWORK_INTEGRATION.md
+└── GUIDELINES_INDEX.md # Update this after creating guidelines
+
 ```
 
 ---
@@ -496,10 +529,12 @@ Needed by: frontend-developer, qa-expert agents
 
 **Prompt language that works**:
 ```
+
 ABSOLUTE HARD LIMIT: 500 lines (NON-NEGOTIABLE)
 IF YOU EXCEED 500 LINES, CUT CONTENT UNTIL UNDER 500
 Priority: UNDER 500 LINES > Completeness
-```
+
+````
 
 ### Optimization Techniques Validated
 
@@ -515,19 +550,26 @@ Priority: UNDER 500 LINES > Completeness
    | Config | Value | Purpose |
    |--------|-------|---------|
    | Provider | v8 | Coverage |
-   ```
+````
 
 2. **Reference actual files** (saves ~20-30%)
-   ```markdown
+
+   ````markdown
    <!-- ❌ BAD: Copy vitest config -->
+
    ```json
    {
      "coverage": { ... }
    }
    ```
+   ````
 
    <!-- ✅ GOOD: Reference -->
+
    **Config**: `packages/components/vitest.config.js`
+
+   ```
+
    ```
 
 3. **Minimal code examples** (saves ~15-20%)
@@ -565,6 +607,7 @@ TOTAL:                   500 lines
 **NAMING_CONVENTIONS.md case study** (858→485 lines):
 
 **What was cut** (~373 lines saved):
+
 1. **Token architecture details** (~120 lines)
    - Removed verbose three-layer explanation
    - Replaced with brief summary + link to TOKEN_ARCHITECTURE.md
@@ -590,6 +633,7 @@ TOTAL:                   500 lines
    - Removed redundant examples
 
 **What was kept** (essential content):
+
 - All 5 Core Rules with pattern/anti-pattern
 - Component naming formulas
 - Token naming formulas
@@ -600,12 +644,14 @@ TOTAL:                   500 lines
 ### Production Code Analysis for Testing
 
 **Analyzed files for TESTING_STRATEGY.md**:
+
 - `sando-button.test.ts` (396 lines) - Unit test patterns
 - `sando-button.a11y.test.ts` (133 lines) - Accessibility patterns
 - `packages/tokens/tests/` - Token testing structure
 - `vitest.config.js` - Coverage configuration
 
 **Key insights extracted**:
+
 - Test structure: describe blocks (Rendering, Properties, Events, Accessibility, etc.)
 - Vitest + @open-wc/testing patterns
 - Shadow DOM testing: `element.shadowRoot?.querySelector()`
@@ -615,6 +661,7 @@ TOTAL:                   500 lines
 - Multi-flavor testing for contrast validation
 
 **Referenced instead of duplicated**:
+
 - Linked to actual test files for examples
 - Linked to vitest.config.js for configuration
 - Linked to external docs (Vitest, @open-wc, jest-axe)
@@ -624,16 +671,19 @@ TOTAL:                   500 lines
 **Evolution of prompt strictness**:
 
 **Version 1** (resulted in 858 lines):
+
 ```
 Target: 400-600 lines
 ```
 
 **Version 2** (resulted in 521 lines):
+
 ```
 HARD LIMIT: 550 lines maximum (non-negotiable)
 ```
 
 **Version 3** (resulted in 451 lines):
+
 ```
 ABSOLUTE HARD LIMIT: 500 lines
 IF YOU EXCEED 500 LINES, CUT CONTENT UNTIL UNDER 500
@@ -645,6 +695,7 @@ Priority: UNDER 500 LINES > Completeness
 ### Quality Metrics Achieved
 
 **03-development category stats**:
+
 - **Guideline count**: 4/4 (100% complete)
 - **Average length**: 516 lines (target: 400-600) ✅
 - **Shortest**: TESTING_STRATEGY.md (451 lines)
@@ -653,6 +704,7 @@ Priority: UNDER 500 LINES > Completeness
 - **All within range**: Yes ✅
 
 **Optimization achievements**:
+
 - Heavy use of tables (6+ tables per guideline)
 - Minimal code examples (0-2 per guideline)
 - Aggressive external linking (5+ links per guideline)
@@ -661,6 +713,7 @@ Priority: UNDER 500 LINES > Completeness
 ### Recommendations for Remaining Categories
 
 **For 04-accessibility (4 guidelines)**:
+
 - Hard limit: 500 lines per guideline
 - Reference WCAG 2.1 spec (don't duplicate)
 - Use tables for success criteria
@@ -668,6 +721,7 @@ Priority: UNDER 500 LINES > Completeness
 - Minimal code examples (reference sando-button.a11y.test.ts)
 
 **For 05-quality (4 guidelines)**:
+
 - Hard limit: 500 lines per guideline
 - Reference tool documentation (Lighthouse, Percy, etc.)
 - Use tables for budgets and thresholds
@@ -675,6 +729,7 @@ Priority: UNDER 500 LINES > Completeness
 - Reference actual CI/CD configs
 
 **For 06-documentation (4 guidelines)**:
+
 - Hard limit: 500 lines per guideline
 - Reference actual Storybook stories
 - Reference actual VitePress docs

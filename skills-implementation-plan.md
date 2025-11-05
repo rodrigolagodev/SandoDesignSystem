@@ -164,31 +164,31 @@ allowed-tools: Read, Write, Edit, Bash
 
 ```json
 {
-	"button": {
-		"solid": {
-			"backgroundColor": {
-				"default": "{color.action.solid.background.default}",
-				"hover": "{color.action.solid.background.hover}",
-				"active": "{color.action.solid.background.active}",
-				"disabled": "{color.action.solid.background.disabled}"
-			},
-			"textColor": {
-				"default": "{color.action.solid.text.default}",
-				"hover": "{color.action.solid.text.hover}",
-				"disabled": "{color.action.solid.text.disabled}"
-			},
-			"borderColor": {
-				"default": "{color.action.solid.border.default}",
-				"hover": "{color.action.solid.border.hover}"
-			}
-		},
-		"outline": {
-			"backgroundColor": {
-				"default": "{color.action.outline.background.default}",
-				"hover": "{color.action.outline.background.hover}"
-			}
-		}
-	}
+  "button": {
+    "solid": {
+      "backgroundColor": {
+        "default": "{color.action.solid.background.default}",
+        "hover": "{color.action.solid.background.hover}",
+        "active": "{color.action.solid.background.active}",
+        "disabled": "{color.action.solid.background.disabled}"
+      },
+      "textColor": {
+        "default": "{color.action.solid.text.default}",
+        "hover": "{color.action.solid.text.hover}",
+        "disabled": "{color.action.solid.text.disabled}"
+      },
+      "borderColor": {
+        "default": "{color.action.solid.border.default}",
+        "hover": "{color.action.solid.border.hover}"
+      }
+    },
+    "outline": {
+      "backgroundColor": {
+        "default": "{color.action.outline.background.default}",
+        "hover": "{color.action.outline.background.hover}"
+      }
+    }
+  }
 }
 ```
 
@@ -296,28 +296,28 @@ packages/tokens/src/flavors/[flavor-name]/
 
 ```json
 {
-	"color": {
-		"action": {
-			"solid": {
-				"background": {
-					"default": "{color.blue.500}",
-					"hover": "{color.blue.600}",
-					"active": "{color.blue.700}",
-					"disabled": "{color.neutral.300}"
-				},
-				"text": {
-					"default": "{color.neutral.50}",
-					"hover": "{color.neutral.50}",
-					"disabled": "{color.neutral.500}"
-				}
-			}
-		},
-		"background": {
-			"base": "{color.neutral.50}",
-			"surface": "{color.neutral.100}",
-			"overlay": "{color.neutral.900}"
-		}
-	}
+  "color": {
+    "action": {
+      "solid": {
+        "background": {
+          "default": "{color.blue.500}",
+          "hover": "{color.blue.600}",
+          "active": "{color.blue.700}",
+          "disabled": "{color.neutral.300}"
+        },
+        "text": {
+          "default": "{color.neutral.50}",
+          "hover": "{color.neutral.50}",
+          "disabled": "{color.neutral.500}"
+        }
+      }
+    },
+    "background": {
+      "base": "{color.neutral.50}",
+      "surface": "{color.neutral.100}",
+      "overlay": "{color.neutral.900}"
+    }
+  }
 }
 ```
 
@@ -623,25 +623,25 @@ allowed-tools: Read, Write, Bash
 ```typescript
 // sando-button.test.ts
 describe("sando-button", () => {
-	describe("Rendering", () => {
-		it("should render with default properties");
-		it("should be accessible");
-	});
+  describe("Rendering", () => {
+    it("should render with default properties");
+    it("should be accessible");
+  });
 
-	describe("Properties", () => {
-		it("should update variant property");
-		it("should update size property");
-		it("should handle disabled state");
-	});
+  describe("Properties", () => {
+    it("should update variant property");
+    it("should update size property");
+    it("should handle disabled state");
+  });
 
-	describe("Events", () => {
-		it("should emit click event");
-		it("should not emit click when disabled");
-	});
+  describe("Events", () => {
+    it("should emit click event");
+    it("should not emit click when disabled");
+  });
 
-	describe("Slots", () => {
-		it("should project default slot content");
-	});
+  describe("Slots", () => {
+    it("should project default slot content");
+  });
 });
 ```
 
@@ -650,12 +650,12 @@ describe("sando-button", () => {
 ```typescript
 // sando-button.spec.ts
 test.describe("sando-button E2E", () => {
-	test("should render component");
-	test("should match visual snapshot");
-	test("should handle keyboard navigation");
-	test("should work in all browsers", {
-		browsers: ["chromium", "firefox", "webkit"],
-	});
+  test("should render component");
+  test("should match visual snapshot");
+  test("should handle keyboard navigation");
+  test("should work in all browsers", {
+    browsers: ["chromium", "firefox", "webkit"],
+  });
 });
 ```
 
@@ -664,9 +664,9 @@ test.describe("sando-button E2E", () => {
 ```typescript
 // sando-button.a11y.test.ts
 describe("sando-button Accessibility", () => {
-	it("should have no accessibility violations");
-	it("should have no violations in disabled state");
-	it("should have no violations across all variants");
+  it("should have no accessibility violations");
+  it("should have no violations in disabled state");
+  it("should have no violations across all variants");
 });
 ```
 

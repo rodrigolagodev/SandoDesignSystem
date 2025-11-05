@@ -9,18 +9,18 @@
  * - Animation durations (ms)
  */
 
-import { describe, it, expect } from 'vitest';
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import { describe, it, expect } from "vitest";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const tokensRoot = path.resolve(__dirname, '../../src');
+const tokensRoot = path.resolve(__dirname, "../../src");
 
 function loadTokenFile(layer, fileName) {
   const filePath = path.join(tokensRoot, layer, fileName);
-  return JSON.parse(fs.readFileSync(filePath, 'utf8'));
+  return JSON.parse(fs.readFileSync(filePath, "utf8"));
 }
 
 function findTokensByType(obj, targetType, currentPath = []) {
@@ -30,12 +30,12 @@ function findTokensByType(obj, targetType, currentPath = []) {
     const value = obj[key];
     const newPath = [...currentPath, key];
 
-    if (typeof value === 'object' && value !== null) {
-      if (value.type === targetType && 'value' in value) {
+    if (typeof value === "object" && value !== null) {
+      if (value.type === targetType && "value" in value) {
         tokens.push({
-          path: newPath.join('.'),
+          path: newPath.join("."),
           value: value.value,
-          token: value
+          token: value,
         });
       }
       tokens.push(...findTokensByType(value, targetType, newPath));
@@ -45,18 +45,21 @@ function findTokensByType(obj, targetType, currentPath = []) {
   return tokens;
 }
 
-describe('Color Token Values', () => {
-  const colors = loadTokenFile('ingredients', 'color.json');
-  const colorTokens = findTokensByType(colors, 'color');
+describe("Color Token Values", () => {
+  const colors = loadTokenFile("ingredients", "color.json");
+  const colorTokens = findTokensByType(colors, "color");
 
-  it('should have color tokens', () => {
+  it("should have color tokens", () => {
     expect(colorTokens.length).toBeGreaterThan(0);
   });
 
-  describe('HSL Format', () => {
+  describe("HSL Format", () => {
     colorTokens.forEach(({ path, value }) => {
       // Skip references and special values
-      if (typeof value === 'string' && (value.includes('{') || value === 'transparent')) {
+      if (
+        typeof value === "string" &&
+        (value.includes("{") || value === "transparent")
+      ) {
         return;
       }
 
@@ -94,38 +97,38 @@ describe('Color Token Values', () => {
     });
   });
 
-  describe('Special Color Values', () => {
-    it('should have utility colors', () => {
+  describe("Special Color Values", () => {
+    it("should have utility colors", () => {
       expect(colors.color.utility).toBeDefined();
       expect(colors.color.utility.white).toBeDefined();
       expect(colors.color.utility.black).toBeDefined();
       expect(colors.color.utility.transparent).toBeDefined();
     });
 
-    it('should accept transparent value', () => {
-      expect(colors.color.utility.transparent.value).toBe('transparent');
+    it("should accept transparent value", () => {
+      expect(colors.color.utility.transparent.value).toBe("transparent");
     });
   });
 });
 
-describe('Dimension Token Values', () => {
-  const space = loadTokenFile('ingredients', 'space.json');
-  const border = loadTokenFile('ingredients', 'border.json');
-  const font = loadTokenFile('ingredients', 'font.json');
+describe("Dimension Token Values", () => {
+  const space = loadTokenFile("ingredients", "space.json");
+  const border = loadTokenFile("ingredients", "border.json");
+  const font = loadTokenFile("ingredients", "font.json");
 
   const dimensionTokens = [
-    ...findTokensByType(space, 'dimension'),
-    ...findTokensByType(border, 'dimension'),
-    ...findTokensByType(font, 'dimension')
+    ...findTokensByType(space, "dimension"),
+    ...findTokensByType(border, "dimension"),
+    ...findTokensByType(font, "dimension"),
   ];
 
-  it('should have dimension tokens', () => {
+  it("should have dimension tokens", () => {
     expect(dimensionTokens.length).toBeGreaterThan(0);
   });
 
   dimensionTokens.forEach(({ path, value }) => {
     // Skip references
-    if (typeof value === 'string' && value.includes('{')) {
+    if (typeof value === "string" && value.includes("{")) {
       return;
     }
 
@@ -141,8 +144,8 @@ describe('Dimension Token Values', () => {
     });
   });
 
-  describe('Spacing Scale', () => {
-    const spacingTokens = findTokensByType(space, 'dimension');
+  describe("Spacing Scale", () => {
+    const spacingTokens = findTokensByType(space, "dimension");
 
     spacingTokens.forEach(({ path, value }) => {
       it(`${path} should use rem units (scalable)`, () => {
@@ -151,30 +154,42 @@ describe('Dimension Token Values', () => {
     });
   });
 
-  describe('Border Radius', () => {
-    it('should have special values', () => {
-      expect(border.border.radius.circle.value).toBe('50%');
-      expect(border.border.radius.full.value).toBe('9999px');
+  describe("Border Radius", () => {
+    it("should have special values", () => {
+      expect(border.border.radius.circle.value).toBe("50%");
+      expect(border.border.radius.full.value).toBe("9999px");
     });
   });
 });
 
-describe('Font Weight Values', () => {
-  const font = loadTokenFile('ingredients', 'font.json');
-  const fontWeightTokens = findTokensByType(font, 'fontWeight');
+describe("Font Weight Values", () => {
+  const font = loadTokenFile("ingredients", "font.json");
+  const fontWeightTokens = findTokensByType(font, "fontWeight");
 
-  it('should have font weight tokens', () => {
+  it("should have font weight tokens", () => {
     expect(fontWeightTokens.length).toBeGreaterThan(0);
   });
 
   fontWeightTokens.forEach(({ path, value }) => {
     // Skip references
-    if (typeof value === 'string' && value.includes('{')) {
+    if (typeof value === "string" && value.includes("{")) {
       return;
     }
 
     it(`${path} should be a valid CSS font-weight`, () => {
-      const validWeights = ['100', '200', '300', '400', '500', '600', '700', '800', '900', 'normal', 'bold'];
+      const validWeights = [
+        "100",
+        "200",
+        "300",
+        "400",
+        "500",
+        "600",
+        "700",
+        "800",
+        "900",
+        "normal",
+        "bold",
+      ];
       expect(validWeights).toContain(value);
     });
 
@@ -189,17 +204,17 @@ describe('Font Weight Values', () => {
   });
 });
 
-describe('Duration Values', () => {
-  const animation = loadTokenFile('ingredients', 'animation.json');
-  const durationTokens = findTokensByType(animation, 'duration');
+describe("Duration Values", () => {
+  const animation = loadTokenFile("ingredients", "animation.json");
+  const durationTokens = findTokensByType(animation, "duration");
 
-  it('should have duration tokens', () => {
+  it("should have duration tokens", () => {
     expect(durationTokens.length).toBeGreaterThan(0);
   });
 
   durationTokens.forEach(({ path, value }) => {
     // Skip references
-    if (typeof value === 'string' && value.includes('{')) {
+    if (typeof value === "string" && value.includes("{")) {
       return;
     }
 
@@ -216,9 +231,9 @@ describe('Duration Values', () => {
     it(`${path} should be reasonable duration (0-2000ms)`, () => {
       let milliseconds;
 
-      if (value.endsWith('ms')) {
+      if (value.endsWith("ms")) {
         milliseconds = parseFloat(value);
-      } else if (value.endsWith('s')) {
+      } else if (value.endsWith("s")) {
         milliseconds = parseFloat(value) * 1000;
       }
 
@@ -227,17 +242,17 @@ describe('Duration Values', () => {
   });
 });
 
-describe('Opacity Values', () => {
-  const opacity = loadTokenFile('ingredients', 'opacity.json');
-  const opacityTokens = findTokensByType(opacity, 'number');
+describe("Opacity Values", () => {
+  const opacity = loadTokenFile("ingredients", "opacity.json");
+  const opacityTokens = findTokensByType(opacity, "number");
 
-  it('should have opacity tokens', () => {
+  it("should have opacity tokens", () => {
     expect(opacityTokens.length).toBeGreaterThan(0);
   });
 
   opacityTokens.forEach(({ path, value }) => {
     // Skip references
-    if (typeof value === 'string' && value.includes('{')) {
+    if (typeof value === "string" && value.includes("{")) {
       return;
     }
 
@@ -254,13 +269,16 @@ describe('Opacity Values', () => {
   });
 });
 
-describe('Line Height Values', () => {
-  const font = loadTokenFile('ingredients', 'font.json');
-  const lineHeightTokens = findTokensByType(font, 'number');
+describe("Line Height Values", () => {
+  const font = loadTokenFile("ingredients", "font.json");
+  const lineHeightTokens = findTokensByType(font, "number");
 
   lineHeightTokens.forEach(({ path, value }) => {
     // Skip references and opacity tokens
-    if (path.includes('opacity') || (typeof value === 'string' && value.includes('{'))) {
+    if (
+      path.includes("opacity") ||
+      (typeof value === "string" && value.includes("{"))
+    ) {
       return;
     }
 
@@ -277,17 +295,17 @@ describe('Line Height Values', () => {
   });
 });
 
-describe('Z-Index Values', () => {
-  const zIndex = loadTokenFile('ingredients', 'z-index.json');
-  const zIndexTokens = findTokensByType(zIndex, 'number');
+describe("Z-Index Values", () => {
+  const zIndex = loadTokenFile("ingredients", "z-index.json");
+  const zIndexTokens = findTokensByType(zIndex, "number");
 
-  it('should have z-index tokens', () => {
+  it("should have z-index tokens", () => {
     expect(zIndexTokens.length).toBeGreaterThan(0);
   });
 
   zIndexTokens.forEach(({ path, value }) => {
     // Skip references
-    if (typeof value === 'string' && value.includes('{')) {
+    if (typeof value === "string" && value.includes("{")) {
       return;
     }
 
@@ -304,12 +322,12 @@ describe('Z-Index Values', () => {
     });
   });
 
-  it('should have proper z-index hierarchy', () => {
-    const hide = parseInt(zIndex['z-index'].hide.value);
-    const base = parseInt(zIndex['z-index'].base.value);
-    const raised = parseInt(zIndex['z-index'].raised.value);
-    const modal = parseInt(zIndex['z-index'].modal.value);
-    const tooltip = parseInt(zIndex['z-index'].tooltip.value);
+  it("should have proper z-index hierarchy", () => {
+    const hide = parseInt(zIndex["z-index"].hide.value);
+    const base = parseInt(zIndex["z-index"].base.value);
+    const raised = parseInt(zIndex["z-index"].raised.value);
+    const modal = parseInt(zIndex["z-index"].modal.value);
+    const tooltip = parseInt(zIndex["z-index"].tooltip.value);
 
     expect(hide).toBeLessThan(base);
     expect(base).toBeLessThan(raised);
@@ -318,47 +336,55 @@ describe('Z-Index Values', () => {
   });
 });
 
-describe('Cubic Bezier (Easing) Values', () => {
-  const animation = loadTokenFile('ingredients', 'animation.json');
-  const easingTokens = findTokensByType(animation, 'cubicBezier');
+describe("Cubic Bezier (Easing) Values", () => {
+  const animation = loadTokenFile("ingredients", "animation.json");
+  const easingTokens = findTokensByType(animation, "cubicBezier");
 
-  it('should have easing tokens', () => {
+  it("should have easing tokens", () => {
     expect(easingTokens.length).toBeGreaterThan(0);
   });
 
   easingTokens.forEach(({ path, value }) => {
     // Skip references
-    if (typeof value === 'string' && value.includes('{')) {
+    if (typeof value === "string" && value.includes("{")) {
       return;
     }
 
     it(`${path} should be valid easing function`, () => {
-      const cubicBezierPattern = /^cubic-bezier\(\s*-?\d+\.?\d*\s*,\s*-?\d+\.?\d*\s*,\s*-?\d+\.?\d*\s*,\s*-?\d+\.?\d*\s*\)$/;
-      const namedEasings = ['linear', 'ease', 'ease-in', 'ease-out', 'ease-in-out'];
+      const cubicBezierPattern =
+        /^cubic-bezier\(\s*-?\d+\.?\d*\s*,\s*-?\d+\.?\d*\s*,\s*-?\d+\.?\d*\s*,\s*-?\d+\.?\d*\s*\)$/;
+      const namedEasings = [
+        "linear",
+        "ease",
+        "ease-in",
+        "ease-out",
+        "ease-in-out",
+      ];
 
-      const isValid = cubicBezierPattern.test(value) || namedEasings.includes(value);
+      const isValid =
+        cubicBezierPattern.test(value) || namedEasings.includes(value);
       expect(isValid).toBe(true);
     });
   });
 });
 
-describe('Shadow Values', () => {
-  const elevation = loadTokenFile('ingredients', 'elevation.json');
-  const shadowTokens = findTokensByType(elevation, 'shadow');
+describe("Shadow Values", () => {
+  const elevation = loadTokenFile("ingredients", "elevation.json");
+  const shadowTokens = findTokensByType(elevation, "shadow");
 
-  it('should have shadow tokens', () => {
+  it("should have shadow tokens", () => {
     expect(shadowTokens.length).toBeGreaterThan(0);
   });
 
   shadowTokens.forEach(({ path, value }) => {
     // Skip references
-    if (typeof value === 'string' && value.includes('{')) {
+    if (typeof value === "string" && value.includes("{")) {
       return;
     }
 
-    if (value === 'none') {
+    if (value === "none") {
       it(`${path} can be 'none'`, () => {
-        expect(value).toBe('none');
+        expect(value).toBe("none");
       });
     } else {
       it(`${path} should have valid box-shadow syntax`, () => {
@@ -370,17 +396,17 @@ describe('Shadow Values', () => {
   });
 });
 
-describe('Font Family Values', () => {
-  const font = loadTokenFile('ingredients', 'font.json');
-  const fontFamilyTokens = findTokensByType(font, 'fontFamily');
+describe("Font Family Values", () => {
+  const font = loadTokenFile("ingredients", "font.json");
+  const fontFamilyTokens = findTokensByType(font, "fontFamily");
 
-  it('should have font family tokens', () => {
+  it("should have font family tokens", () => {
     expect(fontFamilyTokens.length).toBeGreaterThan(0);
   });
 
   fontFamilyTokens.forEach(({ path, value }) => {
     // Skip references
-    if (typeof value === 'string' && value.includes('{')) {
+    if (typeof value === "string" && value.includes("{")) {
       return;
     }
 
@@ -390,7 +416,7 @@ describe('Font Family Values', () => {
     });
 
     it(`${path} should have at least one font`, () => {
-      const fonts = value.split(',').map(f => f.trim());
+      const fonts = value.split(",").map((f) => f.trim());
       expect(fonts.length).toBeGreaterThan(0);
     });
   });

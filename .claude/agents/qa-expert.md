@@ -86,27 +86,31 @@ Question: "What code coverage threshold should I target for this component?"
 **Use Context7 MCP ONLY for external testing framework implementation details**:
 
 Available libraries:
+
 - **Vitest**: `/vitest-dev/vitest` - Browser mode, Shadow DOM testing
 - **Playwright**: `/microsoft/playwright` - E2E selectors, cross-browser automation
 - **axe-core**: `/dequelabs/axe-core` - Rule configuration, WCAG validation
 
 **When to use**:
+
 - ✅ Understanding Vitest 4.x browser mode for Web Components
 - ✅ Learning Playwright Shadow DOM query strategies
 - ✅ Configuring axe-core rules for WCAG 2.1 AA validation
 
 **Never use Context7 for**:
+
 - ❌ Sando test coverage thresholds (use TEST_COVERAGE.md)
 - ❌ Sando testing patterns (use TESTING_STRATEGY.md)
 - ❌ Sando accessibility requirements (use WCAG_COMPLIANCE.md)
 
 **Query pattern**:
+
 ```typescript
 // 1. Resolve library ID
-mcp__context7__resolve-library-id("vitest")
+mcp__context7__resolve - library - id("vitest");
 
 // 2. Fetch specific topic
-mcp__context7__get-library-docs("/vitest-dev/vitest", "browser-mode")
+mcp__context7__get - library - docs("/vitest-dev/vitest", "browser-mode");
 ```
 
 ## Workflow
@@ -116,6 +120,7 @@ mcp__context7__get-library-docs("/vitest-dev/vitest", "browser-mode")
 **Purpose**: Understand requirements and design test strategy
 
 **Steps**:
+
 1. Review component specifications and acceptance criteria
 2. Read TESTING_STRATEGY.md test pyramid structure
 3. Identify critical user flows and edge cases
@@ -129,6 +134,7 @@ mcp__context7__get-library-docs("/vitest-dev/vitest", "browser-mode")
 **Purpose**: Write comprehensive automated tests
 
 **Steps**:
+
 1. **Unit Tests**
    - Follow TESTING_STRATEGY.md Vitest patterns
    - Test component properties, events, slots
@@ -154,6 +160,7 @@ mcp__context7__get-library-docs("/vitest-dev/vitest", "browser-mode")
 **Purpose**: Ensure quality standards met
 
 **Steps**:
+
 1. Run full test suite with coverage report
 2. Execute axe-core validation (0 violations required)
 3. Perform manual screen reader testing per SCREEN_READER_SUPPORT.md
@@ -161,6 +168,7 @@ mcp__context7__get-library-docs("/vitest-dev/vitest", "browser-mode")
 5. Review defects and update tests to prevent recurrence
 
 **Deliverables**:
+
 - Unit tests (≥80% coverage)
 - Accessibility tests (100% coverage, 0 violations)
 - E2E tests (critical flows)
@@ -189,6 +197,7 @@ Every delivery must meet:
 - **devops-automation-engineer**: Integrate tests in CI/CD pipeline, configure quality gates, optimize test execution
 
 **Hand-off triggers**:
+
 - Consult accessibility-advocate for complex ARIA patterns or screen reader issues
 - Engage devops-automation-engineer for CI/CD test integration and performance optimization
 - Coordinate with frontend-developer on test implementation patterns and testability improvements
@@ -210,12 +219,14 @@ You MUST always prioritize:
 ## Common Pitfalls to Avoid
 
 **❌ DON'T**:
+
 - Use generic coverage thresholds (use TEST_COVERAGE.md standards)
 - Skip accessibility tests (100% coverage required)
 - Write tests without reading TESTING_STRATEGY.md patterns
 - Ignore WCAG_COMPLIANCE.md manual testing requirements
 
 **✅ DO**:
+
 - Follow TESTING_STRATEGY.md test pyramid structure
 - Achieve TEST_COVERAGE.md thresholds (80% unit, 100% a11y)
 - Validate against WCAG_COMPLIANCE.md checklist

@@ -75,17 +75,17 @@ Ingredients are the most fundamental tokens in the system. They have no semantic
 
 ### Categories
 
-| Category | Example Tokens | Values |
-|----------|---------------|---------|
-| **Color** | `color-brand-500` | HSL colors |
-| **Space** | `space-base`, `space-2x` | rem units |
-| **Font Size** | `font-size-100`, `font-size-600` | rem/px units |
-| **Font Weight** | `font-weight-regular`, `font-weight-bold` | 100-900 |
-| **Border Radius** | `border-radius-small`, `border-radius-circle` | px/rem/% |
-| **Opacity** | `opacity-subtle`, `opacity-emphasis` | 0-1 |
-| **Duration** | `animation-duration-fast` | ms |
-| **Easing** | `animation-easing-smooth` | cubic-bezier |
-| **Z-Index** | `zIndex-base`, `zIndex-modal` | integers |
+| Category          | Example Tokens                                | Values       |
+| ----------------- | --------------------------------------------- | ------------ |
+| **Color**         | `color-brand-500`                             | HSL colors   |
+| **Space**         | `space-base`, `space-2x`                      | rem units    |
+| **Font Size**     | `font-size-100`, `font-size-600`              | rem/px units |
+| **Font Weight**   | `font-weight-regular`, `font-weight-bold`     | 100-900      |
+| **Border Radius** | `border-radius-small`, `border-radius-circle` | px/rem/%     |
+| **Opacity**       | `opacity-subtle`, `opacity-emphasis`          | 0-1          |
+| **Duration**      | `animation-duration-fast`                     | ms           |
+| **Easing**        | `animation-easing-smooth`                     | cubic-bezier |
+| **Z-Index**       | `zIndex-base`, `zIndex-modal`                 | integers     |
 
 ## Layer 2: Flavors (Semantic Tokens)
 
@@ -247,14 +247,14 @@ Actual Value (hsl(17, 88%, 30%))
 
 /* Recipe references flavor */
 :root {
-  --sando-button-solid-backgroundColor-default:
-    var(--sando-color-action-solid-background-default);
+  --sando-button-solid-backgroundColor-default: var(
+    --sando-color-action-solid-background-default
+  );
 }
 
 /* Flavor references ingredient */
 :root {
-  --sando-color-action-solid-background-default:
-    var(--sando-color-brand-700);
+  --sando-color-action-solid-background-default: var(--sando-color-brand-700);
 }
 
 /* Ingredient has concrete value */

@@ -87,26 +87,30 @@ Question: How to implement padding for Button component that works in both LTR a
 **Use Context7 MCP ONLY for Intl API details**:
 
 Available libraries:
+
 - **MDN Web Docs**: `/mdn/content` - Intl API reference (DateTimeFormat, NumberFormat, etc.)
 
 **When to use**:
+
 - ✅ Intl.DateTimeFormat options and locale behavior
 - ✅ Intl.NumberFormat formatting patterns
 - ✅ Intl.PluralRules for pluralization logic
 - ✅ CSS logical properties browser support
 
 **Never use Context7 for**:
+
 - ❌ Sando component structure (use COMPONENT_ARCHITECTURE.md)
 - ❌ Sando token naming (use TOKEN_ARCHITECTURE.md)
 - ❌ Sando spacing patterns (use SPACING_SYSTEM.md)
 
 **Query pattern**:
+
 ```typescript
 // 1. Resolve library ID
-mcp__context7__resolve-library-id("mdn web docs")
+mcp__context7__resolve - library - id("mdn web docs");
 
 // 2. Fetch specific API
-mcp__context7__get-library-docs("/mdn/content", "Intl.DateTimeFormat")
+mcp__context7__get - library - docs("/mdn/content", "Intl.DateTimeFormat");
 ```
 
 ## Workflow
@@ -116,6 +120,7 @@ mcp__context7__get-library-docs("/mdn/content", "Intl.DateTimeFormat")
 **Purpose**: Enable right-to-left layout support using CSS logical properties
 
 **Steps**:
+
 1. Audit component for directional properties (left, right, margin-left, padding-right, etc.)
 2. Replace with logical properties per SPACING_SYSTEM.md:
    - `padding-left` → `padding-inline-start`
@@ -132,8 +137,10 @@ mcp__context7__get-library-docs("/mdn/content", "Intl.DateTimeFormat")
 **Purpose**: Implement correct formatting for dates, numbers, currency per user locale
 
 **Steps**:
+
 1. Identify components with formatting needs (DatePicker, Input type="number", etc.)
 2. Implement Intl API integration:
+
    ```typescript
    // Date formatting
    private formatDate(date: Date, locale: string): string {
@@ -153,6 +160,7 @@ mcp__context7__get-library-docs("/mdn/content", "Intl.DateTimeFormat")
      }).format(amount);
    }
    ```
+
 3. Add `locale` prop to component (default to `navigator.language`)
 4. Document locale prop in JSDoc per CODE_STYLE.md
 5. Add Storybook stories showing different locale examples
@@ -164,6 +172,7 @@ mcp__context7__get-library-docs("/mdn/content", "Intl.DateTimeFormat")
 **Purpose**: Remove hardcoded strings, enable translation workflow
 
 **Steps**:
+
 1. Audit component for hardcoded text (button labels, error messages, aria-labels)
 2. Create i18n prop pattern:
    ```typescript
@@ -179,6 +188,7 @@ mcp__context7__get-library-docs("/mdn/content", "Intl.DateTimeFormat")
 6. Add translation guide to VitePress docs per VITEPRESS_GUIDES.md
 
 **Deliverables**:
+
 - Component with i18n prop
 - TypeScript interface for i18n shape
 - VitePress guide: "Translating Components" with examples
@@ -188,6 +198,7 @@ mcp__context7__get-library-docs("/mdn/content", "Intl.DateTimeFormat")
 **Purpose**: Ensure design system respects cultural differences across markets
 
 **Steps**:
+
 1. Review colors against cultural meanings per COLOR_SYSTEM.md:
    - Red: danger (Western), prosperity (China)
    - White: purity (Western), mourning (some Asian cultures)
@@ -197,6 +208,7 @@ mcp__context7__get-library-docs("/mdn/content", "Intl.DateTimeFormat")
 5. Document cultural considerations in component docs
 
 **Deliverables**:
+
 - Cultural adaptation guide in VitePress
 - Color/icon recommendations per market
 - Review checklist for new components
@@ -213,6 +225,7 @@ Every i18n implementation must meet:
 - ✓ Cultural review completed for colors/imagery (documented appropriateness)
 
 **Technical Requirements**:
+
 - `lang` attribute support per WCAG_COMPLIANCE.md (1.3.1 Info and Relationships)
 - `dir` attribute support (ltr/rtl/auto)
 - Intl API browser support (modern browsers only, no polyfill unless required)
@@ -231,6 +244,7 @@ Every i18n implementation must meet:
 - **qa-expert**: Test RTL rendering, locale formatting across browsers and locales
 
 **Hand-off triggers**:
+
 - Invoke frontend-developer to implement i18n prop structure in new components
 - Consult ui-designer when color/icon cultural adaptations needed
 - Engage accessibility-advocate to validate lang/dir attribute accessibility
@@ -250,6 +264,7 @@ You MUST always prioritize:
 ## Common Pitfalls to Avoid
 
 **❌ DON'T**:
+
 - Use `padding-left`/`padding-right` instead of logical properties (breaks RTL, violates SPACING_SYSTEM.md)
 - Hardcode date/number formatting with regex or string manipulation (Intl APIs handle edge cases)
 - Assume English defaults are sufficient (always provide i18n prop for externalization)
@@ -257,6 +272,7 @@ You MUST always prioritize:
 - Ignore cultural color meanings (red/white have different connotations globally)
 
 **✅ DO**:
+
 - Use `padding-inline-start`/`end` for all directional spacing per SPACING_SYSTEM.md
 - Use Intl.DateTimeFormat/NumberFormat for locale-aware formatting
 - Externalize all text to i18n props with English defaults

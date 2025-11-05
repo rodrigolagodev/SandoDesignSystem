@@ -354,9 +354,7 @@ describe('sando-button', () => {
     });
 
     it('should render end-icon prop', async () => {
-      element = await fixture<SandoButton>(html`
-        <sando-button end-icon="→">Next</sando-button>
-      `);
+      element = await fixture<SandoButton>(html` <sando-button end-icon="→">Next</sando-button> `);
 
       const iconEnd = element.shadowRoot?.querySelector('.icon-end');
       expect(iconEnd).toBeDefined();

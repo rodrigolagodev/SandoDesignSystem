@@ -68,6 +68,7 @@ All guidelines are stored in `.claude/guidelines/` with a strict naming conventi
 **Why consolidated**: Design decisions are interconnected. Token architecture informs color system, which affects theming, which influences component design. Keeping these together ensures designers and developers see the complete picture.
 
 **Key Guidelines**:
+
 - `DESIGN_IDENTITY.md` - Brand philosophy, visual identity, design principles (EXISTING)
 - `TOKEN_ARCHITECTURE.md` - Three-layer system rules, reference integrity
 - `COLOR_SYSTEM.md` - OKLCH rationale, palette generation, semantic mapping
@@ -86,6 +87,7 @@ All guidelines are stored in `.claude/guidelines/` with a strict naming conventi
 **Purpose**: Technical architecture patterns and build system configuration.
 
 **Key Guidelines**:
+
 - `MONOREPO_STRUCTURE.md` - Package organization, Turborepo caching, build order
 - `COMPONENT_ARCHITECTURE.md` - 7-file monolithic pattern, Shadow DOM, Lit patterns
 - `TOKEN_BUILD_SYSTEM.md` - Style Dictionary config, custom transforms, output formats
@@ -100,6 +102,7 @@ All guidelines are stored in `.claude/guidelines/` with a strict naming conventi
 **Purpose**: Day-to-day coding standards and development workflows.
 
 **Key Guidelines**:
+
 - `CODE_STYLE.md` - TypeScript config, linting rules, formatting
 - `NAMING_CONVENTIONS.md` - `sando-*` prefix, file naming, variable naming, token naming
 - `GIT_WORKFLOW.md` - Conventional commits, changesets, release process
@@ -114,6 +117,7 @@ All guidelines are stored in `.claude/guidelines/` with a strict naming conventi
 **Purpose**: WCAG compliance and inclusive design standards.
 
 **Key Guidelines**:
+
 - `WCAG_COMPLIANCE.md` - AA/AAA checklist, testing tools (axe-core), audit process
 - `KEYBOARD_NAVIGATION.md` - Focus visible, tab order, escape/enter patterns
 - `SCREEN_READER_SUPPORT.md` - Semantic HTML, ARIA usage, testing with NVDA/JAWS
@@ -128,6 +132,7 @@ All guidelines are stored in `.claude/guidelines/` with a strict naming conventi
 **Purpose**: Quality gates and non-functional requirements.
 
 **Key Guidelines**:
+
 - `TEST_COVERAGE.md` - 85% unit, 80% E2E, 100% a11y for public components
 - `PERFORMANCE_BUDGETS.md` - 50kb/component, LCP <2.5s, CLS <0.1
 - `SECURITY_STANDARDS.md` - CSP headers, npm audit CI, XSS prevention checklist
@@ -142,6 +147,7 @@ All guidelines are stored in `.claude/guidelines/` with a strict naming conventi
 **Purpose**: Documentation format standards for consistency.
 
 **Key Guidelines**:
+
 - `API_REFERENCE.md` - Property tables, event documentation, CSS variable listings
 - `STORYBOOK_STORIES.md` - Story naming, controls setup, MDX docs blocks
 - `VITEPRESS_GUIDES.md` - Tutorial structure, code snippet formatting, frontmatter
@@ -155,7 +161,7 @@ All guidelines are stored in `.claude/guidelines/` with a strict naming conventi
 
 All guideline files follow this template:
 
-```markdown
+````markdown
 # [Guideline Title]
 
 **Category**: [01-design-system / 02-architecture / 03-development / 04-accessibility / 05-quality / 06-documentation]
@@ -189,14 +195,17 @@ All guideline files follow this template:
 [Detailed explanation with examples]
 
 **Required**:
+
 - Item 1
 - Item 2
 
 **Recommended**:
+
 - Item 3
 - Item 4
 
 **Code Example**:
+
 ```typescript
 // Good
 const example = "follows standard";
@@ -204,6 +213,7 @@ const example = "follows standard";
 // Bad
 const example = "violates standard";
 ```
+````
 
 ### [Standard Category 2]
 
@@ -255,7 +265,8 @@ const example = "violates standard";
 
 - **1.0.0** (2025-11-02): Initial guideline created
 - **1.1.0** (2025-11-15): Added section X based on team feedback
-```
+
+````
 
 ---
 
@@ -437,9 +448,10 @@ This agent follows these guidelines:
 - **[WCAG_COMPLIANCE.md](../../guidelines/04-accessibility/WCAG_COMPLIANCE.md)**: Accessibility standards (AA/AAA)
 
 When making decisions, consult these guidelines first. Do NOT duplicate guideline content in this agent file.
-```
+````
 
 This ensures:
+
 - **Single source of truth**: Guideline content lives in one place
 - **Easy updates**: Change guideline once, all agents get update
 - **Clear traceability**: Know which standards apply to each agent
@@ -449,6 +461,7 @@ This ensures:
 ## Success Metrics
 
 ### Quantitative
+
 - **Guideline coverage**: 100% of standardization topics covered
 - **Reference adoption**: All 12 agents reference guidelines (0% duplication)
 - **Skill integration**: 5 skills enforcing guidelines programmatically
@@ -456,6 +469,7 @@ This ensures:
 - **Update efficiency**: Guideline changes propagate without agent edits
 
 ### Qualitative
+
 - **Developer clarity**: New contributors can find standards easily
 - **Consistency**: All components follow same patterns
 - **Maintainability**: Changing a standard doesn't require mass agent updates

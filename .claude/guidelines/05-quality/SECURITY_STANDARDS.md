@@ -25,6 +25,7 @@ Establish security standards for the Sando Design System to prevent vulnerabilit
 All user input MUST be sanitized. Never use `innerHTML` or `dangerouslySetInnerHTML` without sanitization.
 
 **Pattern** (Lit automatic escaping):
+
 ```typescript
 // ✅ CORRECT - Lit automatically escapes expressions
 render() {
@@ -42,6 +43,7 @@ render() {
 **Lit security**: Template expressions are automatically HTML-escaped. SQL injection, XSS, and code injection are prevented by default.
 
 **When HTML is required**:
+
 ```typescript
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import DOMPurify from 'dompurify';
@@ -63,6 +65,7 @@ render() {
 Components MUST work with strict CSP (no `unsafe-inline`, no `unsafe-eval`).
 
 **Pattern** (CSP headers):
+
 ```http
 Content-Security-Policy:
   default-src 'self';
@@ -75,12 +78,14 @@ Content-Security-Policy:
 ```
 
 **Component requirements**:
+
 - No inline styles (use Shadow DOM CSS)
 - No inline scripts (use external modules)
 - No `eval()` or `new Function()`
 - Use nonces/hashes for any required inline content
 
 **Testing CSP**:
+
 ```bash
 # Test Storybook with strict CSP
 npx http-server apps/docs/dist \
@@ -100,6 +105,7 @@ npx http-server apps/docs/dist \
 All dependencies MUST be scanned for vulnerabilities. No high/critical vulnerabilities in production.
 
 **Pattern** (npm audit):
+
 ```bash
 # Audit dependencies
 pnpm audit
@@ -113,6 +119,7 @@ pnpm audit --audit-level=high
 ```
 
 **GitHub Dependabot**:
+
 ```yaml
 # .github/dependabot.yml
 version: 2
@@ -144,6 +151,7 @@ updates:
 Follow OWASP Top 10 and secure coding guidelines for all component code.
 
 **Key practices**:
+
 1. **Input validation**: Validate all props/attributes
 2. **Output encoding**: Use Lit's automatic escaping
 3. **Authentication**: Never implement auth in components (delegate)
@@ -151,6 +159,7 @@ Follow OWASP Top 10 and secure coding guidelines for all component code.
 5. **Error messages**: Don't leak sensitive info in errors
 
 **Pattern** (input validation):
+
 ```typescript
 @property({ type: String })
 set email(value: string) {
@@ -168,9 +177,10 @@ private isValidEmail(email: string): boolean {
 ```
 
 **Anti-pattern** (secrets in code):
+
 ```typescript
 // ❌ WRONG - Hardcoded API key
-const API_KEY = 'sk_live_abc123def456';
+const API_KEY = "sk_live_abc123def456";
 
 // ✅ CORRECT - Use environment variables
 const API_KEY = import.meta.env.VITE_API_KEY;
@@ -187,6 +197,7 @@ const API_KEY = import.meta.env.VITE_API_KEY;
 All dependencies MUST have compatible licenses (MIT, Apache 2.0, BSD, ISC). No GPL/AGPL in production.
 
 **Pattern** (license checker):
+
 ```bash
 # Install
 pnpm add -D license-checker
@@ -199,11 +210,13 @@ npx license-checker --failOn "GPL;AGPL"
 ```
 
 **Acceptable licenses**:
+
 - ✅ MIT, Apache 2.0, BSD (2/3-Clause), ISC
 - ⚠️ CC0, Unlicense (verify case-by-case)
 - ❌ GPL, AGPL, Commons Clause (copyleft - avoid)
 
 **CI integration**:
+
 ```yaml
 - name: Check licenses
   run: npx license-checker --failOn "GPL;AGPL;SSPL"
@@ -222,18 +235,20 @@ npx license-checker --failOn "GPL;AGPL"
 **Risk**: Malicious code execution via user input
 
 **Prevention**:
+
 - Use Lit's automatic HTML escaping
 - Sanitize with DOMPurify before `unsafeHTML`
 - Validate all prop/attribute inputs
 - Never use `eval()`, `new Function()`, `innerHTML`
 
 **Test**:
+
 ```typescript
-it('escapes HTML in user input', async () => {
+it("escapes HTML in user input", async () => {
   element.label = '<script>alert("XSS")</script>';
   await element.updateComplete;
   const text = element.shadowRoot?.textContent;
-  expect(text).toContain('<script>'); // Escaped, not executed
+  expect(text).toContain("<script>"); // Escaped, not executed
 });
 ```
 
@@ -242,16 +257,19 @@ it('escapes HTML in user input', async () => {
 **Risk**: Unauthorized access via weak auth
 
 **Prevention**:
+
 - **DO NOT implement authentication in components**
 - Delegate to app-level auth (OAuth, JWT, etc.)
 - Components should only consume auth state, not manage it
 
 **Anti-pattern**:
+
 ```typescript
 // ❌ WRONG - Auth logic in component
 class SandoLogin extends LitElement {
   login(user, pass) {
-    if (user === 'admin' && pass === '123') { // NEVER DO THIS
+    if (user === "admin" && pass === "123") {
+      // NEVER DO THIS
       this.authenticated = true;
     }
   }
@@ -263,12 +281,14 @@ class SandoLogin extends LitElement {
 **Risk**: Leaking secrets, PII, API keys
 
 **Prevention**:
+
 - Never hardcode secrets in components
 - Never log sensitive data (PII, tokens, passwords)
 - Use environment variables for config
 - Sanitize error messages
 
 **Pattern**:
+
 ```typescript
 // ✅ CORRECT - No sensitive data in logs
 catch (error) {
@@ -282,6 +302,7 @@ catch (error) {
 **Risk**: XML parsing vulnerabilities
 
 **Prevention**:
+
 - Use JSON instead of XML for data exchange
 - If XML required, disable external entities
 - Validate XML against schema
@@ -293,11 +314,13 @@ catch (error) {
 **Risk**: Unauthorized actions
 
 **Prevention**:
+
 - Components should not enforce access control
 - Delegate to backend/app level
 - Only show/hide UI based on props (not security boundary)
 
 **Pattern**:
+
 ```typescript
 // ✅ CORRECT - UI-only restriction
 render() {
@@ -313,12 +336,14 @@ render() {
 **Risk**: Default credentials, verbose errors, open ports
 
 **Prevention**:
+
 - No default passwords/API keys
 - Disable debug mode in production
 - Secure CSP headers
 - Keep dependencies updated
 
 **Check**:
+
 ```bash
 # Audit production build for debug code
 grep -r "console.log" dist/
@@ -336,6 +361,7 @@ grep -r "debugger" dist/
 **Risk**: Code execution via malicious serialized objects
 
 **Prevention**:
+
 - Avoid deserializing untrusted data
 - Use JSON (safer than pickle/YAML)
 - Validate schema after deserialization
@@ -353,17 +379,19 @@ grep -r "debugger" dist/
 **Risk**: Undetected breaches
 
 **Prevention**:
+
 - Log security events (auth failures, validation errors)
 - Monitor for anomalies
 - Alert on suspicious patterns
 
 **Pattern**:
+
 ```typescript
 // Log security-relevant events
 if (!this.isValidInput(value)) {
-  console.warn('[SECURITY] Invalid input detected', {
-    component: 'sando-input',
-    timestamp: Date.now()
+  console.warn("[SECURITY] Invalid input detected", {
+    component: "sando-input",
+    timestamp: Date.now(),
     // Don't log the actual invalid value (may contain attack payload)
   });
 }
@@ -376,16 +404,19 @@ if (!this.isValidInput(value)) {
 ### npm audit
 
 **Run on every CI build**:
+
 ```yaml
 - name: Security audit
   run: pnpm audit --audit-level=moderate
 ```
 
 **Exit codes**:
+
 - `0` - No vulnerabilities
 - `1` - Vulnerabilities found (blocks merge)
 
 **Handling advisories**:
+
 ```bash
 # View details
 pnpm audit
@@ -403,6 +434,7 @@ pnpm audit --json > audit.json
 **Automatic PR creation** for vulnerable dependencies:
 
 **.github/dependabot.yml**:
+
 ```yaml
 version: 2
 updates:
@@ -419,6 +451,7 @@ updates:
 ```
 
 **Benefits**:
+
 - Automated vulnerability detection
 - PRs with fix suggestions
 - Configurable auto-merge (patch/minor only)
@@ -426,6 +459,7 @@ updates:
 ### Snyk Integration (Optional)
 
 **Advanced vulnerability scanning**:
+
 ```bash
 # Install
 pnpm add -D snyk
@@ -438,6 +472,7 @@ npx snyk monitor
 ```
 
 **Features**:
+
 - Broader vulnerability database than npm audit
 - License compliance checking
 - Container scanning (if using Docker)
@@ -449,6 +484,7 @@ npx snyk monitor
 ### Code Scanning
 
 **GitHub Advanced Security** (if available):
+
 ```yaml
 # .github/workflows/codeql.yml
 name: CodeQL
@@ -467,6 +503,7 @@ jobs:
 ### Secret Scanning
 
 **Prevent committing secrets**:
+
 ```bash
 # Install git-secrets
 brew install git-secrets
@@ -480,6 +517,7 @@ git secrets --scan
 ```
 
 **Pre-commit hook**:
+
 ```yaml
 # .husky/pre-commit
 #!/bin/sh
@@ -489,11 +527,13 @@ git secrets --scan
 ### Supply Chain Security
 
 **Lock files** (`pnpm-lock.yaml`):
+
 - Commit lock files to version control
 - Ensures reproducible builds
 - Prevents malicious package updates
 
 **Integrity checks**:
+
 ```json
 // package.json
 {
@@ -504,6 +544,7 @@ git secrets --scan
 ```
 
 **Package provenance** (future):
+
 ```bash
 # Verify package signatures
 npm audit signatures
@@ -516,28 +557,30 @@ npm audit signatures
 ### CSP Headers
 
 **Strict CSP for documentation sites**:
+
 ```javascript
 // apps/docs/vite.config.js
 export default defineConfig({
   server: {
     headers: {
-      'Content-Security-Policy': [
+      "Content-Security-Policy": [
         "default-src 'self'",
         "script-src 'self'",
         "style-src 'self'",
         "img-src 'self' data: https:",
         "font-src 'self'",
         "connect-src 'self'",
-        "frame-ancestors 'none'"
-      ].join('; ')
-    }
-  }
+        "frame-ancestors 'none'",
+      ].join("; "),
+    },
+  },
 });
 ```
 
 ### CSP for Web Components
 
 **Shadow DOM CSS** (CSP-safe):
+
 ```typescript
 // ✅ CORRECT - No inline styles
 static styles = css`
@@ -548,6 +591,7 @@ static styles = css`
 ```
 
 **Avoid inline styles**:
+
 ```typescript
 // ❌ WRONG - Inline style violates CSP
 render() {
@@ -563,6 +607,7 @@ render() {
 ### CSP Reporting
 
 **Monitor violations**:
+
 ```http
 Content-Security-Policy-Report-Only:
   default-src 'self';
@@ -576,6 +621,7 @@ Content-Security-Policy-Report-Only:
 ### Responsible Disclosure Policy
 
 **SECURITY.md** (repository root):
+
 ```markdown
 # Security Policy
 
@@ -587,6 +633,7 @@ Email: security@sando-design.com
 PGP Key: [link to public key]
 
 Include:
+
 - Vulnerability description
 - Steps to reproduce
 - Impact assessment
@@ -612,6 +659,7 @@ Include:
 ### Security Advisories
 
 **GitHub Security Advisories**:
+
 1. Create private advisory
 2. Assign CVE
 3. Develop fix
@@ -667,20 +715,24 @@ Include:
 ## External References
 
 **OWASP**:
+
 - [OWASP Top 10](https://owasp.org/www-project-top-ten/) - Most critical web vulnerabilities
 - [XSS Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html)
 - [Secure Coding Practices](https://owasp.org/www-project-secure-coding-practices-quick-reference-guide/)
 
 **CSP**:
+
 - [MDN Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)
 - [CSP Evaluator](https://csp-evaluator.withgoogle.com/) - Test CSP policies
 
 **Dependency Security**:
+
 - [npm audit](https://docs.npmjs.com/cli/v8/commands/npm-audit) - Vulnerability scanning
 - [Snyk](https://snyk.io/) - Advanced dependency scanning
 - [Dependabot](https://docs.github.com/en/code-security/dependabot) - Automated updates
 
 **Web Components**:
+
 - [Lit Security](https://lit.dev/docs/components/security/) - Lit-specific security guidance
 
 ---
@@ -688,6 +740,7 @@ Include:
 ## Changelog
 
 ### 1.0.0 (2025-11-03)
+
 - Initial guideline creation
 - OWASP Top 10 coverage for design systems
 - XSS prevention: Lit automatic escaping, DOMPurify for `unsafeHTML`

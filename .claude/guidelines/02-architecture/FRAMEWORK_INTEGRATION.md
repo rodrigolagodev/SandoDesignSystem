@@ -21,12 +21,14 @@ Defines how **Sando Web Components integrate with React, Vue, Angular, and Svelt
 **Sando components are framework-agnostic** by design. They work in ANY framework because they follow the Web Components standard.
 
 **Why Web Components**:
+
 - **Universal**: One codebase, all frameworks
 - **Future-proof**: Standard-based, not tied to framework versions
 - **Encapsulated**: Shadow DOM prevents style leaks
 - **Interoperable**: Can mix React, Vue, and vanilla components
 
 **Pattern**:
+
 ```html
 <!-- Same component works everywhere -->
 <!-- Vanilla HTML -->
@@ -46,6 +48,7 @@ Defines how **Sando Web Components integrate with React, Vue, Angular, and Svelt
 ```
 
 **Anti-pattern**:
+
 ```typescript
 // L WRONG: Framework-specific components
 @sando/react     // Separate React wrappers
@@ -60,9 +63,10 @@ Defines how **Sando Web Components integrate with React, Vue, Angular, and Svelt
 **All frameworks require importing the component** before use (side-effect import for registration).
 
 **Pattern**:
+
 ```typescript
 // Import component (registers custom element)
-import '@sando/components/button';
+import "@sando/components/button";
 
 // Now <sando-button> is available in templates
 ```
@@ -70,6 +74,7 @@ import '@sando/components/button';
 **Why This Matters**: Web Components must be registered before the browser can use them. Importing triggers registration.
 
 **Anti-pattern**:
+
 ```typescript
 // L WRONG: Not importing
 // <sando-button> used in template without import
@@ -83,28 +88,32 @@ import '@sando/components/button';
 **Understand the difference**: Properties (JS objects) vs Attributes (HTML strings).
 
 **Properties** (Complex data):
+
 ```javascript
-const button = document.querySelector('sando-button');
-button.options = { variant: 'solid', size: 'medium' };  // Object
+const button = document.querySelector("sando-button");
+button.options = { variant: "solid", size: "medium" }; // Object
 ```
 
 **Attributes** (Simple data):
+
 ```html
 <sando-button variant="solid" size="medium"></sando-button>
 ```
 
-**Lit Convention**: Use `reflect: true` to sync prop í attribute for simple values (strings, numbers, booleans).
+**Lit Convention**: Use `reflect: true` to sync prop ÔøΩ attribute for simple values (strings, numbers, booleans).
 
 **Pattern** (component definition):
+
 ```typescript
 @property({ reflect: true })
-variant: 'solid' | 'outline' = 'solid';  // ê Syncs to attribute
+variant: 'solid' | 'outline' = 'solid';  // ÔøΩ Syncs to attribute
 
 @property({ type: Boolean, reflect: true })
-disabled = false;  // ê Syncs to attribute
+disabled = false;  // ÔøΩ Syncs to attribute
 ```
 
 **Framework Impact**:
+
 - **React**: Can't pass objects as attributes (use refs)
 - **Vue**: Can use `v-bind` for properties
 - **Angular**: Use property binding `[disabled]`
@@ -117,16 +126,20 @@ disabled = false;  // ê Syncs to attribute
 **Web Components dispatch custom events**. Each framework has its own event handling syntax.
 
 **Event Pattern** (component):
+
 ```typescript
 // Component dispatches custom event
-this.dispatchEvent(new CustomEvent('button-click', {
-  detail: { value: 'data' },
-  bubbles: true,
-  composed: true  // ê Crosses shadow boundary
-}));
+this.dispatchEvent(
+  new CustomEvent("button-click", {
+    detail: { value: "data" },
+    bubbles: true,
+    composed: true, // ÔøΩ Crosses shadow boundary
+  }),
+);
 ```
 
 **Framework Patterns**:
+
 ```typescript
 // React: addEventListener in ref
 buttonRef.current.addEventListener('button-click', handler);
@@ -150,18 +163,19 @@ buttonRef.current.addEventListener('button-click', handler);
 **Provide TypeScript definitions** for all components to enable autocomplete and type checking.
 
 **Pattern** (`global.d.ts` or framework-specific types):
+
 ```typescript
 declare global {
   interface HTMLElementTagNameMap {
-    'sando-button': SandoButton;
-    'sando-card': SandoCard;
+    "sando-button": SandoButton;
+    "sando-card": SandoCard;
   }
 }
 
 // JSX types (React)
 declare namespace JSX {
   interface IntrinsicElements {
-    'sando-button': React.DetailedHTMLProps<
+    "sando-button": React.DetailedHTMLProps<
       React.HTMLAttributes<SandoButton>,
       SandoButton
     >;
@@ -192,16 +206,17 @@ function App() {
 ### TypeScript Support
 
 **Create `src/types/web-components.d.ts`**:
+
 ```typescript
-import { SandoButton } from '@sando/components/button';
+import { SandoButton } from "@sando/components/button";
 
 declare global {
   namespace JSX {
     interface IntrinsicElements {
-      'sando-button': React.DetailedHTMLProps<
+      "sando-button": React.DetailedHTMLProps<
         React.HTMLAttributes<SandoButton> & {
-          variant?: 'solid' | 'outline' | 'ghost';
-          size?: 'small' | 'medium' | 'large';
+          variant?: "solid" | "outline" | "ghost";
+          size?: "small" | "medium" | "large";
           disabled?: boolean;
         },
         SandoButton
@@ -218,6 +233,7 @@ declare global {
 ### Event Handling
 
 **Use refs + addEventListener**:
+
 ```typescript
 import { useRef, useEffect } from 'react';
 
@@ -248,6 +264,7 @@ function App() {
 ### Passing Complex Props
 
 **Use refs**:
+
 ```typescript
 import { useRef, useEffect } from 'react';
 
@@ -274,8 +291,8 @@ function App() {
 
 ```typescript
 // vite.config.ts
-import { defineConfig } from 'vite';
-import vue from '@vitejs/plugin-vue';
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
 
 export default defineConfig({
   plugins: [
@@ -283,11 +300,11 @@ export default defineConfig({
       template: {
         compilerOptions: {
           // Treat all tags starting with 'sando-' as custom elements
-          isCustomElement: (tag) => tag.startsWith('sando-')
-        }
-      }
-    })
-  ]
+          isCustomElement: (tag) => tag.startsWith("sando-"),
+        },
+      },
+    }),
+  ],
 });
 ```
 
@@ -299,24 +316,22 @@ export default defineConfig({
 
 ```vue
 <script setup lang="ts">
-import '@sando/components/button';
+import "@sando/components/button";
 
 function handleClick(e: CustomEvent) {
-  console.log('Clicked:', e.detail);
+  console.log("Clicked:", e.detail);
 }
 </script>
 
 <template>
-  <sando-button
-    variant="solid"
-    @button-click="handleClick"
-  >
+  <sando-button variant="solid" @button-click="handleClick">
     Click me
   </sando-button>
 </template>
 ```
 
 **Why Vue Works Well**:
+
 - `@event-name` syntax for custom events
 - `v-bind` for properties
 - `v-model` can work with custom events
@@ -326,12 +341,13 @@ function handleClick(e: CustomEvent) {
 ### TypeScript Support
 
 **Create `src/types/web-components.d.ts`**:
-```typescript
-import { SandoButton } from '@sando/components/button';
 
-declare module '@vue/runtime-core' {
+```typescript
+import { SandoButton } from "@sando/components/button";
+
+declare module "@vue/runtime-core" {
   interface GlobalComponents {
-    'sando-button': typeof SandoButton;
+    "sando-button": typeof SandoButton;
   }
 }
 ```
@@ -341,6 +357,7 @@ declare module '@vue/runtime-core' {
 ### v-model Support
 
 **Components can support v-model**:
+
 ```vue
 <!-- Component with value prop + value-changed event -->
 <sando-input v-model="text"></sando-input>
@@ -353,6 +370,7 @@ declare module '@vue/runtime-core' {
 ```
 
 **Component Implementation**:
+
 ```typescript
 @property({ reflect: true })
 value = '';
@@ -374,12 +392,13 @@ private handleInput(e: Event) {
 ### Basic Setup
 
 **Add `CUSTOM_ELEMENTS_SCHEMA` to module**:
+
 ```typescript
 // app.module.ts
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 
 @NgModule({
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],  // ê Allow custom elements
+  schemas: [CUSTOM_ELEMENTS_SCHEMA], // ÔøΩ Allow custom elements
   // ...
 })
 export class AppModule {}
@@ -393,24 +412,21 @@ export class AppModule {}
 
 ```typescript
 // app.component.ts
-import { Component, OnInit } from '@angular/core';
-import '@sando/components/button';  // ê Import for registration
+import { Component, OnInit } from "@angular/core";
+import "@sando/components/button"; // ÔøΩ Import for registration
 
 @Component({
-  selector: 'app-root',
+  selector: "app-root",
   template: `
-    <sando-button
-      variant="solid"
-      (button-click)="handleClick($event)"
-    >
+    <sando-button variant="solid" (button-click)="handleClick($event)">
       Click me
     </sando-button>
-  `
+  `,
 })
 export class AppComponent {
   handleClick(event: Event) {
     const customEvent = event as CustomEvent;
-    console.log('Clicked:', customEvent.detail);
+    console.log("Clicked:", customEvent.detail);
   }
 }
 ```
@@ -422,6 +438,7 @@ export class AppComponent {
 ### Property Binding
 
 **Use Angular property binding**:
+
 ```html
 <!-- Property binding (not attribute) -->
 <sando-component
@@ -437,11 +454,12 @@ export class AppComponent {
 ### TypeScript Support
 
 **Declare custom elements**:
+
 ```typescript
 // typings.d.ts
 declare global {
   interface HTMLElementTagNameMap {
-    'sando-button': any;  // Or import actual type
+    "sando-button": any; // Or import actual type
   }
 }
 ```
@@ -472,6 +490,7 @@ declare global {
 ```
 
 **Why Svelte Works Best**:
+
 - No special config needed
 - `on:event-name` for custom events
 - Can pass objects as props directly
@@ -482,12 +501,13 @@ declare global {
 ### TypeScript Support
 
 **Create `src/ambient.d.ts`**:
+
 ```typescript
 declare namespace svelteHTML {
   interface IntrinsicElements {
-    'sando-button': {
-      variant?: 'solid' | 'outline' | 'ghost';
-      size?: 'small' | 'medium' | 'large';
+    "sando-button": {
+      variant?: "solid" | "outline" | "ghost";
+      size?: "small" | "medium" | "large";
       disabled?: boolean;
     };
   }
@@ -525,6 +545,7 @@ declare namespace svelteHTML {
 **Strategies**:
 
 1. **Declarative Shadow DOM** (experimental):
+
 ```html
 <sando-button>
   <template shadowroot="open">
@@ -535,17 +556,22 @@ declare namespace svelteHTML {
 ```
 
 2. **Client-only rendering**:
+
 ```typescript
 // Next.js
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 
 const SandoButton = dynamic(
-  () => import('@sando/components/button').then(() => ({ default: 'sando-button' })),
-  { ssr: false }
+  () =>
+    import("@sando/components/button").then(() => ({
+      default: "sando-button",
+    })),
+  { ssr: false },
 );
 ```
 
 3. **Progressive enhancement**:
+
 ```html
 <!-- Content visible before hydration -->
 <sando-button>
@@ -564,7 +590,7 @@ const SandoButton = dynamic(
 ```typescript
 // Load component on demand
 async function loadButton() {
-  await import('@sando/components/button');
+  await import("@sando/components/button");
   // <sando-button> now available
 }
 ```
@@ -574,21 +600,27 @@ async function loadButton() {
 ### Conditional Rendering
 
 **React**:
+
 ```tsx
-{showButton && <sando-button>Click</sando-button>}
+{
+  showButton && <sando-button>Click</sando-button>;
+}
 ```
 
 **Vue**:
+
 ```vue
 <sando-button v-if="showButton">Click</sando-button>
 ```
 
 **Angular**:
+
 ```html
 <sando-button *ngIf="showButton">Click</sando-button>
 ```
 
 **Svelte**:
+
 ```svelte
 {#if showButton}
   <sando-button>Click</sando-button>
@@ -600,6 +632,7 @@ async function loadButton() {
 ### Slots (Content Projection)
 
 **All frameworks support slots**:
+
 ```html
 <!-- Named slots -->
 <sando-card>
@@ -610,6 +643,7 @@ async function loadButton() {
 ```
 
 **Framework-specific**:
+
 ```jsx
 // React: Use slot attribute
 <sando-card>
@@ -631,6 +665,7 @@ async function loadButton() {
 ## Validation Checklist
 
 ### General Setup
+
 - [ ] Web Components imported before use
 - [ ] Components registered (check in browser console)
 - [ ] TypeScript definitions created
@@ -638,24 +673,28 @@ async function loadButton() {
 - [ ] Slots working correctly
 
 ### React
+
 - [ ] `CUSTOM_ELEMENTS_SCHEMA` not needed (React supports custom elements)
 - [ ] TypeScript JSX definitions created
 - [ ] Events handled via refs + addEventListener
 - [ ] Complex props passed via refs
 
 ### Vue
+
 - [ ] `isCustomElement` configured in vite.config
 - [ ] Custom events work with `@event-name`
 - [ ] TypeScript GlobalComponents declared
 - [ ] v-model works if implemented
 
 ### Angular
+
 - [ ] `CUSTOM_ELEMENTS_SCHEMA` added to module
 - [ ] Custom events work with `(event-name)`
 - [ ] Property binding works with `[prop]`
 - [ ] TypeScript HTMLElementTagNameMap declared
 
 ### Svelte
+
 - [ ] No config needed (works out of box)
 - [ ] Custom events work with `on:event-name`
 - [ ] TypeScript svelteHTML declared
@@ -685,6 +724,7 @@ async function loadButton() {
 ## Changelog
 
 ### 1.0.0 (2025-11-02)
+
 - Initial framework integration guideline
 - React, Vue 3, Angular, Svelte patterns
 - TypeScript support for each framework

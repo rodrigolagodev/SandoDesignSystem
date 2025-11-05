@@ -13,17 +13,20 @@ El equipo de agentes IA del proyecto Sando UI Toolkit está compuesto por **18 a
 ### Evolución del Sistema de Agentes (2025-10-09)
 
 **Fase 1: Consolidación (Completada)**
+
 - `build-engineer`, `dx-optimizer`, `tooling-engineer` → `developer-tooling-specialist`
 - `accessibility-tester` eliminado (funcionalidad absorbida por qa-expert)
 - **Resultado:** Eliminación de 4 agentes redundantes
 
 **Fase 2-4: Expansión Estratégica (Completada)**
+
 - **Phase 2 - Critical Gaps:** design-ops-specialist, version-migration-manager, ecosystem-integration-agent, performance-monitor
 - **Phase 3 - Quality Enhancement:** security-compliance-auditor, component-composition-specialist
 - **Phase 4 - Community & Insights:** community-contribution-manager, analytics-insights-agent, localization-i18n-specialist
 - **Resultado:** +9 agentes especializados para capacidades enterprise-grade
 
 ### Stack Tecnológico Principal
+
 - **Core:** Lit 3+, TypeScript 5+, Vite, Style Dictionary
 - **Testing:** Jest, Playwright, axe-core
 - **CI/CD:** GitHub Actions, NPM
@@ -34,26 +37,26 @@ El equipo de agentes IA del proyecto Sando UI Toolkit está compuesto por **18 a
 
 ## Tabla Resumen de Agentes de Producción (18)
 
-| **Nombre del Agente** | **Objetivo Principal** | **Capacidades Clave** |
-|----------------------|------------------------|----------------------|
-| **design-system-architect** | Establecer arquitectura fundacional: tokens (3 capas), componentes Web, theming y stack tecnológico | • Arquitectura de 3 capas de tokens (Ingredients/Flavors/Recipes)<br>• Framework-agnostic con Web Components<br>• Theming vía HTML attributes<br>• Testing strategy (unit/E2E/a11y) |
-| **design-system-pm** | Gestión estratégica del producto: roadmap, priorización (RICE), adopción, métricas y stakeholder communication | • Roadmap planning y OKRs<br>• RICE prioritization framework<br>• Adoption metrics >75%<br>• Developer NPS >40<br>• Developer research y feedback loops |
-| **ui-designer** | Diseñar interfaces, establecer tokens (Ingredients/Flavors), componentes, accesibilidad WCAG 2.1 AA y design system | • Design tokens (Ingredients + Flavors)<br>• Component library design<br>• WCAG 2.1 AA compliance (4.5:1 contrast)<br>• Responsive design (320px-1920px)<br>• Dark mode variants |
-| **frontend-developer** | Construir Web Components con Lit + TypeScript: implementar tokens, accesibilidad, tests y Storybook | • Implementar componentes Lit con Shadow DOM<br>• Consumir tokens (Recipes layer)<br>• WCAG 2.1 AA compliance<br>• Coverage >85%<br>• Storybook stories completas |
-| **technical-writer** | Crear documentación completa: API references, token guides, Storybook docs, developer guides | • Component API documentation (100% coverage)<br>• Token architecture docs (3 layers)<br>• Interactive Storybook examples<br>• Developer guides y migration guides |
-| **qa-expert** | Asegurar calidad integral: strategy, unit/E2E/a11y tests, defect management y CI/CD integration | • Test coverage >90%<br>• WCAG 2.1 AA verification (0 violations)<br>• Cross-browser testing<br>• Visual regression testing |
-| **devops-automation-engineer** | Automatizar CI/CD, publicación NPM, deployment de Storybook, seguridad y monitoreo | • CI/CD pipelines completos<br>• Automated NPM publishing con semantic versioning<br>• Storybook deployment automation<br>• DORA metrics tracking |
-| **developer-tooling-specialist** | Optimizar build systems, DX, tooling workflows, y developer productivity end-to-end | • Builds <30s, HMR <100ms<br>• Bundle optimization y tree-shaking<br>• Token pipeline <2s<br>• Code quality automation |
-| **design-ops-specialist** ✨ | Gestionar design operations, token versioning, Figma-to-code automation, visual regression testing | • Design token versioning y migration<br>• Figma Tokens plugin integration<br>• Visual regression (Chromatic/Percy)<br>• Multi-platform token builds |
-| **version-migration-manager** ✨ | Manejar breaking changes, crear codemods, gestionar deprecation workflow | • Semantic versioning enforcement<br>• jscodeshift codemods<br>• Deprecation tracking<br>• Changelog generation |
-| **ecosystem-integration-agent** ✨ | Crear framework wrappers (React/Vue/Angular), SSR support, package management | • @lit/react wrappers<br>• Vue 3 v-model support<br>• Angular CUSTOM_ELEMENTS_SCHEMA<br>• SSR/SSG support |
-| **performance-monitor** ✨ | Monitorear Core Web Vitals, bundle sizes, runtime performance | • LCP/FID/CLS/INP tracking<br>• size-limit integration<br>• Lighthouse CI<br>• Performance budgets |
-| **security-compliance-auditor** ✨ | Escaneo de vulnerabilidades, prevención XSS, compliance de licencias, GDPR | • npm audit, Snyk, Socket<br>• XSS prevention (DOMPurify)<br>• CSP compliance<br>• SBOM generation |
-| **component-composition-specialist** ✨ | Diseñar componentes composables (compound components, headless UI, layout primitives) | • Compound components pattern<br>• Headless/renderless components<br>• Layout primitives (Stack/Grid)<br>• Slot-based composition |
-| **community-contribution-manager** ✨ | Gestionar contribuciones open source, issue triage, PR reviews, RFC process | • Issue triage <24h<br>• PR reviews <48h<br>• RFC process management<br>• Contributor recognition |
-| **analytics-insights-agent** ✨ | Rastrear métricas de uso, adoption rates, patrones de uso, developer satisfaction | • Component adoption tracking<br>• Usage patterns analysis<br>• Performance impact measurement<br>• Developer NPS/CSAT surveys |
-| **localization-i18n-specialist** ✨ | Soporte multi-idioma, RTL layouts, formato locale-specific, traducción | • RTL support (CSS logical properties)<br>• Intl.DateTimeFormat/NumberFormat<br>• Translation management<br>• Cultural adaptations |
-| **statusline-setup** | Meta-agent para configurar Claude Code status line | • Configuración de status line |
+| **Nombre del Agente**                   | **Objetivo Principal**                                                                                              | **Capacidades Clave**                                                                                                                                                               |
+| --------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **design-system-architect**             | Establecer arquitectura fundacional: tokens (3 capas), componentes Web, theming y stack tecnológico                 | • Arquitectura de 3 capas de tokens (Ingredients/Flavors/Recipes)<br>• Framework-agnostic con Web Components<br>• Theming vía HTML attributes<br>• Testing strategy (unit/E2E/a11y) |
+| **design-system-pm**                    | Gestión estratégica del producto: roadmap, priorización (RICE), adopción, métricas y stakeholder communication      | • Roadmap planning y OKRs<br>• RICE prioritization framework<br>• Adoption metrics >75%<br>• Developer NPS >40<br>• Developer research y feedback loops                             |
+| **ui-designer**                         | Diseñar interfaces, establecer tokens (Ingredients/Flavors), componentes, accesibilidad WCAG 2.1 AA y design system | • Design tokens (Ingredients + Flavors)<br>• Component library design<br>• WCAG 2.1 AA compliance (4.5:1 contrast)<br>• Responsive design (320px-1920px)<br>• Dark mode variants    |
+| **frontend-developer**                  | Construir Web Components con Lit + TypeScript: implementar tokens, accesibilidad, tests y Storybook                 | • Implementar componentes Lit con Shadow DOM<br>• Consumir tokens (Recipes layer)<br>• WCAG 2.1 AA compliance<br>• Coverage >85%<br>• Storybook stories completas                   |
+| **technical-writer**                    | Crear documentación completa: API references, token guides, Storybook docs, developer guides                        | • Component API documentation (100% coverage)<br>• Token architecture docs (3 layers)<br>• Interactive Storybook examples<br>• Developer guides y migration guides                  |
+| **qa-expert**                           | Asegurar calidad integral: strategy, unit/E2E/a11y tests, defect management y CI/CD integration                     | • Test coverage >90%<br>• WCAG 2.1 AA verification (0 violations)<br>• Cross-browser testing<br>• Visual regression testing                                                         |
+| **devops-automation-engineer**          | Automatizar CI/CD, publicación NPM, deployment de Storybook, seguridad y monitoreo                                  | • CI/CD pipelines completos<br>• Automated NPM publishing con semantic versioning<br>• Storybook deployment automation<br>• DORA metrics tracking                                   |
+| **developer-tooling-specialist**        | Optimizar build systems, DX, tooling workflows, y developer productivity end-to-end                                 | • Builds <30s, HMR <100ms<br>• Bundle optimization y tree-shaking<br>• Token pipeline <2s<br>• Code quality automation                                                              |
+| **design-ops-specialist** ✨            | Gestionar design operations, token versioning, Figma-to-code automation, visual regression testing                  | • Design token versioning y migration<br>• Figma Tokens plugin integration<br>• Visual regression (Chromatic/Percy)<br>• Multi-platform token builds                                |
+| **version-migration-manager** ✨        | Manejar breaking changes, crear codemods, gestionar deprecation workflow                                            | • Semantic versioning enforcement<br>• jscodeshift codemods<br>• Deprecation tracking<br>• Changelog generation                                                                     |
+| **ecosystem-integration-agent** ✨      | Crear framework wrappers (React/Vue/Angular), SSR support, package management                                       | • @lit/react wrappers<br>• Vue 3 v-model support<br>• Angular CUSTOM_ELEMENTS_SCHEMA<br>• SSR/SSG support                                                                           |
+| **performance-monitor** ✨              | Monitorear Core Web Vitals, bundle sizes, runtime performance                                                       | • LCP/FID/CLS/INP tracking<br>• size-limit integration<br>• Lighthouse CI<br>• Performance budgets                                                                                  |
+| **security-compliance-auditor** ✨      | Escaneo de vulnerabilidades, prevención XSS, compliance de licencias, GDPR                                          | • npm audit, Snyk, Socket<br>• XSS prevention (DOMPurify)<br>• CSP compliance<br>• SBOM generation                                                                                  |
+| **component-composition-specialist** ✨ | Diseñar componentes composables (compound components, headless UI, layout primitives)                               | • Compound components pattern<br>• Headless/renderless components<br>• Layout primitives (Stack/Grid)<br>• Slot-based composition                                                   |
+| **community-contribution-manager** ✨   | Gestionar contribuciones open source, issue triage, PR reviews, RFC process                                         | • Issue triage <24h<br>• PR reviews <48h<br>• RFC process management<br>• Contributor recognition                                                                                   |
+| **analytics-insights-agent** ✨         | Rastrear métricas de uso, adoption rates, patrones de uso, developer satisfaction                                   | • Component adoption tracking<br>• Usage patterns analysis<br>• Performance impact measurement<br>• Developer NPS/CSAT surveys                                                      |
+| **localization-i18n-specialist** ✨     | Soporte multi-idioma, RTL layouts, formato locale-specific, traducción                                              | • RTL support (CSS logical properties)<br>• Intl.DateTimeFormat/NumberFormat<br>• Translation management<br>• Cultural adaptations                                                  |
+| **statusline-setup**                    | Meta-agent para configurar Claude Code status line                                                                  | • Configuración de status line                                                                                                                                                      |
 
 **Nota:** ✨ = Agentes creados en Fases 2-4 (2025-10-09)
 
@@ -67,6 +70,7 @@ El equipo de agentes IA del proyecto Sando UI Toolkit está compuesto por **18 a
 **Modelo:** Sonnet
 
 **Responsabilidades Core:**
+
 - Definir arquitectura de 3 capas de tokens (Ingredients/Flavors/Recipes)
 - Establecer stack tecnológico (Lit, Style Dictionary, Vite)
 - Diseñar sistema de theming vía HTML attributes
@@ -76,21 +80,25 @@ El equipo de agentes IA del proyecto Sando UI Toolkit está compuesto por **18 a
 **Arquitectura de Tokens:**
 
 **Layer 1: Ingredients (Primitives)**
+
 - Valores raw: colores, spacing, typography, shadows, radii
 - NUNCA referencian otros tokens
 - Ejemplo: `color-blue-500: #3b82f6`
 
 **Layer 2: Flavors (Semantic)**
+
 - Tokens con significado contextual
 - SOLO referencian Ingredients
 - Ejemplo: `color-primary: {color-blue-500}`
 
 **Layer 3: Recipes (Component)**
+
 - Tokens específicos de componentes
 - SOLO referencian Flavors
 - Ejemplo: `button-padding: {spacing-medium}`
 
 **Estándares de Calidad:**
+
 - ✅ Three-layer token architecture definida claramente
 - ✅ Framework agnosticism garantizado
 - ✅ Theming funcional vía HTML attributes
@@ -106,6 +114,7 @@ El equipo de agentes IA del proyecto Sando UI Toolkit está compuesto por **18 a
 **Modelo:** Sonnet
 
 **Responsabilidades Core:**
+
 - Optimizar build systems end-to-end (Vite, Rollup, esbuild)
 - Mejorar developer experience (HMR, test execution, IDE performance)
 - Implementar Style Dictionary token transformation pipeline
@@ -114,6 +123,7 @@ El equipo de agentes IA del proyecto Sando UI Toolkit está compuesto por **18 a
 - Optimizar monorepo workflows (Turbo, Nx)
 
 **Performance Targets:**
+
 - ✅ Production build time <30s
 - ✅ Development server startup <1s
 - ✅ HMR update time <100ms
@@ -125,12 +135,14 @@ El equipo de agentes IA del proyecto Sando UI Toolkit está compuesto por **18 a
 - ✅ Bundle size <15KB gzipped por componente
 
 **Developer Experience Metrics:**
+
 - ✅ Developer satisfaction >4.0/5
 - ✅ Zero false positives en linting
 - ✅ IDE responsive (no lag)
 - ✅ Automated workflows >80%
 
 **Herramientas Principales:**
+
 - **Build:** Vite (dev server), Rollup (library bundling), esbuild (speed)
 - **Monorepo:** Turbo, Nx (caching distribuido, task orchestration)
 - **Tokens:** Style Dictionary (transformation pipeline)
@@ -138,6 +150,7 @@ El equipo de agentes IA del proyecto Sando UI Toolkit está compuesto por **18 a
 - **CI/CD:** GitHub Actions optimization
 
 **Áreas de Optimización:**
+
 - Build optimization (incremental compilation, parallel processing, caching)
 - Development server performance (fast startup, instant HMR)
 - Testing infrastructure (parallel execution, smart test selection)
@@ -153,6 +166,7 @@ El equipo de agentes IA del proyecto Sando UI Toolkit está compuesto por **18 a
 **Modelo:** Sonnet
 
 **Responsabilidades Core:**
+
 - Configurar GitHub Actions workflows completos
 - Automatizar publicación NPM con semantic versioning
 - Deployment automático de Storybook
@@ -160,6 +174,7 @@ El equipo de agentes IA del proyecto Sando UI Toolkit está compuesto por **18 a
 - Monitoreo y observabilidad
 
 **Estándares de Calidad:**
+
 - ✅ Infrastructure automation 100%
 - ✅ Deployment automation 100%
 - ✅ Test automation >85% coverage
@@ -168,6 +183,7 @@ El equipo de agentes IA del proyecto Sando UI Toolkit está compuesto por **18 a
 - ✅ Rollback capability <5 minutes
 
 **DORA Metrics Targets:**
+
 - Deployment frequency: >1/day
 - Lead time for changes: <1 hour
 - Change failure rate: <5%
@@ -181,6 +197,7 @@ El equipo de agentes IA del proyecto Sando UI Toolkit está compuesto por **18 a
 **Modelo:** Sonnet
 
 **Responsabilidades Core:**
+
 - Implementar Web Components con Lit 3+ y TypeScript 5+
 - Consumir design tokens (Recipes layer)
 - Garantizar WCAG 2.1 AA compliance
@@ -188,6 +205,7 @@ El equipo de agentes IA del proyecto Sando UI Toolkit está compuesto por **18 a
 - Crear Storybook stories interactivas
 
 **Estándares de Calidad:**
+
 - ✅ TypeScript strict mode enabled
 - ✅ Accessibility WCAG 2.1 AA compliant
 - ✅ Responsive mobile-first (320px-1920px)
@@ -197,6 +215,7 @@ El equipo de agentes IA del proyecto Sando UI Toolkit está compuesto por **18 a
 - ✅ Cross-browser compatible
 
 **Component API Pattern:**
+
 ```typescript
 @customElement("sando-component")
 export class SandoComponent extends LitElement {
@@ -214,6 +233,7 @@ export class SandoComponent extends LitElement {
 **Modelo:** Sonnet
 
 **Responsabilidades Core:**
+
 - Roadmap planning y quarterly OKRs
 - Priorización con RICE framework
 - Tracking de adoption metrics
@@ -221,6 +241,7 @@ export class SandoComponent extends LitElement {
 - Stakeholder communication
 
 **RICE Prioritization Framework:**
+
 - **Reach:** ¿Cuántos developers impacta?
 - **Impact:** ¿Cuánto mejora su workflow?
 - **Confidence:** ¿Qué tan seguros estamos?
@@ -228,6 +249,7 @@ export class SandoComponent extends LitElement {
 - **Score:** (Reach × Impact × Confidence) / Effort
 
 **Key Metrics:**
+
 - **North Star:** % of UI development usando design system
 - **Business:** 40% faster UI development
 - **Product:** 85% adoption rate
@@ -242,6 +264,7 @@ export class SandoComponent extends LitElement {
 **Modelo:** Sonnet
 
 **Responsabilidades Core:**
+
 - Desarrollar test strategy comprehensiva
 - Implementar unit/integration/E2E/accessibility tests
 - Defect management y tracking
@@ -249,6 +272,7 @@ export class SandoComponent extends LitElement {
 - CI/CD quality gates
 
 **Estándares de Calidad:**
+
 - ✅ Test coverage >90%
 - ✅ Test automation >70%
 - ✅ Zero critical defects en producción
@@ -257,6 +281,7 @@ export class SandoComponent extends LitElement {
 - ✅ Visual regression testing
 
 **Testing Layers:**
+
 1. **Unit Tests (Jest):** Property validation, event emission, slot projection
 2. **Integration Tests:** Component composition, parent-child communication
 3. **E2E Tests (Playwright):** User flows, cross-browser, keyboard navigation
@@ -272,6 +297,7 @@ export class SandoComponent extends LitElement {
 **Modelo:** Sonnet
 
 **Responsabilidades Core:**
+
 - Crear component API documentation (100% coverage)
 - Documentar token architecture (3 layers)
 - Escribir developer guides
@@ -279,6 +305,7 @@ export class SandoComponent extends LitElement {
 - Migration guides entre versiones
 
 **Estándares de Calidad:**
+
 - ✅ Readability score >60 (Flesch-Kincaid)
 - ✅ Technical accuracy 100%
 - ✅ Code examples functional (>95%)
@@ -287,6 +314,7 @@ export class SandoComponent extends LitElement {
 - ✅ Support ticket reduction >50%
 
 **Tipos de Documentación:**
+
 - **Component API Reference:** Props, events, slots, CSS parts, custom properties
 - **Token Architecture:** Ingredients, Flavors, Recipes con diagramas
 - **Usage Guides:** Getting started, best practices, theming
@@ -300,6 +328,7 @@ export class SandoComponent extends LitElement {
 **Modelo:** Sonnet
 
 **Responsabilidades Core:**
+
 - Diseñar interfaces y component libraries
 - Definir design tokens (Ingredients + Flavors)
 - Garantizar WCAG 2.1 AA compliance
@@ -307,6 +336,7 @@ export class SandoComponent extends LitElement {
 - Dark mode variants
 
 **Estándares de Calidad:**
+
 - ✅ WCAG 2.1 AA: 4.5:1 texto, 3:1 UI
 - ✅ Touch targets ≥44x44px
 - ✅ Focus indicators: 3:1 contrast
@@ -315,6 +345,7 @@ export class SandoComponent extends LitElement {
 - ✅ Spacing: 4px o 8px base unit
 
 **Design Token Layers:**
+
 - **Ingredients (Primitives):** Color scales, typography scales, spacing scales
 - **Flavors (Semantic):** Primary, secondary, success, warning, error colors
 
@@ -396,6 +427,7 @@ graph TB
 ## Workflow de Desarrollo Típico
 
 ### 1. Planning Phase
+
 **Agentes involucrados:** `design-system-pm`, `design-system-architect`, `ui-designer`
 
 1. PM define roadmap y prioriza con RICE
@@ -403,6 +435,7 @@ graph TB
 3. Designer crea specs y tokens
 
 ### 2. Design Phase
+
 **Agentes involucrados:** `ui-designer`, `design-system-architect`, `design-ops-specialist`
 
 1. Designer crea Ingredients y Flavors tokens
@@ -411,6 +444,7 @@ graph TB
 4. Design-ops-specialist gestiona token versioning
 
 ### 3. Development Phase
+
 **Agentes involucrados:** `frontend-developer`, `developer-tooling-specialist`, `component-composition-specialist`
 
 1. Developer-tooling-specialist configura pipeline de tokens
@@ -418,6 +452,7 @@ graph TB
 3. Frontend-developer implementa componentes Lit
 
 ### 4. Quality Assurance Phase
+
 **Agentes involucrados:** `qa-expert`, `security-compliance-auditor`, `frontend-developer`
 
 1. QA-expert ejecuta unit/E2E tests
@@ -425,6 +460,7 @@ graph TB
 3. Frontend-developer corrige issues
 
 ### 5. Documentation Phase
+
 **Agentes involucrados:** `technical-writer`, `frontend-developer`, `ui-designer`
 
 1. Technical-writer documenta API y usage
@@ -432,6 +468,7 @@ graph TB
 3. Designer provee design rationale
 
 ### 6. Deployment Phase
+
 **Agentes involucrados:** `devops-automation-engineer`, `version-migration-manager`, `design-system-pm`
 
 1. DevOps-engineer ejecuta CI/CD pipeline
@@ -439,6 +476,7 @@ graph TB
 3. PM comunica release y cambios
 
 ### 7. Monitoring & Optimization Phase
+
 **Agentes involucrados:** `performance-monitor`, `analytics-insights-agent`, `developer-tooling-specialist`
 
 1. Performance-monitor rastrea Core Web Vitals y bundle sizes
@@ -450,80 +488,96 @@ graph TB
 ## Métricas Comunes del Equipo
 
 ### Performance Metrics
-| Métrica | Target | Agente Responsable |
-|---------|--------|-------------------|
-| Production build time | <30s | developer-tooling-specialist |
-| HMR update time | <100ms | developer-tooling-specialist |
-| Token transformation | <2s | developer-tooling-specialist, design-ops-specialist |
-| Dev server startup | <1s | developer-tooling-specialist |
-| Test suite execution | <2min | qa-expert, developer-tooling-specialist |
-| CI pipeline duration | <5min | devops-automation-engineer |
-| Core Web Vitals (LCP/FID/CLS) | P75 < thresholds | performance-monitor |
+
+| Métrica                       | Target           | Agente Responsable                                  |
+| ----------------------------- | ---------------- | --------------------------------------------------- |
+| Production build time         | <30s             | developer-tooling-specialist                        |
+| HMR update time               | <100ms           | developer-tooling-specialist                        |
+| Token transformation          | <2s              | developer-tooling-specialist, design-ops-specialist |
+| Dev server startup            | <1s              | developer-tooling-specialist                        |
+| Test suite execution          | <2min            | qa-expert, developer-tooling-specialist             |
+| CI pipeline duration          | <5min            | devops-automation-engineer                          |
+| Core Web Vitals (LCP/FID/CLS) | P75 < thresholds | performance-monitor                                 |
 
 ### Quality Metrics
-| Métrica | Target | Agente Responsable |
-|---------|--------|-------------------|
-| Test coverage | >90% | qa-expert |
-| WCAG compliance | 100% AA | qa-expert, security-compliance-auditor |
-| Security vulnerabilities | 0 high/critical | security-compliance-auditor |
-| Bundle size per component | <15KB gzipped | performance-monitor, developer-tooling-specialist |
-| Lighthouse score | >90 | frontend-developer, performance-monitor |
-| Zero critical defects | 100% | qa-expert |
+
+| Métrica                   | Target          | Agente Responsable                                |
+| ------------------------- | --------------- | ------------------------------------------------- |
+| Test coverage             | >90%            | qa-expert                                         |
+| WCAG compliance           | 100% AA         | qa-expert, security-compliance-auditor            |
+| Security vulnerabilities  | 0 high/critical | security-compliance-auditor                       |
+| Bundle size per component | <15KB gzipped   | performance-monitor, developer-tooling-specialist |
+| Lighthouse score          | >90             | frontend-developer, performance-monitor           |
+| Zero critical defects     | 100%            | qa-expert                                         |
 
 ### Developer Experience Metrics
-| Métrica | Target | Agente Responsable |
-|---------|--------|-------------------|
-| Developer satisfaction | >4.0/5 | analytics-insights-agent |
-| Developer NPS | >40 | design-system-pm, analytics-insights-agent |
-| Adoption rate | >75% | design-system-pm, analytics-insights-agent |
-| Documentation satisfaction | >4.2/5 | technical-writer |
-| Support ticket reduction | >50% | technical-writer |
+
+| Métrica                    | Target | Agente Responsable                         |
+| -------------------------- | ------ | ------------------------------------------ |
+| Developer satisfaction     | >4.0/5 | analytics-insights-agent                   |
+| Developer NPS              | >40    | design-system-pm, analytics-insights-agent |
+| Adoption rate              | >75%   | design-system-pm, analytics-insights-agent |
+| Documentation satisfaction | >4.2/5 | technical-writer                           |
+| Support ticket reduction   | >50%   | technical-writer                           |
 
 ### Business Metrics
-| Métrica | Target | Agente Responsable |
-|---------|--------|-------------------|
-| UI development velocity | +40% faster | design-system-pm |
-| Design consistency | >95% | design-system-pm |
-| Component coverage | >80% patterns | design-system-pm |
-| Weekly active developers | >120 | design-system-pm |
+
+| Métrica                  | Target        | Agente Responsable |
+| ------------------------ | ------------- | ------------------ |
+| UI development velocity  | +40% faster   | design-system-pm   |
+| Design consistency       | >95%          | design-system-pm   |
+| Component coverage       | >80% patterns | design-system-pm   |
+| Weekly active developers | >120          | design-system-pm   |
 
 ---
 
 ## Principios Compartidos
 
 ### 1. Developer Experience First
+
 Todos los agentes priorizan la experiencia del desarrollador:
+
 - Fast feedback loops
 - Clear error messages
 - Excellent documentation
 - Intuitive APIs
 
 ### 2. Accessibility as Baseline
+
 WCAG 2.1 AA es el mínimo, no el objetivo:
+
 - Design with all users in mind
 - Test with assistive technologies
 - Document accessibility features
 
 ### 3. Token-Based Design
+
 Arquitectura de 3 capas consistente:
+
 - **Ingredients:** Primitives (raw values)
 - **Flavors:** Semantic tokens
 - **Recipes:** Component tokens
 
 ### 4. Framework Agnostic
+
 Web Components para máxima compatibilidad:
+
 - Works in React, Vue, Angular, vanilla JS
 - No vendor lock-in
 - Native browser APIs
 
 ### 5. Quality Through Automation
+
 Automatizar testing y quality gates:
+
 - Unit, E2E, accessibility tests
 - CI/CD pipelines
 - Code quality enforcement
 
 ### 6. Data-Driven Decisions
+
 Métricas guían prioridades:
+
 - Performance monitoring
 - Developer satisfaction
 - Adoption tracking
@@ -536,24 +590,28 @@ Métricas guían prioridades:
 ### Cuándo invocar cada agente
 
 **Inicio de proyecto:**
+
 1. `design-system-architect` - Establecer arquitectura
 2. `ui-designer` - Crear tokens base
 3. `developer-tooling-specialist` - Configurar pipeline
 4. `design-ops-specialist` - Setup token versioning
 
 **Durante desarrollo:**
+
 1. `frontend-developer` - Implementar componentes
 2. `component-composition-specialist` - Diseñar composition patterns
 3. `qa-expert` - Testing comprehensivo
 4. `security-compliance-auditor` - Validación seguridad y WCAG
 
 **Pre-release:**
+
 1. `version-migration-manager` - Validar breaking changes, crear codemods
 2. `devops-automation-engineer` - Configurar deployment
 3. `technical-writer` - Documentar features
 4. `performance-monitor` - Verificar Core Web Vitals
 
 **Post-release:**
+
 1. `design-system-pm` - Comunicar release
 2. `analytics-insights-agent` - Medir adoption y satisfaction
 3. `community-contribution-manager` - Gestionar feedback
@@ -564,6 +622,7 @@ Métricas guían prioridades:
 ## Recursos y Enlaces
 
 ### Archivos de Configuración
+
 - Agentes: `.claude/agents/*.md`
 - Vite: `vite.config.ts`
 - TypeScript: `tsconfig.json`
@@ -571,12 +630,14 @@ Métricas guían prioridades:
 - Prettier: `.prettierrc`
 
 ### Documentación
+
 - Storybook: `/storybook-static`
 - API Docs: `/docs/api`
 - Token Docs: `/docs/tokens`
 - Architecture: `/docs/architecture`
 
 ### CI/CD
+
 - GitHub Actions: `.github/workflows`
 - NPM Package: `package.json`
 - Deployment: Configurado por `devops-automation-engineer`

@@ -87,27 +87,31 @@ Question: "How should I implement keyboard navigation for this dropdown componen
 **Use Context7 MCP ONLY for external accessibility specifications and tooling**:
 
 Available libraries:
+
 - **axe-core**: `/dequelabs/axe-core` - Rule configuration, WCAG validation
 - **ARIA Practices**: `/w3c/aria-practices` - W3C ARIA authoring patterns
 - **WCAG**: `/w3c/wcag` - Web accessibility standards
 
 **When to use**:
+
 - ✅ Understanding axe-core rule updates and configuration
 - ✅ Learning W3C ARIA authoring practices for complex widgets
 - ✅ Interpreting WCAG 2.1/2.2 success criteria and techniques
 
 **Never use Context7 for**:
+
 - ❌ Sando WCAG compliance patterns (use WCAG_COMPLIANCE.md)
 - ❌ Sando keyboard navigation standards (use KEYBOARD_NAVIGATION.md)
 - ❌ Sando ARIA implementation patterns (use SCREEN_READER_SUPPORT.md)
 
 **Query pattern**:
+
 ```typescript
 // 1. Resolve library ID
-mcp__context7__resolve-library-id("axe-core")
+mcp__context7__resolve - library - id("axe-core");
 
 // 2. Fetch specific topic
-mcp__context7__get-library-docs("/dequelabs/axe-core", "rules")
+mcp__context7__get - library - docs("/dequelabs/axe-core", "rules");
 ```
 
 ## Workflow
@@ -117,6 +121,7 @@ mcp__context7__get-library-docs("/dequelabs/axe-core", "rules")
 **Purpose**: Identify accessibility violations and gaps
 
 **Steps**:
+
 1. Review component specifications and implementation
 2. Read WCAG_COMPLIANCE.md to understand requirements
 3. Run automated tests with axe-core (0 violations required)
@@ -132,6 +137,7 @@ mcp__context7__get-library-docs("/dequelabs/axe-core", "rules")
 **Purpose**: Fix violations and implement correct patterns
 
 **Steps**:
+
 1. **Fix Keyboard Navigation**
    - Implement patterns from KEYBOARD_NAVIGATION.md
    - Ensure logical tab order, visible focus indicators
@@ -159,6 +165,7 @@ mcp__context7__get-library-docs("/dequelabs/axe-core", "rules")
 **Purpose**: Document patterns and educate team
 
 **Steps**:
+
 1. Document accessibility features for component
 2. Create accessibility testing checklist
 3. Update team documentation with patterns used
@@ -166,6 +173,7 @@ mcp__context7__get-library-docs("/dequelabs/axe-core", "rules")
 5. Establish ongoing monitoring and CI/CD integration
 
 **Deliverables**:
+
 - Accessibility audit report (0 violations)
 - Accessibility tests (100% coverage)
 - Component accessibility documentation
@@ -194,6 +202,7 @@ Every delivery must meet:
 - **design-system-architect**: Establish accessibility standards, validate Shadow DOM patterns, ensure scalable accessibility
 
 **Hand-off triggers**:
+
 - Consult qa-expert for accessibility test automation and CI/CD integration
 - Engage frontend-developer for ARIA implementation guidance and violation remediation
 - Coordinate with ui-designer for color contrast validation and accessible token creation
@@ -215,12 +224,14 @@ You MUST always prioritize:
 ## Common Pitfalls to Avoid
 
 **❌ DON'T**:
+
 - Skip WCAG_COMPLIANCE.md checklist (creates compliance gaps)
 - Ignore KEYBOARD_NAVIGATION.md patterns (breaks keyboard access)
 - Implement ARIA without reading SCREEN_READER_SUPPORT.md guidelines
 - Accept color contrast below COLOR_CONTRAST.md 4.5:1 ratio
 
 **✅ DO**:
+
 - Follow WCAG_COMPLIANCE.md comprehensive checklist
 - Implement KEYBOARD_NAVIGATION.md patterns exactly
 - Test with all screen readers per SCREEN_READER_SUPPORT.md

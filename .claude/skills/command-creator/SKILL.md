@@ -13,6 +13,7 @@ This skill generates **slash commands** that follow Sando Design System philosop
 **CRITICAL**: Command functionality must respect Sando guidelines when analyzing/validating project artifacts.
 
 **Primary Guidelines for Command Logic**:
+
 - **02-architecture/MONOREPO_STRUCTURE.md** - Turborepo structure, package locations
 - **03-development/GIT_WORKFLOW.md** - Git status, branch naming, conventional commits
 - **05-quality/TEST_COVERAGE.md** - Coverage thresholds (>85% unit, 100% a11y)
@@ -22,6 +23,7 @@ This skill generates **slash commands** that follow Sando Design System philosop
 **Full Index**: `.claude/guidelines/GUIDELINES_INDEX.md`
 
 **Guideline Priority**:
+
 1. **Sando Guidelines** - For validation/analysis logic
 2. **Golden Rule** - Only create if adds intelligent value
 3. **Bash Alternative** - Always prefer bash if no value added
@@ -69,10 +71,10 @@ cat package.json | grep -A 50 '"scripts"'
 
 ### 3. ¿Combines multiple sources or provides insights?
 
-- **NO combines** → ⚠️  Probably not worth it
+- **NO combines** → ⚠️ Probably not worth it
 - **SÍ combines** → ✅ Probably worth it
 
-### 4. ¿User needs result interpretation?**
+### 4. ¿User needs result interpretation?\*\*
 
 - **NO needs interpretation** → ❌ Bash sufficient
 - **SÍ needs interpretation** → ✅ Command justified
@@ -82,6 +84,7 @@ cat package.json | grep -A 50 '"scripts"'
 ### `/status` - Multi-Source Analysis
 
 **Why good:**
+
 - ✅ Combines git status + build artifacts + test results + coverage
 - ✅ Analyzes timestamps (detects stale builds per MONOREPO_STRUCTURE.md)
 - ✅ Generates actionable recommendations
@@ -90,6 +93,7 @@ cat package.json | grep -A 50 '"scripts"'
 ### `/coverage` - Intelligent Insights
 
 **Why good:**
+
 - ✅ Parses complex JSON coverage reports
 - ✅ Identifies files <85% per TEST_COVERAGE.md threshold
 - ✅ Prioritizes what to test (impact-based)
@@ -98,6 +102,7 @@ cat package.json | grep -A 50 '"scripts"'
 ### `/review-component <name>` - 50+ Criteria Checklist
 
 **Why good:**
+
 - ✅ Validates 7 mandatory files per COMPONENT_ARCHITECTURE.md
 - ✅ Checks token consumption (Recipes only per TOKEN_ARCHITECTURE.md)
 - ✅ Validates WCAG 2.1 AA per WCAG_COMPLIANCE.md
@@ -109,6 +114,7 @@ cat package.json | grep -A 50 '"scripts"'
 ### `/build` - Simple Wrapper
 
 **Why bad:**
+
 - ❌ Only executes `pnpm build`
 - ❌ No analysis or intelligence added
 - ❌ Wastes tokens for zero value
@@ -117,6 +123,7 @@ cat package.json | grep -A 50 '"scripts"'
 ### `/test` - No Added Value
 
 **Why bad:**
+
 - ❌ Only executes `pnpm test`
 - ❌ Doesn't parse results or suggest fixes
 - ❌ Simple bash wrapper
@@ -150,7 +157,7 @@ Every command file follows this structure:
 ---
 description: Brief description (shown in /help)
 allowed-tools: Tool1, Tool2, Tool3
-argument-hint: [arg-name (optional)]  # If accepts arguments
+argument-hint: [arg-name (optional)] # If accepts arguments
 ---
 
 Brief introduction.
@@ -247,6 +254,7 @@ At end of command file:
 ### 1. Three-Layer Token Architecture Awareness
 
 Commands working with tokens must understand per TOKEN_ARCHITECTURE.md:
+
 - **Ingredients** (primitives, no references)
 - **Flavors** (semantic, reference Ingredients only)
 - **Recipes** (component-specific, reference Flavors only)
@@ -256,6 +264,7 @@ Commands working with tokens must understand per TOKEN_ARCHITECTURE.md:
 ### 2. Monolithic Component Structure
 
 Commands working with components must validate per COMPONENT_ARCHITECTURE.md:
+
 - 7 mandatory files (implementation, types, stories, unit tests, E2E, a11y, index)
 - Token consumption from Recipes layer only
 - WCAG 2.1 AA compliance per WCAG_COMPLIANCE.md
@@ -265,6 +274,7 @@ Commands working with components must validate per COMPONENT_ARCHITECTURE.md:
 ### 3. Quality Thresholds
 
 Commands analyzing quality must apply per guidelines:
+
 - TEST_COVERAGE.md: >85% unit, 100% a11y
 - PERFORMANCE_BUDGETS.md: <10KB per component, Core Web Vitals
 - WCAG_COMPLIANCE.md: WCAG 2.1 AA, 4.5:1 contrast ratio
@@ -274,6 +284,7 @@ Commands analyzing quality must apply per guidelines:
 ### 4. Monorepo Structure
 
 Commands must understand per MONOREPO_STRUCTURE.md:
+
 - Turborepo task orchestration
 - pnpm workspaces
 - Build dependencies (@sando/tokens → @sando/components)

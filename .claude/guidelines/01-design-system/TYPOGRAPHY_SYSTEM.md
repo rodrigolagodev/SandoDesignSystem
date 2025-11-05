@@ -21,6 +21,7 @@ Establishes scalable, accessible typographic foundation using system fonts, modu
 **Use native system fonts** for zero network latency and familiar rendering.
 
 **Pattern**:
+
 ```json
 {
   "font": {
@@ -41,12 +42,13 @@ Establishes scalable, accessible typographic foundation using system fonts, modu
 **Why This Matters**: System fonts are already installed—zero download time, consistent with OS, no FOIT/FOUT issues.
 
 **Anti-pattern**:
+
 ```json
 // ❌ Custom web fonts (add latency, FOIT issues)
 {
   "font": {
     "family": {
-      "sans": { "value": "'Inter', 'Helvetica', sans-serif" }  // Requires download
+      "sans": { "value": "'Inter', 'Helvetica', sans-serif" } // Requires download
     }
   }
 }
@@ -61,32 +63,35 @@ See [packages/tokens/src/ JSON source files) for complete stack specifications.
 **Font sizes follow modular scale** with ~1.125-1.25 ratio (Major Third to Perfect Fourth).
 
 **Key Sizes**:
+
 ```json
 {
   "font": {
     "size": {
-      "100": { "value": "0.75rem", "type": "dimension" },   // 12px - Captions
-      "300": { "value": "1rem", "type": "dimension" },      // 16px - BODY (default)
-      "500": { "value": "1.25rem", "type": "dimension" },   // 20px - Small headings
-      "700": { "value": "2rem", "type": "dimension" },      // 32px - Large headings
-      "900": { "value": "3rem", "type": "dimension" }       // 48px - Display
+      "100": { "value": "0.75rem", "type": "dimension" }, // 12px - Captions
+      "300": { "value": "1rem", "type": "dimension" }, // 16px - BODY (default)
+      "500": { "value": "1.25rem", "type": "dimension" }, // 20px - Small headings
+      "700": { "value": "2rem", "type": "dimension" }, // 32px - Large headings
+      "900": { "value": "3rem", "type": "dimension" } // 48px - Display
     }
   }
 }
 ```
 
 **Rules**:
+
 - ✅ Use `rem` units (respects user preferences)
 - ✅ Maintain consistent scale ratio
 - ❌ Never add custom sizes outside scale
 
 **Anti-pattern**:
+
 ```json
 // ❌ Arbitrary sizes break scale
 {
   "font": {
     "size": {
-      "custom": { "value": "1.3rem" }  // Not in scale
+      "custom": { "value": "1.3rem" } // Not in scale
     }
   }
 }
@@ -103,6 +108,7 @@ This operates at **Layer 2 (Flavors)** - provides semantic naming for typography
 See [TOKEN_ARCHITECTURE.md](TOKEN_ARCHITECTURE.md) for complete layer rules.
 
 **Pattern**:
+
 ```json
 // Layer 2: Flavors (semantic)
 {
@@ -123,11 +129,12 @@ See [TOKEN_ARCHITECTURE.md](TOKEN_ARCHITECTURE.md) for complete layer rules.
 ```
 
 **Anti-pattern**:
+
 ```json
 // ❌ Recipe skipping Flavors layer
 {
   "button": {
-    "fontSize": { "value": "{font.size.300.value}" }        // Recipe → Ingredient (WRONG)
+    "fontSize": { "value": "{font.size.300.value}" } // Recipe → Ingredient (WRONG)
   }
 }
 ```
@@ -139,6 +146,7 @@ See [TOKEN_ARCHITECTURE.md](TOKEN_ARCHITECTURE.md) for complete layer rules.
 **Flavors use contextual names**, not size descriptors.
 
 **Pattern**:
+
 ```json
 // ✅ Good - describes USE CONTEXT
 {
@@ -172,23 +180,25 @@ See [TOKEN_ARCHITECTURE.md](TOKEN_ARCHITECTURE.md) for complete layer rules.
 **Always use unitless line height values** so they scale proportionally with font size.
 
 **Pattern**:
+
 ```json
 {
   "font": {
     "lineHeight": {
-      "120": { "value": "1.2", "type": "number" },  // ✅ Unitless - scales correctly
-      "150": { "value": "1.5", "type": "number" }   // WCAG minimum for body
+      "120": { "value": "1.2", "type": "number" }, // ✅ Unitless - scales correctly
+      "150": { "value": "1.5", "type": "number" } // WCAG minimum for body
     }
   }
 }
 ```
 
 **Anti-pattern**:
+
 ```json
 {
   "font": {
     "lineHeight": {
-      "default": { "value": "1.5rem", "type": "dimension" }  // ❌ With unit - breaks scaling
+      "default": { "value": "1.5rem", "type": "dimension" } // ❌ With unit - breaks scaling
     }
   }
 }
@@ -205,47 +215,50 @@ See [TOKEN_ARCHITECTURE.md](TOKEN_ARCHITECTURE.md) for complete layer rules.
 **Numeric scale** - absolute values, no semantic meaning.
 
 **Font Sizes** (50-900 scale):
+
 ```json
 {
   "font": {
     "size": {
-      "50": { "value": "0.625rem", "type": "dimension" },   // 10px - Micro
-      "100": { "value": "0.75rem", "type": "dimension" },   // 12px - Captions
-      "200": { "value": "0.875rem", "type": "dimension" },  // 14px - Small
-      "300": { "value": "1rem", "type": "dimension" },      // 16px - DEFAULT
-      "400": { "value": "1.125rem", "type": "dimension" },  // 18px - Large body
-      "500": { "value": "1.25rem", "type": "dimension" },   // 20px - Small heading
-      "600": { "value": "1.5rem", "type": "dimension" },    // 24px - Medium heading
-      "700": { "value": "2rem", "type": "dimension" },      // 32px - Large heading
-      "800": { "value": "2.5rem", "type": "dimension" },    // 40px - XL heading
-      "900": { "value": "3rem", "type": "dimension" }       // 48px - Display
+      "50": { "value": "0.625rem", "type": "dimension" }, // 10px - Micro
+      "100": { "value": "0.75rem", "type": "dimension" }, // 12px - Captions
+      "200": { "value": "0.875rem", "type": "dimension" }, // 14px - Small
+      "300": { "value": "1rem", "type": "dimension" }, // 16px - DEFAULT
+      "400": { "value": "1.125rem", "type": "dimension" }, // 18px - Large body
+      "500": { "value": "1.25rem", "type": "dimension" }, // 20px - Small heading
+      "600": { "value": "1.5rem", "type": "dimension" }, // 24px - Medium heading
+      "700": { "value": "2rem", "type": "dimension" }, // 32px - Large heading
+      "800": { "value": "2.5rem", "type": "dimension" }, // 40px - XL heading
+      "900": { "value": "3rem", "type": "dimension" } // 48px - Display
     }
   }
 }
 ```
 
 **Font Weights** (100-900 standard):
+
 ```json
 {
   "font": {
     "weight": {
-      "400": { "value": "400", "type": "fontWeight" },  // Regular (body default)
-      "500": { "value": "500", "type": "fontWeight" },  // Medium
-      "700": { "value": "700", "type": "fontWeight" }   // Bold (heading default)
+      "400": { "value": "400", "type": "fontWeight" }, // Regular (body default)
+      "500": { "value": "500", "type": "fontWeight" }, // Medium
+      "700": { "value": "700", "type": "fontWeight" } // Bold (heading default)
     }
   }
 }
 ```
 
 **Line Heights** (unitless multipliers):
+
 ```json
 {
   "font": {
     "lineHeight": {
-      "100": { "value": "1", "type": "number" },     // Tight (badges)
-      "120": { "value": "1.2", "type": "number" },   // Headings
-      "150": { "value": "1.5", "type": "number" },   // Body (WCAG AA)
-      "160": { "value": "1.6", "type": "number" }    // Comfortable reading
+      "100": { "value": "1", "type": "number" }, // Tight (badges)
+      "120": { "value": "1.2", "type": "number" }, // Headings
+      "150": { "value": "1.5", "type": "number" }, // Body (WCAG AA)
+      "160": { "value": "1.6", "type": "number" } // Comfortable reading
     }
   }
 }
@@ -258,6 +271,7 @@ See [TOKEN_ARCHITECTURE.md](TOKEN_ARCHITECTURE.md) for complete layer rules.
 **Semantic tokens** that reference ONLY Ingredients.
 
 **Pattern**:
+
 ```json
 {
   "font": {
@@ -266,11 +280,11 @@ See [TOKEN_ARCHITECTURE.md](TOKEN_ARCHITECTURE.md) for complete layer rules.
       "heading": { "value": "{font.family.sans.value}", "type": "fontFamily" }
     },
     "size": {
-      "body": { "value": "{font.size.300.value}", "type": "dimension" },       // 16px
-      "caption": { "value": "{font.size.100.value}", "type": "dimension" },    // 12px
+      "body": { "value": "{font.size.300.value}", "type": "dimension" }, // 16px
+      "caption": { "value": "{font.size.100.value}", "type": "dimension" }, // 12px
       "heading-sm": { "value": "{font.size.500.value}", "type": "dimension" }, // 20px
       "heading-md": {
-        "value": "clamp({font.size.600.value}, 5vw, {font.size.700.value})",  // Responsive
+        "value": "clamp({font.size.600.value}, 5vw, {font.size.700.value})", // Responsive
         "type": "dimension"
       }
     },
@@ -279,14 +293,15 @@ See [TOKEN_ARCHITECTURE.md](TOKEN_ARCHITECTURE.md) for complete layer rules.
       "heading": { "value": "{font.weight.700.value}", "type": "fontWeight" }
     },
     "lineHeight": {
-      "body": { "value": "{font.lineHeight.150.value}", "type": "number" },    // 1.5
-      "heading": { "value": "{font.lineHeight.120.value}", "type": "number" }  // 1.2
+      "body": { "value": "{font.lineHeight.150.value}", "type": "number" }, // 1.5
+      "heading": { "value": "{font.lineHeight.120.value}", "type": "number" } // 1.2
     }
   }
 }
 ```
 
 **Responsive Headings** using `clamp()`:
+
 - Minimum size for mobile
 - Fluid scaling via viewport units
 - Maximum size for desktop
@@ -299,12 +314,13 @@ See [TOKEN_ARCHITECTURE.md](TOKEN_ARCHITECTURE.md) for complete layer rules.
 Recipes reference Flavors to define component typography.
 
 **Pattern**:
+
 ```json
 {
   "button": {
     "fontFamily": { "value": "{font.family.body.value}", "type": "fontFamily" },
     "fontSize": { "value": "{font.size.body.value}", "type": "dimension" },
-    "fontWeight": { "value": "{font.weight.700.value}", "type": "fontWeight" },  // Emphasis
+    "fontWeight": { "value": "{font.weight.700.value}", "type": "fontWeight" }, // Emphasis
     "lineHeight": { "value": "{font.lineHeight.body.value}", "type": "number" }
   }
 }
@@ -317,6 +333,7 @@ Recipes reference Flavors to define component typography.
 ### Complete Pattern: Button Component
 
 **Recipe Tokens** (`packages/tokens/src/recipes/button.json`):
+
 ```json
 {
   "button": {
@@ -325,13 +342,16 @@ Recipes reference Flavors to define component typography.
     "lineHeight": { "value": "{font.lineHeight.body.value}", "type": "number" },
     "size": {
       "sm": {
-        "fontSize": { "value": "{font.size.caption.value}", "type": "dimension" }  // 12px
+        "fontSize": {
+          "value": "{font.size.caption.value}",
+          "type": "dimension"
+        } // 12px
       },
       "md": {
-        "fontSize": { "value": "{font.size.body.value}", "type": "dimension" }     // 16px
+        "fontSize": { "value": "{font.size.body.value}", "type": "dimension" } // 16px
       },
       "lg": {
-        "fontSize": { "value": "{font.size.body.value}", "type": "dimension" }     // 16px
+        "fontSize": { "value": "{font.size.body.value}", "type": "dimension" } // 16px
       }
     }
   }
@@ -339,8 +359,9 @@ Recipes reference Flavors to define component typography.
 ```
 
 **Component Consumption** (`sando-button.ts`):
+
 ```typescript
-import { css } from 'lit';
+import { css } from "lit";
 
 export const buttonStyles = css`
   button {
@@ -366,6 +387,7 @@ export const buttonStyles = css`
 **This pattern applies to**: All text-containing components (Cards, Inputs, Modals, etc.)
 
 **Special cases**:
+
 - **Responsive headings**: Use `clamp()` in Flavors. See example above.
 - **Monospace code**: Use `{font.family.mono.value}` for code blocks
 - **Different font stacks per flavor**: Override in `flavor.json` (e.g., serif theme)
@@ -377,16 +399,18 @@ export const buttonStyles = css`
 ### Using `clamp()` for Fluid Scaling
 
 **Pattern**:
+
 ```css
 /* Fluid scaling without media queries */
 font-size: clamp(
-  1.5rem,  /* Minimum (mobile) */
-  5vw,     /* Preferred (fluid) */
-  2rem     /* Maximum (desktop) */
+  1.5rem,
+  /* Minimum (mobile) */ 5vw,
+  /* Preferred (fluid) */ 2rem /* Maximum (desktop) */
 );
 ```
 
 **When to use**:
+
 - ✅ Large headings (h1, h2)
 - ✅ Hero text, display typography
 - ❌ Body text (fixed for readability)
@@ -397,6 +421,7 @@ font-size: clamp(
 ## Validation Checklist
 
 ### Token Structure
+
 - [ ] Ingredients use `rem` units for sizes
 - [ ] Line heights are unitless numbers
 - [ ] Flavors reference ONLY Ingredients: `{font.size.300.value}`
@@ -404,6 +429,7 @@ font-size: clamp(
 - [ ] Recipes reference ONLY Flavors: `{font.size.body.value}`
 
 ### Component Implementation
+
 - [ ] Uses CSS variables from Recipes: `var(--sando-button-fontSize)`
 - [ ] No hardcoded pixel values
 - [ ] Typography scales at 200% zoom
@@ -411,6 +437,7 @@ font-size: clamp(
 - [ ] Line height ≥1.5 for body text (WCAG AA)
 
 ### Accessibility
+
 - [ ] Body text minimum 16px (1rem)
 - [ ] Text color contrast ≥4.5:1 (normal), ≥3:1 (large text ≥18px)
 - [ ] Heading hierarchy is semantic (h1→h2→h3)
@@ -430,6 +457,7 @@ font-size: clamp(
 ## Changelog
 
 ### 2.0.0 (2025-11-02)
+
 - **BREAKING**: Consolidated 3 examples to 1 complete pattern
 - **BREAKING**: Removed duplicate 3-layer architecture explanation (links to TOKEN_ARCHITECTURE.md)
 - **BREAKING**: Reduced font size table (key sizes only, full scale in packages/tokens/src/ JSON source files)
@@ -438,4 +466,5 @@ font-size: clamp(
 - Reduced from 736 to ~450 lines (39% reduction)
 
 ### 1.0.0 (2025-11-02)
+
 - Initial typography system with modular scale, system fonts

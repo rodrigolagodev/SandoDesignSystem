@@ -14,28 +14,28 @@ export const statusStyles = css`
   /* ========================================
      SUCCESS STATUS - SOLID VARIANT
      ======================================== */
-  :host([variant="solid"][status="success"]) button,
-  :host([variant="solid"][status="success"]) a {
+  :host([variant='solid'][status='success']) button,
+  :host([variant='solid'][status='success']) a {
     background-color: var(--sando-button-status-success-backgroundColor);
     color: var(--sando-button-status-success-textColor);
   }
 
-  :host([variant="solid"][status="success"]) button:hover,
-  :host([variant="solid"][status="success"]) a:hover {
+  :host([variant='solid'][status='success']) button:hover,
+  :host([variant='solid'][status='success']) a:hover {
     background-color: var(--sando-button-status-success-backgroundColorHover);
   }
 
   /* ========================================
      SUCCESS STATUS - OUTLINE VARIANT
      ======================================== */
-  :host([variant="outline"][status="success"]) button,
-  :host([variant="outline"][status="success"]) a {
+  :host([variant='outline'][status='success']) button,
+  :host([variant='outline'][status='success']) a {
     color: var(--sando-button-status-success-backgroundColor);
     border-color: var(--sando-button-status-success-borderColor);
   }
 
-  :host([variant="outline"][status="success"]) button:hover,
-  :host([variant="outline"][status="success"]) a:hover {
+  :host([variant='outline'][status='success']) button:hover,
+  :host([variant='outline'][status='success']) a:hover {
     background-color: var(--sando-button-status-success-backgroundColor);
     color: var(--sando-button-status-success-textColor);
   }
@@ -43,13 +43,13 @@ export const statusStyles = css`
   /* ========================================
      SUCCESS STATUS - GHOST VARIANT
      ======================================== */
-  :host([variant="ghost"][status="success"]) button,
-  :host([variant="ghost"][status="success"]) a {
+  :host([variant='ghost'][status='success']) button,
+  :host([variant='ghost'][status='success']) a {
     color: var(--sando-button-status-success-backgroundColor);
   }
 
-  :host([variant="ghost"][status="success"]) button:hover,
-  :host([variant="ghost"][status="success"]) a:hover {
+  :host([variant='ghost'][status='success']) button:hover,
+  :host([variant='ghost'][status='success']) a:hover {
     background-color: var(--sando-button-status-success-backgroundColor);
     color: var(--sando-button-status-success-textColor);
   }
@@ -57,28 +57,28 @@ export const statusStyles = css`
   /* ========================================
      DESTRUCTIVE STATUS - SOLID VARIANT
      ======================================== */
-  :host([variant="solid"][status="destructive"]) button,
-  :host([variant="solid"][status="destructive"]) a {
+  :host([variant='solid'][status='destructive']) button,
+  :host([variant='solid'][status='destructive']) a {
     background-color: var(--sando-button-status-destructive-backgroundColor);
     color: var(--sando-button-status-destructive-textColor);
   }
 
-  :host([variant="solid"][status="destructive"]) button:hover,
-  :host([variant="solid"][status="destructive"]) a:hover {
+  :host([variant='solid'][status='destructive']) button:hover,
+  :host([variant='solid'][status='destructive']) a:hover {
     background-color: var(--sando-button-status-destructive-backgroundColorHover);
   }
 
   /* ========================================
      DESTRUCTIVE STATUS - OUTLINE VARIANT
      ======================================== */
-  :host([variant="outline"][status="destructive"]) button,
-  :host([variant="outline"][status="destructive"]) a {
+  :host([variant='outline'][status='destructive']) button,
+  :host([variant='outline'][status='destructive']) a {
     color: var(--sando-button-status-destructive-backgroundColor);
     border-color: var(--sando-button-status-destructive-borderColor);
   }
 
-  :host([variant="outline"][status="destructive"]) button:hover,
-  :host([variant="outline"][status="destructive"]) a:hover {
+  :host([variant='outline'][status='destructive']) button:hover,
+  :host([variant='outline'][status='destructive']) a:hover {
     background-color: var(--sando-button-status-destructive-backgroundColor);
     color: var(--sando-button-status-destructive-textColor);
   }
@@ -86,13 +86,13 @@ export const statusStyles = css`
   /* ========================================
      DESTRUCTIVE STATUS - GHOST VARIANT
      ======================================== */
-  :host([variant="ghost"][status="destructive"]) button,
-  :host([variant="ghost"][status="destructive"]) a {
+  :host([variant='ghost'][status='destructive']) button,
+  :host([variant='ghost'][status='destructive']) a {
     color: var(--sando-button-status-destructive-backgroundColor);
   }
 
-  :host([variant="ghost"][status="destructive"]) button:hover,
-  :host([variant="ghost"][status="destructive"]) a:hover {
+  :host([variant='ghost'][status='destructive']) button:hover,
+  :host([variant='ghost'][status='destructive']) a:hover {
     background-color: var(--sando-button-status-destructive-backgroundColor);
     color: var(--sando-button-status-destructive-textColor);
   }

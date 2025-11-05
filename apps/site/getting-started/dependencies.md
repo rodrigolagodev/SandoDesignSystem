@@ -44,7 +44,7 @@ The tokens package has **zero runtime dependencies**. It only includes:
 ```json
 {
   "devDependencies": {
-    "style-dictionary": "^4.0.0"  // Build-time only
+    "style-dictionary": "^4.0.0" // Build-time only
   }
 }
 ```
@@ -56,7 +56,7 @@ When available, components will depend on:
 ```json
 {
   "dependencies": {
-    "lit": "^3.1.0"  // Web Components framework
+    "lit": "^3.1.0" // Web Components framework
   }
 }
 ```
@@ -67,66 +67,66 @@ Dependencies used for developing the Sando Design System monorepo:
 
 ### Build Tools
 
-| Package | Version | Purpose |
-|---------|---------|---------|
-| `turbo` | `2.5.8` | Monorepo build orchestration |
-| `vite` | `5.0.8` | Development server and bundler |
-| `style-dictionary` | `4.0.0` | Token transformation |
-| `typescript` | `5.3.3` | Type checking and compilation |
+| Package            | Version | Purpose                        |
+| ------------------ | ------- | ------------------------------ |
+| `turbo`            | `2.5.8` | Monorepo build orchestration   |
+| `vite`             | `5.0.8` | Development server and bundler |
+| `style-dictionary` | `4.0.0` | Token transformation           |
+| `typescript`       | `5.3.3` | Type checking and compilation  |
 
 ### Testing
 
-| Package | Version | Purpose |
-|---------|---------|---------|
-| `vitest` | `1.0.0` | Unit testing framework |
-| `@vitest/coverage-v8` | `1.0.0` | Code coverage |
-| `@vitest/ui` | `1.0.0` | Test UI |
-| `@playwright/test` | `1.40.0` | E2E testing |
-| `@web/test-runner` | `0.18.0` | Web Component testing |
-| `@web/test-runner-playwright` | `0.11.0` | Playwright integration |
-| `@open-wc/testing` | `4.0.0` | Web Component test utilities |
-| `jsdom` | `23.0.0` | DOM implementation for Node |
+| Package                       | Version  | Purpose                      |
+| ----------------------------- | -------- | ---------------------------- |
+| `vitest`                      | `1.0.0`  | Unit testing framework       |
+| `@vitest/coverage-v8`         | `1.0.0`  | Code coverage                |
+| `@vitest/ui`                  | `1.0.0`  | Test UI                      |
+| `@playwright/test`            | `1.40.0` | E2E testing                  |
+| `@web/test-runner`            | `0.18.0` | Web Component testing        |
+| `@web/test-runner-playwright` | `0.11.0` | Playwright integration       |
+| `@open-wc/testing`            | `4.0.0`  | Web Component test utilities |
+| `jsdom`                       | `23.0.0` | DOM implementation for Node  |
 
 ### Linting & Formatting
 
-| Package | Version | Purpose |
-|---------|---------|---------|
-| `eslint` | `8.56.0` | JavaScript/TypeScript linting |
-| `@typescript-eslint/eslint-plugin` | `6.15.0` | TypeScript ESLint rules |
-| `@typescript-eslint/parser` | `6.15.0` | TypeScript parser for ESLint |
-| `eslint-plugin-lit` | `1.11.0` | Lit-specific linting rules |
-| `eslint-plugin-wc` | `2.0.4` | Web Components linting |
-| `eslint-config-prettier` | `9.1.0` | Prettier integration |
-| `prettier` | `3.1.1` | Code formatting |
+| Package                            | Version  | Purpose                       |
+| ---------------------------------- | -------- | ----------------------------- |
+| `eslint`                           | `8.56.0` | JavaScript/TypeScript linting |
+| `@typescript-eslint/eslint-plugin` | `6.15.0` | TypeScript ESLint rules       |
+| `@typescript-eslint/parser`        | `6.15.0` | TypeScript parser for ESLint  |
+| `eslint-plugin-lit`                | `1.11.0` | Lit-specific linting rules    |
+| `eslint-plugin-wc`                 | `2.0.4`  | Web Components linting        |
+| `eslint-config-prettier`           | `9.1.0`  | Prettier integration          |
+| `prettier`                         | `3.1.1`  | Code formatting               |
 
 ### Documentation (Storybook)
 
-| Package | Version | Purpose |
-|---------|---------|---------|
-| `storybook` | `7.6.0` | Component documentation |
-| `@storybook/web-components` | `7.6.0` | Web Components support |
-| `@storybook/web-components-vite` | `7.6.0` | Vite integration |
-| `@storybook/addon-essentials` | `7.6.0` | Core addons |
-| `@storybook/addon-a11y` | `7.6.0` | Accessibility testing |
-| `@storybook/addon-links` | `7.6.0` | Story linking |
-| `@storybook/blocks` | `7.6.0` | Documentation blocks |
+| Package                          | Version | Purpose                 |
+| -------------------------------- | ------- | ----------------------- |
+| `storybook`                      | `7.6.0` | Component documentation |
+| `@storybook/web-components`      | `7.6.0` | Web Components support  |
+| `@storybook/web-components-vite` | `7.6.0` | Vite integration        |
+| `@storybook/addon-essentials`    | `7.6.0` | Core addons             |
+| `@storybook/addon-a11y`          | `7.6.0` | Accessibility testing   |
+| `@storybook/addon-links`         | `7.6.0` | Story linking           |
+| `@storybook/blocks`              | `7.6.0` | Documentation blocks    |
 
 ### Version Management
 
-| Package | Version | Purpose |
-|---------|---------|---------|
+| Package           | Version  | Purpose                        |
+| ----------------- | -------- | ------------------------------ |
 | `@changesets/cli` | `2.29.7` | Version & changelog management |
-| `husky` | `8.0.3` | Git hooks |
-| `lint-staged` | `15.2.0` | Pre-commit linting |
+| `husky`           | `8.0.3`  | Git hooks                      |
+| `lint-staged`     | `15.2.0` | Pre-commit linting             |
 
 ### Component Development
 
-| Package | Version | Purpose |
-|---------|---------|---------|
-| `lit` | `3.1.0` | Web Components framework |
-| `@custom-elements-manifest/analyzer` | `0.9.0` | Generate component metadata |
-| `react` | `18.2.0` | Storybook dependency |
-| `react-dom` | `18.2.0` | Storybook dependency |
+| Package                              | Version  | Purpose                     |
+| ------------------------------------ | -------- | --------------------------- |
+| `lit`                                | `3.1.0`  | Web Components framework    |
+| `@custom-elements-manifest/analyzer` | `0.9.0`  | Generate component metadata |
+| `react`                              | `18.2.0` | Storybook dependency        |
+| `react-dom`                          | `18.2.0` | Storybook dependency        |
 
 ## Browser Support
 
@@ -183,12 +183,12 @@ export default defineConfig({
     vue({
       template: {
         compilerOptions: {
-          isCustomElement: (tag) => tag.startsWith('sando-')
-        }
-      }
-    })
-  ]
-})
+          isCustomElement: (tag) => tag.startsWith("sando-"),
+        },
+      },
+    }),
+  ],
+});
 ```
 
 ### Angular
@@ -245,16 +245,16 @@ No additional configuration needed.
 
 ```ts
 // Import all tokens
-import '@sando/tokens/css'
+import "@sando/tokens/css";
 
 // Import specific layers
-import '@sando/tokens/css/ingredients'
-import '@sando/tokens/css/flavors'
-import '@sando/tokens/css/recipes'
+import "@sando/tokens/css/ingredients";
+import "@sando/tokens/css/flavors";
+import "@sando/tokens/css/recipes";
 
 // Import specific files
-import '@sando/tokens/css/ingredients/color'
-import '@sando/tokens/css/flavors/original'
+import "@sando/tokens/css/ingredients/color";
+import "@sando/tokens/css/flavors/original";
 ```
 
 ## Updating Dependencies

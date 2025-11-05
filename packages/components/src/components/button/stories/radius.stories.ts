@@ -18,7 +18,9 @@ const meta: Meta = {
       ?disabled="${args.disabled}"
       ?loading="${args.loading}"
     >
-      ${args.iconStart && args.iconStart !== 'None' ? html`<span slot="icon-start">${args.iconStart}</span>` : ''}
+      ${args.iconStart && args.iconStart !== 'None'
+        ? html`<span slot="icon-start">${args.iconStart}</span>`
+        : ''}
       ${args.iconOnly ? '' : args.label}
     </sando-button>
   `,

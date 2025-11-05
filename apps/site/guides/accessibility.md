@@ -65,6 +65,7 @@ pnpm --filter @sando/components test:a11y
 ```
 
 Tools used:
+
 - **axe-core**: Automated accessibility testing
 - **Playwright**: E2E accessibility testing
 - **Vitest**: Unit testing for WCAG compliance
@@ -84,12 +85,14 @@ Automated tests catch many issues, but manual testing is crucial:
 #### Screen Reader Checklist
 
 Test with:
+
 - **NVDA** (Windows, free)
 - **JAWS** (Windows)
 - **VoiceOver** (macOS/iOS)
 - **TalkBack** (Android)
 
 Verify:
+
 - [ ] All content is announced
 - [ ] Interactive elements have clear labels
 - [ ] Form errors are announced
@@ -125,17 +128,11 @@ Verify:
 ```html
 <!-- Good: Associated label -->
 <label for="email">Email Address</label>
-<input type="email" id="email" required>
+<input type="email" id="email" required />
 
 <!-- Good: Error message -->
-<input
-  type="email"
-  aria-invalid="true"
-  aria-describedby="email-error"
->
-<div id="email-error" role="alert">
-  Please enter a valid email address
-</div>
+<input type="email" aria-invalid="true" aria-describedby="email-error" />
+<div id="email-error" role="alert">Please enter a valid email address</div>
 ```
 
 ### Focus Indicators

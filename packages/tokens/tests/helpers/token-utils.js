@@ -4,26 +4,26 @@
  * Common functions used across all token tests
  */
 
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-export const tokensRoot = path.resolve(__dirname, '../../src');
+export const tokensRoot = path.resolve(__dirname, "../../src");
 
 /**
  * Valid DTCG token types
  */
 export const VALID_DTCG_TYPES = [
-  'color',
-  'dimension',
-  'fontFamily',
-  'fontWeight',
-  'duration',
-  'cubicBezier',
-  'number',
-  'shadow'
+  "color",
+  "dimension",
+  "fontFamily",
+  "fontWeight",
+  "duration",
+  "cubicBezier",
+  "number",
+  "shadow",
 ];
 
 /**
@@ -34,7 +34,7 @@ export function loadTokenFile(layer, fileName) {
   if (!fs.existsSync(filePath)) {
     throw new Error(`Token file not found: ${filePath}`);
   }
-  return JSON.parse(fs.readFileSync(filePath, 'utf8'));
+  return JSON.parse(fs.readFileSync(filePath, "utf8"));
 }
 
 /**
@@ -47,12 +47,12 @@ export function loadAndMergeTokens(directory) {
     return {};
   }
 
-  const fileNames = fs.readdirSync(dirPath).filter(f => f.endsWith('.json'));
+  const fileNames = fs.readdirSync(dirPath).filter((f) => f.endsWith(".json"));
   let merged = {};
 
   for (const fileName of fileNames) {
     const filePath = path.join(dirPath, fileName);
-    const content = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+    const content = JSON.parse(fs.readFileSync(filePath, "utf8"));
     merged = { ...merged, ...content };
   }
 
@@ -70,11 +70,11 @@ export function loadJsonFiles(directory) {
     return files;
   }
 
-  const fileNames = fs.readdirSync(dirPath).filter(f => f.endsWith('.json'));
+  const fileNames = fs.readdirSync(dirPath).filter((f) => f.endsWith(".json"));
 
   for (const fileName of fileNames) {
     const filePath = path.join(dirPath, fileName);
-    const content = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+    const content = JSON.parse(fs.readFileSync(filePath, "utf8"));
     files[fileName] = content;
   }
 
@@ -91,11 +91,11 @@ export function findTokens(obj, path = []) {
     const value = obj[key];
     const currentPath = [...path, key];
 
-    if (typeof value === 'object' && value !== null) {
-      if ('value' in value) {
+    if (typeof value === "object" && value !== null) {
+      if ("value" in value) {
         tokens.push({
-          path: currentPath.join('.'),
-          token: value
+          path: currentPath.join("."),
+          token: value,
         });
       } else {
         tokens.push(...findTokens(value, currentPath));
@@ -116,12 +116,12 @@ export function findTokensByType(obj, targetType, currentPath = []) {
     const value = obj[key];
     const newPath = [...currentPath, key];
 
-    if (typeof value === 'object' && value !== null) {
-      if (value.type === targetType && 'value' in value) {
+    if (typeof value === "object" && value !== null) {
+      if (value.type === targetType && "value" in value) {
         tokens.push({
-          path: newPath.join('.'),
+          path: newPath.join("."),
           value: value.value,
-          token: value
+          token: value,
         });
       }
       tokens.push(...findTokensByType(value, targetType, newPath));
@@ -141,16 +141,16 @@ export function findReferences(obj, currentPath = []) {
     const value = obj[key];
     const newPath = [...currentPath, key];
 
-    if (typeof value === 'object' && value !== null) {
-      if (value.value && typeof value.value === 'string') {
+    if (typeof value === "object" && value !== null) {
+      if (value.value && typeof value.value === "string") {
         const match = value.value.match(/\{([^}]+)\}/g);
         if (match) {
-          match.forEach(ref => {
+          match.forEach((ref) => {
             const cleanRef = ref.slice(1, -1); // Remove { and }
             references.push({
-              tokenPath: newPath.join('.'),
+              tokenPath: newPath.join("."),
               reference: cleanRef,
-              fullToken: value
+              fullToken: value,
             });
           });
         }
@@ -166,11 +166,11 @@ export function findReferences(obj, currentPath = []) {
  * Validate that a reference path exists in a token object
  */
 export function validateReference(refPath, tokenObject) {
-  const parts = refPath.replace('.value', '').split('.');
+  const parts = refPath.replace(".value", "").split(".");
   let current = tokenObject;
 
   for (const part of parts) {
-    if (!current || typeof current !== 'object') {
+    if (!current || typeof current !== "object") {
       return false;
     }
     current = current[part];
@@ -183,8 +183,8 @@ export function validateReference(refPath, tokenObject) {
  * Check for circular references
  */
 export function hasCircularReference(tokenPath, refPath) {
-  const tokenParts = tokenPath.split('.');
-  const refParts = refPath.replace('.value', '').split('.');
+  const tokenParts = tokenPath.split(".");
+  const refParts = refPath.replace(".value", "").split(".");
 
   // Check if reference is pointing to itself or a parent
   for (let i = 0; i < Math.min(tokenParts.length, refParts.length); i++) {
@@ -200,7 +200,9 @@ export function hasCircularReference(tokenPath, refPath) {
  * Check if a value is a reference (contains {...})
  */
 export function isReference(value) {
-  return typeof value === 'string' && value.includes('{') && value.includes('}');
+  return (
+    typeof value === "string" && value.includes("{") && value.includes("}")
+  );
 }
 
 /**
@@ -215,7 +217,7 @@ export function extractReference(value) {
  * Validate color format (HSL)
  */
 export function isValidHSL(value) {
-  if (value === 'transparent') return true;
+  if (value === "transparent") return true;
   const hslPattern = /^hsl\(\s*\d+\s*,\s*\d+%\s*,\s*\d+%\s*\)$/;
   return hslPattern.test(value);
 }
@@ -243,7 +245,7 @@ export function getTokenFiles(layer) {
   if (!fs.existsSync(dirPath)) {
     return [];
   }
-  return fs.readdirSync(dirPath).filter(f => f.endsWith('.json'));
+  return fs.readdirSync(dirPath).filter((f) => f.endsWith(".json"));
 }
 
 /**
@@ -263,7 +265,7 @@ export function getTokenStats(layer) {
 
   const typeCount = {};
   allTokens.forEach(({ token }) => {
-    const type = token.type || 'unknown';
+    const type = token.type || "unknown";
     typeCount[type] = (typeCount[type] || 0) + 1;
   });
 
@@ -271,6 +273,6 @@ export function getTokenStats(layer) {
     total: allTokens.length,
     references: references.length,
     types: typeCount,
-    files: getTokenFiles(layer).length
+    files: getTokenFiles(layer).length,
   };
 }

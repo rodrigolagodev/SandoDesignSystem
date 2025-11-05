@@ -8,6 +8,7 @@
 ## Problem Statement
 
 Current agents have:
+
 - ❌ **Duplicate content** that exists in guidelines (token architecture, naming conventions, testing patterns)
 - ❌ **Excessive length** (300-400 lines) with detailed explanations now covered in guidelines
 - ❌ **Mixed responsibilities** - defining standards vs executing them
@@ -20,31 +21,36 @@ Current agents have:
 ### 1. Agents Should Be EXECUTORS, Not DEFINERS
 
 **Before (Current)**:
+
 ```markdown
 ## Three-Layer Token Architecture
 
 You will design and implement a strict three-layer token system:
 
 ### Layer 1: Ingredients (Primitives)
+
 - Raw design values: colors, spacing scales, typography scales
 - NEVER reference other tokens - only pure values
 - Examples: `color-blue-500: #3b82f6`, `spacing-4: 16px`
 
 ### Layer 2: Flavors (Semantic)
+
 - Context-aware tokens providing semantic meaning
 - MUST reference Ingredients layer only
 - Examples: `color-primary: {color-blue-500}`
-...
-(50+ lines explaining token architecture)
+  ...
+  (50+ lines explaining token architecture)
 ```
 
 **After (Refactored)**:
+
 ```markdown
 ## Token Architecture
 
 **Guideline**: `.claude/guidelines/01-design-system/TOKEN_ARCHITECTURE.md`
 
 Follow the three-layer system (Ingredients → Flavors → Recipes) defined in TOKEN_ARCHITECTURE.md:
+
 - Use the decision tree (Rule 2) to determine correct token layer
 - Follow CSS naming conventions (Rule 3)
 - Reference validation checklist before delivery
@@ -53,6 +59,7 @@ Follow the three-layer system (Ingredients → Flavors → Recipes) defined in T
 ### 2. Keep Only What's Unique to the Agent
 
 **Keep**:
+
 - ✅ Agent role and when to invoke it
 - ✅ Specific responsibilities and workflows
 - ✅ Integration points with other agents
@@ -60,6 +67,7 @@ Follow the three-layer system (Ingredients → Flavors → Recipes) defined in T
 - ✅ Examples of agent invocation
 
 **Remove**:
+
 - ❌ Detailed architectural rules (→ guidelines)
 - ❌ Code style examples (→ guidelines)
 - ❌ Testing patterns (→ guidelines)
@@ -76,6 +84,7 @@ Every agent gets this concise section:
 **All Sando decisions follow**: `.claude/guidelines/`
 
 **Your primary guidelines**:
+
 - [Guideline 1 path] - Brief one-line what it covers
 - [Guideline 2 path] - Brief one-line what it covers
 - [Guideline 3 path] - Brief one-line what it covers
@@ -91,12 +100,14 @@ Every agent gets this concise section:
 ## External Library Documentation (Context7)
 
 **Use Context7 ONLY for external library implementation details**:
+
 - ✅ Lit 3.x reactive controllers, lifecycle methods
 - ✅ Style Dictionary 4.x transform API
 - ✅ Vite plugin architecture
 - ✅ Storybook 8.x Web Components integration
 
 **Never use Context7 for**:
+
 - ❌ Sando token architecture
 - ❌ Sando component patterns
 - ❌ Sando naming conventions
@@ -127,6 +138,7 @@ model: sonnet
 **All Sando decisions follow**: `.claude/guidelines/`
 
 **Your primary guidelines**:
+
 - [3-5 most relevant guidelines for this agent]
 
 **Priority**: Sando Guidelines > Context7 Docs > General practices
@@ -138,12 +150,15 @@ model: sonnet
 ## Workflow
 
 ### Phase 1: Context Gathering
+
 [Brief - what context to gather]
 
 ### Phase 2: Execution
+
 [Brief - main work steps]
 
 ### Phase 3: Validation
+
 [Brief - how to validate against guidelines]
 
 ## Integration with Other Agents
@@ -164,6 +179,7 @@ model: sonnet
 **Current**: ~405 lines
 **Target**: ~150 lines
 **Remove**:
+
 - Lines 115-133: Three-layer token architecture (→ TOKEN_ARCHITECTURE.md)
 - Lines 134-170: Technology stack details (→ guidelines + Context7)
 - Lines 172-187: Theming system details (→ THEMING_STRATEGY.md)
@@ -172,6 +188,7 @@ model: sonnet
 - Lines 343-377: Governance details (→ GIT_WORKFLOW.md, TOKEN_ARCHITECTURE.md)
 
 **Keep**:
+
 - Agent description and invocation examples
 - Core responsibilities (high-level)
 - Context gathering workflow
@@ -180,6 +197,7 @@ model: sonnet
 - Key principles
 
 **Add**:
+
 - Guidelines section with 5 primary guidelines
 - Clear separation: Sando guidelines vs Context7
 - Reference to decision trees in guidelines
@@ -191,6 +209,7 @@ model: sonnet
 **Current**: ~300 lines
 **Target**: ~120 lines
 **Remove**:
+
 - Code style details (→ CODE_STYLE.md)
 - Naming conventions (→ NAMING_CONVENTIONS.md)
 - Testing patterns (→ TESTING_STRATEGY.md)
@@ -198,6 +217,7 @@ model: sonnet
 - JSDoc examples (→ INLINE_CODE_DOCS.md)
 
 **Keep**:
+
 - Agent description and invocation
 - Core responsibilities
 - Scaffold vs Implementation mode distinction
@@ -205,6 +225,7 @@ model: sonnet
 - Integration points
 
 **Add**:
+
 - Guidelines section with 5 primary guidelines
 - Brief workflow: Read guideline → Implement → Validate
 
@@ -215,18 +236,21 @@ model: sonnet
 **Current**: ~350 lines
 **Target**: ~130 lines
 **Remove**:
+
 - Complete component creation patterns (→ COMPONENT_ARCHITECTURE.md)
 - Token consumption examples (→ TOKEN_ARCHITECTURE.md)
 - Testing file structure (→ TESTING_STRATEGY.md)
 - Documentation templates (→ API_REFERENCE.md, STORYBOOK_STORIES.md)
 
 **Keep**:
+
 - Agent description and when to invoke
 - Orchestration workflow (high-level)
 - Phase structure (simplified)
 - File creation sequence
 
 **Add**:
+
 - Guidelines section with 6 primary guidelines
 - Reference to component checklist in COMPONENT_ARCHITECTURE.md
 
@@ -237,17 +261,20 @@ model: sonnet
 **Current**: ~280 lines
 **Target**: ~110 lines
 **Remove**:
+
 - Documentation format details (→ all 06-documentation guidelines)
 - JSDoc patterns (→ INLINE_CODE_DOCS.md)
 - VitePress structure (→ VITEPRESS_GUIDES.md)
 - Storybook story templates (→ STORYBOOK_STORIES.md)
 
 **Keep**:
+
 - Agent description and invocation
 - Documentation workflow
 - Integration with component development
 
 **Add**:
+
 - Guidelines section with 4 documentation guidelines
 - Validation workflow referencing checklists
 
@@ -258,17 +285,20 @@ model: sonnet
 **Current**: ~320 lines
 **Target**: ~125 lines
 **Remove**:
+
 - Test pyramid details (→ TESTING_STRATEGY.md)
 - Coverage thresholds (→ TEST_COVERAGE.md)
 - Accessibility testing patterns (→ WCAG_COMPLIANCE.md)
 - Test file structure (→ TESTING_STRATEGY.md)
 
 **Keep**:
+
 - Agent description
 - Test strategy workflow
 - Defect management approach
 
 **Add**:
+
 - Guidelines section with 5 quality guidelines
 - Reference to validation checklists
 
@@ -279,16 +309,19 @@ model: sonnet
 **Current**: ~290 lines
 **Target**: ~115 lines
 **Remove**:
+
 - Token design details (→ COLOR_SYSTEM.md, TYPOGRAPHY_SYSTEM.md, etc.)
 - Design patterns (→ COMPONENT_DESIGN.md)
 - Accessibility requirements (→ COLOR_CONTRAST.md)
 
 **Keep**:
+
 - Agent description
 - Design workflow
 - Figma integration points
 
 **Add**:
+
 - Guidelines section with 5 design system guidelines
 
 ---
@@ -307,6 +340,7 @@ Create a standardized template file that all refactored agents will follow.
 4. technical-writer
 
 **Process for each**:
+
 1. Read current agent file
 2. Identify duplicate content (exists in guidelines)
 3. Create refactored version following template
@@ -353,12 +387,14 @@ After refactoring each agent:
 ## Success Metrics
 
 **Before Refactoring**:
+
 - Average agent size: ~300 lines
 - Duplicate content: ~50% overlaps with guidelines
 - Guidelines usage: Implicit, not enforced
 - Maintenance burden: Update 20 files for pattern changes
 
 **After Refactoring**:
+
 - Average agent size: ~120 lines (60% reduction)
 - Duplicate content: 0% (only references)
 - Guidelines usage: Explicit, enforced

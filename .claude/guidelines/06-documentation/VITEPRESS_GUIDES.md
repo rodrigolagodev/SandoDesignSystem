@@ -25,6 +25,7 @@ Establish comprehensive standards for writing long-form tutorial and guide docum
 Every guide page SHOULD include frontmatter with title and description for SEO and social sharing, though VitePress can generate these from content if omitted.
 
 **Pattern**:
+
 ```markdown
 ---
 title: Page Title for SEO and Browser Tabs
@@ -37,6 +38,7 @@ First paragraph starts immediately after heading...
 ```
 
 **Real example from quick-start.md**:
+
 ```markdown
 ---
 title: Quick Start Guide
@@ -61,7 +63,8 @@ Get started with Sando design tokens in your project.
 Tutorial guides MUST use numbered headings (h2) for sequential steps, creating clear progression from start to finish.
 
 **Pattern**:
-```markdown
+
+````markdown
 # Tutorial Title
 
 Brief introduction explaining what the user will learn.
@@ -73,6 +76,7 @@ Instructions for the first step...
 ```code
 Example code for step 1
 ```
+````
 
 ## Step 2: Second Action
 
@@ -85,7 +89,8 @@ Instructions for the third step...
 ## Next Steps
 
 Where to go after completing the tutorial.
-```
+
+````
 
 **Real example from quick-start.md**:
 ```markdown
@@ -100,7 +105,7 @@ Get started with Sando design tokens in your project.
 ```bash [Vite]
 pnpm create vite my-app --template vanilla-ts
 cd my-app
-```
+````
 
 ```bash [Next.js]
 pnpm create next-app my-app
@@ -119,8 +124,8 @@ pnpm add @sando/components @sando/tokens
 
 ```ts
 // main.ts or App.tsx
-import '@sando/tokens/css'
-import '@sando/components/button'
+import "@sando/tokens/css";
+import "@sando/components/button";
 ```
 
 ## Next Steps
@@ -129,7 +134,8 @@ Now that you've built your first component, explore:
 
 - **[Theming Guide](/getting-started/theming)** - Learn how to customize
 - **[Token Architecture](/tokens/architecture)** - Understand the system
-```
+
+````
 
 **Why**: Numbered steps provide clear progression. Users can follow along sequentially without getting lost. Next Steps section prevents dead ends.
 
@@ -158,15 +164,17 @@ Information about potential breaking changes or serious issues.
 ::: details Click to Expand
 Collapsible content for additional details that some users may want.
 :::
-```
+````
 
 **Container types**:
+
 - **tip**: Helpful hints, best practices, pro tips
 - **warning**: Important notices, deprecation warnings, prerequisites
 - **danger**: Breaking changes, critical security issues, destructive actions
 - **details**: Collapsible extra information, advanced topics, troubleshooting
 
 **Real examples from quick-start.md**:
+
 ```markdown
 ::: warning Components Coming Soon
 This guide focuses on using Sando's token system. Component examples are provided for future reference but are not yet implemented.
@@ -178,6 +186,7 @@ Interactive component demos will be available once the component library is publ
 ```
 
 **Real example from accessibility.md**:
+
 ```markdown
 ::: tip Touch Target Compliance
 All button sizes meet WCAG 2.1 Level AA minimum touch target size of 44x44px through padding adjustments.
@@ -195,12 +204,14 @@ All button sizes meet WCAG 2.1 Level AA minimum touch target size of 44x44px thr
 Use VitePress code groups (`::: code-group`) when showing the same example in multiple languages, frameworks, or tools.
 
 **Pattern**:
-```markdown
+
+````markdown
 ::: code-group
 
 ```language [Tab Label 1]
 code for option 1
 ```
+````
 
 ```language [Tab Label 2]
 code for option 2
@@ -211,7 +222,8 @@ code for option 3
 ```
 
 :::
-```
+
+````
 
 **Real examples from quick-start.md**:
 ```markdown
@@ -220,7 +232,7 @@ code for option 3
 ```bash [Vite]
 pnpm create vite my-app --template vanilla-ts
 cd my-app
-```
+````
 
 ```bash [Next.js]
 pnpm create next-app my-app
@@ -234,29 +246,30 @@ cd my-app
 ```html [index.html]
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>My Sando App</title>
-</head>
-<body>
-  <div id="app"></div>
-  <script type="module" src="/main.ts"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>My Sando App</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/main.ts"></script>
+  </body>
 </html>
 ```
 
 ```ts [main.ts]
-import '@sando/tokens/css'
-import '@sando/components/button'
+import "@sando/tokens/css";
+import "@sando/components/button";
 
-const app = document.querySelector('#app')!
+const app = document.querySelector("#app")!;
 app.innerHTML = `
   <sando-button variant="solid">Hello!</sando-button>
-`
+`;
 ```
 
 :::
-```
+
+````
 
 **When to use code groups**:
 - Multiple framework implementations (React, Vue, Angular)
@@ -279,14 +292,17 @@ Use proper syntax highlighting for all code blocks and inline code formatting fo
 The `sando-button` component accepts a `variant` property that can be `'solid'`, `'outline'`, or `'ghost'`.
 
 Install with `pnpm add @sando/components` to get started.
-```
+````
 
 **Code block pattern**:
-```markdown
+
+````markdown
 ```language
 code here
 ```
-```
+````
+
+````
 
 **Supported languages**:
 - `html` - HTML markup
@@ -304,18 +320,16 @@ code here
 ```markdown
 ```bash
 pnpm add @sando/components @sando/tokens
-```
+````
 
 ```ts
 // main.ts or App.tsx
-import '@sando/tokens/css'
-import '@sando/components/button'
+import "@sando/tokens/css";
+import "@sando/components/button";
 ```
 
 ```html
-<sando-button variant="solid" size="medium">
-  Hello Sando!
-</sando-button>
+<sando-button variant="solid" size="medium"> Hello Sando! </sando-button>
 ```
 
 ```css
@@ -324,7 +338,8 @@ sando-button {
   --sando-button-solid-backgroundColor-default: #ff6b6b;
 }
 ```
-```
+
+````
 
 **Why**: Syntax highlighting improves code readability. Inline code formatting distinguishes technical terms from prose. Proper language tags enable VitePress code features (copy button, line numbers).
 
@@ -355,7 +370,7 @@ Clear instruction for what to do.
 
 ```code
 Example code
-```
+````
 
 **Result**: What the user should see or expect after this step.
 
@@ -399,7 +414,8 @@ Where to go after completing this tutorial:
 
 - **[Related Guide](../path)** - Description
 - **[Next Tutorial](../path)** - Description
-```
+
+````
 
 **Why**: Consistent structure helps users know what to expect. Troubleshooting section addresses common issues proactively.
 
@@ -439,7 +455,7 @@ Technical explanation with code examples:
 
 ```code
 Examples showing the concept in practice
-```
+````
 
 ## Common Patterns
 
@@ -460,7 +476,8 @@ Description and example.
 
 - **[Related Topic 1](../path)** - How it relates
 - **[Related Topic 2](../path)** - How it relates
-```
+
+````
 
 **Why**: Conceptual guides explain "why" not just "how". Structure moves from high-level understanding to practical application.
 
@@ -490,7 +507,7 @@ Brief introduction to the integration.
 
 ```bash
 pnpm add @sando/components @sando/tokens
-```
+````
 
 ## Configuration
 
@@ -539,7 +556,8 @@ Common issues and solutions.
 ## Example Project
 
 Link to complete working example repository or CodeSandbox.
-```
+
+````
 
 **Why**: Integration guides need special attention to framework-specific configuration and common gotchas.
 
@@ -557,9 +575,10 @@ Link to complete working example repository or CodeSandbox.
 
 <!-- Links with descriptions -->
 - **[Link Text](/path)** - Brief description of linked content
-```
+````
 
 **Navigation links pattern**:
+
 ```markdown
 ## Next Steps
 
@@ -580,7 +599,8 @@ Link to complete working example repository or CodeSandbox.
 [GitHub Repository](https://github.com/user/repo)
 
 <!-- Open in new tab -->
-[Storybook](https://example.com){target="_blank"}
+
+[Storybook](https://example.com){target="\_blank"}
 ```
 
 **Why**: External links use full URLs. `{target="_blank"}` opens in new tab for external references.
@@ -600,6 +620,7 @@ Link to complete working example repository or CodeSandbox.
 ```
 
 **Common emoji conventions**:
+
 - ✅ Checkmark: Completed features, best practices
 - ❌ Cross: Anti-patterns, things to avoid
 - ⚠️ Warning: Important notices, breaking changes
@@ -622,23 +643,27 @@ Link to complete working example repository or CodeSandbox.
 
 ```markdown
 <!-- Unordered list -->
+
 - Item 1
 - Item 2
   - Nested item
   - Nested item
 
 <!-- Ordered list -->
+
 1. First step
 2. Second step
 3. Third step
 
 <!-- Task list -->
+
 - [ ] Task not done
 - [x] Task completed
 
 <!-- Bold and italic -->
+
 **Bold text** for emphasis
-*Italic text* for subtle emphasis
+_Italic text_ for subtle emphasis
 `Code text` for technical terms
 ```
 
@@ -650,18 +675,20 @@ Link to complete working example repository or CodeSandbox.
 
 ```markdown
 | Column 1 | Column 2 | Column 3 |
-|----------|----------|----------|
+| -------- | -------- | -------- |
 | Value A  | Value B  | Value C  |
 | Value D  | Value E  | Value F  |
 
 <!-- Aligned columns -->
+
 | Left | Center | Right |
-|:-----|:------:|------:|
-| L1   | C1     | R1    |
-| L2   | C2     | R2    |
+| :--- | :----: | ----: |
+| L1   |   C1   |    R1 |
+| L2   |   C2   |    R2 |
 ```
 
 **When to use tables**:
+
 - API reference (see API_REFERENCE.md)
 - Comparison matrices
 - Configuration options
@@ -676,6 +703,7 @@ Link to complete working example repository or CodeSandbox.
 ### Sidebar Configuration
 
 **Pattern in .vitepress/config.ts**:
+
 ```typescript
 sidebar: {
   '/getting-started/': [
@@ -708,6 +736,7 @@ sidebar: {
 ```
 
 **Organization principles**:
+
 - Group related pages under collapsible sections
 - Use descriptive section titles
 - Order pages by learning progression (beginner → advanced)
@@ -720,17 +749,18 @@ sidebar: {
 ### Top Navigation
 
 **Pattern in .vitepress/config.ts**:
+
 ```typescript
 nav: [
-  { text: 'Guide', link: '/getting-started/introduction' },
-  { text: 'Tokens', link: '/tokens/architecture' },
-  { text: 'Components', link: '/components/overview' },
+  { text: "Guide", link: "/getting-started/introduction" },
+  { text: "Tokens", link: "/tokens/architecture" },
+  { text: "Components", link: "/components/overview" },
   {
-    text: 'Storybook',
-    link: 'https://example.com/storybook',
-    target: '_blank'
-  }
-]
+    text: "Storybook",
+    link: "https://example.com/storybook",
+    target: "_blank",
+  },
+];
 ```
 
 **Why**: Top nav provides primary navigation. Link to section landing pages (overview/introduction). External links use `target: '_blank'`.
@@ -764,6 +794,7 @@ apps/site/
 ```
 
 **Conventions**:
+
 - Use kebab-case for file names
 - Name matches page title (lowercased, spaces → hyphens)
 - Use descriptive names (quick-start.md not qs.md)
@@ -774,6 +805,7 @@ apps/site/
 ### Directory Structure
 
 **Category organization**:
+
 - `getting-started/` - Onboarding, installation, first steps
 - `guides/` - Conceptual topics, philosophy, best practices
 - `tokens/` - Design token documentation
@@ -802,32 +834,36 @@ apps/site/
 ### Code Examples
 
 **Always include**:
+
 - Complete, working code
 - Comments explaining non-obvious parts
 - Expected output or result
 - Syntax highlighting (proper language tags)
 
 **Example**:
-```markdown
+
+````markdown
 ```ts
 // Import the component
-import '@sando/components/button'
+import "@sando/components/button";
 
 // Use in your HTML
-const app = document.querySelector('#app')!
+const app = document.querySelector("#app")!;
 app.innerHTML = `
   <sando-button variant="solid">
     Click me
   </sando-button>
-`
+`;
 
 // Add event listener
-const button = app.querySelector('sando-button')!
-button.addEventListener('click', () => {
-  console.log('Clicked!') // Output: "Clicked!"
-})
+const button = app.querySelector("sando-button")!;
+button.addEventListener("click", () => {
+  console.log("Clicked!"); // Output: "Clicked!"
+});
 ```
-```
+````
+
+````
 
 **Why**: Complete examples reduce confusion. Comments guide understanding. Expected output shows what success looks like.
 
@@ -848,7 +884,7 @@ button.addEventListener('click', () => {
 
 <!-- ✅ GOOD -->
 [Learn more about theming](../guide)
-```
+````
 
 ---
 
@@ -915,16 +951,19 @@ button.addEventListener('click', () => {
 ## External References
 
 **VitePress Documentation**:
+
 - [VitePress Guide](https://vitepress.dev/guide/what-is-vitepress) - Official documentation
 - [Markdown Extensions](https://vitepress.dev/guide/markdown) - Markdown features
 - [Frontmatter](https://vitepress.dev/reference/frontmatter-config) - Page configuration
 - [Theme Config](https://vitepress.dev/reference/default-theme-config) - Navigation/sidebar setup
 
 **Markdown**:
+
 - [Markdown Guide](https://www.markdownguide.org/) - Basic/extended syntax
 - [CommonMark Spec](https://commonmark.org/) - Markdown specification
 
 **Writing**:
+
 - [Google Developer Docs Style Guide](https://developers.google.com/style) - Technical writing best practices
 - [Microsoft Writing Style Guide](https://docs.microsoft.com/en-us/style-guide/) - Writing for developers
 
@@ -933,6 +972,7 @@ button.addEventListener('click', () => {
 ## Changelog
 
 ### 1.0.0 (2025-11-03)
+
 - Initial guideline creation
 - 5 Core Rules: frontmatter, step-by-step structure, containers, code groups, syntax highlighting
 - VitePress guide patterns: tutorial, conceptual, integration structures

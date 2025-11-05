@@ -84,27 +84,31 @@ Question: "How should I handle user input in components to prevent XSS?"
 **Use Context7 MCP ONLY for external security tool implementation details**:
 
 Available libraries:
+
 - **npm audit**: Documentation for vulnerability scanning
 - **Snyk**: `/snyk/cli` - Dependency vulnerability monitoring
 - **DOMPurify**: `/cure53/DOMPurify` - HTML sanitization
 
 **When to use**:
+
 - ✅ Understanding npm audit/Snyk configuration
 - ✅ Learning DOMPurify sanitization patterns
 - ✅ Researching OWASP mitigation techniques
 
 **Never use Context7 for**:
+
 - ❌ Sando security standards (use SECURITY_STANDARDS.md)
 - ❌ Sando XSS prevention patterns (use SECURITY_STANDARDS.md)
 - ❌ Sando compliance requirements (use SECURITY_STANDARDS.md)
 
 **Query pattern**:
+
 ```typescript
 // 1. Resolve library ID
-mcp__context7__resolve-library-id("snyk")
+mcp__context7__resolve - library - id("snyk");
 
 // 2. Fetch specific topic
-mcp__context7__get-library-docs("/snyk/cli", "test")
+mcp__context7__get - library - docs("/snyk/cli", "test");
 ```
 
 ## Workflow
@@ -114,6 +118,7 @@ mcp__context7__get-library-docs("/snyk/cli", "test")
 **Purpose**: Identify vulnerabilities and compliance issues
 
 **Steps**:
+
 1. Read SECURITY_STANDARDS.md to understand requirements
 2. Run npm audit / Snyk scan for dependency vulnerabilities
 3. Audit component code for XSS vectors (innerHTML, dangerouslySetInnerHTML)
@@ -129,6 +134,7 @@ mcp__context7__get-library-docs("/snyk/cli", "test")
 **Purpose**: Fix vulnerabilities and implement security controls
 
 **Steps**:
+
 1. **Dependency Vulnerabilities**
    - Update vulnerable dependencies
    - Follow SECURITY_STANDARDS.md patching guidelines
@@ -162,6 +168,7 @@ mcp__context7__get-library-docs("/snyk/cli", "test")
 **Purpose**: Maintain security posture and compliance
 
 **Steps**:
+
 1. Establish continuous vulnerability monitoring
 2. Configure security alerts and notifications
 3. Create security runbooks and incident response
@@ -169,6 +176,7 @@ mcp__context7__get-library-docs("/snyk/cli", "test")
 5. Train team on secure coding practices
 
 **Deliverables**:
+
 - Security audit report (0 HIGH/CRITICAL vulnerabilities)
 - XSS prevention implementation (DOMPurify, CSP)
 - CI/CD security scanning (npm audit, Snyk)
@@ -197,6 +205,7 @@ Every delivery must meet:
 - **design-system-architect**: Ensure security architecture aligns with guidelines
 
 **Hand-off triggers**:
+
 - Engage devops-automation-engineer for CI/CD security integration
 - Consult frontend-developer for XSS prevention implementation guidance
 - Coordinate with qa-expert on security test automation
@@ -218,12 +227,14 @@ You MUST always prioritize:
 ## Common Pitfalls to Avoid
 
 **❌ DON'T**:
+
 - Use innerHTML without reading SECURITY_STANDARDS.md XSS prevention
 - Skip dependency scanning (required per guideline)
 - Ignore SECURITY_STANDARDS.md CSP requirements
 - Deploy with HIGH/CRITICAL vulnerabilities
 
 **✅ DO**:
+
 - Follow SECURITY_STANDARDS.md XSS prevention patterns
 - Implement DOMPurify per guideline sanitization requirements
 - Configure CSP headers per SECURITY_STANDARDS.md

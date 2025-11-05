@@ -31,6 +31,7 @@ This guideline establishes the theming architecture for the Sando Design System,
 **Definition**: Brand color schemes and visual identities applied manually by developers.
 
 **Characteristics**:
+
 - Selected via HTML `flavor` attribute
 - Brand-focused (sando-inspired naming)
 - Developer-controlled
@@ -39,6 +40,7 @@ This guideline establishes the theming architecture for the Sando Design System,
 **Examples**: original, strawberry, matcha, tamago, sakura, midnight
 
 **Application**:
+
 ```html
 <!-- Global flavor -->
 <html flavor="original">
@@ -61,12 +63,14 @@ This guideline establishes the theming architecture for the Sando Design System,
 **Definition**: Accessibility-focused variations that respond to user system preferences automatically.
 
 **Characteristics**:
+
 - Activated via CSS `@media` queries
 - User-controlled (system preferences)
 - Automatic (no manual selection)
 - Apply on top of any flavor
 
 **Supported Modes**:
+
 - `dark` - Dark color scheme (prefers-color-scheme: dark)
 - `high-contrast` - Enhanced contrast (prefers-contrast: high)
 - `forced-colors` - System color overrides (forced-colors: active)
@@ -94,6 +98,7 @@ packages/tokens/src/flavors/{flavor-name}/
 **Critical Pattern**: Mode files contain **only changed tokens**, not full token set.
 
 **Example** - `flavor-dark.json`:
+
 ```json
 {
   "color": {
@@ -119,17 +124,21 @@ Only tokens that differ in dark mode are redefined (inverted lightness, adjusted
 The build system generates CSS files wrapped in appropriate `@media` queries:
 
 **Base Flavor** (`flavor-original.css`):
+
 ```css
-:host([flavor="original"]), [flavor="original"] {
+:host([flavor="original"]),
+[flavor="original"] {
   --sando-color-background-base: oklch(98% 0.02 120);
   --sando-color-text-primary: oklch(20% 0.02 120);
 }
 ```
 
 **Dark Mode** (`flavor-original-dark.css`):
+
 ```css
 @media (prefers-color-scheme: dark) {
-  :host([flavor="original"]), [flavor="original"] {
+  :host([flavor="original"]),
+  [flavor="original"] {
     --sando-color-background-base: oklch(15% 0.02 120);
     --sando-color-text-primary: oklch(95% 0.02 120);
   }
@@ -137,9 +146,11 @@ The build system generates CSS files wrapped in appropriate `@media` queries:
 ```
 
 **High Contrast Mode** (`flavor-original-high-contrast.css`):
+
 ```css
 @media (prefers-contrast: high) {
-  :host([flavor="original"]), [flavor="original"] {
+  :host([flavor="original"]),
+  [flavor="original"] {
     --sando-color-background-base: oklch(100% 0 0);
     --sando-color-text-primary: oklch(0% 0 0);
   }
@@ -157,12 +168,14 @@ The build system generates CSS files wrapped in appropriate `@media` queries:
 The FlavorableMixin enables automatic flavor inheritance from ancestor elements:
 
 **Behavior**:
+
 1. Component checks its own `flavor` attribute
 2. If not set, traverses DOM ancestors to find nearest `[flavor]`
 3. Falls back to default flavor if none found
 4. Applies flavor by updating internal state
 
 **Example**:
+
 ```html
 <div flavor="strawberry">
   <sando-card>
@@ -185,6 +198,7 @@ The FlavorableMixin enables automatic flavor inheritance from ancestor elements:
 **Not Themeable**: Ingredients are absolute values, never change per theme.
 
 **Example**:
+
 ```json
 {
   "color": {
@@ -200,11 +214,13 @@ The FlavorableMixin enables automatic flavor inheritance from ancestor elements:
 **Role in Theming**: **This is where theming happens.**
 
 **Responsibilities**:
+
 - Map semantic names to Ingredient colors
 - Define different mappings per flavor
 - Provide mode-specific overrides (dark, high-contrast, etc.)
 
 **Pattern**:
+
 ```json
 {
   "color": {
@@ -221,6 +237,7 @@ The FlavorableMixin enables automatic flavor inheritance from ancestor elements:
 ```
 
 **Mode Override Pattern** (flavor-dark.json):
+
 ```json
 {
   "color": {
@@ -242,6 +259,7 @@ The FlavorableMixin enables automatic flavor inheritance from ancestor elements:
 **Not Themeable**: Recipes reference Flavors, don't change per theme.
 
 **Pattern**:
+
 ```json
 {
   "button": {
@@ -311,7 +329,8 @@ Direct CSS custom property override for one-off customization:
 
 ```html
 <sando-button
-  style="--sando-button-solid-backgroundColor-default: oklch(50% 0.2 280);">
+  style="--sando-button-solid-backgroundColor-default: oklch(50% 0.2 280);"
+>
   Custom color button
 </sando-button>
 ```
@@ -354,6 +373,7 @@ Create `flavor.json` with semantic token mappings:
 Create mode files with ONLY changed tokens:
 
 **flavor-dark.json**:
+
 ```json
 {
   "color": {
@@ -365,6 +385,7 @@ Create mode files with ONLY changed tokens:
 ```
 
 **flavor-high-contrast.json**:
+
 ```json
 {
   "color": {
@@ -400,6 +421,7 @@ The build system generates CSS files with proper `@media` wrappers automatically
 **Trigger**: User system preference `prefers-color-scheme: dark`
 
 **Typical Changes**:
+
 - Inverted background lightness (light → dark)
 - Inverted text lightness (dark → light)
 - Adjusted contrast ratios for WCAG compliance
@@ -412,6 +434,7 @@ The build system generates CSS files with proper `@media` wrappers automatically
 **Trigger**: User system preference `prefers-contrast: high`
 
 **Typical Changes**:
+
 - Maximum contrast ratios (pure black/white)
 - Thicker borders
 - Stronger focus indicators
@@ -424,6 +447,7 @@ The build system generates CSS files with proper `@media` wrappers automatically
 **Trigger**: Windows High Contrast mode (`forced-colors: active`)
 
 **Typical Changes**:
+
 - System color keywords (Canvas, CanvasText, LinkText)
 - Respects user-defined color schemes
 - Removes backgrounds, uses borders instead
@@ -435,6 +459,7 @@ The build system generates CSS files with proper `@media` wrappers automatically
 **Trigger**: User system preference `prefers-reduced-motion: reduce`
 
 **Typical Changes**:
+
 - Disable animations and transitions
 - Instant state changes instead of animated
 - Reduce parallax and scrolling effects
@@ -473,6 +498,7 @@ When creating new flavors:
 **Sando-Inspired Naming**: Flavor names reference Japanese sandwich varieties to maintain brand identity.
 
 **Naming Principles**:
+
 - Evocative and memorable
 - Single-word when possible
 - Related to food, nature, or cultural references

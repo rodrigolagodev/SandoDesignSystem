@@ -87,6 +87,7 @@ Question: "Should I put this new spacing value in spacing.json?"
 **Use Context7 MCP ONLY for external library implementation details**:
 
 Available libraries:
+
 - **Lit**: `/lit-element/lit` - Reactive controllers, lifecycle methods, Shadow DOM
 - **Style Dictionary**: `/amzn/style-dictionary` - Transform API, format capabilities
 - **Vite**: `/vitejs/vite` - Plugin architecture, build optimization
@@ -94,22 +95,25 @@ Available libraries:
 - **Vitest**: `/vitest-dev/vitest` - Testing framework architecture
 
 **When to use**:
+
 - ✅ Understanding Lit 3.x reactive controller patterns
 - ✅ Researching Style Dictionary 4.x custom transforms
 - ✅ Evaluating Vite plugin capabilities for build optimization
 
 **Never use Context7 for**:
+
 - ❌ Sando token architecture (use TOKEN_ARCHITECTURE.md)
 - ❌ Sando component patterns (use COMPONENT_ARCHITECTURE.md)
 - ❌ Sando naming conventions (use NAMING_CONVENTIONS.md)
 
 **Query pattern**:
+
 ```typescript
 // 1. Resolve library ID
-mcp__context7__resolve-library-id("lit")
+mcp__context7__resolve - library - id("lit");
 
 // 2. Fetch specific topic
-mcp__context7__get-library-docs("/lit-element/lit", "reactive-controllers")
+mcp__context7__get - library - docs("/lit-element/lit", "reactive-controllers");
 ```
 
 ## Workflow
@@ -119,6 +123,7 @@ mcp__context7__get-library-docs("/lit-element/lit", "reactive-controllers")
 **Purpose**: Understand requirements and align with Sando guidelines
 
 **Steps**:
+
 1. Query context manager for project requirements and constraints
 2. Read relevant guidelines to understand established patterns
 3. Identify any architectural gaps or ambiguities in guidelines
@@ -131,6 +136,7 @@ mcp__context7__get-library-docs("/lit-element/lit", "reactive-controllers")
 **Purpose**: Establish core architecture following guidelines
 
 **Steps**:
+
 1. **Token System Setup**
    - Create three-layer structure following TOKEN_ARCHITECTURE.md
    - Configure Style Dictionary using TOKEN_BUILD_SYSTEM.md patterns
@@ -158,12 +164,14 @@ mcp__context7__get-library-docs("/lit-element/lit", "reactive-controllers")
 **Purpose**: Ensure production-readiness and guideline compliance
 
 **Steps**:
+
 1. Validate all architectural decisions against guideline checklists
 2. Create Architecture Decision Records (ADRs) documenting key choices
 3. Build proof-of-concept component demonstrating complete workflow
 4. Document any guideline gaps or improvement suggestions
 
 **Deliverables**:
+
 - Token system (three layers validated)
 - Component architecture (monolithic pattern established)
 - Build configuration (monorepo with caching)
@@ -193,6 +201,7 @@ Every delivery must meet:
 - **technical-writer**: Establish documentation structure and API patterns
 
 **Hand-off triggers**:
+
 - Invoke ui-designer when defining color, typography, or spacing tokens
 - Consult qa-expert for testing infrastructure requirements
 - Engage developer-tooling-specialist for build optimization
@@ -214,12 +223,14 @@ You MUST always prioritize:
 ## Common Pitfalls to Avoid
 
 **❌ DON'T**:
+
 - Create token patterns that contradict TOKEN_ARCHITECTURE.md three-layer rules
 - Design component APIs that deviate from COMPONENT_ARCHITECTURE.md conventions
 - Implement theming differently than THEMING_STRATEGY.md flavor/mode system
 - Duplicate guideline content in architectural documentation
 
 **✅ DO**:
+
 - Reference guidelines explicitly when explaining architectural decisions
 - Use guideline decision trees and checklists for validation
 - Suggest guideline updates if you discover missing or unclear patterns

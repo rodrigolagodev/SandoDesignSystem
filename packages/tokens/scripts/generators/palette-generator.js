@@ -7,7 +7,7 @@
  * @module palette-generator
  */
 
-import { formatHex, oklch, wcagContrast } from 'culori';
+import { formatHex, oklch, wcagContrast } from "culori";
 
 /**
  * Lightness steps for an 11-step palette (50-950)
@@ -17,17 +17,17 @@ import { formatHex, oklch, wcagContrast } from 'culori';
  * - Visual balance across the scale
  */
 const LIGHTNESS_SCALE = {
-  50: 0.98,   // Lightest tint
+  50: 0.98, // Lightest tint
   100: 0.95,
-  200: 0.90,
+  200: 0.9,
   300: 0.82,
   400: 0.73,
-  500: 0.64,  // Base/mid-tone
+  500: 0.64, // Base/mid-tone
   600: 0.56,
   700: 0.47,
   800: 0.38,
-  900: 0.30,
-  950: 0.22   // Darkest shade
+  900: 0.3,
+  950: 0.22, // Darkest shade
 };
 
 /**
@@ -48,10 +48,10 @@ function adjustChroma(baseChroma, lightness) {
   }
 
   // Reduce chroma at very dark values to maintain depth
-  if (lightness < 0.30) {
+  if (lightness < 0.3) {
     return baseChroma * 0.6;
   }
-  if (lightness < 0.40) {
+  if (lightness < 0.4) {
     return baseChroma * 0.8;
   }
 
@@ -91,10 +91,10 @@ export function generatePalette(config) {
 
     // Create OKLCH color
     const color = {
-      mode: 'oklch',
+      mode: "oklch",
       l: lightness,
       c: adjustedChroma,
-      h: hue
+      h: hue,
     };
 
     // Convert to hex
@@ -105,14 +105,14 @@ export function generatePalette(config) {
       oklch: {
         l: Number(lightness.toFixed(3)),
         c: Number(adjustedChroma.toFixed(3)),
-        h: Number(hue.toFixed(1))
-      }
+        h: Number(hue.toFixed(1)),
+      },
     };
   });
 
   return {
     name,
-    palette
+    palette,
   };
 }
 
@@ -144,11 +144,11 @@ export function generateNeutralPalette(config) {
   if (warmth > 0) {
     // Warm neutrals (orange tint)
     hue = 30;
-    baseChroma = 0.015 + (warmth * 0.01);
+    baseChroma = 0.015 + warmth * 0.01;
   } else if (warmth < 0) {
     // Cool neutrals (blue tint)
     hue = 220;
-    baseChroma = 0.015 + (Math.abs(warmth) * 0.01);
+    baseChroma = 0.015 + Math.abs(warmth) * 0.01;
   } else {
     // True neutral (achromatic)
     baseChroma = 0.005;
@@ -158,10 +158,10 @@ export function generateNeutralPalette(config) {
 
   Object.entries(LIGHTNESS_SCALE).forEach(([step, lightness]) => {
     const color = {
-      mode: 'oklch',
+      mode: "oklch",
       l: lightness,
       c: baseChroma,
-      h: hue
+      h: hue,
     };
 
     const hex = formatHex(color);
@@ -171,14 +171,14 @@ export function generateNeutralPalette(config) {
       oklch: {
         l: Number(lightness.toFixed(3)),
         c: Number(baseChroma.toFixed(3)),
-        h: hue ? Number(hue.toFixed(1)) : undefined
-      }
+        h: hue ? Number(hue.toFixed(1)) : undefined,
+      },
     };
   });
 
   return {
     name,
-    palette
+    palette,
   };
 }
 
@@ -196,40 +196,44 @@ export function validatePaletteContrast(palette, options = {}) {
   const results = {
     valid: true,
     failures: [],
-    tests: []
+    tests: [],
   };
 
   // Test: Dark text (900) on light backgrounds (50-200)
-  ['50', '100', '200'].forEach(bg => {
-    const contrast = wcagContrast(palette[bg].value, palette['900'].value);
+  ["50", "100", "200"].forEach((bg) => {
+    const contrast = wcagContrast(palette[bg].value, palette["900"].value);
     const test = {
       background: bg,
-      foreground: '900',
+      foreground: "900",
       contrast: Number(contrast.toFixed(2)),
-      passes: contrast >= minContrast
+      passes: contrast >= minContrast,
     };
     results.tests.push(test);
 
     if (!test.passes) {
       results.valid = false;
-      results.failures.push(`${bg} bg + 900 text = ${test.contrast} (min: ${minContrast})`);
+      results.failures.push(
+        `${bg} bg + 900 text = ${test.contrast} (min: ${minContrast})`,
+      );
     }
   });
 
   // Test: Light text (50) on dark backgrounds (700-950)
-  ['700', '800', '900', '950'].forEach(bg => {
-    const contrast = wcagContrast(palette[bg].value, palette['50'].value);
+  ["700", "800", "900", "950"].forEach((bg) => {
+    const contrast = wcagContrast(palette[bg].value, palette["50"].value);
     const test = {
       background: bg,
-      foreground: '50',
+      foreground: "50",
       contrast: Number(contrast.toFixed(2)),
-      passes: contrast >= minContrast
+      passes: contrast >= minContrast,
     };
     results.tests.push(test);
 
     if (!test.passes) {
       results.valid = false;
-      results.failures.push(`${bg} bg + 50 text = ${test.contrast} (min: ${minContrast})`);
+      results.failures.push(
+        `${bg} bg + 50 text = ${test.contrast} (min: ${minContrast})`,
+      );
     }
   });
 
@@ -242,50 +246,50 @@ export function validatePaletteContrast(palette, options = {}) {
 export const CURATED_PALETTES = {
   orange: {
     hue: 25,
-    chroma: 0.20,
-    name: 'orange'
+    chroma: 0.2,
+    name: "orange",
   },
   blue: {
     hue: 220,
     chroma: 0.18,
-    name: 'blue'
+    name: "blue",
   },
   green: {
     hue: 140,
     chroma: 0.17,
-    name: 'green'
+    name: "green",
   },
   red: {
     hue: 10,
     chroma: 0.22,
-    name: 'red'
+    name: "red",
   },
   purple: {
     hue: 280,
     chroma: 0.19,
-    name: 'purple'
+    name: "purple",
   },
   pink: {
     hue: 340,
     chroma: 0.21,
-    name: 'pink'
-  }
+    name: "pink",
+  },
 };
 
 /**
  * Predefined neutral configurations
  */
 export const NEUTRAL_PALETTES = {
-  'neutral': {
-    name: 'neutral',
-    warmth: 0
+  neutral: {
+    name: "neutral",
+    warmth: 0,
   },
-  'neutral-warm': {
-    name: 'neutral-warm',
-    warmth: 0.3
+  "neutral-warm": {
+    name: "neutral-warm",
+    warmth: 0.3,
   },
-  'neutral-cool': {
-    name: 'neutral-cool',
-    warmth: -0.3
-  }
+  "neutral-cool": {
+    name: "neutral-cool",
+    warmth: -0.3,
+  },
 };

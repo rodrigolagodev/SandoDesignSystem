@@ -25,7 +25,8 @@ Establish comprehensive standards for inline code documentation (JSDoc comments,
 Every exported function, class, method, and property MUST have a JSDoc comment with description, parameter types, and return types.
 
 **Pattern**:
-```typescript
+
+````typescript
 /**
  * Brief one-line description of what this does.
  *
@@ -42,12 +43,16 @@ Every exported function, class, method, and property MUST have a JSDoc comment w
  * console.log(result); // Output: expected value
  * ```
  */
-export function functionName(paramName: string, optionalParam?: boolean): ReturnType {
+export function functionName(
+  paramName: string,
+  optionalParam?: boolean,
+): ReturnType {
   // Implementation
 }
-```
+````
 
 **Real example from flavorable.ts**:
+
 ```typescript
 /**
  * Flavorable Mixin
@@ -79,7 +84,8 @@ export const FlavorableMixin = <T extends Constructor<LitElement>>(Base: T) => {
 Every class property MUST have JSDoc with description, @default tag (if applicable), and @example for non-trivial properties.
 
 **Pattern**:
-```typescript
+
+````typescript
 /**
  * Description of what this property controls or represents.
  *
@@ -106,10 +112,11 @@ booleanProperty = false;
  */
 @property()
 optionalProperty?: string;
-```
+````
 
 **Real example from flavorable.ts**:
-```typescript
+
+````typescript
 /**
  * Design system flavor/theme
  *
@@ -130,7 +137,7 @@ optionalProperty?: string;
  */
 @property({ reflect: true })
 flavor = 'original';
-```
+````
 
 **Why**: Property documentation helps users understand how to configure components. @default shows the fallback value. @example demonstrates typical usage.
 
@@ -143,6 +150,7 @@ flavor = 'original';
 Private methods and internal properties MUST have JSDoc with @private tag and brief description explaining purpose.
 
 **Pattern**:
+
 ```typescript
 /**
  * Internal: Brief description of what this private method does.
@@ -166,6 +174,7 @@ private _internalState: StateType;
 ```
 
 **Real example from flavorable.ts**:
+
 ```typescript
 /**
  * Internal: Inherited flavor from ancestor element
@@ -203,6 +212,7 @@ private _setupFlavorInheritance() {
 Lifecycle methods MUST have JSDoc explaining when they're called and what they do, following standard patterns.
 
 **Pattern**:
+
 ```typescript
 /**
  * Lifecycle: Called when element is added to DOM
@@ -246,6 +256,7 @@ override willUpdate(changedProperties: PropertyValues) {
 ```
 
 **Real example from flavorable.ts**:
+
 ```typescript
 /**
  * Lifecycle: Called when element is added to DOM
@@ -281,6 +292,7 @@ override updated(changedProperties: PropertyValues) {
 Complex algorithms, workarounds, or non-obvious code MUST have inline comments explaining the "why" not just the "what".
 
 **Pattern**:
+
 ```typescript
 // Explain WHY this approach is used, not WHAT the code does
 // Good: "Use closure to preserve context in event handler"
@@ -297,9 +309,10 @@ Complex algorithms, workarounds, or non-obvious code MUST have inline comments e
 ```
 
 **Real example from flavorable.ts**:
+
 ```typescript
 if (ancestorWithFlavor) {
-  const inheritedFlavor = ancestorWithFlavor.getAttribute('flavor');
+  const inheritedFlavor = ancestorWithFlavor.getAttribute("flavor");
   if (inheritedFlavor) {
     this._inheritedFlavor = inheritedFlavor;
     // CRITICAL FIX: Don't modify this.flavor - it removes the attribute
@@ -321,6 +334,7 @@ if (ancestorWithFlavor) {
 ### Essential Tags
 
 **@param** - Parameter description
+
 ```typescript
 /**
  * @param name - User's full name
@@ -331,6 +345,7 @@ function createUser(name: string, age: number, options?: UserOptions) {}
 ```
 
 **@returns** - Return value description
+
 ```typescript
 /**
  * @returns The calculated total price including tax
@@ -339,6 +354,7 @@ function calculateTotal(): number {}
 ```
 
 **@throws** - Exceptions thrown
+
 ```typescript
 /**
  * @throws {ValidationError} When email format is invalid
@@ -348,7 +364,8 @@ async function submitForm() {}
 ```
 
 **@example** - Usage examples
-```typescript
+
+````typescript
 /**
  * @example
  * ```typescript
@@ -356,9 +373,10 @@ async function submitForm() {}
  * button.variant = 'solid';
  * ```
  */
-```
+````
 
 **@default** - Default value
+
 ```typescript
 /**
  * @default 'medium'
@@ -368,6 +386,7 @@ size: Size = 'medium';
 ```
 
 **@deprecated** - Deprecated API
+
 ```typescript
 /**
  * @deprecated Use `newMethod()` instead. Will be removed in v3.0.0.
@@ -380,6 +399,7 @@ function oldMethod() {}
 ### Advanced Tags
 
 **@private** - Private/internal API
+
 ```typescript
 /**
  * @private
@@ -388,6 +408,7 @@ private _internalMethod() {}
 ```
 
 **@readonly** - Read-only property
+
 ```typescript
 /**
  * @readonly
@@ -396,6 +417,7 @@ get effectiveFlavor(): string {}
 ```
 
 **@see** - Cross-reference
+
 ```typescript
 /**
  * @see {@link FlavorableMixin} for inheritance details
@@ -403,6 +425,7 @@ get effectiveFlavor(): string {}
 ```
 
 **@since** - Version introduced
+
 ```typescript
 /**
  * @since 2.0.0
@@ -411,6 +434,7 @@ export function newFeature() {}
 ```
 
 **@experimental** - Experimental API
+
 ```typescript
 /**
  * @experimental This API may change in future releases
@@ -427,6 +451,7 @@ export function experimentalFeature() {}
 All functions MUST have explicit return types, even if TypeScript can infer them.
 
 **Pattern**:
+
 ```typescript
 // ✅ CORRECT: Explicit return type
 function calculateTotal(price: number, tax: number): number {
@@ -440,7 +465,7 @@ function logMessage(message: string): void {
 
 // ✅ CORRECT: Explicit Promise
 async function fetchData(): Promise<DataType> {
-  return await api.get('/data');
+  return await api.get("/data");
 }
 
 // ❌ WRONG: Inferred return type
@@ -460,22 +485,19 @@ function calculateTotal(price: number, tax: number) {
 All function parameters MUST have explicit types.
 
 **Pattern**:
+
 ```typescript
 // ✅ CORRECT: All parameters typed
 function createButton(
   label: string,
   variant: ButtonVariant,
-  disabled: boolean = false
+  disabled: boolean = false,
 ): HTMLElement {
   // Implementation
 }
 
 // ✅ CORRECT: Destructured parameters with type
-function createCard({
-  title,
-  description,
-  actions
-}: CardOptions): HTMLElement {
+function createCard({ title, description, actions }: CardOptions): HTMLElement {
   // Implementation
 }
 
@@ -494,6 +516,7 @@ function createButton(label, variant, disabled) {
 Use comments to explain type narrowing logic.
 
 **Pattern**:
+
 ```typescript
 function processElement(element: Element | null) {
   // Type guard: Ensure element exists before accessing properties
@@ -513,10 +536,11 @@ function processElement(element: Element | null) {
 ```
 
 **Real example from flavorable.ts**:
+
 ```typescript
 while (current) {
   // Check if current node is an Element and has flavor attribute
-  if (current instanceof Element && current.hasAttribute('flavor')) {
+  if (current instanceof Element && current.hasAttribute("flavor")) {
     return current;
   }
 
@@ -544,6 +568,7 @@ while (current) {
 Every file SHOULD start with a JSDoc comment explaining the file's purpose.
 
 **Pattern**:
+
 ```typescript
 /**
  * Component Name / Module Name
@@ -558,7 +583,8 @@ import statements...
 ```
 
 **Real example from flavorable.ts**:
-```typescript
+
+````typescript
 /**
  * Flavorable Mixin
  *
@@ -578,7 +604,7 @@ import statements...
  * }
  * ```
  */
-```
+````
 
 **Why**: File headers provide high-level context. New developers can understand a file's purpose without reading implementation.
 
@@ -591,7 +617,8 @@ import statements...
 All exported interfaces and types MUST have JSDoc with property descriptions.
 
 **Pattern**:
-```typescript
+
+````typescript
 /**
  * Interface description explaining what this represents.
  *
@@ -632,11 +659,12 @@ export interface InterfaceName {
  * const myValue: TypeName = 'value1';
  * ```
  */
-export type TypeName = 'value1' | 'value2' | 'value3';
-```
+export type TypeName = "value1" | "value2" | "value3";
+````
 
 **Real example from flavorable.ts**:
-```typescript
+
+````typescript
 /**
  * Interface for Flavorable components
  */
@@ -668,7 +696,7 @@ export interface FlavorableInterface {
  * ```
  */
 export type Flavorable<T = LitElement> = T & FlavorableInterface;
-```
+````
 
 **Why**: Interfaces are contracts. Every property needs explanation. Examples show typical usage patterns.
 
@@ -681,6 +709,7 @@ export type Flavorable<T = LitElement> = T & FlavorableInterface;
 Build scripts (JavaScript/Node.js) MUST use JSDoc with type hints for IDE support.
 
 **Pattern**:
+
 ```javascript
 /**
  * Function description
@@ -712,6 +741,7 @@ export function processConfig(config) {
 ```
 
 **Real example from orchestrator.js**:
+
 ```javascript
 /**
  * Build all token layers
@@ -732,7 +762,7 @@ export async function buildAllLayers(options) {
  * @returns {boolean} True if all builds succeeded
  */
 export function validateBuildResults(results) {
-  return Object.values(results).every(result => result.success);
+  return Object.values(results).every((result) => result.success);
 }
 ```
 
@@ -747,6 +777,7 @@ export function validateBuildResults(results) {
 ### When to Comment
 
 **✅ DO comment**:
+
 - Complex algorithms or logic
 - Workarounds for bugs or browser issues
 - Performance optimizations
@@ -755,6 +786,7 @@ export function validateBuildResults(results) {
 - TODO items with issue references
 
 **❌ DON'T comment**:
+
 - Obvious code (let x = 5; // Set x to 5)
 - Repeating what code does without explaining why
 - Code that can be improved to be self-explanatory
@@ -765,6 +797,7 @@ export function validateBuildResults(results) {
 ### Comment Style
 
 **Good comments explain WHY**:
+
 ```typescript
 // Use MutationObserver for performance (faster than polling)
 const observer = new MutationObserver(callback);
@@ -777,6 +810,7 @@ const cachedData = memoize(expensiveFunction);
 ```
 
 **Bad comments explain WHAT** (code already shows this):
+
 ```typescript
 // Create observer
 const observer = new MutationObserver(callback);
@@ -802,6 +836,7 @@ Use TODO comments with issue references:
 ```
 
 **Format**: `KEYWORD(issue-ref): Description`
+
 - **TODO**: Feature to implement
 - **FIXME**: Known bug to fix
 - **HACK**: Temporary workaround
@@ -858,14 +893,17 @@ Use TODO comments with issue references:
 ## External References
 
 **JSDoc**:
+
 - [JSDoc Official](https://jsdoc.app/) - Complete tag reference
 - [TypeScript JSDoc](https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html) - JSDoc in TypeScript
 
 **TypeScript**:
+
 - [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html) - Type system guide
 - [Strict Mode](https://www.typescriptlang.org/tsconfig#strict) - Strict compiler options
 
 **Best Practices**:
+
 - [Google TypeScript Style Guide](https://google.github.io/styleguide/tsguide.html) - Documentation standards
 - [Clean Code](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882) - Chapter on comments
 
@@ -874,6 +912,7 @@ Use TODO comments with issue references:
 ## Changelog
 
 ### 1.0.0 (2025-11-03)
+
 - Initial guideline creation
 - 5 Core Rules: public API JSDoc, property JSDoc with @default, private documentation with @private, lifecycle method docs, complex logic inline comments
 - JSDoc tag reference: essential tags (@param, @returns, @throws, @example, @default, @deprecated) and advanced tags (@private, @readonly, @see, @since, @experimental)

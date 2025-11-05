@@ -16,6 +16,7 @@ related_guidelines: [list-of-related-guideline-ids]
 ## Overview
 
 Provide a comprehensive introduction to this guideline:
+
 - **What** does this guideline cover?
 - **Why** is this important for the Sando Design System?
 - **Who** should follow this guideline? (agents, skills, commands, contributors)
@@ -24,6 +25,7 @@ Provide a comprehensive introduction to this guideline:
 ### Context
 
 Explain the background and motivation:
+
 - Problem this guideline solves
 - Design decisions that led to these standards
 - Alignment with project vision and goals
@@ -50,12 +52,12 @@ Core philosophical principles that underpin these standards:
 
 ```typescript
 // ✅ Good - follows the standard
-const goodExample = 'example code';
+const goodExample = "example code";
 ```
 
 ```typescript
 // ❌ Bad - violates the standard
-const badExample = 'counter-example';
+const badExample = "counter-example";
 ```
 
 **Exceptions**: Rare cases where deviation is acceptable.
@@ -72,12 +74,12 @@ const badExample = 'counter-example';
 
 ```typescript
 // ✅ Good
-const anotherGoodExample = 'example';
+const anotherGoodExample = "example";
 ```
 
 ```typescript
 // ❌ Bad
-const anotherBadExample = 'counter-example';
+const anotherBadExample = "counter-example";
 ```
 
 **Exceptions**: When this rule doesn't apply.
@@ -130,7 +132,7 @@ Common mistakes and patterns to avoid:
 
 ```typescript
 // ❌ DON'T DO THIS
-const badPattern = 'problematic code';
+const badPattern = "problematic code";
 ```
 
 **Why It's Wrong**: Specific issues this creates.
@@ -139,7 +141,7 @@ const badPattern = 'problematic code';
 
 ```typescript
 // ✅ CORRECT APPROACH
-const goodPattern = 'proper implementation';
+const goodPattern = "proper implementation";
 ```
 
 ---
@@ -150,7 +152,7 @@ const goodPattern = 'proper implementation';
 
 ```typescript
 // ❌ AVOID
-const anotherBadPattern = 'code to avoid';
+const anotherBadPattern = "code to avoid";
 ```
 
 **Why It's Wrong**: Consequences and issues.
@@ -159,7 +161,7 @@ const anotherBadPattern = 'code to avoid';
 
 ```typescript
 // ✅ BETTER
-const betterApproach = 'improved code';
+const betterApproach = "improved code";
 ```
 
 ---
@@ -176,6 +178,7 @@ pnpm run validate:guideline-name
 ```
 
 **What It Checks**:
+
 - Specific validation criteria 1
 - Specific validation criteria 2
 - Specific validation criteria 3
@@ -206,13 +209,16 @@ How agents should use this guideline:
 
 ```markdown
 ## [Guideline Context]
+
 Reference `.claude/guidelines/[category]/[this-file].md` for:
+
 - Key aspect 1
 - Key aspect 2
 - Key aspect 3
 ```
 
 **Relevant Agents**:
+
 - agent-name-1: How they use it
 - agent-name-2: How they use it
 - agent-name-3: How they use it
@@ -225,11 +231,13 @@ How skills should reference this guideline:
 
 ```markdown
 When [performing task], follow:
+
 - `.claude/guidelines/[category]/[this-file].md`
 - Specific section reference
 ```
 
 **Relevant Skills**:
+
 - skill-name-1: Usage scenario
 - skill-name-2: Usage scenario
 - skill-name-3: Usage scenario
@@ -242,11 +250,13 @@ How slash commands should use this guideline:
 
 ```markdown
 Analyze compliance with:
+
 - `.claude/guidelines/[category]/[this-file].md`
 - Report deviations from [specific standards]
 ```
 
 **Relevant Commands**:
+
 - /command-name-1: How it uses guideline
 - /command-name-2: How it uses guideline
 
@@ -262,17 +272,18 @@ If this guideline introduces changes to existing patterns:
 
 ```typescript
 // Previous implementation
-const oldApproach = 'deprecated pattern';
+const oldApproach = "deprecated pattern";
 ```
 
 **New Way**:
 
 ```typescript
 // Current standard
-const newApproach = 'updated pattern';
+const newApproach = "updated pattern";
 ```
 
 **Migration Steps**:
+
 1. Step to identify old pattern
 2. Step to refactor to new pattern
 3. Step to validate the change
@@ -355,6 +366,7 @@ Answer explaining edge cases or exceptions.
 ### Version 1.0.0 (2025-11-01)
 
 **Initial Release**
+
 - Standard 1 established
 - Standard 2 defined
 - Examples added
@@ -364,6 +376,7 @@ Answer explaining edge cases or exceptions.
 ### Version 0.9.0 (2025-10-15) [Draft]
 
 **Draft Version**
+
 - Initial draft of standards
 - Examples under review
 - Seeking feedback

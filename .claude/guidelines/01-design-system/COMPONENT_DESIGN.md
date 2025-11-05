@@ -34,21 +34,23 @@ Defines the **visual style** and **emphasis level** of a component.
 
 **Standard Pattern**:
 
-| Variant | Emphasis Level | Visual Characteristics | When to Use |
-|---------|---------------|------------------------|-------------|
-| `solid` | High | Filled background, contrasting text | Primary actions, high prominence |
-| `outline` | Medium | Border only, transparent background | Secondary actions, medium prominence |
-| `ghost` | Low | No border, subtle hover state | Tertiary actions, low prominence |
-| `text` | Minimal | Text only, no background/border | Inline actions, minimal prominence |
+| Variant   | Emphasis Level | Visual Characteristics              | When to Use                          |
+| --------- | -------------- | ----------------------------------- | ------------------------------------ |
+| `solid`   | High           | Filled background, contrasting text | Primary actions, high prominence     |
+| `outline` | Medium         | Border only, transparent background | Secondary actions, medium prominence |
+| `ghost`   | Low            | No border, subtle hover state       | Tertiary actions, low prominence     |
+| `text`    | Minimal        | Text only, no background/border     | Inline actions, minimal prominence   |
 
 **Type Definition Pattern**:
+
 ```typescript
-export type ComponentVariant = 'solid' | 'outline' | 'ghost' | 'text';
+export type ComponentVariant = "solid" | "outline" | "ghost" | "text";
 ```
 
 **Applicable to**: Button, Badge, Card, Alert, Chip, Tag, etc.
 
 **Recipe Token Pattern**:
+
 ```json
 {
   "component": {
@@ -68,22 +70,24 @@ Defines the **physical dimensions** and **density** of a component.
 
 **Standard Pattern (T-Shirt Sizing)**:
 
-| Size | Purpose | Interactive Target | Visual Density |
-|------|---------|-------------------|----------------|
-| `xs` | Extra compact | 32px | Very dense UIs |
-| `sm` | Small | 36px | Compact layouts |
-| `md` | Medium (default) | **44px (WCAG)** | Standard comfortable |
-| `lg` | Large | 52px | Prominent elements |
-| `xl` | Extra large | 64px | Hero/maximum impact |
+| Size | Purpose          | Interactive Target | Visual Density       |
+| ---- | ---------------- | ------------------ | -------------------- |
+| `xs` | Extra compact    | 32px               | Very dense UIs       |
+| `sm` | Small            | 36px               | Compact layouts      |
+| `md` | Medium (default) | **44px (WCAG)**    | Standard comfortable |
+| `lg` | Large            | 52px               | Prominent elements   |
+| `xl` | Extra large      | 64px               | Hero/maximum impact  |
 
 **Type Definition Pattern**:
+
 ```typescript
-export type ComponentSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+export type ComponentSize = "xs" | "sm" | "md" | "lg" | "xl";
 ```
 
 **Applicable to**: All interactive components (Button, Input, Select, etc.), Layout components (Card, Modal, etc.)
 
 **Recipe Token Pattern**:
+
 ```json
 {
   "component": {
@@ -110,22 +114,29 @@ Communicates **semantic meaning** through color coding.
 
 **Standard Pattern**:
 
-| Status | Semantic Meaning | Color Scheme | Use Cases |
-|--------|-----------------|--------------|-----------|
-| `default` | Neutral, standard | Theme colors | Normal state, no specific meaning |
-| `success` | Positive, confirmation | Green palette | Success messages, confirmations |
-| `destructive` | Negative, dangerous | Red palette | Errors, destructive actions |
-| `warning` | Caution, attention | Yellow/Orange palette | Warnings, non-critical issues |
-| `info` | Informational | Blue palette | Helpful information, tips |
+| Status        | Semantic Meaning       | Color Scheme          | Use Cases                         |
+| ------------- | ---------------------- | --------------------- | --------------------------------- |
+| `default`     | Neutral, standard      | Theme colors          | Normal state, no specific meaning |
+| `success`     | Positive, confirmation | Green palette         | Success messages, confirmations   |
+| `destructive` | Negative, dangerous    | Red palette           | Errors, destructive actions       |
+| `warning`     | Caution, attention     | Yellow/Orange palette | Warnings, non-critical issues     |
+| `info`        | Informational          | Blue palette          | Helpful information, tips         |
 
 **Type Definition Pattern**:
+
 ```typescript
-export type ComponentStatus = 'default' | 'success' | 'destructive' | 'warning' | 'info';
+export type ComponentStatus =
+  | "default"
+  | "success"
+  | "destructive"
+  | "warning"
+  | "info";
 ```
 
 **Applicable to**: Alert, Badge, Button (destructive actions), Input (validation), Toast, Banner, etc.
 
 **Recipe Token Pattern**:
+
 ```json
 {
   "component": {
@@ -147,20 +158,22 @@ Defines the **corner rounding** of a component.
 
 **Standard Pattern**:
 
-| Radius | Value Range | Visual Result | Use Cases |
-|--------|-------------|---------------|-----------|
-| `none` | 0px | Sharp corners | Corporate, formal designs |
-| `default` | 4px-8px | Subtle rounding | Standard, balanced design |
-| `full` | 9999px | Pill/circular | Pills, badges, icon buttons |
+| Radius    | Value Range | Visual Result   | Use Cases                   |
+| --------- | ----------- | --------------- | --------------------------- |
+| `none`    | 0px         | Sharp corners   | Corporate, formal designs   |
+| `default` | 4px-8px     | Subtle rounding | Standard, balanced design   |
+| `full`    | 9999px      | Pill/circular   | Pills, badges, icon buttons |
 
 **Type Definition Pattern**:
+
 ```typescript
-export type ComponentRadius = 'none' | 'default' | 'full';
+export type ComponentRadius = "none" | "default" | "full";
 ```
 
 **Applicable to**: Button, Badge, Card, Input, Avatar, etc.
 
 **Recipe Token Pattern**:
+
 ```json
 {
   "component": {
@@ -194,6 +207,7 @@ Recipe tokens (Layer 3) for components follow predictable hierarchies.
 ```
 
 **Example**:
+
 ```json
 {
   "button": {
@@ -224,6 +238,7 @@ Recipe tokens (Layer 3) for components follow predictable hierarchies.
 ```
 
 **Example**:
+
 ```json
 {
   "button": {
@@ -268,22 +283,22 @@ All interactive components must handle these states:
 
 ### Required States
 
-| State | Description | Visual Feedback | Interactivity |
-|-------|-------------|-----------------|---------------|
-| **default** | Resting state | Base styling | Interactive |
-| **hover** | Mouse over | Subtle color change | Interactive |
-| **active** | Being pressed | Visual "press" feedback | Interactive |
-| **focus** | Keyboard focused | Visible outline (WCAG 2.4.7) | Interactive |
-| **disabled** | Not available | Muted colors, cursor change | Non-interactive |
+| State        | Description      | Visual Feedback              | Interactivity   |
+| ------------ | ---------------- | ---------------------------- | --------------- |
+| **default**  | Resting state    | Base styling                 | Interactive     |
+| **hover**    | Mouse over       | Subtle color change          | Interactive     |
+| **active**   | Being pressed    | Visual "press" feedback      | Interactive     |
+| **focus**    | Keyboard focused | Visible outline (WCAG 2.4.7) | Interactive     |
+| **disabled** | Not available    | Muted colors, cursor change  | Non-interactive |
 
 ### Optional States (Context-Dependent)
 
-| State | Description | When to Use |
-|-------|-------------|-------------|
-| **loading** | Processing | Async operations (submit, fetch) |
-| **pressed** | Toggle active | Toggle buttons, selections |
-| **invalid** | Validation error | Form inputs, required fields |
-| **readonly** | View-only | Non-editable form fields |
+| State        | Description      | When to Use                      |
+| ------------ | ---------------- | -------------------------------- |
+| **loading**  | Processing       | Async operations (submit, fetch) |
+| **pressed**  | Toggle active    | Toggle buttons, selections       |
+| **invalid**  | Validation error | Form inputs, required fields     |
+| **readonly** | View-only        | Non-editable form fields         |
 
 ### Token Pattern for States
 
@@ -310,12 +325,14 @@ All interactive components must handle these states:
 ### Property Design
 
 **Guidelines**:
+
 - Use `reflect: true` for properties that affect styling (variant, size, disabled, etc.)
 - Provide sensible defaults (variant: 'solid', size: 'md')
 - Use TypeScript union types for variant enums
 - Boolean properties for binary states (disabled, loading, etc.)
 
 **Naming Conventions**:
+
 - Use camelCase for properties (`fullWidth`, not `full-width`)
 - Use kebab-case for attributes (`full-width`, not `fullWidth`)
 - Boolean properties: No `is` prefix (`disabled`, not `isDisabled`)
@@ -323,21 +340,25 @@ All interactive components must handle these states:
 ### Event Design
 
 **Standard Events**:
+
 - Use native events when possible (`click`, `change`, `input`)
 - Custom events for component-specific actions (`remove`, `select`, `toggle`)
 - Set `bubbles: true, composed: true` for cross-shadow-DOM events
 
 **Naming Conventions**:
+
 - Use lowercase, no prefix (`remove`, not `onRemove` or `handleRemove`)
 
 ### Slot Design
 
 **Common Slot Patterns**:
+
 - `default`: Main content
 - `header`, `footer`: Semantic sections
 - `icon-start`, `icon-end`: Icon positioning (when applicable)
 
 **Guidelines**:
+
 - Provide slots for flexible composition
 - Offer prop alternatives for simple cases
 - Document slot purpose and expected content
@@ -353,6 +374,7 @@ All interactive components must handle these states:
 **Examples**: `sando-button`, `sando-input`, `sando-card`, `sando-modal`
 
 **Rules**:
+
 - Lowercase, hyphen-separated
 - Descriptive, not abbreviated (`sando-button`, not `sando-btn`)
 - Single word when possible (`button`, `input`, `modal`)
@@ -363,11 +385,13 @@ All interactive components must handle these states:
 **Pattern**: `--sando-{component}-{variant?}-{property}-{state?}`
 
 **Examples**:
+
 - `--sando-button-solid-backgroundColor-default`
 - `--sando-input-borderColor-focus`
 - `--sando-card-padding`
 
 **Rules**:
+
 - Kebab-case for all parts
 - Include variant if property is variant-specific
 - Include state if property is state-specific
@@ -377,6 +401,7 @@ All interactive components must handle these states:
 **Pattern**: `{Component}{Category}` (PascalCase)
 
 **Examples**:
+
 - `ButtonVariant`, `InputSize`, `CardStatus`
 - `SandoButtonProps`, `SandoInputProps`
 
@@ -408,6 +433,7 @@ All components MUST meet WCAG 2.1 Level AA:
 ### ARIA Patterns
 
 **Common Attributes**:
+
 - `aria-label`: Non-visible label (icon-only components)
 - `aria-labelledby`: Reference to visible label
 - `aria-describedby`: Additional description/help text
@@ -424,24 +450,28 @@ All components MUST meet WCAG 2.1 Level AA:
 When creating a new component, verify:
 
 ### Variants & Sizing
+
 - [ ] Determines which variant categories apply (visual, size, status, shape)
 - [ ] Uses standard variant names (solid/outline/ghost, xs/sm/md/lg/xl, etc.)
 - [ ] Sets sensible defaults (variant: 'solid', size: 'md')
 - [ ] Size 'md' meets 44px WCAG requirement for interactive elements
 
 ### Token Architecture
+
 - [ ] All visual properties consume Recipe tokens
 - [ ] Recipes ONLY reference Flavors (never Ingredients)
 - [ ] Follows standard token hierarchy (variant-property-state)
 - [ ] Includes all interactive states (default, hover, active, focus, disabled)
 
 ### API Design
+
 - [ ] Properties use camelCase, attributes use kebab-case
 - [ ] Important properties reflect to attributes (variant, size, disabled)
 - [ ] TypeScript types defined for all props and events
 - [ ] Events use native when possible, custom when needed
 
 ### Accessibility
+
 - [ ] Semantic HTML element or proper ARIA role
 - [ ] Keyboard navigation support (Tab, Enter, Space, Escape, Arrows)
 - [ ] Focus indicator visible (≥2px outline, ≥2px offset)
@@ -449,6 +479,7 @@ When creating a new component, verify:
 - [ ] Color contrast meets WCAG AA (4.5:1 text, 3:1 UI)
 
 ### Implementation
+
 - [ ] Uses logical properties (paddingInline, paddingBlock) for RTL support
 - [ ] Integrates with FlavorableMixin for theming
 - [ ] Component name follows `sando-{name}` pattern
@@ -460,16 +491,17 @@ When creating a new component, verify:
 
 When designing a component, use this matrix to decide which variant categories apply:
 
-| Component Type | Visual Variants | Size Variants | Status Variants | Shape Variants |
-|----------------|----------------|---------------|-----------------|----------------|
-| **Interactive** (Button, Link) | ✅ solid/outline/ghost | ✅ xs/sm/md/lg/xl | ⚠️ Optional (destructive) | ✅ Optional |
-| **Input** (Input, Select, Textarea) | ❌ Usually not needed | ✅ xs/sm/md/lg | ⚠️ Validation states | ✅ Optional |
-| **Feedback** (Alert, Toast, Banner) | ✅ solid/outline | ⚠️ Optional | ✅ success/destructive/warning/info | ✅ Optional |
-| **Display** (Card, Panel, Modal) | ✅ solid/outline/ghost | ⚠️ Optional | ❌ Usually not needed | ✅ Optional |
-| **Data** (Badge, Tag, Chip) | ✅ solid/outline/ghost | ✅ xs/sm/md | ✅ Optional (semantic colors) | ✅ full radius common |
-| **Layout** (Container, Grid, Stack) | ❌ Not applicable | ⚠️ Optional (spacing scale) | ❌ Not applicable | ❌ Not applicable |
+| Component Type                      | Visual Variants        | Size Variants               | Status Variants                     | Shape Variants        |
+| ----------------------------------- | ---------------------- | --------------------------- | ----------------------------------- | --------------------- |
+| **Interactive** (Button, Link)      | ✅ solid/outline/ghost | ✅ xs/sm/md/lg/xl           | ⚠️ Optional (destructive)           | ✅ Optional           |
+| **Input** (Input, Select, Textarea) | ❌ Usually not needed  | ✅ xs/sm/md/lg              | ⚠️ Validation states                | ✅ Optional           |
+| **Feedback** (Alert, Toast, Banner) | ✅ solid/outline       | ⚠️ Optional                 | ✅ success/destructive/warning/info | ✅ Optional           |
+| **Display** (Card, Panel, Modal)    | ✅ solid/outline/ghost | ⚠️ Optional                 | ❌ Usually not needed               | ✅ Optional           |
+| **Data** (Badge, Tag, Chip)         | ✅ solid/outline/ghost | ✅ xs/sm/md                 | ✅ Optional (semantic colors)       | ✅ full radius common |
+| **Layout** (Container, Grid, Stack) | ❌ Not applicable      | ⚠️ Optional (spacing scale) | ❌ Not applicable                   | ❌ Not applicable     |
 
 **Legend**:
+
 - ✅ Recommended
 - ⚠️ Optional (context-dependent)
 - ❌ Not applicable

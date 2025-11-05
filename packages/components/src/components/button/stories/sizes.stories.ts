@@ -22,9 +22,13 @@ const meta: Meta = {
       href="${args.href || ''}"
       target="${args.target || '_self'}"
     >
-      ${args.iconStart && args.iconStart !== 'None' ? html`<span slot="icon-start">${args.iconStart}</span>` : ''}
+      ${args.iconStart && args.iconStart !== 'None'
+        ? html`<span slot="icon-start">${args.iconStart}</span>`
+        : ''}
       ${args.iconOnly ? '' : args.label}
-      ${args.iconEnd && args.iconEnd !== 'None' ? html`<span slot="icon-end">${args.iconEnd}</span>` : ''}
+      ${args.iconEnd && args.iconEnd !== 'None'
+        ? html`<span slot="icon-end">${args.iconEnd}</span>`
+        : ''}
     </sando-button>
   `,
   argTypes: {

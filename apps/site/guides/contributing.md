@@ -21,17 +21,22 @@ For the complete contributing guidelines, please see our [CONTRIBUTING.md](https
 ### Setup
 
 \`\`\`bash
+
 # Clone the repository
+
 git clone https://github.com/rodrigolagodev/SandoDesignSystem.git
 cd SandoDesignSystem
 
 # Install dependencies
+
 pnpm install
 
 # Build all packages
+
 pnpm build
 
 # Start development
+
 pnpm dev
 \`\`\`
 
@@ -60,10 +65,10 @@ pnpm dev
 class SandoButton extends LitElement {}
 
 // Files: kebab-case
-sando-button.ts
+sando - button.ts;
 
 // CSS custom properties: --sando- prefix
---sando-button-background-color
+--sando - button - background - color;
 
 // Functions: camelCase
 function handleClick() {}

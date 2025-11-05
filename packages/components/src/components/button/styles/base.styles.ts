@@ -77,12 +77,12 @@ export const baseStyles = css`
   }
 
   /* Icons - Slots and Props */
-  ::slotted([slot="icon-start"]),
+  ::slotted([slot='icon-start']),
   .icon-start {
     margin-inline-end: 0.25em;
   }
 
-  ::slotted([slot="icon-end"]),
+  ::slotted([slot='icon-end']),
   .icon-end {
     margin-inline-start: 0.25em;
   }

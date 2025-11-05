@@ -21,6 +21,7 @@ Define code formatting, naming, and organization standards for TypeScript, Lit c
 **ALL TypeScript code MUST have strict mode enabled with comprehensive linting checks.**
 
 **Pattern**:
+
 ```typescript
 // ✅ CORRECT: tsconfig.json with strict mode
 {
@@ -44,6 +45,7 @@ export class SandoButton extends LitElement {
 ```
 
 **Anti-pattern**:
+
 ```typescript
 // ❌ WRONG: Disabling strict mode
 {
@@ -75,21 +77,27 @@ export class BadComponent extends LitElement {
 **Imports MUST be organized in 5 groups with a blank line between each group: external packages, Lit framework, component types, internal modules, and styles.**
 
 **Pattern**:
+
 ```typescript
 // ✅ CORRECT: Organized imports from sando-button.ts
 // Group 1: External packages (alphabetical)
-import { LitElement, html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
-import { classMap } from 'lit/directives/class-map.js';
+import { LitElement, html } from "lit";
+import { customElement, property } from "lit/decorators.js";
+import { classMap } from "lit/directives/class-map.js";
 
 // Group 2: Types (relative imports)
-import type { ButtonVariant, ButtonSize, ButtonStatus, ButtonRadius } from './sando-button.types.js';
+import type {
+  ButtonVariant,
+  ButtonSize,
+  ButtonStatus,
+  ButtonRadius,
+} from "./sando-button.types.js";
 
 // Group 3: Internal modules (mixins, utilities)
-import { FlavorableMixin } from '../../mixins/index.js';
+import { FlavorableMixin } from "../../mixins/index.js";
 
 // Group 4: Styles (always last)
-import { tokenStyles } from '../../styles/tokens.css.js';
+import { tokenStyles } from "../../styles/tokens.css.js";
 import {
   baseStyles,
   variantStyles,
@@ -97,17 +105,18 @@ import {
   radiusStyles,
   statusStyles,
   stateStyles,
-} from './styles/index.js';
+} from "./styles/index.js";
 ```
 
 **Anti-pattern**:
+
 ```typescript
 // ❌ WRONG: Random import order
-import { baseStyles } from './styles/index.js';
-import type { ButtonVariant } from './sando-button.types.js';
-import { LitElement } from 'lit';
-import { FlavorableMixin } from '../../mixins/index.js';
-import { property } from 'lit/decorators.js';
+import { baseStyles } from "./styles/index.js";
+import type { ButtonVariant } from "./sando-button.types.js";
+import { LitElement } from "lit";
+import { FlavorableMixin } from "../../mixins/index.js";
+import { property } from "lit/decorators.js";
 // No organization, hard to scan
 ```
 
@@ -122,6 +131,7 @@ import { property } from 'lit/decorators.js';
 **File names MUST use kebab-case with specific suffixes indicating file purpose.**
 
 **Pattern**:
+
 ```
 ✅ CORRECT: Component file structure
 packages/components/src/components/button/
@@ -148,6 +158,7 @@ packages/tokens/src/
 ```
 
 **Anti-pattern**:
+
 ```
 ❌ WRONG: Inconsistent file naming
 packages/components/src/components/button/
@@ -167,6 +178,7 @@ packages/components/src/components/button/
 **ALL public component properties, methods, slots, CSS custom properties, and events MUST have JSDoc comments.**
 
 **Pattern**:
+
 ```typescript
 // ✅ CORRECT: Comprehensive JSDoc (from sando-button.ts)
 /**
@@ -192,24 +204,25 @@ packages/components/src/components/button/
  * @example As link
  * <sando-button href="https://example.com">Visit</sando-button>
  */
-@customElement('sando-button')
+@customElement("sando-button")
 export class SandoButton extends FlavorableMixin(LitElement) {
   /**
    * Visual style variant of the button
    * @default 'solid'
    */
   @property({ reflect: true })
-  variant: ButtonVariant = 'solid';
+  variant: ButtonVariant = "solid";
 }
 ```
 
 **Anti-pattern**:
+
 ```typescript
 // ❌ WRONG: Missing or inadequate JSDoc
-@customElement('sando-button')
+@customElement("sando-button")
 export class SandoButton extends FlavorableMixin(LitElement) {
   @property({ reflect: true })
-  variant: ButtonVariant = 'solid'; // Inline comment is not enough for public API
+  variant: ButtonVariant = "solid"; // Inline comment is not enough for public API
 
   // No documentation for method
   private handleClick(e: MouseEvent) {
@@ -229,12 +242,13 @@ export class SandoButton extends FlavorableMixin(LitElement) {
 **Code MUST be formatted with Prettier using the project configuration. NO manual formatting deviations allowed.**
 
 **Pattern**:
+
 ```typescript
 // ✅ CORRECT: Follows Prettier standards (100 char line width, single quotes)
-import { LitElement, html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { LitElement, html } from "lit";
+import { customElement, property } from "lit/decorators.js";
 
-@customElement('sando-button')
+@customElement("sando-button")
 export class SandoButton extends FlavorableMixin(LitElement) {
   static styles = [
     tokenStyles,
@@ -243,18 +257,22 @@ export class SandoButton extends FlavorableMixin(LitElement) {
     sizeStyles,
     radiusStyles,
     statusStyles,
-    stateStyles
+    stateStyles,
   ];
 
   render() {
     const classes = {
       button: true,
       loading: this.loading,
-      disabled: this.disabled
+      disabled: this.disabled,
     };
 
     return html`
-      <button class=${classMap(classes)} type=${this.type} ?disabled=${this.disabled}>
+      <button
+        class=${classMap(classes)}
+        type=${this.type}
+        ?disabled=${this.disabled}
+      >
         <slot></slot>
       </button>
     `;
@@ -263,20 +281,39 @@ export class SandoButton extends FlavorableMixin(LitElement) {
 ```
 
 **Anti-pattern**:
+
 ```typescript
 // ❌ WRONG: Manual formatting that violates Prettier rules
-import {LitElement,html} from "lit" // Double quotes, no spacing
-import {customElement,property} from 'lit/decorators.js';
+import { LitElement, html } from "lit"; // Double quotes, no spacing
+import { customElement, property } from "lit/decorators.js";
 
-@customElement( 'sando-button' ) // Extra spaces
-export class SandoButton extends FlavorableMixin( LitElement ) {
-    static styles=[tokenStyles,baseStyles,variantStyles,sizeStyles,radiusStyles,statusStyles,stateStyles]; // No line breaks, inconsistent spacing
+@customElement("sando-button") // Extra spaces
+export class SandoButton extends FlavorableMixin(LitElement) {
+  static styles = [
+    tokenStyles,
+    baseStyles,
+    variantStyles,
+    sizeStyles,
+    radiusStyles,
+    statusStyles,
+    stateStyles,
+  ]; // No line breaks, inconsistent spacing
 
-    render(){
-        const classes={button:true,loading:this.loading,disabled:this.disabled} // No spacing
+  render() {
+    const classes = {
+      button: true,
+      loading: this.loading,
+      disabled: this.disabled,
+    }; // No spacing
 
-        return html`<button class=${classMap(classes)} type=${this.type} ?disabled=${this.disabled}><slot></slot></button>` // No formatting
-    }
+    return html`<button
+      class=${classMap(classes)}
+      type=${this.type}
+      ?disabled=${this.disabled}
+    >
+      <slot></slot>
+    </button>`; // No formatting
+  }
 }
 ```
 
@@ -293,6 +330,7 @@ export class SandoButton extends FlavorableMixin( LitElement ) {
 **Reference**: `packages/components/tsconfig.json` for exact configuration.
 
 Critical settings:
+
 - `"strict": true` - Enables all strict type checks
 - `"experimentalDecorators": true` - Required for Lit @decorators
 - `"useDefineForClassFields": false` - Required for Lit compatibility
@@ -304,6 +342,7 @@ Critical settings:
 Plugin stack: `@typescript-eslint/recommended` + `plugin:wc/recommended` + `plugin:lit/recommended`
 
 Key rules:
+
 - `@typescript-eslint/no-unused-vars` - Error on unused variables (prefix with `_` to bypass)
 - `wc/no-closed-shadow-root` - Never create closed shadow roots
 - `lit/no-invalid-html` - Validates HTML in templates
@@ -327,7 +366,7 @@ Key settings: Single quotes, 2-space indent, 100-char line width, no trailing co
 Follow this order in component class definitions (from `sando-button.ts`):
 
 ```typescript
-@customElement('sando-button')
+@customElement("sando-button")
 export class SandoButton extends FlavorableMixin(LitElement) {
   // 1. Static properties (styles, etc.)
   static styles = [
@@ -338,10 +377,10 @@ export class SandoButton extends FlavorableMixin(LitElement) {
 
   // 2. Public properties (@property with reflect)
   @property({ reflect: true })
-  variant: ButtonVariant = 'solid';
+  variant: ButtonVariant = "solid";
 
   @property({ reflect: true })
-  size: ButtonSize = 'medium';
+  size: ButtonSize = "medium";
 
   // 3. Public boolean properties
   @property({ type: Boolean, reflect: true })
@@ -414,16 +453,17 @@ sando-button/
 ```
 
 **index.ts pattern** (barrel export):
+
 ```typescript
 // ✅ CORRECT: Clean barrel export
-export { SandoButton } from './sando-button.js';
+export { SandoButton } from "./sando-button.js";
 export type {
   ButtonVariant,
   ButtonSize,
   ButtonStatus,
   ButtonRadius,
-  SandoButtonProps
-} from './sando-button.types.js';
+  SandoButtonProps,
+} from "./sando-button.types.js";
 ```
 
 **Why monolithic**: All component files live together, making them easy to find, maintain, and understand. No hunting across multiple folders.
@@ -459,7 +499,7 @@ this.variant = 'solid';
 
 ```typescript
 // ✅ CORRECT: Import from Recipes layer (component-specific tokens)
-import { css } from 'lit';
+import { css } from "lit";
 
 export class SandoButton extends LitElement {
   static styles = css`
@@ -481,6 +521,7 @@ export class SandoButton extends LitElement {
 ```
 
 **Anti-patterns**:
+
 ```typescript
 // ❌ WRONG: Hardcoded values (breaks theming)
 static styles = css`
@@ -513,6 +554,7 @@ static styles = css`
 ## Validation Checklist
 
 ### TypeScript
+
 - [ ] `strict: true` enabled in tsconfig.json
 - [ ] No `any` types (use `unknown` or specific types)
 - [ ] All public APIs have explicit return types
@@ -520,6 +562,7 @@ static styles = css`
 - [ ] `experimentalDecorators: true` for Lit components
 
 ### Code Formatting
+
 - [ ] Prettier configured and running on save
 - [ ] ESLint passes with no errors or warnings
 - [ ] Imports organized in 5 groups (external, Lit, types, internal, styles)
@@ -527,6 +570,7 @@ static styles = css`
 - [ ] Single quotes for strings (Prettier enforces)
 
 ### File Naming
+
 - [ ] All files use kebab-case
 - [ ] Component files prefixed with `sando-`
 - [ ] Test files use correct suffixes (`.test.ts`, `.spec.ts`, `.a11y.test.ts`)
@@ -534,12 +578,14 @@ static styles = css`
 - [ ] Story files use `.stories.ts` suffix
 
 ### Documentation
+
 - [ ] Component class has comprehensive JSDoc with @element, @slot, @fires, @cssprop tags
 - [ ] All public @property decorators have JSDoc with @default
 - [ ] Complex logic has inline comments explaining WHY
 - [ ] External references documented with links
 
 ### Component Structure
+
 - [ ] Static styles array declared first
 - [ ] Public properties before private properties
 - [ ] Lifecycle methods before helper methods
@@ -547,6 +593,7 @@ static styles = css`
 - [ ] Private methods prefixed with underscore (optional)
 
 ### Token Usage
+
 - [ ] No hardcoded colors, spacing, or typography values
 - [ ] Components use Recipe tokens (not Flavors or Ingredients)
 - [ ] CSS custom properties follow `--sando-*` naming
@@ -581,6 +628,7 @@ static styles = css`
 **Pre-commit Hooks**: `pnpm lint-staged` runs on staged files.
 
 **Scripts** (from `packages/components/`):
+
 ```bash
 pnpm lint              # ESLint check
 pnpm lint --fix        # Auto-fix
@@ -593,6 +641,7 @@ pnpm typecheck         # TypeScript check
 ## Changelog
 
 ### 1.0.0 (2025-11-03)
+
 - Initial CODE_STYLE.md guideline created
 - Documented TypeScript strict mode configuration (tsconfig.json reference)
 - Established 5 Core Rules: Strict mode, import organization, file naming, JSDoc, Prettier

@@ -29,6 +29,7 @@ Versatile, accessible button component with multiple variants, sizes, and advanc
 **Features:** icon-only, toggle buttons, render as link (href), icon props (start-icon/end-icon)
 
 **NEW in latest version:**
+
 - ✨ Extra small (xs) size for compact UIs
 - ✨ Text variant for minimal inline links
 - ✨ Icon-only mode with circular option (radius="full")
@@ -63,10 +64,11 @@ pnpm add @sando/components @sando/tokens
 
 ::: info Current Status
 The Button component is fully functional with comprehensive tests. Additional components are in development. You can:
+
 - Explore the [token system](/tokens/architecture) which is fully functional
 - Use the [Button component](/components/button) in your projects
 - Contribute to development on [GitHub](https://github.com/rodrigolagodev/SandoDesignSystem)
-:::
+  :::
 
 ## Planned Usage
 
@@ -75,18 +77,14 @@ Once available, components will be used like this:
 ### Import
 
 ```js
-import '@sando/tokens/css'
-import '@sando/components/button'
+import "@sando/tokens/css";
+import "@sando/components/button";
 ```
 
 ### Use
 
 ```html
-<sando-button
-  variant="solid"
-  size="medium"
-  flavor="original"
->
+<sando-button variant="solid" size="medium" flavor="original">
   Button Text
 </sando-button>
 ```
@@ -96,8 +94,8 @@ import '@sando/components/button'
 ```ts
 /// <reference types="@sando/components" />
 
-const button = document.querySelector('sando-button')
-button.variant = 'solid'  // Will be type-safe
+const button = document.querySelector("sando-button");
+button.variant = "solid"; // Will be type-safe
 ```
 
 ## Framework Integration (Planned)
@@ -105,17 +103,14 @@ button.variant = 'solid'  // Will be type-safe
 ### React
 
 ```tsx
-import '@sando/components/button'
+import "@sando/components/button";
 
 function App() {
   return (
-    <sando-button
-      variant="solid"
-      onClick={(e) => console.log('Clicked!')}
-    >
+    <sando-button variant="solid" onClick={(e) => console.log("Clicked!")}>
       Click me
     </sando-button>
-  )
+  );
 }
 ```
 
@@ -123,18 +118,13 @@ function App() {
 
 ```vue
 <template>
-  <sando-button
-    variant="solid"
-    @click="handleClick"
-  >
-    Click me
-  </sando-button>
+  <sando-button variant="solid" @click="handleClick"> Click me </sando-button>
 </template>
 
 <script setup>
-import '@sando/components/button'
+import "@sando/components/button";
 
-const handleClick = () => console.log('Clicked!')
+const handleClick = () => console.log("Clicked!");
 </script>
 ```
 
@@ -151,12 +141,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
 
 ```html
 <!-- component.html -->
-<sando-button
-  variant="solid"
-  (click)="handleClick()"
->
-  Click me
-</sando-button>
+<sando-button variant="solid" (click)="handleClick()"> Click me </sando-button>
 ```
 
 ## Planned Customization
@@ -173,9 +158,7 @@ sando-button {
 Or apply flavors:
 
 ```html
-<sando-button variant="solid" flavor="original">
-  Themed Button
-</sando-button>
+<sando-button variant="solid" flavor="original"> Themed Button </sando-button>
 ```
 
 ## Planned Accessibility
@@ -198,6 +181,7 @@ All components will be built with accessibility in mind:
 ## Contributing
 
 Want to help build these components? Check out:
+
 - [Contributing Guide](/guides/contributing)
 - [GitHub Issues](https://github.com/yourusername/sando-design-system/issues)
 - [Design System Architecture](/tokens/architecture)

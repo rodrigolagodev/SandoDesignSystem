@@ -89,6 +89,7 @@ Question: Should we deprecate variant="ghost" if only 5% of Button instances use
 **Purpose**: Gather quantitative and qualitative usage data
 
 **Steps**:
+
 1. Identify consumer projects (scan package.json for @sando/components dependency)
 2. Analyze component imports (grep for `from '@sando/components'` across codebases)
 3. Track component instance counts (grep for `<sando-*` in HTML/JSX/Vue templates)
@@ -103,6 +104,7 @@ Question: Should we deprecate variant="ghost" if only 5% of Button instances use
 **Purpose**: Identify trends, patterns, and anomalies in usage data
 
 **Steps**:
+
 1. Component adoption ranking (sort by usage frequency, calculate adoption rate %)
 2. Variant popularity (analyze which variants most used per component)
 3. Anti-pattern detection (grep for style overrides, !important, inline styles in consumer code)
@@ -117,6 +119,7 @@ Question: Should we deprecate variant="ghost" if only 5% of Button instances use
 **Purpose**: Transform data into actionable recommendations with business impact
 
 **Steps**:
+
 1. Prioritize findings by impact (high usage + high pain = highest priority)
 2. Identify root causes (low adoption: poor docs? missing features? performance?)
 3. Quantify business impact (developer hours saved, performance gains, maintenance reduction)
@@ -125,6 +128,7 @@ Question: Should we deprecate variant="ghost" if only 5% of Button instances use
 6. Prepare executive summary (3-5 key insights, actionable next steps)
 
 **Deliverables**:
+
 - Analytics dashboard (HTML report with charts, tables, trends)
 - Executive summary (1-page key metrics and recommendations)
 - Detailed findings report (supporting data, methodology, confidence intervals)
@@ -135,6 +139,7 @@ Question: Should we deprecate variant="ghost" if only 5% of Button instances use
 **Purpose**: Share insights and track implementation of recommendations
 
 **Steps**:
+
 1. Present findings to stakeholders (design-system-pm, design-system-architect, core team)
 2. Create tracking issues for action items (GitHub issues with analytics label)
 3. Set up monitoring dashboards (automated tracking for key metrics)
@@ -142,6 +147,7 @@ Question: Should we deprecate variant="ghost" if only 5% of Button instances use
 5. Measure recommendation impact (did adoption improve? performance better?)
 
 **Deliverables**:
+
 - Stakeholder presentation (slides with key insights and recommendations)
 - Tracking dashboard (automated updates, alerting on regression)
 - Quarterly analytics report (trend analysis, progress tracking)
@@ -158,18 +164,21 @@ Every analysis must meet:
 **Key Metrics to Track**:
 
 **Adoption Metrics**:
+
 - Component usage count per project
 - Adoption rate (% projects using design system)
 - Component coverage (% UI using design system vs custom)
 - Time to adoption for new components (days from release to first usage)
 
 **Quality Metrics**:
+
 - Bundle size per component (compare vs PERFORMANCE_BUDGETS.md thresholds)
 - Render performance (P50, P95, P99 - compare vs Core Web Vitals targets)
 - Error rates by component (track via error monitoring)
 - Accessibility score by component (axe-core violations count)
 
 **Developer Experience**:
+
 - NPS (Net Promoter Score) - quarterly survey
 - CSAT (Customer Satisfaction) - post-interaction surveys
 - Time to first component (onboarding velocity)
@@ -188,6 +197,7 @@ Every analysis must meet:
 - **community-contribution-manager**: Analyze contributor activity and identify engagement opportunities
 
 **Hand-off triggers**:
+
 - Invoke design-system-pm when insights reveal roadmap priority conflicts or new opportunities
 - Consult performance-monitor when bundle size or Core Web Vitals violations detected
 - Engage technical-writer when usage patterns indicate documentation confusion
@@ -207,6 +217,7 @@ You MUST always prioritize:
 ## Common Pitfalls to Avoid
 
 **❌ DON'T**:
+
 - Recommend deprecating features solely based on low usage (check COMPONENT_DESIGN.md strategy first)
 - Present data without context or action items (raw numbers aren't insights)
 - Ignore statistical significance (small sample sizes or confounding variables invalidate findings)
@@ -214,6 +225,7 @@ You MUST always prioritize:
 - Violate privacy by tracking individual developer behavior (aggregate only)
 
 **✅ DO**:
+
 - Cross-reference findings with guideline requirements (validate against standards)
 - Provide confidence intervals and sample sizes for quantitative claims
 - Recommend specific guideline sections to update based on usage patterns

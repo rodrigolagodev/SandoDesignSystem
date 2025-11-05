@@ -21,17 +21,20 @@ Defines the **three-layer token architecture** (Ingredients → Flavors → Reci
 **Each layer references ONLY the layer directly below it**. This one-way flow is enforced by automated tests.
 
 **Pattern**:
+
 ```
 Components → Recipes (Layer 3) → Flavors (Layer 2) → Ingredients (Layer 1) → Absolute values
 ```
 
 **Critical Rules**:
+
 - ✅ **Ingredients**: Absolute values ONLY (no `{...}` references)
 - ✅ **Flavors**: Reference ONLY Ingredients: `{color.orange.700.value}`
 - ✅ **Recipes**: Reference ONLY Flavors: `{color.action.solid.background.default.value}`
 - ✅ **Components**: Use ONLY Recipe CSS variables: `var(--sando-button-solid-backgroundColor-default)`
 
 **Anti-patterns**:
+
 ```json
 // ❌ Recipe skipping Flavors layer
 {
@@ -65,23 +68,28 @@ Components → Recipes (Layer 3) → Flavors (Layer 2) → Ingredients (Layer 1)
 **Decision Tree**:
 
 **Create NEW Ingredient if**:
+
 - ✅ Need absolute value not in existing scale
 - ✅ Example: New color hue, spacing value outside 0-64
 
 **Create NEW Flavor if**:
+
 - ✅ Need new semantic meaning/use context
 - ✅ Example: `color.sidebar.background` (new use case not covered by `color.background.surface`)
 
 **Create NEW Recipe if**:
+
 - ✅ Building a new component
 - ✅ Example: `datepicker.json` for DatePicker component
 
 **REUSE existing token if**:
+
 - ✅ Value exists in scale
 - ✅ Semantic meaning already defined
 - ✅ Can use generic Flavor pattern
 
 **Anti-pattern**:
+
 ```json
 // ❌ Too specific - should use existing Flavor
 {
@@ -109,12 +117,14 @@ Components → Recipes (Layer 3) → Flavors (Layer 2) → Ingredients (Layer 1)
 **Pattern**: `--sando-{category}-{property}-{variant?}-{state?}`
 
 **Rules**:
+
 1. Always kebab-case
 2. Include variant if property is variant-specific
 3. Include state if property is state-specific
 4. Order: variant before state
 
 **Examples**:
+
 ```css
 /* Ingredients */
 --sando-color-orange-500
@@ -131,6 +141,7 @@ Components → Recipes (Layer 3) → Flavors (Layer 2) → Ingredients (Layer 1)
 ```
 
 **Anti-patterns**:
+
 ```css
 /* ❌ Wrong order */
 --sando-button-hover-solid-backgroundColor  /* state before variant */
@@ -149,18 +160,21 @@ Components → Recipes (Layer 3) → Flavors (Layer 2) → Ingredients (Layer 1)
 **CRITICAL**: Flavors and Modes are fundamentally different concepts.
 
 **Flavors** (Manual brand themes):
+
 - Selected via `flavor="name"` attribute
 - Examples: `original`, `strawberry`, `midnight`
 - **Developer chooses** which flavor to apply
 - Created by adding Flavor files: `src/flavors/{name}/flavor.json`
 
 **Modes** (Automatic accessibility):
+
 - Activated via `@media` queries (user's system preference)
 - Examples: `dark`, `high-contrast`, `motion-reduce`
 - **User's system** determines which mode is active
 - Created by adding mode files: `flavor-dark.json`, `flavor-high-contrast.json`
 
 **Pattern**:
+
 ```html
 <!-- ✅ Correct: Flavor selection -->
 <div flavor="original">Theme with orange actions</div>
@@ -186,6 +200,7 @@ See [THEMING_STRATEGY.md](THEMING_STRATEGY.md) for complete Flavors vs Modes exp
 **Flavors provide semantic meaning** (use context), not value descriptions.
 
 **Pattern**:
+
 ```json
 // ✅ Good - describes USE CONTEXT
 {
@@ -225,6 +240,7 @@ This section is the DEFINITIVE source for the three-layer system. Other guidelin
 **Location**: `packages/tokens/src/ingredients/*.json`
 
 **File Structure**:
+
 ```
 src/ingredients/
 ├── color.json          # 15 colors × 11 steps = 165 tokens
@@ -240,11 +256,13 @@ src/ingredients/
 **Naming**: `{category}-{property}-{scale}`
 
 **Examples**:
+
 - `color-orange-700` = `"oklch(0.47 0.20 25)"`
 - `space-4` = `"1rem"` (16px)
 - `font-size-300` = `"1.125rem"` (18px)
 
 **Pattern**:
+
 ```json
 {
   "color": {
@@ -260,6 +278,7 @@ src/ingredients/
 ```
 
 **Rules**:
+
 - ✅ MUST contain only absolute values
 - ❌ NEVER reference other tokens
 - ✅ MUST be brand-agnostic (no "primary", "brand")
@@ -276,6 +295,7 @@ See [COLOR_SYSTEM.md](COLOR_SYSTEM.md), [SPACING_SYSTEM.md](SPACING_SYSTEM.md) f
 **Location**: `packages/tokens/src/flavors/{flavor-name}/`
 
 **File Structure** (per Flavor):
+
 ```
 src/flavors/original/
 ├── flavor.json                  # Base (light mode)
@@ -288,11 +308,13 @@ src/flavors/original/
 **Naming**: `{category}-{element}-{modifier}-{state}`
 
 **Examples**:
+
 - `color-action-solid-background-default`
 - `color-text-body`
 - `space-inset-md`
 
 **Pattern** (Base Flavor):
+
 ```json
 {
   "color": {
@@ -303,7 +325,10 @@ src/flavors/original/
           "hover": { "value": "{color.orange.800.value}", "type": "color" }
         },
         "text": {
-          "default": { "value": "{color.neutral-warm.50.value}", "type": "color" }
+          "default": {
+            "value": "{color.neutral-warm.50.value}",
+            "type": "color"
+          }
         }
       }
     },
@@ -315,6 +340,7 @@ src/flavors/original/
 ```
 
 **Pattern** (Dark Mode Override):
+
 ```json
 {
   "color": {
@@ -333,6 +359,7 @@ src/flavors/original/
 ```
 
 **Rules**:
+
 - ✅ MUST reference ONLY Ingredients: `{color.orange.700.value}`
 - ❌ NEVER reference other Flavors or Recipes
 - ❌ NEVER contain absolute values (except mode overrides for special cases)
@@ -349,6 +376,7 @@ src/flavors/original/
 **Location**: `packages/tokens/src/recipes/*.json`
 
 **File Structure**:
+
 ```
 src/recipes/
 ├── button.json         # Button tokens
@@ -360,30 +388,56 @@ src/recipes/
 **Naming**: `{component}-{variant}-{property}-{state}`
 
 **Examples**:
+
 - `button-solid-backgroundColor-default`
 - `button-solid-backgroundColor-hover`
 - `input-borderColor-error`
 
 **Pattern**:
+
 ```json
 {
   "button": {
     "solid": {
       "backgroundColor": {
-        "default": { "value": "{color.action.solid.background.default.value}", "type": "color" },
-        "hover": { "value": "{color.action.solid.background.hover.value}", "type": "color" },
-        "active": { "value": "{color.action.solid.background.active.value}", "type": "color" },
-        "disabled": { "value": "{color.action.solid.background.disabled.value}", "type": "color" }
+        "default": {
+          "value": "{color.action.solid.background.default.value}",
+          "type": "color"
+        },
+        "hover": {
+          "value": "{color.action.solid.background.hover.value}",
+          "type": "color"
+        },
+        "active": {
+          "value": "{color.action.solid.background.active.value}",
+          "type": "color"
+        },
+        "disabled": {
+          "value": "{color.action.solid.background.disabled.value}",
+          "type": "color"
+        }
       },
       "textColor": {
-        "default": { "value": "{color.action.solid.text.default.value}", "type": "color" }
+        "default": {
+          "value": "{color.action.solid.text.default.value}",
+          "type": "color"
+        }
       }
     },
     "size": {
       "md": {
-        "paddingInline": { "value": "{space.inset.md.value}", "type": "dimension" },
-        "paddingBlock": { "value": "{space.inset.sm.value}", "type": "dimension" },
-        "minHeight": { "value": "{sizing.control.md.value}", "type": "dimension" }
+        "paddingInline": {
+          "value": "{space.inset.md.value}",
+          "type": "dimension"
+        },
+        "paddingBlock": {
+          "value": "{space.inset.sm.value}",
+          "type": "dimension"
+        },
+        "minHeight": {
+          "value": "{sizing.control.md.value}",
+          "type": "dimension"
+        }
       }
     }
   }
@@ -391,6 +445,7 @@ src/recipes/
 ```
 
 **Rules**:
+
 - ✅ MUST reference ONLY Flavors: `{color.action.solid.background.default.value}`
 - ❌ NEVER reference Ingredients directly
 - ❌ NEVER reference other Recipes
@@ -463,15 +518,18 @@ static styles = css`
 ```
 
 **CSS Output** (build generates):
+
 ```css
 /* Layer 1: Ingredient */
---sando-color-orange-700: oklch(0.47 0.20 25);
+--sando-color-orange-700: oklch(0.47 0.2 25);
 
 /* Layer 2: Flavor */
 --sando-color-action-solid-background-default: var(--sando-color-orange-700);
 
 /* Layer 3: Recipe */
---sando-button-solid-backgroundColor-default: var(--sando-color-action-solid-background-default);
+--sando-button-solid-backgroundColor-default: var(
+  --sando-color-action-solid-background-default
+);
 ```
 
 **Result**: Component uses `--sando-button-solid-backgroundColor-default`, which resolves through all layers to the final OKLCH color.
@@ -479,6 +537,7 @@ static styles = css`
 **This pattern applies to**: All components (Cards, Inputs, Modals, etc.)
 
 **Special cases**: See individual guidelines for domain-specific patterns:
+
 - Colors: [COLOR_SYSTEM.md](COLOR_SYSTEM.md)
 - Spacing: [SPACING_SYSTEM.md](SPACING_SYSTEM.md)
 - Typography: [TYPOGRAPHY_SYSTEM.md](TYPOGRAPHY_SYSTEM.md)
@@ -490,6 +549,7 @@ static styles = css`
 The token build uses **Style Dictionary 4.0.0** with custom orchestrator.
 
 **Build Flow**:
+
 ```
 1. Read source files (ingredients, flavors, recipes)
 2. Validate references (automated tests enforce layer rules)
@@ -499,6 +559,7 @@ The token build uses **Style Dictionary 4.0.0** with custom orchestrator.
 ```
 
 **Build Commands**:
+
 ```bash
 pnpm tokens:build           # Build all tokens
 pnpm tokens:build --force   # Bypass cache
@@ -506,6 +567,7 @@ pnpm tokens:dev             # Watch mode (rebuild on changes)
 ```
 
 **Output Structure**:
+
 ```
 dist/sando-tokens/
 ├── css/
@@ -526,6 +588,7 @@ dist/sando-tokens/
 ## Validation Checklist
 
 ### Ingredients Layer
+
 - [ ] All files in `src/ingredients/*.json`
 - [ ] All tokens have absolute values (no `{...}` references)
 - [ ] Naming: `{category}-{property}-{scale}`
@@ -535,6 +598,7 @@ dist/sando-tokens/
 - [ ] No semantic names (`orange-700`, not `brand-primary`)
 
 ### Flavors Layer
+
 - [ ] Each Flavor has folder: `src/flavors/{flavor-name}/`
 - [ ] Base file exists: `flavor.json`
 - [ ] Mode files contain ONLY overrides
@@ -545,6 +609,7 @@ dist/sando-tokens/
 - [ ] Dark mode maintains WCAG AA contrast
 
 ### Recipes Layer
+
 - [ ] One file per component: `src/recipes/{component}.json`
 - [ ] All tokens reference ONLY Flavors: `{color.action.solid.background.default.value}`
 - [ ] No references to Ingredients or other Recipes
@@ -553,6 +618,7 @@ dist/sando-tokens/
 - [ ] All states documented (default, hover, active, focus, disabled)
 
 ### Component Integration
+
 - [ ] Components use ONLY Recipe tokens
 - [ ] No hardcoded colors/values in component styles
 - [ ] No direct Flavor or Ingredient CSS variables
@@ -572,6 +638,7 @@ dist/sando-tokens/
 ## Changelog
 
 ### 2.0.0 (2025-11-02)
+
 - **BREAKING**: Consolidated 5 examples to 1 complete token flow example
 - **BREAKING**: Removed duplicate explanations (reduced from 1095 to ~550 lines)
 - **NEW**: Added "When to Create New Tokens" decision tree (Rule 2)
@@ -582,6 +649,7 @@ dist/sando-tokens/
 - Reduced from 1095 to ~550 lines (50% reduction)
 
 ### 1.0.0 (2025-11-02)
+
 - Initial token architecture guideline with three-layer system
 
 ---

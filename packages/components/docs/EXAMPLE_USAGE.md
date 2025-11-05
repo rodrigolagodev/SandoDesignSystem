@@ -40,57 +40,57 @@ export class SandoButton extends LitElement {
     }
 
     /* Variant: Solid */
-    :host([variant="solid"]) button {
+    :host([variant='solid']) button {
       background: ${token(tokens.button.solid.backgroundColor.default)};
       color: ${token(tokens.button.solid.textColor.default)};
     }
 
-    :host([variant="solid"]) button:hover:not(:disabled) {
+    :host([variant='solid']) button:hover:not(:disabled) {
       background: ${token(tokens.button.solid.backgroundColor.hover)};
     }
 
-    :host([variant="solid"]) button:active:not(:disabled) {
+    :host([variant='solid']) button:active:not(:disabled) {
       background: ${token(tokens.button.solid.backgroundColor.active)};
     }
 
     /* Variant: Outline */
-    :host([variant="outline"]) button {
+    :host([variant='outline']) button {
       background: transparent;
       color: ${token(tokens.button.outline.textColor.default)};
       border: 2px solid ${token(tokens.button.outline.borderColor.default)};
     }
 
-    :host([variant="outline"]) button:hover:not(:disabled) {
+    :host([variant='outline']) button:hover:not(:disabled) {
       background: ${token(tokens.button.outline.backgroundColor.hover)};
       border-color: ${token(tokens.button.outline.borderColor.hover)};
     }
 
     /* Variant: Ghost */
-    :host([variant="ghost"]) button {
+    :host([variant='ghost']) button {
       background: transparent;
       color: ${token(tokens.button.ghost.textColor.default)};
     }
 
-    :host([variant="ghost"]) button:hover:not(:disabled) {
+    :host([variant='ghost']) button:hover:not(:disabled) {
       background: ${token(tokens.button.ghost.backgroundColor.hover)};
     }
 
     /* Size: Small */
-    :host([size="small"]) button {
+    :host([size='small']) button {
       padding-inline: ${token(tokens.button.size.small.paddingInline)};
       padding-block: ${token(tokens.button.size.small.paddingBlock)};
       font-size: ${token(tokens.button.size.small.fontSize)};
     }
 
     /* Size: Medium */
-    :host([size="medium"]) button {
+    :host([size='medium']) button {
       padding-inline: ${token(tokens.button.size.medium.paddingInline)};
       padding-block: ${token(tokens.button.size.medium.paddingBlock)};
       font-size: ${token(tokens.button.size.medium.fontSize)};
     }
 
     /* Size: Large */
-    :host([size="large"]) button {
+    :host([size='large']) button {
       padding-inline: ${token(tokens.button.size.large.paddingInline)};
       padding-block: ${token(tokens.button.size.large.paddingBlock)};
       font-size: ${token(tokens.button.size.large.fontSize)};
@@ -102,14 +102,15 @@ export class SandoButton extends LitElement {
       opacity: 0.5;
     }
 
-    :host([variant="solid"]) button:disabled {
+    :host([variant='solid']) button:disabled {
       background: ${token(tokens.button.solid.backgroundColor.disabled)};
       color: ${token(tokens.button.solid.textColor.disabled)};
     }
 
     /* Focus State */
     button:focus-visible {
-      outline: ${token(tokens.button.focusOutlineWidth)} solid ${token(tokens.button.focusOutlineColor)};
+      outline: ${token(tokens.button.focusOutlineWidth)} solid
+        ${token(tokens.button.focusOutlineColor)};
       outline-offset: 2px;
     }
   `;
@@ -135,6 +136,7 @@ declare global {
 ### 1. Autocomplete Completo
 
 Al escribir `tokens.button.`, IntelliSense te muestra:
+
 ```
 tokens.button.
   ├─ solid
@@ -170,6 +172,7 @@ background: ${token(tokens.button.soldi.backgroundColor.default)};
 ### 3. Refactoring Seguro
 
 Si renombras `backgroundColor` → `bgColor` en los tokens:
+
 - TypeScript te muestra TODOS los lugares que necesitas actualizar
 - No puedes hacer commit con errores
 - Find & Replace funciona perfectamente
@@ -189,17 +192,11 @@ Si renombras `backgroundColor` → `bgColor` en los tokens:
 
 ```html
 <!-- En tu aplicación -->
-<sando-button variant="solid" size="medium">
-  Click me
-</sando-button>
+<sando-button variant="solid" size="medium"> Click me </sando-button>
 
-<sando-button variant="outline" size="large">
-  Outline Large
-</sando-button>
+<sando-button variant="outline" size="large"> Outline Large </sando-button>
 
-<sando-button variant="ghost" size="small" disabled>
-  Disabled Ghost
-</sando-button>
+<sando-button variant="ghost" size="small" disabled> Disabled Ghost </sando-button>
 ```
 
 ## 🎨 Theming Dinámico

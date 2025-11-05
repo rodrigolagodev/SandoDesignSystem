@@ -1652,14 +1652,14 @@ export const iconNames = [
   'zap',
   'zap-off',
   'zoom-in',
-  'zoom-out',
+  'zoom-out'
 ] as const;
 
 /**
  * Type-safe icon name
  * Use this type for icon name props to get autocomplete
  */
-export type IconName = typeof iconNames[number];
+export type IconName = (typeof iconNames)[number];
 
 /**
  * Check if a string is a valid icon name

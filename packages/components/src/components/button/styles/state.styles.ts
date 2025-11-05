@@ -58,19 +58,19 @@ export const stateStyles = css`
      ACTIVE/PRESSED STATE
      For toggle buttons, filters, tabs
      ======================================== */
-  :host([active][variant="solid"]) button,
-  :host([active][variant="solid"]) a {
+  :host([active][variant='solid']) button,
+  :host([active][variant='solid']) a {
     background-color: var(--sando-button-solid-backgroundColor-active);
   }
 
-  :host([active][variant="outline"]) button,
-  :host([active][variant="outline"]) a {
+  :host([active][variant='outline']) button,
+  :host([active][variant='outline']) a {
     background-color: var(--sando-button-outline-backgroundColor-active);
     border-color: var(--sando-button-outline-borderColor-active);
   }
 
-  :host([active][variant="ghost"]) button,
-  :host([active][variant="ghost"]) a {
+  :host([active][variant='ghost']) button,
+  :host([active][variant='ghost']) a {
     background-color: var(--sando-button-ghost-backgroundColor-active);
   }
 `;

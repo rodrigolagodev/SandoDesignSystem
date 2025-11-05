@@ -60,11 +60,11 @@ For quick prototyping or static sites, you can use a CDN:
 ```html
 <!-- Load from unpkg -->
 <script type="module">
-  import { SandoButton } from 'https://unpkg.com/@sando/components'
+  import { SandoButton } from "https://unpkg.com/@sando/components";
 </script>
 
 <!-- Load CSS tokens -->
-<link rel="stylesheet" href="https://unpkg.com/@sando/tokens/css/index.css">
+<link rel="stylesheet" href="https://unpkg.com/@sando/tokens/css/index.css" />
 ```
 
 ::: warning Production Usage
@@ -79,17 +79,20 @@ Import the design tokens CSS in your application:
 
 ```js [Vite/Webpack]
 // main.js or App.tsx
-import '@sando/tokens/css'
+import "@sando/tokens/css";
 ```
 
 ```html [HTML]
 <!-- index.html -->
-<link rel="stylesheet" href="node_modules/@sando/tokens/dist/sando-tokens/css/index.css">
+<link
+  rel="stylesheet"
+  href="node_modules/@sando/tokens/dist/sando-tokens/css/index.css"
+/>
 ```
 
 ```css [CSS]
 /* styles.css */
-@import '@sando/tokens/css';
+@import "@sando/tokens/css";
 ```
 
 :::
@@ -100,15 +103,11 @@ import '@sando/tokens/css'
 
 ```tsx
 // App.tsx
-import '@sando/tokens/css'
-import '@sando/components/button'
+import "@sando/tokens/css";
+import "@sando/components/button";
 
 function App() {
-  return (
-    <sando-button variant="solid">
-      Click me
-    </sando-button>
-  )
+  return <sando-button variant="solid">Click me</sando-button>;
 }
 ```
 
@@ -126,14 +125,12 @@ This enables autocomplete and type checking for Sando components in JSX.
 
 ```vue
 <script setup lang="ts">
-import '@sando/tokens/css'
-import '@sando/components/button'
+import "@sando/tokens/css";
+import "@sando/components/button";
 </script>
 
 <template>
-  <sando-button variant="solid">
-    Click me
-  </sando-button>
+  <sando-button variant="solid"> Click me </sando-button>
 </template>
 ```
 
@@ -146,38 +143,37 @@ export default defineConfig({
     vue({
       template: {
         compilerOptions: {
-          isCustomElement: (tag) => tag.startsWith('sando-')
-        }
-      }
-    })
-  ]
-})
+          isCustomElement: (tag) => tag.startsWith("sando-"),
+        },
+      },
+    }),
+  ],
+});
 ```
+
 :::
 
 ### Angular
 
 ```ts
 // app.module.ts
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
-import '@sando/tokens/css'
+import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "@sando/tokens/css";
 
 @NgModule({
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule {}
 ```
 
 ```ts
 // component.ts
-import '@sando/components/button'
+import "@sando/components/button";
 ```
 
 ```html
 <!-- component.html -->
-<sando-button variant="solid">
-  Click me
-</sando-button>
+<sando-button variant="solid"> Click me </sando-button>
 ```
 
 ### Svelte
@@ -198,15 +194,15 @@ import '@sando/components/button'
 ```html
 <!DOCTYPE html>
 <html>
-<head>
-  <link rel="stylesheet" href="node_modules/@sando/tokens/css/index.css">
-  <script type="module">
-    import '@sando/components/button'
-  </script>
-</head>
-<body>
-  <sando-button variant="solid">Click me</sando-button>
-</body>
+  <head>
+    <link rel="stylesheet" href="node_modules/@sando/tokens/css/index.css" />
+    <script type="module">
+      import "@sando/components/button";
+    </script>
+  </head>
+  <body>
+    <sando-button variant="solid">Click me</sando-button>
+  </body>
 </html>
 ```
 
@@ -216,14 +212,14 @@ Import only what you need for smaller bundle sizes:
 
 ```js
 // Import specific components
-import '@sando/components/button'
-import '@sando/components/input'
-import '@sando/components/card'
+import "@sando/components/button";
+import "@sando/components/input";
+import "@sando/components/card";
 
 // Import specific token layers
-import '@sando/tokens/css/ingredients'  // Primitives only
-import '@sando/tokens/css/flavors'      // Semantic tokens
-import '@sando/tokens/css/recipes'      // Component tokens
+import "@sando/tokens/css/ingredients"; // Primitives only
+import "@sando/tokens/css/flavors"; // Semantic tokens
+import "@sando/tokens/css/recipes"; // Component tokens
 ```
 
 ## Browser Support
@@ -245,11 +241,11 @@ Verify your installation:
 
 ```html
 <script type="module">
-  import '@sando/components/button'
+  import "@sando/components/button";
 
-  const button = document.createElement('sando-button')
-  button.textContent = 'It works!'
-  document.body.appendChild(button)
+  const button = document.createElement("sando-button");
+  button.textContent = "It works!";
+  document.body.appendChild(button);
 </script>
 ```
 
@@ -258,6 +254,7 @@ Verify your installation:
 ✅ **Installation complete!**
 
 Continue to:
+
 - [Quick Start Guide →](/getting-started/quick-start)
 - [Theming Guide →](/getting-started/theming)
 - [Component Overview →](/components/overview)
