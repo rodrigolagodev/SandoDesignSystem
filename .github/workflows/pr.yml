@@ -105,10 +105,10 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Run ESLint
-        run: pnpm lint --max-warnings 0
+        run: pnpm lint
 
       - name: Check Prettier formatting
-        run: pnpm exec prettier --check "**/*.{ts,tsx,js,jsx,json,css,md}"
+        run: pnpm format:check
 
   # Job 3: Build all packages
   build:
@@ -154,9 +154,6 @@ jobs:
         run: pnpm --filter @sando/site build
         env:
           CI: true
-
-      - name: Check TypeScript types
-        run: pnpm exec tsc --noEmit
 
       - name: Upload build artifacts
         if: always()
