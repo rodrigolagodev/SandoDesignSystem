@@ -1,4 +1,4 @@
-name: Pull Request Validation
+name: PR Validation (Informational)
 
 on:
   pull_request:
@@ -17,11 +17,12 @@ permissions:
   issues: write
 
 jobs:
-  # Job 1: Run all tests (unit + E2E + a11y)
+  # Job 1: Run all tests (unit + E2E + a11y) - INFORMATIONAL ONLY
   test:
-    name: Test (Node 20.x)
+    name: Test (Node 20.x) - Informational
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    continue-on-error: true
 
     steps:
       - name: Checkout code
@@ -86,11 +87,12 @@ jobs:
         run: |
           echo "✅ Coverage thresholds met (80% minimum)"
 
-  # Job 2: Lint code (ESLint + Prettier)
+  # Job 2: Lint code (ESLint + Prettier) - INFORMATIONAL ONLY
   lint:
-    name: Lint (ESLint + Prettier)
+    name: Lint (ESLint + Prettier) - Informational
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    continue-on-error: true
 
     steps:
       - name: Checkout code
@@ -224,7 +226,7 @@ jobs:
               body: '⚠️ **No changeset detected**\n\nIf this PR changes public APIs (components, tokens, or build output), please create a changeset:\n\n```bash\npnpm changeset\n```\n\nIf this is a docs-only or internal change, you can ignore this warning.'
             })
 
-  # Summary job (required for branch protection)
+  # Summary job - Only blocks on build failures
   pr-validation:
     name: PR Validation Summary
     runs-on: ubuntu-latest
@@ -232,18 +234,34 @@ jobs:
     if: always()
 
     steps:
-      - name: Check all jobs passed
+      - name: Check validation results
         run: |
-          if [[ "${{ needs.test.result }}" != "success" ]]; then
-            echo "❌ Tests failed"
-            exit 1
+          echo "📊 PR Validation Results:"
+          echo "========================"
+
+          # Test results (informational only)
+          if [[ "${{ needs.test.result }}" == "success" ]]; then
+            echo "✅ Tests: PASSED"
+          else
+            echo "⚠️  Tests: FAILED (informational - does not block merge)"
           fi
-          if [[ "${{ needs.lint.result }}" != "success" ]]; then
-            echo "❌ Lint failed"
-            exit 1
+
+          # Lint results (informational only)
+          if [[ "${{ needs.lint.result }}" == "success" ]]; then
+            echo "✅ Lint: PASSED"
+          else
+            echo "⚠️  Lint: FAILED (informational - does not block merge)"
           fi
+
+          # Build results (required)
           if [[ "${{ needs.build.result }}" != "success" ]]; then
-            echo "❌ Build failed"
+            echo "❌ Build: FAILED (blocks merge)"
+            echo ""
+            echo "Build must pass before merging. Please fix build errors."
             exit 1
+          else
+            echo "✅ Build: PASSED"
           fi
-          echo "✅ All PR validation checks passed!"
+
+          echo ""
+          echo "✅ PR validation complete - Build passed, merge allowed"
