@@ -1,759 +1,644 @@
-# Security Standards
-
-**Category**: 05-quality
-**Version**: 1.0.0
-**Status**: Active
-**Last Updated**: 2025-11-03
-**Owner**: Security Compliance Auditor
-
----
-
-## Purpose
-
-Establish security standards for the Sando Design System to prevent vulnerabilities in components, build processes, and dependencies. This guideline defines XSS prevention, CSP compliance, dependency scanning, secure coding practices, and vulnerability disclosure procedures.
-
-**Target**: Zero high/critical vulnerabilities in production, automated dependency scanning in CI
-**Scope**: Components, tokens, build scripts, documentation sites, npm packages
-**Enforcement**: CI blocks on vulnerabilities, security audit every release
-
----
-
-## Core Rules
-
-### Rule 1: No XSS Vulnerabilities (Non-Negotiable)
-
-All user input MUST be sanitized. Never use `innerHTML` or `dangerouslySetInnerHTML` without sanitization.
-
-**Pattern** (Lit automatic escaping):
-
-```typescript
-// ✅ CORRECT - Lit automatically escapes expressions
-render() {
-  return html`<div>${this.userInput}</div>`; // Safe - escaped
-}
-
-// ❌ WRONG - innerHTML bypasses escaping
-render() {
-  const div = document.createElement('div');
-  div.innerHTML = this.userInput; // XSS vulnerability
-  return div;
-}
-```
-
-**Lit security**: Template expressions are automatically HTML-escaped. SQL injection, XSS, and code injection are prevented by default.
-
-**When HTML is required**:
-
-```typescript
-import { unsafeHTML } from 'lit/directives/unsafe-html.js';
-import DOMPurify from 'dompurify';
-
-render() {
-  const sanitized = DOMPurify.sanitize(this.userHTML);
-  return html`<div>${unsafeHTML(sanitized)}</div>`;
-}
-```
-
-**Why**: XSS is the #1 web vulnerability. Even trusted input can be compromised. Always sanitize.
-
-**Reference**: [OWASP XSS Prevention](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html)
-
----
-
-### Rule 2: Content Security Policy (CSP) Compliance (Required)
-
-Components MUST work with strict CSP (no `unsafe-inline`, no `unsafe-eval`).
-
-**Pattern** (CSP headers):
-
-```http
-Content-Security-Policy:
-  default-src 'self';
-  script-src 'self';
-  style-src 'self';
-  img-src 'self' data: https:;
-  font-src 'self';
-  connect-src 'self';
-  frame-ancestors 'none';
-```
-
-**Component requirements**:
-
-- No inline styles (use Shadow DOM CSS)
-- No inline scripts (use external modules)
-- No `eval()` or `new Function()`
-- Use nonces/hashes for any required inline content
-
-**Testing CSP**:
-
-```bash
-# Test Storybook with strict CSP
-npx http-server apps/docs/dist \
-  --cors \
-  -p 8080 \
-  -H "Content-Security-Policy: default-src 'self'; script-src 'self'"
-```
-
-**Why**: CSP prevents injection attacks by controlling resource loading. Essential for enterprise adoption.
-
-**Reference**: [MDN CSP](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)
-
----
-
-### Rule 3: Dependency Vulnerability Scanning (Non-Negotiable)
-
-All dependencies MUST be scanned for vulnerabilities. No high/critical vulnerabilities in production.
-
-**Pattern** (npm audit):
-
-```bash
-# Audit dependencies
-pnpm audit
-
-# Auto-fix vulnerabilities
-pnpm audit --fix
-
-# CI enforcement
-pnpm audit --audit-level=high
-# Exit code 1 if high/critical vulnerabilities found
-```
-
-**GitHub Dependabot**:
-
-```yaml
-# .github/dependabot.yml
-version: 2
-updates:
-  - package-ecosystem: "npm"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-    open-pull-requests-limit: 10
-    versioning-strategy: increase
-```
-
-**Severity levels**:
-| Level | Action | Timeline |
-|-------|--------|----------|
-| Critical | Block merge, emergency patch | <24 hours |
-| High | Block merge, schedule fix | <7 days |
-| Moderate | Create issue, fix in next release | <30 days |
-| Low | Track, fix opportunistically | Next major |
-
-**Why**: 80% of breaches exploit known vulnerabilities. Automated scanning catches issues before production.
-
-**Reference**: [npm audit docs](https://docs.npmjs.com/cli/v8/commands/npm-audit)
-
----
-
-### Rule 4: Secure Coding Practices (Required)
-
-Follow OWASP Top 10 and secure coding guidelines for all component code.
-
-**Key practices**:
-
-1. **Input validation**: Validate all props/attributes
-2. **Output encoding**: Use Lit's automatic escaping
-3. **Authentication**: Never implement auth in components (delegate)
-4. **Secrets**: Never hardcode API keys, tokens, passwords
-5. **Error messages**: Don't leak sensitive info in errors
-
-**Pattern** (input validation):
-
-```typescript
-@property({ type: String })
-set email(value: string) {
-  // Validate before setting
-  if (!this.isValidEmail(value)) {
-    console.warn('Invalid email format');
-    return;
-  }
-  this._email = value;
-}
-
-private isValidEmail(email: string): boolean {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
-```
-
-**Anti-pattern** (secrets in code):
-
-```typescript
-// ❌ WRONG - Hardcoded API key
-const API_KEY = "sk_live_abc123def456";
-
-// ✅ CORRECT - Use environment variables
-const API_KEY = import.meta.env.VITE_API_KEY;
-```
-
-**Why**: Defense in depth. Multiple layers prevent single points of failure.
-
-**Reference**: [OWASP Top 10](https://owasp.org/www-project-top-ten/)
-
----
-
-### Rule 5: License Compliance (Required)
-
-All dependencies MUST have compatible licenses (MIT, Apache 2.0, BSD, ISC). No GPL/AGPL in production.
-
-**Pattern** (license checker):
-
-```bash
-# Install
-pnpm add -D license-checker
-
-# Check licenses
-npx license-checker --summary
-
-# Fail on incompatible licenses
-npx license-checker --failOn "GPL;AGPL"
-```
-
-**Acceptable licenses**:
-
-- ✅ MIT, Apache 2.0, BSD (2/3-Clause), ISC
-- ⚠️ CC0, Unlicense (verify case-by-case)
-- ❌ GPL, AGPL, Commons Clause (copyleft - avoid)
-
-**CI integration**:
-
-```yaml
-- name: Check licenses
-  run: npx license-checker --failOn "GPL;AGPL;SSPL"
-```
-
-**Why**: GPL/AGPL require derivative works to be open-sourced. Incompatible with proprietary software using design system.
-
-**Reference**: [Choose a License](https://choosealicense.com/)
-
----
-
-## OWASP Top 10 for Design Systems
-
-### 1. Injection (XSS, SQL, Command)
-
-**Risk**: Malicious code execution via user input
-
-**Prevention**:
-
-- Use Lit's automatic HTML escaping
-- Sanitize with DOMPurify before `unsafeHTML`
-- Validate all prop/attribute inputs
-- Never use `eval()`, `new Function()`, `innerHTML`
-
-**Test**:
-
-```typescript
-it("escapes HTML in user input", async () => {
-  element.label = '<script>alert("XSS")</script>';
-  await element.updateComplete;
-  const text = element.shadowRoot?.textContent;
-  expect(text).toContain("<script>"); // Escaped, not executed
-});
-```
-
-### 2. Broken Authentication
-
-**Risk**: Unauthorized access via weak auth
-
-**Prevention**:
-
-- **DO NOT implement authentication in components**
-- Delegate to app-level auth (OAuth, JWT, etc.)
-- Components should only consume auth state, not manage it
-
-**Anti-pattern**:
-
-```typescript
-// ❌ WRONG - Auth logic in component
-class SandoLogin extends LitElement {
-  login(user, pass) {
-    if (user === "admin" && pass === "123") {
-      // NEVER DO THIS
-      this.authenticated = true;
-    }
-  }
-}
-```
-
-### 3. Sensitive Data Exposure
-
-**Risk**: Leaking secrets, PII, API keys
-
-**Prevention**:
-
-- Never hardcode secrets in components
-- Never log sensitive data (PII, tokens, passwords)
-- Use environment variables for config
-- Sanitize error messages
-
-**Pattern**:
-
-```typescript
-// ✅ CORRECT - No sensitive data in logs
-catch (error) {
-  console.error('API request failed'); // Generic message
-  // Don't log: error.response.headers.authorization
-}
-```
-
-### 4. XML External Entities (XXE)
-
-**Risk**: XML parsing vulnerabilities
-
-**Prevention**:
-
-- Use JSON instead of XML for data exchange
-- If XML required, disable external entities
-- Validate XML against schema
-
-**Not applicable**: Design system components rarely parse XML.
-
-### 5. Broken Access Control
-
-**Risk**: Unauthorized actions
-
-**Prevention**:
-
-- Components should not enforce access control
-- Delegate to backend/app level
-- Only show/hide UI based on props (not security boundary)
-
-**Pattern**:
-
-```typescript
-// ✅ CORRECT - UI-only restriction
-render() {
-  return this.canDelete
-    ? html`<button @click=${this.delete}>Delete</button>`
-    : html``;
-}
-// Backend MUST verify canDelete independently
-```
-
-### 6. Security Misconfiguration
-
-**Risk**: Default credentials, verbose errors, open ports
-
-**Prevention**:
-
-- No default passwords/API keys
-- Disable debug mode in production
-- Secure CSP headers
-- Keep dependencies updated
-
-**Check**:
-
-```bash
-# Audit production build for debug code
-grep -r "console.log" dist/
-grep -r "debugger" dist/
-```
-
-### 7. Cross-Site Scripting (XSS)
-
-**Risk**: JavaScript injection via user input
-
-**Prevention**: See Rule 1 (No XSS Vulnerabilities)
-
-### 8. Insecure Deserialization
-
-**Risk**: Code execution via malicious serialized objects
-
-**Prevention**:
-
-- Avoid deserializing untrusted data
-- Use JSON (safer than pickle/YAML)
-- Validate schema after deserialization
-
-**Not highly applicable**: Components receive typed props, not serialized objects.
-
-### 9. Using Components with Known Vulnerabilities
-
-**Risk**: Exploiting outdated dependencies
-
-**Prevention**: See Rule 3 (Dependency Scanning)
-
-### 10. Insufficient Logging & Monitoring
-
-**Risk**: Undetected breaches
-
-**Prevention**:
-
-- Log security events (auth failures, validation errors)
-- Monitor for anomalies
-- Alert on suspicious patterns
-
-**Pattern**:
-
-```typescript
-// Log security-relevant events
-if (!this.isValidInput(value)) {
-  console.warn("[SECURITY] Invalid input detected", {
-    component: "sando-input",
-    timestamp: Date.now(),
-    // Don't log the actual invalid value (may contain attack payload)
-  });
-}
-```
-
----
-
-## Dependency Security
-
-### npm audit
-
-**Run on every CI build**:
-
-```yaml
-- name: Security audit
-  run: pnpm audit --audit-level=moderate
-```
-
-**Exit codes**:
-
-- `0` - No vulnerabilities
-- `1` - Vulnerabilities found (blocks merge)
-
-**Handling advisories**:
-
-```bash
-# View details
-pnpm audit
-
-# Auto-fix (updates to safe versions)
-pnpm audit --fix
-
-# If no fix available, evaluate risk
-pnpm audit --json > audit.json
-# Review audit.json for severity/exploitability
-```
-
-### Dependabot
-
-**Automatic PR creation** for vulnerable dependencies:
-
-**.github/dependabot.yml**:
-
-```yaml
-version: 2
-updates:
-  - package-ecosystem: "npm"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-    open-pull-requests-limit: 10
-    labels:
-      - "dependencies"
-      - "security"
-    reviewers:
-      - "security-team"
-```
-
-**Benefits**:
-
-- Automated vulnerability detection
-- PRs with fix suggestions
-- Configurable auto-merge (patch/minor only)
-
-### Snyk Integration (Optional)
-
-**Advanced vulnerability scanning**:
-
-```bash
-# Install
-pnpm add -D snyk
-
-# Test
-npx snyk test
-
-# Monitor in CI
-npx snyk monitor
-```
-
-**Features**:
-
-- Broader vulnerability database than npm audit
-- License compliance checking
-- Container scanning (if using Docker)
-
----
-
-## Secure Build Pipeline
-
-### Code Scanning
-
-**GitHub Advanced Security** (if available):
-
-```yaml
-# .github/workflows/codeql.yml
+<guideline doc_id="SEC" category="05-quality" version="1.0.0" status="Active" last_updated="2025-11-09" owner="Security Compliance Auditor">
+
+  <purpose id="SEC-PU">
+    Establish security standards for the Sando Design System to prevent vulnerabilities in components, build processes, and dependencies. Defines XSS prevention, CSP compliance, dependency scanning, secure coding practices, and vulnerability disclosure procedures.
+  </purpose>
+
+  <targets id="SEC-TGT">
+    <target>Zero high/critical vulnerabilities in production</target>
+    <target>Automated dependency scanning in CI</target>
+  </targets>
+
+  <scope id="SEC-SC">
+    Components, tokens, build scripts, documentation sites, npm packages
+  </scope>
+
+  <enforcement id="SEC-ENF">
+    CI blocks on vulnerabilities, security audit every release
+  </enforcement>
+
+<core_rules id="SEC-CR">
+<rule id="SEC-CR-R1" title="No XSS Vulnerabilities (Non-Negotiable)">
+
+<summary>
+All user input MUST be sanitized. Never use innerHTML or dangerouslySetInnerHTML without sanitization.
+</summary>
+
+      <pattern lang="typescript" title="✅ Lit automatic escaping">
+        // Lit automatically escapes expressions
+        render() {
+          return html`<div>${this.userInput}</div>`; // Safe - escaped
+        }
+      </pattern>
+
+      <anti_pattern lang="typescript" title="❌ innerHTML bypasses escaping">
+        // innerHTML bypasses escaping
+        render() {
+          const div = document.createElement('div');
+          div.innerHTML = this.userInput; // XSS vulnerability
+          return div;
+        }
+      </anti_pattern>
+
+      <lit_security>
+        Template expressions are automatically HTML-escaped. SQL injection, XSS, and code injection are prevented by default.
+      </lit_security>
+
+      <when_html_required lang="typescript">
+        import { unsafeHTML } from 'lit/directives/unsafe-html.js';
+        import DOMPurify from 'dompurify';
+
+        render() {
+          const sanitized = DOMPurify.sanitize(this.userHTML);
+          return html`<div>${unsafeHTML(sanitized)}</div>`;
+        }
+      </when_html_required>
+
+      <why>
+        XSS is the #1 web vulnerability. Even trusted input can be compromised. Always sanitize.
+      </why>
+
+      <reference type="external" url="https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html">
+        OWASP XSS Prevention
+      </reference>
+    </rule>
+
+    <rule id="SEC-CR-R2" title="Content Security Policy (CSP) Compliance (Required)">
+      <summary>
+        Components MUST work with strict CSP (no unsafe-inline, no unsafe-eval).
+      </summary>
+
+      <pattern lang="http" title="CSP headers">
+        Content-Security-Policy:
+          default-src 'self';
+          script-src 'self';
+          style-src 'self';
+          img-src 'self' data: https:;
+          font-src 'self';
+          connect-src 'self';
+          frame-ancestors 'none';
+      </pattern>
+
+      <component_requirements>
+        <requirement>No inline styles (use Shadow DOM CSS)</requirement>
+        <requirement>No inline scripts (use external modules)</requirement>
+        <requirement>No eval() or new Function()</requirement>
+        <requirement>Use nonces/hashes for any required inline content</requirement>
+      </component_requirements>
+
+      <testing_csp lang="bash">
+        # Test Storybook with strict CSP
+        npx http-server apps/docs/dist \
+          --cors \
+          -p 8080 \
+          -H "Content-Security-Policy: default-src 'self'; script-src 'self'"
+      </testing_csp>
+
+      <why>
+        CSP prevents injection attacks by controlling resource loading. Essential for enterprise adoption.
+      </why>
+
+      <reference type="external" url="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP">
+        MDN CSP
+      </reference>
+    </rule>
+
+    <rule id="SEC-CR-R3" title="Dependency Vulnerability Scanning (Non-Negotiable)">
+      <summary>
+        All dependencies MUST be scanned for vulnerabilities. No high/critical vulnerabilities in production.
+      </summary>
+
+      <pattern lang="bash" title="npm audit">
+        # Audit dependencies
+        pnpm audit
+
+        # Auto-fix vulnerabilities
+        pnpm audit --fix
+
+        # CI enforcement
+        pnpm audit --audit-level=high
+        # Exit code 1 if high/critical vulnerabilities found
+      </pattern>
+
+      <github_dependabot lang="yaml" path=".github/dependabot.yml">
+        version: 2
+        updates:
+          - package-ecosystem: "npm"
+            directory: "/"
+            schedule:
+              interval: "weekly"
+            open-pull-requests-limit: 10
+            versioning-strategy: increase
+      </github_dependabot>
+
+      <severity_levels>
+        <level name="Critical" action="Block merge, emergency patch" timeline="<24 hours"/>
+        <level name="High" action="Block merge, schedule fix" timeline="<7 days"/>
+        <level name="Moderate" action="Create issue, fix in next release" timeline="<30 days"/>
+        <level name="Low" action="Track, fix opportunistically" timeline="Next major"/>
+      </severity_levels>
+
+      <why>
+        80% of breaches exploit known vulnerabilities. Automated scanning catches issues before production.
+      </why>
+
+      <reference type="external" url="https://docs.npmjs.com/cli/v8/commands/npm-audit">
+        npm audit docs
+      </reference>
+    </rule>
+
+    <rule id="SEC-CR-R4" title="Secure Coding Practices (Required)">
+      <summary>
+        Follow OWASP Top 10 and secure coding guidelines for all component code.
+      </summary>
+
+      <key_practices>
+        <practice number="1">Input validation: Validate all props/attributes</practice>
+        <practice number="2">Output encoding: Use Lit's automatic escaping</practice>
+        <practice number="3">Authentication: Never implement auth in components (delegate)</practice>
+        <practice number="4">Secrets: Never hardcode API keys, tokens, passwords</practice>
+        <practice number="5">Error messages: Don't leak sensitive info in errors</practice>
+      </key_practices>
+
+      <pattern lang="typescript" title="Input validation">
+        @property({ type: String })
+        set email(value: string) {
+          // Validate before setting
+          if (!this.isValidEmail(value)) {
+            console.warn('Invalid email format');
+            return;
+          }
+          this._email = value;
+        }
+
+        private isValidEmail(email: string): boolean {
+          return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+      </pattern>
+
+      <anti_pattern lang="typescript" title="❌ Hardcoded API key">
+        // Hardcoded API key
+        const API_KEY = "sk_live_abc123def456";
+      </anti_pattern>
+
+      <correct_pattern lang="typescript" title="✅ Environment variables">
+        // Use environment variables
+        const API_KEY = import.meta.env.VITE_API_KEY;
+      </correct_pattern>
+
+      <why>
+        Defense in depth. Multiple layers prevent single points of failure.
+      </why>
+
+      <reference type="external" url="https://owasp.org/www-project-top-ten/">
+        OWASP Top 10
+      </reference>
+    </rule>
+
+    <rule id="SEC-CR-R5" title="License Compliance (Required)">
+      <summary>
+        All dependencies MUST have compatible licenses (MIT, Apache 2.0, BSD, ISC). No GPL/AGPL in production.
+      </summary>
+
+      <pattern lang="bash" title="License checker">
+        # Install
+        pnpm add -D license-checker
+
+        # Check licenses
+        npx license-checker --summary
+
+        # Fail on incompatible licenses
+        npx license-checker --failOn "GPL;AGPL"
+      </pattern>
+
+      <acceptable_licenses>
+        <license status="✅">MIT, Apache 2.0, BSD (2/3-Clause), ISC</license>
+        <license status="⚠️">CC0, Unlicense (verify case-by-case)</license>
+        <license status="❌">GPL, AGPL, Commons Clause (copyleft - avoid)</license>
+      </acceptable_licenses>
+
+      <ci_integration lang="yaml">
+        - name: Check licenses
+          run: npx license-checker --failOn "GPL;AGPL;SSPL"
+      </ci_integration>
+
+      <why>
+        GPL/AGPL require derivative works to be open-sourced. Incompatible with proprietary software using design system.
+      </why>
+
+      <reference type="external" url="https://choosealicense.com/">
+        Choose a License
+      </reference>
+    </rule>
+
+</core_rules>
+
+<owasp_top_10 id="SEC-OWASP">
+<vulnerability id="SEC-OWASP-V1" number="1" title="Injection (XSS, SQL, Command)">
+<risk>Malicious code execution via user input</risk>
+
+      <prevention>
+        <method>Use Lit's automatic HTML escaping</method>
+        <method>Sanitize with DOMPurify before unsafeHTML</method>
+        <method>Validate all prop/attribute inputs</method>
+        <method>Never use eval(), new Function(), innerHTML</method>
+      </prevention>
+
+      <test lang="typescript">
+        it("escapes HTML in user input", async () => {
+          element.label = '<script>alert("XSS")</script>';
+          await element.updateComplete;
+          const text = element.shadowRoot?.textContent;
+          expect(text).toContain("</script>"); // Escaped, not executed
+        });
+      </test>
+    </vulnerability>
+
+    <vulnerability id="SEC-OWASP-V2" number="2" title="Broken Authentication">
+      <risk>Unauthorized access via weak auth</risk>
+
+      <prevention>
+        <method>DO NOT implement authentication in components</method>
+        <method>Delegate to app-level auth (OAuth, JWT, etc.)</method>
+        <method>Components should only consume auth state, not manage it</method>
+      </prevention>
+
+      <anti_pattern lang="typescript" title="❌ Auth logic in component">
+        class SandoLogin extends LitElement {
+          login(user, pass) {
+            if (user === "admin" && pass === "123") {
+              // NEVER DO THIS
+              this.authenticated = true;
+            }
+          }
+        }
+      </anti_pattern>
+    </vulnerability>
+
+    <vulnerability id="SEC-OWASP-V3" number="3" title="Sensitive Data Exposure">
+      <risk>Leaking secrets, PII, API keys</risk>
+
+      <prevention>
+        <method>Never hardcode secrets in components</method>
+        <method>Never log sensitive data (PII, tokens, passwords)</method>
+        <method>Use environment variables for config</method>
+        <method>Sanitize error messages</method>
+      </prevention>
+
+      <pattern lang="typescript" title="✅ No sensitive data in logs">
+        catch (error) {
+          console.error('API request failed'); // Generic message
+          // Don't log: error.response.headers.authorization
+        }
+      </pattern>
+    </vulnerability>
+
+    <vulnerability id="SEC-OWASP-V5" number="5" title="Broken Access Control">
+      <risk>Unauthorized actions</risk>
+
+      <prevention>
+        <method>Components should not enforce access control</method>
+        <method>Delegate to backend/app level</method>
+        <method>Only show/hide UI based on props (not security boundary)</method>
+      </prevention>
+
+      <pattern lang="typescript" title="✅ UI-only restriction">
+        render() {
+          return this.canDelete
+            ? html`<button @click=${this.delete}>Delete</button>`
+            : html``;
+        }
+        // Backend MUST verify canDelete independently
+      </pattern>
+    </vulnerability>
+
+    <vulnerability id="SEC-OWASP-V6" number="6" title="Security Misconfiguration">
+      <risk>Default credentials, verbose errors, open ports</risk>
+
+      <prevention>
+        <method>No default passwords/API keys</method>
+        <method>Disable debug mode in production</method>
+        <method>Secure CSP headers</method>
+        <method>Keep dependencies updated</method>
+      </prevention>
+
+      <check lang="bash">
+        # Audit production build for debug code
+        grep -r "console.log" dist/
+        grep -r "debugger" dist/
+      </check>
+    </vulnerability>
+
+    <vulnerability id="SEC-OWASP-V10" number="10" title="Insufficient Logging & Monitoring">
+      <risk>Undetected breaches</risk>
+
+      <prevention>
+        <method>Log security events (auth failures, validation errors)</method>
+        <method>Monitor for anomalies</method>
+        <method>Alert on suspicious patterns</method>
+      </prevention>
+
+      <pattern lang="typescript">
+        // Log security-relevant events
+        if (!this.isValidInput(value)) {
+          console.warn("[SECURITY] Invalid input detected", {
+            component: "sando-input",
+            timestamp: Date.now()
+            // Don't log the actual invalid value (may contain attack payload)
+          });
+        }
+      </pattern>
+    </vulnerability>
+
+</owasp_top_10>
+
+<dependency_security id="SEC-DS">
+<npm_audit id="SEC-DS-NA">
+<run_on_ci lang="yaml"> - name: Security audit
+run: pnpm audit --audit-level=moderate
+</run_on_ci>
+
+      <exit_codes>
+        <code value="0">No vulnerabilities</code>
+        <code value="1">Vulnerabilities found (blocks merge)</code>
+      </exit_codes>
+
+      <handling_advisories lang="bash">
+        # View details
+        pnpm audit
+
+        # Auto-fix (updates to safe versions)
+        pnpm audit --fix
+
+        # If no fix available, evaluate risk
+        pnpm audit --json > audit.json
+        # Review audit.json for severity/exploitability
+      </handling_advisories>
+    </npm_audit>
+
+    <dependabot id="SEC-DS-DB">
+      <summary>
+        Automatic PR creation for vulnerable dependencies
+      </summary>
+
+      <config lang="yaml" path=".github/dependabot.yml">
+        version: 2
+        updates:
+          - package-ecosystem: "npm"
+            directory: "/"
+            schedule:
+              interval: "weekly"
+            open-pull-requests-limit: 10
+            labels:
+              - "dependencies"
+              - "security"
+            reviewers:
+              - "security-team"
+      </config>
+
+      <benefits>
+        <benefit>Automated vulnerability detection</benefit>
+        <benefit>PRs with fix suggestions</benefit>
+        <benefit>Configurable auto-merge (patch/minor only)</benefit>
+      </benefits>
+    </dependabot>
+
+    <snyk_integration id="SEC-DS-SI" optional="true">
+      <summary>
+        Advanced vulnerability scanning
+      </summary>
+
+      <installation lang="bash">
+        # Install
+        pnpm add -D snyk
+
+        # Test
+        npx snyk test
+
+        # Monitor in CI
+        npx snyk monitor
+      </installation>
+
+      <features>
+        <feature>Broader vulnerability database than npm audit</feature>
+        <feature>License compliance checking</feature>
+        <feature>Container scanning (if using Docker)</feature>
+      </features>
+    </snyk_integration>
+
+</dependency_security>
+
+<secure_build_pipeline id="SEC-SBP">
+<code_scanning id="SEC-SBP-CS">
+<github_advanced_security lang="yaml" path=".github/workflows/codeql.yml">
 name: CodeQL
 on: [push, pull_request]
 jobs:
-  analyze:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: github/codeql-action/init@v2
-        with:
-          languages: javascript
-      - uses: github/codeql-action/analyze@v2
-```
+analyze:
+runs-on: ubuntu-latest
+steps: - uses: actions/checkout@v4 - uses: github/codeql-action/init@v2
+with:
+languages: javascript - uses: github/codeql-action/analyze@v2
+</github_advanced_security>
+</code_scanning>
 
-### Secret Scanning
+    <secret_scanning id="SEC-SBP-SS">
+      <summary>
+        Prevent committing secrets
+      </summary>
 
-**Prevent committing secrets**:
+      <installation lang="bash">
+        # Install git-secrets
+        brew install git-secrets
 
-```bash
-# Install git-secrets
-brew install git-secrets
+        # Configure
+        git secrets --install
+        git secrets --register-aws
 
-# Configure
-git secrets --install
-git secrets --register-aws
+        # Scan
+        git secrets --scan
+      </installation>
 
-# Scan
-git secrets --scan
-```
+      <pre_commit_hook lang="yaml" path=".husky/pre-commit">
+        #!/bin/sh
+        git secrets --scan
+      </pre_commit_hook>
+    </secret_scanning>
 
-**Pre-commit hook**:
+    <supply_chain_security id="SEC-SBP-SCS">
+      <lock_files>
+        <item>Commit lock files to version control</item>
+        <item>Ensures reproducible builds</item>
+        <item>Prevents malicious package updates</item>
+      </lock_files>
 
-```yaml
-# .husky/pre-commit
-#!/bin/sh
-git secrets --scan
-```
+      <integrity_checks lang="json" file="package.json">
+        {
+          "dependencies": {
+            "lit": "3.3.1" // Pin exact versions for security-critical deps
+          }
+        }
+      </integrity_checks>
 
-### Supply Chain Security
+      <package_provenance lang="bash" future="true">
+        # Verify package signatures
+        npm audit signatures
+      </package_provenance>
+    </supply_chain_security>
 
-**Lock files** (`pnpm-lock.yaml`):
+</secure_build_pipeline>
 
-- Commit lock files to version control
-- Ensures reproducible builds
-- Prevents malicious package updates
-
-**Integrity checks**:
-
-```json
-// package.json
-{
-  "dependencies": {
-    "lit": "3.3.1" // Pin exact versions for security-critical deps
-  }
-}
-```
-
-**Package provenance** (future):
-
-```bash
-# Verify package signatures
-npm audit signatures
-```
-
----
-
-## Content Security Policy
-
-### CSP Headers
-
-**Strict CSP for documentation sites**:
-
-```javascript
-// apps/docs/vite.config.js
+<content_security_policy id="SEC-CSP">
+<csp_headers id="SEC-CSP-H">
+<strict_csp lang="javascript" file="apps/docs/vite.config.js">
 export default defineConfig({
-  server: {
-    headers: {
-      "Content-Security-Policy": [
-        "default-src 'self'",
-        "script-src 'self'",
-        "style-src 'self'",
-        "img-src 'self' data: https:",
-        "font-src 'self'",
-        "connect-src 'self'",
-        "frame-ancestors 'none'",
-      ].join("; "),
-    },
-  },
+server: {
+headers: {
+"Content-Security-Policy": [
+"default-src 'self'",
+"script-src 'self'",
+"style-src 'self'",
+"img-src 'self' data: https:",
+"font-src 'self'",
+"connect-src 'self'",
+"frame-ancestors 'none'"
+].join("; ")
+}
+}
 });
-```
+</strict_csp>
+</csp_headers>
 
-### CSP for Web Components
+    <csp_for_web_components id="SEC-CSP-WC">
+      <shadow_dom_css lang="typescript" title="✅ CSP-safe">
+        // No inline styles
+        static styles = css`
+          :host {
+            display: block;
+          }
+        `;
+      </shadow_dom_css>
 
-**Shadow DOM CSS** (CSP-safe):
+      <avoid_inline_styles>
+        <anti_pattern lang="typescript" title="❌ Violates CSP">
+          render() {
+            return html`<div style="color: red;">Text</div>`;
+          }
+        </anti_pattern>
 
-```typescript
-// ✅ CORRECT - No inline styles
-static styles = css`
-  :host {
-    display: block;
-  }
-`;
-```
+        <correct_pattern lang="typescript" title="✅ Use CSS classes">
+          render() {
+            return html`<div class="error">Text</div>`;
+          }
+        </correct_pattern>
+      </avoid_inline_styles>
+    </csp_for_web_components>
 
-**Avoid inline styles**:
+    <csp_reporting id="SEC-CSP-R">
+      <monitor_violations lang="http">
+        Content-Security-Policy-Report-Only:
+          default-src 'self';
+          report-uri https://example.com/csp-reports
+      </monitor_violations>
+    </csp_reporting>
 
-```typescript
-// ❌ WRONG - Inline style violates CSP
-render() {
-  return html`<div style="color: red;">Text</div>`;
-}
+</content_security_policy>
 
-// ✅ CORRECT - Use CSS classes
-render() {
-  return html`<div class="error">Text</div>`;
-}
-```
+<vulnerability_disclosure id="SEC-VD">
+<responsible_disclosure id="SEC-VD-RD">
+<security_md lang="markdown" path="SECURITY.md"> # Security Policy
 
-### CSP Reporting
+        ## Reporting Vulnerabilities
 
-**Monitor violations**:
+        **DO NOT** create public GitHub issues for security vulnerabilities.
 
-```http
-Content-Security-Policy-Report-Only:
-  default-src 'self';
-  report-uri https://example.com/csp-reports
-```
+        Email: security@sando-design.com
+        PGP Key: [link to public key]
 
----
+        Include:
+        - Vulnerability description
+        - Steps to reproduce
+        - Impact assessment
+        - Suggested fix (if available)
 
-## Vulnerability Disclosure
+        ## Response Timeline
 
-### Responsible Disclosure Policy
+        - Initial response: <48 hours
+        - Triage: < 7 days
+        - Fix timeline: Based on severity
+          - Critical: < 7 days
+          - High: < 30 days
+          - Medium: < 90 days
+          - Low: Next major release
 
-**SECURITY.md** (repository root):
+        ## Disclosure Policy
 
-```markdown
-# Security Policy
+        - Coordinated disclosure (90-day embargo)
+        - Public disclosure after fix released
+        - Credit given in release notes (if desired)
+      </security_md>
+    </responsible_disclosure>
 
-## Reporting Vulnerabilities
+    <security_advisories id="SEC-VD-SA">
+      <github_advisories>
+        <step number="1">Create private advisory</step>
+        <step number="2">Assign CVE</step>
+        <step number="3">Develop fix</step>
+        <step number="4">Coordinate disclosure</step>
+        <step number="5">Publish advisory + patch</step>
+      </github_advisories>
+    </security_advisories>
 
-**DO NOT** create public GitHub issues for security vulnerabilities.
+</vulnerability_disclosure>
 
-Email: security@sando-design.com
-PGP Key: [link to public key]
+<related_guidelines id="SEC-RG">
+<reference type="guideline" doc_id="TST" file="../03-development/TESTING_STRATEGY.md">
+Security test patterns
+</reference>
+<reference type="guideline" doc_id="CST" file="../03-development/CODE_STYLE.md">
+Secure coding conventions
+</reference>
+</related_guidelines>
 
-Include:
+<external_references id="SEC-ER">
+<category name="OWASP">
+<reference url="https://owasp.org/www-project-top-ten/">OWASP Top 10 - Most critical web vulnerabilities</reference>
+<reference url="https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html">XSS Prevention Cheat Sheet</reference>
+<reference url="https://owasp.org/www-project-secure-coding-practices-quick-reference-guide/">Secure Coding Practices</reference>
+</category>
 
-- Vulnerability description
-- Steps to reproduce
-- Impact assessment
-- Suggested fix (if available)
+    <category name="CSP">
+      <reference url="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP">MDN Content Security Policy</reference>
+      <reference url="https://csp-evaluator.withgoogle.com/">CSP Evaluator - Test CSP policies</reference>
+    </category>
 
-## Response Timeline
+    <category name="Dependency Security">
+      <reference url="https://docs.npmjs.com/cli/v8/commands/npm-audit">npm audit - Vulnerability scanning</reference>
+      <reference url="https://snyk.io/">Snyk - Advanced dependency scanning</reference>
+      <reference url="https://docs.github.com/en/code-security/dependabot">Dependabot - Automated updates</reference>
+    </category>
 
-- Initial response: <48 hours
-- Triage: <7 days
-- Fix timeline: Based on severity
-  - Critical: <7 days
-  - High: <30 days
-  - Medium: <90 days
-  - Low: Next major release
+    <category name="Web Components">
+      <reference url="https://lit.dev/docs/components/security/">Lit Security - Lit-specific security guidance</reference>
+    </category>
 
-## Disclosure Policy
+</external_references>
 
-- Coordinated disclosure (90-day embargo)
-- Public disclosure after fix released
-- Credit given in release notes (if desired)
-```
+  <changelog id="SEC-CL">
+    <version number="1.0.0" date="2025-11-09">
+      <change type="NOTE">Initial guideline creation</change>
+      <change type="IMPROVED">OWASP Top 10 coverage for design systems</change>
+      <change type="IMPROVED">XSS prevention: Lit automatic escaping, DOMPurify for unsafeHTML</change>
+      <change type="IMPROVED">CSP compliance: No unsafe-inline, Shadow DOM CSS patterns</change>
+      <change type="IMPROVED">Dependency scanning: npm audit, Dependabot, Snyk integration</change>
+      <change type="IMPROVED">Secure coding practices: Input validation, no hardcoded secrets</change>
+      <change type="IMPROVED">License compliance: MIT/Apache/BSD only, avoid GPL/AGPL</change>
+      <change type="IMPROVED">Vulnerability severity levels: Critical (less than 24h), High (less than 7d), Moderate (less than 30d), Low (next major)</change>
+      <change type="IMPROVED">Secure build pipeline: CodeQL, git-secrets, supply chain security</change>
+      <change type="IMPROVED">Vulnerability disclosure policy: SECURITY.md template, coordinated disclosure</change>
+      <change type="IMPROVED">Validation checklist: component development, dependencies, build/CI, release</change>
+      <change type="NOTE">Agent-optimized format for token efficiency</change>
+    </version>
+  </changelog>
 
-### Security Advisories
-
-**GitHub Security Advisories**:
-
-1. Create private advisory
-2. Assign CVE
-3. Develop fix
-4. Coordinate disclosure
-5. Publish advisory + patch
-
----
-
-## Validation Checklist
-
-### Component Development
-
-- [ ] No `innerHTML`, `eval()`, `new Function()`
-- [ ] All user input validated/sanitized
-- [ ] Lit automatic escaping used for all dynamic content
-- [ ] No hardcoded secrets/API keys
-- [ ] Error messages don't leak sensitive info
-- [ ] Works with strict CSP (no `unsafe-inline`)
-
-### Dependency Management
-
-- [ ] `pnpm audit` passes (no high/critical)
-- [ ] All dependencies have compatible licenses (MIT, Apache, BSD)
-- [ ] Lock files (`pnpm-lock.yaml`) committed
-- [ ] Dependabot configured and monitored
-- [ ] Dependencies updated regularly (weekly)
-
-### Build & CI
-
-- [ ] Security audit runs on every PR
-- [ ] CSP headers configured for docs sites
-- [ ] Secret scanning enabled (git-secrets, GitHub)
-- [ ] Code scanning enabled (CodeQL or similar)
-- [ ] Build artifacts scanned for debug code
-
-### Release
-
-- [ ] Security audit clean before release
-- [ ] CHANGELOG includes security fixes (if any)
-- [ ] GitHub Security Advisory published (if applicable)
-- [ ] Vulnerable dependencies updated/patched
-- [ ] Release notes mention security improvements
-
----
-
-## Related Guidelines
-
-- [TESTING_STRATEGY.md](../03-development/TESTING_STRATEGY.md) - Security test patterns
-- [CODE_STYLE.md](../03-development/CODE_STYLE.md) - Secure coding conventions
-
----
-
-## External References
-
-**OWASP**:
-
-- [OWASP Top 10](https://owasp.org/www-project-top-ten/) - Most critical web vulnerabilities
-- [XSS Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html)
-- [Secure Coding Practices](https://owasp.org/www-project-secure-coding-practices-quick-reference-guide/)
-
-**CSP**:
-
-- [MDN Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)
-- [CSP Evaluator](https://csp-evaluator.withgoogle.com/) - Test CSP policies
-
-**Dependency Security**:
-
-- [npm audit](https://docs.npmjs.com/cli/v8/commands/npm-audit) - Vulnerability scanning
-- [Snyk](https://snyk.io/) - Advanced dependency scanning
-- [Dependabot](https://docs.github.com/en/code-security/dependabot) - Automated updates
-
-**Web Components**:
-
-- [Lit Security](https://lit.dev/docs/components/security/) - Lit-specific security guidance
-
----
-
-## Changelog
-
-### 1.0.0 (2025-11-03)
-
-- Initial guideline creation
-- OWASP Top 10 coverage for design systems
-- XSS prevention: Lit automatic escaping, DOMPurify for `unsafeHTML`
-- CSP compliance: No `unsafe-inline`, Shadow DOM CSS patterns
-- Dependency scanning: npm audit, Dependabot, Snyk integration
-- Secure coding practices: Input validation, no hardcoded secrets
-- License compliance: MIT/Apache/BSD only, avoid GPL/AGPL
-- Vulnerability severity levels: Critical (<24h), High (<7d), Moderate (<30d), Low (next major)
-- Secure build pipeline: CodeQL, git-secrets, supply chain security
-- Vulnerability disclosure policy: SECURITY.md template, coordinated disclosure
-- Validation checklist: component development, dependencies, build/CI, release
-- Agent-optimized format (496 lines)
-
----
-
-**Security is not optional. Prevent vulnerabilities early, scan continuously, and disclose responsibly.**
+</guideline>

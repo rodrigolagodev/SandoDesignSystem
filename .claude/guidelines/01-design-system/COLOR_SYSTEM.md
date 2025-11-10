@@ -1,409 +1,440 @@
-# Color System
+<guideline doc_id="CS" category="01-design-system" version="2.0.0" status="Active" last_updated="2025-11-09" owner="Design System Architect">
 
-**Category**: 01-design-system
-**Version**: 2.0.0
-**Status**: Active
-**Last Updated**: 2025-11-02
-**Owner**: UI Designer
+  <purpose id="CS-PU">
+    Defines OKLCH-based color system with algorithmic generation, ensuring perceptual uniformity, predictable contrast, and WCAG 2.1 AA/AAA compliance.
+  </purpose>
 
----
+<core_rules id="CS-CR">
 
-## Purpose
+  <rule id="CS-CR-R1" title="Use OKLCH for All Colors">
+    <format>
+      All colors defined in OKLCH color space (Oklab Lightness Chroma Hue).
+    </format>
 
-Defines OKLCH-based color system with algorithmic generation, ensuring perceptual uniformity, predictable contrast, and WCAG 2.1 AA/AAA compliance.
+    <why>
+      Perceptually uniform lightness and chroma. L=0.5 looks exactly 50% bright (unlike HSL where L=50% varies by hue).
+    </why>
 
----
+    <specification>
+      Format: `oklch(L C H)` or `oklch(L C H / A)`
+      - L (Lightness): 0 (black) to 1 (white)
+      - C (Chroma): 0 (gray) to 0.37+ (maximum saturation)
+      - H (Hue): 0-360 degrees on color wheel
+      - A (Alpha): 0 (transparent) to 1 (opaque) - optional
+    </specification>
 
-## Core Rules
+    <pattern lang="css">
+      --color-orange-500: oklch(0.64 0.2 25); /* L=0.64, C=0.20, H=25° */
+    </pattern>
 
-### Rule 1: Use OKLCH for All Colors
+    <key_advantage>
+      `orange-500` and `blue-500` have identical perceived brightness (both L=0.64).
+    </key_advantage>
 
-**All colors defined in OKLCH color space** (Oklab Lightness Chroma Hue).
+  </rule>
 
-**Why**: Perceptually uniform lightness and chroma. L=0.5 looks exactly 50% bright (unlike HSL where L=50% varies by hue).
+  <rule id="CS-CR-R2" title="Universal Lightness Scale">
+    <summary>
+      All colors use the SAME lightness progression across all hues.
+    </summary>
 
-**Format**: `oklch(L C H)` or `oklch(L C H / A)`
+    <lightness_scale_specification>
+      <step value="50" lightness="0.98" use_case="Near white, subtle tints" />
+      <step value="100" lightness="0.95" use_case="Very light backgrounds" />
+      <step value="200" lightness="0.90" use_case="Light backgrounds" />
+      <step value="300" lightness="0.82" use_case="Muted colors" />
+      <step value="400" lightness="0.73" use_case="Medium colors" />
+      <step value="500" lightness="0.64" use_case="BASE COLOR (reference)" is_base="true" />
+      <step value="600" lightness="0.56" use_case="Dark colors" />
+      <step value="700" lightness="0.47" use_case="Very dark colors" />
+      <step value="800" lightness="0.38" use_case="Almost black" />
+      <step value="900" lightness="0.30" use_case="Near black" />
+      <step value="950" lightness="0.22" use_case="Darkest shade" />
+    </lightness_scale_specification>
 
-- **L** (Lightness): 0 (black) to 1 (white)
-- **C** (Chroma): 0 (gray) to 0.37+ (maximum saturation)
-- **H** (Hue): 0-360 degrees on color wheel
-- **A** (Alpha): 0 (transparent) to 1 (opaque) - optional
+    <why>
+      Guarantees consistent contrast ratios across all colors. Any `color-700` text on any `color-50` background has the same contrast ratio.
+    </why>
 
-**Pattern**:
+    <reference>
+      See [packages/tokens/src/ JSON source files) for complete specification.
+    </reference>
 
-```css
---color-orange-500: oklch(0.64 0.2 25); /* L=0.64, C=0.20, H=25° */
-```
+  </rule>
 
-**Key Advantage**: `orange-500` and `blue-500` have **identical perceived brightness** (both L=0.64).
+  <rule id="CS-CR-R3" title="Four Saturation Profiles">
+    <summary>
+      Colors are categorized by peak chroma intensity.
+    </summary>
 
----
+<saturation_profiles>
+<profile 
+      name="High" 
+      peak_chroma="0.20-0.22" 
+      use_case="Maximum impact, vibrant accents" 
+      examples="red, pink, violet" 
+    />
+<profile 
+      name="Medium" 
+      peak_chroma="0.17-0.20" 
+      use_case="Professional UI, primary colors" 
+      examples="blue, green, orange" 
+      is_default="true" 
+    />
+<profile 
+      name="Low" 
+      peak_chroma="0.14-0.16" 
+      use_case="Soft, approachable, backgrounds" 
+      examples="yellow, amber, lime" 
+    />
+<profile 
+      name="Neutral" 
+      peak_chroma="0.005-0.018" 
+      use_case="Foundations (text, borders, surfaces)" 
+      examples="All gray variants" 
+    />
+</saturation_profiles>
 
-### Rule 2: Universal Lightness Scale
+    <constraint>
+      Select profile by intended use, not preference.
+    </constraint>
 
-**All colors use the SAME lightness progression** across all hues.
+    <pattern lang="javascript">
+      // Medium saturation (most common)
+      const orange = generateColorScale("orange", 25, "medium");
+      // Results in chroma curve: [0.08, 0.08, 0.14, 0.20, 0.20, 0.20, ...]
+    </pattern>
 
-| Step    | Lightness | Use Case                   |
-| ------- | --------- | -------------------------- |
-| 50      | 0.98      | Near white, subtle tints   |
-| 100     | 0.95      | Very light backgrounds     |
-| 200     | 0.90      | Light backgrounds          |
-| 300     | 0.82      | Muted colors               |
-| 400     | 0.73      | Medium colors              |
-| **500** | **0.64**  | **BASE COLOR (reference)** |
-| 600     | 0.56      | Dark colors                |
-| 700     | 0.47      | Very dark colors           |
-| 800     | 0.38      | Almost black               |
-| 900     | 0.30      | Near black                 |
-| 950     | 0.22      | Darkest shade              |
+    <reference>
+      See [packages/tokens/src/ JSON source files) for complete curves.
+    </reference>
 
-**Why This Matters**: Guarantees consistent contrast ratios across all colors. Any `color-700` text on any `color-50` background has the same contrast ratio.
+  </rule>
 
-See [packages/tokens/src/ JSON source files) for complete specification.
+  <rule id="CS-CR-R4" title="Brand-Agnostic Ingredients">
+    <summary>
+      Ingredients (Layer 1) have NO semantic meaning. They are neutral primitives.
+    </summary>
 
----
+    <why>
+      Enables unlimited brand customization. Semantic meaning is defined in Flavors (Layer 2).
+    </why>
 
-### Rule 3: Four Saturation Profiles
-
-**Colors are categorized by peak chroma intensity**.
-
-| Profile     | Peak Chroma | When to Use                                   | Examples            |
-| ----------- | ----------- | --------------------------------------------- | ------------------- |
-| **High**    | 0.20-0.22   | Maximum impact, vibrant accents               | red, pink, violet   |
-| **Medium**  | 0.17-0.20   | Professional UI, primary colors **(default)** | blue, green, orange |
-| **Low**     | 0.14-0.16   | Soft, approachable, backgrounds               | yellow, amber, lime |
-| **Neutral** | 0.005-0.018 | Foundations (text, borders, surfaces)         | All gray variants   |
-
-**Rule**: Select profile by intended use, not preference.
-
-**Pattern**:
-
-```javascript
-// Medium saturation (most common)
-const orange = generateColorScale("orange", 25, "medium");
-// Results in chroma curve: [0.08, 0.08, 0.14, 0.20, 0.20, 0.20, ...]
-```
-
-See [packages/tokens/src/ JSON source files) for complete curves.
-
----
-
-### Rule 4: Brand-Agnostic Ingredients
-
-**Ingredients (Layer 1) have NO semantic meaning**. They are neutral primitives.
-
-**Why**: Enables unlimited brand customization. Semantic meaning is defined in Flavors (Layer 2).
-
-**Pattern**:
-
-```json
-// Ingredients - neutral primitives
-{
-  "color": {
-    "orange": {
-      "500": { "value": "oklch(0.64 0.20 25)", "type": "color" }
-    }
-  }
-}
-
-// Flavors - define USE CONTEXT
-{
-  "color": {
-    "action": {
-      "solid": {
-        "background": {
-          "default": { "value": "{color.orange.500.value}" }  // User chooses orange
+    <pattern lang="json">
+      // Ingredients - neutral primitives
+      {
+        "color": {
+          "orange": {
+            "500": { "value": "oklch(0.64 0.20 25)", "type": "color" }
+          }
         }
       }
-    }
-  }
-}
-```
-
-**Anti-pattern**:
-
-```json
-// ❌ Don't name Ingredients by use
-{
-  "color": {
-    "primary": { ... }  // Too specific, not reusable
-  }
-}
-```
-
----
-
-### Rule 5: WCAG Contrast Requirements
-
-**All color combinations MUST meet WCAG 2.1 AA minimum**.
-
-| Context              | Minimum (AA) | Target (AAA) |
-| -------------------- | ------------ | ------------ |
-| Normal text (< 18px) | 4.5:1        | 7:1          |
-| Large text (≥ 18px)  | 3:1          | 4.5:1        |
-| UI components        | 3:1          | 4.5:1        |
-| Focus indicators     | 3:1          | 4.5:1        |
-
-**Rule**: Target AAA where possible, use AA as minimum.
-
-**Key Pairs** (examples):
-
-- `neutral-warm-950` on `neutral-warm-50`: 14.8:1 (AAA) - headings
-- `neutral-warm-800` on `neutral-warm-50`: 10.2:1 (AAA) - body text
-- `white` on `orange-600`: 4.9:1 (AA) - button text
-
-See [packages/tokens/src/ JSON source files) for complete matrix.
-
----
-
-## Token Structure
-
-### Layer 1: Ingredients (Algorithmic Primitives)
-
-**15 colors, 11 steps each = 165 tokens** (+ 3 utilities).
-
-**Complete palette**:
-
-- **Warm** (5): red, rose, orange, amber, yellow
-- **Green** (3): lime, green, emerald
-- **Cool** (4): cyan, sky, blue, indigo
-- **Purple/Pink** (3): purple, violet, pink
-- **Neutral** (4): neutral, neutral-warm, neutral-cool, sand
-- **Utility** (3): white, black, transparent
-
-**Example - Orange (Hue: 25°, Profile: Medium)**:
-
-```json
-{
-  "color": {
-    "orange": {
-      "50": { "value": "oklch(0.98 0.08 25)", "type": "color" },
-      "500": { "value": "oklch(0.64 0.20 25)", "type": "color" }, // Base
-      "950": { "value": "oklch(0.22 0.12 25)", "type": "color" }
-      // ... 11 steps total
-    }
-  }
-}
-```
-
-**Pattern**: All colors follow universal lightness + profile chroma curve.
-
-See [packages/tokens/src/ JSON source files) for all 165 tokens.
-
----
-
-### Layer 2: Flavors (Semantic Mapping)
-
-Flavors map Ingredients to USE CONTEXT (not brand identity).
-
-**Key Categories**:
-
-| Category           | Purpose              | Example Tokens                                                  |
-| ------------------ | -------------------- | --------------------------------------------------------------- |
-| `color.background` | Canvas and surfaces  | `base`, `surface`, `raised`, `overlay`                          |
-| `color.text`       | Text hierarchy       | `heading`, `body`, `caption`, `muted`, `on-solid`               |
-| `color.action`     | Interactive elements | `solid`, `outline`, `ghost` (× background/text/border × states) |
-| `color.state`      | Feedback states      | `destructive`, `success`, `warning`, `info`                     |
-| `color.focus`      | Focus indicators     | `ring`, `ring-offset`, `background`                             |
-| `color.border`     | Borders              | `default`, `muted`, `emphasis`                                  |
-
-**Pattern**:
-
-```json
-{
-  "color": {
-    "action": {
-      "solid": {
-        "background": {
-          "default": { "value": "{color.orange.600.value}" }, // User choice
-          "hover": { "value": "{color.orange.700.value}" }
-        },
-        "text": {
-          "default": { "value": "{color.neutral.50.value}" }
+      // Flavors - define USE CONTEXT
+      {
+        "color": {
+          "action": {
+            "solid": {
+              "background": {
+                "default": { "value": "{color.orange.500.value}" }  // User chooses orange
+              }
+            }
+          }
         }
       }
-    },
-    "state": {
-      "success": {
-        "background": { "value": "{color.green.100.value}" },
-        "text": { "value": "{color.green.700.value}" }
+    </pattern>
+
+    <anti_pattern lang="json">
+      // Don't name Ingredients by use
+      {
+        "color": {
+          "primary": { ... } // Too specific, not reusable
+        }
       }
-    }
-  }
-}
-```
+    </anti_pattern>
 
-**Critical Rules**:
+  </rule>
 
-1. ✅ Flavors define USE, not brand: `color.action.solid.background` (not `color.brand.primary`)
-2. ✅ User chooses Ingredient mapping: Purple for actions? Blue? Orange? User decides
-3. ✅ Consistency within Flavor: If `color.action` uses purple-600, `color.focus.ring` should too
-4. ✅ States typically use semantic colors: `destructive` → red, `success` → green
+  <rule id="CS-CR-R5" title="WCAG Contrast Requirements">
+    <summary>
+      All color combinations MUST meet WCAG 2.1 AA minimum.
+    </summary>
 
----
+    <wcag_contrast_requirements>
+      <requirement context="Normal text (< 18px)" minimum_aa="4.5:1" target_aaa="7:1" />
+      <requirement context="Large text (≥ 18px)" minimum_aa="3:1" target_aaa="4.5:1" />
+      <requirement context="UI components" minimum_aa="3:1" target_aaa="4.5:1" />
+      <requirement context="Focus indicators" minimum_aa="3:1" target_aaa="4.5:1" />
+    </wcag_contrast_requirements>
 
-### Layer 3: Recipes (Component-Specific)
+    <constraint>
+      Target AAA where possible, use AA as minimum.
+    </constraint>
 
-Recipes reference Flavors for component colors.
+    <key_pairs>
+      <pair example="`neutral-warm-950` on `neutral-warm-50`" ratio="14.8:1" level="AAA" note="headings" />
+      <pair example="`neutral-warm-800` on `neutral-warm-50`" ratio="10.2:1" level="AAA" note="body text" />
+      <pair example="`white` on `orange-600`" ratio="4.9:1" level="AA" note="button text" />
+    </key_pairs>
 
-**Pattern**:
+    <reference>
+      See [packages/tokens/src/ JSON source files) for complete matrix.
+    </reference>
 
-```json
-{
-  "button": {
-    "solid": {
-      "backgroundColor": {
-        "default": { "value": "{color.action.solid.background.default.value}" },
-        "hover": { "value": "{color.action.solid.background.hover.value}" }
-        // ... states
-      },
-      "textColor": {
-        "default": { "value": "{color.action.solid.text.default.value}" }
+  </rule>
+
+<token_structure id="CS-TS">
+
+  <rule id="CS-TS-L1" title="Layer 1: Ingredients (Algorithmic Primitives)">
+    <summary>
+      15 colors, 11 steps each = 165 tokens (+ 3 utilities).
+    </summary>
+
+    <palette_groups>
+      <group name="Warm" count="5">red, rose, orange, amber, yellow</group>
+      <group name="Green" count="3">lime, green, emerald</group>
+      <group name="Cool" count="4">cyan, sky, blue, indigo</group>
+      <group name="Purple/Pink" count="3">purple, violet, pink</group>
+      <group name="Neutral" count="4">neutral, neutral-warm, neutral-cool, sand</group>
+      <group name="Utility" count="3">white, black, transparent</group>
+    </palette_groups>
+
+    <example lang="json" title="Example - Orange (Hue: 25°, Profile: Medium)">
+      {
+        "color": {
+          "orange": {
+            "50": { "value": "oklch(0.98 0.08 25)", "type": "color" },
+            "500": { "value": "oklch(0.64 0.20 25)", "type": "color" }, // Base
+            "950": { "value": "oklch(0.22 0.12 25)", "type": "color" }
+            // ... 11 steps total
+          }
+        }
       }
-    }
-  }
-}
-```
+    </example>
 
-**Anti-pattern**:
+    <pattern>
+      All colors follow universal lightness + profile chroma curve.
+    </pattern>
 
-```json
-{
-  "button": {
-    "solid": {
-      "backgroundColor": {
-        "default": { "value": "{color.orange.600.value}" } // ❌ Skips Flavor layer
+    <reference>
+      See [packages/tokens/src/ JSON source files) for all 165 tokens.
+    </reference>
+
+  </rule>
+
+  <rule id="CS-TS-L2" title="Layer 2: Flavors (Semantic Mapping)">
+    <summary>
+      Flavors map Ingredients to USE CONTEXT (not brand identity).
+    </summary>
+
+    <flavor_categories>
+      <category name="color.background" purpose="Canvas and surfaces" example_tokens="base, surface, raised, overlay" />
+      <category name="color.text" purpose="Text hierarchy" example_tokens="heading, body, caption, muted, on-solid" />
+      <category name="color.action" purpose="Interactive elements" example_tokens="solid, outline, ghost (× background/text/border × states)" />
+      <category name="color.state" purpose="Feedback states" example_tokens="destructive, success, warning, info" />
+      <category name="color.focus" purpose="Focus indicators" example_tokens="ring, ring-offset, background" />
+      <category name="color.border" purpose="Borders" example_tokens="default, muted, emphasis" />
+    </flavor_categories>
+
+    <pattern lang="json">
+      {
+        "color": {
+          "action": {
+            "solid": {
+              "background": {
+                "default": { "value": "{color.orange.600.value}" }, // User choice
+                "hover": { "value": "{color.orange.700.value}" }
+              },
+              "text": {
+                "default": { "value": "{color.neutral.50.value}" }
+              }
+            }
+          },
+          "state": {
+            "success": {
+              "background": { "value": "{color.green.100.value}" },
+              "text": { "value": "{color.green.700.value}" }
+            }
+          }
+        }
       }
-    }
-  }
-}
-```
+    </pattern>
 
----
+    <critical_rules>
+      <constraint>Flavors define USE, not brand: `color.action.solid.background` (not `color.brand.primary`)</constraint>
+      <constraint>User chooses Ingredient mapping: Purple for actions? Blue? Orange? User decides</constraint>
+      <constraint>Consistency within Flavor: If `color.action` uses purple-600, `color.focus.ring` should too</constraint>
+      <constraint>States typically use semantic colors: `destructive` → red, `success` → green</constraint>
+    </critical_rules>
 
-## Algorithmic Color Generation
+  </rule>
 
+  <rule id="CS-TS-L3" title="Layer 3: Recipes (Component-Specific)">
+    <summary>
+      Recipes reference Flavors for component colors.
+    </summary>
+
+    <pattern lang="json">
+      {
+        "button": {
+          "solid": {
+            "backgroundColor": {
+              "default": { "value": "{color.action.solid.background.default.value}" },
+              "hover": { "value": "{color.action.solid.background.hover.value}" }
+              // ... states
+            },
+            "textColor": {
+              "default": { "value": "{color.action.solid.text.default.value}" }
+            }
+          }
+        }
+      }
+    </pattern>
+
+    <anti_pattern lang="json">
+      {
+        "button": {
+          "solid": {
+            "backgroundColor": {
+              "default": { "value": "{color.orange.600.value}" } // ❌ Skips Flavor layer
+            }
+          }
+        }
+      }
+    </anti_pattern>
+
+</token_structure>
+
+<algorithmic_generation id="CS-AG">
+
+<summary>
 Any new color can be generated following this formula:
+</summary>
 
-```typescript
-function generateColorScale(
-  colorName: string,
-  hue: number, // 0-360 degrees
-  profile: "high" | "medium" | "low" | "neutral",
-): ColorScale {
-  // CONSTANT lightness (perceptual consistency)
-  const lightness = [
-    0.98, 0.95, 0.9, 0.82, 0.73, 0.64, 0.56, 0.47, 0.38, 0.3, 0.22,
-  ];
+    <implementation lang="typescript">
+      function generateColorScale(
+        colorName: string,
+        hue: number, // 0-360 degrees
+        profile: "high" | "medium" | "low" | "neutral"
+      ): ColorScale {
+        // CONSTANT lightness (perceptual consistency)
+        const lightness = [
+          0.98, 0.95, 0.9, 0.82, 0.73, 0.64, 0.56, 0.47, 0.38, 0.3, 0.22,
+      ];
 
-  // Chroma by profile
-  const chromaCurves = {
-    high: [
-      0.088, 0.088, 0.154, 0.22, 0.22, 0.22, 0.22, 0.22, 0.176, 0.176, 0.132,
-    ],
-    medium: [0.08, 0.08, 0.14, 0.2, 0.2, 0.2, 0.2, 0.2, 0.16, 0.16, 0.12],
-    low: [0.06, 0.06, 0.1, 0.15, 0.15, 0.15, 0.15, 0.15, 0.12, 0.12, 0.09],
-    neutral: [
-      0.018, 0.018, 0.018, 0.018, 0.018, 0.018, 0.018, 0.018, 0.018, 0.018,
-      0.018,
-    ],
-  };
+      // Chroma by profile
+      const chromaCurves = {
+        high: [
+        0.088, 0.088, 0.154, 0.22, 0.22, 0.22, 0.22, 0.22, 0.176, 0.176, 0.132,
+        ],
+        medium: [0.08, 0.08, 0.14, 0.2, 0.2, 0.2, 0.2, 0.2, 0.16, 0.16, 0.12],
+        low: [0.06, 0.06, 0.1, 0.15, 0.15, 0.15, 0.15, 0.15, 0.12, 0.12, 0.09],
+        neutral: [
+          0.018, 0.018, 0.018, 0.018, 0.018, 0.018, 0.018, 0.018, 0.018, 0.018,
+          0.018,
+        ],
+      };
 
-  const chroma = chromaCurves[profile];
-  const steps = [
-    "50",
-    "100",
-    "200",
-    "300",
-    "400",
-    "500",
-    "600",
-    "700",
-    "800",
-    "900",
-    "950",
-  ];
+      const chroma = chromaCurves[profile];
+      const steps = [
+        "50",
+        "100",
+        "200",
+        "300",
+        "400",
+        "500",
+        "600",
+        "700",
+        "800",
+        "900",
+        "950",
+      ];
 
-  return steps.reduce((acc, step, i) => {
-    acc[`${colorName}-${step}`] = {
-      value: `oklch(${lightness[i]} ${chroma[i]} ${hue})`,
-      type: "color",
-    };
-    return acc;
-  }, {});
-}
+      return steps.reduce((acc, step, i) => {
+        acc[`${colorName}-${step}`] = {
+            value: `oklch(${lightness[i]} ${chroma[i]} ${hue})`,
+            type: "color",
+          };
+          return acc;
+        }, {});
+      }
+    </implementation>
 
-// Example: Generate "teal" at hue 180°
-const teal = generateColorScale("teal", 180, "medium");
-// Result: teal-50: oklch(0.98 0.08 180), teal-500: oklch(0.64 0.20 180), ...
-```
+    <example lang="typescript">
+      // Example: Generate "teal" at hue 180°
+      const teal = generateColorScale("teal", 180, "medium");
+      // Result: teal-50: oklch(0.98 0.08 180), teal-500: oklch(0.64 0.20 180), ...
+    </example>
 
----
+</algorithmic_generation>
 
-## Colorblind Accessibility
+<colorblind_accessibility id="CS-CA">
+<rule id="CS-CA-R1" title="Critical Rule: Use Lightness Contrast, Not Just Hue">
+<pattern>
+<comparison type="good" outcome="51% lightness difference">
+<item name="orange-700" lightness="0.47" />
+<item name="neutral-50" lightness="0.98" />
+</comparison>
+</pattern>
+<anti_pattern>
+<comparison type="bad" outcome="0% lightness difference (indistinguishable)">
+<item name="red-500" lightness="0.64" />
+<item name="green-500" lightness="0.64" />
+</comparison>
+</anti_pattern>
+</rule>
 
-### Critical Rule: Use Lightness Contrast, Not Just Hue
+    <rule id="CS-CA-R2" title="Pattern: Combine Color with Non-Color Indicators">
+      <indicators>
+        <indicator type="Icons">Error = red + X icon, Success = green + checkmark</indicator>
+        <indicator type="Patterns">Graphs use stripes, dots, solid fills (not just colors)</indicator>
+        <indicator type="Labels">"Error" text + red color, not just red alone</indicator>
+      </indicators>
+      <why>
+        All Sando colors have sufficient lightness contrast for colorblind users.
+      </why>
+    </rule>
 
-**✅ Good**: `orange-700` (L=0.47) vs `neutral-50` (L=0.98) - 51% lightness difference
-**❌ Bad**: `red-500` (L=0.64) vs `green-500` (L=0.64) - 0% lightness difference (indistinguishable)
+</colorblind_accessibility>
 
-### Pattern: Combine Color with Non-Color Indicators
+<related_guidelines id="CS-RG">
+<reference 
+      type="source_file" 
+      path="packages/tokens/src/ JSON source files">
+Complete palette (165 tokens), chroma curves, approved contrast pairs
+</reference>
 
-- ✅ Icons: Error = red + X icon, Success = green + checkmark
-- ✅ Patterns: Graphs use stripes, dots, solid fills (not just colors)
-- ✅ Labels: "Error" text + red color, not just red alone
+    <reference
+      type="guideline"
+      doc_id="TA"
+      file="TOKEN_ARCHITECTURE.md">
+      Three-layer system rules
+    </reference>
 
-**Why Universal Lightness Matters**: All Sando colors have sufficient lightness contrast for colorblind users.
+    <reference
+      type="guideline"
+      doc_id="TS"
+      file="THEMING_STRATEGY.md">
+      How colors enable theming via Flavors
+    </reference>
 
----
+</related_guidelines>
 
-## Validation Checklist
+  <changelog id="CS-CL">
+    <version number="2.0.0" date="2025-11-02">
+      <change type="BREAKING">Complete palette (165 tokens) available in `packages/tokens/src/ingredients/color.json`</change>
+      <change type="BREAKING">Chroma curve arrays available in source JSON (not duplicated in guidelines)</change>
+      <change type="BREAKING">Approved contrast pairs available in source JSON (not duplicated in guidelines)</change>
+      <change type="BREAKING">Removed OKLCH comparison table (reduced to conceptual advantage)</change>
+      <change type="BREAKING">Consolidated examples to algorithmic pattern only</change>
+      <change type="IMPROVED">Clearer rules with pattern/anti-pattern examples</change>
+      <change type="IMPROVED">Focus on fundamental color system rules for agents</change>
+      <change type="NOTE">Reduced from 921 to ~420 lines (54% reduction)</change>
+    </version>
 
-### Token Structure
+    <version number="1.0.0" date="2025-11-02">
+      <change type="NOTE">Initial color system with OKLCH, algorithmic generation, WCAG compliance</change>
+    </version>
 
-- [ ] All colors use OKLCH format: `oklch(L C H)`
-- [ ] Lightness values match universal scale (0.98, 0.95, 0.90, ..., 0.22)
-- [ ] Chroma values match appropriate profile
-- [ ] Hue is 0-360 degrees (or `none` for neutrals)
-- [ ] Flavors reference ONLY Ingredients: `{color.{name}.{step}.value}`
-- [ ] Recipes reference ONLY Flavors: `{color.action.solid.background.value}`
+  </changelog>
 
-### Contrast Compliance
-
-- [ ] Text contrast ≥ 4.5:1 for normal text
-- [ ] Text contrast ≥ 3:1 for large text
-- [ ] UI component contrast ≥ 3:1
-- [ ] Target AAA (7:1) for critical content
-
-### Colorblind Accessibility
-
-- [ ] Critical information not conveyed by color alone
-- [ ] Icons/patterns supplement color indicators
-- [ ] Lightness contrast sufficient (different L values)
-
----
-
-## Related Guidelines
-
-- [packages/tokens/src/ JSON source files) → Complete palette (165 tokens), chroma curves, approved contrast pairs
-- [TOKEN_ARCHITECTURE.md](TOKEN_ARCHITECTURE.md) → Three-layer system rules
-- [THEMING_STRATEGY.md](THEMING_STRATEGY.md) → How colors enable theming via Flavors
-
----
-
-## Changelog
-
-### 2.0.0 (2025-11-02)
-
-- **BREAKING**: Complete palette (165 tokens) available in `packages/tokens/src/ingredients/color.json`
-- **BREAKING**: Chroma curve arrays available in source JSON (not duplicated in guidelines)
-- **BREAKING**: Approved contrast pairs available in source JSON (not duplicated in guidelines)
-- **BREAKING**: Removed OKLCH comparison table (reduced to conceptual advantage)
-- **BREAKING**: Consolidated examples to algorithmic pattern only
-- **IMPROVED**: Clearer rules with pattern/anti-pattern examples
-- **IMPROVED**: Focus on fundamental color system rules for agents
-- Reduced from 921 to ~420 lines (54% reduction)
-
-### 1.0.0 (2025-11-02)
-
-- Initial color system with OKLCH, algorithmic generation, WCAG compliance
+</guideline>
