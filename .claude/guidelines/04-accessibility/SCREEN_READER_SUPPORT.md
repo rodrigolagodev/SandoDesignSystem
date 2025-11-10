@@ -1,528 +1,651 @@
-# Screen Reader Support
+<guideline doc_id="SR" category="04-accessibility" version="1.0.0" status="Active" last_updated="2025-11-09" owner="QA Expert">
 
-**Category**: 04-accessibility
-**Version**: 1.0.0
-**Status**: Active
-**Last Updated**: 2025-11-03
-**Owner**: QA Expert
+  <purpose id="SR-PU">
+    Ensure all Sando Design System components provide excellent screen reader experience through semantic HTML, ARIA, and live announcements. Screen readers are essential assistive technology used by blind and low-vision users to navigate and interact with web interfaces. Establishes patterns for accessible names, ARIA states, live regions, and screen reader testing based on proven patterns from sando-button.
+  </purpose>
 
----
+  <target id="SR-TGT">
+    WCAG 2.1 Level AA compliance for screen reader users.
+  </target>
 
-## Purpose
+<core_rules id="SR-CR">
+<rule id="SR-CR-R1" title="Semantic HTML First (Non-Negotiable)">
 
-Ensure all Sando Design System components provide excellent screen reader experience through semantic HTML, ARIA, and live announcements. Screen readers are essential assistive technology used by blind and low-vision users to navigate and interact with web interfaces.
-
-This guideline establishes patterns for accessible names, ARIA states, live regions, and screen reader testing based on proven patterns from sando-button.
-
-**Target**: WCAG 2.1 Level AA compliance for screen reader users.
-
----
-
-## Core Rules
-
-### Rule 1: Semantic HTML First (Non-Negotiable)
-
+<summary>
 Use native HTML elements that have built-in screen reader support. Avoid unnecessary ARIA.
+</summary>
 
-**Pattern**:
+      <pattern lang="html" title="✅ Native elements">
+        <!-- Native button -->
+        <button>Click me</button>;
 
-```html
-<!-- ✅ CORRECT - Native button -->
-<button>Click me</button>
+        <!-- Native link -->
+        <a href="/home">Home</a>
+      </pattern>
 
-<!-- ✅ CORRECT - Native link -->
-<a href="/home">Home</a>
-```
+      <anti_pattern lang="html" title="❌ Unnecessary ARIA complexity">
+        <!-- Div with ARIA (unnecessary complexity) -->
+        <div role="button" tabindex="0" aria-pressed="false">Click me</div>
+      </anti_pattern>
 
-**Anti-pattern**:
+      <why>
+        Native elements announce correctly, have keyboard support built-in, and work reliably across all screen readers without additional ARIA.
+      </why>
 
-```html
-<!-- ❌ WRONG - Div with ARIA (unnecessary complexity) -->
-<div role="button" tabindex="0" aria-pressed="false">Click me</div>
-```
+      <reference type="external" url="https://www.w3.org/TR/html-aria/">
+        HTML5 Accessibility
+      </reference>
+      <reference type="external" url="https://www.w3.org/TR/html-aria/">
+        ARIA in HTML
+      </reference>
+    </rule>
 
-**Why**: Native elements announce correctly, have keyboard support built-in, and work reliably across all screen readers without additional ARIA.
+    <rule id="SR-CR-R2" title="Accessible Names Required">
+      <summary>
+        Every interactive element MUST have an accessible name that screen readers can announce.
+      </summary>
 
-**Reference**: [HTML5 Accessibility](https://www.w3.org/TR/html-aria/) | [ARIA in HTML](https://www.w3.org/TR/html-aria/)
+      <priority_order>
+        <priority level="1" method="Text content" quality="BEST">
+          Visible to all users
+        </priority>
+        <priority level="2" method="aria-label">
+          Screen reader only override
+        </priority>
+        <priority level="3" method="aria-labelledby">
+          Reference other element's text
+        </priority>
+      </priority_order>
 
----
+      <pattern lang="html" title="✅ Accessible names">
+        <!-- Visible text -->
+        <button>Save Changes</button>
 
-### Rule 2: Accessible Names Required
+        <!-- Icon-only with aria-label -->
+        <button aria-label="Settings">⚙️</button>
+      </pattern>
 
-Every interactive element MUST have an accessible name that screen readers can announce.
+      <anti_pattern lang="html" title="❌ No accessible name">
+        <button><span class="icon"></span></button>
+      </anti_pattern>
 
-**Priority order**:
+      <reference type="wcag" criterion="4.1.2" level="A">
+        Name, Role, Value
+      </reference>
+    </rule>
 
-1. **Text content** (visible to all users) - BEST
-2. **aria-label** (screen reader only override)
-3. **aria-labelledby** (reference other element's text)
+    <rule id="SR-CR-R3" title="ARIA States and Properties">
+      <summary>
+        Use ARIA to communicate dynamic states and properties that native HTML cannot express.
+      </summary>
 
-**Pattern**:
+      <common_aria_attributes>
+        <attribute name="aria-pressed">
+          <purpose>Toggle button state (true/false)</purpose>
+        </attribute>
+        <attribute name="aria-expanded">
+          <purpose>Disclosure widget state (true/false)</purpose>
+        </attribute>
+        <attribute name="aria-busy">
+          <purpose>Loading state (true/false)</purpose>
+        </attribute>
+        <attribute name="aria-disabled">
+          <purpose>Disabled state on non-native elements (true/false)</purpose>
+        </attribute>
+        <attribute name="aria-live">
+          <purpose>Dynamic content announcements (polite/assertive/off)</purpose>
+        </attribute>
+      </common_aria_attributes>
 
-```html
-<!-- ✅ CORRECT - Visible text -->
-<button>Save Changes</button>
+      <pattern lang="typescript" title="Pattern from sando-button">
+        // Toggle button state
+        aria-pressed=${this.toggle ? (this.active ? 'true' : 'false') : ''}
 
-<!-- ✅ CORRECT - Icon-only with aria-label -->
-<button aria-label="Settings">⚙️</button>
+        // Loading state
+        aria-busy=${this.loading ? 'true' : 'false'}
+        aria-live=${this.loading ? 'polite' : 'off'}
+      </pattern>
 
-<!-- ❌ WRONG - No accessible name -->
-<button><span class="icon"></span></button>
-```
+      <reference type="source_file" path="packages/components/src/components/button/sando-button.ts" lines="277-281">
+        sando-button ARIA implementation
+      </reference>
+    </rule>
 
-**Reference**: WCAG 4.1.2 Name, Role, Value (Level A)
+    <rule id="SR-CR-R4" title="Live Regions for Announcements">
+      <summary>
+        Use ARIA live regions to announce dynamic content changes without moving focus.
+      </summary>
 
----
+      <live_region_types>
+        <type name='aria-live="polite"'>
+          <behavior>Wait for user to finish current task</behavior>
+          <usage>Most updates</usage>
+        </type>
+        <type name='aria-live="assertive"'>
+          <behavior>Interrupt immediately</behavior>
+          <usage>Urgent alerts only</usage>
+        </type>
+        <type name='role="status"'>
+          <behavior>Implicit polite live region</behavior>
+          <usage>Status updates</usage>
+        </type>
+        <type name='role="alert"'>
+          <behavior>Implicit assertive live region</behavior>
+          <usage>Errors, warnings</usage>
+        </type>
+      </live_region_types>
 
-### Rule 3: ARIA States and Properties
+      <pattern lang="html" title="Pattern from sando-button">
+        <!-- Loading spinner announcement -->
+        <span class="spinner" role="status" aria-label="Loading"></span>
+      </pattern>
 
-Use ARIA to communicate dynamic states and properties that native HTML cannot express.
+      <when_to_use>
+        Form validation, loading states, async updates, error messages, success confirmations.
+      </when_to_use>
 
-**Common ARIA attributes**:
+      <reference type="wcag" criterion="4.1.3" level="AA">
+        Status Messages
+      </reference>
+    </rule>
 
-- **aria-pressed**: Toggle button state (true/false)
-- **aria-expanded**: Disclosure widget state (true/false)
-- **aria-busy**: Loading state (true/false)
-- **aria-disabled**: Disabled state on non-native elements (true/false)
-- **aria-live**: Dynamic content announcements (polite/assertive/off)
+    <rule id="SR-CR-R5" title="Test with Actual Screen Readers">
+      <summary>
+        Automated tools cannot fully validate screen reader experience. Manual testing is REQUIRED.
+      </summary>
 
-**Pattern from sando-button**:
+      <minimum_testing>
+        <screen_reader priority="1" name="NVDA" platform="Windows" free="true">
+          Primary testing
+        </screen_reader>
+        <screen_reader priority="2" name="VoiceOver" platform="Mac/iOS" free="true">
+          Secondary testing
+        </screen_reader>
+        <screen_reader priority="3" name="JAWS" platform="Windows" free="false">
+          Enterprise validation (if available)
+        </screen_reader>
+        <screen_reader priority="4" name="TalkBack" platform="Android" free="true">
+          Mobile validation
+        </screen_reader>
+      </minimum_testing>
 
-```typescript
-// Toggle button state
-aria-pressed=${this.toggle ? (this.active ? 'true' : 'false') : ''}
+      <basic_test_procedure>
+        <step number="1">Navigate with Tab key</step>
+        <step number="2">Listen to announcements (name, role, state)</step>
+        <step number="3">Activate with Enter/Space</step>
+        <step number="4">Verify state changes announced correctly</step>
+      </basic_test_procedure>
 
-// Loading state
-aria-busy=${this.loading ? 'true' : 'false'}
-aria-live=${this.loading ? 'polite' : 'off'}
-```
+      <reference type="external" url="https://webaim.org/articles/screenreader_testing/">
+        WebAIM Screen Reader Testing
+      </reference>
+    </rule>
 
-**Reference**: `packages/components/src/components/button/sando-button.ts` (lines 277-281)
+</core_rules>
 
----
+<wcag_screen_reader_criteria id="SR-WSC">
+<criteria>
+<criterion id="4.1.2" level="A" title="Name, Role, Value">
+<requirement>All UI components have accessible names, roles, and states</requirement>
+<implementation>Text content, aria-label, aria-pressed, aria-expanded</implementation>
+</criterion>
 
-### Rule 4: Live Regions for Announcements
+      <criterion id="4.1.3" level="AA" title="Status Messages">
+        <requirement>Status messages announced without focus change</requirement>
+        <implementation>aria-live, role="status", role="alert"</implementation>
+      </criterion>
 
-Use ARIA live regions to announce dynamic content changes without moving focus.
+      <criterion id="1.3.1" level="A" title="Info and Relationships">
+        <requirement>Semantic structure programmatically determinable</requirement>
+        <implementation>Native HTML elements (button, nav, main, heading)</implementation>
+      </criterion>
 
-**Types**:
+      <criterion id="2.4.6" level="AA" title="Headings and Labels">
+        <requirement>Headings and labels are descriptive</requirement>
+        <implementation>Clear text, no generic "click here"</implementation>
+      </criterion>
 
-- **aria-live="polite"**: Wait for user to finish current task (most updates)
-- **aria-live="assertive"**: Interrupt immediately (urgent alerts only)
-- **role="status"**: Implicit polite live region (status updates)
-- **role="alert"**: Implicit assertive live region (errors, warnings)
+      <criterion id="3.3.2" level="A" title="Labels or Instructions">
+        <requirement>Labels provided for input</requirement>
+        <implementation>label element, aria-label for inputs</implementation>
+      </criterion>
+    </criteria>
 
-**Pattern from sando-button**:
+    <reference type="external" url="https://www.w3.org/WAI/WCAG21/quickref/">
+      WCAG 2.1 Quick Reference
+    </reference>
 
-```html
-<!-- Loading spinner announcement -->
-<span class="spinner" role="status" aria-label="Loading"></span>
-```
+</wcag_screen_reader_criteria>
 
-**When to use**: Form validation, loading states, async updates, error messages, success confirmations.
+<semantic_html id="SR-SH">
 
-**Reference**: WCAG 4.1.3 Status Messages (Level AA)
-
----
-
-### Rule 5: Test with Actual Screen Readers
-
-Automated tools cannot fully validate screen reader experience. Manual testing is REQUIRED.
-
-**Minimum testing**:
-
-1. **NVDA** (Windows, free) - Primary testing
-2. **VoiceOver** (Mac/iOS, built-in) - Secondary testing
-3. **JAWS** (Windows, commercial) - Enterprise validation (if available)
-4. **TalkBack** (Android, built-in) - Mobile validation
-
-**Basic test procedure**:
-
-1. Navigate with Tab key
-2. Listen to announcements (name, role, state)
-3. Activate with Enter/Space
-4. Verify state changes announced correctly
-
-**Reference**: [WebAIM Screen Reader Testing](https://webaim.org/articles/screenreader_testing/)
-
----
-
-## WCAG Screen Reader Criteria
-
-| Criteria                     | Level | Requirement                                                | Implementation                                        |
-| ---------------------------- | ----- | ---------------------------------------------------------- | ----------------------------------------------------- |
-| 4.1.2 Name, Role, Value      | A     | All UI components have accessible names, roles, and states | Text content, aria-label, aria-pressed, aria-expanded |
-| 4.1.3 Status Messages        | AA    | Status messages announced without focus change             | aria-live, role="status", role="alert"                |
-| 1.3.1 Info and Relationships | A     | Semantic structure programmatically determinable           | Native HTML elements (button, nav, main, heading)     |
-| 2.4.6 Headings and Labels    | AA    | Headings and labels are descriptive                        | Clear text, no generic "click here"                   |
-| 3.3.2 Labels or Instructions | A     | Labels provided for input                                  | label element, aria-label for inputs                  |
-
-**Reference**: [WCAG 2.1 Quick Reference](https://www.w3.org/WAI/WCAG21/quickref/)
-
----
-
-## Semantic HTML Elements
-
+<summary>
 Use native HTML elements first. They have built-in screen reader support and keyboard behavior.
+</summary>
 
-| Element       | Screen Reader Announces             | When to Use                                 |
-| ------------- | ----------------------------------- | ------------------------------------------- |
-| `<button>`    | "button" + text                     | Actions, submissions, non-navigation clicks |
-| `<a href>`    | "link" + text                       | Navigation to different pages/sections      |
-| `<nav>`       | "navigation landmark"               | Main navigation areas                       |
-| `<main>`      | "main landmark"                     | Primary page content                        |
-| `<aside>`     | "complementary landmark"            | Sidebars, related content                   |
-| `<header>`    | "banner landmark" (if in body)      | Site/page header                            |
-| `<footer>`    | "contentinfo landmark" (if in body) | Site/page footer                            |
-| `<h1>`-`<h6>` | "heading level X" + text            | Document outline structure                  |
-| `<label>`     | Associates with input               | Form input labels                           |
-| `<input>`     | Type-specific announcement          | Form inputs                                 |
+    <elements>
+      <element tag="button">
+        <announces>"button" + text</announces>
+        <when_to_use>Actions, submissions, non-navigation clicks</when_to_use>
+      </element>
 
-**Pattern from sando-button**:
+      <element tag="a href">
+        <announces>"link" + text</announces>
+        <when_to_use>Navigation to different pages/sections</when_to_use>
+      </element>
 
-```typescript
-// Native button element used
-return this.href
-  ? html`<a ...>${content}</a>` // Native link for navigation
-  : html`<button ...>${content}</button>`; // Native button for actions
-```
+      <element tag="nav">
+        <announces>"navigation landmark"</announces>
+        <when_to_use>Main navigation areas</when_to_use>
+      </element>
 
-**Reference**: `sando-button.ts` (lines 259-306)
+      <element tag="main">
+        <announces>"main landmark"</announces>
+        <when_to_use>Primary page content</when_to_use>
+      </element>
 
----
+      <element tag="aside">
+        <announces>"complementary landmark"</announces>
+        <when_to_use>Sidebars, related content</when_to_use>
+      </element>
 
-## Accessible Names
+      <element tag="header">
+        <announces>"banner landmark" (if in body)</announces>
+        <when_to_use>Site/page header</when_to_use>
+      </element>
 
+      <element tag="footer">
+        <announces>"contentinfo landmark" (if in body)</announces>
+        <when_to_use>Site/page footer</when_to_use>
+      </element>
+
+      <element tag="h1-h6">
+        <announces>"heading level X" + text</announces>
+        <when_to_use>Document outline structure</when_to_use>
+      </element>
+
+      <element tag="label">
+        <announces>Associates with input</announces>
+        <when_to_use>Form input labels</when_to_use>
+      </element>
+
+      <element tag="input">
+        <announces>Type-specific announcement</announces>
+        <when_to_use>Form inputs</when_to_use>
+      </element>
+    </elements>
+
+    <pattern_from_sando_button lang="typescript" source="sando-button.ts" lines="259-306">
+      // Native button element used
+      return this.href
+        ? html`<a ...>${content}</a>` // Native link for navigation
+        : html`<button ...>${content}</button>`; // Native button for actions
+    </pattern_from_sando_button>
+
+</semantic_html>
+
+<accessible_names id="SR-AN">
+
+<summary>
 Every interactive element needs an accessible name for screen readers to announce.
+</summary>
 
-### Text Content (Best)
+    <text_content id="SR-AN-TC" quality="BEST">
+      <summary>
+        Visible text provides names for both sighted and screen reader users.
+      </summary>
 
-Visible text provides names for both sighted and screen reader users.
+      <pattern lang="html">
+        <!-- Text content is accessible name -->
+        <button>Save Changes</button>
+        <a href="/about">About Us</a>
+      </pattern>
 
-```html
-<!-- ✅ CORRECT - Text content is accessible name -->
-<button>Save Changes</button>
-<a href="/about">About Us</a>
-```
+      <test_pattern lang="typescript" source="sando-button.a11y.test.ts">
+        const accessibleName = element.textContent?.trim();
+        expect(accessibleName).toBe("Click me");
+      </test_pattern>
+    </text_content>
 
-**Test**: `sando-button.a11y.test.ts` validates text content as accessible name:
+    <aria_label id="SR-AN-AL">
+      <summary>
+        Use for icon-only elements or to provide clearer screen reader text than visible text.
+      </summary>
 
-```typescript
-const accessibleName = element.textContent?.trim();
-expect(accessibleName).toBe("Click me");
-```
+      <pattern lang="html">
+        <!-- Icon-only button needs aria-label -->
+        <button aria-label="Settings">⚙️</button>
 
-### aria-label (Override)
+        <!-- Clearer screen reader text -->
+        <button aria-label="Close dialog">x</button>
+      </pattern>
 
-Use for icon-only elements or to provide clearer screen reader text than visible text.
+      <pattern_from_sando_button lang="typescript" source="sando-button.ts" line="89">
+        @property({ reflect: true, attribute: 'aria-label' })
+        ariaLabel: string | null = null;
+      </pattern_from_sando_button>
+    </aria_label>
 
-```html
-<!-- ✅ CORRECT - Icon-only button needs aria-label -->
-<button aria-label="Settings">⚙️</button>
+    <aria_labelledby id="SR-AN-ALB">
+      <pattern lang="html">
+        <h2 id="title">Confirm Deletion</h2>
+        <button aria-labelledby="title">OK</button>
+      </pattern>
 
-<!-- ✅ CORRECT - Clearer screen reader text -->
-<button aria-label="Close dialog">×</button>
-```
+      <validation>
+        axe-core flags missing accessible names as critical errors.
+      </validation>
+    </aria_labelledby>
 
-**Pattern from sando-button**:
+</accessible_names>
 
-```typescript
-@property({ reflect: true, attribute: 'aria-label' })
-ariaLabel: string | null = null;
-```
+<aria_states_properties id="SR-ASP">
 
-**Reference**: `sando-button.ts` (line 89)
-
-### aria-labelledby (Reference)
-
-```html
-<h2 id="title">Confirm Deletion</h2>
-<button aria-labelledby="title">OK</button>
-```
-
-axe-core flags missing accessible names as critical errors.
-
----
-
-## ARIA States and Properties
-
+<summary>
 Use ARIA to communicate states and properties beyond native HTML capabilities.
+</summary>
 
-### Common ARIA Attributes
+    <common_attributes>
+      <attribute name="aria-pressed">
+        <purpose>Toggle button state</purpose>
+        <values>true/false</values>
+        <announced_as>"pressed" / "not pressed"</announced_as>
+      </attribute>
 
-| ARIA Attribute | Purpose                | Values                                  | Announced As                |
-| -------------- | ---------------------- | --------------------------------------- | --------------------------- |
-| aria-pressed   | Toggle button state    | true/false                              | "pressed" / "not pressed"   |
-| aria-expanded  | Disclosure widget      | true/false                              | "expanded" / "collapsed"    |
-| aria-busy      | Loading state          | true/false                              | "busy"                      |
-| aria-disabled  | Disabled on non-button | true/false                              | "dimmed" / "unavailable"    |
-| aria-current   | Current item in set    | page/step/location/date/time/true/false | "current page" etc.         |
-| aria-selected  | Selected item          | true/false                              | "selected" / "not selected" |
-| aria-checked   | Checkbox/radio state   | true/false/mixed                        | "checked" / "not checked"   |
+      <attribute name="aria-expanded">
+        <purpose>Disclosure widget</purpose>
+        <values>true/false</values>
+        <announced_as>"expanded" / "collapsed"</announced_as>
+      </attribute>
 
-### Pattern from sando-button
+      <attribute name="aria-busy">
+        <purpose>Loading state</purpose>
+        <values>true/false</values>
+        <announced_as>"busy"</announced_as>
+      </attribute>
 
-```typescript
-// Toggle button (lines 277-278)
-aria-pressed=${this.toggle ? (this.active ? 'true' : 'false') : ''}
+      <attribute name="aria-disabled">
+        <purpose>Disabled on non-button</purpose>
+        <values>true/false</values>
+        <announced_as>"dimmed" / "unavailable"</announced_as>
+      </attribute>
 
-// Disabled link (lines 280-281)
-aria-disabled=${this.disabled || this.loading ? 'true' : 'false'}
+      <attribute name="aria-current">
+        <purpose>Current item in set</purpose>
+        <values>page/step/location/date/time/true/false</values>
+        <announced_as>"current page" etc.</announced_as>
+      </attribute>
 
-// Loading state (lines 279, 281)
-aria-busy=${this.loading ? 'true' : 'false'}
-aria-live=${this.loading ? 'polite' : 'off'}
-```
+      <attribute name="aria-selected">
+        <purpose>Selected item</purpose>
+        <values>true/false</values>
+        <announced_as>"selected" / "not selected"</announced_as>
+      </attribute>
 
-**Reference**: `packages/components/src/components/button/sando-button.ts`
+      <attribute name="aria-checked">
+        <purpose>Checkbox/radio state</purpose>
+        <values>true/false/mixed</values>
+        <announced_as>"checked" / "not checked"</announced_as>
+      </attribute>
+    </common_attributes>
 
-### When to Use
+    <pattern_from_sando_button lang="typescript" source="sando-button.ts">
+      // Toggle button (lines 277-278)
+      aria-pressed=${this.toggle ? (this.active ? 'true' : 'false') : ''}
 
-- **aria-pressed**: Toggle buttons (mute/unmute, play/pause)
-- **aria-expanded**: Accordions, dropdowns, disclosures
-- **aria-busy**: Loading spinners, async operations
-- **aria-disabled**: Disabled links (native disabled only works on button/input)
+      // Disabled link (lines 280-281)
+      aria-disabled=${this.disabled || this.loading ? 'true' : 'false'}
 
-### When NOT to Use
+      // Loading state (lines 279, 281)
+      aria-busy=${this.loading ? 'true' : 'false'}
+      aria-live=${this.loading ? 'polite' : 'off'}
+    </pattern_from_sando_button>
 
-- **Don't** add aria-label if text content is sufficient
-- **Don't** use role="button" on native `<button>`
-- **Don't** use aria-disabled on native `<button>` (use disabled attribute)
+    <when_to_use>
+      <use_case attribute="aria-pressed">Toggle buttons (mute/unmute, play/pause)</use_case>
+      <use_case attribute="aria-expanded">Accordions, dropdowns, disclosures</use_case>
+      <use_case attribute="aria-busy">Loading spinners, async operations</use_case>
+      <use_case attribute="aria-disabled">Disabled links (native disabled only works on button/input)</use_case>
+    </when_to_use>
 
----
+    <when_not_to_use>
+      <avoid>Don't add aria-label if text content is sufficient</avoid>
+      <avoid>Don't use role="button" on native button</avoid>
+      <avoid>Don't use aria-disabled on native button (use disabled attribute)</avoid>
+    </when_not_to_use>
 
-## Live Regions
+</aria_states_properties>
 
+<live_regions id="SR-LR">
+
+<summary>
 ARIA live regions announce dynamic content changes without moving keyboard focus.
+</summary>
 
-### Live Region Types
+    <live_region_types>
+      <type name='aria-live="polite"'>
+        <politeness>Wait for pause</politeness>
+        <usage>Form validation, status updates</usage>
+        <interrupts>No</interrupts>
+      </type>
 
-| Type                  | Politeness           | Usage                           | Interrupts |
-| --------------------- | -------------------- | ------------------------------- | ---------- |
-| aria-live="polite"    | Wait for pause       | Form validation, status updates | No         |
-| aria-live="assertive" | Immediate            | Urgent alerts, errors           | Yes        |
-| aria-live="off"       | None                 | Stop announcements              | N/A        |
-| role="status"         | Polite (implicit)    | Status messages, loading        | No         |
-| role="alert"          | Assertive (implicit) | Errors, warnings                | Yes        |
+      <type name='aria-live="assertive"'>
+        <politeness>Immediate</politeness>
+        <usage>Urgent alerts, errors</usage>
+        <interrupts>Yes</interrupts>
+      </type>
 
-### Pattern from sando-button
+      <type name='aria-live="off"'>
+        <politeness>None</politeness>
+        <usage>Stop announcements</usage>
+        <interrupts>N/A</interrupts>
+      </type>
 
-```html
-<!-- Loading spinner with status announcement (line 287) -->
-<span class="spinner" role="status" aria-label="Loading"></span>
-```
+      <type name='role="status"'>
+        <politeness>Polite (implicit)</politeness>
+        <usage>Status messages, loading</usage>
+        <interrupts>No</interrupts>
+      </type>
 
-**How it works**:
+      <type name='role="alert"'>
+        <politeness>Assertive (implicit)</politeness>
+        <usage>Errors, warnings</usage>
+        <interrupts>Yes</interrupts>
+      </type>
+    </live_region_types>
 
-1. `role="status"` creates implicit `aria-live="polite"` region
-2. `aria-label="Loading"` provides announcement text
-3. Screen reader announces "Loading" when spinner appears
-4. Announcement is polite (waits for user to finish current task)
+    <pattern_from_sando_button lang="html" source="sando-button.ts" line="287">
+      <!-- Loading spinner with status announcement -->
+      <span class="spinner" role="status" aria-label="Loading"></span>
+    </pattern_from_sando_button>
 
-### Best Practices
+    <how_it_works>
+      <step number="1">role="status" creates implicit aria-live="polite" region</step>
+      <step number="2">aria-label="Loading" provides announcement text</step>
+      <step number="3">Screen reader announces "Loading" when spinner appears</step>
+      <step number="4">Announcement is polite (waits for user to finish current task)</step>
+    </how_it_works>
 
-- Use polite for most updates (status, progress, confirmations)
-- Use assertive only for urgent (errors, time-sensitive alerts)
-- Don't over-announce (avoid announcing every keystroke)
-- Pre-render live region container in DOM before content changes
-- Use clear text ("Loading..." not "Please wait while content loads...")
+    <best_practices>
+      <practice>Use polite for most updates (status, progress, confirmations)</practice>
+      <practice>Use assertive only for urgent (errors, time-sensitive alerts)</practice>
+      <practice>Don't over-announce (avoid announcing every keystroke)</practice>
+      <practice>Pre-render live region container in DOM before content changes</practice>
+      <practice>Use clear text ("Loading..." not "Please wait while content loads...")</practice>
+    </best_practices>
 
-**Reference**: WCAG 4.1.3 Status Messages (Level AA)
+    <reference type="wcag" criterion="4.1.3" level="AA">
+      Status Messages
+    </reference>
 
----
+</live_regions>
 
-## Screen Reader Testing
+<screen_reader_testing id="SR-SRT">
 
+<summary>
 Automated tools cannot fully validate screen reader experience. Manual testing is REQUIRED.
+</summary>
 
-### Screen Readers to Test
+    <screen_readers_to_test>
+      <screen_reader name="NVDA" platform="Windows" free="true" market_share="~35%">
+        <notes>Primary Windows testing</notes>
+      </screen_reader>
 
-| Screen Reader | Platform | Free   | Market Share | Notes                           |
-| ------------- | -------- | ------ | ------------ | ------------------------------- |
-| NVDA          | Windows  | ✅ Yes | ~35%         | Primary Windows testing         |
-| JAWS          | Windows  | ❌ No  | ~40%         | Enterprise standard (expensive) |
-| VoiceOver     | Mac/iOS  | ✅ Yes | ~10%         | Built-in, easy to test          |
-| TalkBack      | Android  | ✅ Yes | ~10%         | Mobile testing                  |
-| Narrator      | Windows  | ✅ Yes | ~5%          | Built-in Windows                |
+      <screen_reader name="JAWS" platform="Windows" free="false" market_share="~40%">
+        <notes>Enterprise standard (expensive)</notes>
+      </screen_reader>
 
-**Minimum testing**: NVDA (Windows) + VoiceOver (Mac) covers ~85% of users.
+      <screen_reader name="VoiceOver" platform="Mac/iOS" free="true" market_share="~10%">
+        <notes>Built-in, easy to test</notes>
+      </screen_reader>
 
-### Basic Testing Procedure
+      <screen_reader name="TalkBack" platform="Android" free="true" market_share="~10%">
+        <notes>Mobile testing</notes>
+      </screen_reader>
 
-**1. Navigate with keyboard**:
+      <screen_reader name="Narrator" platform="Windows" free="true" market_share="~5%">
+        <notes>Built-in Windows</notes>
+      </screen_reader>
 
-- Tab through interactive elements
-- Listen to announcements (name, role, state)
-- Verify logical tab order
+      <minimum_testing>
+        NVDA (Windows) + VoiceOver (Mac) covers ~85% of users.
+      </minimum_testing>
+    </screen_readers_to_test>
 
-**2. Activate elements**:
+    <basic_testing_procedure>
+      <step number="1" title="Navigate with keyboard">
+        <action>Tab through interactive elements</action>
+        <action>Listen to announcements (name, role, state)</action>
+        <action>Verify logical tab order</action>
+      </step>
 
-- Press Enter/Space on buttons
-- Verify action announcements
-- Check state changes announced
+      <step number="2" title="Activate elements">
+        <action>Press Enter/Space on buttons</action>
+        <action>Verify action announcements</action>
+        <action>Check state changes announced</action>
+      </step>
 
-**3. Test dynamic content**:
+      <step number="3" title="Test dynamic content">
+        <action>Trigger loading states</action>
+        <action>Verify live region announcements</action>
+        <action>Test error messages</action>
+      </step>
 
-- Trigger loading states
-- Verify live region announcements
-- Test error messages
+      <step number="4" title="Test landmarks">
+        <action>Navigate by landmark (NVDA: D key, VoiceOver: VO+U)</action>
+        <action>Verify landmarks make sense</action>
+        <action>Check main content identified</action>
+      </step>
+    </basic_testing_procedure>
 
-**4. Test landmarks**:
+    <screen_reader_usage>
+      <nvda platform="Windows">
+        <download>nvaccess.org</download>
+        <launch>Ctrl+Alt+N</launch>
+        <navigate>Tab</navigate>
+        <activate>Enter/Space</activate>
+      </nvda>
 
-- Navigate by landmark (NVDA: D key, VoiceOver: VO+U)
-- Verify landmarks make sense
-- Check main content identified
+      <voiceover platform="Mac">
+        <toggle>Cmd+F5</toggle>
+        <navigate>Tab and VO+Arrow (VO = Ctrl+Option)</navigate>
+        <activate>VO+Space</activate>
+      </voiceover>
+    </screen_reader_usage>
 
-**NVDA (Windows)**: Download from nvaccess.org, launch with Ctrl+Alt+N, navigate with Tab, activate with Enter/Space
+    <reference type="external" url="https://webaim.org/articles/screenreader_testing/">
+      WebAIM Screen Reader Testing
+    </reference>
 
-**VoiceOver (Mac)**: Toggle with Cmd+F5, navigate with Tab and VO+Arrow (VO = Ctrl+Option), activate with VO+Space
+</screen_reader_testing>
 
-**Reference**: [WebAIM Screen Reader Testing](https://webaim.org/articles/screenreader_testing/)
-
----
-
-## Validation Checklist
-
-Use this checklist for every component before marking accessibility complete.
-
-### Accessible Names (WCAG 4.1.2)
-
-- [ ] All interactive elements have accessible names
-- [ ] Icon-only buttons have aria-label
-- [ ] Names are descriptive and clear
-- [ ] No generic text like "click here" or "read more"
-- [ ] Images have alt text (or alt="" if decorative)
-
-### ARIA Usage
-
-- [ ] Semantic HTML used first (button, a, nav, etc.)
-- [ ] ARIA added only when native HTML insufficient
-- [ ] No conflicting roles (e.g., role="button" on `<button>`)
-- [ ] States update correctly (aria-pressed, aria-expanded)
-- [ ] Values are valid (true/false, not "yes"/"no")
-
-### Live Regions (WCAG 4.1.3)
-
-- [ ] Loading states announced with role="status"
-- [ ] Errors announced with role="alert"
-- [ ] Success messages announced
-- [ ] Not over-announcing (every keystroke)
-- [ ] Live regions pre-rendered in DOM
-
-### Screen Reader Testing
-
-- [ ] Tested with NVDA or JAWS (Windows)
-- [ ] Tested with VoiceOver (Mac)
-- [ ] All interactive elements reachable
-- [ ] Names, roles, states announced correctly
-- [ ] No missing context or confusing announcements
-- [ ] Landmarks present and logical
-
-### Automated Testing
-
-- [ ] axe-core passes (no critical/serious issues)
-- [ ] WAVE browser extension shows no errors
-- [ ] Accessibility tree inspected in DevTools
-- [ ] Tests validate accessible names exist
-
-**Reference**: See `sando-button.a11y.test.ts` for automated testing patterns.
-
----
-
-## Common Patterns
-
-**Icon-only button**:
-
-```html
+<common_patterns id="SR-CP">
+<pattern name="Icon-only button">
+<code lang="html">
 <sando-button icon-only aria-label="Settings">⚙️</sando-button>
-```
+</code>
+</pattern>
 
-**Loading state**:
+    <pattern name="Loading state">
+      <code lang="html">
+        <span role="status" aria-label="Loading"></span>
+      </code>
+    </pattern>
 
-```html
-<span role="status" aria-label="Loading"></span>
-```
+    <pattern name="Toggle button">
+      <code lang="typescript">
+        aria-pressed=${this.active ? 'true' : 'false'}
+      </code>
+    </pattern>
 
-**Toggle button**:
+    <pattern name="Disabled link">
+      <code lang="typescript">
+        aria-disabled="true"
+      </code>
+    </pattern>
 
-```typescript
-aria-pressed=${this.active ? 'true' : 'false'}
-```
+    <reference type="source_file" path="packages/components/src/components/button/sando-button.ts">
+      sando-button implementation
+    </reference>
+    <reference type="source_file" path="packages/components/src/components/button/sando-button.a11y.test.ts">
+      sando-button accessibility tests
+    </reference>
 
-**Disabled link**:
+</common_patterns>
 
-```typescript
-aria-disabled="true"
-```
+<related_guidelines id="SR-RG">
+<reference type="guideline" doc_id="WC" file="WCAG_COMPLIANCE.md">
+Overall WCAG 2.1 Level AA compliance requirements
+</reference>
+<reference type="guideline" doc_id="KN" file="KEYBOARD_NAVIGATION.md">
+Keyboard interaction patterns and focus management
+</reference>
+<reference type="guideline" doc_id="TST" file="../03-development/TESTING_STRATEGY.md">
+Accessibility testing approach with axe-core
+</reference>
+</related_guidelines>
 
-**Reference**: `sando-button.ts`, `sando-button.a11y.test.ts`
+<external_references id="SR-ER">
+<category name="Screen Readers">
+<reference url="https://www.nvaccess.org/">NVDA - Free Windows screen reader (primary testing)</reference>
+<reference url="https://www.freedomscientific.com/products/software/jaws/">JAWS - Commercial Windows screen reader</reference>
+<reference url="https://www.apple.com/accessibility/voiceover/">VoiceOver Guide - Mac/iOS built-in screen reader</reference>
+</category>
 
----
+    <category name="ARIA Specifications">
+      <reference url="https://www.w3.org/WAI/ARIA/apg/">ARIA Authoring Practices Guide - ARIA patterns and examples</reference>
+      <reference url="https://www.w3.org/TR/html-aria/">ARIA in HTML - Rules for using ARIA with HTML</reference>
+    </category>
 
-## Related Guidelines
+    <category name="Testing Resources">
+      <reference url="https://webaim.org/articles/screenreader_testing/">WebAIM Screen Reader Testing - Comprehensive testing guide</reference>
+      <reference url="https://www.powermapper.com/tests/screen-readers/">Screen Reader Compatibility - Browser/SR combinations</reference>
+    </category>
 
-- [WCAG_COMPLIANCE.md](./WCAG_COMPLIANCE.md) - Overall WCAG 2.1 Level AA compliance requirements
-- [KEYBOARD_NAVIGATION.md](./KEYBOARD_NAVIGATION.md) - Keyboard interaction patterns and focus management
-- [TESTING_STRATEGY.md](../03-development/TESTING_STRATEGY.md) - Accessibility testing approach with axe-core
+</external_references>
 
----
+  <changelog id="SR-CL">
+    <version number="1.0.0" date="2025-11-09">
+      <change type="NOTE">Initial guideline created from sando-button patterns</change>
+      <change type="IMPROVED">Core rules established (5 rules)</change>
+      <change type="IMPROVED">Rule 1: Semantic HTML first (non-negotiable)</change>
+      <change type="IMPROVED">Rule 2: Accessible names required (text, aria-label, aria-labelledby)</change>
+      <change type="IMPROVED">Rule 3: ARIA states and properties (pressed, expanded, busy, disabled)</change>
+      <change type="IMPROVED">Rule 4: Live regions for announcements (aria-live, role="status", role="alert")</change>
+      <change type="IMPROVED">Rule 5: Test with actual screen readers (NVDA, JAWS, VoiceOver, TalkBack)</change>
+      <change type="IMPROVED">WCAG screen reader criteria (4.1.2, 4.1.3, 1.3.1, 2.4.6, 3.3.2)</change>
+      <change type="IMPROVED">Semantic HTML elements table (button, a, nav, main, headings)</change>
+      <change type="IMPROVED">Accessible names (text content, aria-label, aria-labelledby priority)</change>
+      <change type="IMPROVED">ARIA states and properties table (pressed, expanded, busy, disabled, current, selected, checked)</change>
+      <change type="IMPROVED">Live regions (polite vs assertive, role="status", role="alert")</change>
+      <change type="IMPROVED">Screen reader testing guide (NVDA, JAWS, VoiceOver, TalkBack)</change>
+      <change type="IMPROVED">Validation checklist (accessible names, ARIA usage, live regions, testing)</change>
+      <change type="IMPROVED">Testing patterns from sando-button.a11y.test.ts</change>
+      <change type="IMPROVED">Common patterns (icon-only, loading, toggle, disabled link)</change>
+      <change type="NOTE">Agent-optimized format for token efficiency</change>
+      <change type="NOTE">Patterns extracted from sando-button.ts and sando-button.a11y.test.ts</change>
+      <change type="NOTE">References: sando-button.ts (lines 89, 259-306, 277-281, 287), sando-button.a11y.test.ts</change>
+    </version>
+  </changelog>
 
-## External References
-
-**Screen Readers**:
-
-- [NVDA](https://www.nvaccess.org/) - Free Windows screen reader (primary testing)
-- [JAWS](https://www.freedomscientific.com/products/software/jaws/) - Commercial Windows screen reader
-- [VoiceOver Guide](https://www.apple.com/accessibility/voiceover/) - Mac/iOS built-in screen reader
-
-**ARIA Specifications**:
-
-- [ARIA Authoring Practices Guide](https://www.w3.org/WAI/ARIA/apg/) - ARIA patterns and examples
-- [ARIA in HTML](https://www.w3.org/TR/html-aria/) - Rules for using ARIA with HTML
-
-**Testing Resources**:
-
-- [WebAIM Screen Reader Testing](https://webaim.org/articles/screenreader_testing/) - Comprehensive testing guide
-- [Screen Reader Compatibility](https://www.powermapper.com/tests/screen-readers/) - Browser/SR combinations
-
----
-
-## Changelog
-
-### 1.0.0 (2025-11-03)
-
-**Initial guideline created from sando-button patterns**.
-
-**Core rules established**:
-
-- Rule 1: Semantic HTML first (non-negotiable)
-- Rule 2: Accessible names required (text, aria-label, aria-labelledby)
-- Rule 3: ARIA states and properties (pressed, expanded, busy, disabled)
-- Rule 4: Live regions for announcements (aria-live, role="status", role="alert")
-- Rule 5: Test with actual screen readers (NVDA, JAWS, VoiceOver, TalkBack)
-
-**Content sections**:
-
-- WCAG screen reader criteria (4.1.2, 4.1.3, 1.3.1, 2.4.6, 3.3.2)
-- Semantic HTML elements table (button, a, nav, main, headings)
-- Accessible names (text content, aria-label, aria-labelledby priority)
-- ARIA states and properties table (pressed, expanded, busy, disabled, current, selected, checked)
-- Live regions (polite vs assertive, role="status", role="alert")
-- Screen reader testing guide (NVDA, JAWS, VoiceOver, TalkBack)
-- Validation checklist (accessible names, ARIA usage, live regions, testing)
-- Testing patterns from sando-button.a11y.test.ts
-- Common patterns (icon-only, loading, toggle, disabled link)
-
-**Optimizations**:
-
-- Agent-optimized format (497 lines - within 500 limit)
-- Compact tables for quick reference
-- Patterns extracted from sando-button.ts and sando-button.a11y.test.ts
-- One focused example per concept
-- External links for detailed documentation
-
-**References**: sando-button.ts (lines 89, 259-306, 277-281, 287), sando-button.a11y.test.ts
-
----
-
-**Screen readers are essential assistive technology. Test with actual screen readers, not just automated tools.**
+</guideline>
