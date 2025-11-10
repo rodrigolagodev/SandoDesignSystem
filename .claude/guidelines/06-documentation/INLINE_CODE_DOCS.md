@@ -335,126 +335,127 @@ Every exported function, class, method, and property MUST have a JSDoc comment w
 
 </core_rules>
 
-<jsdoc*tag_reference id="ICD-JTR">
+<jsdoc\*tag_reference id="ICD-JTR">
 <essential_tags id="ICD-JTR-ET">
 <tag name="@param">
 <description>Parameter description</description>
 <example lang="typescript">
 /\*\*
-* @param name - User's full name
-_ @param age - User's age in years
-_ @param options - Optional configuration object
-\_/
-function createUser(name: string, age: number, options?: UserOptions) {}
-</example>
-</tag>
 
-      <tag name="@returns">
-        <description>Return value description</description>
-        <example lang="typescript">
-          /**
-           * @returns The calculated total price including tax
-           */
-          function calculateTotal(): number {}
-        </example>
-      </tag>
+- @param name - User's full name
+  _ @param age - User's age in years
+  _ @param options - Optional configuration object
+  \_/
+  function createUser(name: string, age: number, options?: UserOptions) {}
+  </example>
+  </tag>
 
-      <tag name="@throws">
-        <description>Exceptions thrown</description>
-        <example lang="typescript">
-          /**
-           * @throws {ValidationError} When email format is invalid
-           * @throws {NetworkError} When API request fails
-           */
-          async function submitForm() {}
-        </example>
-      </tag>
+        <tag name="@returns">
+          <description>Return value description</description>
+          <example lang="typescript">
+            /**
+             * @returns The calculated total price including tax
+             */
+            function calculateTotal(): number {}
+          </example>
+        </tag>
 
-      <tag name="@example">
-        <description>Usage examples</description>
-        <example lang="typescript">
-          /**
-           * @example
-           * ```typescript
-           * const button = new Button();
-           * button.variant = 'solid';
-           * ```
-           */
-        </example>
-      </tag>
+        <tag name="@throws">
+          <description>Exceptions thrown</description>
+          <example lang="typescript">
+            /**
+             * @throws {ValidationError} When email format is invalid
+             * @throws {NetworkError} When API request fails
+             */
+            async function submitForm() {}
+          </example>
+        </tag>
 
-      <tag name="@default">
-        <description>Default value</description>
-        <example lang="typescript">
-          /**
-           * @default 'medium'
-           */
-          @property()
-          size: Size = 'medium';
-        </example>
-      </tag>
+        <tag name="@example">
+          <description>Usage examples</description>
+          <example lang="typescript">
+            /**
+             * @example
+             * ```typescript
+             * const button = new Button();
+             * button.variant = 'solid';
+             * ```
+             */
+          </example>
+        </tag>
 
-      <tag name="@deprecated">
-        <description>Deprecated API</description>
-        <example lang="typescript">
-          /**
-           * @deprecated Use `newMethod()` instead. Will be removed in v3.0.0.
-           */
-          function oldMethod() {}
-        </example>
-      </tag>
-    </essential_tags>
+        <tag name="@default">
+          <description>Default value</description>
+          <example lang="typescript">
+            /**
+             * @default 'medium'
+             */
+            @property()
+            size: Size = 'medium';
+          </example>
+        </tag>
 
-    <advanced_tags id="ICD-JTR-AT">
-      <tag name="@private">
-        <description>Private/internal API</description>
-        <example lang="typescript">
-          /**
-           * @private
-           */
-          private _internalMethod() {}
-        </example>
-      </tag>
+        <tag name="@deprecated">
+          <description>Deprecated API</description>
+          <example lang="typescript">
+            /**
+             * @deprecated Use `newMethod()` instead. Will be removed in v3.0.0.
+             */
+            function oldMethod() {}
+          </example>
+        </tag>
+      </essential_tags>
 
-      <tag name="@readonly">
-        <description>Read-only property</description>
-        <example lang="typescript">
-          /**
-           * @readonly
-           */
-          get effectiveFlavor(): string {}
-        </example>
-      </tag>
+      <advanced_tags id="ICD-JTR-AT">
+        <tag name="@private">
+          <description>Private/internal API</description>
+          <example lang="typescript">
+            /**
+             * @private
+             */
+            private _internalMethod() {}
+          </example>
+        </tag>
 
-      <tag name="@see">
-        <description>Cross-reference</description>
-        <example lang="typescript">
-          /**
-           * @see {@link FlavorableMixin} for inheritance details
-           */
-        </example>
-      </tag>
+        <tag name="@readonly">
+          <description>Read-only property</description>
+          <example lang="typescript">
+            /**
+             * @readonly
+             */
+            get effectiveFlavor(): string {}
+          </example>
+        </tag>
 
-      <tag name="@since">
-        <description>Version introduced</description>
-        <example lang="typescript">
-          /**
-           * @since 2.0.0
-           */
-          export function newFeature() {}
-        </example>
-      </tag>
+        <tag name="@see">
+          <description>Cross-reference</description>
+          <example lang="typescript">
+            /**
+             * @see {@link FlavorableMixin} for inheritance details
+             */
+          </example>
+        </tag>
 
-      <tag name="@experimental">
-        <description>Experimental API</description>
-        <example lang="typescript">
-          /**
-           * @experimental This API may change in future releases
-           */
-          export function experimentalFeature() {}
-        </example>
-      </tag>
-    </advanced_tags>
+        <tag name="@since">
+          <description>Version introduced</description>
+          <example lang="typescript">
+            /**
+             * @since 2.0.0
+             */
+            export function newFeature() {}
+          </example>
+        </tag>
+
+        <tag name="@experimental">
+          <description>Experimental API</description>
+          <example lang="typescript">
+            /**
+             * @experimental This API may change in future releases
+             */
+            export function experimentalFeature() {}
+          </example>
+        </tag>
+      </advanced_tags>
 
 </jsdoc_tag_reference>
 

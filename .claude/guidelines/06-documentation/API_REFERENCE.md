@@ -516,142 +516,144 @@ Every component file MUST include a complete JSDoc header with @element, descrip
 
 </vitepress_structure>
 
-<property*patterns id="API-PP">
+<property\*patterns id="API-PP">
 <string_union_types id="API-PP-SUT">
 <typescript_pattern lang="typescript">
 /\*\*
-* Visual style variant.
-\_ @default 'solid'
-\*/
-@property({ reflect: true })
-variant: 'solid' | 'outline' | 'ghost' = 'solid';
-</typescript_pattern>
 
-      <vitepress_table lang="markdown">
-        | `variant` | `'solid' \| 'outline' \| 'ghost'` | `'solid'` | Visual style variant |
-      </vitepress_table>
-    </string_union_types>
+- Visual style variant.
+  \_ @default 'solid'
+  \*/
+  @property({ reflect: true })
+  variant: 'solid' | 'outline' | 'ghost' = 'solid';
+  </typescript_pattern>
 
-    <boolean_properties id="API-PP-BP">
-      <typescript_pattern lang="typescript">
-        /**
-         * Whether the button is disabled.
-         * @default false
-         */
-        @property({ type: Boolean, reflect: true })
-        disabled = false;
-      </typescript_pattern>
+        <vitepress_table lang="markdown">
+          | `variant` | `'solid' \| 'outline' \| 'ghost'` | `'solid'` | Visual style variant |
+        </vitepress_table>
+      </string_union_types>
 
-      <vitepress_table lang="markdown">
-        | `disabled` | `boolean` | `false` | Whether the button is disabled |
-      </vitepress_table>
-    </boolean_properties>
+      <boolean_properties id="API-PP-BP">
+        <typescript_pattern lang="typescript">
+          /**
+           * Whether the button is disabled.
+           * @default false
+           */
+          @property({ type: Boolean, reflect: true })
+          disabled = false;
+        </typescript_pattern>
 
-    <optional_properties id="API-PP-OP">
-      <typescript_pattern lang="typescript">
-        /**
-         * URL to navigate to (renders as &lt;a&gt; instead of &lt;button&gt;).
-         */
-        @property({ reflect: true })
-        href?: string;
-      </typescript_pattern>
+        <vitepress_table lang="markdown">
+          | `disabled` | `boolean` | `false` | Whether the button is disabled |
+        </vitepress_table>
+      </boolean_properties>
 
-      <vitepress_table lang="markdown">
-        | `href` | `string` | `undefined` | URL (renders as `<a>` instead of `<button>`) |
-      </vitepress_table>
+      <optional_properties id="API-PP-OP">
+        <typescript_pattern lang="typescript">
+          /**
+           * URL to navigate to (renders as &lt;a&gt; instead of &lt;button&gt;).
+           */
+          @property({ reflect: true })
+          href?: string;
+        </typescript_pattern>
 
-      <note>
-        Use undefined to indicate optional properties in Default column.
-      </note>
-    </optional_properties>
+        <vitepress_table lang="markdown">
+          | `href` | `string` | `undefined` | URL (renders as `<a>` instead of `<button>`) |
+        </vitepress_table>
 
-    <number_properties id="API-PP-NP">
-      <typescript_pattern lang="typescript">
-        /**
-         * Tab index for keyboard navigation.
-         * @default 0
-         */
-        @property({ type: Number, reflect: true })
-        tabindex = 0;
-      </typescript_pattern>
+        <note>
+          Use undefined to indicate optional properties in Default column.
+        </note>
+      </optional_properties>
 
-      <vitepress_table lang="markdown">
-        | `tabindex` | `number` | `0` | Tab index for keyboard navigation |
-      </vitepress_table>
-    </number_properties>
+      <number_properties id="API-PP-NP">
+        <typescript_pattern lang="typescript">
+          /**
+           * Tab index for keyboard navigation.
+           * @default 0
+           */
+          @property({ type: Number, reflect: true })
+          tabindex = 0;
+        </typescript_pattern>
 
-    <complex_object_properties id="API-PP-COP">
-      <typescript_pattern lang="typescript">
-        /**
-         * Configuration object for advanced behavior.
-         * See {@link ComponentConfig} for details.
-         */
-        @property({ type: Object })
-        config?: ComponentConfig;
-      </typescript_pattern>
+        <vitepress_table lang="markdown">
+          | `tabindex` | `number` | `0` | Tab index for keyboard navigation |
+        </vitepress_table>
+      </number_properties>
 
-      <vitepress_table lang="markdown">
-        | `config` | `ComponentConfig` | `undefined` | Configuration object (see [ComponentConfig](#componentconfig)) |
-      </vitepress_table>
+      <complex_object_properties id="API-PP-COP">
+        <typescript_pattern lang="typescript">
+          /**
+           * Configuration object for advanced behavior.
+           * See {@link ComponentConfig} for details.
+           */
+          @property({ type: Object })
+          config?: ComponentConfig;
+        </typescript_pattern>
 
-      <type_definition lang="markdown">
-        #### ComponentConfig
+        <vitepress_table lang="markdown">
+          | `config` | `ComponentConfig` | `undefined` | Configuration object (see [ComponentConfig](#componentconfig)) |
+        </vitepress_table>
 
-        ```typescript
-        interface ComponentConfig {
-          propertyA: string;
-          propertyB: boolean;
-        }
-        ```
-      </type_definition>
-    </complex_object_properties>
+        <type_definition lang="markdown">
+          #### ComponentConfig
+
+          ```typescript
+          interface ComponentConfig {
+            propertyA: string;
+            propertyB: boolean;
+          }
+          ```
+        </type_definition>
+      </complex_object_properties>
 
 </property_patterns>
 
-<event*patterns id="API-EP">
+<event\*patterns id="API-EP">
 <custom_events id="API-EP-CE">
 <component_implementation lang="typescript">
 /\*\*
-* Dispatched when selection changes.
-\_/
-private dispatchChangeEvent() {
-this.dispatchEvent(
-new CustomEvent('change', {
-detail: { value: this.value },
-bubbles: true,
-composed: true,
-})
-);
-}
-</component_implementation>
 
-      <jsdoc_header lang="typescript">
-        /**
-         * @fires change - Fired when selection changes
-         * @fires change.detail - { value: string } - The new value
-         */
-      </jsdoc_header>
+- Dispatched when selection changes.
+  \_/
+  private dispatchChangeEvent() {
+  this.dispatchEvent(
+  new CustomEvent('change', {
+  detail: { value: this.value },
+  bubbles: true,
+  composed: true,
+  })
+  );
+  }
+  </component_implementation>
 
-      <vitepress_table lang="markdown">
-        ### Events
+        <jsdoc_header lang="typescript">
+          /**
+           * @fires change - Fired when selection changes
+           * @fires change.detail - { value: string } - The new value
+           */
+        </jsdoc_header>
 
-        | Event    | Type                             | Description                                                                   |
-        | -------- | -------------------------------- | ----------------------------------------------------------------------------- |
-        | `change` | `CustomEvent<{ value: string }>` | Fired when selection changes. Contains the new value in `event.detail.value`. |
-      </vitepress_table>
-    </custom_events>
+        <vitepress_table lang="markdown">
+          ### Events
 
-    <native_events id="API-EP-NE">
-      <jsdoc_header lang="typescript">
-        /**
-         * @fires click - Native click event (fired unless disabled or loading)
-         */
-      </jsdoc_header>
+          | Event    | Type                             | Description                                                                   |
+          | -------- | -------------------------------- | ----------------------------------------------------------------------------- |
+          | `change` | `CustomEvent<{ value: string }>` | Fired when selection changes. Contains the new value in `event.detail.value`. |
+        </vitepress_table>
+      </custom_events>
 
-      <vitepress_table lang="markdown">
-        | `click` | `MouseEvent` | Native click event (only fires when not disabled or loading) |
-      </vitepress_table>
-    </native_events>
+      <native_events id="API-EP-NE">
+        <jsdoc_header lang="typescript">
+          /**
+           * @fires click - Native click event (fired unless disabled or loading)
+           */
+        </jsdoc_header>
+
+        <vitepress_table lang="markdown">
+          | `click` | `MouseEvent` | Native click event (only fires when not disabled or loading) |
+        </vitepress_table>
+      </native_events>
 
 </event_patterns>
 
@@ -715,40 +717,41 @@ composed: true,
 
 </css_properties_documentation>
 
-<slot*patterns id="API-SP">
+<slot\*patterns id="API-SP">
 <default_slot id="API-SP-DS">
 <jsdoc lang="typescript">
 /\*\*
-* @slot - Default slot for button content (text, icons, HTML)
-\_/
-</jsdoc>
 
-      <vitepress_table lang="markdown">
-        | Default | Button content (text, icons, HTML elements) |
-      </vitepress_table>
-    </default_slot>
+- @slot - Default slot for button content (text, icons, HTML)
+  \_/
+  </jsdoc>
 
-    <named_slots id="API-SP-NS">
-      <jsdoc lang="typescript">
-        /**
-         * @slot icon-start - Icon or content before the button text
-         * @slot icon-end - Icon or content after the button text
-         */
-      </jsdoc>
+        <vitepress_table lang="markdown">
+          | Default | Button content (text, icons, HTML elements) |
+        </vitepress_table>
+      </default_slot>
 
-      <vitepress_table lang="markdown">
-        | `icon-start` | Icon or content before the button text |
-        | `icon-end`   | Icon or content after the button text  |
-      </vitepress_table>
+      <named_slots id="API-SP-NS">
+        <jsdoc lang="typescript">
+          /**
+           * @slot icon-start - Icon or content before the button text
+           * @slot icon-end - Icon or content after the button text
+           */
+        </jsdoc>
 
-      <usage_example lang="html">
-        <sando-button>
-          <svg slot="icon-start">...</svg>
-          Button Text
-          <span slot="icon-end">→</span>
-        </sando-button>
-      </usage_example>
-    </named_slots>
+        <vitepress_table lang="markdown">
+          | `icon-start` | Icon or content before the button text |
+          | `icon-end`   | Icon or content after the button text  |
+        </vitepress_table>
+
+        <usage_example lang="html">
+          <sando-button>
+            <svg slot="icon-start">...</svg>
+            Button Text
+            <span slot="icon-end">→</span>
+          </sando-button>
+        </usage_example>
+      </named_slots>
 
 </slot_patterns>
 
