@@ -96,7 +96,7 @@ const meta: Meta = {
       description: 'Whether the input is disabled',
       table: {
         category: 'State',
-        defaultValue: { summary: false }
+        defaultValue: { summary: 'false' }
       }
     },
     readonly: {
@@ -104,7 +104,7 @@ const meta: Meta = {
       description: 'Whether the input is readonly',
       table: {
         category: 'State',
-        defaultValue: { summary: false }
+        defaultValue: { summary: 'false' }
       }
     },
     required: {
@@ -112,7 +112,7 @@ const meta: Meta = {
       description: 'Whether the input is required',
       table: {
         category: 'State',
-        defaultValue: { summary: false }
+        defaultValue: { summary: 'false' }
       }
     },
     error: {
@@ -120,7 +120,7 @@ const meta: Meta = {
       description: 'Whether the input has an error',
       table: {
         category: 'State',
-        defaultValue: { summary: false }
+        defaultValue: { summary: 'false' }
       }
     }
   },
