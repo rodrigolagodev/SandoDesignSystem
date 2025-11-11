@@ -166,6 +166,62 @@ or
 
 ---
 
+## CI/CD Workflows
+
+The project uses GitHub Actions for automation:
+
+### Active Workflows
+
+1. **pr.yml** - PR Validation (Informational)
+   - Runs tests, lint, and build on PRs
+   - **Tests & Lint**: Informational only (don't block merge)
+   - **Build**: Required (blocks merge if fails)
+   - Purpose: Provide feedback without blocking development
+
+2. **deploy.yml** - Documentation Deployment
+   - Deploys Storybook + VitePress to GitHub Pages
+   - Runs automatically on push to master
+   - URLs:
+     - Storybook: `https://rodrigolagodev.github.io/SandoDesignSystem/storybook/`
+     - Docs: `https://rodrigolagodev.github.io/SandoDesignSystem/docs/`
+
+### Development Phase Configuration
+
+During active development:
+
+- ✅ PRs don't require approval (can self-merge)
+- ✅ Tests/lint are informational (don't block)
+- ✅ Only build failures block merge
+- ⚠️ No automatic npm publishing (configured for future)
+
+### Framework Integration
+
+- **Vanilla HTML/JS**: Direct `<sando-button>` usage
+- **React**: Import and use (see components README for TypeScript setup)
+- **Vue 3**: Configure `isCustomElement` in vite.config
+- **Angular**: Add `CUSTOM_ELEMENTS_SCHEMA`
+- **Svelte**: Direct usage
+
+Details in `packages/components/README.md`
+
+## Versioning & Publishing
+
+Uses Changesets (configured but not publishing yet):
+
+```bash
+pnpm changeset           # Create changeset
+pnpm version-packages    # Bump versions
+# pnpm release           # Disabled - for future npm publishing
+```
+
+**Note**: NPM publishing is currently disabled. To enable:
+
+1. Create npm token at npmjs.com
+2. Add `NPM_TOKEN` secret to GitHub repository
+3. Re-enable release workflow if needed
+
+---
+
 ## Key Files
 
 - `turbo.json` - Turborepo task configuration
