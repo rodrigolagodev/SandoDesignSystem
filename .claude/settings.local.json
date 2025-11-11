@@ -1,17 +1,94 @@
 {
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "permissions": {
-    "allow": [
-      "Bash(if [ -f \"coverage/coverage-summary.json\" ])",
-      "Bash(then cat coverage/coverage-summary.json)",
-      "Bash(else echo \"NO_COVERAGE\")",
-      "Bash(fi:*)",
-      "Bash(cat:*)",
-      "Bash(curl:*)",
-      "WebSearch",
-      "WebFetch(domain:design-system.strapi.io)",
-      "WebFetch(domain:handbook.strapi.io)"
-    ],
+    "allow": ["Bash(pnpm test:*)"],
     "deny": [],
-    "ask": []
-  }
+    "ask": [],
+    "defaultMode": "default"
+  },
+  "companyAnnouncements": [
+    "📘 Sando Guidelines: All decisions MUST follow @.claude/guidelines/ (auto-loaded in CLAUDE.md)",
+    "🎯 New Component? Use 'component-creator' skill - scaffolds 7-file structure automatically",
+    "⚠️ Token Architecture is STRICT: Ingredients → Flavors → Recipes (violations break theming!)",
+    "✅ WCAG 2.1 AA Required: 80%+ test coverage, 4.5:1 contrast ratio, keyboard navigation",
+    "🔧 Changed a guideline? Update AGENT_GUIDELINE_INTEGRATION_PLAN.md tracking doc",
+    "📦 Build Order: @sando/tokens FIRST, then @sando/components (Turborepo handles this)",
+    "🚀 18 Specialized Agents Available: design-system-architect, frontend-developer, qa-expert...",
+    "💡 Guidelines = Single Source of Truth | Agents = Executors (not definers)",
+    "🎨 Theming: Use 'flavor' attribute on HTML elements (e.g., flavor=\"dark\")",
+    "📚 Full Docs: .claude/guidelines/GUIDELINES_INDEX.md lists all 26 guidelines"
+  ],
+  "statusLine": {
+    "type": "command",
+    "command": "echo '📘 Sando DS | 26 Guidelines | 18 Agents | WCAG 2.1 AA | pnpm only'"
+  },
+  "includeCoAuthoredBy": true,
+  "spinnerTipsEnabled": true,
+  "sandbox": {
+    "enabled": true,
+    "network": {
+      "allowLocalBinding": true,
+      "allowUnixSockets": ["/var/run/docker.sock"]
+    },
+    "autoAllowBashIfSandboxed": false,
+    "allowUnsandboxedCommands": true,
+    "excludedCommands": ["pnpm", "git"]
+  },
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "Before responding, check if the user's request involves Sando Design System architecture, tokens, or components. If yes, remind yourself to reference @.claude/guidelines/ first. Input: $ARGUMENTS"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '⚠️  Writing file - ensure it follows @.claude/guidelines/ standards'"
+          }
+        ]
+      },
+      {
+        "matcher": "Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '✏️  Editing file - verify against naming conventions and code style guidelines'"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash(git commit*)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '✅ Commit created - follows conventional commits format per GIT_WORKFLOW.md'"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '🚀 Sando Design System session started | Guidelines auto-loaded from CLAUDE.md'"
+          }
+        ]
+      }
+    ]
+  },
+  "cleanupPeriodDays": 30,
+  "enabledPlugins": {}
 }

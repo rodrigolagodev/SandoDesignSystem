@@ -1,6 +1,14 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## 🧠 Critical Instruction: Read the Source of Truth
+
+This file provides the high-level overview, tech stack, and the definitive index of guidelines for the **Sando Design System**.
+
+**CRITICAL**: Do NOT rely on this file for architectural or development rules. This file's purpose is to **index and load** the official guidelines located in the `.claude/guidelines/` directory.
+
+**You MUST load and reference the XML files in the `.claude/guidelines/` directory as the non-negotiable, single source of truth** for all tasks, analysis, and code generation.
+
+---
 
 ## Project Overview
 
@@ -18,359 +26,120 @@ The name "Sando" is inspired by the Japanese "katsu sando" sandwich - a metaphor
 - **Docs**: Storybook 8.6.14 + VitePress 1.6.4
 - **Language**: TypeScript 5.9.3 (strict mode)
 
-## Architecture
+---
 
-### Monorepo Structure
+## Project Guidelines (Single Source of Truth)
 
-```
-sando-design-system/
-├── packages/
-│   ├── tokens/           @sando/tokens - Design tokens (Style Dictionary)
-│   └── components/       @sando/components - Lit Web Components
-├── apps/
-│   ├── docs/            @sando/docs - Storybook (localhost:6006)
-│   └── site/            @sando/site - VitePress docs (localhost:3000)
-└── .claude/
-    └── agents/          18 specialized AI agents for design system development
-```
+**CRITICAL**: All Sando Design System decisions MUST follow the official guidelines located in `.claude/guidelines/`.
 
-### Three-Layer Token Architecture
+### Guidelines Index (Primary Reference)
 
-This is the CORE architectural pattern of the design system:
+@.claude/guidelines/GUIDELINES_INDEX.md
 
-**Layer 1: Ingredients** (Primitives)
+### Core Architecture Guidelines
 
-- Raw, absolute values with NO references to other tokens
-- Examples: `color-brand-500: #f97415`, `space-base: 4px`
-- Location: `packages/tokens/src/ingredients/*.json`
+**Token Architecture** - Three-layer system (Ingredients/Flavors/Recipes):
+@.claude/guidelines/01-design-system/TOKEN_ARCHITECTURE.md
 
-**Layer 2: Flavors** (Semantic)
+**Component Architecture** - Monolithic 7-file pattern:
+@.claude/guidelines/02-architecture/COMPONENT_ARCHITECTURE.md
 
-- ONLY reference Ingredients (never other Flavors or Recipes)
-- Provide contextual meaning and enable theming
-- Examples: `color-background-base: {color.neutral.100}`, `spacing-comfortable: {space.base}`
-- Location: `packages/tokens/src/flavors/*.json`
+**Monorepo Structure** - Turborepo + pnpm setup:
+@.claude/guidelines/02-architecture/MONOREPO_STRUCTURE.md
 
-**Layer 3: Recipes** (Component-specific)
+**Token Build System** - Style Dictionary orchestrator:
+@.claude/guidelines/02-architecture/TOKEN_BUILD_SYSTEM.md
 
-- ONLY reference Flavors (never Ingredients directly)
-- Component-specific tokens
-- Examples: `button-background-color: {color.action.solid.background.default}`
-- Location: `packages/tokens/src/recipes/*.json`
+### Development Standards
 
-**Critical Rule**: This layering is STRICT. Violations break the theming system.
+**Code Style** - TypeScript, imports, formatting:
+@.claude/guidelines/03-development/CODE_STYLE.md
 
-### Monolithic Component Architecture
+**Naming Conventions** - Components, files, tokens:
+@.claude/guidelines/03-development/NAMING_CONVENTIONS.md
 
-Each component is **completely self-contained** in its own folder:
+**Git Workflow** - GitHub Flow, conventional commits:
+@.claude/guidelines/03-development/GIT_WORKFLOW.md
 
-```
-packages/components/src/components/button/
-├── sando-button.ts              # Component implementation (Lit)
-├── sando-button.types.ts        # TypeScript types
-├── sando-button.stories.ts      # Storybook documentation
-├── sando-button.test.ts         # Unit tests (Vitest)
-├── sando-button.spec.ts         # E2E tests (Playwright)
-├── sando-button.a11y.test.ts    # Accessibility tests (axe-core)
-└── index.ts                     # Barrel export
-```
+**Testing Strategy** - Test pyramid, coverage requirements:
+@.claude/guidelines/03-development/TESTING_STRATEGY.md
 
-**Benefits**: Portable, easy to find everything, clear ownership, minimal shared dependencies.
+### Quality Standards
 
-## Development Workflow
+**WCAG Compliance** - Accessibility requirements:
+@.claude/guidelines/04-accessibility/WCAG_COMPLIANCE.md
 
-### GitHub Flow
+**Test Coverage** - Coverage thresholds:
+@.claude/guidelines/05-quality/TEST_COVERAGE.md
 
-Sando Design System follows **GitHub Flow** for all development:
+**Performance Budgets** - Bundle sizes, Core Web Vitals:
+@.claude/guidelines/05-quality/PERFORMANCE_BUDGETS.md
 
-1. **Master is always deployable** - Never commit broken code to master
-2. **Create feature branches** - Use `type/description` naming (e.g., `feat/button-component`)
-3. **Commit frequently** - Small, atomic commits with conventional format
-4. **Open PRs early** - Get feedback early, iterate quickly
-5. **Merge when CI passes** - Automated deployment to production
-6. **Delete merged branches** - Keep repository clean (automatic)
+**Security Standards** - XSS prevention, CSP:
+@.claude/guidelines/05-quality/SECURITY_STANDARDS.md
 
-**Workflow Example:**
+### Documentation Standards
 
-```bash
-git checkout master && git pull
-git checkout -b feat/add-tooltip
-# Make changes...
-git commit -m "feat(components): add tooltip component"
-git push -u origin feat/add-tooltip
-# Create PR → CI validates → Review → Merge → Auto-deploy
-```
+**API Reference** - JSDoc, VitePress tables:
+@.claude/guidelines/06-documentation/API_REFERENCE.md
 
-For complete details, see `.claude/guidelines/03-development/GIT_WORKFLOW.md`
+**Storybook Stories** - Story organization:
+@.claude/guidelines/06-documentation/STORYBOOK_STORIES.md
 
-## Common Development Commands
+**Inline Code Docs** - JSDoc standards:
+@.claude/guidelines/06-documentation/INLINE_CODE_DOCS.md
 
-### Root-Level Commands
-
-```bash
-# Install dependencies (REQUIRED: use pnpm)
-pnpm install
-
-# Build all packages (tokens must be built before components)
-pnpm build
-
-# Development mode (parallel: Storybook on :6006, VitePress on :3000)
-pnpm dev
-
-# Run all tests
-pnpm test
-
-# Lint and format
-pnpm lint
-pnpm format
-```
-
-### Package-Specific Commands
-
-```bash
-# Tokens (@sando/tokens)
-pnpm --filter @sando/tokens build          # Build tokens (required first!)
-pnpm --filter @sando/tokens dev            # Watch mode
-pnpm --filter @sando/tokens test           # Test tokens
-pnpm --filter @sando/tokens test:structure # Token structure tests
-
-# Components (@sando/components)
-pnpm --filter @sando/components build      # Build components
-pnpm --filter @sando/components test       # Unit tests
-pnpm --filter @sando/components test:e2e   # E2E tests
-
-# Storybook (@sando/docs)
-pnpm --filter @sando/docs dev              # Start Storybook (:6006)
-pnpm --filter @sando/docs build            # Build Storybook
-
-# VitePress (@sando/site)
-pnpm --filter @sando/site dev              # Start VitePress (:3000)
-pnpm --filter @sando/site build            # Build VitePress
-```
-
-### Shorter Aliases
-
-```bash
-# From root package.json
-pnpm tokens:build      # Build only tokens
-pnpm components:build  # Build only components
-pnpm docs:dev          # Start Storybook
-pnpm site:dev          # Start VitePress
-```
-
-## Build Order Dependencies
-
-**CRITICAL**: Tokens MUST be built before components.
-
-```
-1. @sando/tokens → build (generates CSS/TS token files)
-2. @sando/components → build (consumes token files)
-3. @sando/docs → dev/build (imports components)
-4. @sando/site → dev/build (imports components)
-```
-
-Turborepo handles this automatically via `dependsOn: ["^build"]` in `turbo.json`.
-
-## Testing Commands
-
-### Tokens Testing
-
-```bash
-# From packages/tokens/
-pnpm test                  # Clean output (recommended)
-pnpm test:verbose          # Detailed output
-pnpm test:ui               # Interactive browser UI
-pnpm test:watch            # Auto-rerun on changes
-pnpm test:coverage         # Coverage report
-
-# Specific test suites
-pnpm test:structure        # Token structure validation
-pnpm test:references       # Token reference integrity
-pnpm test:values           # Token value validation
-pnpm test:accessibility    # WCAG contrast compliance
-pnpm test:build            # Output validation
-```
-
-### Components Testing
-
-```bash
-# From packages/components/
-pnpm test                  # Unit tests (Vitest)
-pnpm test:watch            # Watch mode
-pnpm test:coverage         # Coverage report
-pnpm test:e2e              # E2E tests (Playwright)
-pnpm test:e2e:ui           # E2E with UI
-```
-
-## Token System Details
-
-### Token Naming Convention
-
-```
-CSS Custom Properties: --sando-{category}-{property}-{variant?}-{state?}
-
-Examples:
---sando-color-brand-500                            (ingredient)
---sando-color-background-base                      (flavor)
---sando-button-solid-backgroundColor-default       (recipe)
---sando-button-solid-backgroundColor-hover         (recipe with state)
-```
-
-### Token Build Process
-
-The token build uses a custom Style Dictionary orchestrator:
-
-```
-packages/tokens/build/
-├── index.js                     # Main orchestrator entry
-├── core/
-│   ├── orchestrator.js          # Coordinates layer builds
-│   ├── layer-builder.js         # Builds individual layers
-│   └── metrics.js               # Build performance metrics
-├── configs/                     # Layer configurations
-│   ├── ingredients.config.js
-│   ├── flavors.config.js
-│   └── recipes.config.js
-├── formats/                     # Custom output formats
-│   ├── css/                     # CSS generation
-│   └── typescript/              # TypeScript generation
-└── transforms/                  # Custom transforms
-    ├── name-css-sando.js        # Adds --sando- prefix
-    └── css-var-reference.js     # Converts refs to var()
-```
-
-Build outputs:
-
-- `dist/sando-tokens/css/` - CSS custom properties
-- `dist/sando-tokens/ts/` - TypeScript (CSS var names + absolute values)
-
-### Adding New Tokens
-
-1. Add to source: `packages/tokens/src/{layer}/*.json`
-2. Build: `pnpm tokens:build` or `pnpm build`
-3. Use in components: `var(--sando-your-new-token)`
-
-## Component Development
-
-### Creating New Components
-
-1. Create folder: `packages/components/src/components/your-component/`
-2. Create ALL required files (see monolithic structure above)
-3. Export from `packages/components/src/index.ts`
-4. Add to package.json exports if needed
-
-**Template**: See `packages/components/docs/COMPONENT_TEMPLATE.md`
-
-### Component Guidelines
-
-- Use Lit 3.3.1 (no React/Vue - these are Web Components)
-- Consume tokens from Recipes layer: `var(--sando-component-*)`
-- Follow WCAG 2.1 AA accessibility standards
-- Include comprehensive tests (unit + E2E + a11y)
-- Document in Storybook stories
-- TypeScript strict mode enabled
-
-### Token Consumption in Components
-
-```typescript
-import { css } from 'lit';
-import { token } from '@sando/components/styles/tokens';
-import { tokens } from '@sando/tokens/recipes';
-
-static styles = css`
-  .button {
-    /* Recommended: Using token helper */
-    background: ${token(tokens.button.solid.backgroundColor.default)};
-
-    /* Also valid: Direct CSS variable */
-    color: var(--sando-button-solid-textColor-default);
-  }
-`;
-```
-
-## Theming System
-
-Themes are applied via the `flavor` HTML attribute:
-
-```html
-<!-- Global theme -->
-<html flavor="dark">
-  <body>
-    <sando-button>Dark button</sando-button>
-  </body>
-</html>
-
-<!-- Section theme -->
-<div flavor="strawberry">
-  <sando-button>Strawberry themed</sando-button>
-</div>
-
-<!-- Component override via CSS -->
-<sando-button style="--sando-button-solid-backgroundColor-default: #custom;">
-  Custom color
-</sando-button>
-```
+---
 
 ## AI Agent System
 
-The `.claude/agents/` directory contains **18 production agents** specialized for design system development:
+The `.claude/agents/` directory contains **18 production agents** specialized for design system development. Each agent has specific expertise and references guidelines as the single source of truth.
 
 **Core Agents (8):**
 
-- `design-system-architect` - Three-layer token architecture, Web Components, theming
-- `design-system-pm` - Product roadmap, RICE prioritization, adoption metrics
-- `ui-designer` - Interface design, Ingredients/Flavors tokens, WCAG 2.1 AA
-- `frontend-developer` - Lit Web Components, token consumption, accessibility
-- `technical-writer` - API docs, token guides, Storybook documentation
-- `qa-expert` - Test strategy, unit/E2E/a11y tests, WCAG validation
-- `devops-automation-engineer` - CI/CD pipelines, NPM publishing, Storybook deployment
-- `developer-tooling-specialist` - Build optimization, DX, Style Dictionary, tooling
+- `design-system-architect`
+- `design-system-pm`
+- `ui-designer`
+- `frontend-developer`
+- `technical-writer`
+- `qa-expert`
+- `devops-automation-engineer`
+- `developer-tooling-specialist`
 
 **Phase 2 - Design Operations (4):**
 
-- `design-ops-specialist` - Token versioning, Figma automation, visual regression
-- `version-migration-manager` - Breaking changes, codemods, deprecation tracking
-- `ecosystem-integration-agent` - React/Vue/Angular wrappers, SSR support
-- `performance-monitor` - Core Web Vitals, bundle sizes, Lighthouse CI
+- `design-ops-specialist`
+- `version-migration-manager`
+- `ecosystem-integration-agent`
+- `performance-monitor`
 
 **Phase 3 - Quality & Architecture (2):**
 
-- `security-compliance-auditor` - Vulnerability scanning, XSS prevention, license compliance
-- `component-composition-specialist` - Compound components, headless patterns, layout primitives
+- `security-compliance-auditor`
+- `component-composition-specialist`
 
-**Phase 4 - Community & Growth (3):**
+**Phase 4 - Community & Growth (4):**
 
-- `community-contribution-manager` - Issue triage, PR reviews, RFC process
-- `analytics-insights-agent` - Usage metrics, adoption tracking, developer satisfaction
-- `localization-i18n-specialist` - Multi-language support, RTL layouts, locale formatting
+- `community-contribution-manager`
+- `analytics-insights-agent`
+- `localization-i18n-specialist`
+- `accessibility-advocate`
 
-**Meta Agents (3):**
+**Slash Commands:**
 
-- `general-purpose` - Complex searches and multi-step tasks
-- `statusline-setup` - Configure Claude Code status line
-- `output-style-setup` - Configure Claude Code output styles
+- `/project-status` - Comprehensive project status (git, builds, tests, coverage)
 
-Each agent has specific expertise. See `.claude/agents/team-agents-analysis.md` for collaboration workflows. Use this agents for specific tasks.
+**Skills:**
+
+- `component-creator` - Scaffold new components with 7-file structure
+- `command-creator` - Create new slash commands following Sando's Golden Rule
+- `skill-creator` - Create new skills with progressive disclosure
+
+**Usage**: Invoke agents via Task tool. Each agent will reference guidelines automatically.
+
+---
 
 ## Important Notes
-
-### Build Caching
-
-Turborepo caches build outputs. To force rebuild:
-
-```bash
-pnpm clean              # Clean all artifacts
-pnpm build              # Fresh build
-
-# Or bypass cache
-pnpm build -- --force
-```
-
-### Token Build Cache
-
-Tokens have build cache: `packages/tokens/.build-cache.json`
-
-Force rebuild: `rm .build-cache.json && pnpm build`
 
 ### Package Manager
 
@@ -383,33 +152,19 @@ Requires Node.js >=20.0.0 (specified in package.json engines)
 ### Environment Variables
 
 Optional: Copy `.env.example` to `.env.local` to customize ports.
-
 Default ports:
 
 - Storybook: 6006
 - VitePress: 3000
 
-## Framework Integration
+### Build Caching
 
-The Web Components work with ANY framework:
+Turborepo caches build outputs. To force rebuild:
+`pnpm clean && pnpm build`
+or
+`pnpm build -- --force`
 
-- **Vanilla HTML/JS**: Direct `<sando-button>` usage
-- **React**: Import and use (see components README for TypeScript setup)
-- **Vue 3**: Configure `isCustomElement` in vite.config
-- **Angular**: Add `CUSTOM_ELEMENTS_SCHEMA`
-- **Svelte**: Direct usage
-
-Details in `packages/components/README.md`
-
-## Versioning & Publishing
-
-Uses Changesets:
-
-```bash
-pnpm changeset           # Create changeset
-pnpm version-packages    # Bump versions
-pnpm release             # Build and publish to npm
-```
+---
 
 ## Key Files
 
@@ -417,4 +172,5 @@ pnpm release             # Build and publish to npm
 - `pnpm-workspace.yaml` - Workspace definition
 - `packages/tokens/build/index.js` - Token build orchestrator
 - `packages/components/ARCHITECTURE.md` - Component architecture details
-- `.claude/agents/team-agents-analysis.md` - Agent team documentation
+- `.claude/guidelines/GUIDELINES_INDEX.md` - Complete guidelines index
+- `.claude/agents/` - 18 specialized agents
