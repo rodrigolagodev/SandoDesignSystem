@@ -179,55 +179,55 @@ All production code MUST meet 80% coverage across lines, functions, branches, an
 <coverage_thresholds id="TC-CT">
 <component_coverage id="TC-CT-CC">
 
-<summary>
-From packages/components/vitest.config.js
-</summary>
+  <summary>
+  From packages/components/vitest.config.js
+  </summary>
 
-      <thresholds>
-        <threshold metric="Lines" value="80%" applies_to="All .ts files in src/" enforcement="Vitest exits 1 if below"/>
-        <threshold metric="Functions" value="80%" applies_to="All exported functions" enforcement="Vitest exits 1 if below"/>
-        <threshold metric="Branches" value="80%" applies_to="All conditional paths" enforcement="Vitest exits 1 if below"/>
-        <threshold metric="Statements" value="80%" applies_to="All statements" enforcement="Vitest exits 1 if below"/>
-      </thresholds>
+        <thresholds>
+          <threshold metric="Lines" value="80%" applies_to="All .ts files in src/" enforcement="Vitest exits 1 if below"/>
+          <threshold metric="Functions" value="80%" applies_to="All exported functions" enforcement="Vitest exits 1 if below"/>
+          <threshold metric="Branches" value="80%" applies_to="All conditional paths" enforcement="Vitest exits 1 if below"/>
+          <threshold metric="Statements" value="80%" applies_to="All statements" enforcement="Vitest exits 1 if below"/>
+        </thresholds>
 
-      <exclusions>
-        *.test.ts, *.spec.ts, *.a11y.test.ts, *.stories.ts, *.types.ts, index.ts
-      </exclusions>
-    </component_coverage>
+        <exclusions>
+          *.test.ts, *.spec.ts, *.a11y.test.ts, *.stories.ts, *.types.ts, index.ts
+        </exclusions>
+      </component_coverage>
 
-    <token_coverage id="TC-CT-TKC">
-      <summary>
-        From packages/tokens/vitest.config.js
-      </summary>
+      <token_coverage id="TC-CT-TKC">
+        <summary>
+          From packages/tokens/vitest.config.js
+        </summary>
 
-      <thresholds>
-        <threshold metric="Lines" value="80%" applies_to="Build scripts in build/" enforcement="Vitest exits 1 if below"/>
-        <threshold metric="Functions" value="80%" applies_to="Build orchestrator, transforms" enforcement="Vitest exits 1 if below"/>
-        <threshold metric="Branches" value="80%" applies_to="Conditional logic in builds" enforcement="Vitest exits 1 if below"/>
-        <threshold metric="Statements" value="80%" applies_to="All statements" enforcement="Vitest exits 1 if below"/>
-      </thresholds>
+        <thresholds>
+          <threshold metric="Lines" value="80%" applies_to="Build scripts in build/" enforcement="Vitest exits 1 if below"/>
+          <threshold metric="Functions" value="80%" applies_to="Build orchestrator, transforms" enforcement="Vitest exits 1 if below"/>
+          <threshold metric="Branches" value="80%" applies_to="Conditional logic in builds" enforcement="Vitest exits 1 if below"/>
+          <threshold metric="Statements" value="80%" applies_to="All statements" enforcement="Vitest exits 1 if below"/>
+        </thresholds>
 
-      <exclusions>
-        tests/, *.test.js, *.spec.js, vitest.config.js
-      </exclusions>
+        <exclusions>
+          tests/, *.test.js, *.spec.js, vitest.config.js
+        </exclusions>
 
-      <note>
-        Token JSON files are validated via structure/reference tests, not coverage metrics.
-      </note>
-    </token_coverage>
+        <note>
+          Token JSON files are validated via structure/reference tests, not coverage metrics.
+        </note>
+      </token_coverage>
 
-    <accessibility_coverage id="TC-CT-A11Y">
-      <requirements>
-        <requirement area="Public components" threshold="100%" enforcement="Manual checklist verification"/>
-        <requirement area="Component states" threshold="100%" enforcement="All states/variants tested"/>
-        <requirement area="Flavors" threshold="100%" enforcement="All 5 flavors validated"/>
-        <requirement area="WCAG violations" threshold="0" enforcement="jest-axe toHaveNoViolations"/>
-      </requirements>
+      <accessibility_coverage id="TC-CT-A11Y">
+        <requirements>
+          <requirement area="Public components" threshold="100%" enforcement="Manual checklist verification"/>
+          <requirement area="Component states" threshold="100%" enforcement="All states/variants tested"/>
+          <requirement area="Flavors" threshold="100%" enforcement="All 5 flavors validated"/>
+          <requirement area="WCAG violations" threshold="0" enforcement="jest-axe toHaveNoViolations"/>
+        </requirements>
 
-      <reference type="guideline" doc_id="WC" file="../04-accessibility/WCAG_COMPLIANCE.md">
-        WCAG compliance requirements
-      </reference>
-    </accessibility_coverage>
+        <reference type="guideline" doc_id="WC" file="../04-accessibility/WCAG_COMPLIANCE.md">
+          WCAG compliance requirements
+        </reference>
+      </accessibility_coverage>
 
 </coverage_thresholds>
 
