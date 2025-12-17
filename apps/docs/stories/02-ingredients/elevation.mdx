@@ -1,0 +1,310 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Ingredients/Elevation" />
+
+# Elevation
+
+Elevation creates visual hierarchy and depth through carefully crafted shadows. The Sando Design System provides **6 elevation levels** built on **Ingredients tokens** (Layer 1).
+
+## Elevation Scale
+
+Our elevation system uses layered shadows to simulate depth and focus, helping users understand element hierarchy and interactive states.
+
+<div style={{ marginTop: '48px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '32px' }}>
+  {[
+    { token: '0', name: 'None', description: 'Flat, no depth' },
+    { token: '100', name: 'Subtle', description: 'Slight lift, hover states' },
+    { token: '200', name: 'Low', description: 'Cards, buttons' },
+    { token: '300', name: 'Medium', description: 'Dropdowns, popovers' },
+    { token: '400', name: 'High', description: 'Modals, dialogs' },
+    { token: '500', name: 'Highest', description: 'Tooltips, top-level overlays' },
+  ].map(({ token, name, description }) => (
+    <div key={token} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+      <div
+        style={{
+          backgroundColor: 'var(--sando-color-background-raised)',
+          padding: '32px',
+          borderRadius: '12px',
+          boxShadow: `var(--sando-elevation-${token})`,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          minHeight: '120px',
+          transition: 'transform 0.2s ease',
+        }}
+      >
+        <div style={{ textAlign: 'center' }}>
+          <div style={{ fontSize: '24px', fontWeight: '600', marginBottom: '4px' }}>
+            {name}
+          </div>
+          <div style={{ fontSize: '12px', color: 'var(--sando-color-text-caption)' }}>
+            elevation-{token}
+          </div>
+        </div>
+      </div>
+      <div style={{ fontSize: '14px', color: 'var(--sando-color-text-body)', lineHeight: '1.4' }}>
+        {description}
+      </div>
+      <code style={{ fontFamily: 'monospace', fontSize: '11px', color: 'var(--sando-color-text-caption)' }}>
+        --sando-elevation-{token}
+      </code>
+    </div>
+  ))}
+</div>
+
+---
+
+## Elevation Hierarchy
+
+Elevation creates a visual z-axis, with higher elevations appearing "closer" to the user.
+
+<div style={{ marginTop: '32px', position: 'relative', height: '400px', backgroundColor: 'var(--sando-color-background-base)', borderRadius: '12px', padding: '40px', overflow: 'hidden' }}>
+  <div
+    style={{
+      position: 'absolute',
+      bottom: '40px',
+      left: '40px',
+      backgroundColor: 'var(--sando-color-background-raised)',
+      padding: '24px',
+      borderRadius: '8px',
+      boxShadow: 'var(--sando-elevation-100)',
+      zIndex: 1,
+    }}
+  >
+    <div style={{ fontSize: '14px', fontWeight: '600' }}>elevation-100</div>
+    <div style={{ fontSize: '12px', color: 'var(--sando-color-text-caption)' }}>Base layer</div>
+  </div>
+
+  <div
+    style={{
+      position: 'absolute',
+      bottom: '80px',
+      left: '120px',
+      backgroundColor: 'var(--sando-color-background-raised)',
+      padding: '24px',
+      borderRadius: '8px',
+      boxShadow: 'var(--sando-elevation-200)',
+      zIndex: 2,
+    }}
+  >
+    <div style={{ fontSize: '14px', fontWeight: '600' }}>elevation-200</div>
+    <div style={{ fontSize: '12px', color: 'var(--sando-color-text-caption)' }}>Raised cards</div>
+  </div>
+
+  <div
+    style={{
+      position: 'absolute',
+      bottom: '120px',
+      left: '200px',
+      backgroundColor: 'var(--sando-color-background-raised)',
+      padding: '24px',
+      borderRadius: '8px',
+      boxShadow: 'var(--sando-elevation-300)',
+      zIndex: 3,
+    }}
+  >
+    <div style={{ fontSize: '14px', fontWeight: '600' }}>elevation-300</div>
+    <div style={{ fontSize: '12px', color: 'var(--sando-color-text-caption)' }}>Dropdowns</div>
+  </div>
+
+  <div
+    style={{
+      position: 'absolute',
+      bottom: '160px',
+      left: '280px',
+      backgroundColor: 'var(--sando-color-background-raised)',
+      padding: '24px',
+      borderRadius: '8px',
+      boxShadow: 'var(--sando-elevation-400)',
+      zIndex: 4,
+    }}
+  >
+    <div style={{ fontSize: '14px', fontWeight: '600' }}>elevation-400</div>
+    <div style={{ fontSize: '12px', color: 'var(--sando-color-text-caption)' }}>Modals</div>
+  </div>
+
+  <div
+    style={{
+      position: 'absolute',
+      bottom: '200px',
+      left: '360px',
+      backgroundColor: 'var(--sando-color-background-raised)',
+      padding: '24px',
+      borderRadius: '8px',
+      boxShadow: 'var(--sando-elevation-500)',
+      zIndex: 5,
+    }}
+  >
+    <div style={{ fontSize: '14px', fontWeight: '600' }}>elevation-500</div>
+    <div style={{ fontSize: '12px', color: 'var(--sando-color-text-caption)' }}>Tooltips</div>
+  </div>
+</div>
+
+---
+
+## Component Examples
+
+### Cards with Elevation
+
+<div style={{ marginTop: '32px', display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
+  <div
+    style={{
+      flex: '1 1 250px',
+      backgroundColor: 'var(--sando-color-background-raised)',
+      padding: '24px',
+      borderRadius: '12px',
+      boxShadow: 'var(--sando-elevation-0)',
+    }}
+  >
+    <div style={{ fontSize: '16px', fontWeight: '600', marginBottom: '8px' }}>Flat Card</div>
+    <div style={{ fontSize: '14px', color: 'var(--sando-color-text-body)' }}>
+      No elevation, sits flush with background
+    </div>
+  </div>
+
+  <div
+    style={{
+      flex: '1 1 250px',
+      backgroundColor: 'var(--sando-color-background-raised)',
+      padding: '24px',
+      borderRadius: '12px',
+      boxShadow: 'var(--sando-elevation-100)',
+    }}
+  >
+    <div style={{ fontSize: '16px', fontWeight: '600', marginBottom: '8px' }}>Subtle Card</div>
+    <div style={{ fontSize: '14px', color: 'var(--sando-color-text-body)' }}>
+      Minimal shadow for subtle separation
+    </div>
+  </div>
+
+  <div
+    style={{
+      flex: '1 1 250px',
+      backgroundColor: 'var(--sando-color-background-raised)',
+      padding: '24px',
+      borderRadius: '12px',
+      boxShadow: 'var(--sando-elevation-200)',
+    }}
+  >
+    <div style={{ fontSize: '16px', fontWeight: '600', marginBottom: '8px' }}>Raised Card</div>
+    <div style={{ fontSize: '14px', color: 'var(--sando-color-text-body)' }}>
+      Clear depth, draws attention
+    </div>
+  </div>
+</div>
+
+### Interactive States
+
+Elevation can change on interaction to provide feedback.
+
+<div style={{ marginTop: '32px', display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
+  <div
+    style={{
+      flex: '1 1 250px',
+      backgroundColor: 'var(--sando-color-brand-500)',
+      color: 'white',
+      padding: '16px 32px',
+      borderRadius: '8px',
+      boxShadow: 'var(--sando-elevation-100)',
+      textAlign: 'center',
+      fontSize: '14px',
+      fontWeight: '600',
+      cursor: 'pointer',
+      transition: 'box-shadow 0.2s ease, transform 0.2s ease',
+    }}
+    onMouseEnter={(e) => {
+      e.currentTarget.style.boxShadow = 'var(--sando-elevation-200)';
+      e.currentTarget.style.transform = 'translateY(-2px)';
+    }}
+    onMouseLeave={(e) => {
+      e.currentTarget.style.boxShadow = 'var(--sando-elevation-100)';
+      e.currentTarget.style.transform = 'translateY(0)';
+    }}
+  >
+    Hover me
+  </div>
+
+  <div
+    style={{
+      flex: '1 1 250px',
+      backgroundColor: 'var(--sando-color-background-raised)',
+      padding: '24px',
+      borderRadius: '12px',
+      boxShadow: 'var(--sando-elevation-200)',
+      textAlign: 'center',
+      fontSize: '14px',
+      fontWeight: '600',
+      cursor: 'pointer',
+      transition: 'box-shadow 0.2s ease, transform 0.2s ease',
+    }}
+    onMouseEnter={(e) => {
+      e.currentTarget.style.boxShadow = 'var(--sando-elevation-300)';
+      e.currentTarget.style.transform = 'translateY(-4px)';
+    }}
+    onMouseLeave={(e) => {
+      e.currentTarget.style.boxShadow = 'var(--sando-elevation-200)';
+      e.currentTarget.style.transform = 'translateY(0)';
+    }}
+  >
+    Card with hover lift
+  </div>
+</div>
+
+---
+
+## Usage Guidelines
+
+### When to Use Elevation
+
+- **elevation-0**: Flat elements, embedded content
+- **elevation-100**: Subtle separation, hover states for flat elements
+- **elevation-200**: Cards, buttons, raised content
+- **elevation-300**: Dropdowns, popovers, floating menus
+- **elevation-400**: Modal dialogs, sheets, overlays
+- **elevation-500**: Tooltips, toast notifications, top-level UI
+
+### Do's
+
+- ✅ Use elevation to establish visual hierarchy
+- ✅ Increase elevation on hover for interactive elements
+- ✅ Keep elevation consistent for similar components
+- ✅ Use higher elevations sparingly for critical UI
+
+### Don'ts
+
+- ❌ Don't use too many elevation levels in one view
+- ❌ Don't use elevation without semantic meaning
+- ❌ Don't mix elevation systems
+- ❌ Don't use elevation as decoration only
+
+---
+
+## Dark Mode Considerations
+
+Elevation shadows work differently in dark mode:
+
+- **Light mode**: Shadows are dark (rgba(0,0,0))
+- **Dark mode**: May need lighter shadows or borders for definition
+- **Future enhancement**: Dynamic shadow colors based on flavor mode
+
+<div style={{ marginTop: '24px', padding: '16px', backgroundColor: 'var(--sando-color-background-emphasis)', borderRadius: '8px', fontSize: '14px' }}>
+  <strong>Note:</strong> Current elevation tokens use the same shadow values in both light and dark modes.
+  Future iterations may include mode-specific shadow adjustments.
+</div>
+
+---
+
+## Accessibility
+
+- Elevation alone should not convey critical information
+- Combine with color, text, or icons for important states
+- Ensure sufficient contrast for shadow visibility
+- Consider motion-reduced preferences for elevation transitions
+
+---
+
+## Related
+
+- **Flavors Layer** - Semantic elevation tokens (muted, default, emphasis)
+- **Components** - Elevation in context
+- **Animation** - Elevation transition timing

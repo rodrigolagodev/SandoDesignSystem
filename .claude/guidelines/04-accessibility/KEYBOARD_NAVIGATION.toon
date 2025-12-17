@@ -1,0 +1,475 @@
+meta:
+  doc_id: "KN"
+  category: "04-accessibility"
+  version: "1.0.0"
+  status: "Active"
+  last_updated: "2025-11-09"
+  owner: "QA Expert"
+
+purpose:
+  id: "KN-PU"
+  description: |
+    Ensure all Sando Design System components are fully keyboard accessible per WCAG 2.1 Level A/AA standards. Defines keyboard interaction patterns, focus management, tab order, and testing procedures for Web Components with Shadow DOM.
+
+target_audience: "Frontend developers, QA engineers, UI designers"
+
+scope: "All interactive components (buttons, forms, dialogs, menus, tabs)"
+
+core_rules:
+  - id: "KN-CR-R1"
+    title: "All Interactive Elements Keyboard Accessible (Non-Negotiable)"
+    summary: "Every interactive element MUST be operable via keyboard without mouse: Tab/Shift+Tab for navigation, Enter/Space for activation."
+    pattern:
+      lang: "typescript"
+      title: "✅ Correct keyboard support"
+      code: |
+        // Native button (automatic keyboard support)
+        <button type="button">Submit</button>
+
+        // Custom interactive with keyboard handling
+        <div role="button" tabindex="0" @keydown=${this.handleKeydown}>
+    anti_pattern:
+      lang: "typescript"
+      title: "❌ No keyboard support"
+      code: |
+        // Div without keyboard support
+        <div onclick="handleClick">Click me</div>
+    why: "WCAG 2.1.1 Level A requirement. Essential for users with motor disabilities, blind users, and power users who prefer keyboard navigation."
+    enforcement: "Automated testing with keyboard event simulation in Vitest tests (see sando-button.test.ts)."
+    reference:
+      type: "external"
+      url: "httpss://www.w3.org/WAI/WCAG21/Understanding/keyboard.html"
+      note: "WCAG 2.1.1 Keyboard"
+
+  - id: "KN-CR-R2"
+    title: "Focus Visible Indicators (Non-Negotiable)"
+    summary: "All focusable elements MUST display a visible focus indicator with 3:1 contrast ratio per WCAG 2.4.7 Level AA."
+    pattern:
+      lang: "css"
+      title: "✅ Visible focus indicator"
+      code: |
+        button:focus-visible {
+          outline: 2px solid var(--sando-color-focus);
+          outline-offset: 2px;
+        }
+    anti_pattern:
+      lang: "css"
+      title: "❌ Removes focus without replacement"
+      code: |
+        /* Removes focus indicator without replacement */
+        button:focus {
+          outline: none;
+        }
+    why: "Users must see where keyboard focus is located. Critical for keyboard navigation, motor disabilities, and cognitive disabilities."
+    enforcement: "Visual regression tests, manual testing, automated outline detection in unit tests."
+    reference:
+      type: "external"
+      url: "httpss://www.w3.org/WAI/WCAG21/Understanding/focus-visible.html"
+      note: "WCAG 2.4.7 Focus Visible"
+
+  - id: "KN-CR-R3"
+    title: "Logical Tab Order"
+    summary: "Tab order MUST follow visual reading order (left-to-right, top-to-bottom for LTR). Never use positive tabindex values."
+    allowed_pattern:
+      - "DOM order = visual order"
+      - "tabindex='0' for custom interactive elements"
+      - "tabindex='-1' for programmatic focus only"
+      - "disabled removes from tab order"
+    anti_pattern:
+      lang: "html"
+      title: "❌ Positive tabindex creates unpredictable order"
+      code: |
+        <button tabindex="3">Third</button>
+        <button tabindex="1">First</button>
+        <button tabindex="2">Second</button>
+    why: "WCAG 2.4.3 Level A. Predictable navigation reduces cognitive load and prevents confusion."
+    enforcement: "Manual tab order testing, automated DOM order validation."
+    reference:
+      type: "external"
+      url: "httpss://www.w3.org/WAI/WCAG21/Understanding/focus-order.html"
+      note: "WCAG 2.4.3 Focus Order"
+
+  - id: "KN-CR-R4"
+    title: "No Keyboard Traps (Non-Negotiable)"
+    summary: "Users MUST be able to navigate away from any focused element using only keyboard. Provide Escape to close modals/dialogs."
+    requirements:
+      - "Tab/Shift+Tab always moves focus"
+      - "Escape closes dialogs and returns focus"
+      - "Focus trap within modals (Tab cycles through modal content)"
+      - "Document how to exit custom interactions"
+    why: "WCAG 2.1.2 Level A. Keyboard traps prevent users from completing tasks and accessing content."
+    enforcement: "Manual testing, automated trap detection in E2E tests."
+    reference:
+      type: "external"
+      url: "httpss://www.w3.org/WAI/WCAG21/Understanding/no-keyboard-trap.html"
+      note: "WCAG 2.1.2 No Keyboard Trap"
+
+  - id: "KN-CR-R5"
+    title: "Shadow DOM Focus Delegation"
+    summary: "Web Components MUST use delegatesFocus: true to ensure focus management works correctly in Shadow DOM."
+    pattern:
+      lang: "typescript"
+      title: "✅ Focus delegation in Shadow DOM"
+      code: |
+        export class SandoButton extends LitElement {
+          static shadowRootOptions = {
+            ...LitElement.shadowRootOptions,
+            delegatesFocus: true,
+          };
+        }
+    why: "Shadow DOM encapsulation can break focus management. delegatesFocus automatically focuses first focusable element in shadow tree when host receives focus."
+    enforcement: "Component creation template includes this by default, verified in unit tests."
+    reference:
+      type: "source_file"
+      path: "packages/components/src/components/button/sando-button.test.ts"
+      note: "focus delegation tests"
+
+wcag_keyboard_criteria:
+  id: "KN-WC"
+  criteria:
+    - id: "2.1.1"
+      level: "A"
+      title: "Keyboard"
+      requirement: "All functionality available via keyboard"
+      implementation: "Tab, Enter, Space keys"
+      test_method: "Tab through all interactive elements"
+    - id: "2.1.2"
+      level: "A"
+      title: "No Keyboard Trap"
+      requirement: "User can navigate away from any element"
+      implementation: "Escape key, Tab always works"
+      test_method: "Tab/Escape from all states"
+    - id: "2.4.3"
+      level: "A"
+      title: "Focus Order"
+      requirement: "Tab order matches visual order"
+      implementation: "DOM structure = visual layout"
+      test_method: "Manual tab order inspection"
+    - id: "2.4.7"
+      level: "AA"
+      title: "Focus Visible"
+      requirement: "Visible focus indicator present"
+      implementation: ":focus-visible styles, 3:1 contrast"
+      test_method: "Visual inspection, contrast tools"
+    - id: "3.2.1"
+      level: "A"
+      title: "On Focus"
+      requirement: "Focus alone does not trigger context changes"
+    - id: "2.5.1"
+      level: "A"
+      title: "Pointer Gestures"
+      requirement: "All functionality via single pointer"
+    - id: "2.5.2"
+      level: "A"
+      title: "Pointer Cancellation"
+      requirement: "Can abort/undo activation"
+  reference:
+    type: "external"
+    url: "httpss://www.w3.org/WAI/WCAG21/quickref/?showtechniques=211%2C212%2C243%2C247"
+    note: "WCAG 2.1 Quick Reference - Keyboard Accessible"
+
+keyboard_interactions:
+  id: "KN-KI"
+  navigation_keys:
+    - name: "Tab"
+      action: "Move focus forward"
+      applies_to: "All interactive elements"
+      notes: "Standard navigation"
+    - name: "Shift+Tab"
+      action: "Move focus backward"
+      applies_to: "All interactive elements"
+      notes: "Reverse navigation"
+  activation_keys:
+    - name: "Enter"
+      action: "Activate element"
+      applies_to: "Buttons, links, menu items"
+      notes: "Primary activation"
+    - name: "Space"
+      action: "Activate element"
+      applies_to: "Buttons, checkboxes, switches"
+      notes: "Toggle/activate"
+  component_specific_keys:
+    - name: "Escape"
+      action: "Cancel/close"
+      applies_to: "Modals, dialogs, menus, popovers"
+      notes: "Exit interaction, restore focus"
+    - name: "Arrow Up/Down"
+      action: "Navigate items"
+      applies_to: "Vertical lists, menus, selects, radios"
+      notes: "Vertical navigation"
+    - name: "Arrow Left/Right"
+      action: "Navigate items"
+      applies_to: "Horizontal tabs, sliders"
+      notes: "Horizontal navigation"
+    - name: "Home"
+      action: "First item"
+      applies_to: "Lists, menus, tabs"
+      notes: "Jump to start"
+    - name: "End"
+      action: "Last item"
+      applies_to: "Lists, menus, tabs"
+      notes: "Jump to end"
+    - name: "Page Up/Down"
+      action: "Scroll container"
+      applies_to: "Scrollable regions"
+      notes: "Large movements"
+  reference:
+    type: "external"
+    url: "httpss://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/"
+    note: "WAI-ARIA Authoring Practices Guide - Complete keyboard patterns"
+
+focus_management:
+  id: "KN-FM"
+  shadow_dom_delegation:
+    id: "KN-FM-SD"
+    required_pattern:
+      lang: "typescript"
+      code: |
+        export class SandoComponent extends LitElement {
+          static shadowRootOptions = {
+            ...LitElement.shadowRootOptions,
+            delegatesFocus: true,
+          };
+        }
+    behavior:
+      - "Focuses first focusable element in shadow tree when host receives focus"
+      - "Enables Tab to enter shadow tree naturally"
+      - "Required for proper keyboard navigation in Web Components"
+    test_pattern:
+      lang: "typescript"
+      source: "sando-button.test.ts"
+      code: |
+        const button = element.shadowRoot?.querySelector("button");
+        element.focus();
+        expect(document.activeElement).toBe(element);
+        expect(element.shadowRoot?.activeElement).toBe(button);
+  modal_dialog_pattern:
+    id: "KN-FM-MD"
+    steps:
+      - number: 1
+        phase: "On open"
+        note: "Move focus to first focusable element (usually close button or first input)"
+      - number: 2
+        phase: "During interaction"
+        note: "Trap focus within modal (Tab cycles through modal content only)"
+      - number: 3
+        phase: "On close"
+        note: "Restore focus to trigger element"
+      - number: 4
+        phase: "Escape key"
+        note: "Close modal and restore focus"
+    implementation_note: "Use focusTrap directive or similar (do not implement manually)."
+  focus_restoration:
+    id: "KN-FM-FR"
+    when_to_restore:
+      - "Closing dialogs/modals"
+      - "Deleting items from lists (focus next/previous item)"
+      - "Collapsing expanded sections"
+      - "Completing multi-step flows"
+    pattern:
+      lang: "typescript"
+      code: |
+        const triggerElement = document.activeElement;
+        // ... open dialog
+        dialog.close();
+        (triggerElement as HTMLElement)?.focus();
+
+tab_order_management:
+  id: "KN-TOM"
+  natural_tab_order:
+    id: "KN-TOM-NTO"
+    principle: "DOM order MUST match visual order."
+    implementation:
+      - "Use semantic HTML in logical order"
+      - "CSS Grid/Flexbox order property does NOT change tab order"
+      - "Verify tab order matches reading order in all layouts"
+  tabindex_usage:
+    id: "KN-TOM-TU"
+    values:
+      - value: 'tabindex="0"'
+        meaning: "Natural tab order"
+        use_case: "Custom interactive elements (role='button', etc.)"
+      - value: 'tabindex="-1"'
+        meaning: "Not in tab order, programmatically focusable"
+        use_case: "Headings, containers, focus targets"
+      - value: 'tabindex="1+"'
+        meaning: "Explicit order (ANTI-PATTERN)"
+        use_case: "Never use"
+    common_mistake: "Using positive tabindex values creates unpredictable tab order."
+  removing_from_tab_order:
+    id: "KN-TOM-RTO"
+    when_to_remove:
+      - "disabled attribute (buttons, inputs)"
+      - 'aria-hidden="true" elements'
+      - "Hidden elements (display: none, visibility: hidden)"
+      - "Inactive tab panels"
+    pattern:
+      lang: "typescript"
+      code: |
+        // ✅ Disabled removes from tab order
+        <button disabled>Cannot focus</button>
+
+        // ✅ Programmatic focus only
+        <h2 tabindex="-1" id="section-heading">Section</h2>
+
+focus_visible_styles:
+  id: "KN-FVS"
+  required_pattern:
+    id: "KN-FVS-RP"
+    summary: "Use :focus-visible pseudo-class"
+    pattern:
+      lang: "css"
+      code: |
+        button:focus-visible {
+          outline: 2px solid var(--sando-color-focus);
+          outline-offset: 2px;
+        }
+    why_focus_visible:
+      - ":focus shows outline on mouse click (visually distracting)"
+      - ":focus-visible shows outline only for keyboard navigation"
+      - "Browsers automatically determine when focus should be visible"
+  wcag_requirements:
+    id: "KN-FVS-WR"
+    requirements:
+      - id: "1.4.11"
+        level: "AA"
+        title: "Non-text Contrast"
+        items:
+          - "Focus indicator MUST have 3:1 contrast ratio against background"
+          - "Focus indicator MUST have 3:1 contrast ratio against unfocused state"
+      - id: "2.4.7"
+        level: "AA"
+        title: "Focus Visible"
+        items:
+          - "Focus indicator MUST be visible for all focusable elements"
+          - "Indicator MUST be visible in all color modes (light, dark, high-contrast)"
+  token_usage:
+    id: "KN-FVS-TU"
+    pattern:
+      lang: "css"
+      title: "Sando focus color token"
+      code: |
+        button:focus-visible {
+          outline: 2px solid var(--sando-color-action-focus);
+          outline-offset: 2px;
+        }
+    verify_in_all_themes:
+      - "Original flavor"
+      - "Strawberry, Ocean, Forest, Sunset flavors"
+      - "Light mode, dark mode, high-contrast mode"
+
+testing:
+  id: "KN-TST"
+  manual_testing:
+    id: "KN-TST-MT"
+    procedure:
+      - number: 1
+        note: "Tab navigation: Tab through all interactive elements, verify order matches visual layout"
+      - number: 2
+        note: "Shift+Tab navigation: Reverse tab through all elements"
+      - number: 3
+        note: "Enter/Space activation: Activate buttons, links, checkboxes with Enter/Space"
+      - number: 4
+        note: "Escape cancellation: Close dialogs, menus, popovers with Escape"
+      - number: 5
+        note: "Focus visible: Verify focus indicator visible on all elements"
+      - number: 6
+        note: "No keyboard traps: Verify can Tab away from all elements"
+      - number: 7
+        note: "Disabled state: Verify disabled elements not in tab order"
+    browser_testing: "Test in Chrome, Firefox, Safari, Edge (keyboard behavior can differ)."
+  automated_testing:
+    id: "KN-TST-AT"
+    unit_test_pattern:
+      lang: "typescript"
+      source: "sando-button.test.ts"
+      code: |
+        describe("Keyboard Navigation", () => {
+          it("should be focusable via Tab key", async () => {
+            const button = element.shadowRoot?.querySelector("button");
+            element.focus();
+            expect(document.activeElement).toBe(element);
+          });
+
+          it("should activate on Enter key", async () => {
+            const enterEvent = new KeyboardEvent("keydown", {
+              key: "Enter",
+              bubbles: true,
+            });
+            const button = element.shadowRoot?.querySelector("button");
+            button?.dispatchEvent(enterEvent);
+            // Assert click handler called
+          });
+
+          it("should activate on Space key", async () => {
+            const spaceEvent = new KeyboardEvent("keydown", {
+              key: " ",
+              bubbles: true,
+            });
+            const button = element.shadowRoot?.querySelector("button");
+            button?.dispatchEvent(spaceEvent);
+            // Assert click handler called
+          });
+
+          it("should not be focusable when disabled", () => {
+            element.disabled = true;
+            const button = element.shadowRoot?.querySelector("button");
+            expect(button?.hasAttribute("disabled")).toBe(true);
+          });
+        });
+    e2e_test_pattern:
+      lang: "typescript"
+      tool: "Playwright"
+      code: |
+        test("keyboard navigation", async ({ page }) => {
+          await page.keyboard.press("Tab");
+          await expect(page.locator("button").first()).toBeFocused();
+          await page.keyboard.press("Enter");
+          await expect(page.locator(".result")).toContainText("Clicked");
+        });
+
+related_guidelines:
+  - type: "guideline"
+    doc_id: "WC"
+    file: "WCAG_COMPLIANCE.toon"
+    note: "Overall WCAG 2.1 compliance strategy"
+  - type: "guideline"
+    doc_id: "SR"
+    file: "SCREEN_READER_SUPPORT.toon"
+    note: "ARIA patterns and screen reader testing"
+  - type: "guideline"
+    doc_id: "TST"
+    file: "../03-development/TESTING_STRATEGY.toon"
+    note: "Test automation patterns"
+
+external_references:
+  - category: "WCAG Success Criteria"
+    references:
+      - url: "httpss://www.w3.org/WAI/WCAG21/Understanding/keyboard.html"
+        note: "WCAG 2.1.1 Keyboard"
+      - url: "httpss://www.w3.org/WAI/WCAG21/Understanding/no-keyboard-trap.html"
+        note: "WCAG 2.1.2 No Keyboard Trap"
+      - url: "httpss://www.w3.org/WAI/WCAG21/Understanding/focus-order.html"
+        note: "WCAG 2.4.3 Focus Order"
+      - url: "httpss://www.w3.org/WAI/WCAG21/Understanding/focus-visible.html"
+        note: "WCAG 2.4.7 Focus Visible"
+      - url: "httpss://www.w3.org/WAI/WCAG21/Understanding/non-text-contrast.html"
+        note: "WCAG 1.4.11 Non-text Contrast"
+  - category: "Keyboard patterns"
+    references:
+      - url: "httpss://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/"
+        note: "WAI-ARIA Authoring Practices Guide"
+      - url: "httpss://www.w3.org/WAI/ARIA/apg/patterns/"
+        note: "WAI-ARIA Keyboard Patterns"
+  - category: "Web Components"
+    references:
+      - url: "httpss://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot/delegatesFocus"
+        note: "Shadow DOM and delegatesFocus"
+      - url: "httpss://lit.dev/docs/components/shadow-dom/#setting-shadowroot-options"
+        note: "Lit focus delegation"
+  - category: "Testing"
+    references:
+      - url: "httpss://vitest.dev/guide/"
+        note: "Vitest DOM Testing"
+      - url: "httpss://playwright.dev/docs/api/class-keyboard"
+        note: "Playwright Keyboard API"

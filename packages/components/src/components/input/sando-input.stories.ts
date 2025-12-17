@@ -25,7 +25,7 @@ import './sando-input.js';
  * - Required fields have visual and semantic indicators
  */
 const meta: Meta = {
-  title: 'Components/Input',
+  title: 'Components/Inputs/Input',
   component: 'sando-input',
   tags: ['autodocs'],
   argTypes: {
@@ -35,7 +35,7 @@ const meta: Meta = {
       description: 'Visual style of the input',
       table: {
         category: 'Appearance',
-        defaultValue: { summary: 'outlined' }
+        defaultValue: { summary: 'filled' }
       }
     },
     size: {
@@ -125,7 +125,7 @@ const meta: Meta = {
     }
   },
   args: {
-    variant: 'outlined',
+    variant: 'filled',
     size: 'medium',
     type: 'text',
     label: 'Label',

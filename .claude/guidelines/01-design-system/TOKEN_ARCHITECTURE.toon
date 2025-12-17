@@ -1,0 +1,554 @@
+meta:
+  doc_id: "TA"
+  category: "01-design-system"
+  version: "2.0.0"
+  status: "Active"
+  last_updated: "2025-11-09"
+  owner: "Design System Architect"
+
+purpose:
+  id: "TA-PU"
+  description: |
+    Defines the three-layer token architecture (Ingredients → Flavors → Recipes) that enables strict separation of concerns, unlimited theming flexibility, and system scalability. This is the MOST CRITICAL architectural pattern—violations break theming.
+
+core_rules:
+  - id: "TA-CR-R1"
+    title: "Strict Layer References (Non-Negotiable)"
+    summary: "Each layer references ONLY the layer directly below it. This one-way flow is enforced by automated tests."
+    reference_flow: "Components → Recipes (Layer 3) → Flavors (Layer 2) → Ingredients (Layer 1) → Absolute values"
+    critical_rules:
+      - for_layer: "Ingredients"
+        constraint: "Absolute values ONLY (no `{...}` references)"
+      - for_layer: "Flavors"
+        constraint: "Reference ONLY Ingredients: `{color.orange.700.value}`"
+      - for_layer: "Recipes"
+        constraint: "Reference ONLY Flavors: `{color.action.solid.background.default.value}`"
+      - for_layer: "Components"
+        constraint: "Use ONLY Recipe CSS variables: `var(--sando-button-solid-backgroundColor-default)`"
+    anti_pattern:
+      - lang: "json"
+        title: "❌ Recipe skipping Flavors layer"
+        code:
+          button:
+            solid:
+              backgroundColor:
+                default:
+                  value: "{color.orange.700.value}" # Recipe → Ingredient (WRONG)
+      - lang: "json"
+        title: "❌ Flavor referencing another Flavor"
+        code:
+          color:
+            text:
+              link:
+                value: "{color.action.solid.background.default.value}" # Flavor → Flavor (WRONG)
+    why: "Violations break theming (can't swap colors), lose semantic meaning, and create circular dependencies."
+
+  - id: "TA-CR-R2"
+    title: "When to Create New Tokens"
+    decision_tree:
+      - condition: "new_ingredient"
+        reason: "Need absolute value not in existing scale"
+        example: "New color hue, spacing value outside 0-64"
+      - condition: "new_flavor"
+        reason: "Need new semantic meaning/use context"
+        example: "`color.background.platform` (new use case not covered by `color.background.surface`)"
+      - condition: "new_recipe"
+        reason: "Building a new component"
+        example: "`datepicker.json` for DatePicker component"
+      - condition: "reuse_token"
+        reason:
+          - "Value exists in scale"
+          - "Semantic meaning already defined"
+          - "Can use generic Flavor pattern"
+    anti_pattern:
+      lang: "json"
+      title: "❌ Too specific - should use existing Flavor"
+      code:
+        color:
+          button-primary-blue: {} # WRONG - too specific, not reusable
+    pattern:
+      lang: "json"
+      title: "✅ Correct - use existing semantic Flavor"
+      code:
+        button:
+          solid:
+            backgroundColor:
+              default:
+                value: "{color.action.solid.background.default.value}"
+
+  - id: "TA-CR-R3"
+    title: "CSS Variable Naming Convention"
+    pattern_format: "--sando-{category}-{property}-{variant?}-{state?}"
+    constraints:
+      - "Always kebab-case"
+      - "Include variant if property is variant-specific"
+      - "Include state if property is state-specific"
+      - "Order: variant before state"
+    example:
+      lang: "css"
+      code: |
+        /* Ingredients */
+        --sando-color-orange-500
+        --sando-space-4
+
+        /* Flavors */
+        --sando-color-action-solid-background-default
+        --sando-space-inset-md
+
+        /* Recipes */
+        --sando-button-solid-backgroundColor-default
+        --sando-button-solid-backgroundColor-hover
+        --sando-button-size-md-paddingInline
+    anti_pattern:
+      lang: "css"
+      code: |
+        /* ❌ Wrong order */
+        --sando-button-hover-solid-backgroundColor /* state before variant */
+
+        /* ❌ Not kebab-case */
+        --sandoButtonSolidBg
+
+        /* ❌ Missing category */
+        --sando-orange-500  /* should be --sando-color-orange-500 */
+
+  - id: "TA-CR-R4"
+    title: "Flavors vs Modes Distinction"
+    summary: "CRITICAL: Flavors and Modes are fundamentally different concepts."
+    concepts:
+      - id: "TA-CR-R4-C1"
+        title: "Flavors (Manual brand themes)"
+        characteristics:
+          - "Selected via `flavor='name'` attribute"
+          - "Examples: `original`, `strawberry`, `midnight`"
+          - "**Developer chooses** which flavor to apply"
+          - "Created by adding Flavor files: `src/flavors/{name}/flavor.json`"
+      - id: "TA-CR-R4-C2"
+        title: "Modes (Automatic accessibility)"
+        characteristics:
+          - "Activated via `@media` queries (user's system preference)"
+          - "Examples: `dark`, `high-contrast`, `motion-reduce`"
+          - "**User's system** determines which mode is active"
+          - "Created by adding mode files: `flavor-dark.json`, `flavor-high-contrast.json`"
+    pattern:
+      lang: "html"
+      title: "✅ Correct: Flavor selection & Automatic mode"
+      code: |
+        <div flavor="original">Theme with orange actions</div>
+        <div flavor="strawberry">Theme with pink actions</div>
+
+        <div flavor="original"></div>
+    anti_pattern:
+      lang: "html"
+      title: "❌ WRONG: Dark is a MODE, not a flavor"
+      code: |
+        <div flavor="dark">This doesn't work!</div>
+        <div flavor="high-contrast">This doesn't work!</div>
+    why: "Confusing Flavors with Modes breaks accessibility. Dark mode MUST respond to `prefers-color-scheme`, not manual selection."
+    reference:
+      type: "guideline"
+      doc_id: "TS"
+      file: "THEMING_STRATEGY.toon"
+      note: "complete Flavors vs Modes explanation"
+
+  - id: "TA-CR-R5"
+    title: "Semantic Meaning Over Values"
+    summary: "Flavors provide semantic meaning (use context), not value descriptions."
+    pattern:
+      lang: "json"
+      title: "✅ Good - describes USE CONTEXT"
+      code:
+        color:
+          action:
+            solid:
+              background:
+                default:
+                  value: "{color.orange.700.value}"
+    anti_pattern:
+      lang: "json"
+      title: "❌ Bad - describes VALUE"
+      code:
+        color:
+          brand:
+            primary:
+              value: "{color.orange.700.value}" # What is "primary" used for?
+    why: "Semantic naming enables brand-agnostic design. `color.action.solid.background` can map to ANY color—orange, purple, blue—without changing component code."
+
+three_layer_architecture:
+  summary: "This section is the DEFINITIVE source for the three-layer system. Other guidelines reference this."
+  layers:
+    - id: "TA-TLA-L1"
+      title: "Layer 1: Ingredients (Primitives)"
+      definition: "Raw, absolute values with NO references. Brand-agnostic primitives."
+      location: "`packages/tokens/src/ingredients/*.json`"
+      file_structure_definition:
+        root_path: "src/ingredients/"
+        files:
+          - "color.json" # 15 colors × 11 steps = 165 tokens
+          - "space.json" # 0-64 (multiples of 4px)
+          - "font.json" # Families, sizes, weights, line heights
+          - "border.json" # Radius, widths
+          - "elevation.json" # Shadow scales
+          - "animation.json" # Duration, easing
+          - "opacity.json" # Opacity values
+          - "z-index.json" # Z-index layers
+      naming_convention: "`{category}-{property}-{scale}`"
+      examples:
+        - name: "color-orange-700"
+          value: "oklch(0.47 0.20 25)"
+        - name: "space-4"
+          value: "1rem (16px)"
+        - name: "font-size-300"
+          value: "1.125rem (18px)"
+      pattern:
+        lang: "json"
+        code:
+          color:
+            orange:
+              "500":
+                value: "oklch(0.64 0.20 25)"
+                type: "color"
+              "700":
+                value: "oklch(0.47 0.20 25)"
+                type: "color"
+          space:
+            "4":
+              value: "1rem"
+              type: "dimension"
+      constraints:
+        - type: "MUST"
+          note: "contain only absolute values"
+        - type: "NEVER"
+          note: "reference other tokens"
+        - type: "MUST"
+          note: "be brand-agnostic (no 'primary', 'brand')"
+        - type: "SHOULD"
+          note: "follow algorithmic generation"
+      references:
+        - type: "guideline"
+          doc_id: "CS"
+          file: "COLOR_SYSTEM.toon"
+          note: "complete Ingredient specifications"
+        - type: "guideline"
+          doc_id: "SS"
+          file: "SPACING_SYSTEM.toon"
+          note: "complete Ingredient specifications"
+
+    - id: "TA-TLA-L2"
+      title: "Layer 2: Flavors (Semantic)"
+      definition: "Semantic tokens that reference ONLY Ingredients. Enable theming."
+      location: "`packages/tokens/src/flavors/{flavor-name}/`"
+      file_structure_definition:
+        root_path: "src/flavors/original/"
+        files:
+          - "flavor.json" # Base (light mode)
+          - "flavor-dark.json" # Dark mode overrides
+          - "flavor-high-contrast.json" # High contrast overrides
+          - "flavor-forced-colors.json" # Forced colors mode
+          - "flavor-motion-reduce.json" # Reduced motion overrides
+      naming_convention: "`{category}-{element}-{modifier}-{state}`"
+      examples:
+        - "`color-action-solid-background-default`"
+        - "`color-text-body`"
+        - "`space-inset-md`"
+      pattern:
+        lang: "json"
+        title: "Base Flavor"
+        code:
+          color:
+            action:
+              solid:
+                background:
+                  default:
+                    value: "{color.orange.700.value}"
+                    type: "color"
+                  hover:
+                    value: "{color.orange.800.value}"
+                    type: "color"
+                text:
+                  default:
+                    value: "{color.neutral-warm.50.value}"
+                    type: "color"
+            text:
+              body:
+                value: "{color.neutral-warm.800.value}"
+                type: "color"
+      mode_override_pattern:
+        lang: "json"
+        title: "Dark Mode Override"
+        code:
+          color:
+            action:
+              solid:
+                background:
+                  default:
+                    value: "{color.orange.600.value}"
+                    type: "color"
+            text:
+              body:
+                value: "{color.neutral-warm.200.value}"
+                type: "color"
+      constraints:
+        - type: "MUST"
+          status: "pass"
+          note: "reference ONLY Ingredients: `{color.orange.700.value}`"
+        - type: "NEVER"
+          status: "fail"
+          note: "reference other Flavors or Recipes"
+        - type: "NEVER"
+          status: "fail"
+          note: "contain absolute values (except mode overrides for special cases)"
+        - type: "MUST"
+          status: "pass"
+          note: "provide semantic context"
+        - type: "MUST"
+          status: "pass"
+          note: "have base `flavor.json`"
+        - type: "MAY"
+          status: "pass"
+          note: "have mode files with ONLY overrides"
+
+    - id: "TA-TLA-L3"
+      title: "Layer 3: Recipes (Component-Specific)"
+      definition: "Component-specific tokens that reference ONLY Flavors. One file per component."
+      location: "`packages/tokens/src/recipes/*.json`"
+      file_structure_definition:
+        root_path: "src/recipes/"
+        files:
+          - "button.json" # Button tokens
+          - "input.json" # Input tokens
+          - "card.json" # Card tokens
+          - "modal.json" # Modal tokens
+      naming_convention: "`{component}-{variant}-{property}-{state}`"
+      examples:
+        - "`button-solid-backgroundColor-default`"
+        - "`button-solid-backgroundColor-hover`"
+        - "`input-borderColor-error`"
+      pattern:
+        lang: "json"
+        code:
+          button:
+            solid:
+              backgroundColor:
+                default:
+                  value: "{color.action.solid.background.default.value}"
+                  type: "color"
+                hover:
+                  value: "{color.action.solid.background.hover.value}"
+                  type: "color"
+                active:
+                  value: "{color.action.solid.background.active.value}"
+                  type: "color"
+                disabled:
+                  value: "{color.action.solid.background.disabled.value}"
+                  type: "color"
+              textColor:
+                default:
+                  value: "{color.action.solid.text.default.value}"
+                  type: "color"
+            size:
+              md:
+                paddingInline:
+                  value: "{space.inset.md.value}"
+                  type: "dimension"
+                paddingBlock:
+                  value: "{space.inset.sm.value}"
+                  type: "dimension"
+                minHeight:
+                  value: "{sizing.control.md.value}"
+                  type: "dimension"
+      constraints:
+        - status: "pass"
+          type: "MUST"
+          note: "reference ONLY Flavors: `{color.action.solid.background.default.value}`"
+        - status: "fail"
+          type: "NEVER"
+          note: "reference Ingredients directly"
+        - status: "fail"
+          type: "NEVER"
+          note: "reference other Recipes"
+        - status: "pass"
+          type: "MUST"
+          note: "have one file per component"
+        - status: "pass"
+          type: "SHOULD"
+          note: "group by variant (solid, outline, ghost)"
+        - status: "pass"
+          type: "SHOULD"
+          note: "include all states (default, hover, active, focus, disabled)"
+
+complete_token_flow_example:
+  id: "TA-CTF"
+  summary: "Scenario: Button component with solid variant"
+  steps:
+    - number: 1
+      title: "INGREDIENT (Layer 1) - Absolute value"
+      file: "src/ingredients/color.json"
+      example:
+        lang: "json"
+        code:
+          color:
+            orange:
+              "700":
+                value: "oklch(0.47 0.20 25)" # ← Absolute OKLCH color
+                type: "color"
+    - number: 2
+      title: "FLAVOR (Layer 2) - Semantic meaning"
+      file: "src/flavors/original/flavor.json"
+      example:
+        lang: "json"
+        code:
+          color:
+            action:
+              solid:
+                background:
+                  default:
+                    value: "{color.orange.700.value}" # ← References Ingredient
+                    type: "color"
+                    description: "Primary action button background"
+    - number: 3
+      title: "RECIPE (Layer 3) - Component-specific"
+      file: "src/recipes/button.json"
+      example:
+        lang: "json"
+        code:
+          button:
+            solid:
+              backgroundColor:
+                default:
+                  value: "{color.action.solid.background.default.value}" # ← References Flavor
+                  type: "color"
+    - number: 4
+      title: "COMPONENT - Uses Recipe token"
+      file: "packages/components/src/components/button/sando-button.ts"
+      example:
+        lang: "typescript"
+        code: |
+          import { css } from 'lit';
+
+          static styles = css`
+            .button--solid {
+              background: var(--sando-button-solid-backgroundColor-default);  // ← Uses Recipe CSS var
+            }
+          `;
+  css_output:
+    lang: "css"
+    title: "CSS Output (build generates)"
+    code: |
+      /* Layer 1: Ingredient */
+      --sando-color-orange-700: oklch(0.47 0.2 25);
+
+      /* Layer 2: Flavor */
+      --sando-color-action-solid-background-default: var(--sando-color-orange-700);
+
+      /* Layer 3: Recipe */
+      --sando-button-solid-backgroundColor-default: var(--sando-color-action-solid-background-default);
+  result: "Component uses `--sando-button-solid-backgroundColor-default`, which resolves through all layers to the final OKLCH color."
+  applicability: "All components (Cards, Inputs, Modals, etc.)"
+  special_cases:
+    title: "See individual guidelines for domain-specific patterns"
+    references:
+      - type: "guideline"
+        doc_id: "CS"
+        file: "COLOR_SYSTEM.toon"
+        note: "Colors"
+      - type: "guideline"
+        doc_id: "SS"
+        file: "SPACING_SYSTEM.toon"
+        note: "Spacing"
+      - type: "guideline"
+        doc_id: "TSYS"
+        file: "TYPOGRAPHY_SYSTEM.toon"
+        note: "Typography"
+
+build_system:
+  id: "TA-BS"
+  summary: "The token build uses Style Dictionary 4.0.0 with custom orchestrator."
+  build_flow:
+    - number: 1
+      note: "Read source files (ingredients, flavors, recipes)"
+    - number: 2
+      note: "Validate references (automated tests enforce layer rules)"
+    - number: 3
+      note: "Transform (add --sando- prefix, convert {refs} to var())"
+    - number: 4
+      note: "Generate output (CSS + TypeScript)"
+    - number: 5
+      note: "Validate output (check for broken references)"
+  build_commands:
+    example:
+      lang: "bash"
+      code: |
+        pnpm tokens:build           # Build all tokens
+        pnpm tokens:build --force   # Bypass cache
+        pnpm tokens:dev             # Watch mode (rebuild on changes)
+  output_structure:
+    description: "Estructura de archivos generada por el build"
+    tree:
+      dist/sando-tokens:
+        css:
+          ingredients:
+            - "ingredients.css"
+          flavors:
+            original:
+              - "flavor.css"
+              - "flavor-dark.css" # Wrapped in @media (prefers-color-scheme: dark)
+          recipes:
+            - "button.css"
+        ts:
+          ingredients:
+            - "index.ts"
+          flavors:
+            - "original.ts"
+          recipes:
+            - "button.ts"
+  cache_definition: "`.build-cache.json` - Incremental builds (skip unchanged layers)"
+
+related_guidelines:
+  - type: "guideline"
+    doc_id: "CS"
+    file: "COLOR_SYSTEM.toon"
+    note: "OKLCH color generation, universal lightness scale"
+  - type: "guideline"
+    doc_id: "SS"
+    file: "SPACING_SYSTEM.toon"
+    note: "4px base unit, t-shirt sizing"
+  - type: "guideline"
+    doc_id: "TSYS"
+    file: "TYPOGRAPHY_SYSTEM.toon"
+    note: "Font scales, type tokens"
+  - type: "guideline"
+    doc_id: "TS"
+    file: "THEMING_STRATEGY.toon"
+    note: "Creating Flavors, Flavors vs Modes distinction"
+  - type: "source_file"
+    path: "packages/tokens/src/ JSON source files"
+    note: "Complete token specifications (165 colors, all scales)"
+
+changelog:
+  - version: "2.0.0"
+    date: "2025-11-02"
+    changes:
+      - type: "BREAKING"
+        note: "Consolidated 5 examples to 1 complete token flow example"
+      - type: "BREAKING"
+        note: "Removed duplicate explanations (reduced from 1095 to ~550 lines)"
+      - type: "NEW"
+        note: "Added 'When to Create New Tokens' decision tree (Rule 2)"
+      - type: "NEW"
+        note: "Added 'CSS Variable Naming Convention' complete specification (Rule 3)"
+      - type: "NEW"
+        note: "Added 'Flavors vs Modes Distinction' to prevent confusion (Rule 4)"
+      - type: "IMPROVED"
+        note: "Clearer rules with pattern/anti-pattern examples"
+      - type: "IMPROVED"
+        note: "Maintained as definitive source for 3-layer architecture"
+      - type: "NOTE"
+        note: "Reduced from 1095 to ~550 lines (50% reduction)"
+  - version: "1.0.0"
+    date: "2025-11-02"
+    changes:
+      - type: "NOTE"
+        note: "Initial token architecture guideline with three-layer system"
+
+conclusion: |
+  This guideline is the foundation of the Sando Design System. The three-layer architecture is non-negotiable and must be followed strictly to maintain theming flexibility and system scalability.

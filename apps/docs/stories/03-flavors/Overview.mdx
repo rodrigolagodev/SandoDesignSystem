@@ -1,0 +1,258 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Flavors/Overview" />
+
+# Flavors (Semantic Layer)
+
+**Flavors** are Sando's semantic token layer that bridges raw **Ingredients** (primitives) and **Recipes** (component tokens). They add meaning and context to design primitives, enabling effortless theming across your entire application.
+
+## What Are Flavors?
+
+Think of Flavors like the seasoning in a sandwich—they take raw ingredients and give them purpose and personality. In Sando's three-layer architecture:
+
+```
+🥓 Ingredients (Primitives)
+   ↓ referenced by
+🥬 Flavors (Semantic) ← YOU ARE HERE
+   ↓ referenced by
+🍞 Recipes (Component-specific)
+```
+
+### The Role of Semantic Tokens
+
+Flavors translate primitive values into **semantic roles**:
+
+```css
+/* ❌ BAD: Using Ingredients directly in components */
+.button {
+  background: var(--sando-color-orange-700);
+  color: var(--sando-color-neutralWarm-100);
+}
+
+/* ✅ GOOD: Using Flavors for semantic meaning */
+.button {
+  background: var(--sando-color-action-solid-background-default);
+  color: var(--sando-color-action-solid-text-default);
+}
+```
+
+**Why this matters**:
+- **Theming**: Change one Flavor token to retheme your entire app
+- **Consistency**: Semantic names ensure correct usage across components
+- **Dark Mode**: Flavors automatically adapt via `prefers-color-scheme`
+- **Accessibility**: Built-in WCAG contrast compliance
+
+## Available Flavors
+
+Sando provides 5 pre-built flavor themes:
+
+| Flavor | Base Color | Description |
+|--------|------------|-------------|
+| **original** (default) | Orange | Warm, energetic, welcoming |
+| **strawberry** | Orange-based | Vibrant, fruity variation |
+| **ocean** | Blue | Cool, calm, professional |
+| **forest** | Green | Natural, fresh, growth-focused |
+| **sunset** | Warm tones | Rich, dramatic, luxurious |
+
+### Applying Flavors
+
+Use the `flavor` attribute on any container:
+
+```html
+<!-- Default flavor (Original) -->
+<sando-button>Original</sando-button>
+
+<!-- Apply Strawberry flavor to container -->
+<div flavor="strawberry">
+  <sando-button>Strawberry Button</sando-button>
+  <sando-input label="Name"></sando-input>
+</div>
+
+<!-- Apply Ocean flavor -->
+<div flavor="ocean">
+  <sando-button>Ocean Button</sando-button>
+</div>
+```
+
+**Pro Tip**: Apply `flavor` at the highest container level to theme entire sections:
+
+```html
+<div flavor="forest">
+  <header>...</header>
+  <main>
+    <sando-button>All themed</sando-button>
+    <sando-input label="Email"></sando-input>
+  </main>
+  <footer>...</footer>
+</div>
+```
+
+## How Modes Work
+
+Each Flavor includes **3 automatic modes** that adapt to user preferences:
+
+1. **Light Mode** (default)
+2. **Dark Mode** (via `prefers-color-scheme: dark`)
+3. **High Contrast** (via `prefers-contrast: more`)
+
+You don't need to write any mode-switching logic—it's automatic!
+
+```html
+<!-- This button automatically switches to dark colors when user enables dark mode -->
+<sando-button>Auto Dark Mode</sando-button>
+
+<!-- This works in ALL flavors -->
+<div flavor="ocean">
+  <sando-button>Auto Dark Mode (Ocean)</sando-button>
+</div>
+```
+
+### Mode Architecture
+
+Under the hood, modes are defined using `@media` queries in Style Dictionary:
+
+```json
+{
+  "color": {
+    "background": {
+      "base": {
+        "$type": "color",
+        "original": {
+          "light": { "$value": "{color.neutralWarm.100}" },
+          "dark": { "$value": "{color.neutralWarm.900}" },
+          "highContrast": { "$value": "{color.neutralWarm.50}" }
+        }
+      }
+    }
+  }
+}
+```
+
+This compiles to CSS with automatic switching:
+
+```css
+/* Light mode (default) */
+:root {
+  --sando-color-background-base: var(--sando-color-neutralWarm-100);
+}
+
+/* Dark mode (automatic) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --sando-color-background-base: var(--sando-color-neutralWarm-900);
+  }
+}
+
+/* High contrast (automatic) */
+@media (prefers-contrast: more) {
+  :root {
+    --sando-color-background-base: var(--sando-color-neutralWarm-50);
+  }
+}
+```
+
+## Semantic Token Categories
+
+Flavors organize tokens into meaningful categories:
+
+### 1. Color Roles
+[See Color Roles page](/?path=/docs/flavors-color-roles--docs)
+
+- Background colors (`--sando-color-background-*`)
+- Text colors (`--sando-color-text-*`)
+- Border colors (`--sando-color-border-*`)
+- Action colors (`--sando-color-action-*`)
+- State colors (success, warning, error, info)
+
+### 2. Spacing Roles
+[See Spacing Roles page](/?path=/docs/flavors-spacing-roles--docs)
+
+- Component spacing (`--sando-spacing-component-*`)
+- Layout spacing (`--sando-spacing-layout-*`)
+- Content spacing (`--sando-spacing-content-*`)
+
+### 3. Typography Roles
+[See Typography Roles page](/?path=/docs/flavors-typography-roles--docs)
+
+- Heading styles (`--sando-typography-heading-*`)
+- Body styles (`--sando-typography-body-*`)
+- Label styles (`--sando-typography-label-*`)
+- Code styles (`--sando-typography-code-*`)
+
+## Creating Custom Flavors
+
+You can define your own Flavors by extending the token structure:
+
+```css
+/* Define custom "midnight" flavor */
+[flavor="midnight"] {
+  /* Override color roles */
+  --sando-color-action-solid-background-default: var(--sando-color-purple-600);
+  --sando-color-background-base: var(--sando-color-neutralCool-950);
+  --sando-color-text-body: var(--sando-color-neutralCool-100);
+
+  /* Override spacing roles */
+  --sando-spacing-component-padding: var(--sando-space-6);
+
+  /* All Recipes automatically use your custom Flavor */
+}
+```
+
+Then use it like any built-in Flavor:
+
+```html
+<div flavor="midnight">
+  <sando-button>Midnight Button</sando-button>
+</div>
+```
+
+## Token Flow Example
+
+Here's how a button's background color flows through all three layers:
+
+```
+🥓 INGREDIENT (Primitive)
+--sando-color-orange-700: oklch(67.88% 0.166 42.39)
+             ↓
+🥬 FLAVOR (Semantic)
+--sando-color-action-solid-background-default: var(--sando-color-orange-700)
+             ↓
+🍞 RECIPE (Component-specific)
+--sando-button-solid-backgroundColor-default: var(--sando-color-action-solid-background-default)
+             ↓
+🎨 COMPONENT
+button { background: var(--sando-button-solid-backgroundColor-default); }
+```
+
+**Benefits**:
+1. Change `--sando-color-orange-700` → updates all orange UI elements
+2. Change `--sando-color-action-solid-background-default` → rethemes all solid actions
+3. Change `--sando-button-solid-backgroundColor-default` → rethemes all solid buttons
+4. Each layer serves a specific purpose in the design system hierarchy
+
+## Best Practices
+
+### ✅ DO Use Flavors For
+
+- Theming entire applications or sections
+- Defining semantic color, spacing, and typography roles
+- Building component tokens (Recipes layer)
+- Ensuring WCAG compliance through semantic naming
+
+### ❌ DON'T Use Flavors For
+
+- One-off component customizations (use Recipes instead)
+- Direct styling in components (use Recipes instead)
+- Replacing Ingredients entirely (Flavors should reference Ingredients)
+
+## Related Pages
+
+- [Color Roles](/?path=/docs/flavors-color-roles--docs) - Semantic color token reference
+- [Spacing Roles](/?path=/docs/flavors-spacing-roles--docs) - Semantic spacing token reference
+- [Typography Roles](/?path=/docs/flavors-typography-roles--docs) - Semantic typography token reference
+- [Getting Started/Theming](/?path=/docs/getting-started-theming--docs) - Complete theming guide
+- [Recipes](/?path=/docs/recipes--docs) - Component-specific tokens
+
+---
+
+**Flavors are the key to effortless theming in Sando. Master them, and you'll unlock unlimited design possibilities! 🎨**

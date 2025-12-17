@@ -1,0 +1,392 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Getting Started/Best Practices" />
+
+# Best Practices
+
+Follow these guidelines to get the most out of Sando Design System.
+
+## Token Usage
+
+### Three-Layer Decision Tree
+
+Use this decision tree to choose the right token layer:
+
+```
+Are you building a component?
+├─ YES → Use Recipe tokens
+│   Example: --sando-button-solid-backgroundColor-default
+│
+└─ NO → Are you defining semantic roles?
+    ├─ YES → Use Flavor tokens
+    │   Example: --sando-color-action-solid-background-default
+    │
+    └─ NO → Use Ingredient tokens (primitives)
+        Example: --sando-color-orange-700
+```
+
+### ✅ DO: Use the Right Layer
+
+```css
+/* ✅ GOOD: Component using Recipe tokens */
+.custom-card {
+  background: var(--sando-button-solid-backgroundColor-default);
+  color: var(--sando-button-solid-textColor-default);
+  padding: var(--sando-space-4);
+  border-radius: var(--sando-border-radius-md);
+}
+
+/* ✅ GOOD: Theme customization using Flavor tokens */
+[flavor="custom"] {
+  --sando-color-action-solid-background-default: var(--sando-color-blue-600);
+  --sando-color-background-base: var(--sando-color-neutralWarm-50);
+}
+
+/* ✅ GOOD: Defining new Flavor tokens from Ingredients */
+:root {
+  --my-semantic-primary: var(--sando-color-orange-700);
+  --my-semantic-surface: var(--sando-color-neutralWarm-100);
+}
+```
+
+### ❌ DON'T: Skip Layers or Mix Incorrectly
+
+```css
+/* ❌ BAD: Component using Ingredient tokens directly */
+.custom-card {
+  background: var(--sando-color-orange-700); /* Skip Recipe AND Flavor layers */
+  color: var(--sando-color-neutralWarm-100);
+}
+
+/* ❌ BAD: Recipe tokens pointing to Ingredients (skip Flavor) */
+:root {
+  --sando-button-custom-backgroundColor: var(--sando-color-blue-600); /* Should use Flavor */
+}
+
+/* ❌ BAD: Hardcoded values instead of tokens */
+.custom-card {
+  background: #f97316; /* No theming support! */
+  padding: 16px;       /* Won't scale with design system changes */
+}
+```
+
+### Common Token Patterns
+
+#### Spacing
+
+```css
+/* ✅ Use T-shirt sizing tokens */
+.container {
+  padding: var(--sando-space-4);        /* 1rem / 16px */
+  margin-bottom: var(--sando-space-6);  /* 1.5rem / 24px */
+  gap: var(--sando-space-2);            /* 0.5rem / 8px */
+}
+
+/* ❌ Don't use hardcoded values */
+.container {
+  padding: 16px;
+  margin-bottom: 24px;
+}
+```
+
+#### Colors
+
+```css
+/* ✅ Use semantic Flavor tokens */
+.card {
+  background: var(--sando-color-background-base);
+  color: var(--sando-color-text-body);
+  border-color: var(--sando-color-border-default);
+}
+
+/* ❌ Don't use primitive colors for UI */
+.card {
+  background: var(--sando-color-neutralWarm-100);
+  color: var(--sando-color-neutralWarm-800);
+}
+```
+
+#### Typography
+
+```css
+/* ✅ Use responsive clamp() tokens */
+.heading {
+  font-size: var(--sando-font-size-700);     /* Responsive */
+  font-weight: var(--sando-font-weight-bold);
+  line-height: var(--sando-line-height-tight);
+}
+
+/* ❌ Don't use fixed sizes */
+.heading {
+  font-size: 24px;
+  line-height: 1.2;
+}
+```
+
+## Accessibility
+
+### WCAG Compliance Checklist
+
+All Sando components meet WCAG 2.1 AA by default. When building custom components:
+
+- [ ] **Keyboard Navigation** - All interactive elements accessible via Tab, Enter, Space, Escape
+- [ ] **Focus Visible** - Clear focus indicators on all focusable elements
+- [ ] **Semantic HTML** - Use proper heading hierarchy, landmarks, and native elements
+- [ ] **Accessible Names** - Provide labels or aria-label for all inputs and buttons
+- [ ] **Color Contrast** - Minimum 4.5:1 for normal text, 3:1 for large text (AAA: 7:1)
+- [ ] **Screen Reader Support** - Test with NVDA (Windows), JAWS (Windows), VoiceOver (macOS/iOS)
+- [ ] **Reduced Motion** - Respect `prefers-reduced-motion` for animations
+- [ ] **Touch Targets** - Minimum 44×44px for touch devices
+
+### Testing Accessibility
+
+```bash
+# Run accessibility tests with jest-axe
+pnpm test
+
+# Run E2E tests with Playwright
+pnpm test:e2e
+```
+
+### Accessible Component Patterns
+
+```html
+<!-- ✅ GOOD: Proper label and error message -->
+<sando-input
+  label="Email"
+  required
+  error="Please enter a valid email"
+  aria-describedby="email-hint"
+></sando-input>
+<span id="email-hint">We'll never share your email</span>
+
+<!-- ❌ BAD: Missing label, no error association -->
+<sando-input
+  placeholder="Email"
+  required
+></sando-input>
+<span style="color: red">Please enter a valid email</span>
+```
+
+## Performance
+
+### Bundle Size Optimization
+
+**Import only what you need:**
+
+```typescript
+// ✅ GOOD: Import specific components (smaller bundle)
+import '@sando/components/button';
+import '@sando/components/input';
+
+// ❌ BAD: Import all components (larger bundle)
+import '@sando/components';
+```
+
+### Performance Budgets
+
+Sando enforces these budgets:
+
+| Package | Budget (gzipped) | Actual |
+|---------|------------------|--------|
+| @sando/tokens | < 5 KB | ~3 KB |
+| @sando/components (each) | < 10 KB | ~6-8 KB |
+
+### Tree-Shaking
+
+Ensure your bundler supports tree-shaking:
+
+```javascript
+// vite.config.js
+export default {
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'sando-core': ['@sando/tokens'],
+        }
+      }
+    }
+  }
+}
+```
+
+## Component Composition
+
+### Build with Recipes, Not Ingredients
+
+```html
+<!-- ✅ GOOD: Compose Sando components -->
+<sando-form-group>
+  <sando-input label="Email" type="email" required></sando-input>
+  <sando-input label="Password" type="password" required></sando-input>
+  <sando-button variant="solid">Sign In</sando-button>
+</sando-form-group>
+
+<!-- ❌ BAD: Reinventing components from scratch -->
+<div class="form-group">
+  <label>Email</label>
+  <input type="email" />
+  <label>Password</label>
+  <input type="password" />
+  <button>Sign In</button>
+</div>
+```
+
+### Theming Best Practices
+
+```html
+<!-- ✅ GOOD: Apply flavor at container level -->
+<div flavor="ocean">
+  <sando-button>Button 1</sando-button>
+  <sando-button>Button 2</sando-button>
+  <sando-input label="Input"></sando-input>
+</div>
+
+<!-- ❌ BAD: Apply flavor to each component -->
+<div>
+  <sando-button flavor="ocean">Button 1</sando-button>
+  <sando-button flavor="ocean">Button 2</sando-button>
+  <sando-input flavor="ocean" label="Input"></sando-input>
+</div>
+```
+
+### Component Variants
+
+Use variants for visual differences, not states:
+
+```html
+<!-- ✅ GOOD: Variants for visual styles -->
+<sando-button variant="solid">Primary Action</sando-button>
+<sando-button variant="outline">Secondary Action</sando-button>
+<sando-button variant="ghost">Tertiary Action</sando-button>
+
+<!-- ✅ GOOD: Props for states -->
+<sando-button disabled>Disabled</sando-button>
+<sando-button loading>Loading</sando-button>
+
+<!-- ❌ BAD: Don't use variants for states -->
+<sando-button variant="disabled">Wrong</sando-button>
+<sando-button variant="loading">Wrong</sando-button>
+```
+
+## Testing Strategy
+
+Follow the test pyramid:
+
+```
+     /\
+    /  \     10% E2E (Playwright)
+   /    \    - User flows
+  /------\   - Cross-browser
+ /        \
+/   UNIT   \ 80% Unit (Vitest)
+------------  - Component logic
+              - Token builds
+              - 100% a11y coverage
+```
+
+### Writing Component Tests
+
+```typescript
+// ✅ GOOD: Test behavior, not implementation
+it('should emit event when button is clicked', async () => {
+  const button = await fixture<SandoButton>(
+    html`<sando-button>Click</sando-button>`
+  );
+
+  const eventSpy = vi.fn();
+  button.addEventListener('sando-click', eventSpy);
+
+  button.click();
+  await button.updateComplete;
+
+  expect(eventSpy).toHaveBeenCalled();
+});
+
+// ❌ BAD: Testing internal state
+it('should set _isClicked to true', async () => {
+  const button = await fixture<SandoButton>(
+    html`<sando-button>Click</sando-button>`
+  );
+
+  button.click();
+  expect(button._isClicked).toBe(true); // Don't test private properties
+});
+```
+
+## Common Mistakes to Avoid
+
+### 1. Don't Override Component Styles Directly
+
+```css
+/* ❌ BAD: Fighting with Shadow DOM */
+sando-button {
+  background: red !important; /* Won't work! */
+}
+
+/* ✅ GOOD: Use CSS custom properties (design tokens) */
+sando-button {
+  --sando-button-solid-backgroundColor-default: red;
+}
+
+/* ✅ BETTER: Create custom flavor */
+[flavor="danger"] {
+  --sando-color-action-solid-background-default: var(--sando-color-state-error-500);
+}
+```
+
+### 2. Don't Mix Pixel and Rem Values
+
+```css
+/* ❌ BAD: Mixing units */
+.container {
+  padding: var(--sando-space-4);  /* 1rem */
+  margin: 16px;                    /* Won't scale! */
+}
+
+/* ✅ GOOD: Consistent token usage */
+.container {
+  padding: var(--sando-space-4);
+  margin: var(--sando-space-4);
+}
+```
+
+### 3. Don't Bypass TypeScript Types
+
+```typescript
+// ❌ BAD: Using 'any'
+const button: any = document.querySelector('sando-button');
+
+// ✅ GOOD: Proper typing
+import type { SandoButton } from '@sando/components/button';
+const button = document.querySelector('sando-button') as SandoButton;
+```
+
+## Version Management
+
+When using Sando in production:
+
+```json
+{
+  "dependencies": {
+    "@sando/tokens": "^1.0.0",
+    "@sando/components": "^1.0.0"
+  }
+}
+```
+
+- Use exact versions for stability: `"1.0.0"`
+- Use caret for minor updates: `"^1.0.0"` (recommended)
+- Review changelog before upgrading major versions
+
+## Getting Help
+
+- **Documentation**: You're reading it! Explore the sidebar
+- **Component Examples**: Check each component's story for live examples
+- **GitHub Issues**: Report bugs or request features
+- **Accessibility Questions**: All components have detailed a11y documentation
+
+---
+
+**Following these practices will help you build accessible, performant, and maintainable UIs with Sando! 🚀**

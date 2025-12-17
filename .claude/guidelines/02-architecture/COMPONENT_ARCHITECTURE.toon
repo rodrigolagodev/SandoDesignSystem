@@ -1,0 +1,579 @@
+meta:
+  doc_id: "CA"
+  category: "02-architecture"
+  version: "1.0.0"
+  status: "Active"
+  last_updated: "2025-11-09"
+  owner: "Design System Architect"
+
+purpose:
+  id: "CA-PU"
+  description: |
+    Defines the monolithic 7-file component pattern using Lit Web Components, Shadow DOM encapsulation, and modular CSS organization. This architecture ensures components are self-contained, portable, and follow consistent patterns across the design system.
+
+core_rules:
+  - id: "CA-CR-R1"
+    title: "Monolithic Component Structure (Non-Negotiable)"
+    summary: "Each component lives in a single self-contained folder with all its files. No shared component logic folders."
+    file_structure_pattern:
+      root_path: "packages/components/src/components/{name}/"
+      tree:
+        styles: # Directorio
+          - "base.css.ts" # Base styles
+          - "variants.css.ts" # Variant styles
+          - "index.ts" # Style barrel export
+        files: # Archivos en la raíz
+          - "sando-{name}.ts" # Lit component implementation
+          - "sando-{name}.types.ts" # TypeScript type definitions
+          - "sando-{name}.test.ts" # Unit tests (Vitest)
+          - "sando-{name}.a11y.test.ts" # Accessibility tests (axe-core + jest-axe)
+          - "sando-{name}.stories.ts" # Storybook documentation
+          - "index.ts" # Component barrel export
+    benefits:
+      - name: "Portability"
+        note: "Copy folder = copy component"
+      - name: "Discoverability"
+        note: "Everything related is in one place"
+      - name: "Minimal coupling"
+        note: "No shared folders to break"
+      - name: "Clear ownership"
+        note: "One folder, one component"
+    anti_pattern:
+      lang: "text"
+      title: "❌ WRONG: Shared folders pattern"
+      tree: # Estructura TOON optimizada
+        components:
+          implementations:
+            - "Button.ts"
+          tests:
+            - "Button.test.ts"
+          types:
+            - "Button.types.ts"
+          stories:
+            - "Button.stories.ts"
+      note: "# Hard to find all files, easy to miss updates"
+
+  - id: "CA-CR-R2"
+    title: "Component Naming Convention"
+    summary: "All components use `sando-*` prefix for the HTML tag and `Sando*` PascalCase for the class."
+    component_definition:
+      lang: "typescript"
+      code: |
+        // File: sando-button.ts
+        @customElement('sando-button')
+        export class SandoButton extends LitElement {
+          // ...
+        }
+    usage_example:
+      lang: "html"
+      code: |
+        <sando-button>Click me</sando-button>
+    why:
+      - "Prevents tag name collisions with native elements"
+      - "Clear namespace for all Sando components"
+      - "Required by Custom Elements spec (must contain hyphen)"
+    anti_pattern:
+      - lang: "typescript"
+        title: "❌ WRONG: No prefix"
+        code: |
+          // WRONG: No prefix
+          @customElement('button') // Conflicts with native button
+      - lang: "typescript"
+        title: "❌ WRONG: Different prefix"
+        code: |
+          // WRONG: Different prefix
+          @customElement('ui-button') // Not consistent with design system
+
+  - id: "CA-CR-R3"
+    title: "Shadow DOM Encapsulation"
+    summary: "All components MUST use Shadow DOM (Lit's default). Do NOT use `createRenderRoot`."
+    pattern:
+      lang: "typescript"
+      code: |
+        @customElement("sando-card")
+        export class SandoCard extends LitElement {
+          // Shadow DOM is automatic in Lit
+          // Styles are scoped, slots work, CSS variables inherit
+
+          static styles = css`
+            :host {
+              display: block;
+              /* Component root styles */
+            }
+          `;
+        }
+    why:
+      - name: "Style encapsulation"
+        note: "Component styles don't leak out"
+      - name: "Global styles don't leak in"
+        note: "Prevents cascade issues"
+      - name: "CSS variables inherit"
+        note: "Tokens work across shadow boundary"
+      - name: "Slots"
+        note: "Content projection works properly"
+    anti_pattern:
+      lang: "typescript"
+      title: "❌ WRONG: Disabling Shadow DOM"
+      code: |
+        // WRONG: Disabling Shadow DOM
+        createRenderRoot() {
+          return this; // Renders in light DOM, loses encapsulation
+        }
+
+  - id: "CA-CR-R4"
+    title: "Token Consumption Only (No Hardcoded Values)"
+    summary: "Components MUST consume Recipe tokens via CSS variables. Never hardcode colors, spacing, or other design values."
+    pattern:
+      lang: "typescript"
+      code: |
+        // File: sando-button.ts
+        import { css } from 'lit';
+
+        static styles = css`
+          .button {
+            /* CORRECT: Use Recipe tokens */
+            background: var(--sando-button-solid-backgroundColor-default);
+            color: var(--sando-button-solid-textColor-default);
+            padding-inline: var(--sando-button-size-md-paddingInline);
+            border-radius: var(--sando-button-borderRadius);
+          }
+        `;
+    why: "Tokens enable theming. Hardcoded values break when users change flavors."
+    reference:
+      type: "guideline"
+      doc_id: "TA"
+      file: "TOKEN_ARCHITECTURE.toon"
+      note: "for three-layer token system"
+    anti_pattern:
+      lang: "typescript"
+      title: "❌ WRONG: Hardcoded values"
+      code: |
+        // WRONG: Hardcoded values
+        static styles = css`
+          .button {
+            background: #f97316; // Breaks theming
+            color: white;
+            padding-inline: 1rem;
+          }
+        `;
+
+  - id: "CA-CR-R5"
+    title: "FlavorableMixin for Theming"
+    summary: "Components that need theming MUST extend `FlavorableMixin(LitElement)` instead of plain `LitElement`."
+    pattern:
+      lang: "typescript"
+      code: |
+        import { FlavorableMixin } from "../../mixins/flavorable.js";
+
+        @customElement("sando-button")
+        export class SandoButton extends FlavorableMixin(LitElement) {
+          // FlavorableMixin adds:
+          // - @property() flavor: string (inherited from ancestor or explicit)
+          // - Automatic flavor attribute update
+          // - Theme inheritance down the tree
+        }
+    why: "FlavorableMixin enables the flavor inheritance system. Without it, components don't respond to theme changes."
+    reference:
+      type: "guideline"
+      doc_id: "TS"
+      file: "../01-design-system/THEMING_STRATEGY.toon"
+      note: "for complete flavor system explanation"
+    usage_constraint:
+      title: "When NOT to use"
+      constraints:
+        - "Utility components that have no visual styles"
+        - "Components that only use universal tokens (no flavor-specific tokens)"
+
+seven_file_pattern:
+  id: "CA-7FP"
+  summary: "Detailed specification of the 7-file component architecture pattern."
+  files:
+    - id: "CA-7FP-F1"
+      name: "sando-{name}.ts"
+      title: "Component Implementation"
+      purpose: "Main Lit component with all logic, rendering, and styles."
+      key_elements:
+        - "`@customElement` decorator with `sando-*` tag"
+        - "`@property` decorators for public API"
+        - "`@state` decorators for internal state"
+        - "`static styles` for CSS (imported from modular files if complex)"
+        - "`render()` method with template"
+      minimal_example:
+        lang: "typescript"
+        code: |
+          import { LitElement, html, css } from "lit";
+          import { customElement, property } from "lit/decorators.js";
+          import { FlavorableMixin } from "../../mixins/index.js";
+
+          @customElement("sando-example")
+          export class SandoExample extends FlavorableMixin(LitElement) {
+            @property({ reflect: true })
+            variant: "solid" | "outline" = "solid";
+
+            @property({ type: Boolean, reflect: true })
+            disabled = false;
+
+            static styles = css`
+              :host {
+                display: inline-block;
+              }
+              .example {
+                background: var(--sando-example-backgroundColor);
+              }
+            `;
+
+            render() {
+              return html`
+                <div class="example">
+                  <slot></slot>
+                </div>
+              `;
+            }
+          }
+      reference:
+        type: "source_file"
+        path: "packages/components/src/components/button/sando-button.ts"
+        note: "Complete production example"
+
+    - id: "CA-7FP-F2"
+      name: "sando-{name}.types.ts"
+      title: "TypeScript Types"
+      purpose: "All TypeScript type definitions for the component."
+      what_to_include:
+        - "Variant types (ButtonVariant, ButtonSize)"
+        - "Prop interfaces (if complex)"
+        - "Event payload types"
+        - "Exported types for consumers"
+      example:
+        lang: "typescript"
+        code: |
+          /**
+           * Visual variant of the button
+           */
+          export type ButtonVariant = "solid" | "outline" | "ghost" | "text";
+
+          /**
+           * Size variant of the button
+           */
+          export type ButtonSize = "xs" | "small" | "medium" | "large";
+
+          /**
+           * Button component props interface
+           */
+          export interface ButtonProps {
+            variant?: ButtonVariant;
+            size?: ButtonSize;
+            disabled?: boolean;
+          }
+      reference:
+        type: "template"
+        path: ".claude/skills/component-creator/assets/templates/types.ts.template"
+        note: "Component template"
+
+    - id: "CA-7FP-F3"
+      name: "sando-{name}.test.ts"
+      title: "Unit Tests"
+      purpose: "Vitest unit tests for component logic, rendering, and prop behavior."
+      what_to_test:
+        - "Component renders correctly"
+        - "Props affect rendering as expected"
+        - "State changes work"
+        - "Methods produce correct output"
+        - "Events fire correctly"
+      example:
+        lang: "typescript"
+        code: |
+          import { fixture, expect } from "@open-wc/testing";
+          import { html } from "lit";
+          import "./sando-example.js";
+
+          describe("sando-example", () => {
+            it("renders with default props", async () => {
+              const el = await fixture(html`<sando-example></sando-example>`);
+              expect(el).to.exist;
+            });
+
+            it("applies variant attribute", async () => {
+              const el = await fixture(
+                html`<sando-example variant="outline"></sando-example>`
+              );
+              expect(el.variant).to.equal("outline");
+            });
+          });
+      reference:
+        type: "template"
+        path: ".claude/skills/component-creator/assets/templates/test.ts.template"
+        note: "Test template"
+
+    - id: "CA-7FP-F4"
+      name: "sando-{name}.a11y.test.ts"
+      title: "Accessibility Tests"
+      purpose: "Automated WCAG compliance checks using axe-core + jest-axe."
+      what_to_test:
+        - "No accessibility violations (axe-core)"
+        - "Keyboard navigation works"
+        - "ARIA attributes correct"
+        - "Focus management proper"
+        - "Screen reader support"
+      example:
+        lang: "typescript"
+        code: |
+          import { fixture, expect } from "@open-wc/testing";
+          import { html } from "lit";
+          import { axe, toHaveNoViolations } from "jest-axe";
+          import "./sando-example.js";
+
+          expect.extend(toHaveNoViolations);
+
+          describe("sando-example accessibility", () => {
+            it("passes axe accessibility tests", async () => {
+              const el = await fixture(html`<sando-example>Content</sando-example>`);
+              const results = await axe(el);
+              expect(results).toHaveNoViolations();
+            });
+          });
+      reference:
+        - type: "template"
+          path: ".claude/skills/component-creator/assets/templates/a11y.test.ts.template"
+          note: "Accessibility test template"
+        - type: "guideline"
+          doc_id: "WC"
+          file: "../04-accessibility/WCAG_COMPLIANCE.toon"
+          note: "Complete accessibility standards"
+
+    - id: "CA-7FP-F5"
+      name: "sando-{name}.stories.ts"
+      title: "Storybook Documentation"
+      purpose: "Interactive documentation and visual testing in Storybook."
+      what_to_include:
+        - "Default export with component metadata"
+        - "Stories for each variant/state"
+        - "Controls for interactive props"
+        - "Documentation blocks (MDX if complex)"
+      example:
+        lang: "typescript"
+        code: |
+          import type { Meta, StoryObj } from "@storybook/web-components";
+          import { html } from "lit";
+          import "./sando-example.js";
+
+          const meta: Meta = {
+            title: "Components/Example",
+            component: "sando-example",
+            tags: ["autodocs"],
+          };
+
+          export default meta;
+          type Story = StoryObj;
+
+          export const Default: Story = {
+            render: () => html`<sando-example>Content</sando-example>`,
+          };
+
+          export const Outline: Story = {
+            render: () => html`<sando-example variant="outline">Outline</sando-example>`,
+          };
+      reference:
+        type: "template"
+        path: ".claude/skills/component-creator/assets/templates/stories.ts.template"
+        note: "Stories template"
+
+    - id: "CA-7FP-F6"
+      name: "index.ts"
+      title: "Barrel Export"
+      purpose: "Re-export component and types for clean imports."
+      pattern:
+        lang: "typescript"
+        code: |
+          export { SandoExample } from "./sando-example.js";
+          export type { ExampleVariant, ExampleSize } from "./sando-example.types.js";
+      why: "Allows `import { SandoExample } from '@sando/components/example'` instead of long paths."
+      reference:
+        type: "template"
+        path: ".claude/skills/component-creator/assets/templates/index.ts.template"
+        note: "Index template"
+
+    - id: "CA-7FP-F7"
+      name: "styles/"
+      title: "Modular CSS (Optional)"
+      when_to_use: "Complex components with many variants benefit from splitting CSS into modules."
+      folder_structure:
+        - "base.css.ts" # Reset, layout, typography
+        - "variants.css.ts" # Variant-specific styles (solid, outline)
+        - "sizes.css.ts" # Size-specific styles (small, medium, large)
+        - "states.css.ts" # State styles (disabled, loading, active)
+        - "index.ts" # Export all as array
+      index_example:
+        lang: "typescript"
+        code: |
+          export { baseStyles } from "./base.css.js";
+          export { variantStyles } from "./variants.css.js";
+          export { sizeStyles } from "./sizes.css.js";
+          export { stateStyles } from "./states.css.js";
+      usage_in_component:
+        lang: "typescript"
+        code: |
+          import { baseStyles, variantStyles, sizeStyles } from './styles/index.js';
+
+          static styles = [
+            baseStyles,
+            variantStyles,
+            sizeStyles,
+          ];
+      reference:
+        type: "source_file"
+        path: "packages/components/src/components/button/styles/"
+        note: "Real production example"
+
+lit_patterns:
+  id: "CA-LP"
+  summary: "Common Lit patterns used in Sando components."
+  decorators:
+    - id: "CA-LP-DEC-1"
+      name: "@customElement"
+      purpose: "Register Web Component"
+      example:
+        lang: "typescript"
+        code: |
+          @customElement("sando-card")
+          export class SandoCard extends LitElement {}
+    - id: "CA-LP-DEC-2"
+      name: "@property"
+      purpose: "Public reactive property"
+      example:
+        lang: "typescript"
+        code: |
+          @property({ type: String, reflect: true })
+          variant: 'elevated' | 'outlined' = 'elevated';
+
+          @property({ type: Boolean, reflect: true })
+          disabled = false;
+    - id: "CA-LP-DEC-3"
+      name: "@state"
+      purpose: "Private reactive state"
+      example:
+        lang: "typescript"
+        code: |
+          @state()
+          private isOpen = false;
+  lifecycle_methods:
+    - id: "CA-LP-LCM-1"
+      name: "connectedCallback"
+      purpose: "Component added to DOM"
+      example:
+        lang: "typescript"
+        code: |
+          connectedCallback() {
+            super.connectedCallback();
+            // Setup (event listeners, etc.)
+          }
+    - id: "CA-LP-LCM-2"
+      name: "disconnectedCallback"
+      purpose: "Component removed from DOM"
+      example:
+        lang: "typescript"
+        code: |
+          disconnectedCallback() {
+            super.disconnectedCallback();
+            // Cleanup (remove listeners, etc.)
+          }
+    - id: "CA-LP-LCM-3"
+      name: "updated"
+      purpose: "After prop changes"
+      example:
+        lang: "typescript"
+        code: |
+          updated(changedProperties: Map<string, any>) {
+            if (changedProperties.has('open')) {
+              // React to `open` prop change
+            }
+          }
+    reference:
+      type: "external"
+      url: "httpss://lit.dev/docs/components/lifecycle/"
+      title: "Lit Lifecycle Documentation"
+      note: "Complete lifecycle documentation"
+
+component_registration:
+  id: "CA-REG"
+  summary: "How to register and export components in the package."
+  main_index:
+    id: "CA-REG-MI"
+    file: "src/index.ts"
+    requirement: "Every new component MUST be exported from the main index."
+    example:
+      lang: "typescript"
+      code: |
+        // Component exports
+        export { SandoButton } from "./components/button/index.js";
+        export { SandoCard } from "./components/card/index.js";
+
+        // Type exports
+        export type { ButtonVariant, ButtonSize } from "./components/button/index.js";
+        export type { CardVariant } from "./components/card/index.js";
+  package_exports:
+    id: "CA-REG-PE"
+    file: "package.json"
+    optional: true
+    purpose: "For individual component imports (optional optimization)."
+    example:
+      lang: "json"
+      code:
+        exports:
+          .: "./dist/index.js"
+          ./button: "./dist/components/button/sando-button.js"
+          ./card: "./dist/components/card/sando-card.js"
+    benefit: "Allows: `import '@sando/components/button'` instead of full path."
+
+related_guidelines:
+  - type: "guideline"
+    doc_id: "TA"
+    file: "../01-design-system/TOKEN_ARCHITECTURE.toon"
+    category: "01-design-system"
+    note: "Token consumption patterns (Layer 3: Recipes)"
+  - type: "guideline"
+    doc_id: "TS"
+    file: "../01-design-system/THEMING_STRATEGY.toon"
+    category: "01-design-system"
+    note: "FlavorableMixin and flavor inheritance"
+  - type: "guideline"
+    doc_id: "CD"
+    file: "../01-design-system/COMPONENT_DESIGN.toon"
+    category: "01-design-system"
+    note: "Variant taxonomy, API conventions"
+  - type: "guideline"
+    doc_id: "MS"
+    file: "MONOREPO_STRUCTURE.toon"
+    category: "02-architecture"
+    note: "Package organization, build order"
+  - type: "guideline"
+    doc_id: "NC"
+    file: "../03-development/NAMING_CONVENTIONS.toon"
+    category: "03-development"
+    note: "File naming, component naming"
+  - type: "guideline"
+    doc_id: "WC"
+    file: "../04-accessibility/WCAG_COMPLIANCE.toon"
+    category: "04-accessibility"
+    note: "Accessibility testing requirements"
+
+external_references:
+  - type: "documentation"
+    url: "httpss://lit.dev/"
+    title: "Lit Documentation"
+    note: "Component development, lifecycle, decorators"
+  - type: "standard"
+    url: "httpss://developer.mozilla.org/en-US/docs/Web/Web_Components"
+    title: "Web Components Standard"
+    note: "Custom Elements, Shadow DOM specifications"
+  - type: "skill"
+    path: "../../skills/component-creator/SKILL.md"
+    title: "component-creator skill"
+    note: "Component scaffolding automation"
+  - type: "templates"
+    path: "../../skills/component-creator/assets/templates/"
+    title: "component-creator templates"
+    note: "Boilerplate templates for all file types"
+
+conclusion: |
+  This guideline is the foundation of the component architecture. The monolithic 7-file pattern ensures components are self-contained, portable, and consistently structured across the design system.

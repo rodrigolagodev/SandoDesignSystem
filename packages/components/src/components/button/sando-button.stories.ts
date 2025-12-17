@@ -31,7 +31,7 @@ import '../icon/sando-icon.ts';
  * - Full keyboard navigation support
  */
 const meta: Meta = {
-  title: 'Components/Button/Overview',
+  title: 'Components/Inputs/Button',
   tags: ['autodocs'],
   render: (args) => html`
     <sando-button

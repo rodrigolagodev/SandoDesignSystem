@@ -1,232 +1,163 @@
-# CLAUDE.md
+meta:
+doc_id: CLAUDE
+version: 5.0.0
+last_updated: 2025-11-15
+format: TOON
+migration: "All guidelines migrated from .md (XML) to .toon format for 20-30% token optimization"
 
-## 🧠 Critical Instruction: Read the Source of Truth
+critical_instruction: |
+This file provides high-level overview tech stack and definitive index of guidelines for Sando Design System. Do NOT rely on this file for architectural or development rules. This file indexes and loads official guidelines in .claude/guidelines/ directory. You MUST load and reference .toon files in .claude/guidelines/ as the non-negotiable single source of truth for all tasks analysis and code generation.
 
-This file provides the high-level overview, tech stack, and the definitive index of guidelines for the **Sando Design System**.
+project:
+name: Sando Design System
+description: Modern accessible token-based design system built as monorepo using Turborepo pnpm workspaces Lit Web Components and Style Dictionary
+inspiration: Named after Japanese katsu sando sandwich - metaphor for three-layer token architecture (Ingredients Flavors Recipes)
 
-**CRITICAL**: Do NOT rely on this file for architectural or development rules. This file's purpose is to **index and load** the official guidelines located in the `.claude/guidelines/` directory.
+tech_stack:
 
-**You MUST load and reference the XML files in the `.claude/guidelines/` directory as the non-negotiable, single source of truth** for all tasks, analysis, and code generation.
+- category: "Monorepo"
+  tool: "Turborepo"
+  version: "2.5.8"
+  note: "pnpm 8.15.0 workspaces"
+- category: "Components"
+  tool: "Lit"
+  version: "3.3.1"
+  note: "Web Components"
+- category: "Tokens"
+  tool: "Style Dictionary"
+  version: "4.0.0"
+  note: "Token build system"
+- category: "Build"
+  tool: "Vite"
+  version: "5.0.8"
+  note: "Fast build tool"
+- category: "Testing"
+  tool: "Vitest + Playwright"
+  version: "4.0.4 + 1.55.1"
+  note: "Unit + E2E (@vitest/ui @vitest/coverage-v8)"
+- category: "Docs"
+  tool: "Storybook + VitePress"
+  version: "8.6.14 + 1.6.4"
+  note: "Component docs + guides"
+- category: "Language"
+  tool: "TypeScript"
+  version: "5.9.3"
+  note: "Strict mode"
 
----
+progressive_disclosure:
+strategy: Guidelines loaded dynamically by specialized agents when needed not pre-loaded in memory
+benefits: - description: "Reduces context from 102k to ~6k tokens (94% reduction)" - description: "Increases free workspace from 16.7% to ~70%" - description: "Enables longer conversations and more complex tasks" - description: "Maintains access to all guidelines through agent-driven loading" - description: "TOON format provides additional 20-30% token reduction over XML"
 
-## Project Overview
+guidelines:
+total: 27
+categories: 6
+format: TOON
+extension: .toon
+index: "@.claude/guidelines/GUIDELINES_INDEX.toon"
+note: Complete catalog with all guideline details versions owners descriptions available in GUIDELINES_INDEX.toon - Single source of truth for guideline discovery
 
-**Sando Design System** is a modern, accessible, token-based design system built as a monorepo using Turborepo, pnpm workspaces, Lit Web Components, and Style Dictionary.
+agents:
+location: .claude/agents/
+total: 18
+usage: Invoke via Task tool. Each agent references guidelines automatically.
+core: - name: "design-system-architect" - name: "design-system-pm" - name: "ui-designer" - name: "frontend-developer" - name: "technical-writer" - name: "qa-expert" - name: "devops-automation-engineer" - name: "developer-tooling-specialist"
+design_ops: - name: "design-ops-specialist" - name: "version-migration-manager" - name: "ecosystem-integration-agent" - name: "performance-monitor"
+quality_architecture: - name: "security-compliance-auditor" - name: "component-composition-specialist"
+community_growth: - name: "community-contribution-manager" - name: "analytics-insights-agent" - name: "localization-i18n-specialist" - name: "accessibility-advocate"
 
-The name "Sando" is inspired by the Japanese "katsu sando" sandwich - a metaphor for the three-layer token architecture (Ingredients, Flavors, Recipes) that forms the core of this system.
+commands:
 
-## Tech Stack
+- command: "/project-status"
+  description: "Comprehensive project status (git builds tests coverage)"
 
-- **Monorepo**: Turborepo 2.5.8 with pnpm 8.15.0 workspaces
-- **Components**: Lit 3.3.1 (Web Components)
-- **Tokens**: Style Dictionary 4.0.0
-- **Build**: Vite 5.0.8
-- **Testing**: Vitest 4.0.4 (@vitest/ui 4.0.4 + @vitest/coverage-v8 4.0.4) + Playwright 1.55.1
-- **Docs**: Storybook 8.6.14 + VitePress 1.6.4
-- **Language**: TypeScript 5.9.3 (strict mode)
+skills:
 
----
+- name: "component-creator"
+  description: "Scaffold new components with 7-file structure"
+- name: "command-creator"
+  description: "Create new slash commands following Sando's Golden Rule"
+- name: "skill-creator"
+  description: "Create new skills with progressive disclosure"
 
-## Project Guidelines (Single Source of Truth)
+requirements:
+package_manager: MUST use pnpm. Do NOT use npm or yarn. Repo uses pnpm workspaces.
+node_version: Requires Node.js >=20.0.0 (specified in package.json engines)
+env_variables:
+optional: Copy .env.example to .env.local to customize ports
+default_ports: - service: "Storybook"
+port: 6006 - service: "VitePress"
+port: 3000
+build_caching:
+system: Turborepo caches build outputs
+force_rebuild: - command: "pnpm clean && pnpm build" - command: "pnpm build -- --force"
 
-**CRITICAL**: All Sando Design System decisions MUST follow the official guidelines located in `.claude/guidelines/`.
+ci_cd:
+platform: GitHub Actions
+workflows: - name: "PR Validation"
+file: "pr.yml"
+purpose: "Runs tests lint build on PRs"
+behavior: "Tests/lint informational only - Build blocks merge if fails" - name: "Documentation Deployment"
+file: "deploy.yml"
+purpose: "Deploys Storybook + VitePress to GitHub Pages"
+behavior: "Runs automatically on push to master"
+deployment_urls: - service: "Storybook"
+url: "httpss://rodrigolagodev.github.io/SandoDesignSystem/storybook/" - service: "Docs"
+url: "httpss://rodrigolagodev.github.io/SandoDesignSystem/docs/"
+development_phase: - setting: "PR approval"
+status: "Not required (can self-merge)" - setting: "Tests/lint"
+status: "Informational (don't block)" - setting: "Build failures"
+status: "Block merge (required)" - setting: "NPM publishing"
+status: "Disabled (configured for future)"
 
-### Guidelines Index (Primary Reference)
+framework_integration:
 
-@.claude/guidelines/GUIDELINES_INDEX.md
+- framework: "Vanilla HTML/JS"
+  usage: "Direct <sando-button> usage"
+  notes: "No setup needed"
+- framework: "React"
+  usage: "Import and use"
+  notes: "See components README for TypeScript setup"
+- framework: "Vue 3"
+  usage: "Configure isCustomElement"
+  notes: "In vite.config"
+- framework: "Angular"
+  usage: "Add CUSTOM_ELEMENTS_SCHEMA"
+  notes: "In module"
+- framework: "Svelte"
+  usage: "Direct usage"
+  notes: "No setup needed"
 
-### Core Architecture Guidelines
+versioning:
+system: Changesets (configured but not publishing yet)
+commands: - command: "pnpm changeset"
+description: "Create changeset" - command: "pnpm version-packages"
+description: "Bump versions" - command: "pnpm release"
+description: "Disabled - for future npm publishing"
+npm_publishing:
+status: Currently disabled
+enable_steps: - step: "Create npm token at npmjs.com" - step: "Add NPM_TOKEN secret to GitHub repository" - step: "Re-enable release workflow if needed"
 
-**Token Architecture** - Three-layer system (Ingredients/Flavors/Recipes):
-@.claude/guidelines/01-design-system/TOKEN_ARCHITECTURE.md
+key_files:
 
-**Component Architecture** - Monolithic 7-file pattern:
-@.claude/guidelines/02-architecture/COMPONENT_ARCHITECTURE.md
-
-**Monorepo Structure** - Turborepo + pnpm setup:
-@.claude/guidelines/02-architecture/MONOREPO_STRUCTURE.md
-
-**Token Build System** - Style Dictionary orchestrator:
-@.claude/guidelines/02-architecture/TOKEN_BUILD_SYSTEM.md
-
-### Development Standards
-
-**Code Style** - TypeScript, imports, formatting:
-@.claude/guidelines/03-development/CODE_STYLE.md
-
-**Naming Conventions** - Components, files, tokens:
-@.claude/guidelines/03-development/NAMING_CONVENTIONS.md
-
-**Git Workflow** - GitHub Flow, conventional commits:
-@.claude/guidelines/03-development/GIT_WORKFLOW.md
-
-**Testing Strategy** - Test pyramid, coverage requirements:
-@.claude/guidelines/03-development/TESTING_STRATEGY.md
-
-### Quality Standards
-
-**WCAG Compliance** - Accessibility requirements:
-@.claude/guidelines/04-accessibility/WCAG_COMPLIANCE.md
-
-**Test Coverage** - Coverage thresholds:
-@.claude/guidelines/05-quality/TEST_COVERAGE.md
-
-**Performance Budgets** - Bundle sizes, Core Web Vitals:
-@.claude/guidelines/05-quality/PERFORMANCE_BUDGETS.md
-
-**Security Standards** - XSS prevention, CSP:
-@.claude/guidelines/05-quality/SECURITY_STANDARDS.md
-
-### Documentation Standards
-
-**API Reference** - JSDoc, VitePress tables:
-@.claude/guidelines/06-documentation/API_REFERENCE.md
-
-**Storybook Stories** - Story organization:
-@.claude/guidelines/06-documentation/STORYBOOK_STORIES.md
-
-**Inline Code Docs** - JSDoc standards:
-@.claude/guidelines/06-documentation/INLINE_CODE_DOCS.md
-
----
-
-## AI Agent System
-
-The `.claude/agents/` directory contains **18 production agents** specialized for design system development. Each agent has specific expertise and references guidelines as the single source of truth.
-
-**Core Agents (8):**
-
-- `design-system-architect`
-- `design-system-pm`
-- `ui-designer`
-- `frontend-developer`
-- `technical-writer`
-- `qa-expert`
-- `devops-automation-engineer`
-- `developer-tooling-specialist`
-
-**Phase 2 - Design Operations (4):**
-
-- `design-ops-specialist`
-- `version-migration-manager`
-- `ecosystem-integration-agent`
-- `performance-monitor`
-
-**Phase 3 - Quality & Architecture (2):**
-
-- `security-compliance-auditor`
-- `component-composition-specialist`
-
-**Phase 4 - Community & Growth (4):**
-
-- `community-contribution-manager`
-- `analytics-insights-agent`
-- `localization-i18n-specialist`
-- `accessibility-advocate`
-
-**Slash Commands:**
-
-- `/project-status` - Comprehensive project status (git, builds, tests, coverage)
-
-**Skills:**
-
-- `component-creator` - Scaffold new components with 7-file structure
-- `command-creator` - Create new slash commands following Sando's Golden Rule
-- `skill-creator` - Create new skills with progressive disclosure
-
-**Usage**: Invoke agents via Task tool. Each agent will reference guidelines automatically.
-
----
-
-## Important Notes
-
-### Package Manager
-
-**MUST use pnpm**. Do NOT use npm or yarn. The repo uses pnpm workspaces.
-
-### Node Version
-
-Requires Node.js >=20.0.0 (specified in package.json engines)
-
-### Environment Variables
-
-Optional: Copy `.env.example` to `.env.local` to customize ports.
-Default ports:
-
-- Storybook: 6006
-- VitePress: 3000
-
-### Build Caching
-
-Turborepo caches build outputs. To force rebuild:
-`pnpm clean && pnpm build`
-or
-`pnpm build -- --force`
+- path: "turbo.json"
+  description: "Turborepo task configuration"
+- path: "pnpm-workspace.yaml"
+  description: "Workspace definition"
+- path: "packages/tokens/build/index.js"
+  description: "Token build orchestrator"
+- path: "packages/components/ARCHITECTURE.md"
+  description: "Component architecture details"
+- path: ".claude/guidelines/GUIDELINES_INDEX.toon"
+  description: "Complete guidelines index (TOON format)"
+- path: ".claude/guidelines/"
+  description: "27 guidelines in TOON format (.toon extension)"
+- path: ".claude/agents/"
+  description: "18 specialized agents (5 core updated for TOON format)"
 
 ---
 
-## CI/CD Workflows
+## Auto-Loaded Guidelines
 
-The project uses GitHub Actions for automation:
+The following guideline is automatically loaded into context:
 
-### Active Workflows
-
-1. **pr.yml** - PR Validation (Informational)
-   - Runs tests, lint, and build on PRs
-   - **Tests & Lint**: Informational only (don't block merge)
-   - **Build**: Required (blocks merge if fails)
-   - Purpose: Provide feedback without blocking development
-
-2. **deploy.yml** - Documentation Deployment
-   - Deploys Storybook + VitePress to GitHub Pages
-   - Runs automatically on push to master
-   - URLs:
-     - Storybook: `https://rodrigolagodev.github.io/SandoDesignSystem/storybook/`
-     - Docs: `https://rodrigolagodev.github.io/SandoDesignSystem/docs/`
-
-### Development Phase Configuration
-
-During active development:
-
-- ✅ PRs don't require approval (can self-merge)
-- ✅ Tests/lint are informational (don't block)
-- ✅ Only build failures block merge
-- ⚠️ No automatic npm publishing (configured for future)
-
-### Framework Integration
-
-- **Vanilla HTML/JS**: Direct `<sando-button>` usage
-- **React**: Import and use (see components README for TypeScript setup)
-- **Vue 3**: Configure `isCustomElement` in vite.config
-- **Angular**: Add `CUSTOM_ELEMENTS_SCHEMA`
-- **Svelte**: Direct usage
-
-Details in `packages/components/README.md`
-
-## Versioning & Publishing
-
-Uses Changesets (configured but not publishing yet):
-
-```bash
-pnpm changeset           # Create changeset
-pnpm version-packages    # Bump versions
-# pnpm release           # Disabled - for future npm publishing
-```
-
-**Note**: NPM publishing is currently disabled. To enable:
-
-1. Create npm token at npmjs.com
-2. Add `NPM_TOKEN` secret to GitHub repository
-3. Re-enable release workflow if needed
-
----
-
-## Key Files
-
-- `turbo.json` - Turborepo task configuration
-- `pnpm-workspace.yaml` - Workspace definition
-- `packages/tokens/build/index.js` - Token build orchestrator
-- `packages/components/ARCHITECTURE.md` - Component architecture details
-- `.claude/guidelines/GUIDELINES_INDEX.md` - Complete guidelines index
-- `.claude/agents/` - 18 specialized agents
+@.claude/guidelines/GUIDELINES_INDEX.toon

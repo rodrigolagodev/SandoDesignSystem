@@ -26,7 +26,7 @@ import './sando-form-group';
  * - ✅ Keyboard navigation works seamlessly with slotted controls
  */
 const meta: Meta = {
-  title: 'Components/Form Group',
+  title: 'Components/Layout/Form Group',
   component: 'sando-form-group',
   tags: ['autodocs'],
   argTypes: {

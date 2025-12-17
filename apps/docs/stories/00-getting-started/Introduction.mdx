@@ -1,0 +1,138 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Getting Started/Introduction" />
+
+# 🥪 Sando Design System
+
+**The perfect recipe for building delicious UIs.**
+
+Welcome to Sando! Just like a perfectly crafted Japanese katsu sando combines quality **Ingredients**, balanced **Flavors**, and a proven **Recipe** to create something extraordinary, Sando Design System brings these three layers together to help you craft consistent, accessible, and beautiful user interfaces.
+
+## 🎨 The Three Layers
+
+Think of building UIs like making the perfect sandwich—you don't just throw everything together. You start with quality ingredients, add your signature flavor, and follow a trusted recipe.
+
+### 🥓 Ingredients (Primitives)
+
+Raw, atomic values—the building blocks of your design:
+
+```css
+/* Colors */
+--sando-color-orange-700: hsl(25, 95%, 53%);
+--sando-color-neutralWarm-100: hsl(30, 20%, 96%);
+--sando-color-state-error-500: hsl(4, 90%, 58%);
+
+/* Spacing */
+--sando-space-4: 1rem;
+--sando-space-8: 2rem;
+--sando-space-16: 4rem;
+
+/* Typography */
+--sando-font-size-400: 1rem;
+```
+
+### 🥬 Flavors (Semantic)
+
+Add context and meaning to ingredients, enabling effortless theming:
+
+```css
+/* Background colors */
+--sando-color-background-base: var(--sando-color-neutralWarm-100);
+--sando-color-background-emphasis: var(--sando-color-neutralWarm-300);
+
+/* Text colors */
+--sando-color-text-body: var(--sando-color-neutralWarm-800);
+--sando-color-text-heading: var(--sando-color-neutralWarm-950);
+
+/* Action colors */
+--sando-color-action-solid-background-default: var(--sando-color-orange-700);
+--sando-color-action-solid-text-default: var(--sando-color-neutralWarm-100);
+```
+
+### 🍞 Recipes (Component-specific)
+
+Component tokens that ensure every piece tastes just right:
+
+```css
+/* Button recipe */
+--sando-button-solid-backgroundColor-default: var(--sando-color-action-solid-background-default);
+--sando-button-solid-backgroundColor-hover: var(--sando-color-action-solid-background-hover);
+--sando-button-solid-textColor-default: var(--sando-color-action-solid-text-default);
+```
+
+## 🚀 Quick Taste
+
+Get started in seconds:
+
+```bash
+npm install @sando/components @sando/tokens
+```
+
+```js
+import '@sando/tokens/css';
+import '@sando/components/button';
+```
+
+```html
+<sando-button variant="solid">Click me</sando-button>
+<sando-button variant="outline">Or me</sando-button>
+```
+
+## 🎭 Theming Made Easy
+
+All components support theming via the `flavor` attribute:
+
+```html
+<!-- Default flavor (Original) -->
+<sando-button>Original</sando-button>
+
+<!-- Strawberry flavor -->
+<div flavor="strawberry">
+  <sando-button>Strawberry themed</sando-button>
+</div>
+
+<!-- Forest flavor -->
+<div flavor="forest">
+  <sando-button>Forest themed</sando-button>
+</div>
+```
+
+### Automatic Dark Mode Support
+
+Dark mode is automatic! Components adapt to your system preferences:
+
+```html
+<!-- Automatically switches to dark colors when user enables dark mode in system settings -->
+<sando-button>Auto dark mode</sando-button>
+```
+
+**No manual configuration needed.** Sando respects `prefers-color-scheme` and other accessibility preferences automatically.
+
+## ✨ What Makes Sando Special?
+
+- **Framework-Agnostic** - Works with React, Vue, Angular, or vanilla JS
+- **Accessible by Default** - WCAG 2.1 AA compliant out of the box
+- **Type-Safe** - Full TypeScript support with strict mode
+- **Well-Tested** - Comprehensive unit, E2E, and accessibility tests
+- **Fully Documented** - You're looking at it!
+
+## 📦 Packages
+
+- **@sando/tokens** - Design tokens (Ingredients, Flavors, Recipes)
+- **@sando/components** - Web Components built with Lit
+
+## 🔍 Explore Components
+
+Use the sidebar to explore all available components, their variants, and interactive examples. Each component story includes:
+
+- Live component previews
+- API documentation
+- Code examples
+- Accessibility features
+- Theming options
+
+---
+
+**Start with quality Ingredients, season with distinctive Flavors, and follow proven Recipes.**
+
+Ready to build something delicious? Let's go! 🚀

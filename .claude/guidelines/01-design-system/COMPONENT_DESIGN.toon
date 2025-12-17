@@ -1,0 +1,564 @@
+meta:
+  doc_id: "CD"
+  category: "01-design-system"
+  version: "1.0.0"
+  status: "Active"
+  last_updated: "2025-11-09"
+  owner: "UI Designer + Frontend Developer"
+
+purpose: |
+  This guideline establishes the design philosophy, variant taxonomy, and API conventions for all components in the Sando Design System. It serves as a reference for agents and skills when creating or modifying components, ensuring consistency, predictability, and adherence to the three-layer token architecture.
+
+core_rules:
+  - id: "CD-CR-P1"
+    title: "Token-Driven Design"
+    note: "All visual properties derive from Recipe tokens (Layer 3), never hardcoded values"
+  - id: "CD-CR-P2"
+    title: "Predictable Patterns"
+    note: "Variants follow consistent naming and behavior across all components"
+  - id: "CD-CR-P3"
+    title: "T-Shirt Sizing"
+    note: "Unified sizing scale (xs, sm, md, lg, xl) for cognitive simplicity"
+  - id: "CD-CR-P4"
+    title: "Accessibility First"
+    note: "WCAG 2.1 AA minimum for all components"
+  - id: "CD-CR-P5"
+    title: "Composition Over Configuration"
+    note: "Flexible APIs that balance simplicity with extensibility"
+
+variant_taxonomy:
+  summary: "Components use standardized variant categories to ensure predictability and consistency."
+  rules:
+    - id: "CD-VT-C1"
+      title: "Visual Variants (Appearance)"
+      description: "Defines the **visual style** and **emphasis level** of a component."
+      standard_pattern:
+        - name: "solid"
+          emphasis_level: "High"
+          characteristics: "Filled background, contrasting text"
+          use_case: "Primary actions, high prominence"
+        - name: "outline"
+          emphasis_level: "Medium"
+          characteristics: "Border only, transparent background"
+          use_case: "Secondary actions, medium prominence"
+        - name: "ghost"
+          emphasis_level: "Low"
+          characteristics: "No border, subtle hover state"
+          use_case: "Tertiary actions, low prominence"
+        - name: "text"
+          emphasis_level: "Minimal"
+          characteristics: "Text only, no background/border"
+          use_case: "Inline actions, minimal prominence"
+      type_definition_pattern:
+        lang: "typescript"
+        code: |
+          export type ComponentVariant = "solid" | "outline" | "ghost" | "text";
+      applicability: "Button, Badge, Card, Alert, Chip, Tag, etc."
+      recipe_token_pattern:
+        lang: "json"
+        code:
+          component:
+            solid:
+              backgroundColor: {}
+              textColor: {}
+            outline:
+              borderColor: {}
+              textColor: {}
+            ghost:
+              backgroundColor: {}
+              textColor: {}
+            text:
+              textColor: {}
+
+    - id: "CD-VT-C2"
+      title: "Size Variants (Scale)"
+      description: "Defines the **physical dimensions** and **density** of a component."
+      standard_pattern:
+        title: "T-Shirt Sizing"
+        sizes:
+          - name: "xs"
+            purpose: "Extra compact"
+            interactive_target: "32px"
+            visual_density: "Very dense UIs"
+          - name: "sm"
+            purpose: "Small"
+            interactive_target: "36px"
+            visual_density: "Compact layouts"
+          - name: "md"
+            purpose: "Medium (default)"
+            interactive_target: "44px"
+            visual_density: "Standard comfortable"
+            is_default: true
+            wcag_note: "44px (WCAG)"
+          - name: "lg"
+            purpose: "Large"
+            interactive_target: "52px"
+            visual_density: "Prominent elements"
+          - name: "xl"
+            purpose: "Extra large"
+            interactive_target: "64px"
+            visual_density: "Hero/maximum impact"
+      type_definition_pattern:
+        lang: "typescript"
+        code: |
+          export type ComponentSize = "xs" | "sm" | "md" | "lg" | "xl";
+      applicability: "All interactive components (Button, Input, Select, etc.), Layout components (Card, Modal, etc.)"
+      recipe_token_pattern:
+        lang: "json"
+        code:
+          component:
+            size:
+              xs:
+                paddingInline: {}
+                paddingBlock: {}
+                fontSize: {}
+              sm:
+                paddingInline: {}
+                paddingBlock: {}
+                fontSize: {}
+              md:
+                paddingInline: {}
+                paddingBlock: {}
+                fontSize: {}
+              lg:
+                paddingInline: {}
+                paddingBlock: {}
+                fontSize: {}
+              xl:
+                paddingInline: {}
+                paddingBlock: {}
+                fontSize: {}
+      constraint: "Always `md` for WCAG 2.5.5 compliance (44px minimum touch target)."
+      pattern_note: "`paddingInline > paddingBlock` (horizontal > vertical for better click targets)."
+
+    - id: "CD-VT-C3"
+      title: "Status Variants (Semantic State)"
+      description: "Communicates **semantic meaning** through color coding."
+      standard_pattern:
+        - name: "default"
+          meaning: "Neutral, standard"
+          color_scheme: "Theme colors"
+          use_cases: "Normal state, no specific meaning"
+        - name: "success"
+          meaning: "Positive, confirmation"
+          color_scheme: "Green palette"
+          use_cases: "Success messages, confirmations"
+        - name: "destructive"
+          meaning: "Negative, dangerous"
+          color_scheme: "Red palette"
+          use_cases: "Errors, destructive actions"
+        - name: "warning"
+          meaning: "Caution, attention"
+          color_scheme: "Yellow/Orange palette"
+          use_cases: "Warnings, non-critical issues"
+        - name: "info"
+          meaning: "Informational"
+          color_scheme: "Blue palette"
+          use_cases: "Helpful information, tips"
+      type_definition_pattern:
+        lang: "typescript"
+        code: |
+          export type ComponentStatus =
+            | "default"
+            | "success"
+            | "destructive"
+            | "warning"
+            | "info";
+      applicability: "Alert, Badge, Button (destructive actions), Input (validation), Toast, Banner, etc."
+      recipe_token_pattern:
+        lang: "json"
+        code:
+          component:
+            status:
+              success:
+                backgroundColor: {}
+                textColor: {}
+                borderColor: {}
+              destructive:
+                backgroundColor: {}
+                textColor: {}
+                borderColor: {}
+              warning:
+                backgroundColor: {}
+                textColor: {}
+                borderColor: {}
+              info:
+                backgroundColor: {}
+                textColor: {}
+                borderColor: {}
+
+    - id: "CD-VT-C4"
+      title: "Shape Variants (Border Radius)"
+      description: "Defines the **corner rounding** of a component."
+      standard_pattern:
+        - name: "none"
+          value_range: "0px"
+          visual_result: "Sharp corners"
+          use_cases: "Corporate, formal designs"
+        - name: "default"
+          value_range: "4px-8px"
+          visual_result: "Subtle rounding"
+          use_cases: "Standard, balanced design"
+        - name: "full"
+          value_range: "9999px"
+          visual_result: "Pill/circular"
+          use_cases: "Pills, badges, icon buttons"
+      type_definition_pattern:
+        lang: "typescript"
+        code: |
+          export type ComponentRadius = "none" | "default" | "full";
+      applicability: "Button, Badge, Card, Input, Avatar, etc."
+      recipe_token_pattern:
+        lang: "json"
+        code:
+          component:
+            radius:
+              none:
+                value: "0"
+              default:
+                value: "{border.radius.default.value}"
+              full:
+                value: "{border.radius.circle.value}"
+
+token_structure_patterns:
+  summary: "Recipe tokens (Layer 3) for components follow predictable hierarchies."
+  rules:
+    - id: "CD-TSP-P1"
+      title: "Variant-State-Property"
+      pattern:
+        lang: "json"
+        code:
+          component:
+            variant:
+              property:
+                state:
+                  value: "{flavor.token.value}"
+      example:
+        lang: "json"
+        code:
+          button:
+            solid:
+              backgroundColor:
+                default:
+                  value: "{color.action.solid.background.default.value}"
+                hover:
+                  value: "{color.action.solid.background.hover.value}"
+                active:
+                  value: "{color.action.solid.background.hover.value}"
+                disabled:
+                  value: "{color.action.disabled.background.value}"
+
+    - id: "CD-TSP-P2"
+      title: "Size-Property"
+      pattern:
+        lang: "json"
+        code:
+          component:
+            size:
+              sizeValue:
+                property:
+                  value: "{flavor.token.value}"
+      example:
+        lang: "json"
+        code:
+          button:
+            size:
+              md:
+                paddingInline:
+                  value: "{space.inset.md.value}"
+                paddingBlock:
+                  value: "{space.inset.sm.value}"
+                fontSize:
+                  value: "{font.size.body.value}"
+                minHeight:
+                  value: "{sizing.control.md.value}"
+
+    - id: "CD-TSP-P3"
+      title: "Component-Level Base Properties"
+      summary: "Properties that don't change across variants/sizes."
+      pattern:
+        lang: "json"
+        code:
+          component:
+            fontFamily:
+              value: "{font.family.body.value}"
+            fontWeight:
+              value: "{font.weight.emphasis.value}"
+            lineHeight:
+              value: "{font.lineHeight.body.value}"
+            borderRadius:
+              value: "{border.radius.default.value}"
+            transition:
+              duration:
+                value: "{animation.duration.fast.value}"
+              timing:
+                value: "{animation.easing.default.value}"
+      constraint: "Recipes ONLY reference Flavors (Layer 2), NEVER Ingredients (Layer 1)."
+
+standard_interactive_states:
+  summary: "All interactive components must handle these states:"
+  rules:
+    - id: "CD-SIS-R1"
+      title: "Required States"
+      states:
+        - name: "default"
+          description: "Resting state"
+          visual_feedback: "Base styling"
+          interactivity: "Interactive"
+        - name: "hover"
+          description: "Mouse over"
+          visual_feedback: "Subtle color change"
+          interactivity: "Interactive"
+        - name: "active"
+          description: "Being pressed"
+          visual_feedback: "Visual 'press' feedback"
+          interactivity: "Interactive"
+        - name: "focus"
+          description: "Keyboard focused"
+          visual_feedback: "Visible outline (WCAG 2.4.7)"
+          interactivity: "Interactive"
+        - name: "disabled"
+          description: "Not available"
+          visual_feedback: "Muted colors, cursor change"
+          interactivity: "Non-interactive"
+    - id: "CD-SIS-R2"
+      title: "Optional States (Context-Dependent)"
+      states:
+        - name: "loading"
+          description: "Processing"
+          when_to_use: "Async operations (submit, fetch)"
+        - name: "pressed"
+          description: "Toggle active"
+          when_to_use: "Toggle buttons, selections"
+        - name: "invalid"
+          description: "Validation error"
+          when_to_use: "Form inputs, required fields"
+        - name: "readonly"
+          description: "View-only"
+          when_to_use: "Non-editable form fields"
+    - id: "CD-SIS-R3"
+      title: "Token Pattern for States"
+      pattern:
+        lang: "json"
+        code:
+          component:
+            variant:
+              property:
+                default:
+                  value: "{...}"
+                hover:
+                  value: "{...}"
+                active:
+                  value: "{...}"
+                focus:
+                  value: "{...}"
+                disabled:
+                  value: "{...}"
+
+api_design_principles:
+  rules:
+    - id: "CD-ADP-R1"
+      title: "Property Design"
+      guidelines:
+        - "Use `reflect: true` for properties that affect styling (variant, size, disabled, etc.)"
+        - "Provide sensible defaults (variant: 'solid', size: 'md')"
+        - "Use TypeScript union types for variant enums"
+        - "Boolean properties for binary states (disabled, loading, etc.)"
+      naming_conventions:
+        - "Use camelCase for properties (`fullWidth`, not `full-width`)"
+        - "Use kebab-case for attributes (`full-width`, not `fullWidth`)"
+        - "Boolean properties: No `is` prefix (`disabled`, not `isDisabled`)"
+    - id: "CD-ADP-R2"
+      title: "Event Design"
+      standard_events:
+        - "Use native events when possible (`click`, `change`, `input`)"
+        - "Custom events for component-specific actions (`remove`, `select`, `toggle`)"
+        - "Set `bubbles: true, composed: true` for cross-shadow-DOM events"
+      naming_conventions:
+        - "Use lowercase, no prefix (`remove`, not `onRemove` or `handleRemove`)"
+    - id: "CD-ADP-R3"
+      title: "Slot Design"
+      common_slot_patterns:
+        - name: "default"
+          description: "Main content"
+        - name: "header | footer"
+          description: "Semantic sections"
+        - name: "icon-start | icon-end"
+          description: "Icon positioning (when applicable)"
+      guidelines:
+        - "Provide slots for flexible composition"
+        - "Offer prop alternatives for simple cases"
+        - "Document slot purpose and expected content"
+
+naming_conventions:
+  rules:
+    - id: "CD-NC-R1"
+      title: "Component Names"
+      pattern_format: "`sando-{component-name}`"
+      examples:
+        - "`sando-button`"
+        - "`sando-input`"
+        - "`sando-card`"
+        - "`sando-modal`"
+      constraints:
+        - "Lowercase, hyphen-separated"
+        - "Descriptive, not abbreviated (`sando-button`, not `sando-btn`)"
+        - "Single word when possible (`button`, `input`, `modal`)"
+        - "Compound when necessary (`date-picker`, `combo-box`)"
+    - id: "CD-NC-R2"
+      title: "CSS Variable Names"
+      pattern_format: "`--sando-{component}-{variant?}-{property}-{state?}`"
+      examples:
+        - "`--sando-button-solid-backgroundColor-default`"
+        - "`--sando-input-borderColor-focus`"
+        - "`--sando-card-padding`"
+      constraints:
+        - "Kebab-case for all parts"
+        - "Include variant if property is variant-specific"
+        - "Include state if property is state-specific"
+    - id: "CD-NC-R3"
+      title: "Type Names"
+      pattern_format: "`{Component}{Category}` (PascalCase)"
+      examples:
+        - "`ButtonVariant`, `InputSize`, `CardStatus`"
+        - "`SandoButtonProps`, `SandoInputProps`"
+
+accessibility_baseline:
+  summary: "All components MUST meet WCAG 2.1 Level AA:"
+  rules:
+    - id: "CD-AB-R1"
+      title: "Required (All Components)"
+      requirements:
+        - id: "1.4.3"
+          name: "Contrast"
+          note: "4.5:1 text, 3:1 large text, 3:1 UI components"
+        - id: "4.1.2"
+          name: "Name, Role, Value"
+          note: "Proper ARIA attributes"
+        - id: "4.1.3"
+          name: "Status Messages"
+          note: "Screen reader announcements for dynamic content"
+    - id: "CD-AB-R2"
+      title: "Required (Interactive Components)"
+      requirements:
+        - id: "2.1.1"
+          name: "Keyboard"
+          note: "All functionality via keyboard"
+        - id: "2.4.7"
+          name: "Focus Visible"
+          note: "Visible focus indicator (≥2px outline, ≥2px offset)"
+        - id: "2.5.5"
+          name: "Target Size"
+          note: "≥44×44px touch targets (use `size='md'` default)"
+        - id: "3.2.2"
+          name: "On Input"
+          note: "No unexpected context changes"
+    - id: "CD-AB-R3"
+      title: "Required (Form Components)"
+      requirements:
+        - id: "3.3.1"
+          name: "Error Identification"
+          note: "Clear error messages"
+        - id: "3.3.2"
+          name: "Labels or Instructions"
+          note: "Descriptive labels"
+        - id: "3.3.3"
+          name: "Error Suggestion"
+          note: "Helpful error recovery"
+    - id: "CD-AB-R4"
+      title: "ARIA Patterns"
+      common_attributes:
+        - name: "aria-label"
+          description: "Non-visible label (icon-only components)"
+        - name: "aria-labelledby"
+          description: "Reference to visible label"
+        - name: "aria-describedby"
+          description: "Additional description/help text"
+        - name: "aria-disabled"
+          description: "Disabled state (visual only, not truly disabled)"
+        - name: "aria-invalid"
+          description: "Validation error state"
+        - name: "aria-required"
+          description: "Required field indicator"
+        - name: "aria-busy"
+          description: "Loading state indicator"
+        - name: "aria-live"
+          description: "Dynamic content announcements"
+
+decision_matrix:
+  summary: "When designing a component, use this matrix to decide which variant categories apply:"
+  matrix_data:
+    - component_type: "Interactive (Button, Link)"
+      visual_variants: "✅ solid/outline/ghost"
+      size_variants: "✅ xs/sm/md/lg/xl"
+      status_variants: "⚠️ Optional (destructive)"
+      shape_variants: "✅ Optional"
+    - component_type: "Input (Input, Select, Textarea)"
+      visual_variants: "❌ Usually not needed"
+      size_variants: "✅ xs/sm/md/lg"
+      status_variants: "⚠️ Validation states"
+      shape_variants: "✅ Optional"
+    - component_type: "Feedback (Alert, Toast, Banner)"
+      visual_variants: "✅ solid/outline"
+      size_variants: "⚠️ Optional"
+      status_variants: "✅ success/destructive/warning/info"
+      shape_variants: "✅ Optional"
+    - component_type: "Display (Card, Panel, Modal)"
+      visual_variants: "✅ solid/outline/ghost"
+      size_variants: "⚠️ Optional"
+      status_variants: "❌ Usually not needed"
+      shape_variants: "✅ Optional"
+    - component_type: "Data (Badge, Tag, Chip)"
+      visual_variants: "✅ solid/outline/ghost"
+      size_variants: "✅ xs/sm/md"
+      status_variants: "✅ Optional (semantic colors)"
+      shape_variants: "✅ full radius common"
+    - component_type: "Layout (Container, Grid, Stack)"
+      visual_variants: "❌ Not applicable"
+      size_variants: "⚠️ Optional (spacing scale)"
+      status_variants: "❌ Not applicable"
+      shape_variants: "❌ Not applicable"
+  legend:
+    - symbol: "✅"
+      key: "Recommended"
+    - symbol: "⚠️"
+      key: "Optional (context-dependent)"
+    - symbol: "❌"
+      key: "Not applicable"
+
+related_guidelines:
+  - type: "guideline"
+    doc_id: "TA"
+    file: "TOKEN_ARCHITECTURE.toon"
+    note: "Three-layer token system rules"
+  - type: "guideline"
+    doc_id: "SS"
+    file: "SPACING_SYSTEM.toon"
+    note: "T-shirt sizing for spacing"
+  - type: "guideline"
+    doc_id: "TSYS"
+    file: "TYPOGRAPHY_SYSTEM.toon"
+    note: "Type scales and font usage"
+  - type: "guideline"
+    doc_id: "CS"
+    file: "COLOR_SYSTEM.toon"
+    note: "Color palettes and semantic colors"
+  - type: "guideline"
+    doc_id: "TS"
+    file: "THEMING_STRATEGY.toon"
+    note: "Flavor system and theming"
+  - type: "guideline"
+    doc_id: "CA"
+    file: "../02-architecture/COMPONENT_ARCHITECTURE.toon"
+    note: "Component file structure"
+  - type: "guideline"
+    doc_id: "WC"
+    file: "../04-accessibility/WCAG_COMPLIANCE.toon"
+    note: "Accessibility standards"
+
+changelog:
+  - version: "1.0.0"
+    date: "2025-11-02"
+    changes:
+      - type: "NOTE"
+        note: "Initial component design guidelines establishing variant taxonomy, token patterns, and API conventions for the Sando Design System"

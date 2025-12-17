@@ -1,0 +1,630 @@
+meta:
+  doc_id: "VPG"
+  category: "06-documentation"
+  version: "1.0.0"
+  status: "Active"
+  last_updated: "2025-11-09"
+  owner: "Technical Writer"
+
+purpose:
+  id: "VPG-PU"
+  description: |
+    Establish comprehensive standards for writing long-form tutorial and guide documentation in VitePress for the Sando Design System. This includes frontmatter configuration, markdown features, code examples, navigation structure, and content organization to ensure guides are clear, accessible, and maintainable.
+
+targets:
+  id: "VPG-TGT"
+  list:
+    - "Getting Started guides, conceptual tutorials, integration guides, accessibility guides"
+
+scope:
+  id: "VPG-SC"
+  note: "Markdown structure, frontmatter, code blocks, containers, navigation"
+
+enforcement:
+  id: "VPG-ENF"
+  note: "Documentation review, VitePress build validation"
+
+core_rules:
+  - id: "VPG-CR-R1"
+    title: "Frontmatter with Title and Description (Required for SEO)"
+    summary: "Every guide page SHOULD include frontmatter with title and description for SEO and social sharing, though VitePress can generate these from content if omitted."
+    pattern:
+      lang: "markdown"
+      code: |
+        ---
+        title: Page Title for SEO and Browser Tabs
+        description: Brief one-sentence description for search engines and social media previews
+        ---
+
+        # Main Heading (h1)
+
+        First paragraph starts immediately after heading...
+    real_example:
+      lang: "markdown"
+      title: "From quick-start.md"
+      code: |
+        ---
+        title: Quick Start Guide
+        description: Get started with Sando Design System in your project with this step-by-step tutorial
+        ---
+
+        # Quick Start
+
+        Get started with Sando design tokens in your project.
+    why: "Frontmatter title/description improve SEO, control browser tab text, and customize social media preview cards. VitePress uses h1 as fallback if omitted."
+    note: "Frontmatter is OPTIONAL. VitePress will extract title from first h1 and description from first paragraph if frontmatter is missing. Use frontmatter when you need explicit control over SEO metadata."
+    references:
+      - type: "source_file"
+        path: "quick-start.md"
+        note: "Frontmatter example"
+      - type: "external"
+        url: "httpss://vitepress.dev/reference/frontmatter-config"
+        note: "VitePress frontmatter docs"
+
+  - id: "VPG-CR-R2"
+    title: "Progressive Step-by-Step Structure (Required for Tutorials)"
+    summary: "Tutorial guides MUST use numbered headings (h2) for sequential steps, creating clear progression from start to finish."
+    pattern:
+      lang: "markdown"
+      code: |
+        # Tutorial Title
+
+        Brief introduction explaining what the user will learn.
+
+        ## Step 1: First Action
+
+        Instructions for the first step...
+
+        ```code
+        Example code for step 1
+        ```
+
+        ## Step 2: Second Action
+
+        Instructions for the second step...
+
+        ## Step 3: Third Action
+
+        Instructions for the third step...
+
+        ## Next Steps
+
+        Where to go after completing the tutorial.
+    why: "Numbered steps provide clear progression. Users can follow along sequentially without getting lost. Next Steps section prevents dead ends."
+    reference:
+      type: "source_file"
+      path: "quick-start.md"
+      lines: "9-213"
+      note: "Complete step-by-step example"
+
+  - id: "VPG-CR-R3"
+    title: "VitePress Containers for Contextual Information (Required)"
+    summary: "Use VitePress custom containers (tip, warning, danger, details) to highlight important information without disrupting reading flow."
+    pattern:
+      lang: "markdown"
+      code: |
+        ::: tip Optional Title
+        Helpful information that enhances understanding but isn't critical.
+        :::
+
+        ::: warning Important Notice
+        Cautionary information the user should be aware of.
+        :::
+
+        ::: danger Critical Warning
+        Information about potential breaking changes or serious issues.
+        :::
+
+        ::: details Click to Expand
+        Collapsible content for additional details that some users may want.
+        :::
+    container_types:
+      - type: "tip"
+        usage: "Helpful hints, best practices, pro tips"
+      - type: "warning"
+        usage: "Important notices, deprecation warnings, prerequisites"
+      - type: "danger"
+        usage: "Breaking changes, critical security issues, destructive actions"
+      - type: "details"
+        usage: "Collapsible extra information, advanced topics, troubleshooting"
+    real_examples:
+      - source: "quick-start.md"
+        lines: "5-7, 113-115"
+        code: |
+          ::: warning Components Coming Soon
+          This guide focuses on using Sando's token system. Component examples are provided for future reference but are not yet implemented.
+          :::
+      - source: "accessibility.md"
+        code: |
+          tip Touch Target Compliance
+          All button sizes meet WCAG 2.1 Level AA minimum touch target size of 44x44px through padding adjustments.
+    why: "Containers visually differentiate contextual information from main content. Icons and colors draw attention without requiring bold text or excessive formatting."
+    reference:
+      type: "external"
+      url: "httpss://vitepress.dev/guide/markdown#custom-containers"
+      note: "VitePress container docs"
+
+  - id: "VPG-CR-R4"
+    title: "Code Groups for Multi-Framework Examples (Required)"
+    summary: "Use VitePress code groups (::: code-group) when showing the same example in multiple languages, frameworks, or tools."
+    pattern:
+      lang: "markdown"
+      code: |
+        ::: code-group
+
+        ```language [Tab Label 1]
+        code for option 1
+        ```
+
+        ```language [Tab Label 2]
+        code for option 2
+        ```
+
+        ```language [Tab Label 3]
+        code for option 3
+        ```
+
+        :::
+    real_example:
+      lang: "markdown"
+      title: "From quick-start.md"
+      code: |
+        ::: code-group
+
+        ```bash [Vite]
+        pnpm create vite my-app --template vanilla-ts
+        cd my-app
+        ```
+
+        ```bash [Next.js]
+        pnpm create next-app my-app
+        cd my-app
+        ```
+
+        :::
+    when_to_use:
+      - "Multiple framework implementations (React, Vue, Angular)"
+      - "Multiple build tool setups (Vite, Webpack, Rollup)"
+      - "Alternative approaches to same task"
+      - "Related files in a project (HTML + TS, CSS + JS)"
+    why: "Code groups let users choose their preferred framework/tool without scrolling through irrelevant examples. Tabs save space and improve scannability."
+    references:
+      - type: "source_file"
+        path: "quick-start.md"
+        lines: "11-23, 52-109"
+        note: "Code group examples"
+      - type: "external"
+        url: "httpss://vitepress.dev/guide/markdown#code-groups"
+        note: "VitePress code groups docs"
+
+  - id: "VPG-CR-R5"
+    title: "Inline Code and Syntax Highlighting (Required)"
+    summary: "Use proper syntax highlighting for all code blocks and inline code formatting for technical terms."
+    inline_code_pattern:
+      lang: "markdown"
+      code: |
+        The `sando-button` component accepts a `variant` property that can be `'solid'`, `'outline'`, or `'ghost'`.
+
+        Install with `pnpm add @sando/components` to get started.
+    code_block_pattern:
+      lang: "markdown"
+      code: |
+        ```language
+        code here
+        ```
+    supported_languages:
+      - name: "html"
+        note: "HTML markup"
+      - name: "css"
+        note: "CSS styles"
+      - name: "typescript"
+        alias: "ts"
+        note: "TypeScript code"
+      - name: "javascript"
+        alias: "js"
+        note: "JavaScript code"
+      - name: "tsx"
+        note: "React/TypeScript JSX"
+      - name: "jsx"
+        note: "React/JavaScript JSX"
+      - name: "vue"
+        note: "Vue single-file components"
+      - name: "bash"
+        alias: "sh"
+        note: "Shell commands"
+      - name: "json"
+        note: "JSON data"
+      - name: "yaml"
+        note: "YAML configuration"
+    why: "Syntax highlighting improves code readability. Inline code formatting distinguishes technical terms from prose. Proper language tags enable VitePress code features (copy button, line numbers)."
+    references:
+      - type: "source_file"
+        path: "quick-start.md"
+        lines: "13-16, 27-29, 33-45, 167-179"
+        note: "Code highlighting examples"
+      - type: "external"
+        url: "httpss://vitepress.dev/guide/markdown#syntax-highlighting"
+        note: "VitePress markdown docs"
+
+vitepress_guide_patterns:
+  id: "VPG-VGP"
+  tutorial_structure:
+    id: "VPG-VGP-TS"
+    lang: "markdown"
+    code: |
+      ---
+      title: Tutorial Title
+      description: What the user will learn in one sentence
+      ---
+
+      # Tutorial Title
+
+      Brief introduction (1-2 paragraphs) explaining:
+      - What the user will build/learn
+      - Prerequisites (if any)
+      - Estimated time (optional)
+
+      ## Step 1: First Action
+
+      Clear instruction for what to do.
+
+      ```code
+      Example code
+      ```
+
+      **Result**: What the user should see or expect after this step.
+
+      ## Step 2: Second Action
+
+      Next instruction...
+
+      ## Full Example
+
+      Complete working code showing all steps together.
+
+      ## Troubleshooting
+
+      ### Problem 1
+      **Solution**: How to fix it.
+
+      ## Next Steps
+
+      - **[Related Guide](../path)** - Description
+      - **[Next Tutorial](../path)** - Description
+  conceptual_guide_structure:
+    id: "VPG-VGP-CGS"
+    lang: "markdown"
+    code: |
+      ---
+      title: Concept Title
+      description: Brief explanation of the concept
+      ---
+
+      # Concept Title
+
+      Opening paragraph explaining what this concept is and why it matters.
+
+      ## What is [Concept]?
+
+      Detailed explanation with definitions and analogies.
+
+      ## Why Use [Concept]?
+
+      Benefits and use cases:
+      - **Benefit 1**: Explanation
+      - **Benefit 2**: Explanation
+
+      ## How [Concept] Works
+
+      Technical explanation with code examples.
+
+      ## Common Patterns
+
+      ### Pattern 1
+      Description and example.
+
+      ## Best Practices
+
+      - ✅ DO: Recommended approach
+      - ❌ DON'T: Anti-pattern to avoid
+
+      ## Related Concepts
+
+      - **[Related Topic](../path)** - How it relates
+  integration_guide_structure:
+    id: "VPG-VGP-IGS"
+    lang: "markdown"
+    code: |
+      ---
+      title: Integration with [Framework/Tool]
+      description: How to use Sando with [Framework/Tool]
+      ---
+
+      # Integration with [Framework/Tool]
+
+      ## Prerequisites
+
+      - Node.js ≥20.0.0
+      - [Framework] ≥[version]
+
+      ## Installation
+
+      ```bash
+      pnpm add @sando/components @sando/tokens
+      ```
+
+      ## Configuration
+
+      ### Step 1: Setup Config
+      ### Step 2: Import Components
+      ### Step 3: Use Components
+
+      ## TypeScript Support
+
+      ## Common Patterns
+
+      ## Troubleshooting
+
+      ## Example Project
+
+markdown_features:
+  id: "VPG-MF"
+  internal_links:
+    id: "VPG-MF-IL"
+    lang: "markdown"
+    code: |
+      [Link Text](/path/to/page)
+      [Link Text](../relative/path)
+
+      - **[Link Text](/path)** - Brief description
+
+      ## Next Steps
+
+      - **[Theming Guide](/getting-started/theming)** - Learn how to customize
+      - **[Token Architecture](/tokens/architecture)** - Understand the system
+  external_links:
+    id: "VPG-MF-EL"
+    lang: "markdown"
+    code: |
+      [GitHub Repository](httpss://github.com/user/repo)
+
+      [Storybook](httpss://example.com){target="_blank"}
+  emoji_conventions:
+    id: "VPG-MF-EC"
+    emojis:
+      - symbol: "✅"
+        note: "Checkmark: Completed features, best practices"
+      - symbol: "❌"
+        note: "Cross: Anti-patterns, things to avoid"
+      - symbol: "⚠️"
+        note: "Warning: Important notices, breaking changes"
+      - symbol: "💡"
+        note: "Lightbulb: Tips, ideas, insights"
+      - symbol: "📚"
+        note: "Books: Documentation, learning resources"
+      - symbol: "🎨"
+        note: "Palette: Design, theming, styling"
+      - symbol: "♿"
+        note: "Accessibility: A11y features"
+      - symbol: "🔒"
+        note: "Lock: Security, type safety"
+      - symbol: "⚡"
+        note: "Lightning: Performance, speed"
+      - symbol: "🔧"
+        note: "Wrench: Tools, configuration"
+      - symbol: "📝"
+        note: "Memo: Notes, documentation"
+    why: "Emoji add visual interest and help users scan content quickly. Use sparingly for emphasis, not decoration."
+  lists_and_formatting:
+    id: "VPG-MF-LAF"
+    lang: "markdown"
+    code: |
+      - Item 1
+      - Item 2
+        - Nested item
+
+      1. First step
+      2. Second step
+
+      - [ ] Task not done
+      - [x] Task completed
+
+      **Bold text** for emphasis
+      _Italic text_ for subtle emphasis
+      `Code text` for technical terms
+  tables:
+    id: "VPG-MF-T"
+    lang: "markdown"
+    code: |
+      | Column 1 | Column 2 | Column 3 |
+      | -------- | -------- | -------- |
+      | Value A  | Value B  | Value C  |
+
+      | Left | Center | Right |
+      | :--- | :----: | ----: |
+      | L1   |   C1   |    R1 |
+
+navigation_configuration:
+  id: "VPG-NC"
+  sidebar_configuration:
+    id: "VPG-NC-SC"
+    lang: "typescript"
+    code: |
+      // .vitepress/config.ts
+      sidebar: {
+        '/getting-started/': [
+          {
+            text: 'Getting Started',
+            items: [
+              { text: 'Introduction', link: '/getting-started/introduction' },
+              { text: 'Installation', link: '/getting-started/installation' },
+              { text: 'Quick Start', link: '/getting-started/quick-start' },
+            ]
+          }
+        ],
+      }
+  organization_principles:
+    id: "VPG-NC-OP"
+    principles:
+      - "Group related pages under collapsible sections"
+      - "Use descriptive section titles"
+      - "Order pages by learning progression (beginner → advanced)"
+      - "Place overview/introduction pages first"
+  top_navigation:
+    id: "VPG-NC-TN"
+    lang: "typescript"
+    code: |
+      nav: [
+        { text: "Guide", link: "/getting-started/introduction" },
+        { text: "Tokens", link: "/tokens/architecture" },
+        { text: "Components", link: "/components/overview" },
+        {
+          text: "Storybook",
+          link: "httpss://example.com/storybook",
+          target: "_blank",
+        },
+      ]
+  reference:
+    type: "source_file"
+    path: ".vitepress/config.ts"
+    lines: "12-76"
+    note: "Navigation configuration"
+
+content_organization:
+  id: "VPG-CO"
+  file_naming:
+    id: "VPG-CO-FN"
+    tree:
+      "apps/site/":
+        "getting-started/":
+          - "introduction.md # Kebab-case"
+          - "installation.md"
+          - "quick-start.md"
+          - "theming.md"
+        "guides/":
+          - "accessibility.md"
+          - "contributing.md"
+          - "flavor-philosophy.md"
+        "tokens/":
+          - "architecture.md"
+          - "ingredients.md"
+          - "flavors.md"
+        "components/":
+          - "overview.md"
+          - "button.md"
+    conventions:
+      - "Use kebab-case for file names"
+      - "Name matches page title (lowercased, spaces → hyphens)"
+      - "Use descriptive names (quick-start.md not qs.md)"
+      - "Group by category in folders"
+  directory_structure:
+    id: "VPG-CO-DS"
+    categories:
+      - name: "getting-started"
+        note: "Onboarding, installation, first steps"
+      - name: "guides"
+        note: "Conceptual topics, philosophy, best practices"
+      - name: "tokens"
+        note: "Design token documentation"
+      - name: "components"
+        note: "Component API reference"
+      - name: "examples"
+        note: "Complete example projects (optional)"
+    why: "Clear categories help users find content. Mirrors sidebar structure in config.ts."
+
+writing_guidelines:
+  id: "VPG-WG"
+  tone_and_voice:
+    id: "VPG-WG-TAV"
+    guidelines:
+      - "Clear and Direct: Avoid unnecessary words"
+      - "Active Voice: 'Import the component' not 'The component should be imported'"
+      - "Second Person: Address the user as 'you'"
+      - "Present Tense: 'The button renders...' not 'The button will render...'"
+      - "Inclusive: Use 'they/them' for generic users"
+      - "Positive: Focus on what to do, not just what to avoid"
+  code_examples:
+    id: "VPG-WG-CE"
+    always_include:
+      - "Complete, working code"
+      - "Comments explaining non-obvious parts"
+      - "Expected output or result"
+      - "Syntax highlighting (proper language tags)"
+    example:
+      lang: "markdown"
+      code: |
+        ```ts
+        // Import the component
+        import "@sando/components/button";
+
+        // Use in your HTML
+        const app = document.querySelector("#app")!;
+        app.innerHTML = `
+          <sando-button variant="solid">
+            Click me
+          </sando-button>
+        `;
+
+        // Add event listener
+        const button = app.querySelector("sando-button")!;
+        button.addEventListener("click", () => {
+          console.log("Clicked!"); // Output: "Clicked!"
+        });
+        ```
+    why: "Complete examples reduce confusion. Comments guide understanding. Expected output shows what success looks like."
+  accessibility_in_documentation:
+    id: "VPG-WG-AID"
+    guidelines:
+      - "Provide alt text for images (when images added)"
+      - "Use semantic headings (h2, h3, not bold text)"
+      - "Write descriptive link text (not 'click here')"
+      - "Test documentation with screen readers"
+      - "Ensure code examples are keyboard accessible"
+    example:
+      lang: "markdown"
+      code: |
+        [Click here](../guide) to learn more.
+
+        [Learn more about theming](../guide)
+
+related_guidelines:
+  - type: "guideline"
+    doc_id: "API"
+    file: "./API_REFERENCE.toon"
+    note: "Component API documentation format"
+  - type: "guideline"
+    doc_id: "SBS"
+    file: "./STORYBOOK_STORIES.toon"
+    note: "Interactive component stories"
+  - type: "guideline"
+    doc_id: "CS"
+    file: "../03-development/CODE_STYLE.toon"
+    note: "Code example formatting"
+  - type: "guideline"
+    doc_id: "WC"
+    file: "../04-accessibility/WCAG_COMPLIANCE.toon"
+    note: "Documentation accessibility"
+
+external_references:
+  - category: "VitePress Documentation"
+    references:
+      - url: "httpss://vitepress.dev/guide/what-is-vitepress"
+        note: "VitePress Guide - Official documentation"
+      - url: "httpss://vitepress.dev/guide/markdown"
+        note: "Markdown Extensions - Markdown features"
+      - url: "httpss://vitepress.dev/reference/frontmatter-config"
+        note: "Frontmatter - Page configuration"
+      - url: "httpss://vitepress.dev/reference/default-theme-config"
+        note: "Theme Config - Navigation/sidebar setup"
+  - category: "Markdown"
+    references:
+      - url: "httpss://www.markdownguide.org/"
+        note: "Markdown Guide - Basic/extended syntax"
+      - url: "httpss://commonmark.org/"
+        note: "CommonMark Spec - Markdown specification"
+  - category: "Writing"
+    references:
+      - url: "httpss://developers.google.com/style"
+        note: "Google Developer Docs Style Guide - Technical writing best practices"
+      - url: "httpss://docs.microsoft.com/en-us/style-guide/"
+        note: "Microsoft Writing Style Guide - Writing for developers"

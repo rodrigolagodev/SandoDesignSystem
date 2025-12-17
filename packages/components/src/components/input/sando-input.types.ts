@@ -97,6 +97,17 @@ export interface SandoInputProps {
    * @default false
    */
   error?: boolean;
+
+  /**
+   * Name of the input (for form submission)
+   */
+  name?: string;
+
+  /**
+   * Autocomplete attribute for browser autofill
+   * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete
+   */
+  autocomplete?: string;
 }
 
 /**

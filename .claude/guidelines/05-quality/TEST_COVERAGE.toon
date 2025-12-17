@@ -1,0 +1,421 @@
+meta:
+  doc_id: "TC"
+  category: "05-quality"
+  version: "1.0.0"
+  status: "Active"
+  last_updated: "2025-11-15"
+  owner: "QA Expert"
+
+purpose:
+  id: "TC-PU"
+  description: |
+    Establish test coverage standards for the Sando Design System ensuring quality, maintainability, and confidence in code changes. Defines coverage thresholds, measurement tools, exclusions, and reporting requirements.
+
+targets:
+  id: "TC-TGT"
+  list:
+    - "80% coverage threshold for all packages"
+    - "100% accessibility coverage for public components"
+    - "No critical paths uncovered"
+
+scope:
+  id: "TC-SC"
+  note: "Components, tokens, utilities, mixins. Excludes: types, stories, configuration"
+
+enforcement:
+  id: "TC-ENF"
+  note: "CI blocks on coverage drops below threshold"
+
+core_rules:
+  - id: "TC-CR-R1"
+    title: "80% Coverage Threshold (Non-Negotiable)"
+    summary: "All packages MUST maintain minimum 80% coverage across lines, functions, branches, and statements."
+    pattern:
+      lang: "javascript"
+      title: "vitest.config.js coverage configuration"
+      file: "packages/components/vitest.config.js"
+      code: |
+        export default defineConfig({
+          test: {
+            coverage: {
+              provider: 'v8',
+              reporter: ['text', 'json', 'html'],
+              thresholds: {
+                lines: 80,
+                functions: 80,
+                branches: 80,
+                statements: 80,
+              },
+              exclude: [
+                '**/*.stories.ts',
+                '**/*.types.ts',
+                '**/index.ts',
+                '**/*.spec.ts',
+              ],
+            },
+          },
+        });
+    why: "80% coverage balances thoroughness with pragmatism. Catches most bugs while avoiding diminishing returns of 100% coverage."
+    enforcement: "CI fails if coverage drops below threshold"
+
+  - id: "TC-CR-R2"
+    title: "100% Accessibility Coverage (Non-Negotiable)"
+    summary: "All public components MUST have dedicated accessibility test files with 100% coverage."
+    pattern:
+      lang: "typescript"
+      title: "Accessibility test file"
+      file: "sando-button.a11y.test.ts"
+      code: |
+        import { fixture } from "@open-wc/testing";
+        import { axe, toHaveNoViolations } from "jest-axe";
+        expect.extend(toHaveNoViolations);
+
+        describe("sando-button accessibility", () => {
+          it("meets WCAG 2.1 AA standards", async () => {
+            const el = await fixture(html`<sando-button>Click me</sando-button>`);
+            const results = await axe(el);
+            expect(results).toHaveNoViolations();
+          });
+
+          it("all variants are accessible", async () => {
+            for (const variant of ["solid", "outline", "ghost"]) {
+              const el = await fixture(html`<sando-button variant="${variant}">Text</sando-button>`);
+              const results = await axe(el);
+              expect(results).toHaveNoViolations();
+            }
+          });
+        });
+    why: "Accessibility is non-negotiable. Automated tests catch 30-50% of WCAG issues early."
+    reference:
+      type: "guideline"
+      doc_id: "WC"
+      file: "../04-accessibility/WCAG_COMPLIANCE.toon"
+      note: "WCAG compliance requirements"
+
+  - id: "TC-CR-R3"
+    title: "V8 Coverage Provider (Required)"
+    summary: "Use V8 coverage provider (@vitest/coverage-v8) for accurate native code coverage."
+    installation:
+      lang: "bash"
+      code: |
+        pnpm add -D @vitest/coverage-v8
+    configuration:
+      lang: "javascript"
+      code: |
+        export default defineConfig({
+          test: {
+            coverage: {
+              provider: 'v8',  // Native V8 instrumentation
+              // ...
+            },
+          },
+        });
+    why: "V8 provides native code coverage (no source transformation), more accurate than Istanbul, and faster."
+    reference:
+      type: "external"
+      url: "https://vitest.dev/guide/coverage.html"
+      note: "Vitest coverage documentation"
+
+  - id: "TC-CR-R4"
+    title: "Coverage Exclusions (Standardized)"
+    summary: "Standardized list of files excluded from coverage requirements."
+    excluded_patterns:
+      - pattern: "**/*.stories.ts"
+        reason: "Storybook documentation, not application code"
+      - pattern: "**/*.types.ts"
+        reason: "TypeScript type definitions"
+      - pattern: "**/index.ts"
+        reason: "Barrel exports (re-exports only)"
+      - pattern: "**/*.spec.ts"
+        reason: "E2E tests (tested differently)"
+      - pattern: "**/*.config.*"
+        reason: "Configuration files"
+      - pattern: "**/dist/**"
+        reason: "Build output"
+    configuration:
+      lang: "javascript"
+      code: |
+        coverage: {
+          exclude: [
+            '**/*.stories.ts',
+            '**/*.types.ts',
+            '**/index.ts',
+            '**/*.spec.ts',
+            '**/*.config.*',
+            '**/dist/**',
+          ],
+        }
+    why: "These files don't contain testable logic or are tested through other means."
+
+  - id: "TC-CR-R5"
+    title: "Critical Path Coverage (Non-Negotiable)"
+    summary: "All critical user paths MUST have 100% coverage regardless of overall threshold."
+    critical_paths:
+      - "User authentication flows"
+      - "Form submission and validation"
+      - "Payment processing"
+      - "Data persistence"
+      - "Error handling and recovery"
+    pattern:
+      lang: "typescript"
+      code: |
+        describe("Critical: Form submission", () => {
+          it("validates required fields", async () => { /* ... */ });
+          it("handles submission errors", async () => { /* ... */ });
+          it("shows success state", async () => { /* ... */ });
+          it("prevents double submission", async () => { /* ... */ });
+          // 100% coverage of all branches
+        });
+    why: "Critical paths failing cause severe user/business impact. Must be thoroughly tested."
+
+coverage_metrics:
+  id: "TC-CM"
+  metrics:
+    - id: "TC-CM-M1"
+      name: "Lines"
+      threshold: "80%"
+      description: "Percentage of executable lines executed by tests"
+    - id: "TC-CM-M2"
+      name: "Functions"
+      threshold: "80%"
+      description: "Percentage of functions called by tests"
+    - id: "TC-CM-M3"
+      name: "Branches"
+      threshold: "80%"
+      description: "Percentage of conditional branches (if/else) tested"
+    - id: "TC-CM-M4"
+      name: "Statements"
+      threshold: "80%"
+      description: "Percentage of statements executed"
+  calculation:
+    lang: "text"
+    code: |
+      Lines: (Covered Lines / Total Lines) * 100
+      Functions: (Called Functions / Total Functions) * 100
+      Branches: (Covered Branches / Total Branches) * 100
+      Statements: (Executed Statements / Total Statements) * 100
+
+coverage_reporting:
+  id: "TC-CR"
+  reporters:
+    - id: "TC-CR-R1"
+      name: "Text"
+      usage: "Console output during test runs"
+      format: "Table with coverage percentages"
+    - id: "TC-CR-R2"
+      name: "HTML"
+      usage: "Detailed browsable report"
+      location: "coverage/index.html"
+      viewing: "open coverage/index.html"
+    - id: "TC-CR-R3"
+      name: "JSON"
+      usage: "Machine-readable format for CI"
+      location: "coverage/coverage-final.json"
+      purpose: "Trend analysis, badges, third-party tools"
+  configuration:
+    lang: "javascript"
+    code: |
+      coverage: {
+        reporter: ['text', 'json', 'html'],
+        reportsDirectory: './coverage',
+      }
+
+ci_integration:
+  id: "TC-CI"
+  github_actions:
+    lang: "yaml"
+    file: ".github/workflows/pr.yml"
+    code: |
+      - name: Run tests with coverage
+        run: pnpm test:coverage
+
+      - name: Check coverage thresholds
+        run: |
+          # vitest exits with code 1 if thresholds not met
+          if [ $? -ne 0 ]; then
+            echo "❌ Coverage below threshold"
+            exit 1
+          fi
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./coverage/coverage-final.json
+          fail_ci_if_error: false
+  coverage_badges:
+    lang: "markdown"
+    file: "README.md"
+    code: |
+      ![Coverage](https://img.shields.io/codecov/c/github/user/repo)
+  blocking_behavior:
+    - "PR cannot merge if coverage drops"
+    - "Coverage delta shown in PR comments"
+    - "Detailed report linked in PR checks"
+
+commands:
+  id: "TC-CMD"
+  components:
+    - command: "pnpm --filter @sando/components test:coverage"
+      description: "Run tests with coverage report"
+    - command: "pnpm --filter @sando/components test:coverage --reporter=html"
+      description: "Generate HTML report only"
+    - command: "open packages/components/coverage/index.html"
+      description: "View HTML coverage report"
+  tokens:
+    - command: "pnpm --filter @sando/tokens test:coverage"
+      description: "Token package coverage"
+  global:
+    - command: "pnpm test:coverage"
+      description: "All packages coverage (monorepo)"
+
+viewing_coverage:
+  id: "TC-VC"
+  html_report:
+    id: "TC-VC-HR"
+    steps:
+      - number: 1
+        action: "Run: pnpm --filter @sando/components test:coverage"
+      - number: 2
+        action: "Open: packages/components/coverage/index.html"
+      - number: 3
+        action: "Navigate: Click files to see line-by-line coverage"
+    features:
+      - "Color-coded lines (green = covered, red = uncovered)"
+      - "Branch coverage indicators"
+      - "File-by-file breakdown"
+      - "Sortable by coverage percentage"
+  console_output:
+    id: "TC-VC-CO"
+    example:
+      lang: "text"
+      code: |
+        ----------------------------|---------|----------|---------|---------|
+        File                        | % Stmts | % Branch | % Funcs | % Lines |
+        ----------------------------|---------|----------|---------|---------|
+        All files                   |   82.5  |   78.3   |   85.1  |   82.5  |
+         components                 |   85.0  |   80.0   |   90.0  |   85.0  |
+          sando-button.ts           |   90.0  |   85.0   |   95.0  |   90.0  |
+          sando-input.ts            |   80.0  |   75.0   |   85.0  |   80.0  |
+         mixins                     |   75.0  |   70.0   |   75.0  |   75.0  |
+          flavorable.ts             |   75.0  |   70.0   |   75.0  |   75.0  |
+        ----------------------------|---------|----------|---------|---------|
+
+improving_coverage:
+  id: "TC-IC"
+  strategies:
+    - id: "TC-IC-S1"
+      strategy: "Identify uncovered lines"
+      action: "Review HTML report, focus on red lines"
+    - id: "TC-IC-S2"
+      strategy: "Test edge cases"
+      action: "Null values, empty strings, boundary conditions"
+    - id: "TC-IC-S3"
+      strategy: "Test error paths"
+      action: "Force errors, validate error handling"
+    - id: "TC-IC-S4"
+      strategy: "Test all branches"
+      action: "Ensure both if/else paths tested"
+    - id: "TC-IC-S5"
+      strategy: "Test property combinations"
+      action: "Variant + size + disabled combinations"
+  example_uncovered_code:
+    lang: "typescript"
+    code: |
+      // ❌ Uncovered: Error path never tested
+      async fetchData() {
+        try {
+          return await api.get('/data');
+        } catch (error) {
+          console.error(error); // ← RED (uncovered)
+          return null;
+        }
+      }
+  fix_with_test:
+    lang: "typescript"
+    code: |
+      it("handles fetch errors gracefully", async () => {
+        vi.spyOn(api, 'get').mockRejectedValue(new Error('Network error'));
+        const result = await component.fetchData();
+        expect(result).toBeNull();
+        expect(console.error).toHaveBeenCalled(); // ✅ Now covered
+      });
+
+best_practices:
+  id: "TC-BP"
+  practices:
+    - id: "TC-BP-P1"
+      practice: "Focus on behavior, not implementation"
+      example: "Test 'button is disabled when loading', not 'loading property sets disabled attribute'"
+    - id: "TC-BP-P2"
+      practice: "Avoid testing framework internals"
+      example: "Don't test that Lit's @property decorator works"
+    - id: "TC-BP-P3"
+      practice: "Test public API only"
+      example: "Test exposed properties/methods, not private helpers"
+    - id: "TC-BP-P4"
+      practice: "Prefer integration over unit"
+      example: "Test component with real child components, not mocks"
+    - id: "TC-BP-P5"
+      practice: "Don't chase 100% blindly"
+      example: "Some unreachable error paths are ok (TypeScript guards)"
+
+anti_patterns:
+  id: "TC-AP"
+  patterns:
+    - id: "TC-AP-P1"
+      anti_pattern: "Testing implementation details"
+      why_wrong: "Breaks when refactoring internal code"
+      example:
+        lang: "typescript"
+        code: |
+          // ❌ Testing internal method
+          expect(component._handleClick).toHaveBeenCalled();
+      correct:
+        lang: "typescript"
+        code: |
+          // ✅ Testing behavior
+          await userEvent.click(button);
+          expect(component.value).toBe('clicked');
+    - id: "TC-AP-P2"
+      anti_pattern: "Snapshot testing everything"
+      why_wrong: "Brittle, hard to review, low signal"
+      correct: "Use snapshots sparingly (error messages, complex data structures)"
+    - id: "TC-AP-P3"
+      anti_pattern: "Ignoring coverage gaps"
+      why_wrong: "Uncovered code is untested, likely has bugs"
+      correct: "Review coverage report, add tests for uncovered paths"
+
+related_guidelines:
+  - type: "guideline"
+    doc_id: "TST"
+    file: "../03-development/TESTING_STRATEGY.toon"
+    note: "Overall testing strategy and pyramid"
+  - type: "guideline"
+    doc_id: "WC"
+    file: "../04-accessibility/WCAG_COMPLIANCE.toon"
+    note: "Accessibility testing requirements"
+  - type: "guideline"
+    doc_id: "CST"
+    file: "../03-development/CODE_STYLE.toon"
+    note: "Code organization standards"
+
+external_references:
+  - category: "Vitest"
+    references:
+      - url: "https://vitest.dev/guide/coverage.html"
+        note: "Vitest Coverage Guide"
+      - url: "https://vitest.dev/config/#coverage"
+        note: "Coverage Configuration Reference"
+  - category: "V8 Coverage"
+    references:
+      - url: "https://v8.dev/blog/javascript-code-coverage"
+        note: "V8 Native Code Coverage"
+  - category: "Testing Best Practices"
+    references:
+      - url: "https://kentcdodds.com/blog/common-mistakes-with-react-testing-library"
+        note: "Testing Best Practices (Kent C. Dodds)"
+      - url: "https://martinfowler.com/bliki/TestCoverage.html"
+        note: "Test Coverage (Martin Fowler)"
+
+conclusion: |
+  Test coverage is a quality metric, not a goal. 80% threshold ensures thorough testing while avoiding diminishing returns. Focus on testing behavior, critical paths, and accessibility—not just hitting a number.
