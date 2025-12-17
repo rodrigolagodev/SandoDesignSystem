@@ -1,0 +1,464 @@
+meta:
+  doc_id: "CST"
+  category: "03-development"
+  version: "1.0.0"
+  status: "Active"
+  last_updated: "2025-11-09"
+  owner: "Frontend Developer"
+
+purpose:
+  id: "CST-PU"
+  description: |
+    Define code formatting, naming, and organization standards for TypeScript, Lit components, and related files to ensure consistency, readability, and maintainability across the Sando Design System codebase.
+
+core_rules:
+  - id: "CST-CR-R1"
+    title: "TypeScript Strict Mode (Non-Negotiable)"
+    summary: "ALL TypeScript code MUST have strict mode enabled with comprehensive linting checks."
+    pattern:
+      lang: "typescript"
+      code: |
+        // ✅ CORRECT: tsconfig.json with strict mode
+        {
+          "compilerOptions": {
+            "strict": true,
+            "noUnusedLocals": true,
+            "noUnusedParameters": true,
+            "noFallthroughCasesInSwitch": true
+          }
+        }
+
+        // Code example with proper typing
+        export class SandoButton extends LitElement {
+          @property({ type: String, reflect: true })
+          variant: ButtonVariant = 'solid'; // Explicit type from union type
+
+          private handleClick(e: MouseEvent): void {
+            // Fully typed parameters and return
+          }
+        }
+    anti_pattern:
+      lang: "typescript"
+      code: |
+        // ❌ WRONG: Disabling strict mode
+        {
+          "compilerOptions": {
+            "strict": false, // Never do this
+            "noImplicitAny": false // Never do this
+          }
+        }
+
+        // ❌ WRONG: Implicit any types
+        export class BadComponent extends LitElement {
+          @property()
+          data; // No type annotation
+
+          private handleClick(e) { // No parameter type
+            // Implicit any
+          }
+        }
+    why: "Strict mode catches bugs at compile time, provides better IDE autocomplete, prevents runtime errors, and serves as living documentation. The small upfront cost of typing saves hours of debugging."
+    reference:
+      type: "config"
+      path: "packages/components/tsconfig.json"
+      note: "Exact TypeScript configuration"
+
+  - id: "CST-CR-R2"
+    title: "Import Organization (Non-Negotiable)"
+    summary: "Imports MUST be organized in 5 groups with a blank line between each group: external packages, Lit framework, component types, internal modules, and styles."
+    pattern:
+      lang: "typescript"
+      code: |
+        // ✅ CORRECT: Organized imports from sando-button.ts
+        // Group 1: External packages (alphabetical)
+        import { LitElement, html } from "lit";
+        import { customElement, property } from "lit/decorators.js";
+        import { classMap } from "lit/directives/class-map.js";
+
+        // Group 2: Types (relative imports)
+        import type {
+          ButtonVariant,
+          ButtonSize,
+          ButtonStatus,
+          ButtonRadius,
+        } from "./sando-button.types.js";
+
+        // Group 3: Internal modules (mixins, utilities)
+        import { FlavorableMixin } from "../../mixins/index.js";
+
+        // Group 4: Styles (always last)
+        import { tokenStyles } from "../../styles/tokens.css.js";
+        import {
+          baseStyles,
+          variantStyles,
+          sizeStyles,
+          radiusStyles,
+          statusStyles,
+          stateStyles,
+        } from "./styles/index.js";
+    anti_pattern:
+      lang: "typescript"
+      code: |
+        // ❌ WRONG: Random import order
+        import { baseStyles } from "./styles/index.js";
+        import type { ButtonVariant } from "./sando-button.types.js";
+        import { LitElement } from "lit";
+        import { FlavorableMixin } from "../../mixins/index.js";
+        import { property } from "lit/decorators.js";
+        // No organization, hard to scan
+    why: "Consistent import order makes code reviews easier, reduces merge conflicts in import blocks, and helps identify missing dependencies quickly. The pattern matches ESLint's automatic sorting."
+    automation: "ESLint with `eslint-plugin-import` (or prettier-plugin-organize-imports) can auto-sort imports"
+
+  - id: "CST-CR-R3"
+    title: "File Naming Conventions (Non-Negotiable)"
+    summary: "File names MUST use kebab-case with specific suffixes indicating file purpose."
+    pattern:
+      lang: "text"
+      title: "✅ CORRECT: Component file structure"
+      tree:
+        "packages/components/src/components/button/":
+          files:
+            - "sando-button.ts" # Component implementation
+            - "sando-button.types.ts" # Type definitions
+            - "sando-button.stories.ts" # Storybook documentation
+            - "sando-button.test.ts" # Unit tests (Vitest)
+            - "sando-button.spec.ts" # E2E tests (Playwright)
+            - "sando-button.a11y.test.ts" # Accessibility tests (axe-core)
+            - "index.ts" # Barrel export
+    why: "Kebab-case works across all operating systems (case-insensitive Windows vs case-sensitive Linux), matches Web Component tag names (`sando-button`), and prevents filename collisions. Suffixes clearly indicate file purpose without opening the file."
+
+  - id: "CST-CR-R4"
+    title: "JSDoc Documentation (Required for Public APIs)"
+    summary: "ALL public component properties, methods, slots, CSS custom properties, and events MUST have JSDoc comments."
+    pattern:
+      lang: "typescript"
+      code: |
+        // ✅ CORRECT: Comprehensive JSDoc (from sando-button.ts)
+        /**
+         * Sando Button Component
+         *
+         * A fully accessible button component built with Lit following industry standards.
+         * Supports multiple variants, sizes, states, and can render as button or link.
+         *
+         * @element sando-button
+         *
+         * @slot - Button content (text, icons, etc.)
+         * @slot icon-start - Icon before the button text
+         * @slot icon-end - Icon after the button text
+         *
+         * @fires click - Fired when the button is clicked (unless disabled)
+         *
+         * @cssprop --sando-button-fontFamily - Button font family
+         * @cssprop --sando-button-borderRadius - Button border radius
+         *
+         * @example Basic usage
+         * <sando-button variant="solid">Click Me</sando-button>
+         *
+         * @example As link
+         * <sando-button href="https://example.com">Visit</sando-button>
+         */
+        @customElement("sando-button")
+        export class SandoButton extends FlavorableMixin(LitElement) {
+          /**
+           * Visual style variant of the button
+           * @default 'solid'
+           */
+          @property({ reflect: true })
+          variant: ButtonVariant = "solid";
+        }
+    why: "JSDoc generates automatic API documentation, provides inline help in IDEs, documents examples for users, and serves as design documentation. Custom element analyzer tools extract JSDoc to generate reference docs automatically."
+    reference:
+      type: "source_file"
+      path: "packages/components/src/components/button/sando-button.ts"
+      lines: "1-61"
+      note: "Comprehensive JSDoc examples"
+
+  - id: "CST-CR-R5"
+    title: "Code Formatting Standards"
+    summary: "Code MUST be formatted with Prettier using the project configuration. NO manual formatting deviations allowed."
+    why: "Automated formatting eliminates bikeshedding, ensures git diffs show real changes (not formatting), prevents PR comments about style, and integrates with pre-commit hooks. Prettier is non-negotiable."
+    prettier_config:
+      path: "packages/components/.prettierrc.json"
+      settings: "Single quotes, 2-space indent, 100-char line width, no trailing commas"
+    commands:
+      - "pnpm format"
+      - "pnpm format:check"
+
+configuration_files:
+  id: "CST-CF"
+  typescript:
+    file: "tsconfig.json"
+    critical_settings:
+      - "`'strict': true` - Enables all strict type checks"
+      - "`'experimentalDecorators': true` - Required for Lit @decorators"
+      - "`'useDefineForClassFields': false` - Required for Lit compatibility"
+    reference:
+      type: "config"
+      path: "packages/components/tsconfig.json"
+      note: "Exact configuration"
+  eslint:
+    file: ".eslintrc.cjs"
+    plugins:
+      - "@typescript-eslint/recommended"
+      - "plugin:wc/recommended"
+      - "plugin:lit/recommended"
+    key_rules:
+      - "`@typescript-eslint/no-unused-vars` - Error on unused variables (prefix with `_` to bypass)"
+      - "`wc/no-closed-shadow-root` - Never create closed shadow roots"
+      - "`lit/no-invalid-html` - Validates HTML in templates"
+    commands:
+      - "pnpm lint"
+      - "pnpm lint --fix"
+    reference:
+      type: "config"
+      path: "packages/components/.eslintrc.cjs"
+      note: "Exact rules"
+  prettier:
+    file: ".prettierrc.json"
+    settings: "Single quotes, 2-space indent, 100-char line width, no trailing commas"
+    commands:
+      - "pnpm format"
+      - "pnpm format:check"
+    reference:
+      type: "config"
+      path: "packages/components/.prettierrc.json"
+      note: "Exact settings"
+
+component_code_organization:
+  id: "CST-CCO"
+  property_declaration_order:
+    order:
+      - "1. Static properties (styles, etc.)"
+      - "2. Public properties (@property with reflect)"
+      - "3. Public boolean properties"
+      - "4. Private/protected properties"
+      - "5. Lifecycle methods (constructor, connectedCallback, etc.)"
+      - "6. Private methods (prefixed with _)"
+      - "7. Render method (always last)"
+    example:
+      lang: "typescript"
+      code: |
+        @customElement("sando-button")
+        export class SandoButton extends FlavorableMixin(LitElement) {
+          // 1. Static properties (styles, etc.)
+          static styles = [tokenStyles, baseStyles];
+
+          // 2. Public properties (@property with reflect)
+          @property({ reflect: true })
+          variant: ButtonVariant = "solid";
+
+          // 3. Public boolean properties
+          @property({ type: Boolean, reflect: true })
+          disabled = false;
+
+          // 4. Private/protected properties
+          private _internalState: boolean = false;
+
+          // 5. Lifecycle methods
+          connectedCallback() {
+            super.connectedCallback();
+          }
+
+          // 6. Private methods
+          private handleClick(e: MouseEvent) {}
+
+          // 7. Render method (always last)
+          render() {
+            return html`...`;
+          }
+        }
+    why: "Static members → Public API → Internal state → Lifecycle → Helpers → Render. This pattern makes the public API immediately visible when opening a file."
+
+variable_naming:
+  id: "CST-VN"
+  conventions:
+    lang: "typescript"
+    code: |
+      // ✅ CORRECT: camelCase for variables, functions, methods
+      const isDisabled = true;
+      function handleClick() {}
+
+      // ✅ CORRECT: PascalCase for classes, interfaces, types
+      class SandoButton extends LitElement {}
+      type ButtonVariant = 'solid' | 'outline';
+
+      // ✅ CORRECT: UPPER_CASE for constants
+      const MAX_RETRIES = 3;
+
+      // ✅ CORRECT: Prefix unused params with underscore
+      protected updated(_changedProperties: Map<string, unknown>) {}
+  reference:
+    type: "guideline"
+    doc_id: "NC"
+    file: "NAMING_CONVENTIONS.toon"
+    note: "Comprehensive naming standards"
+
+file_structure:
+  id: "CST-FS"
+  monolithic_pattern:
+    structure:
+      "sando-button/":
+        files:
+          - "sando-button.ts" # Main component (200-400 lines typical)
+          - "sando-button.types.ts" # Type definitions (50-150 lines)
+          - "sando-button.stories.ts" # Storybook stories
+          - "sando-button.test.ts" # Unit tests (Vitest)
+          - "sando-button.spec.ts" # E2E tests (Playwright)
+          - "sando-button.a11y.test.ts" # Accessibility tests
+          - "index.ts" # Barrel export
+    barrel_export:
+      lang: "typescript"
+      code: |
+        // ✅ CORRECT: Clean barrel export
+        export { SandoButton } from "./sando-button.js";
+        export type {
+          ButtonVariant,
+          ButtonSize,
+          ButtonStatus,
+          ButtonRadius,
+          SandoButtonProps,
+        } from "./sando-button.types.js";
+    why: "All component files live together, making them easy to find, maintain, and understand. No hunting across multiple folders."
+  reference:
+    type: "guideline"
+    doc_id: "CA"
+    file: "../02-architecture/COMPONENT_ARCHITECTURE.toon"
+    note: "Complete architecture details"
+
+code_comments:
+  id: "CST-CC"
+  principle: "Explain WHY, not WHAT - Code should be self-documenting for the 'what'"
+  good_examples:
+    lang: "typescript"
+    code: |
+      // ✅ CORRECT: Document reasoning
+      // Disable Shadow DOM for legacy integration (remove in v3.0)
+      protected createRenderRoot() { return this; }
+  bad_examples:
+    lang: "typescript"
+    code: |
+      // ❌ WRONG: Obvious comments
+      // Set variant to solid
+      this.variant = 'solid';
+
+      // ❌ WRONG: Commented-out code (use git history)
+      // const oldImplementation = () => { ... };
+  jsdoc_vs_inline:
+    - use: "jsdoc"
+      note: "Public APIs (/** */)"
+    - use: "inline"
+      note: "Implementation details (//)"
+
+token_consumption:
+  id: "CST-TC"
+  pattern:
+    lang: "typescript"
+    code: |
+      // ✅ CORRECT: Import from Recipes layer (component-specific tokens)
+      import { css } from "lit";
+
+      export class SandoButton extends LitElement {
+        static styles = css`
+          .button {
+            /* Use Recipe tokens for component styles */
+            background: var(--sando-button-solid-backgroundColor-default);
+            color: var(--sando-button-solid-textColor-default);
+            padding: var(--sando-button-medium-padding);
+
+            /* Automatic theming via Flavors layer */
+            border-radius: var(--sando-button-borderRadius-default);
+          }
+
+          .button:hover {
+            background: var(--sando-button-solid-backgroundColor-hover);
+          }
+        `;
+      }
+  anti_patterns:
+    - lang: "typescript"
+      title: "❌ WRONG: Hardcoded values (breaks theming)"
+      code: |
+        static styles = css`
+          .button {
+            background: #f97415;  // Never hardcode colors
+            padding: 12px 24px;   // Never hardcode spacing
+          }
+        `;
+    - lang: "typescript"
+      title: "❌ WRONG: Using Ingredient tokens directly (breaks abstraction)"
+      code: |
+        static styles = css`
+          .button {
+            background: var(--sando-color-orange-700);  // Should use Recipe token
+            padding: var(--sando-space-3);              // Should use Recipe token
+          }
+        `;
+  why: "Components consume Recipe tokens, Recipe tokens reference Flavors, Flavors reference Ingredients. This three-layer architecture enables theming without component changes."
+  reference:
+    type: "guideline"
+    doc_id: "TA"
+    file: "../01-design-system/TOKEN_ARCHITECTURE.toon"
+    note: "Token consumption patterns"
+
+related_guidelines:
+  - type: "guideline"
+    doc_id: "CA"
+    file: "../02-architecture/COMPONENT_ARCHITECTURE.toon"
+    category: "02-architecture"
+    note: "Component file structure and patterns"
+  - type: "guideline"
+    doc_id: "TA"
+    file: "../01-design-system/TOKEN_ARCHITECTURE.toon"
+    category: "01-design-system"
+    note: "Token consumption patterns"
+  - type: "guideline"
+    doc_id: "NC"
+    file: "NAMING_CONVENTIONS.toon"
+    category: "03-development"
+    note: "Comprehensive naming standards"
+  - type: "guideline"
+    doc_id: "TST"
+    file: "TESTING_STRATEGY.toon"
+    category: "03-development"
+    note: "Test file organization"
+
+external_references:
+  - type: "documentation"
+    url: "httpss://www.typescriptlang.org/tsconfig#strict"
+    title: "TypeScript Strict Mode"
+    note: "Official documentation"
+  - type: "documentation"
+    url: "httpss://lit.dev/docs/components/properties/"
+    title: "Lit Style Guide"
+    note: "Lit best practices"
+  - type: "documentation"
+    url: "httpss://eslint.org/docs/latest/rules/"
+    title: "ESLint Rules"
+    note: "ESLint documentation"
+  - type: "documentation"
+    url: "httpss://prettier.io/docs/en/options.html"
+    title: "Prettier Options"
+    note: "Prettier configuration"
+  - type: "documentation"
+    url: "httpss://jsdoc.app/"
+    title: "JSDoc Reference"
+    note: "JSDoc tag documentation"
+  - type: "guide"
+    url: "httpss://web.dev/custom-elements-best-practices/"
+    title: "Custom Element Best Practices"
+    note: "Web Components patterns"
+
+tooling_support:
+  id: "CST-TS"
+  vscode_extensions: "Prettier, ESLint, Lit Plugin recommended"
+  pre_commit_hooks: "`pnpm lint-staged` runs on staged files"
+  scripts:
+    location: "packages/components/"
+    commands:
+      - "pnpm lint              # ESLint check"
+      - "pnpm lint --fix        # Auto-fix"
+      - "pnpm format            # Prettier format"
+      - "pnpm typecheck         # TypeScript check"
+
+conclusion: |
+  These code style standards ensure consistency and quality across the Sando Design System. Follow them precisely, use automated tooling to enforce them, and maintain them as the single source of truth for code formatting decisions.

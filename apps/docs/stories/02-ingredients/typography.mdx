@@ -1,0 +1,296 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Ingredients/Typography" />
+
+# Typography
+
+The Sando Design System typography foundation provides a comprehensive type scale, font families, weights, and spacing controls built on **Ingredients tokens** (Layer 1).
+
+## Type Scale
+
+Our type scale follows a modular progression from 10px (0.625rem) to 48px (3rem), providing flexibility for all interface needs.
+
+<div style={{ marginTop: '32px' }}>
+  {[
+    { token: '50', value: '0.625rem', px: '10px' },
+    { token: '100', value: '0.75rem', px: '12px' },
+    { token: '200', value: '0.875rem', px: '14px' },
+    { token: '300', value: '1rem', px: '16px' },
+    { token: '400', value: '1.125rem', px: '18px' },
+    { token: '500', value: '1.25rem', px: '20px' },
+    { token: '600', value: '1.5rem', px: '24px' },
+    { token: '700', value: '2rem', px: '32px' },
+    { token: '800', value: '2.5rem', px: '40px' },
+    { token: '900', value: '3rem', px: '48px' },
+  ].map(({ token, value, px }) => (
+    <div
+      key={token}
+      style={{
+        display: 'flex',
+        alignItems: 'baseline',
+        gap: '24px',
+        padding: '16px',
+        borderBottom: '1px solid var(--sando-color-border-muted)',
+      }}
+    >
+      <div
+        style={{
+          fontFamily: 'monospace',
+          fontSize: '12px',
+          color: 'var(--sando-color-text-caption)',
+          minWidth: '80px',
+        }}
+      >
+        size-{token}
+      </div>
+      <div
+        style={{
+          fontSize: `var(--sando-font-size-${token})`,
+          fontWeight: '400',
+          flex: 1,
+        }}
+      >
+        The quick brown fox jumps
+      </div>
+      <div
+        style={{
+          fontFamily: 'monospace',
+          fontSize: '11px',
+          color: 'var(--sando-color-text-muted)',
+          minWidth: '120px',
+          textAlign: 'right',
+        }}
+      >
+        {value} / {px}
+      </div>
+    </div>
+  ))}
+</div>
+
+<div style={{ marginTop: '16px', padding: '12px', backgroundColor: 'var(--sando-color-background-emphasis)', borderRadius: '8px', fontSize: '14px' }}>
+  <strong>Usage:</strong> <code style={{ fontFamily: 'monospace', fontSize: '13px' }}>var(--sando-font-size-300)</code>
+</div>
+
+---
+
+## Font Families
+
+System font stacks optimized for performance and cross-platform consistency.
+
+### Sans Serif (Default)
+
+The primary font family for all interface text.
+
+<div style={{ marginTop: '24px', padding: '24px', backgroundColor: 'var(--sando-color-background-surface)', borderRadius: '12px' }}>
+  <div style={{ fontFamily: 'var(--sando-font-family-sans)', fontSize: '24px', fontWeight: '600', marginBottom: '8px' }}>
+    System UI Sans Serif
+  </div>
+  <div style={{ fontFamily: 'var(--sando-font-family-sans)', fontSize: '16px', lineHeight: '1.5', marginBottom: '16px' }}>
+    The quick brown fox jumps over the lazy dog. ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789
+  </div>
+  <code style={{ fontFamily: 'monospace', fontSize: '12px', color: 'var(--sando-color-text-caption)' }}>
+    system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif
+  </code>
+</div>
+
+### Serif
+
+For editorial content and emphasis.
+
+<div style={{ marginTop: '24px', padding: '24px', backgroundColor: 'var(--sando-color-background-surface)', borderRadius: '12px' }}>
+  <div style={{ fontFamily: 'var(--sando-font-family-serif)', fontSize: '24px', fontWeight: '600', marginBottom: '8px' }}>
+    Classic Serif
+  </div>
+  <div style={{ fontFamily: 'var(--sando-font-family-serif)', fontSize: '16px', lineHeight: '1.5', marginBottom: '16px' }}>
+    The quick brown fox jumps over the lazy dog. ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789
+  </div>
+  <code style={{ fontFamily: 'monospace', fontSize: '12px', color: 'var(--sando-color-text-caption)' }}>
+    Georgia, Cambria, 'Times New Roman', Times, serif
+  </code>
+</div>
+
+### Monospace
+
+For code, data, and technical content.
+
+<div style={{ marginTop: '24px', padding: '24px', backgroundColor: 'var(--sando-color-background-surface)', borderRadius: '12px' }}>
+  <div style={{ fontFamily: 'var(--sando-font-family-mono)', fontSize: '24px', fontWeight: '600', marginBottom: '8px' }}>
+    Monospace Code
+  </div>
+  <div style={{ fontFamily: 'var(--sando-font-family-mono)', fontSize: '16px', lineHeight: '1.5', marginBottom: '16px' }}>
+    The quick brown fox jumps over the lazy dog. ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789
+  </div>
+  <code style={{ fontFamily: 'monospace', fontSize: '12px', color: 'var(--sando-color-text-caption)' }}>
+    'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace
+  </code>
+</div>
+
+---
+
+## Font Weights
+
+A full range of weights from thin to black.
+
+<div style={{ marginTop: '24px' }}>
+  {[
+    { token: '100', name: 'Thin' },
+    { token: '200', name: 'Extra Light' },
+    { token: '300', name: 'Light' },
+    { token: '400', name: 'Regular' },
+    { token: '500', name: 'Medium' },
+    { token: '600', name: 'Semi Bold' },
+    { token: '700', name: 'Bold' },
+    { token: '800', name: 'Extra Bold' },
+    { token: '900', name: 'Black' },
+  ].map(({ token, name }) => (
+    <div
+      key={token}
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '24px',
+        padding: '16px',
+        borderBottom: '1px solid var(--sando-color-border-muted)',
+      }}
+    >
+      <div
+        style={{
+          fontFamily: 'monospace',
+          fontSize: '12px',
+          color: 'var(--sando-color-text-caption)',
+          minWidth: '80px',
+        }}
+      >
+        weight-{token}
+      </div>
+      <div
+        style={{
+          fontSize: '18px',
+          fontWeight: `var(--sando-font-weight-${token})`,
+          flex: 1,
+        }}
+      >
+        {name} - The quick brown fox
+      </div>
+    </div>
+  ))}
+</div>
+
+---
+
+## Line Heights
+
+Optimized line heights for different content types.
+
+<div style={{ marginTop: '24px' }}>
+  {[
+    { token: '100', value: '1', name: 'Tight' },
+    { token: '120', value: '1.2', name: 'Headings' },
+    { token: '140', value: '1.4', name: 'Captions' },
+    { token: '150', value: '1.5', name: 'Body' },
+    { token: '160', value: '1.6', name: 'Comfortable' },
+    { token: '180', value: '1.8', name: 'Relaxed' },
+    { token: '200', value: '2', name: 'Loose' },
+  ].map(({ token, value, name }) => (
+    <div
+      key={token}
+      style={{
+        padding: '16px',
+        borderBottom: '1px solid var(--sando-color-border-muted)',
+      }}
+    >
+      <div style={{ marginBottom: '8px', display: 'flex', gap: '12px', alignItems: 'center' }}>
+        <code style={{ fontFamily: 'monospace', fontSize: '12px', color: 'var(--sando-color-text-caption)' }}>
+          lineHeight-{token}
+        </code>
+        <span style={{ fontSize: '12px', color: 'var(--sando-color-text-muted)' }}>
+          {name} ({value})
+        </span>
+      </div>
+      <div
+        style={{
+          fontSize: '16px',
+          lineHeight: `var(--sando-font-lineHeight-${token})`,
+          maxWidth: '600px',
+        }}
+      >
+        The quick brown fox jumps over the lazy dog. This line demonstrates the line height token applied to multiline text.
+      </div>
+    </div>
+  ))}
+</div>
+
+---
+
+## Letter Spacing
+
+Fine-tuned letter spacing for different contexts.
+
+<div style={{ marginTop: '24px' }}>
+  {[
+    { token: '0', value: '0em', name: 'Default' },
+    { token: '25', value: '0.025em', name: 'Tight' },
+    { token: '50', value: '0.05em', name: 'Normal' },
+    { token: '100', value: '0.1em', name: 'Wide' },
+  ].map(({ token, value, name }) => (
+    <div
+      key={token}
+      style={{
+        padding: '16px',
+        borderBottom: '1px solid var(--sando-color-border-muted)',
+      }}
+    >
+      <div style={{ marginBottom: '8px', display: 'flex', gap: '12px', alignItems: 'center' }}>
+        <code style={{ fontFamily: 'monospace', fontSize: '12px', color: 'var(--sando-color-text-caption)' }}>
+          letterSpacing-{token}
+        </code>
+        <span style={{ fontSize: '12px', color: 'var(--sando-color-text-muted)' }}>
+          {name} ({value})
+        </span>
+      </div>
+      <div
+        style={{
+          fontSize: '16px',
+          letterSpacing: `var(--sando-font-letterSpacing-${token})`,
+        }}
+      >
+        THE QUICK BROWN FOX JUMPS
+      </div>
+    </div>
+  ))}
+</div>
+
+---
+
+## Usage Guidelines
+
+### Do's
+
+- ✅ Use the type scale consistently across all components
+- ✅ Use sans-serif for UI text, monospace for code
+- ✅ Apply appropriate line heights for content type
+- ✅ Use font weights to create hierarchy
+
+### Don'ts
+
+- ❌ Don't use arbitrary font sizes outside the scale
+- ❌ Don't mix too many weights in a single interface
+- ❌ Don't use tight line heights for body text
+- ❌ Don't use excessive letter spacing on body text
+
+---
+
+## Accessibility
+
+- Minimum font size for body text: `font-size-200` (14px)
+- Line height for body text should be at least 1.5 (`lineHeight-150`)
+- Ensure sufficient color contrast (see Color foundation)
+- Use relative units (rem) for responsive scaling
+
+---
+
+## Related
+
+- **Flavors Layer** - Semantic typography tokens (body, heading, caption)
+- **Components** - Typography in context
+- **Color** - Text color tokens

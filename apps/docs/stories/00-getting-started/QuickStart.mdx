@@ -1,0 +1,237 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Getting Started/Quick Start" />
+
+# Quick Start
+
+Get Sando running in your project in less than 5 minutes.
+
+## Installation
+
+Install both the tokens and components packages:
+
+```bash
+# Using npm
+npm install @sando/tokens @sando/components
+
+# Using pnpm
+pnpm add @sando/tokens @sando/components
+
+# Using yarn
+yarn add @sando/tokens @sando/components
+```
+
+## Step 1: Import the Tokens
+
+Import the CSS tokens in your main entry file (e.g., `main.ts`, `App.tsx`, or `index.js`):
+
+```typescript
+// Import all design tokens
+import '@sando/tokens/css';
+```
+
+This gives you access to all three layers:
+- 🥓 **Ingredients** (primitives): `--sando-color-orange-700`, `--sando-space-4`
+- 🥬 **Flavors** (semantic): `--sando-color-background-base`, `--sando-color-text-body`
+- 🍞 **Recipes** (component-specific): `--sando-button-solid-backgroundColor-default`
+
+## Step 2: Import Components
+
+Import only the components you need:
+
+```typescript
+// Import individual components
+import '@sando/components/button';
+import '@sando/components/input';
+import '@sando/components/icon';
+```
+
+Or import all components at once (not recommended for production):
+
+```typescript
+// Import all components (larger bundle)
+import '@sando/components';
+```
+
+## Step 3: Use in Your HTML
+
+Now you can use Sando components in your markup:
+
+```html
+<sando-button variant="solid">Click me</sando-button>
+<sando-input placeholder="Enter your name" label="Name"></sando-input>
+```
+
+## Complete Example
+
+### Vanilla HTML/JS
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sando Example</title>
+</head>
+<body>
+  <sando-button variant="solid">Hello Sando!</sando-button>
+
+  <script type="module">
+    import '@sando/tokens/css';
+    import '@sando/components/button';
+  </script>
+</body>
+</html>
+```
+
+### React
+
+```tsx
+// App.tsx
+import '@sando/tokens/css';
+import '@sando/components/button';
+import '@sando/components/input';
+
+function App() {
+  return (
+    <div>
+      <sando-button variant="solid">Click me</sando-button>
+      <sando-input placeholder="Enter text" label="Email" />
+    </div>
+  );
+}
+
+export default App;
+```
+
+**Note**: For TypeScript support in React, add this to your `vite.config.ts`:
+
+```typescript
+declare namespace JSX {
+  interface IntrinsicElements {
+    'sando-button': any;
+    'sando-input': any;
+    // Add other components as needed
+  }
+}
+```
+
+### Vue 3
+
+```vue
+<!-- App.vue -->
+<template>
+  <div>
+    <sando-button variant="solid">Click me</sando-button>
+    <sando-input placeholder="Enter text" label="Email" />
+  </div>
+</template>
+
+<script setup>
+import '@sando/tokens/css';
+import '@sando/components/button';
+import '@sando/components/input';
+</script>
+```
+
+Add this to your `vite.config.ts`:
+
+```typescript
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
+
+export default defineConfig({
+  plugins: [
+    vue({
+      template: {
+        compilerOptions: {
+          isCustomElement: (tag) => tag.startsWith('sando-')
+        }
+      }
+    })
+  ]
+});
+```
+
+### Angular
+
+```typescript
+// app.module.ts
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
+@NgModule({
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+})
+export class AppModule { }
+```
+
+```typescript
+// main.ts
+import '@sando/tokens/css';
+import '@sando/components/button';
+import '@sando/components/input';
+```
+
+```html
+<!-- app.component.html -->
+<sando-button variant="solid">Click me</sando-button>
+<sando-input placeholder="Enter text" label="Email"></sando-input>
+```
+
+### Svelte
+
+```svelte
+<!-- App.svelte -->
+<script>
+  import '@sando/tokens/css';
+  import '@sando/components/button';
+  import '@sando/components/input';
+</script>
+
+<sando-button variant="solid">Click me</sando-button>
+<sando-input placeholder="Enter text" label="Email" />
+```
+
+## Adding Themes (Flavors)
+
+Apply different flavors using the `flavor` attribute:
+
+```html
+<!-- Default flavor (Original) -->
+<sando-button>Original</sando-button>
+
+<!-- Strawberry flavor (orange-based) -->
+<div flavor="strawberry">
+  <sando-button>Strawberry</sando-button>
+</div>
+
+<!-- Ocean flavor (blue-based) -->
+<div flavor="ocean">
+  <sando-button>Ocean</sando-button>
+</div>
+
+<!-- Forest flavor (green-based) -->
+<div flavor="forest">
+  <sando-button>Forest</sando-button>
+</div>
+
+<!-- Sunset flavor (warm tones) -->
+<div flavor="sunset">
+  <sando-button>Sunset</sando-button>
+</div>
+```
+
+**Dark mode is automatic!** Components respect `prefers-color-scheme` media query.
+
+## Next Steps
+
+Now that you have Sando up and running:
+
+1. **Explore Components** - Browse the Components section to see all available components
+2. **Learn About Theming** - Check out the [Theming Guide](/?path=/docs/getting-started-theming--docs) for advanced theming
+3. **Understand Tokens** - Dive into Ingredients, Flavors, and Recipes to customize your design
+4. **Read Best Practices** - Follow our [Best Practices](/?path=/docs/getting-started-best-practices--docs) for optimal usage
+
+---
+
+**Ready to build something delicious? 🚀**

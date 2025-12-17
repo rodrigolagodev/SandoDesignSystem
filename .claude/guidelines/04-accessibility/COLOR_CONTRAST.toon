@@ -1,0 +1,474 @@
+meta:
+  doc_id: "CC"
+  category: "04-accessibility"
+  version: "1.0.0"
+  status: "Active"
+  last_updated: "2025-11-09"
+  owner: "UI Designer"
+
+purpose:
+  id: "CC-PU"
+  description: |
+    Ensure all Sando Design System colors meet WCAG 2.1 contrast requirements for text readability and UI component visibility. Define contrast ratios, automated validation patterns, and tools for maintaining accessible color combinations across all flavors and modes.
+
+core_rules:
+  - id: "CC-CR-R1"
+    title: "WCAG Contrast Ratios Required (Non-Negotiable)"
+    summary: "All text must meet minimum contrast ratios: 4.5:1 for normal text (AA), 7:1 for AAA, and 3:1 for UI components and large text (AA)."
+    pattern:
+      lang: "css"
+      code: |
+        /* ✅ CORRECT - Meets 4.5:1 AA requirement */
+        .body-text {
+          color: var(--sando-color-text-body); /* #1a1a1a */
+          background: var(--sando-color-background-base); /* #ffffff */
+          /* Actual contrast: 16.9:1 (exceeds AA and AAA) */
+        }
+
+        /* ✅ CORRECT - Large text with 3:1 AA */
+        .large-heading {
+          font-size: 18pt;
+          color: var(--sando-color-text-heading); /* #333333 */
+          background: var(--sando-color-background-base); /* #ffffff */
+          /* Contrast: 12.6:1 */
+        }
+    anti_pattern:
+      lang: "css"
+      code: |
+        /* ❌ WRONG - Only 2.8:1 (fails AA requirement) */
+        .subtle-text {
+          color: #999999;
+          background: #ffffff;
+        }
+
+        /* ❌ WRONG - Insufficient UI component contrast */
+        .button-border {
+          border: 1px solid #cccccc; /* Only 1.6:1 against white */
+          background: #ffffff;
+        }
+    why: "WCAG 2.1 Level AA is a legal requirement in many jurisdictions. Insufficient contrast causes readability issues for users with low vision, color blindness, or in bright lighting conditions"
+    reference:
+      type: "specification"
+      url: "httpss://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html"
+      note: "WCAG 1.4.3 Contrast (Minimum)"
+
+  - id: "CC-CR-R2"
+    title: "Automated Contrast Testing"
+    summary: "All token combinations must pass automated contrast tests in CI. Tests validate text/background pairs across all flavors and modes."
+    pattern:
+      lang: "javascript"
+      code: |
+        // From packages/tokens/tests/accessibility/contrast.test.js
+        describe("Text contrast requirements", () => {
+          it("text-body on background-base meets 4.5:1", () => {
+            const textColor = resolveToken("color.text.body");
+            const bgColor = resolveToken("color.background.base");
+            const ratio = getContrastRatio(textColor, bgColor);
+            expect(ratio).toBeGreaterThanOrEqual(4.5);
+          });
+        });
+    validated_pairs:
+      - "text-body / background-base → 4.5:1 AA"
+      - "text-heading / background-base → 4.5:1 AA"
+      - "text-link / background-base → 4.5:1 AA"
+      - "border-default / background-base → 3:1 UI components"
+      - "action-solid-text / action-solid-background → 4.5:1 AA"
+      - "success-text / background-base → 4.5:1 AA"
+      - "destructive-text / background-base → 4.5:1 AA"
+    ci_integration: "Tests run on every commit. Failing contrast ratios block merges"
+    why: "Manual testing is error-prone. Automated validation catches regressions immediately and ensures consistency across all token updates"
+    reference:
+      type: "source_file"
+      path: "packages/tokens/tests/accessibility/contrast.test.js"
+      lines: "143-334"
+      note: "Complete validation tests"
+
+  - id: "CC-CR-R3"
+    title: "Large Text Exception"
+    summary: "Text ≥18pt (or ≥14pt bold) can use relaxed contrast ratios: 3:1 for AA, 4.5:1 for AAA."
+    pattern:
+      lang: "css"
+      code: |
+        /* ✅ CORRECT - Large text with 3.5:1 meets AA */
+        .hero-heading {
+          font-size: 48px; /* 36pt - qualifies as large */
+          font-weight: 400;
+          color: #595959; /* 3.5:1 against white */
+          background: #ffffff;
+        }
+
+        /* ✅ CORRECT - Bold text with 3.2:1 meets AA */
+        .subheading {
+          font-size: 18px; /* 13.5pt */
+          font-weight: 700; /* Bold qualifies at ≥14pt */
+          color: #5e5e5e; /* 3.2:1 */
+        }
+    anti_pattern:
+      lang: "css"
+      code: |
+        /* ❌ WRONG - Small text with large text ratio */
+        .body {
+          font-size: 14px; /* <18pt - needs 4.5:1 */
+          color: #767676; /* Only 3.1:1 - fails AA */
+        }
+    size_thresholds:
+      large_text: "≥18pt (24px) regular OR ≥14pt (18.7px) bold"
+      normal_text: "<18pt regular AND <14pt bold"
+    why: "Larger text is easier to read with lower contrast. WCAG acknowledges this perceptual difference"
+    reference:
+      type: "specification"
+      url: "httpss://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html#dfn-large-scale"
+      note: "WCAG Large Text Definition"
+
+  - id: "CC-CR-R4"
+    title: "UI Component Contrast"
+    summary: "Borders, focus indicators, icons, and graphical objects require 3:1 minimum contrast against adjacent colors."
+    pattern:
+      lang: "css"
+      code: |
+        /* ✅ CORRECT - Focus indicator with 3.5:1 */
+        .button:focus {
+          outline: 2px solid var(--sando-color-border-focus); /* #0066cc */
+          outline-offset: 2px;
+          /* Contrast vs white background: 3.5:1 */
+        }
+
+        /* ✅ CORRECT - Border with 3.1:1 */
+        .input {
+          border: 1px solid var(--sando-color-border-default); /* #767676 */
+          background: var(--sando-color-background-base); /* #ffffff */
+          /* Contrast: 4.5:1 */
+        }
+    anti_pattern:
+      lang: "css"
+      code: |
+        /* ❌ WRONG - Insufficient focus indicator */
+        .button:focus {
+          outline: 2px solid #dddddd; /* Only 1.3:1 - invisible */
+        }
+
+        /* ❌ WRONG - Low contrast icon */
+        .icon-subtle {
+          color: #d4d4d4; /* 1.7:1 against white - fails 3:1 */
+        }
+    applies_to:
+      - "Input borders"
+      - "Button outlines"
+      - "Focus indicators (critical for keyboard navigation)"
+      - "Icons (especially interactive icons)"
+      - "Chart elements"
+      - "Disabled states (exempt but test carefully)"
+    why: "WCAG 1.4.11 (Non-text Contrast) ensures UI controls are perceivable. Critical for keyboard users relying on focus indicators"
+    reference:
+      type: "specification"
+      url: "httpss://www.w3.org/WAI/WCAG21/Understanding/non-text-contrast.html"
+      note: "WCAG 1.4.11 Non-text Contrast"
+
+  - id: "CC-CR-R5"
+    title: "Test Across All Flavors and Modes"
+    summary: "Validate contrast in light mode, dark mode, high-contrast mode, and all custom flavors (strawberry, ocean, forest, sunset)."
+    pattern:
+      lang: "javascript"
+      code: |
+        // Test matrix from contrast.test.js
+        describe.each(["original", "dark"])("Flavor: %s", (flavor) => {
+          it("validates all text/background pairs", () => {
+            const tokens = loadFlavorTokens(flavor);
+            validateContrastPairs(tokens);
+          });
+        });
+    modes_to_test:
+      - "Light mode (default): @media (prefers-color-scheme: light)"
+      - "Dark mode: @media (prefers-color-scheme: dark)"
+      - "High contrast: @media (prefers-contrast: more)"
+      - "Forced colors: @media (forced-colors: active)"
+    flavors_to_test:
+      - "original (default)"
+      - "strawberry"
+      - "ocean"
+      - "forest"
+      - "sunset"
+    why: "Contrast ratios change dramatically in dark mode. A color pair that works in light mode may fail in dark mode. Automated tests must cover all combinations"
+    reference:
+      type: "source_file"
+      path: "packages/tokens/tests/accessibility/contrast.test.js"
+      lines: "301-334"
+      note: "Cross-flavor testing"
+
+wcag_criteria:
+  id: "CC-WC"
+  summary: "WCAG contrast requirements by content type"
+  criteria:
+    - type: "Normal text (<18pt)"
+      aa: "4.5:1"
+      aaa: "7:1"
+      wcag: "1.4.3, 1.4.6"
+      note: "Body copy, small headings, labels"
+    - type: "Large text (≥18pt or ≥14pt bold)"
+      aa: "3:1"
+      aaa: "4.5:1"
+      wcag: "1.4.3, 1.4.6"
+      note: "Large headings, hero text"
+    - type: "UI components"
+      aa: "3:1"
+      aaa: "N/A"
+      wcag: "1.4.11"
+      note: "Borders, focus rings, icons"
+    - type: "Graphical objects"
+      aa: "3:1"
+      aaa: "N/A"
+      wcag: "1.4.11"
+      note: "Charts, diagrams, infographics"
+    - type: "Disabled controls"
+      aa: "Exempt"
+      aaa: "Exempt"
+      wcag: "N/A"
+      note: "Test anyway for usability"
+  sando_targets:
+    - level: "AA"
+      note: "All content (required)"
+    - level: "AAA"
+      note: "Headings and body text (stretch goal)"
+    - level: "3:1"
+      note: "All UI components without exception"
+  exemptions:
+    - "Logotypes (brand logos)"
+    - "Incidental text (text in photos)"
+    - "Inactive UI components (must still be perceivable)"
+  reference:
+    type: "specification"
+    url: "httpss://www.w3.org/WAI/WCAG21/quickref/#distinguishable"
+    note: "WCAG 1.4 Distinguishable"
+
+contrast_calculation:
+  id: "CC-CALC"
+  formula: |
+    Contrast Ratio = (L1 + 0.05) / (L2 + 0.05)
+
+    Where:
+    - L1 = Relative luminance of lighter color (0-1)
+    - L2 = Relative luminance of darker color (0-1)
+    - 0.05 = Constant to avoid division by zero
+  relative_luminance: |
+    L = 0.2126 x R + 0.7152 x G + 0.0722 x B
+
+    Where R, G, B are linearized sRGB values (gamma correction applied)
+  implementation_reference: "See packages/tokens/tests/accessibility/contrast.test.js lines 62-87 for complete luminance and contrast calculation functions"
+  manual_tools:
+    - "WebAIM Contrast Checker - Hex/RGB input [httpss://webaim.org/resources/contrastchecker/]"
+    - "Contrast Ratio - Live preview [httpss://contrast-ratio.com/]"
+    - "Coolors Contrast Checker - Palette testing [httpss://coolors.co/contrast-checker]"
+  warning: "Do NOT implement manually: Use existing test utilities or online tools. Luminance calculation requires precise gamma correction"
+  reference:
+    type: "specification"
+    url: "httpss://www.w3.org/WAI/GL/wiki/Relative_luminance"
+    note: "WCAG Relative Luminance"
+
+token_validation:
+  id: "CC-TV"
+  summary: "Automated testing pattern from contrast.test.js"
+  pattern:
+    lang: "javascript"
+    code: |
+      // 1. Resolve token references
+      const textColor = resolveTokenValue(tokens.color.text.body);
+      const bgColor = resolveTokenValue(tokens.color.background.base);
+
+      // 2. Convert HSL to RGB
+      const textRGB = parseHSL(textColor); // "hsl(0, 0%, 10%)" → {r, g, b}
+      const bgRGB = parseHSL(bgColor);
+
+      // 3. Calculate contrast
+      const ratio = getContrastRatio(textRGB, bgRGB);
+
+      // 4. Assert WCAG requirement
+      expect(ratio).toBeGreaterThanOrEqual(4.5); // AA for normal text
+  test_coverage:
+    - suite: "Text contrast on backgrounds"
+      lines: "143-173"
+    - suite: "UI component contrast (borders, focus)"
+      lines: "175-203"
+    - suite: "Status colors (success, warning, error)"
+      lines: "205-234"
+    - suite: "Link states (default, hover, active, visited)"
+      lines: "236-278"
+    - suite: "Dark mode validation"
+      lines: "280-299"
+    - suite: "Comprehensive contrast report"
+      lines: "301-334"
+  commands:
+    - "pnpm --filter @sando/tokens test:accessibility"
+    - "pnpm --filter @sando/tokens test contrast.test.js"
+    - "pnpm --filter @sando/tokens test contrast.test.js --reporter=verbose"
+  ci_integration: "Tests run automatically on push. Failed contrast ratios block PR merge"
+  reference:
+    type: "source_file"
+    path: "packages/tokens/tests/accessibility/contrast.test.js"
+    note: "Complete implementation"
+
+color_palette_guidelines:
+  id: "CC-CPG"
+  oklch_advantages: "OKLCH color space provides perceptual uniformity, making contrast more predictable than HSL"
+  lightness_scale:
+    - range: "0-15"
+      note: "Very dark - Use for text on light backgrounds"
+    - range: "15-30"
+      note: "Dark - Headings, high-emphasis text"
+    - range: "30-70"
+      note: "Mid-range - Use carefully, test contrast"
+    - range: "70-85"
+      note: "Light - Borders, subtle backgrounds"
+    - range: "85-100"
+      note: "Very light - Backgrounds, surfaces"
+  safe_combinations:
+    title: "Meets 4.5:1 AA"
+    combinations:
+      - "L10 on L95+ - Dark text on light background (typical body text)"
+      - "L5-15 on L90+ - Very dark text on very light (high contrast)"
+      - "L90+ on L5-15 - Light text on dark background (dark mode)"
+      - "L0-20 on L80+ - Maximum contrast for critical text"
+  unsafe_combinations:
+    title: "Fails 4.5:1"
+    combinations:
+      - "L40 on L60 - Mid-range colors rarely meet AA"
+      - "L50 on L80 - Common mistake - only 2-3:1"
+      - "L70 on L90 - Light on light - decorative only"
+  chroma_note: "High chroma (saturation) slightly improves contrast at similar lightness. But lightness difference is primary factor"
+  reference:
+    type: "guideline"
+    doc_id: "CS"
+    file: "../01-design-system/COLOR_SYSTEM.toon"
+    note: "OKLCH color space documentation"
+
+tools_and_testing:
+  id: "CC-TAT"
+  automated_tools:
+    - name: "Token tests"
+      type: "CI/Local"
+      usage: "pnpm test:accessibility"
+      note: "Automated validation"
+    - name: "axe DevTools"
+      type: "Browser"
+      usage: "Page-wide scan"
+      url: "httpss://chrome.google.com/webstore/detail/axe-devtools-web-accessib/lhdoppojpmngadmnindnejefpokejbdd"
+      note: "Chrome extension"
+    - name: "Lighthouse"
+      type: "Browser"
+      usage: "Audit report"
+      note: "Built into Chrome DevTools"
+    - name: "WAVE"
+      type: "Browser"
+      usage: "Visual feedback"
+      url: "httpss://wave.webaim.org/extension/"
+      note: "Extension"
+  manual_checkers:
+    - name: "WebAIM Contrast Checker"
+      best_for: "Quick validation"
+      url: "httpss://webaim.org/resources/contrastchecker/"
+      note: "Recommended"
+    - name: "Contrast Ratio"
+      best_for: "Live preview"
+      url: "httpss://contrast-ratio.com/"
+      note: "Fast testing"
+    - name: "Who Can Use"
+      best_for: "Simulation"
+      url: "httpss://www.whocanuse.com/"
+      note: "Vision simulation"
+    - name: "Coolors Checker"
+      best_for: "Palette testing"
+      url: "httpss://coolors.co/contrast-checker"
+      note: "Multiple colors"
+  manual_procedure:
+    - number: 1
+      note: "Identify colors: Extract text and background colors from rendered component"
+    - number: 2
+      note: "Check ratio: Use WebAIM or Contrast Ratio tool"
+    - number: 3
+      note: "Verify threshold: Confirm ≥4.5:1 (AA) or ≥7:1 (AAA)"
+    - number: 4
+      note: "Test all modes: Repeat for dark mode, high contrast, forced colors"
+    - number: 5
+      note: "Test all flavors: Validate strawberry, ocean, forest, sunset"
+    - number: 6
+      note: "Document: Record ratios in component documentation"
+  spot_check_frequency: "Monthly for existing components, always for new tokens"
+
+common_issues:
+  id: "CC-CI"
+  issues:
+    - problem: "Light gray text on white"
+      example: "#999999 on #ffffff"
+      contrast: "2.8:1"
+      solution: "Use #767676 (4.5:1) or darker"
+    - problem: "Insufficient focus indicator"
+      example: "#dddddd border on white"
+      contrast: "1.3:1"
+      solution: "Use #0066cc (3.5:1)"
+    - problem: "Brand color fails"
+      example: "Custom orange #ff9900"
+      contrast: "2.0:1"
+      solution: "Darken to #cc7a00 (4.6:1)"
+    - problem: "Placeholder text too light"
+      example: "#aaaaaa"
+      contrast: "2.3:1"
+      solution: "Use text color at 60% opacity or #757575"
+    - problem: "Disabled state invisible"
+      example: "#e0e0e0 on white"
+      contrast: "1.6:1"
+      solution: "Use #999999 (2.8:1) - still perceivable"
+    - problem: "Success green too light"
+      example: "#00ff00"
+      contrast: "1.4:1"
+      solution: "Use #008000 (4.5:1)"
+    - problem: "Link color too bright"
+      example: "#00bbff"
+      contrast: "2.1:1"
+      solution: "Darken to #0066cc (4.5:1)"
+  pattern: "Most issues involve colors in L40-L70 range (mid-luminance). Push to L0-L30 or L80-L100"
+  quick_fix: "Adjust OKLCH lightness by ±20 points and retest"
+
+related_guidelines:
+  - type: "guideline"
+    doc_id: "WC"
+    file: "WCAG_COMPLIANCE.toon"
+    category: "04-accessibility"
+    note: "Overall WCAG 2.1 requirements"
+  - type: "guideline"
+    doc_id: "CS"
+    file: "../01-design-system/COLOR_SYSTEM.toon"
+    category: "01-design-system"
+    note: "OKLCH color space and palette design"
+  - type: "guideline"
+    doc_id: "TST"
+    file: "../03-development/TESTING_STRATEGY.toon"
+    category: "03-development"
+    note: "Automated testing approach"
+
+external_references:
+  - type: "specification"
+    url: "httpss://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html"
+    title: "WCAG 1.4.3 Contrast (Minimum)"
+    note: "Official specification"
+  - type: "specification"
+    url: "httpss://www.w3.org/WAI/WCAG21/Understanding/non-text-contrast.html"
+    title: "WCAG 1.4.11 Non-text Contrast"
+    note: "UI components"
+  - type: "tool"
+    url: "httpss://webaim.org/resources/contrastchecker/"
+    title: "WebAIM Contrast Checker"
+    note: "Primary tool"
+  - type: "tool"
+    url: "httpss://contrast-ratio.com/"
+    title: "Contrast Ratio Calculator"
+    note: "Quick testing"
+  - type: "tool"
+    url: "httpss://www.whocanuse.com/"
+    title: "Who Can Use"
+    note: "Vision simulation"
+  - type: "specification"
+    url: "httpss://www.w3.org/WAI/GL/wiki/Relative_luminance"
+    title: "WCAG Relative Luminance"
+    note: "Calculation formula"
+
+conclusion: |
+  Contrast is measurable, testable, and non-negotiable. Automated validation ensures accessibility from design to production.

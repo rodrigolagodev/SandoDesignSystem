@@ -1,0 +1,424 @@
+meta:
+  doc_id: "TS"
+  category: "01-design-system"
+  version: "1.0.0"
+  status: "Active"
+  last_updated: "2025-11-09"
+  owner: "Design System Architect + Design Ops Specialist"
+
+purpose: |
+  This guideline establishes the theming architecture for the Sando Design System, explaining the critical distinction between **Flavors** (manual brand themes) and **Modes** (automatic accessibility variants), and how the system enables flexible theming while maintaining accessibility standards.
+
+core_principles:
+  - id: "TS-CP-P1"
+    title: "Flavors and Modes are Separate Concerns"
+    note: "Flavors provide brand identity, Modes ensure accessibility"
+  - id: "TS-CP-P2"
+    title: "Automatic Accessibility"
+    note: "Modes activate automatically via user preferences (no manual selection needed)"
+  - id: "TS-CP-P3"
+    title: "Flavor Inheritance"
+    note: "Components inherit flavor from ancestors via FlavorableMixin"
+  - id: "TS-CP-P4"
+    title: "Token-Layer Separation"
+    note: "Theming happens at Flavors layer (Layer 2), never Ingredients (Layer 1)"
+  - id: "TS-CP-P5"
+    title: "Developer Choice"
+    note: "Developers choose flavors, users control modes via system preferences"
+
+flavors_vs_modes:
+  - id: "TS-FVM-F1"
+    title: "Flavors (Brand Themes)"
+    definition: "Brand color schemes and visual identities applied manually by developers."
+    characteristics:
+      - "Selected via HTML `flavor` attribute"
+      - "Brand-focused (sando-inspired naming)"
+      - "Developer-controlled"
+      - "Persistent across the application or sections"
+    examples:
+      - "original"
+      - "strawberry"
+      - "matcha"
+      - "tamago"
+      - "sakura"
+      - "midnight"
+    application_example:
+      lang: "html"
+      code: |
+        <html flavor="original">
+          <body>
+            <sando-button>Original themed button</sando-button>
+          </body>
+        </html>
+
+        <section flavor="strawberry">
+          <sando-card>Strawberry themed card</sando-card>
+        </section>
+
+        <sando-button flavor="matcha">Matcha themed button</sando-button>
+
+  - id: "TS-FVM-M1"
+    title: "Modes (Accessibility Variants)"
+    definition: "Accessibility-focused variations that respond to user system preferences automatically."
+    characteristics:
+      - "Activated via CSS `@media` queries"
+      - "User-controlled (system preferences)"
+      - "Automatic (no manual selection)"
+      - "Apply on top of any flavor"
+    supported_modes:
+      - name: "dark"
+        query: "prefers-color-scheme: dark"
+        note: "Dark color scheme"
+      - name: "high-contrast"
+        query: "prefers-contrast: high"
+        note: "Enhanced contrast"
+      - name: "forced-colors"
+        query: "forced-colors: active"
+        note: "System color overrides"
+      - name: "motion-reduce"
+        query: "prefers-reduced-motion: reduce"
+        note: "Reduced motion"
+    application_note: "Automatic via media queries, no developer action required."
+
+theming_architecture:
+  title: "Theming Architecture Pattern"
+  summary: |
+    This section defines the File Structure Pattern.
+    Each flavor is defined in a directory with 5 separate files:
+  file_structure:
+    root_path: "packages/tokens/src/flavors/{flavor-name}/"
+    files:
+      - name: "flavor.json"
+        description: "Base flavor (default mode)"
+      - name: "flavor-dark.json"
+        description: "Dark mode overrides"
+      - name: "flavor-high-contrast.json"
+        description: "High contrast overrides"
+      - name: "flavor-forced-colors.json"
+        description: "Forced colors overrides"
+      - name: "flavor-motion-reduce.json"
+        description: "Motion reduce overrides"
+  constraint: "Mode files contain only changed tokens, not full token set."
+  example:
+    lang: "json"
+    title: "Example - flavor-dark.json"
+    code:
+      color:
+        background:
+          base:
+            value: "{color.neutral.900.value}"
+          subtle:
+            value: "{color.neutral.800.value}"
+        text:
+          primary:
+            value: "{color.neutral.50.value}"
+  explanation: "Only tokens that differ in dark mode are redefined (inverted lightness, adjusted contrast)."
+
+build_system_pattern:
+  summary: |
+    This section defines the CSS Output Structure pattern.
+    The build system generates CSS files wrapped in appropriate `@media` queries:
+  examples:
+    - lang: "css"
+      title: "Base Flavor (flavor-original.css)"
+      code: |
+        :host([flavor="original"]),
+        [flavor="original"] {
+          --sando-color-background-base: oklch(98% 0.02 120);
+          --sando-color-text-primary: oklch(20% 0.02 120);
+        }
+    - lang: "css"
+      title: "Dark Mode (flavor-original-dark.css)"
+      code: |
+        @media (prefers-color-scheme: dark) {
+          :host([flavor="original"]),
+          [flavor="original"] {
+            --sando-color-background-base: oklch(15% 0.02 120);
+            --sando-color-text-primary: oklch(95% 0.02 120);
+          }
+        }
+    - lang: "css"
+      title: "High Contrast Mode (flavor-original-high-contrast.css)"
+      code: |
+        @media (prefers-contrast: high) {
+          :host([flavor="original"]),
+          [flavor="original"] {
+            --sando-color-background-base: oklch(100% 0 0);
+            --sando-color-text-primary: oklch(0% 0 0);
+          }
+        }
+  pattern_note: "Each mode file is wrapped in its corresponding `@media` query during build."
+
+flavorable_mixin_integration:
+  title: "Flavorable Mixins (Automatic Inheritance)"
+  summary: "The FlavorableMixin enables automatic flavor inheritance from ancestor elements:"
+  behavior_steps:
+    - number: 1
+      note: "Component checks its own `flavor` attribute"
+    - number: 2
+      note: "If not set, traverses DOM ancestors to find nearest `[flavor]`"
+    - number: 3
+      note: "Falls back to default flavor if none found"
+    - number: 4
+      note: "Applies flavor by updating internal state"
+  example:
+    lang: "html"
+    code: |
+      <div flavor="strawberry">
+        <sando-card>
+          <sando-button>Inherits strawberry theme</sando-button>
+        </sando-card>
+      </div>
+  implementation_pattern: "All themeable components use `FlavorableMixin` to enable this behavior."
+
+token_layer_responsibilities:
+  - id: "TS-TLR-L1"
+    title: "Layer 1: Ingredients (Primitives)"
+    role: "Provides raw color values in OKLCH format."
+    constraint: "Ingredients are absolute values, never change per theme."
+    example:
+      lang: "json"
+      code:
+        color:
+          brand:
+            "500":
+              value: "oklch(65% 0.19 35)"
+  - id: "TS-TLR-L2"
+    title: "Layer 2: Flavors (Semantic Theming)"
+    role: "This is where theming happens"
+    responsibilities:
+      - "Map semantic names to Ingredient colors"
+      - "Define different mappings per flavor"
+      - "Provide mode-specific overrides (dark, high-contrast, etc.)"
+    pattern:
+      lang: "json"
+      code:
+        color:
+          action:
+            solid:
+              background:
+                default:
+                  value: "{color.brand.500.value}"
+                hover:
+                  value: "{color.brand.600.value}"
+    mode_override_pattern:
+      lang: "json"
+      title: "flavor-dark.json"
+      code:
+        color:
+          action:
+            solid:
+              background:
+                default:
+                  value: "{color.brand.400.value}"
+  - id: "TS-TLR-L3"
+    title: "Layer 3: Recipes (Component Tokens)"
+    role: "Consume Flavor tokens, remain theme-agnostic."
+    constraint: "Recipes reference Flavors, don't change per theme."
+    pattern:
+      lang: "json"
+      code:
+        button:
+          solid:
+            backgroundColor:
+              default:
+                value: "{color.action.solid.background.default.value}"
+    constraint_2: "Recipes ONLY reference Flavors, never Ingredients. This ensures theming works correctly."
+
+theming_patterns:
+  - id: "TS-TP-P1"
+    title: "Global Theme"
+    summary: "Apply a single flavor across the entire application:"
+    example:
+      lang: "html"
+      code: |
+        <html flavor="original">
+          <body>
+          </body>
+        </html>
+  - id: "TS-TP-P2"
+    title: "Section Themes"
+    summary: "Different flavors for different sections:"
+    example:
+      lang: "html"
+      code: |
+        <html flavor="original">
+          <body>
+            <header flavor="midnight"></header>
+            <main></main>
+            <aside flavor="strawberry"></aside>
+          </body>
+        </html>
+  - id: "TS-TP-P3"
+    title: "Component-Level Override"
+    summary: "Override flavor for specific components:"
+    example:
+      lang: "html"
+      code: |
+        <section flavor="original">
+          <sando-button>Original themed</sando-button>
+          <sando-button flavor="matcha">Matcha override</sando-button>
+        </section>
+  - id: "TS-TP-P4"
+    title: "CSS Variable Override"
+    summary: "Direct CSS custom property override for one-off customization:"
+    example:
+      lang: "html"
+      code: |
+        <sando-button style="--sando-button-solid-backgroundColor-default: oklch(50% 0.2 280);" >
+          Custom color button
+        </sando-button>
+    constraint: "This bypasses the token system. Prefer creating new flavors for reusable themes."
+
+creating_new_flavors:
+  - id: "TS-CNF-S1"
+    title: "Create Flavor Directory"
+    example:
+      lang: "bash"
+      code: |
+        packages/tokens/src/flavors/{new-flavor-name}/
+  - id: "TS-CNF-S2"
+    title: "Define Base Flavor"
+    summary: "Create `flavor.json` with semantic token mappings"
+    example:
+      lang: "json"
+      code:
+        color:
+          background:
+            base:
+              value: "{color.neutral.50.value}"
+          action:
+            solid:
+              background:
+                default:
+                  value: "{color.brand.500.value}"
+  - id: "TS-CNF-S3"
+    title: "Define Mode Overrides"
+    summary: "Create mode files with ONLY changed tokens"
+    example_dark:
+      lang: "json"
+      title: "flavor-dark.json"
+      code:
+        color:
+          background:
+            base:
+              value: "{color.neutral.900.value}"
+    example_high_contrast:
+      lang: "json"
+      title: "flavor-high-contrast.json"
+      code:
+        color:
+          background:
+            base:
+              value: "oklch(100% 0 0)"
+  - id: "TS-CNF-S4"
+    title: "Step 4: Build Tokens"
+    example:
+      lang: "bash"
+      code: |
+        pnpm tokens:build
+    explanation: "The build system generates CSS files with proper `@media` wrappers automatically."
+  - id: "TS-CNF-S5"
+    title: "Step 5: Use New Flavor"
+    example:
+      lang: "html"
+      code: |
+        <div flavor="new-flavor-name">
+          <sando-button>New flavor button</sando-button>
+        </div>
+
+mode_behavior:
+  - id: "TS-MB-M1"
+    title: "Dark Mode"
+    trigger: "User system preference `prefers-color-scheme: dark`"
+    typical_changes:
+      - "Inverted background lightness (light → dark)"
+      - "Inverted text lightness (dark → light)"
+      - "Adjusted contrast ratios for WCAG compliance"
+      - "Reduced saturation for reduced eye strain"
+    developer_action: "None required. Activates automatically."
+  - id: "TS-MB-M2"
+    title: "High Contrast Mode"
+    trigger: "User system preference `prefers-contrast: high`"
+    typical_changes:
+      - "Maximum contrast ratios (pure black/white)"
+      - "Thicker borders"
+      - "Stronger focus indicators"
+      - "Simplified color palette"
+    developer_action: "None required. Activates automatically."
+  - id: "TS-MB-M3"
+    title: "Forced Colors Mode"
+    trigger: "Windows High Contrast mode (`forced-colors: active`)"
+    typical_changes:
+      - "System color keywords (Canvas, CanvasText, LinkText)"
+      - "Respects user-defined color schemes"
+      - "Removes backgrounds, uses borders instead"
+    developer_action: "None required. Activates automatically."
+  - id: "TS-MB-M4"
+    title: "Motion Reduce Mode"
+    trigger: "User system preference `prefers-reduced-motion: reduce`"
+    typical_changes:
+      - "Disable animations and transitions"
+      - "Instant state changes instead of animated"
+      - "Reduce parallax and scrolling effects"
+    developer_action: "None required. Activates automatically."
+
+accessibility_requirements:
+  - id: "TS-AR-R1"
+    title: "WCAG Compliance Across Modes"
+    summary: "All flavor/mode combinations MUST meet WCAG 2.1 AA"
+    requirements_list:
+      - id: "1.4.3"
+        name: "Contrast (Minimum)"
+        note: "4.5:1 text, 3:1 UI components"
+      - id: "1.4.6"
+        name: "Contrast (Enhanced)"
+        note: "7:1 text, 4.5:1 UI (AAA) for high-contrast mode"
+      - id: "2.3.1"
+        name: "Three Flashes"
+        note: "No animations flash more than 3 times per second"
+      - id: "2.3.3"
+        name: "Animation from Interactions"
+        note: "Respect motion-reduce preference"
+
+guidelines_for_flavor_naming:
+  summary: "Sando-Inspired Naming: Flavor names reference Japanese sandwich varieties to maintain brand identity."
+  rules:
+    - id: "TS-GFN-R1"
+      title: "Naming Principles"
+      principles:
+        - "Evocative and memorable"
+        - "Single-word when possible"
+        - "Related to food, nature, or cultural references"
+        - "Avoid generic names (theme1, theme2, blue, red)"
+    - id: "TS-GFN-R2"
+      title: "Existing Pattern"
+      examples:
+        - "original"
+        - "strawberry"
+        - "matcha"
+        - "tamago"
+        - "sakura"
+        - "midnight"
+        - "ume"
+
+related_guidelines:
+  - type: "guideline"
+    doc_id: "TA"
+    file: "TOKEN_ARCHITECTURE.toon"
+    note: "Three-layer token system rules"
+  - type: "guideline"
+    doc_id: "CS"
+    file: "COLOR_SYSTEM.toon"
+    note: "OKLCH color space and palette generation"
+  - type: "source_file"
+    path: "packages/tokens/src/ JSON source files"
+    note: "Visual identity and flavor inspirations"
+  - type: "guideline"
+    doc_id: "CD"
+    file: "COMPONENT_DESIGN.toon"
+    note: "How components consume theming tokens"
+  - type: "guideline"
+    doc_id: "WC"
+    file: "../04-accessibility/WCAG_COMPLIANCE.toon"
+    note: "Accessibility standards for all modes"

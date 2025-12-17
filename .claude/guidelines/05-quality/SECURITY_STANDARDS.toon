@@ -1,0 +1,616 @@
+meta:
+  doc_id: "SEC"
+  category: "05-quality"
+  version: "1.0.0"
+  status: "Active"
+  last_updated: "2025-11-09"
+  owner: "Security Compliance Auditor"
+
+purpose:
+  id: "SEC-PU"
+  description: |
+    Establish security standards for the Sando Design System to prevent vulnerabilities in components, build processes, and dependencies. Defines XSS prevention, CSP compliance, dependency scanning, secure coding practices, and vulnerability disclosure procedures.
+
+targets:
+  id: "SEC-TGT"
+  list:
+    - "Zero high/critical vulnerabilities in production"
+    - "Automated dependency scanning in CI"
+
+scope:
+  id: "SEC-SC"
+  note: "Components, tokens, build scripts, documentation sites, npm packages"
+
+enforcement:
+  id: "SEC-ENF"
+  note: "CI blocks on vulnerabilities, security audit every release"
+
+core_rules:
+  - id: "SEC-CR-R1"
+    title: "No XSS Vulnerabilities (Non-Negotiable)"
+    summary: "All user input MUST be sanitized. Never use innerHTML or dangerouslySetInnerHTML without sanitization."
+    pattern:
+      lang: "typescript"
+      title: "✅ Lit automatic escaping"
+      code: |
+        // Lit automatically escapes expressions
+        render() {
+          return html`<div>${this.userInput}</div>`; // Safe - escaped
+        }
+    anti_pattern:
+      lang: "typescript"
+      title: "❌ innerHTML bypasses escaping"
+      code: |
+        // innerHTML bypasses escaping
+        render() {
+          const div = document.createElement('div');
+          div.innerHTML = this.userInput; // XSS vulnerability
+          return div;
+        }
+    lit_security: "Template expressions are automatically HTML-escaped. SQL injection, XSS, and code injection are prevented by default."
+    when_html_required:
+      lang: "typescript"
+      code: |
+        import { unsafeHTML } from 'lit/directives/unsafe-html.js';
+        import DOMPurify from 'dompurify';
+
+        render() {
+          const sanitized = DOMPurify.sanitize(this.userHTML);
+          return html`<div>${unsafeHTML(sanitized)}</div>`;
+        }
+    why: "XSS is the #1 web vulnerability. Even trusted input can be compromised. Always sanitize."
+    reference:
+      type: "external"
+      url: "httpss://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html"
+      note: "OWASP XSS Prevention"
+
+  - id: "SEC-CR-R2"
+    title: "Content Security Policy (CSP) Compliance (Required)"
+    summary: "Components MUST work with strict CSP (no unsafe-inline, no unsafe-eval)."
+    pattern:
+      lang: "http"
+      title: "CSP headers"
+      code: |
+        Content-Security-Policy:
+          default-src 'self';
+          script-src 'self';
+          style-src 'self';
+          img-src 'self' data: https:;
+          font-src 'self';
+          connect-src 'self';
+          frame-ancestors 'none';
+    component_requirements:
+      - "No inline styles (use Shadow DOM CSS)"
+      - "No inline scripts (use external modules)"
+      - "No eval() or new Function()"
+      - "Use nonces/hashes for any required inline content"
+    testing_csp:
+      lang: "bash"
+      code: |
+        # Test Storybook with strict CSP
+        npx http-server apps/docs/dist \
+          --cors \
+          -p 8080 \
+          -H "Content-Security-Policy: default-src 'self'; script-src 'self'"
+    why: "CSP prevents injection attacks by controlling resource loading. Essential for enterprise adoption."
+    reference:
+      type: "external"
+      url: "httpss://developer.mozilla.org/en-US/docs/Web/HTTP/CSP"
+      note: "MDN CSP"
+
+  - id: "SEC-CR-R3"
+    title: "Dependency Vulnerability Scanning (Non-Negotiable)"
+    summary: "All dependencies MUST be scanned for vulnerabilities. No high/critical vulnerabilities in production."
+    pattern:
+      lang: "bash"
+      title: "npm audit"
+      code: |
+        # Audit dependencies
+        pnpm audit
+
+        # Auto-fix vulnerabilities
+        pnpm audit --fix
+
+        # CI enforcement
+        pnpm audit --audit-level=high
+        # Exit code 1 if high/critical vulnerabilities found
+    github_dependabot:
+      lang: "yaml"
+      path: ".github/dependabot.yml"
+      code: |
+        version: 2
+        updates:
+          - package-ecosystem: "npm"
+            directory: "/"
+            schedule:
+              interval: "weekly"
+            open-pull-requests-limit: 10
+            versioning-strategy: increase
+    severity_levels:
+      - name: "Critical"
+        action: "Block merge, emergency patch"
+        timeline: "<24 hours"
+      - name: "High"
+        action: "Block merge, schedule fix"
+        timeline: "<7 days"
+      - name: "Moderate"
+        action: "Create issue, fix in next release"
+        timeline: "<30 days"
+      - name: "Low"
+        action: "Track, fix opportunistically"
+        timeline: "Next major"
+    why: "80% of breaches exploit known vulnerabilities. Automated scanning catches issues before production."
+    reference:
+      type: "external"
+      url: "httpss://docs.npmjs.com/cli/v8/commands/npm-audit"
+      note: "npm audit docs"
+
+  - id: "SEC-CR-R4"
+    title: "Secure Coding Practices (Required)"
+    summary: "Follow OWASP Top 10 and secure coding guidelines for all component code."
+    key_practices:
+      - number: 1
+        practice: "Input validation: Validate all props/attributes"
+      - number: 2
+        practice: "Output encoding: Use Lit's automatic escaping"
+      - number: 3
+        practice: "Authentication: Never implement auth in components (delegate)"
+      - number: 4
+        practice: "Secrets: Never hardcode API keys, tokens, passwords"
+      - number: 5
+        practice: "Error messages: Don't leak sensitive info in errors"
+    pattern:
+      lang: "typescript"
+      title: "Input validation"
+      code: |
+        @property({ type: String })
+        set email(value: string) {
+          // Validate before setting
+          if (!this.isValidEmail(value)) {
+            console.warn('Invalid email format');
+            return;
+          }
+          this._email = value;
+        }
+
+        private isValidEmail(email: string): boolean {
+          return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+    anti_pattern:
+      lang: "typescript"
+      title: "❌ Hardcoded API key"
+      code: |
+        // Hardcoded API key
+        const API_KEY = "sk_live_abc123def456";
+    correct_pattern:
+      lang: "typescript"
+      title: "✅ Environment variables"
+      code: |
+        // Use environment variables
+        const API_KEY = import.meta.env.VITE_API_KEY;
+    why: "Defense in depth. Multiple layers prevent single points of failure."
+    reference:
+      type: "external"
+      url: "httpss://owasp.org/www-project-top-ten/"
+      note: "OWASP Top 10"
+
+  - id: "SEC-CR-R5"
+    title: "License Compliance (Required)"
+    summary: "All dependencies MUST have compatible licenses (MIT, Apache 2.0, BSD, ISC). No GPL/AGPL in production."
+    pattern:
+      lang: "bash"
+      title: "License checker"
+      code: |
+        # Install
+        pnpm add -D license-checker
+
+        # Check licenses
+        npx license-checker --summary
+
+        # Fail on incompatible licenses
+        npx license-checker --failOn "GPL;AGPL"
+    acceptable_licenses:
+      - status: "✅"
+        note: "MIT, Apache 2.0, BSD (2/3-Clause), ISC"
+      - status: "⚠️"
+        note: "CC0, Unlicense (verify case-by-case)"
+      - status: "❌"
+        note: "GPL, AGPL, Commons Clause (copyleft - avoid)"
+    ci_integration:
+      lang: "yaml"
+      code: |
+        - name: Check licenses
+          run: npx license-checker --failOn "GPL;AGPL;SSPL"
+    why: "GPL/AGPL require derivative works to be open-sourced. Incompatible with proprietary software using design system."
+    reference:
+      type: "external"
+      url: "httpss://choosealicense.com/"
+      note: "Choose a License"
+
+owasp_top_10:
+  id: "SEC-OWASP"
+  vulnerabilities:
+    - id: "SEC-OWASP-V1"
+      number: 1
+      title: "Injection (XSS, SQL, Command)"
+      risk: "Malicious code execution via user input"
+      prevention:
+        - "Use Lit's automatic HTML escaping"
+        - "Sanitize with DOMPurify before unsafeHTML"
+        - "Validate all prop/attribute inputs"
+        - "Never use eval(), new Function(), innerHTML"
+      test:
+        lang: "typescript"
+        code: |
+          it("escapes HTML in user input", async () => {
+            element.label = '<script>alert("XSS")</script>';
+            await element.updateComplete;
+            const text = element.shadowRoot?.textContent;
+            expect(text).toContain("</script>"); // Escaped, not executed
+          });
+    - id: "SEC-OWASP-V2"
+      number: 2
+      title: "Broken Authentication"
+      risk: "Unauthorized access via weak auth"
+      prevention:
+        - "DO NOT implement authentication in components"
+        - "Delegate to app-level auth (OAuth, JWT, etc.)"
+        - "Components should only consume auth state, not manage it"
+      anti_pattern:
+        lang: "typescript"
+        title: "❌ Auth logic in component"
+        code: |
+          class SandoLogin extends LitElement {
+            login(user, pass) {
+              if (user === "admin" && pass === "123") {
+                // NEVER DO THIS
+                this.authenticated = true;
+              }
+            }
+          }
+    - id: "SEC-OWASP-V3"
+      number: 3
+      title: "Sensitive Data Exposure"
+      risk: "Leaking secrets, PII, API keys"
+      prevention:
+        - "Never hardcode secrets in components"
+        - "Never log sensitive data (PII, tokens, passwords)"
+        - "Use environment variables for config"
+        - "Sanitize error messages"
+      pattern:
+        lang: "typescript"
+        title: "✅ No sensitive data in logs"
+        code: |
+          catch (error) {
+            console.error('API request failed'); // Generic message
+            // Don't log: error.response.headers.authorization
+          }
+    - id: "SEC-OWASP-V5"
+      number: 5
+      title: "Broken Access Control"
+      risk: "Unauthorized actions"
+      prevention:
+        - "Components should not enforce access control"
+        - "Delegate to backend/app level"
+        - "Only show/hide UI based on props (not security boundary)"
+      pattern:
+        lang: "typescript"
+        title: "✅ UI-only restriction"
+        code: |
+          render() {
+            return this.canDelete
+              ? html`<button @click=${this.delete}>Delete</button>`
+              : html``;
+          }
+          // Backend MUST verify canDelete independently
+    - id: "SEC-OWASP-V6"
+      number: 6
+      title: "Security Misconfiguration"
+      risk: "Default credentials, verbose errors, open ports"
+      prevention:
+        - "No default passwords/API keys"
+        - "Disable debug mode in production"
+        - "Secure CSP headers"
+        - "Keep dependencies updated"
+      check:
+        lang: "bash"
+        code: |
+          # Audit production build for debug code
+          grep -r "console.log" dist/
+          grep -r "debugger" dist/
+    - id: "SEC-OWASP-V10"
+      number: 10
+      title: "Insufficient Logging & Monitoring"
+      risk: "Undetected breaches"
+      prevention:
+        - "Log security events (auth failures, validation errors)"
+        - "Monitor for anomalies"
+        - "Alert on suspicious patterns"
+      pattern:
+        lang: "typescript"
+        code: |
+          // Log security-relevant events
+          if (!this.isValidInput(value)) {
+            console.warn("[SECURITY] Invalid input detected", {
+              component: "sando-input",
+              timestamp: Date.now()
+              // Don't log the actual invalid value (may contain attack payload)
+            });
+          }
+
+dependency_security:
+  id: "SEC-DS"
+  npm_audit:
+    id: "SEC-DS-NA"
+    run_on_ci:
+      lang: "yaml"
+      code: |
+        - name: Security audit
+          run: pnpm audit --audit-level=moderate
+    exit_codes:
+      - code: 0
+        note: "No vulnerabilities"
+      - code: 1
+        note: "Vulnerabilities found (blocks merge)"
+    handling_advisories:
+      lang: "bash"
+      code: |
+        # View details
+        pnpm audit
+
+        # Auto-fix (updates to safe versions)
+        pnpm audit --fix
+
+        # If no fix available, evaluate risk
+        pnpm audit --json > audit.json
+        # Review audit.json for severity/exploitability
+  dependabot:
+    id: "SEC-DS-DB"
+    summary: "Automatic PR creation for vulnerable dependencies"
+    config:
+      lang: "yaml"
+      path: ".github/dependabot.yml"
+      code: |
+        version: 2
+        updates:
+          - package-ecosystem: "npm"
+            directory: "/"
+            schedule:
+              interval: "weekly"
+            open-pull-requests-limit: 10
+            labels:
+              - "dependencies"
+              - "security"
+            reviewers:
+              - "security-team"
+    benefits:
+      - "Automated vulnerability detection"
+      - "PRs with fix suggestions"
+      - "Configurable auto-merge (patch/minor only)"
+  snyk_integration:
+    id: "SEC-DS-SI"
+    optional: true
+    summary: "Advanced vulnerability scanning"
+    installation:
+      lang: "bash"
+      code: |
+        # Install
+        pnpm add -D snyk
+
+        # Test
+        npx snyk test
+
+        # Monitor in CI
+        npx snyk monitor
+    features:
+      - "Broader vulnerability database than npm audit"
+      - "License compliance checking"
+      - "Container scanning (if using Docker)"
+
+secure_build_pipeline:
+  id: "SEC-SBP"
+  code_scanning:
+    id: "SEC-SBP-CS"
+    github_advanced_security:
+      lang: "yaml"
+      path: ".github/workflows/codeql.yml"
+      code: |
+        name: CodeQL
+        on: [push, pull_request]
+        jobs:
+          analyze:
+            runs-on: ubuntu-latest
+            steps:
+              - uses: actions/checkout@v4
+              - uses: github/codeql-action/init@v2
+                with:
+                  languages: javascript
+              - uses: github/codeql-action/analyze@v2
+  secret_scanning:
+    id: "SEC-SBP-SS"
+    summary: "Prevent committing secrets"
+    installation:
+      lang: "bash"
+      code: |
+        # Install git-secrets
+        brew install git-secrets
+
+        # Configure
+        git secrets --install
+        git secrets --register-aws
+
+        # Scan
+        git secrets --scan
+    pre_commit_hook:
+      lang: "yaml"
+      path: ".husky/pre-commit"
+      code: |
+        #!/bin/sh
+        git secrets --scan
+  supply_chain_security:
+    id: "SEC-SBP-SCS"
+    lock_files:
+      - "Commit lock files to version control"
+      - "Ensures reproducible builds"
+      - "Prevents malicious package updates"
+    integrity_checks:
+      lang: "toon"
+      file: "package.json"
+      code:
+        dependencies:
+          lit: "3.3.1" # Pin exact versions for security-critical deps
+    package_provenance:
+      lang: "bash"
+      future: true
+      code: |
+        # Verify package signatures
+        npm audit signatures
+
+content_security_policy:
+  id: "SEC-CSP"
+  csp_headers:
+    id: "SEC-CSP-H"
+    strict_csp:
+      lang: "javascript"
+      file: "apps/docs/vite.config.js"
+      code: |
+        export default defineConfig({
+          server: {
+            headers: {
+              "Content-Security-Policy": [
+                "default-src 'self'",
+                "script-src 'self'",
+                "style-src 'self'",
+                "img-src 'self' data: https:",
+                "font-src 'self'",
+                "connect-src 'self'",
+                "frame-ancestors 'none'"
+              ].join("; ")
+            }
+          }
+        });
+  csp_for_web_components:
+    id: "SEC-CSP-WC"
+    shadow_dom_css:
+      lang: "typescript"
+      title: "✅ CSP-safe"
+      code: |
+        // No inline styles
+        static styles = css`
+          :host {
+            display: block;
+          }
+        `;
+    avoid_inline_styles:
+      anti_pattern:
+        lang: "typescript"
+        title: "❌ Violates CSP"
+        code: |
+          render() {
+            return html`<div style="color: red;">Text</div>`;
+          }
+      correct_pattern:
+        lang: "typescript"
+        title: "✅ Use CSS classes"
+        code: |
+          render() {
+            return html`<div class="error">Text</div>`;
+          }
+  csp_reporting:
+    id: "SEC-CSP-R"
+    monitor_violations:
+      lang: "http"
+      code: |
+        Content-Security-Policy-Report-Only:
+          default-src 'self';
+          report-uri https://example.com/csp-reports
+
+vulnerability_disclosure:
+  id: "SEC-VD"
+  responsible_disclosure:
+    id: "SEC-VD-RD"
+    security_md:
+      lang: "markdown"
+      path: "SECURITY.md"
+      code: |
+        # Security Policy
+
+        ## Reporting Vulnerabilities
+
+        **DO NOT** create public GitHub issues for security vulnerabilities.
+
+        Email: security@sando-design.com
+        PGP Key: [link to public key]
+
+        Include:
+        - Vulnerability description
+        - Steps to reproduce
+        - Impact assessment
+        - Suggested fix (if available)
+
+        ## Response Timeline
+
+        - Initial response: <48 hours
+        - Triage: < 7 days
+        - Fix timeline: Based on severity
+          - Critical: < 7 days
+          - High: < 30 days
+          - Medium: < 90 days
+          - Low: Next major release
+
+        ## Disclosure Policy
+
+        - Coordinated disclosure (90-day embargo)
+        - Public disclosure after fix released
+        - Credit given in release notes (if desired)
+  security_advisories:
+    id: "SEC-VD-SA"
+    github_advisories:
+      - number: 1
+        note: "Create private advisory"
+      - number: 2
+        note: "Assign CVE"
+      - number: 3
+        note: "Develop fix"
+      - number: 4
+        note: "Coordinate disclosure"
+      - number: 5
+        note: "Publish advisory + patch"
+
+related_guidelines:
+  - type: "guideline"
+    doc_id: "TST"
+    file: "../03-development/TESTING_STRATEGY.toon"
+    note: "Security test patterns"
+  - type: "guideline"
+    doc_id: "CST"
+    file: "../03-development/CODE_STYLE.toon"
+    note: "Secure coding conventions"
+
+external_references:
+  - category: "OWASP"
+    references:
+      - url: "httpss://owasp.org/www-project-top-ten/"
+        note: "OWASP Top 10 - Most critical web vulnerabilities"
+      - url: "httpss://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html"
+        note: "XSS Prevention Cheat Sheet"
+      - url: "httpss://owasp.org/www-project-secure-coding-practices-quick-reference-guide/"
+        note: "Secure Coding Practices"
+  - category: "CSP"
+    references:
+      - url: "httpss://developer.mozilla.org/en-US/docs/Web/HTTP/CSP"
+        note: "MDN Content Security Policy"
+      - url: "httpss://csp-evaluator.withgoogle.com/"
+        note: "CSP Evaluator - Test CSP policies"
+  - category: "Dependency Security"
+    references:
+      - url: "httpss://docs.npmjs.com/cli/v8/commands/npm-audit"
+        note: "npm audit - Vulnerability scanning"
+      - url: "httpss://snyk.io/"
+        note: "Snyk - Advanced dependency scanning"
+      - url: "httpss://docs.github.com/en/code-security/dependabot"
+        note: "Dependabot - Automated updates"
+  - category: "Web Components"
+    references:
+      - url: "httpss://lit.dev/docs/components/security/"
+        note: "Lit Security - Lit-specific security guidance"

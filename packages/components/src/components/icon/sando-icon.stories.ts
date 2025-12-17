@@ -28,7 +28,7 @@ import { iconNames } from './icon-manifest';
  * - Icons automatically get `role="img"` unless decorative
  */
 const meta: Meta = {
-  title: 'Components/Icon/Overview',
+  title: 'Components/Display/Icon',
   tags: ['autodocs'],
   render: (args) => html`
     <sando-icon

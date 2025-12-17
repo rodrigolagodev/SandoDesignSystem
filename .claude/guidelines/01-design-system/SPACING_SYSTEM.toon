@@ -1,0 +1,338 @@
+meta:
+  doc_id: "SS"
+  category: "01-design-system"
+  version: "2.0.0"
+  status: "Active"
+  last_updated: "2025-11-09"
+  owner: "UI Designer + Design System Architect"
+
+purpose: |
+  Establishes spatial rhythm using a 4px base unit and unified t-shirt sizing (xs/sm/md/lg/xl) for all spacing and sizing tokens in the Sando Design System.
+
+core_rules:
+  - id: "SS-CR-R1"
+    title: "4px Base Unit Foundation"
+    summary: "All spacing values are multiples of 4px (0.25rem)."
+    why: "Ensures pixel-perfect alignment, creates consistent visual rhythm, compatible with common screen densities."
+    pattern:
+      lang: "json"
+      code:
+        space:
+          "1":
+            value: "0.25rem" # 4px
+          "4":
+            value: "1rem" # 16px - default
+          "8":
+            value: "2rem" # 32px
+    scale_definition: "Linear 0-13 (4px increments), exponential 16-64 (larger layouts)."
+
+  - id: "SS-CR-R2"
+    title: "Three-Layer Architecture"
+    summary: "This operates at Layer 2 (Flavors) - provides semantic naming for spacing."
+    constraint: "Flavors reference ONLY Layer 1 (Ingredients), never Layer 3 (Recipes)."
+    reference:
+      type: "guideline"
+      doc_id: "TA"
+      file: "TOKEN_ARCHITECTURE.toon"
+      note: "complete layer rules"
+    pattern:
+      lang: "json"
+      code:
+        space:
+          inset:
+            md:
+              value: "{space.4.value}" # ✅ References Ingredient
+    anti_pattern:
+      lang: "json"
+      code:
+        space:
+          inset:
+            md:
+              value: "16px" # ❌ Absolute value in Flavor
+
+  - id: "SS-CR-R3"
+    title: "Unified T-Shirt Naming"
+    summary: "All Flavors use: xs → sm → md → lg → xl"
+    why: "Single mental model, industry standard, predictable scaling."
+    t_shirt_sizing_table:
+      - name: "xs"
+        inset_padding: "4px"
+        stack_spacing: "4px"
+        control_height: "32px"
+      - name: "sm"
+        inset_padding: "8px"
+        stack_spacing: "8px"
+        control_height: "36px"
+      - name: "md"
+        inset_padding: "16px"
+        stack_spacing: "16px"
+        control_height: "44px"
+        is_default: true
+        wcag_note: "WCAG 2.5.5 minimum"
+      - name: "lg"
+        inset_padding: "24px"
+        stack_spacing: "24px"
+        control_height: "52px"
+      - name: "xl"
+        inset_padding: "32px"
+        stack_spacing: "32px"
+        control_height: "64px"
+    applicability: "All spacing and sizing tokens (no exceptions)."
+
+  - id: "SS-CR-R4"
+    title: "Inset vs Stack Distinction"
+    summary: |
+      Inset = Padding INSIDE components
+      Stack = Spacing BETWEEN elements
+    pattern:
+      lang: "json"
+      code:
+        space:
+          inset:
+            md:
+              value: "{space.4.value}" # Internal padding
+          stack:
+            md:
+              value: "{space.4.value}" # External spacing
+    usage_example:
+      lang: "css"
+      code: |
+        .card {
+          padding: var(--sando-space-inset-md); /* Internal */
+        }
+
+        .card-list {
+          gap: var(--sando-space-stack-md); /* Between items */
+        }
+
+  - id: "SS-CR-R5"
+    title: "Use Logical Properties (RTL Support)"
+    summary: "Always use logical properties for internationalization."
+    logical_property_map:
+      - physical: "padding-left/right"
+        logical: "padding-inline"
+        use_case: "Horizontal padding"
+      - physical: "padding-top/bottom"
+        logical: "padding-block"
+        use_case: "Vertical padding"
+      - physical: "margin-left/right"
+        logical: "margin-inline"
+        use_case: "Horizontal margins"
+    pattern:
+      lang: "css"
+      code: |
+        .element {
+          padding-inline: var(--sando-space-inset-md); /* ✅ RTL-aware */
+          padding-block: var(--sando-space-inset-sm);
+        }
+    anti_pattern:
+      lang: "css"
+      code: |
+        .element {
+          padding-left: var(--sando-space-inset-md); /* ❌ Breaks in RTL */
+          padding-right: var(--sando-space-inset-md);
+        }
+
+token_structure:
+  - id: "SS-TS-L1"
+    title: "Layer 1: Ingredients (Primitives)"
+    scale_definition:
+      lang: "json"
+      title: "Numeric scale - absolute values, no semantic meaning."
+      code:
+        space:
+          "0":
+            value: "0rem"
+          "1":
+            value: "0.25rem" # 4px
+          "2":
+            value: "0.5rem" # 8px
+          "4":
+            value: "1rem" # 16px - default
+          "6":
+            value: "1.5rem" # 24px
+          "8":
+            value: "2rem" # 32px
+          "11":
+            value: "2.75rem" # 44px - WCAG minimum
+          # ... up to space.64 (256px)
+    full_scale_reference:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
+      - 11
+      - 12
+      - 13
+      - 16
+      - 20
+      - 24
+      - 32
+      - 40
+      - 48
+      - 64
+
+  - id: "SS-TS-L2"
+    title: "Layer 2: Flavors (Semantic T-Shirt Sizing)"
+    inset_tokens:
+      title: "Inset Tokens (Padding)"
+      token_definition:
+        lang: "json"
+        code:
+          space:
+            inset:
+              xs:
+                value: "{space.1.value}" # 4px - micro padding
+              sm:
+                value: "{space.2.value}" # 8px - compact
+              md:
+                value: "{space.4.value}" # 16px - default
+              lg:
+                value: "{space.6.value}" # 24px - comfortable
+              xl:
+                value: "{space.8.value}" # 32px - spacious
+      use_cases:
+        - name: "xs"
+          note: "Badges, tags, dense elements"
+        - name: "sm"
+          note: "Small buttons, compact UIs"
+        - name: "md"
+          note: "Default for most components (cards, panels)"
+        - name: "lg"
+          note: "Large cards, comfortable layouts"
+        - name: "xl"
+          note: "Modals, hero sections"
+    stack_tokens:
+      title: "Stack Tokens (Spacing)"
+      token_definition:
+        lang: "json"
+        code:
+          space:
+            stack:
+              xs:
+                value: "{space.1.value}" # 4px - tight coupling
+              sm:
+                value: "{space.2.value}" # 8px - close items
+              md:
+                value: "{space.4.value}" # 16px - default
+              lg:
+                value: "{space.6.value}" # 24px - sections
+              xl:
+                value: "{space.8.value}" # 32px - major divisions
+      use_cases:
+        - name: "xs"
+          note: "Icon + text gap, tightly related elements"
+        - name: "sm"
+          note: "Form field groups, related list items"
+        - name: "md"
+          note: "Paragraph spacing, default flexbox gap"
+        - name: "lg"
+          note: "Section headings, content blocks"
+        - name: "xl"
+          note: "Major page sections"
+    control_sizing:
+      title: "Control Sizing (Component Heights)"
+      token_definition:
+        lang: "json"
+        code:
+          sizing:
+            control:
+              xs:
+                value: "{space.8.value}" # 32px - extra compact
+              sm:
+                value: "{space.9.value}" # 36px - small
+              md:
+                value: "{space.11.value}" # 44px - WCAG compliant
+              lg:
+                value: "{space.13.value}" # 52px - prominent
+              xl:
+                value: "{space.16.value}" # 64px - hero CTAs
+      wcag_note: "WCAG 2.5.5: Minimum 44px touch target (Level AAA)."
+      constraint: "Default to `md` for all interactive elements."
+
+  - id: "SS-TS-L3"
+    title: "Layer 3: Recipes (Component-Specific)"
+    summary: "Recipes reference Flavors to define component spacing."
+    recipe_pattern:
+      lang: "json"
+      code:
+        button:
+          size:
+            md:
+              paddingInline:
+                value: "{space.inset.md.value}" # 16px
+              paddingBlock:
+                value: "{space.inset.sm.value}" # 8px
+              minHeight:
+                value: "{sizing.control.md.value}" # 44px
+    pattern_note: "`paddingInline > paddingBlock` (wider buttons = better click targets)"
+
+component_implementation:
+  - id: "SS-CI-P1"
+    title: "Complete Pattern: Button Component"
+    recipe_tokens:
+      lang: "json"
+      title: "Recipe Tokens"
+      path: "packages/tokens/src/recipes/button.json"
+      code:
+        button:
+          size:
+            sm:
+              paddingInline:
+                value: "{space.inset.sm.value}"
+              paddingBlock:
+                value: "{space.inset.sm.value}"
+              minHeight:
+                value: "{sizing.control.sm.value}"
+            md:
+              paddingInline:
+                value: "{space.inset.md.value}"
+              paddingBlock:
+                value: "{space.inset.md.value}"
+              minHeight:
+                value: "{sizing.control.md.value}"
+            lg:
+              paddingInline:
+                value: "{space.inset.lg.value}"
+              paddingBlock:
+                value: "{space.inset.lg.value}"
+              minHeight:
+                value: "{sizing.control.lg.value}"
+    component_consumption:
+      lang: "typescript"
+      title: "Component Consumption"
+      file: "sando-button.ts"
+      code: |
+        import { css } from "lit";
+
+        export const sizeStyles = css`
+          :host([size="md"]) button {
+            padding-inline: var(--sando-button-size-md-paddingInline);
+            padding-block: var(--sando-button-size-md-paddingBlock);
+            min-height: var(--sando-button-size-md-minHeight);
+          }
+        `;
+
+related_guidelines:
+  - type: "guideline"
+    doc_id: "TA"
+    file: "TOKEN_ARCHITECTURE.toon"
+    note: "Three-layer system rules"
+  - type: "guideline"
+    doc_id: "CD"
+    file: "COMPONENT_DESIGN.toon"
+    note: "How spacing integrates with variants"
+  - type: "guideline"
+    doc_id: "TSYS"
+    file: "TYPOGRAPHY_SYSTEM.toon"
+    note: "Type scale coordination"
+  - type: "source_file"
+    path: "packages/tokens/src/ JSON source files"
+    note: "Complete spacing scale reference"

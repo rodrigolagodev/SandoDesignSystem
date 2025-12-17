@@ -1,0 +1,607 @@
+meta:
+  doc_id: "MS"
+  category: "02-architecture"
+  version: "1.0.0"
+  status: "Active"
+  last_updated: "2025-11-09"
+  owner: "Design System Architect"
+
+purpose:
+  id: "MS-PU"
+  description: |
+    Defines the Turborepo + pnpm workspace architecture, build orchestration, dependency management, and package organization for the Sando Design System monorepo. This ensures strict build order, efficient caching, and proper cross-package dependencies.
+
+core_rules:
+  - id: "MS-CR-R1"
+    title: "Strict Build Order (Non-Negotiable)"
+    summary: "Tokens MUST be built before components, components before apps. This dependency chain is enforced by Turborepo."
+    build_chain:
+      - number: 1
+        note: "@sando/tokens (build)"
+      - number: 2
+        note: "@sando/components (build)"
+      - number: 3
+        note: "@sando/docs + @sando/site (dev/build)"
+    why: "Components consume generated token files (CSS + TS). Building components before tokens fails. Apps import components, so components must be built first."
+    turborepo_config:
+      lang: "json"
+      code:
+        tasks:
+          build:
+            dependsOn:
+              - "^build" # ← "^" means dependencies build first
+    anti_pattern:
+      lang: "bash"
+      code: |
+        # ❌ WRONG: Building components before tokens
+        pnpm --filter @sando/components build  # Fails - no token files exist yet
+    pattern:
+      lang: "bash"
+      code: |
+        # ✅ CORRECT: Build tokens first
+        pnpm --filter @sando/tokens build
+        pnpm --filter @sando/components build
+
+        # ✅ BEST: Let Turborepo handle order
+        pnpm build  # Turborepo builds in correct order automatically
+
+  - id: "MS-CR-R2"
+    title: "Package Organization"
+    summary: "Each workspace package MUST follow strict folder structure and naming. Packages are either libraries (shared) or apps (deployable)."
+    structure:
+      tree:
+        sando-design-system:
+          packages: # Shared libraries
+            - "tokens" # @sando/tokens
+            - "components" # @sando/components
+          apps: # Deployable applications
+            - "docs" # @sando/docs (Storybook)
+            - "site" # @sando/site (VitePress)
+    naming_convention:
+      - "All packages use `@sando/` scope"
+      - "Package names: kebab-case matching folder name"
+      - "Example: packages/tokens/ → @sando/tokens"
+    package_json_pattern:
+      lang: "json"
+      code:
+        name: "@sando/tokens"
+        version: "0.1.0"
+        main: "./dist/index.js"
+        exports:
+          .: "./dist/index.js"
+          ./ingredients: "./dist/sando-tokens/css/ingredients/ingredients.css"
+    anti_pattern:
+      lang: "json"
+      code:
+        # ❌ WRONG: No scope, wrong name format
+        name: "sando_tokens" # Should be @sando/tokens
+        version: "0.1.0"
+
+  - id: "MS-CR-R3"
+    title: "Workspace Dependencies"
+    summary: "Use `workspace:*` protocol for cross-package references. This ensures local packages always use the workspace version, not npm registry."
+    pattern:
+      lang: "json"
+      file: "packages/components/package.json"
+      code:
+        dependencies:
+          "@sando/tokens": "workspace:*" # ← Always use workspace version
+    why: "Without `workspace:*`, pnpm might fetch from npm registry instead of using local package. This breaks local development and causes version mismatches."
+    anti_pattern:
+      - lang: "json"
+        title: "❌ WRONG: Version number instead of workspace protocol"
+        code:
+          dependencies:
+            "@sando/tokens": "^0.1.0" # Might fetch from npm, not local
+      - lang: "json"
+        title: "❌ WRONG: File path instead of package name"
+        code:
+          dependencies:
+            tokens: "file:../tokens" # Use workspace protocol instead
+
+  - id: "MS-CR-R4"
+    title: "Turborepo Caching Strategy"
+    summary: "Cache build outputs, never cache dev/watch tasks. Caching speeds up CI/local builds but must not interfere with live reload."
+    cache_enabled:
+      - task: "build"
+        outputs: "dist/**, .next/**, storybook-static/**"
+        cache: true
+      - task: "test"
+        outputs: "coverage/**, test-results/**"
+        cache: true
+      - task: "lint"
+        outputs: "None, but results are cached"
+        cache: true
+    non_cached:
+      persistent: true
+      tasks:
+        - "dev" # Live reload for development
+        - "test:watch" # Auto-rerun tests
+        - "test:ui" # Interactive test UI
+    turbo_config:
+      lang: "json"
+      code:
+        tasks:
+          build:
+            dependsOn:
+              - "^build"
+            outputs:
+              - "dist/**"
+            cache: true # ← Implicit (default)
+          dev:
+            cache: false
+            persistent: true # ← Long-running process
+    force_rebuild:
+      - command: "pnpm build --force"
+      - command: "pnpm clean && pnpm build"
+
+  - id: "MS-CR-R5"
+    title: "pnpm Workspace Configuration"
+    summary: "All packages MUST be defined in pnpm-workspace.yaml. This file is the single source of truth for workspace members."
+    pnpm_workspace:
+      lang: "yaml"
+      code: |
+        packages:
+          - "packages/*" # All folders in packages/ are workspace packages
+          - "apps/*" # All folders in apps/ are workspace apps
+    adding_new_package:
+      - number: 1
+        note: "Create folder in `packages/` or `apps/`"
+      - number: 2
+        note: "Add `package.json` with `@sando/{name}`"
+      - number: 3
+        note: "No need to update `pnpm-workspace.yaml` (glob pattern covers it)"
+      - number: 4
+        note: "Run `pnpm install` to register"
+    anti_pattern:
+      lang: "yaml"
+      code: |
+        # ❌ WRONG: Hardcoding package names
+        packages:
+          - 'packages/tokens'
+          - 'packages/components'
+          # New package? Must update this list manually (fragile)
+
+        # ✅ CORRECT: Use glob patterns
+        packages:
+          - 'packages/*'  # Automatically includes all packages
+
+package_responsibilities:
+  - name: "@sando/tokens"
+    location: "packages/tokens"
+    purpose: "Design token source files (JSON) and build system (Style Dictionary). Generates CSS + TypeScript token files."
+    key_files:
+      - "src/ingredients/*.json" # Primitive tokens
+      - "src/flavors/*/flavor*.json" # Semantic tokens + modes
+      - "src/recipes/*.json" # Component tokens
+      - "build/index.js" # Build orchestrator
+      - "dist/sando-tokens/" # Generated output (CSS + TS)
+    exports:
+      lang: "json"
+      code:
+        exports:
+          ./ingredients: "./dist/sando-tokens/css/ingredients/ingredients.css"
+          ./flavors/original: "./dist/sando-tokens/css/flavors/original/flavor.css"
+          ./recipes/button: "./dist/sando-tokens/css/recipes/button.css"
+          ./ts/ingredients: "./dist/sando-tokens/ts/ingredients/index.ts"
+    commands:
+      - "pnpm --filter @sando/tokens build"
+      - "pnpm --filter @sando/tokens dev"
+      - "pnpm --filter @sando/tokens test"
+    dependencies: "None (leaf package in dependency graph)"
+
+  - name: "@sando/components"
+    location: "packages/components"
+    purpose: "Lit Web Components consuming tokens. Each component is self-contained in its own folder."
+    key_files:
+      - "src/components/button/" # Button component (7-file pattern)
+      - "src/components/input/" # Input component
+      - "src/mixins/" # Shared mixins (FlavorableMixin)
+      - "src/styles/tokens.css.js" # Token CSS imports
+      - "dist/" # Compiled components
+    exports:
+      lang: "json"
+      code:
+        exports:
+          .: "./dist/index.js"
+          ./button: "./dist/components/button/index.js"
+          ./input: "./dist/components/input/index.js"
+    commands:
+      - "pnpm --filter @sando/components build"
+      - "pnpm --filter @sando/components test"
+      - "pnpm --filter @sando/components test:e2e"
+    dependencies:
+      - "@sando/tokens (workspace)"
+      - "lit"
+
+  - name: "@sando/docs"
+    location: "apps/docs"
+    purpose: "Storybook documentation for components. Interactive component explorer."
+    key_files:
+      - ".storybook/main.ts" # Storybook config
+      - "stories/" # Component stories
+      - "public/" # Static assets
+      - "storybook-static/" # Build output
+    commands:
+      - "pnpm --filter @sando/docs dev"
+      - "pnpm --filter @sando/docs build"
+    dependencies:
+      - "@sando/components (workspace)"
+      - "@sando/tokens (workspace)"
+      - "storybook"
+    port: "6006 (default, configurable in .env.local)"
+
+  - name: "@sando/site"
+    location: "apps/site"
+    purpose: "VitePress documentation site. Guides, tutorials, API reference."
+    key_files:
+      - ".vitepress/config.ts" # VitePress config
+      - "components/" # Component docs (Markdown)
+      - "guides/" # Tutorial guides
+      - ".vitepress/dist/" # Build output
+    commands:
+      - "pnpm --filter @sando/site dev"
+      - "pnpm --filter @sando/site build"
+      - "pnpm --filter @sando/site preview"
+    dependencies:
+      - "@sando/components (workspace)"
+      - "vitepress"
+    port: "3000 (default, configurable in .env.local)"
+
+build_order_visualization:
+  id: "MS-BOV"
+  summary: "Build dependency chain (Tokens → Components → Apps)."
+  chain:
+    - step: 1
+      package: "@sando/tokens"
+      purpose: "Layer 1: Build first (Generates CSS/TS)"
+      depends_on: "None"
+    - step: 2
+      package: "@sando/components"
+      purpose: "Layer 2: Consume tokens"
+      depends_on: "@sando/tokens"
+    - step: 3
+      package: "@sando/docs (Storybook)"
+      purpose: "Layer 3: Document components"
+      depends_on: "@sando/components"
+    - step: 4
+      package: "@sando/site (VitePress)"
+      purpose: "Layer 3: Document components"
+      depends_on: "@sando/components"
+  enforcement: "Turborepo enforces this via `dependsOn: ['^build']` - Each package's build waits for dependencies to finish."
+
+common_commands:
+  id: "MS-CC"
+  root_level_commands:
+    - name: "pnpm install"
+      description: "Install dependencies (MUST use pnpm)"
+    - name: "pnpm build"
+      description: "Build all packages (respects build order)"
+    - name: "pnpm dev"
+      description: "Development mode (parallel: Storybook + VitePress)"
+    - name: "pnpm test"
+      description: "Run all tests across all packages"
+    - name: "pnpm lint"
+      description: "Lint all packages"
+    - name: "pnpm format"
+      description: "Format all files"
+    - name: "pnpm clean"
+      description: "Clean all artifacts"
+  package_specific_commands:
+    syntax: "pnpm --filter <package-name> <command>"
+    tokens:
+      - "pnpm --filter @sando/tokens build"
+      - "pnpm --filter @sando/tokens dev"
+      - "pnpm --filter @sando/tokens test"
+    components:
+      - "pnpm --filter @sando/components build"
+      - "pnpm --filter @sando/components test"
+      - "pnpm --filter @sando/components test:e2e"
+    storybook:
+      - "pnpm --filter @sando/docs dev"
+      - "pnpm --filter @sando/docs build"
+    vitepress:
+      - "pnpm --filter @sando/site dev"
+      - "pnpm --filter @sando/site build"
+      - "pnpm --filter @sando/site preview"
+  shorter_aliases:
+    description: "From root package.json"
+    commands:
+      - name: "pnpm tokens:build"
+        description: "Build only tokens"
+      - name: "pnpm tokens:dev"
+        description: "Watch mode"
+      - name: "pnpm components:build"
+        description: "Build only components"
+      - name: "pnpm docs:dev"
+        description: "Start Storybook"
+      - name: "pnpm docs:build"
+        description: "Build Storybook"
+      - name: "pnpm site:dev"
+        description: "Start VitePress"
+      - name: "pnpm site:build"
+        description: "Build VitePress"
+      - name: "pnpm site:preview"
+        description: "Preview VitePress"
+
+turborepo_configuration:
+  id: "MS-TC"
+  file: "turbo.json (monorepo root)"
+  task_configuration:
+    lang: "json"
+    code:
+      $schema: "httpss://turbo.build/schema.json"
+      ui: "tui" # Terminal UI for build progress
+      tasks:
+        build:
+          dependsOn:
+            - "^build" # ← Wait for dependencies to build
+          outputs:
+            - "dist/**"
+            - ".next/**"
+            - "!.next/cache/**"
+            - "storybook-static/**"
+            - ".vitepress/dist/**"
+          env:
+            - "NODE_ENV" # Invalidate cache if NODE_ENV changes
+        test:
+          dependsOn:
+            - "build" # Tests need built packages
+          outputs:
+            - "coverage/**"
+            - "test-results/**"
+          cache: true
+        dev:
+          cache: false # Never cache dev mode
+          persistent: true # Long-running process
+        lint:
+          outputs: [] # No file outputs
+          cache: true # Cache lint results
+      globalDependencies:
+        - "**/.env.*local" # Invalidate cache if env files change
+  key_concepts:
+    - name: 'dependsOn: ["^build"]'
+      meaning: "`^` prefix means 'dependencies' (packages this package depends on)"
+      meaning_2: "Without `^`, it means 'tasks in THIS package'"
+      example: "`'dependsOn': ['^build', 'test']` = dependencies build first, then THIS package's test task"
+    - name: "Outputs"
+      meaning: "Files to cache for reuse"
+      meaning_2: "Glob patterns: `dist/**` includes all files in dist/"
+      meaning_3: "Negations: `!.next/cache/**` excludes files from cache"
+    - name: "Persistent Tasks"
+      meaning: "Long-running processes (dev servers, watch modes)"
+      meaning_2: "Cannot be cached (always run fresh)"
+
+build_cache_management:
+  id: "MS-BCM"
+  turborepo_cache:
+    location: "node_modules/.cache/turbo/ (gitignored)"
+  cache_usage_conditions:
+    - "Source files unchanged (git hash)"
+    - "Dependencies unchanged (package.json, lockfile)"
+    - "Environment variables unchanged (listed in `env`)"
+    - "Global dependencies unchanged (.env files)"
+  force_rebuild:
+    - method: 1
+      command: "pnpm build --force"
+      description: "--force flag"
+    - method: 2
+      command: "pnpm clean && pnpm build"
+      description: "Clean + rebuild"
+    - method: 3
+      command: "rm -rf node_modules/.cache/turbo && pnpm build"
+      description: "Delete Turbo cache"
+  token_build_cache:
+    note: "Separate from Turborepo: Tokens have their own incremental build cache"
+    location: "packages/tokens/.build-cache.json"
+    force_rebuild:
+      - command: "rm packages/tokens/.build-cache.json"
+      - command: "pnpm --filter @sando/tokens build -- --force"
+
+cross_package_imports:
+  id: "MS-CPI"
+  importing_tokens_in_components:
+    pattern:
+      lang: "typescript"
+      file: "packages/components/src/components/button/sando-button.ts"
+      code: |
+        import { tokenStyles } from "../../styles/tokens.css.js"; // Local import
+    token_css_import:
+      lang: "typescript"
+      file: "packages/components/src/styles/tokens.css.js"
+      code: |
+        import { css } from "lit";
+
+        // Import generated token CSS
+        import ingredientsCss from "@sando/tokens/ingredients";
+        import flavorCss from "@sando/tokens/flavors/original";
+        import buttonRecipesCss from "@sando/tokens/recipes/button";
+
+        export const tokenStyles = css`
+          ${ingredientsCss}
+          ${flavorCss}
+          ${buttonRecipesCss}
+        `;
+    why: "`@sando/tokens` exports individual CSS files. Components import what they need."
+  importing_components_in_apps:
+    storybook:
+      lang: "typescript"
+      code: |
+        // Storybook story
+        import "@sando/components/button"; // Auto-registers <sando-button>
+        import type { SandoButton } from "@sando/components/button";
+    vitepress:
+      lang: "vue"
+      code: |
+        <script setup>
+        import "@sando/components/button";
+        </script>
+
+        <sando-button>Click me</sando-button>
+
+adding_new_packages:
+  id: "MS-ANP"
+  guide:
+    - number: 1
+      title: "Create folder"
+      command: "mkdir packages/new-package && cd packages/new-package"
+    - number: 2
+      title: "Create package.json"
+      example:
+        lang: "json"
+        code:
+          name: "@sando/new-package"
+          version: "0.1.0"
+          type: "module"
+          main: "./dist/index.js"
+          exports:
+            .: "./dist/index.js"
+          scripts:
+            build: "vite build"
+            dev: "vite"
+            test: "vitest"
+          dependencies:
+            "@sando/tokens": "workspace:*"
+    - number: 3
+      title: "Add to workspace (automatic - glob pattern covers it)"
+      command: "pnpm install"
+    - number: 4
+      title: "Create source files"
+      command: "mkdir src && touch src/index.ts"
+    - number: 5
+      title: "Build and test"
+      command: "pnpm --filter @sando/new-package build"
+      command_2: "pnpm --filter @sando/new-package test"
+
+validation:
+  id: "MS-V"
+  workspace_structure:
+    - status: "required"
+      note: "All packages in `packages/` or `apps/` folders"
+    - status: "required"
+      note: "All packages use `@sando/` scope"
+    - status: "required"
+      note: "All packages have `package.json` with correct name"
+    - status: "required"
+      note: "`pnpm-workspace.yaml` includes glob patterns"
+  dependencies_checklist:
+    - status: "required"
+      note: "Cross-package deps use `workspace:*` protocol"
+    - status: "required"
+      note: "No version numbers for workspace packages"
+    - status: "required"
+      note: "External deps (lit, vite) are NOT workspace protocol"
+  build_order_checklist:
+    - status: "required"
+      note: "Tokens package has no workspace dependencies"
+    - status: "required"
+      note: "Components depend on tokens (`@sando/tokens: workspace:*`)"
+    - status: "required"
+      note: "Apps depend on components (`@sando/components: workspace:*`)"
+    - status: "required"
+      note: "`turbo.json` has `dependsOn: ['^build']`"
+  turborepo_config_checklist:
+    - status: "required"
+      note: "Build tasks have `outputs` defined"
+    - status: "required"
+      note: "Dev/watch tasks have `persistent: true`"
+    - status: "required"
+      note: "Dev/watch tasks have `cache: false`"
+    - status: "required"
+      note: "Test tasks depend on build (`dependsOn: ['build']`)"
+  commands_checklist:
+    - status: "required"
+      note: "`pnpm build` builds in correct order"
+    - status: "required"
+      note: "`pnpm dev` starts Storybook + VitePress"
+    - status: "required"
+      note: "`pnpm test` runs all tests"
+    - status: "required"
+      note: "Package filters work: `pnpm --filter @sando/tokens build`"
+
+faq:
+  id: "MS-FAQ"
+  questions:
+    - id: "MS-FAQ-Q1"
+      q: "Why use pnpm instead of npm/yarn?"
+      a: |
+        Reasons:
+        1. Faster installs: Symlinks packages instead of copying
+        2. Disk space: Single store for all package versions
+        3. Strict mode: Prevents phantom dependencies (can't import undeclared deps)
+        4. Workspace protocol: `workspace:*` ensures local packages always used
+    - id: "MS-FAQ-Q2"
+      q: "What happens if I build components before tokens?"
+      a: |
+        Build FAILS. Components import token CSS/TS files that don't exist until tokens are built.
+
+        Error:
+        ```
+        Error: Cannot find module '@sando/tokens/ingredients'
+        ```
+
+        Solution: Build tokens first, or use `pnpm build` (Turborepo handles order).
+    - id: "MS-FAQ-Q3"
+      q: "Can I run multiple dev servers simultaneously?"
+      a: |
+        YES. `pnpm dev` runs Storybook (port 6006) and VitePress (port 3000) in parallel.
+        Turborepo uses `--parallel` flag for dev tasks (no dependency waiting).
+    - id: "MS-FAQ-Q4"
+      q: "How do I know if cache is being used?"
+      a: |
+        Turborepo output:
+        ```
+        >>> FULL TURBO     # Cache hit (reused previous build)
+        >>> >>> LOCAL      # Cache miss (building fresh)
+        ```
+        Use `--force` to bypass cache.
+    - id: "MS-FAQ-Q5"
+      q: "Can I build a single package?"
+      a: |
+        YES:
+        ```bash
+        # Build only tokens
+        pnpm --filter @sando/tokens build
+
+        # Build tokens and everything that depends on it
+        pnpm --filter @sando/tokens... build
+        ```
+
+related_guidelines:
+  - type: "guideline"
+    doc_id: "TA"
+    file: "../01-design-system/TOKEN_ARCHITECTURE.toon"
+    category: "01-design-system"
+    note: "Three-layer token system (explains why tokens build first)"
+  - type: "guideline"
+    doc_id: "TBS"
+    file: "TOKEN_BUILD_SYSTEM.toon"
+    category: "02-architecture"
+    note: "Style Dictionary orchestrator and token build process"
+  - type: "guideline"
+    doc_id: "CA"
+    file: "COMPONENT_ARCHITECTURE.toon"
+    category: "02-architecture"
+    note: "Component structure (explains component package organization)"
+  - type: "guideline"
+    doc_id: "GW"
+    file: "../03-development/GIT_WORKFLOW.toon"
+    category: "03-development"
+    note: "Changesets for versioning workspace packages"
+
+external_references:
+  - type: "documentation"
+    url: "httpss://turbo.build/repo/docs"
+    title: "Turborepo Documentation"
+    note: "Official Turborepo guide"
+  - type: "documentation"
+    url: "httpss://pnpm.io/workspaces"
+    title: "pnpm Workspaces"
+    note: "pnpm workspace documentation"
+  - type: "documentation"
+    url: "httpss://pnpm.io/filtering"
+    title: "pnpm Filtering"
+    note: "Using `--filter` for package-specific commands"
+
+conclusion: |
+  This guideline establishes the foundation for the Sando Design System monorepo architecture. All build, dependency, and package organization decisions reference these rules.

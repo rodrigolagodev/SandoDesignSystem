@@ -1,0 +1,500 @@
+meta:
+  doc_id: "WC"
+  category: "04-accessibility"
+  version: "1.0.0"
+  status: "Active"
+  last_updated: "2025-11-09"
+  owner: "QA Expert"
+
+purpose:
+  id: "WC-PU"
+  description: |
+    Ensure all Sando Design System components meet WCAG 2.1 Level AA standards through automated testing, semantic HTML, and proper ARIA patterns.
+
+core_rules:
+  - id: "WC-CR-R1"
+    title: "WCAG 2.1 Level AA Compliance (Non-Negotiable)"
+    summary: "All components MUST pass WCAG 2.1 Level AA automated testing. Aim for AAA where feasible."
+    pattern:
+      lang: "typescript"
+      code: |
+        import { axe, toHaveNoViolations } from "jest-axe";
+
+        it("should have no a11y violations", async () => {
+          const results = await axe(element);
+          expect(results).toHaveNoViolations();
+        });
+    why: "Legal requirement (ADA, Section 508), better UX for all users, inclusive design"
+    reference:
+      type: "specification"
+      url: "httpss://www.w3.org/WAI/WCAG21/quickref/"
+      note: "WCAG 2.1 Quick Reference"
+
+  - id: "WC-CR-R2"
+    title: "Automated Testing with axe-core (Non-Negotiable)"
+    summary: "Every component MUST have `.a11y.test.ts` file using jest-axe with 100% state coverage."
+    pattern:
+      lang: "typescript"
+      code: |
+        // sando-button.a11y.test.ts
+        describe("accessibility", () => {
+          it("default state", async () => {
+            const el = await fixture("<sando-button>Click</sando-button>");
+            expect(await axe(el)).toHaveNoViolations();
+          });
+        });
+    why: "Catches 57% of WCAG issues automatically, prevents regressions, fast feedback"
+    reference:
+      type: "source_file"
+      path: "packages/components/src/components/button/sando-button.a11y.test.ts"
+      note: "Complete example"
+
+  - id: "WC-CR-R3"
+    title: "Semantic HTML First"
+    summary: "Use native HTML elements over ARIA whenever possible. Progressive enhancement required."
+    pattern:
+      lang: "html"
+      code: |
+        <button type="button">Submit</button>
+    anti_pattern:
+      lang: "html"
+      code: |
+        <div role="button" tabindex="0">Submit</div>
+    why: "Native elements have built-in accessibility, keyboard support, screen reader support"
+    reference:
+      type: "specification"
+      url: "httpss://www.w3.org/TR/html-aria/"
+      note: "HTML5 Accessibility"
+
+  - id: "WC-CR-R4"
+    title: "ARIA Patterns When Needed"
+    summary: "Follow WAI-ARIA Authoring Practices. Use ARIA only when semantic HTML insufficient."
+    five_rules_of_aria:
+      - number: 1
+        rule: "Use native HTML if possible"
+      - number: 2
+        rule: "Don't change native semantics"
+      - number: 3
+        rule: "All interactive ARIA controls must be keyboard accessible"
+      - number: 4
+        rule: "Don't use role='presentation' or aria-hidden on focusable elements"
+      - number: 5
+        rule: "All interactive elements must have accessible names"
+    reference:
+      type: "guide"
+      url: "httpss://www.w3.org/WAI/ARIA/apg/"
+      note: "WAI-ARIA APG"
+
+  - id: "WC-CR-R5"
+    title: "Testing Across States and Themes"
+    summary: "Test ALL component states, ALL flavors, ALL modes (dark, high-contrast, reduced motion)."
+    pattern:
+      lang: "typescript"
+      code: |
+        describe.each(["original", "strawberry", "ocean"])("flavor: %s", (flavor) => {
+          it("meets contrast requirements", async () => {
+            const el = await fixture(
+              `<div flavor="${flavor}"><sando-button>Test</sando-button></div>`
+            );
+            expect(await axe(el)).toHaveNoViolations();
+          });
+        });
+    why: "Ensures accessibility across all visual variations and user preferences"
+    reference:
+      type: "source_file"
+      path: "packages/tokens/tests/accessibility/contrast.test.js"
+      note: "Token contrast tests"
+
+wcag_success_criteria:
+  id: "WC-SC"
+  summary: "Key criteria for design systems"
+  criteria:
+    - id: "1.4.3"
+      level: "AA"
+      title: "Contrast (Minimum)"
+      requirement: "4.5:1 normal text, 3:1 large text"
+      impact: "Token contrast validation"
+    - id: "1.4.6"
+      level: "AAA"
+      title: "Contrast (Enhanced)"
+      requirement: "7:1 normal text, 4.5:1 large text"
+      impact: "Color system design"
+    - id: "1.4.11"
+      level: "AA"
+      title: "Non-text Contrast"
+      requirement: "3:1 UI components"
+      impact: "Icons, borders, focus indicators"
+    - id: "2.1.1"
+      level: "A"
+      title: "Keyboard"
+      requirement: "All functionality via keyboard"
+      impact: "Component interaction design"
+    - id: "2.1.2"
+      level: "A"
+      title: "No Keyboard Trap"
+      requirement: "No focus traps"
+      impact: "Modal, dialog, overlay patterns"
+    - id: "2.4.7"
+      level: "AA"
+      title: "Focus Visible"
+      requirement: "Visible focus indicator"
+      impact: "Focus ring tokens"
+    - id: "4.1.2"
+      level: "A"
+      title: "Name, Role, Value"
+      requirement: "Accessible names/roles"
+      impact: "ARIA labels, semantic HTML"
+    - id: "4.1.3"
+      level: "AA"
+      title: "Status Messages"
+      requirement: "Status announcements"
+      impact: "aria-live, role='status'"
+  additional_criteria:
+    - id: "1.3.1"
+      level: "A"
+      note: "Info and Relationships - Semantic structure"
+    - id: "2.4.3"
+      level: "A"
+      note: "Focus Order - Logical tab order"
+    - id: "3.2.1"
+      level: "A"
+      note: "On Focus - No unexpected context changes"
+    - id: "3.3.1"
+      level: "A"
+      note: "Error Identification - Clear error messages"
+    - id: "3.3.2"
+      level: "A"
+      note: "Labels or Instructions - Form labels"
+  testing_approach:
+    automated: "axe-core catches Level A and AA violations"
+    manual: "Keyboard navigation, screen reader testing"
+    color_contrast: "Token validation tests"
+  reference:
+    type: "specification"
+    url: "httpss://www.w3.org/WAI/WCAG21/quickref/"
+    note: "Full WCAG 2.1 spec"
+
+automated_testing:
+  id: "WC-AT"
+  jest_axe_setup:
+    installation: "Already configured in Sando (pnpm add -D jest-axe @axe-core/playwright)"
+    basic_pattern:
+      lang: "typescript"
+      code: |
+        import { fixture, expect } from "@open-wc/testing";
+        import { axe, toHaveNoViolations } from "jest-axe";
+        import "./sando-button";
+
+        expect.extend(toHaveNoViolations);
+
+        describe("sando-button a11y", () => {
+          it("should have no violations", async () => {
+            const el = await fixture("<sando-button>Click me</sando-button>");
+            const results = await axe(el);
+            expect(results).toHaveNoViolations();
+          });
+        });
+  testing_all_states:
+    lang: "typescript"
+    code: |
+      it("disabled state", async () => {
+        const el = await fixture("<sando-button disabled>Disabled</sando-button>");
+        expect(await axe(el)).toHaveNoViolations();
+      });
+
+      it("loading state", async () => {
+        const el = await fixture("<sando-button loading>Loading</sando-button>");
+        expect(await axe(el)).toHaveNoViolations();
+      });
+  testing_all_flavors:
+    lang: "typescript"
+    code: |
+      const flavors = ["original", "strawberry", "ocean", "forest", "sunset"];
+
+      describe.each(flavors)("flavor: %s", (flavor) => {
+        it("meets accessibility standards", async () => {
+          const el = await fixture(`
+            <div flavor="${flavor}">
+              <sando-button>Test</sando-button>
+            </div>
+          `);
+          expect(await axe(el)).toHaveNoViolations();
+        });
+      });
+  references:
+    - path: "packages/components/src/components/button/sando-button.a11y.test.ts"
+      note: "Reference implementation"
+    - url: "httpss://github.com/dequelabs/axe-core/blob/develop/doc/rule-descriptions.md"
+      note: "axe-core rules"
+    - url: "httpss://github.com/nickcolley/jest-axe"
+      note: "jest-axe docs"
+
+contrast_requirements:
+  id: "WC-CR-CON"
+  minimum_ratios:
+    - type: "Normal text"
+      size: "<18pt or <14pt bold"
+      aa: "4.5:1"
+      aaa: "7:1"
+      note: "Body copy, labels"
+    - type: "Large text"
+      size: "≥18pt or ≥14pt bold"
+      aa: "3:1"
+      aaa: "4.5:1"
+      note: "Headings, large UI"
+    - type: "UI components"
+      size: "Any"
+      aa: "3:1"
+      aaa: "-"
+      note: "Borders, icons, focus rings"
+    - type: "Graphical objects"
+      size: "Any"
+      aa: "3:1"
+      aaa: "-"
+      note: "Charts, diagrams, controls"
+  token_validation:
+    lang: "javascript"
+    code: |
+      // packages/tokens/tests/accessibility/contrast.test.js
+      describe("WCAG contrast compliance", () => {
+        it("text meets AA (4.5:1)", () => {
+          const ratio = getContrastRatio(textColor, backgroundColor);
+          expect(ratio).toBeGreaterThanOrEqual(4.5);
+        });
+      });
+  contrast_calculation:
+    - number: 1
+      note: "Convert HSL → RGB"
+    - number: 2
+      note: "Calculate relative luminance"
+    - number: 3
+      note: "Compute contrast ratio: (L1 + 0.05) / (L2 + 0.05)"
+  tools:
+    - "WebAIM Contrast Checker [httpss://webaim.org/resources/contrastchecker/]"
+    - "Contrast Ratio Calculator [httpss://contrast-ratio.com/]"
+  reference:
+    type: "source_file"
+    path: "packages/tokens/tests/accessibility/contrast.test.js"
+    note: "Complete validation tests"
+
+semantic_html:
+  id: "WC-SH"
+  native_elements:
+    pattern:
+      lang: "html"
+      code: |
+        <button type="button">Action</button>
+        <button type="submit">Submit Form</button>
+
+        <a href="/page">Navigate</a>
+
+        <input type="text" id="name" />
+        <label for="name">Name</label>
+        <select id="options">
+          <option>One</option>
+        </select>
+        <textarea id="comments"></textarea>
+    anti_patterns:
+      lang: "html"
+      code: |
+        <div role="button" tabindex="0" onclick="...">Click</div>
+        <span role="link" tabindex="0" onclick="...">Link</span>
+        <div role="textbox" contenteditable="true"></div>
+  progressive_enhancement:
+    steps:
+      - number: 1
+        note: "Start with HTML - Semantic, keyboard accessible"
+      - number: 2
+        note: "Add CSS - Visual styling via tokens"
+      - number: 3
+        note: "Enhance with JS - Interactive behavior, ARIA states"
+    example:
+      lang: "html"
+      code: |
+        <button type="button" class="toggle">Show details</button>
+
+        <button
+          type="button"
+          class="toggle"
+          aria-pressed="false"
+          aria-controls="details"
+        >
+          Show details
+        </button>
+  reference:
+    type: "specification"
+    url: "httpss://www.w3.org/TR/html-aria/"
+    note: "HTML5 Accessibility"
+
+aria_patterns:
+  id: "WC-AP"
+  when_to_use:
+    - number: 1
+      note: "No native HTML element exists"
+    - number: 2
+      note: "Need to add states/properties not in HTML"
+    - number: 3
+      note: "Building complex widgets (combobox, tree, tabs)"
+  common_patterns:
+    - name: "Button"
+      role: "button"
+      states: "aria-pressed, aria-disabled"
+      keyboard: "Space, Enter"
+      reference: "sando-button"
+    - name: "Alert"
+      role: "alert"
+      states: 'aria-live="assertive"'
+      keyboard: "-"
+      reference: "Toast notifications"
+    - name: "Status"
+      role: "status"
+      states: 'aria-live="polite"'
+      keyboard: "-"
+      reference: "Loading indicator"
+    - name: "Toggle"
+      role: "button"
+      states: "aria-pressed"
+      keyboard: "Space, Enter"
+      reference: "Toggle button"
+    - name: "Modal"
+      role: "dialog"
+      states: "aria-modal, aria-labelledby"
+      keyboard: "Esc, Tab trap"
+      reference: "Dialog"
+  component_example:
+    lang: "typescript"
+    code: |
+      // sando-button ARIA states
+      // Disabled state
+      this.hasAttribute("disabled")
+        ? html`<button aria-disabled="true" ...></button>`
+        : html`<button ...></button>`;
+
+      // Loading state
+      html`
+        <button aria-busy="${this.loading}" aria-live="polite">
+          ${this.loading ? "Loading..." : "Submit"}
+        </button>
+      `;
+
+      // Toggle button
+      html`
+        <button
+          type="button"
+          aria-pressed="${this.pressed}"
+          @click="${this._handleToggle}"
+        >
+          ${this.label}
+        </button>
+      `;
+  common_attributes:
+    - name: "aria-label"
+      note: "Accessible name when text content insufficient"
+    - name: "aria-labelledby"
+      note: "Reference to labeling element(s)"
+    - name: "aria-describedby"
+      note: "Reference to description element(s)"
+    - name: "aria-hidden"
+      note: "Hide decorative elements from screen readers"
+    - name: "aria-live"
+      note: "Announce dynamic content changes"
+    - name: "aria-disabled"
+      note: "Disabled state (when cannot use native disabled)"
+    - name: "aria-pressed"
+      note: "Toggle button state"
+    - name: "aria-expanded"
+      note: "Collapsible content state"
+  references:
+    - url: "httpss://www.w3.org/WAI/ARIA/apg/"
+      note: "WAI-ARIA Authoring Practices"
+    - url: "httpss://www.w3.org/TR/html-aria/"
+      note: "ARIA in HTML"
+    - path: "packages/components/src/components/button/sando-button.ts"
+      note: "Production implementation"
+
+testing_coverage:
+  id: "WC-TC"
+  requirements:
+    coverage_100_percent_for:
+      - "All public components"
+      - "All component states (default, hover, focus, active, disabled, loading, error, success)"
+      - "All variants (solid, outline, ghost, etc.)"
+      - "All sizes (small, medium, large)"
+      - "All flavors (original, strawberry, ocean, forest, sunset)"
+      - "All modes (light, dark, high-contrast, forced-colors, reduced-motion)"
+  test_file_structure:
+    tree:
+      "sando-button/":
+        files:
+          - "sando-button.ts" # Component implementation
+          - "sando-button.test.ts" # Unit tests
+          - "sando-button.spec.ts" # E2E tests
+          - "sando-button.a11y.test.ts" # Accessibility tests ← Required
+  commands:
+    - "pnpm test -- --grep 'a11y|accessibility'"
+    - "pnpm test sando-button.a11y.test.ts"
+    - "pnpm test:watch -- --grep 'a11y'"
+  reference:
+    type: "guideline"
+    doc_id: "TST"
+    file: "../03-development/TESTING_STRATEGY.toon"
+    note: "Complete testing strategy"
+
+
+related_guidelines:
+  - type: "guideline"
+    doc_id: "TST"
+    file: "../03-development/TESTING_STRATEGY.toon"
+    category: "03-development"
+    note: "Testing requirements"
+  - type: "guideline"
+    doc_id: "KN"
+    file: "KEYBOARD_NAVIGATION.toon"
+    category: "04-accessibility"
+    note: "Keyboard interaction patterns"
+  - type: "guideline"
+    doc_id: "SR"
+    file: "SCREEN_READER_SUPPORT.toon"
+    category: "04-accessibility"
+    note: "Screen reader testing guide"
+  - type: "guideline"
+    doc_id: "CC"
+    file: "COLOR_CONTRAST.toon"
+    category: "04-accessibility"
+    note: "Color system accessibility"
+
+external_references:
+  - type: "specification"
+    url: "httpss://www.w3.org/WAI/WCAG21/quickref/"
+    title: "WCAG 2.1 Quick Reference"
+    note: "Official spec"
+  - type: "guide"
+    url: "httpss://www.w3.org/WAI/ARIA/apg/"
+    title: "WAI-ARIA Authoring Practices"
+    note: "Patterns and widgets"
+  - type: "tool"
+    url: "httpss://github.com/dequelabs/axe-core"
+    title: "axe-core"
+    note: "Automated testing"
+  - type: "tool"
+    url: "httpss://github.com/nickcolley/jest-axe"
+    title: "jest-axe"
+    note: "Jest integration"
+  - type: "resource"
+    url: "httpss://webaim.org/"
+    title: "WebAIM"
+    note: "Resources and training"
+  - type: "tool"
+    url: "httpss://webaim.org/resources/contrastchecker/"
+    title: "WebAIM Contrast Checker"
+    note: "Color contrast tool"
+  - type: "resource"
+    url: "httpss://www.a11yproject.com/"
+    title: "A11y Project"
+    note: "Community checklist"
+  - type: "documentation"
+    url: "httpss://developer.mozilla.org/en-US/docs/Web/Accessibility"
+    title: "MDN Accessibility"
+    note: "Technical reference"
+
+conclusion: "Accessibility is non-negotiable. Every component must be usable by everyone."

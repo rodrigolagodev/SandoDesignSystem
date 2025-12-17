@@ -1,0 +1,347 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Ingredients/Opacity" />
+
+# Opacity
+
+Opacity controls the transparency of UI elements. The Sando Design System provides an **opacity scale** from 0 (fully transparent) to 1 (fully opaque) built on **Ingredients tokens** (Layer 1).
+
+## Opacity Scale
+
+Our opacity scale provides precise control over element transparency with 11 levels.
+
+<div style={{ marginTop: '32px' }}>
+  {[
+    { token: '0', value: '0', percent: '0%', name: 'Invisible' },
+    { token: '100', value: '0.1', percent: '10%', name: 'Very Faint' },
+    { token: '200', value: '0.2', percent: '20%', name: 'Faint' },
+    { token: '300', value: '0.3', percent: '30%', name: 'Light' },
+    { token: '400', value: '0.4', percent: '40%', name: 'Medium Light' },
+    { token: '500', value: '0.5', percent: '50%', name: 'Medium' },
+    { token: '600', value: '0.6', percent: '60%', name: 'Medium Strong' },
+    { token: '700', value: '0.7', percent: '70%', name: 'Strong' },
+    { token: '800', value: '0.8', percent: '80%', name: 'Very Strong' },
+    { token: '900', value: '0.9', percent: '90%', name: 'Nearly Opaque' },
+    { token: '1000', value: '1', percent: '100%', name: 'Opaque' },
+  ].map(({ token, value, percent, name }) => (
+    <div
+      key={token}
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '24px',
+        padding: '16px',
+        borderBottom: '1px solid var(--sando-color-border-muted)',
+      }}
+    >
+      <div
+        style={{
+          fontFamily: 'monospace',
+          fontSize: '12px',
+          color: 'var(--sando-color-text-caption)',
+          minWidth: '80px',
+        }}
+      >
+        opacity-{token}
+      </div>
+      <div
+        style={{
+          position: 'relative',
+          width: '200px',
+          height: '60px',
+          backgroundColor: 'var(--sando-color-background-surface)',
+          borderRadius: '8px',
+          overflow: 'hidden',
+        }}
+      >
+        <div
+          style={{
+            position: 'absolute',
+            top: '10px',
+            left: '10px',
+            width: '180px',
+            height: '40px',
+            backgroundColor: 'var(--sando-color-orange-500)',
+            borderRadius: '4px',
+            opacity: `var(--sando-opacity-${token})`,
+          }}
+        />
+      </div>
+      <div style={{ flex: 1 }}>
+        <div style={{ fontSize: '14px', fontWeight: '600', marginBottom: '4px' }}>
+          {name}
+        </div>
+        <div style={{ fontFamily: 'monospace', fontSize: '11px', color: 'var(--sando-color-text-muted)' }}>
+          {value} / {percent}
+        </div>
+      </div>
+    </div>
+  ))}
+</div>
+
+<div style={{ marginTop: '16px', padding: '12px', backgroundColor: 'var(--sando-color-background-emphasis)', borderRadius: '8px', fontSize: '14px' }}>
+  <strong>Usage:</strong> <code style={{ fontFamily: 'monospace', fontSize: '13px' }}>opacity: var(--sando-opacity-500)</code>
+</div>
+
+---
+
+## Common Use Cases
+
+### Disabled States
+
+Opacity is commonly used to indicate disabled or inactive elements.
+
+<div style={{ marginTop: '24px', display: 'flex', gap: '24px', flexWrap: 'wrap', alignItems: 'center' }}>
+  <button
+    style={{
+      padding: '12px 24px',
+      backgroundColor: 'var(--sando-color-orange-500)',
+      color: 'white',
+      border: 'none',
+      borderRadius: '8px',
+      fontSize: '14px',
+      fontWeight: '600',
+      cursor: 'pointer',
+    }}
+  >
+    Active Button
+  </button>
+
+  <button
+    style={{
+      padding: '12px 24px',
+      backgroundColor: 'var(--sando-color-orange-500)',
+      color: 'white',
+      border: 'none',
+      borderRadius: '8px',
+      fontSize: '14px',
+      fontWeight: '600',
+      opacity: 'var(--sando-opacity-500)',
+      cursor: 'not-allowed',
+    }}
+  >
+    Disabled (50%)
+  </button>
+
+  <button
+    style={{
+      padding: '12px 24px',
+      backgroundColor: 'var(--sando-color-orange-500)',
+      color: 'white',
+      border: 'none',
+      borderRadius: '8px',
+      fontSize: '14px',
+      fontWeight: '600',
+      opacity: 'var(--sando-opacity-300)',
+      cursor: 'not-allowed',
+    }}
+  >
+    Disabled (30%)
+  </button>
+</div>
+
+---
+
+### Loading States
+
+Create subtle loading indicators using opacity transitions.
+
+<div style={{ marginTop: '24px', display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
+  {[
+    { name: 'Skeleton 1', delay: '0s' },
+    { name: 'Skeleton 2', delay: '0.2s' },
+    { name: 'Skeleton 3', delay: '0.4s' },
+  ].map(({ name, delay }) => (
+    <div
+      key={name}
+      style={{
+        flex: '1 1 200px',
+        height: '100px',
+        backgroundColor: 'var(--sando-color-background-surface)',
+        borderRadius: '8px',
+        animation: `pulse 1.5s ease-in-out infinite`,
+        animationDelay: delay,
+      }}
+    >
+      <style>{`
+        @keyframes pulse {
+          0%, 100% { opacity: var(--sando-opacity-300); }
+          50% { opacity: var(--sando-opacity-1000); }
+        }
+      `}</style>
+    </div>
+  ))}
+</div>
+
+---
+
+### Overlays
+
+Modal and drawer overlays typically use semi-transparent backgrounds.
+
+<div style={{ marginTop: '24px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '16px' }}>
+  {[
+    { token: '300', name: 'Light Overlay (30%)' },
+    { token: '500', name: 'Medium Overlay (50%)' },
+    { token: '700', name: 'Dark Overlay (70%)' },
+  ].map(({ token, name }) => (
+    <div
+      key={token}
+      style={{
+        position: 'relative',
+        height: '200px',
+        backgroundColor: 'var(--sando-color-background-surface)',
+        borderRadius: '12px',
+        overflow: 'hidden',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          backgroundColor: 'var(--sando-color-utility-black)',
+          opacity: `var(--sando-opacity-${token})`,
+        }}
+      />
+      <div
+        style={{
+          position: 'relative',
+          zIndex: 1,
+          color: 'white',
+          fontSize: '14px',
+          fontWeight: '600',
+          textAlign: 'center',
+          padding: '16px',
+        }}
+      >
+        {name}
+      </div>
+    </div>
+  ))}
+</div>
+
+---
+
+### Hover Effects
+
+Opacity transitions create subtle interaction feedback.
+
+<div style={{ marginTop: '24px', display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+  {[1, 2, 3, 4].map((i) => (
+    <div
+      key={i}
+      style={{
+        width: '120px',
+        height: '120px',
+        backgroundColor: 'var(--sando-color-orange-500)',
+        borderRadius: '12px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: 'white',
+        fontSize: '14px',
+        fontWeight: '600',
+        cursor: 'pointer',
+        transition: 'opacity 200ms ease-out',
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.opacity = 'var(--sando-opacity-700)';
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.opacity = 'var(--sando-opacity-1000)';
+      }}
+    >
+      Hover me
+    </div>
+  ))}
+</div>
+
+---
+
+## Usage Guidelines
+
+### When to Use Opacity
+
+- **opacity-0**: Hidden elements (maintain layout space)
+- **opacity-100-300**: Very subtle overlays, watermarks
+- **opacity-300-500**: Disabled states, loading skeletons
+- **opacity-500-700**: Modal overlays, backdrops
+- **opacity-700-900**: Hover effects, focus dimming
+- **opacity-1000**: Normal, fully opaque elements
+
+### Do's
+
+- ✅ Use opacity for disabled states (with `cursor: not-allowed`)
+- ✅ Combine with transitions for smooth hover effects
+- ✅ Use semi-transparent overlays for modals (50-70%)
+- ✅ Apply to entire elements, not just backgrounds
+
+### Don'ts
+
+- ❌ Don't rely solely on opacity to indicate disabled state
+- ❌ Don't use very low opacity for important text (accessibility)
+- ❌ Don't use opacity when `visibility: hidden` is more appropriate
+- ❌ Don't forget that opacity affects child elements too
+
+---
+
+## Accessibility
+
+### Contrast Considerations
+
+Opacity reduces contrast, which can impact readability:
+
+- **Text**: Avoid opacity below 70% for body text
+- **Interactive elements**: Disabled elements should be visually distinct but still meet 3:1 contrast ratio
+- **Icons**: Minimum 60% opacity for disabled states
+- **Overlays**: Ensure content remains readable with overlay applied
+
+### Best Practices
+
+- Use color or other visual cues alongside opacity for state changes
+- Test contrast ratios when applying opacity to text
+- Provide alternative indicators for disabled states (not just opacity)
+- Consider motion sensitivity when animating opacity
+
+---
+
+## Technical Notes
+
+### Performance
+
+- Opacity changes can be GPU-accelerated
+- Animating opacity is performant (doesn't trigger reflow)
+- Use `will-change: opacity` for complex animations
+- Opacity creates a new stacking context
+
+### CSS Tips
+
+```css
+/* Smooth opacity transitions */
+.element {
+  opacity: var(--sando-opacity-1000);
+  transition: opacity 200ms ease-out;
+}
+
+.element:hover {
+  opacity: var(--sando-opacity-700);
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+  from { opacity: var(--sando-opacity-0); }
+  to { opacity: var(--sando-opacity-1000); }
+}
+```
+
+---
+
+## Related
+
+- **Flavors Layer** - Semantic opacity tokens
+- **Animation** - Duration and easing for transitions
+- **Color** - Combining opacity with colors
+- **Accessibility** - Contrast and readability guidelines

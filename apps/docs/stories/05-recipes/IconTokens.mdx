@@ -1,0 +1,289 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Recipes/Icon Tokens" />
+
+# Icon Tokens
+
+Component-specific tokens for `<sando-icon>`. These Recipe tokens ensure icons maintain consistent sizing, colors, and accessibility across all flavors and themes.
+
+## Token Reference
+
+### Color Tokens
+
+| Token | Purpose | Default Value |
+|-------|---------|---------------|
+| `--sando-icon-default-fill` | Default icon fill | `var(--sando-color-icon-default)` |
+| `--sando-icon-muted-fill` | Muted/subtle icon fill | `var(--sando-color-icon-muted)` |
+| `--sando-icon-emphasis-fill` | Emphasized icon fill | `var(--sando-color-icon-emphasis)` |
+| `--sando-icon-interactive-fill` | Interactive/clickable icon fill | `var(--sando-color-icon-interactive)` |
+| `--sando-icon-onSolid-fill` | Icon on solid backgrounds | `var(--sando-color-icon-on-solid)` |
+| `--sando-icon-disabled-fill` | Disabled icon fill | `var(--sando-color-icon-muted)` |
+
+### Size Tokens
+
+| Token | Purpose | Default Value |
+|-------|---------|---------------|
+| `--sando-icon-size-sm` | Small icon (16px) | `1rem` |
+| `--sando-icon-size-md` | Medium icon (20px) | `1.25rem` |
+| `--sando-icon-size-lg` | Large icon (24px) | `1.5rem` |
+| `--sando-icon-size-xl` | Extra large icon (32px) | `2rem` |
+
+### State Tokens
+
+| Token | Purpose | Default Value |
+|-------|---------|---------------|
+| `--sando-icon-hover-fill` | Hovered interactive icon | `var(--sando-color-icon-interactive)` |
+| `--sando-icon-active-fill` | Pressed interactive icon | `var(--sando-color-icon-emphasis)` |
+
+## Token Flow Diagram
+
+```
+🥓 INGREDIENT (Primitive)
+--sando-color-neutralWarm-700
+        ↓
+🥬 FLAVOR (Semantic)
+--sando-color-icon-default
+        ↓
+🍞 RECIPE (Component)
+--sando-icon-default-fill
+        ↓
+🎨 COMPONENT CODE
+<sando-icon name="star">
+  Uses: var(--sando-icon-default-fill)
+</sando-icon>
+```
+
+## Icon Variants
+
+### Default Icon
+
+```html
+<sando-icon name="star"></sando-icon>
+```
+
+Uses `--sando-icon-default-fill` (standard icon color).
+
+### Muted Icon
+
+```html
+<sando-icon name="info" variant="muted"></sando-icon>
+```
+
+Uses `--sando-icon-muted-fill` (subtle, de-emphasized).
+
+### Emphasis Icon
+
+```html
+<sando-icon name="warning" variant="emphasis"></sando-icon>
+```
+
+Uses `--sando-icon-emphasis-fill` (strong, attention-grabbing).
+
+### Interactive Icon
+
+```html
+<sando-icon name="close" variant="interactive"></sando-icon>
+```
+
+Uses `--sando-icon-interactive-fill` (clickable, actionable).
+
+### Icon on Solid Background
+
+```html
+<sando-button variant="solid">
+  <sando-icon name="plus" variant="onSolid"></sando-icon>
+  Add Item
+</sando-button>
+```
+
+Uses `--sando-icon-onSolid-fill` (white/light on dark backgrounds).
+
+## Icon Sizing
+
+Icons support 4 size variants via the `size` attribute:
+
+```html
+<sando-icon name="star" size="sm"></sando-icon>  <!-- 16px -->
+<sando-icon name="star" size="md"></sando-icon>  <!-- 20px (default) -->
+<sando-icon name="star" size="lg"></sando-icon>  <!-- 24px -->
+<sando-icon name="star" size="xl"></sando-icon>  <!-- 32px -->
+```
+
+## Customization Examples
+
+### Example 1: Custom Icon Colors
+
+```css
+.icon--success {
+  --sando-icon-default-fill: var(--sando-color-state-success-500);
+}
+
+.icon--error {
+  --sando-icon-default-fill: var(--sando-color-state-error-500);
+}
+
+.icon--warning {
+  --sando-icon-default-fill: var(--sando-color-state-warning-500);
+}
+```
+
+```html
+<sando-icon name="check" class="icon--success"></sando-icon>
+<sando-icon name="alert" class="icon--error"></sando-icon>
+<sando-icon name="info" class="icon--warning"></sando-icon>
+```
+
+### Example 2: Per-Flavor Icon Styling
+
+```css
+/* Ocean flavor uses blue for interactive icons */
+[flavor="ocean"] {
+  --sando-icon-interactive-fill: var(--sando-color-blue-600);
+  --sando-icon-hover-fill: var(--sando-color-blue-700);
+}
+
+/* Forest flavor uses green */
+[flavor="forest"] {
+  --sando-icon-interactive-fill: var(--sando-color-green-600);
+  --sando-icon-hover-fill: var(--sando-color-green-700);
+}
+```
+
+### Example 3: Custom Icon Sizes
+
+```css
+.icon--tiny {
+  --sando-icon-size: 0.75rem; /* 12px */
+}
+
+.icon--huge {
+  --sando-icon-size: 3rem; /* 48px */
+}
+```
+
+```html
+<sando-icon name="star" class="icon--tiny"></sando-icon>
+<sando-icon name="star" class="icon--huge"></sando-icon>
+```
+
+### Example 4: Button with Icon
+
+```html
+<sando-button variant="solid">
+  <sando-icon name="download" variant="onSolid" size="sm"></sando-icon>
+  Download
+</sando-button>
+
+<sando-button variant="outline">
+  <sando-icon name="trash" variant="interactive" size="sm"></sando-icon>
+  Delete
+</sando-button>
+
+<sando-button variant="ghost">
+  <sando-icon name="edit" variant="interactive" size="sm"></sando-icon>
+  Edit
+</sando-button>
+```
+
+## Icon States
+
+Interactive icons support hover and active states:
+
+```css
+.icon-button:hover sando-icon {
+  fill: var(--sando-icon-hover-fill);
+}
+
+.icon-button:active sando-icon {
+  fill: var(--sando-icon-active-fill);
+}
+```
+
+## Accessibility Notes
+
+Icons maintain accessibility through:
+
+### 1. Decorative Icons
+
+Use `aria-hidden="true"` for purely decorative icons:
+
+```html
+<sando-button>
+  <sando-icon name="star" aria-hidden="true"></sando-icon>
+  Favorite
+</sando-button>
+```
+
+Screen readers announce "Favorite" button, skip icon.
+
+### 2. Semantic Icons
+
+Provide accessible labels for standalone icons:
+
+```html
+<button>
+  <sando-icon name="close" aria-label="Close dialog"></sando-icon>
+</button>
+```
+
+Screen readers announce "Close dialog".
+
+### 3. Icon + Text
+
+When combining icons with visible text, icons are decorative:
+
+```html
+<sando-button>
+  <sando-icon name="download" aria-hidden="true"></sando-icon>
+  Download PDF
+</sando-button>
+```
+
+Screen readers announce "Download PDF", skip icon.
+
+### 4. Icon-Only Buttons
+
+Always provide accessible labels:
+
+```html
+<sando-button aria-label="Settings">
+  <sando-icon name="settings"></sando-icon>
+</sando-button>
+```
+
+### Color Contrast
+
+All icon color tokens meet WCAG 2.1 AA standards:
+- **Default icons**: 4.5:1 contrast
+- **Muted icons**: 3:1 contrast (acceptable for non-essential graphics)
+- **Interactive icons**: 4.5:1 contrast
+- **Icons on solid**: 4.5:1 contrast
+
+## SVG Icons
+
+Sando icons are SVG-based for:
+- **Scalability** - Sharp at any size
+- **Performance** - Small file size
+- **Accessibility** - CSS-controllable colors
+- **Theming** - Automatic color inheritance
+
+```html
+<!-- Icon inherits fill color from token -->
+<sando-icon name="star"></sando-icon>
+
+<!-- Rendered as inline SVG -->
+<svg width="20" height="20" fill="var(--sando-icon-default-fill)">
+  <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+</svg>
+```
+
+## Related Pages
+
+- [Components/Display/Icon](/?path=/docs/components-display-icon--docs) - Icon component documentation
+- [Flavors/Color Roles](/?path=/docs/flavors-color-roles--docs) - Semantic color tokens
+- [Recipes/Overview](/?path=/docs/recipes-overview--docs) - Understanding Recipe tokens
+- [Recipes/Button Tokens](/?path=/docs/recipes-button-tokens--docs) - Button tokens (for icon buttons)
+
+---
+
+**Use semantic icon tokens for accessible, theme-aware icons! ⭐**

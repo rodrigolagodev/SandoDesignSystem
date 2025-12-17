@@ -1,0 +1,574 @@
+meta:
+  doc_id: "GW"
+  category: "03-development"
+  version: "1.1.0"
+  status: "Active"
+  last_updated: "2025-11-09"
+  owner: "DevOps Automation Engineer"
+
+purpose:
+  id: "GW-PU"
+  description: |
+    Establishes conventional commits, changesets-based versioning, branching strategy, pull request process, and automated release workflow for the Sando Design System monorepo following GitHub Flow principles.
+
+core_rules:
+  - id: "GW-CR-R1"
+    title: "Conventional Commits (Non-Negotiable)"
+    summary: "ALL commits MUST follow the Conventional Commits specification."
+    pattern:
+      lang: "bash"
+      code: |
+        # ✅ CORRECT
+        git commit -m "feat(components): add sando-button component"
+        git commit -m "fix(tokens): correct contrast ratios in dark mode"
+        git commit -m "docs(storybook): update button usage examples"
+    anti_pattern:
+      lang: "bash"
+      code: |
+        # ❌ WRONG
+        git commit -m "added button"
+        git commit -m "fixed bug"
+        git commit -m "update docs"
+    why: "Conventional commits enable automated changelog generation, semantic versioning, and clear project history. The format is machine-parseable for CI/CD pipelines and changesets integration."
+    reference:
+      type: "specification"
+      url: "httpss://www.conventionalcommits.org/"
+      note: "Conventional Commits Spec"
+
+  - id: "GW-CR-R2"
+    title: "Changesets for Versioning (Non-Negotiable)"
+    summary: "Every PR with public API changes MUST include a changeset."
+    pattern:
+      lang: "bash"
+      code: |
+        # Create changeset (interactive CLI)
+        pnpm changeset
+
+        # Example changeset file (.changeset/cool-pandas-jump.md):
+        # ---
+        # "@sando/components": minor
+        # ---
+        #
+        # Add sando-button component with solid/outline/ghost variants
+    anti_pattern:
+      lang: "bash"
+      code: |
+        # ❌ WRONG: Manual version bumps in package.json
+        # Never manually edit version fields - changesets handles this
+    why: "Changesets automate semantic versioning across the monorepo, manage interdependencies between packages, and generate accurate changelogs. Manual versioning creates inconsistencies and breaks automated releases."
+    reference:
+      type: "documentation"
+      url: "httpss://github.com/changesets/changesets"
+      note: "Changesets Documentation"
+
+  - id: "GW-CR-R3"
+    title: "Branch Naming Convention (Non-Negotiable)"
+    summary: "Branch names MUST follow the pattern: `type/description`"
+    pattern:
+      lang: "bash"
+      code: |
+        # ✅ CORRECT
+        git checkout -b feat/button-component
+        git checkout -b fix/token-contrast-ratios
+        git checkout -b docs/api-reference
+        git checkout -b refactor/flavor-mixin
+    anti_pattern:
+      lang: "bash"
+      code: |
+        # ❌ WRONG
+        git checkout -b button
+        git checkout -b fix-bug
+        git checkout -b my-feature-123
+    why: "Consistent branch naming enables automated CI workflows, improves repository navigation, and provides context at a glance. The pattern mirrors conventional commit types for clarity."
+
+  - id: "GW-CR-R4"
+    title: "Pull Request Validation (Non-Negotiable)"
+    summary: "All PRs MUST pass CI checks and receive 1+ approval before merge."
+    ci_checks_required:
+      - "Tests (unit + E2E + a11y)"
+      - "Lint (ESLint + Prettier)"
+      - "Build (all packages)"
+      - "Type checking (TypeScript strict mode)"
+    pr_title: "Must follow conventional commit format"
+    pr_template:
+      lang: "markdown"
+      code: |
+        feat(components): add sando-button component
+
+        ## Summary
+        - Implements solid, outline, ghost variants
+        - Supports all standard sizes (sm, md, lg)
+        - Full WCAG 2.1 AA compliance
+
+        ## Test Plan
+        - [x] Unit tests (Vitest)
+        - [x] E2E tests (Playwright)
+        - [x] Accessibility tests (axe-core)
+    anti_pattern:
+      lang: "markdown"
+      code: |
+        # ❌ WRONG: Generic title
+        Add button
+
+        No description or test plan provided.
+    why: "Automated validation catches issues early, reduces manual review burden, and ensures consistent quality. Meaningful descriptions provide context for reviewers and future maintainers."
+
+  - id: "GW-CR-R5"
+    title: "Release Process (Non-Negotiable)"
+    summary: "Releases MUST follow the 4-step changesets workflow."
+    workflow:
+      - number: 1
+        note: "Create changeset for each PR"
+      - number: 2
+        note: "Version packages (when ready to release)"
+      - number: 3
+        note: "Build all packages"
+      - number: 4
+        note: "Publish to NPM"
+    pattern:
+      lang: "bash"
+      code: |
+        # 1. Create changeset for each PR
+        pnpm changeset
+
+        # 2. Version packages (when ready to release)
+        pnpm version-packages
+
+        # 3. Build all packages
+        pnpm build
+
+        # 4. Publish to NPM
+        pnpm release
+    anti_pattern:
+      lang: "bash"
+      code: |
+        # ❌ WRONG: Manual npm publish
+        npm publish packages/components
+        # Skips validation, breaks monorepo dependencies, no changelog
+    why: "The changesets workflow ensures semantic versioning, dependency coordination across packages, changelog generation, and atomic releases. Manual publishing breaks these guarantees."
+
+conventional_commits:
+  id: "GW-CC"
+  commit_types:
+    - name: "feat"
+      triggers: "Minor version"
+      scope_examples: "components, tokens, build"
+      description: "New features"
+    - name: "fix"
+      triggers: "Patch version"
+      scope_examples: "accessibility, theming, build"
+      description: "Bug fixes"
+    - name: "docs"
+      triggers: "No version bump"
+      scope_examples: "storybook, site, api, readme"
+      description: "Documentation only"
+    - name: "refactor"
+      triggers: "No version bump"
+      scope_examples: "mixin, styles, types"
+      description: "Code changes (no behavior)"
+    - name: "perf"
+      triggers: "Patch version"
+      scope_examples: "bundle, render, tokens"
+      description: "Performance improvements"
+    - name: "test"
+      triggers: "No version bump"
+      scope_examples: "unit, e2e, a11y"
+      description: "Test additions/changes"
+    - name: "chore"
+      triggers: "No version bump"
+      scope_examples: "deps, ci, tooling"
+      description: "Maintenance tasks"
+    - name: "style"
+      triggers: "No version bump"
+      scope_examples: "prettier, eslint"
+      description: "Code style/formatting"
+    - name: "build"
+      triggers: "Patch version"
+      scope_examples: "vite, turbo, style-dictionary"
+      description: "Build system changes"
+    - name: "ci"
+      triggers: "No version bump"
+      scope_examples: "github-actions, workflows"
+      description: "CI configuration changes"
+  scopes:
+    package_level:
+      - name: "components"
+        note: "@sando/components"
+      - name: "tokens"
+        note: "@sando/tokens"
+      - name: "docs"
+        note: "@sando/docs (Storybook)"
+      - name: "site"
+        note: "@sando/site (VitePress)"
+    feature_level:
+      - "button, input, card - Specific components"
+      - "theming, accessibility, build - Cross-cutting concerns"
+  breaking_changes:
+    format: "Add `BREAKING CHANGE:` in commit body or `!` after type"
+    pattern:
+      lang: "bash"
+      code: |
+        # ✅ CORRECT: Breaking change notation
+        git commit -m "feat(components)!: remove deprecated size prop
+
+        BREAKING CHANGE: The 'size' prop has been removed. Use 'variant' instead.
+        Migration: Replace size='large' with variant='lg'
+        "
+    triggers: "Major version bump"
+
+changesets_workflow:
+  id: "GW-CSW"
+  when_to_create:
+    create_changeset_when:
+      - "Component public API (props, events, slots, CSS parts, methods)"
+      - "Token values or structure"
+      - "Build output or distribution format"
+      - "Peer dependency requirements"
+    skip_changeset_when:
+      - "Documentation (Storybook stories, VitePress guides)"
+      - "Internal implementation (no API changes)"
+      - "Test files"
+      - "Development tooling"
+  creating_changesets:
+    command: "pnpm changeset"
+    prompts:
+      - number: 1
+        note: "Select packages to version (space to select, enter to confirm)"
+      - number: 2
+        note: "Select bump type (major/minor/patch)"
+      - number: 3
+        note: "Enter summary (appears in CHANGELOG.md)"
+    example_changeset:
+      file: ".changeset/cool-pandas-jump.toon"
+      lang: "yaml"
+      code: |
+        ---
+        "@sando/components": minor
+        "@sando/tokens": patch
+        ---
+        Add sando-button component
+
+        - Implements solid, outline, ghost variants
+        - Adds button Recipe tokens
+        - Full keyboard navigation support
+  semantic_versioning:
+    - type: "major"
+      when: "Breaking changes (API removal, behavior change)"
+      example: "Remove deprecated prop, change default value"
+    - type: "minor"
+      when: "New features (backward compatible)"
+      example: "Add new component, add new prop"
+    - type: "patch"
+      when: "Bug fixes (backward compatible)"
+      example: "Fix accessibility issue, correct token value"
+    reference:
+      type: "specification"
+      url: "httpss://semver.org/"
+
+github_flow:
+  id: "GW-GHF"
+  summary: "Sando Design System follows GitHub Flow - a lightweight, branch-based workflow designed for frequent deployments and rapid iteration."
+  core_philosophy:
+    - number: 1
+      note: "Master is always deployable - Every commit to `master` is production-ready"
+    - number: 2
+      note: "Feature branches are short-lived - Merge within 3 days to avoid drift"
+    - number: 3
+      note: "Pull requests are the unit of work - All changes go through PR review"
+    - number: 4
+      note: "Deploy frequently - Continuous deployment from `master`"
+    - number: 5
+      note: "Delete branches after merge - Keep repository clean and navigable"
+  branch_lifecycle:
+    - number: 1
+      note: "Create branch from up-to-date `master`"
+    - number: 2
+      note: "Commit frequently with conventional commit messages"
+    - number: 3
+      note: "Open PR early for feedback and visibility"
+    - number: 4
+      note: "CI validates tests, lint, build automatically"
+    - number: 5
+      note: "Code review ensures quality (1+ approval required)"
+    - number: 6
+      note: "Merge to master triggers automated deployment"
+    - number: 7
+      note: "Delete branch automatically after merge"
+  short_lived_branches:
+    rule: "Feature branches MUST be merged within **3 days** of creation"
+    why:
+      - "Reduces merge conflicts - Less drift from master"
+      - "Encourages small changes - Forces atomic, focused PRs"
+      - "Faster feedback loops - Issues discovered and fixed quickly"
+      - "Continuous integration - Code integrates early and often"
+    good_scope:
+      - "feat/add-button-hover-state (can finish in 2 days)"
+      - "fix/dropdown-keyboard-nav (can finish in 1 day)"
+      - "refactor/extract-focus-mixin (can finish in 2 days)"
+    too_large:
+      - "feat/form-system (takes 2 weeks)"
+      - "refactor/modernize-codebase (takes 1 week)"
+      - "feat/v2-api-redesign (takes 2 weeks)"
+    how_to_split:
+      - "Break into phases - Ship incrementally behind feature flags"
+      - "Use draft PRs - Get early feedback on architecture"
+      - "Create tracking issues - Coordinate multi-PR features"
+      - "Merge frequently - Even incomplete work if not exposed to users"
+  deployable_master:
+    rule: "Every commit to `master` MUST be production-ready"
+    enforcement:
+      - "Branch protection - Direct pushes to `master` blocked"
+      - "Required CI checks - Tests, lint, build must pass"
+      - "Code review - 1+ approval required (even for solo developers)"
+      - "Automated deployment - Successful merge triggers deploy to production"
+    deployable_patterns:
+      - "feat(components): add sando-button with full test coverage"
+      - "fix(tokens): correct contrast ratio calculation"
+      - "refactor(button): extract focus styles to mixin"
+    non_deployable_anti_patterns:
+      - "feat(components): add button component (WIP)"
+      - "fix(tokens): temporary fix, tests failing"
+      - "refactor(build): update config (breaks production build)"
+    incomplete_features_handling:
+      - "Use feature flags - Disable incomplete work in production"
+      - "Keep code private - Don't export unfinished components"
+      - "Document status - Mark as `@experimental` in docs"
+      - "Test in isolation - Ensure existing features still work"
+  branch_auto_delete:
+    rule: "Feature branches MUST be deleted immediately after merge"
+    why:
+      - "Reduces clutter - Keep branch list clean and navigable"
+      - "Signals completion - Deleted branch = work is merged"
+      - "Prevents confusion - No stale branches with ambiguous status"
+      - "Encourages fresh starts - Each new feature starts from current master"
+    automation: "GitHub Settings → Pull Requests: Automatically delete head branches after merge"
+    manual_cleanup:
+      lang: "bash"
+      code: |
+        # Delete local branch after merge
+        git branch -d feat/button-component
+
+        # Delete remote branch (if auto-delete disabled)
+        git push origin --delete feat/button-component
+
+        # Prune stale remote-tracking branches
+        git fetch --prune
+    exception: "Long-lived branches for major versions (e.g., `v1`, `v2`) - these are NOT feature branches and should never be deleted."
+  deployment_workflow:
+    trigger: "Every merge to `master` automatically deploys to production"
+    automated_steps:
+      - number: 1
+        note: "Merge PR - Squash and merge to `master`"
+      - number: 2
+        note: "CI builds - Tokens → Components → Storybook → VitePress"
+      - number: 3
+        note: "Deploy to GitHub Pages - Automated deployment with health checks"
+      - number: 4
+        note: "Version PR creation - Changesets bot creates release PR (if changesets present)"
+    rollback_strategy:
+      lang: "bash"
+      code: |
+        # Revert specific commit
+        git revert <commit-sha>
+        git push origin master
+
+        # Creates new commit that undoes changes
+        # Triggers re-deployment automatically
+    why_cd_works:
+      - "Small changes - Low risk per deployment"
+      - "Fast feedback - Issues caught in minutes, not days"
+      - "Easy rollback - `git revert` undoes problematic changes"
+      - "Automated testing - CI catches issues before production"
+  reference:
+    type: "guide"
+    url: "httpss://guides.github.com/introduction/flow/"
+    note: "GitHub Flow Guide"
+
+branching_strategy:
+  id: "GW-BS"
+  main_branch:
+    name: "master"
+    protection:
+      - "No direct commits (PR required)"
+      - "CI checks must pass"
+      - "1+ approval required"
+      - "Up-to-date with base branch"
+  feature_branches:
+    lifecycle: "Create → Work → PR → Merge → Delete"
+    types:
+      - name: "feat/*"
+        note: "New features (components, tokens, capabilities)"
+      - name: "fix/*"
+        note: "Bug fixes (accessibility, rendering, tokens)"
+      - name: "docs/*"
+        note: "Documentation (Storybook, VitePress, inline)"
+      - name: "refactor/*"
+        note: "Code improvements (no behavior change)"
+      - name: "perf/*"
+        note: "Performance optimization"
+      - name: "test/*"
+        note: "Test additions (unit, E2E, a11y)"
+      - name: "chore/*"
+        note: "Maintenance (deps, tooling, CI)"
+    examples:
+      - "feat/button-component"
+      - "fix/dark-mode-contrast"
+      - "docs/theming-guide"
+      - "refactor/flavor-mixin"
+      - "perf/bundle-size"
+      - "test/keyboard-navigation"
+      - "chore/upgrade-lit-3.3"
+
+pull_request_guidelines:
+  id: "GW-PRG"
+  title_format: "type(scope): description"
+  title_examples:
+    - "feat(components): add sando-button component"
+    - "fix(tokens): correct contrast ratios in dark mode"
+    - "docs(storybook): update theming examples"
+  description_template:
+    lang: "markdown"
+    code: |
+      ## Summary
+
+      [Brief description of changes and motivation]
+
+      ## Changes
+
+      - [Bullet point list of specific changes]
+      - [Component API additions/modifications]
+      - [Token changes]
+
+      ## Test Plan
+
+      - [ ] Unit tests pass (pnpm test)
+      - [ ] E2E tests pass (pnpm test:e2e)
+      - [ ] Accessibility tests pass (axe-core)
+      - [ ] Manual testing completed
+      - [ ] Storybook stories added/updated
+
+      ## Changeset
+
+      - [ ] Changeset created (if public API changes)
+      - [ ] Breaking changes documented (if major bump)
+
+      ## Screenshots/Videos
+
+      [Visual changes if applicable]
+  ci_validation:
+    - "Tests: pnpm test (Vitest unit + Playwright E2E)"
+    - "Lint: pnpm lint (ESLint + Prettier check)"
+    - "Build: pnpm build (all packages)"
+    - "Types: tsc --noEmit (TypeScript strict mode)"
+  review_process:
+    - number: 1
+      note: "Author: Create PR with changeset and description"
+    - number: 2
+      note: "CI: Automated checks run (tests, lint, build)"
+    - number: 3
+      note: "Reviewer: 1+ approval required"
+    - number: 4
+      note: "Merge: Squash and merge to master"
+    - number: 5
+      note: "Cleanup: Delete feature branch automatically"
+
+release_process:
+  id: "GW-RP"
+  steps:
+    - id: "step_1"
+      title: "Create Changesets (Per PR)"
+      command: "pnpm changeset"
+      actions:
+        - "Select affected packages"
+        - "Choose bump type (major/minor/patch)"
+        - "Write summary"
+    - id: "step_2"
+      title: "Version Packages (When Ready)"
+      command: "pnpm version-packages"
+      operations:
+        - "Reads all changesets in .changeset/"
+        - "Bumps package.json versions"
+        - "Updates CHANGELOG.md files"
+        - "Deletes consumed changesets"
+        - "Commits changes"
+    - id: "step_3"
+      title: "Build and Validate"
+      commands:
+        - "pnpm build"
+        - "pnpm test"
+        - "ls packages/components/dist"
+        - "ls packages/tokens/dist"
+    - id: "step_4"
+      title: "Publish to NPM"
+      command: "pnpm release"
+      operations:
+        - "Builds all packages (pnpm build)"
+        - "Publishes to NPM (changeset publish)"
+        - "Creates git tags"
+        - "Pushes tags to remote"
+  workflow_diagram:
+    summary: "Release process flow"
+    chain:
+      - step: 1
+        name: "Changesets Created"
+        note: "(per PR) Generates .changeset/cool-pandas.md"
+      - step: 2
+        name: "version-packages"
+        note: "(when ready) Bumps package.json versions & CHANGELOG.md"
+      - step: 3
+        name: "Build"
+        note: "(validate) Creates dist/ files"
+      - step: 4
+        name: "Publish"
+        note: "(to NPM) Publishes to registry and creates git tags"
+  reference:
+    type: "guide"
+    url: "httpss://turbo.build/repo/docs/handbook/publishing-packages"
+    note: "Turborepo Publishing Packages"
+
+related_guidelines:
+  - type: "guideline"
+    doc_id: "MS"
+    file: "../02-architecture/MONOREPO_STRUCTURE.toon"
+    category: "02-architecture"
+    note: "Package organization and dependencies"
+  - type: "guideline"
+    doc_id: "CST"
+    file: "CODE_STYLE.toon"
+    category: "03-development"
+    note: "TypeScript and formatting standards"
+  - type: "guideline"
+    doc_id: "TST"
+    file: "TESTING_STRATEGY.toon"
+    category: "03-development"
+    note: "Test requirements and coverage"
+  - type: "guideline"
+    doc_id: "CA"
+    file: "../02-architecture/COMPONENT_ARCHITECTURE.toon"
+    category: "02-architecture"
+    note: "Component file structure"
+
+external_references:
+  - type: "specification"
+    url: "httpss://www.conventionalcommits.org/"
+    title: "Conventional Commits"
+    note: "Commit message specification"
+  - type: "documentation"
+    url: "httpss://github.com/changesets/changesets"
+    title: "Changesets"
+    note: "Version management tool"
+  - type: "specification"
+    url: "httpss://semver.org/"
+    title: "Semantic Versioning"
+    note: "Versioning specification"
+  - type: "guide"
+    url: "httpss://turbo.build/repo/docs/handbook/publishing-packages"
+    title: "Turborepo Publishing"
+    note: "Monorepo publishing guide"
+  - type: "guide"
+    url: "httpss://guides.github.com/introduction/flow/"
+    title: "GitHub Flow"
+    note: "Branching workflow"
+
+conclusion: |
+  Consistent Git workflow enables automated versioning and releases across the monorepo. GitHub Flow principles ensure master is always deployable through short-lived branches, continuous integration, and automated deployment.

@@ -1,0 +1,847 @@
+meta:
+  doc_id: "ICD"
+  category: "06-documentation"
+  version: "1.0.0"
+  status: "Active"
+  last_updated: "2025-11-09"
+  owner: "Frontend Developer"
+
+purpose:
+  id: "ICD-PU"
+  description: |
+    Establish comprehensive standards for inline code documentation (JSDoc comments, TypeScript type annotations, and helpful comments) across the Sando Design System codebase. This ensures code is self-documenting, maintainable, and provides excellent IDE IntelliSense support for developers.
+
+targets:
+  id: "ICD-TGT"
+  list:
+    - "All TypeScript files, JavaScript build scripts, mixins, utilities"
+
+scope:
+  id: "ICD-SC"
+  note: "JSDoc comments, type annotations, inline comments, code examples"
+
+enforcement:
+  id: "ICD-ENF"
+  note: "Code review, ESLint JSDoc rules"
+
+core_rules:
+  - id: "ICD-CR-R1"
+    title: "JSDoc for All Public APIs (Non-Negotiable)"
+    summary: "Every exported function, class, method, and property MUST have a JSDoc comment with description, parameter types, and return types."
+    pattern:
+      lang: "typescript"
+      title: "JSDoc public API pattern"
+      code: |
+        /**
+         * Brief one-line description of what this does.
+         *
+         * Extended description with more details if needed.
+         * Multiple paragraphs are allowed for complex functionality.
+         *
+         * @param paramName - Description of parameter
+         * @param optionalParam - Description of optional parameter
+         * @returns Description of return value
+         * @throws ErrorType - When this error occurs
+         * @example
+         * ```typescript
+         * const result = functionName('value');
+         * console.log(result); // Output: expected value
+         * ```
+         */
+        export function functionName(
+          paramName: string,
+          optionalParam?: boolean,
+        ): ReturnType {
+          // Implementation
+        }
+    real_example:
+      lang: "typescript"
+      title: "From flavorable.ts"
+      code: |
+        /**
+         * Flavorable Mixin
+         *
+         * Adds flavor property with automatic inheritance from ancestor elements.
+         * Components can override the inherited flavor by setting an explicit flavor attribute.
+         *
+         * **Inheritance Rules:**
+         * 1. Explicit `flavor` attribute on component (highest priority)
+         * 2. Inherited `flavor` from nearest ancestor with `[flavor]` attribute
+         * 3. Default `'original'` flavor (fallback)
+         *
+         * @param Base - Base class (usually LitElement or subclass)
+         * @returns Class with Flavorable functionality
+         */
+        export const FlavorableMixin = <T extends Constructor<LitElement>>(Base: T) => {
+          // Implementation
+        };
+    why: "JSDoc serves as the contract between code author and consumers. IDEs show this documentation on hover. Documentation generators extract it automatically."
+    references:
+      - type: "source_file"
+        path: "flavorable.ts"
+        lines: "64-76"
+        note: "Flavorable mixin JSDoc"
+      - type: "source_file"
+        path: "sando-button.ts"
+        lines: "1-61"
+        note: "Button component JSDoc"
+
+  - id: "ICD-CR-R2"
+    title: "Property JSDoc with @default and @example (Required)"
+    summary: "Every class property MUST have JSDoc with description, @default tag (if applicable), and @example for non-trivial properties."
+    pattern:
+      lang: "typescript"
+      title: "Property JSDoc patterns"
+      code: |
+        /**
+         * Description of what this property controls or represents.
+         *
+         * Additional context about behavior, constraints, or side effects.
+         *
+         * @default 'defaultValue'
+         * @example
+         * ```typescript
+         * component.propertyName = 'newValue';
+         * ```
+         */
+        @property({ reflect: true })
+        propertyName: PropertyType = 'defaultValue';
+
+        /**
+         * Boolean property description.
+         * @default false
+         */
+        @property({ type: Boolean })
+        booleanProperty = false;
+
+        /**
+         * Optional property (no default).
+         */
+        @property()
+        optionalProperty?: string;
+    real_example:
+      lang: "typescript"
+      title: "From flavorable.ts"
+      code: |
+        /**
+         * Design system flavor/theme
+         *
+         * If not explicitly set, will inherit from nearest ancestor with `[flavor]` attribute.
+         * Falls back to 'original' if no ancestor flavor is found.
+         *
+         * @default 'original'
+         * @example
+         * ```html
+         * * <sando-button flavor="strawberry">Strawberry</sando-button>
+         *
+         * * <div flavor="dark">
+         * <sando-button>Inherits dark</sando-button>
+         * </div>
+         * ```
+         */
+        @property({ reflect: true })
+        flavor = 'original';
+    why: "Property documentation helps users understand how to configure components. @default shows the fallback value. @example demonstrates typical usage."
+    references:
+      - type: "source_file"
+        path: "flavorable.ts"
+        lines: "79-98"
+        note: "Flavor property JSDoc"
+      - type: "source_file"
+        path: "sando-button.ts"
+        lines: "80-200"
+        note: "Button properties JSDoc"
+
+  - id: "ICD-CR-R3"
+    title: "Private/Internal Documentation with @private (Required)"
+    summary: "Private methods and internal properties MUST have JSDoc with @private tag and brief description explaining purpose."
+    pattern:
+      lang: "typescript"
+      title: "Private API documentation"
+      code: |
+        /**
+         * Internal: Brief description of what this private method does.
+         *
+         * Explain implementation details that aren't relevant to public API
+         * but help maintainers understand the code.
+         *
+         * @private
+         * @param param - Parameter description
+         * @returns Return value description
+         */
+        private _privateMethod(param: string): ReturnType {
+          // Implementation
+        }
+
+        /**
+         * Internal: Description of private property.
+         * @private
+         */
+        private _internalState: StateType;
+    real_example:
+      lang: "typescript"
+      title: "From flavorable.ts"
+      code: |
+        /**
+         * Internal: Inherited flavor from ancestor element
+         * @private
+         */
+        private _inheritedFlavor?: string;
+
+        /**
+         * Internal: Whether flavor was explicitly set by user
+         * @private
+         */
+        private _hasExplicitFlavor = false;
+
+        /**
+         * Setup flavor inheritance from ancestor elements
+         *
+         * Walks up the DOM tree to find the nearest ancestor with a `[flavor]` attribute.
+         * If found, stores the inherited flavor value.
+         *
+         * @private
+         */
+        private _setupFlavorInheritance() {
+          // Implementation
+        }
+    why: "Private APIs still need documentation for maintainers. @private tag tells documentation generators to exclude from public API docs. 'Internal:' prefix clearly marks non-public code."
+    reference:
+      type: "source_file"
+      path: "flavorable.ts"
+      lines: "101-186"
+      note: "Private methods and properties"
+
+  - id: "ICD-CR-R4"
+    title: "Lifecycle Method Documentation (Required)"
+    summary: "Lifecycle methods MUST have JSDoc explaining when they're called and what they do, following standard patterns."
+    pattern:
+      lang: "typescript"
+      title: "Lifecycle method documentation"
+      code: |
+        /**
+         * Lifecycle: Called when element is added to DOM
+         *
+         * Additional setup or initialization logic explanation.
+         */
+        override connectedCallback() {
+          super.connectedCallback();
+          // Setup code
+        }
+
+        /**
+         * Lifecycle: Called when element is removed from DOM
+         *
+         * Cleanup logic explanation.
+         */
+        override disconnectedCallback() {
+          super.disconnectedCallback();
+          // Cleanup code
+        }
+
+        /**
+         * Lifecycle: Called when properties change
+         *
+         * Explain which property changes trigger what behavior.
+         */
+        override updated(changedProperties: PropertyValues) {
+          super.updated(changedProperties);
+          // Update logic
+        }
+
+        /**
+         * Lifecycle: Called before first update
+         *
+         * One-time initialization logic explanation.
+         */
+        override willUpdate(changedProperties: PropertyValues) {
+          super.willUpdate(changedProperties);
+          // Pre-update logic
+        }
+    real_example:
+      lang: "typescript"
+      title: "From flavorable.ts"
+      code: |
+        /**
+         * Lifecycle: Called when element is added to DOM
+         * Sets up flavor inheritance from ancestors
+         */
+        override connectedCallback() {
+          super.connectedCallback();
+          this._setupFlavorInheritance();
+        }
+
+        /**
+         * Lifecycle: Called when properties change
+         * Updates explicit flags
+         */
+        override updated(changedProperties: PropertyValues) {
+          super.updated(changedProperties);
+
+          if (changedProperties.has('flavor')) {
+            // Check if flavor was explicitly set via attribute
+            this._hasExplicitFlavor = this.hasAttribute('flavor');
+          }
+        }
+    why: "Lifecycle methods are critical to component behavior. Standard 'Lifecycle:' prefix helps identify them quickly. Clear explanation prevents confusion about execution order."
+    reference:
+      type: "source_file"
+      path: "flavorable.ts"
+      lines: "136-156"
+      note: "Lifecycle method examples"
+
+  - id: "ICD-CR-R5"
+    title: "Complex Logic Inline Comments (Required)"
+    summary: "Complex algorithms, workarounds, or non-obvious code MUST have inline comments explaining the 'why' not just the 'what'."
+    pattern:
+      lang: "typescript"
+      title: "Inline comment patterns"
+      code: |
+        // Explain WHY this approach is used, not WHAT the code does
+        // Good: "Use closure to preserve context in event handler"
+        // Bad: "Create function that returns function"
+
+        // Document workarounds with issue references
+        // WORKAROUND: Safari bug with Shadow DOM focus (https://bugs.webkit.org/show_bug.cgi?id=12345)
+
+        // Explain non-obvious algorithms
+        // Binary search for performance on large datasets (O(log n) vs O(n))
+
+        // Warn about critical behavior
+        // CRITICAL: Don't modify this.flavor - it removes the attribute
+    real_example:
+      lang: "typescript"
+      title: "From flavorable.ts"
+      code: |
+        if (ancestorWithFlavor) {
+          const inheritedFlavor = ancestorWithFlavor.getAttribute("flavor");
+          if (inheritedFlavor) {
+            this._inheritedFlavor = inheritedFlavor;
+            // CRITICAL FIX: Don't modify this.flavor - it removes the attribute
+            // The effectiveFlavor getter will return the inherited value
+            // But the DOM attribute stays empty, allowing CSS inheritance to work
+            this._hasExplicitFlavor = false; // Mark as inherited, not explicit
+          }
+        }
+    why: "Complex code needs explanation. Future maintainers (including yourself) need to understand WHY decisions were made. Inline comments are for implementation details, JSDoc is for API contracts."
+    reference:
+      type: "source_file"
+      path: "flavorable.ts"
+      lines: "175-185"
+      note: "Critical comment example"
+
+jsdoc_tag_reference:
+  id: "ICD-JTR"
+  essential_tags:
+    - name: "@param"
+      description: "Parameter description"
+      example:
+        lang: "typescript"
+        code: |
+          /**
+           * @param name - User's full name
+           * @param age - User's age in years
+           * @param options - Optional configuration object
+           */
+          function createUser(name: string, age: number, options?: UserOptions) {}
+    - name: "@returns"
+      description: "Return value description"
+      example:
+        lang: "typescript"
+        code: |
+          /**
+           * @returns The calculated total price including tax
+           */
+          function calculateTotal(): number {}
+    - name: "@throws"
+      description: "Exceptions thrown"
+      example:
+        lang: "typescript"
+        code: |
+          /**
+           * @throws {ValidationError} When email format is invalid
+           * @throws {NetworkError} When API request fails
+           */
+          async function submitForm() {}
+    - name: "@example"
+      description: "Usage examples"
+      example:
+        lang: "typescript"
+        code: |
+          /**
+           * @example
+           * ```typescript
+           * const button = new Button();
+           * button.variant = 'solid';
+           * ```
+           */
+    - name: "@default"
+      description: "Default value"
+      example:
+        lang: "typescript"
+        code: |
+          /**
+           * @default 'medium'
+           */
+          @property()
+          size: Size = 'medium';
+    - name: "@deprecated"
+      description: "Deprecated API"
+      example:
+        lang: "typescript"
+        code: |
+          /**
+           * @deprecated Use `newMethod()` instead. Will be removed in v3.0.0.
+           */
+          function oldMethod() {}
+  advanced_tags:
+    - name: "@private"
+      description: "Private/internal API"
+      example:
+        lang: "typescript"
+        code: |
+          /**
+           * @private
+           */
+          private _internalMethod() {}
+    - name: "@readonly"
+      description: "Read-only property"
+      example:
+        lang: "typescript"
+        code: |
+          /**
+           * @readonly
+           */
+          get effectiveFlavor(): string {}
+    - name: "@see"
+      description: "Cross-reference"
+      example:
+        lang: "typescript"
+        code: |
+          /**
+           * @see {@link FlavorableMixin} for inheritance details
+           */
+    - name: "@since"
+      description: "Version introduced"
+      example:
+        lang: "typescript"
+        code: |
+          /**
+           * @since 2.0.0
+           */
+          export function newFeature() {}
+    - name: "@experimental"
+      description: "Experimental API"
+      example:
+        lang: "typescript"
+        code: |
+          /**
+           * @experimental This API may change in future releases
+           */
+          export function experimentalFeature() {}
+
+typescript_type_annotations:
+  id: "ICD-TTA"
+  explicit_return_types:
+    id: "ICD-TTA-ERT"
+    summary: "All functions MUST have explicit return types, even if TypeScript can infer them."
+    correct_examples:
+      lang: "typescript"
+      code: |
+        // ✅ CORRECT: Explicit return type
+        function calculateTotal(price: number, tax: number): number {
+          return price + tax;
+        }
+
+        // ✅ CORRECT: Explicit void
+        function logMessage(message: string): void {
+          console.log(message);
+        }
+
+        // ✅ CORRECT: Explicit Promise
+        async function fetchData(): Promise<DataType> {
+          return await api.get("/data");
+        }
+    anti_pattern:
+      lang: "typescript"
+      code: |
+        // ❌ WRONG: Inferred return type
+        function calculateTotal(price: number, tax: number) {
+          return price + tax;
+        }
+    why: "Explicit return types prevent accidental API changes, improve compiler performance, and serve as documentation."
+    reference:
+      type: "guideline"
+      doc_id: "CS"
+      file: "../03-development/CODE_STYLE.toon"
+      note: "TypeScript strict mode"
+  parameter_types:
+    id: "ICD-TTA-PT"
+    summary: "All function parameters MUST have explicit types."
+    correct_examples:
+      lang: "typescript"
+      code: |
+        // ✅ CORRECT: All parameters typed
+        function createButton(
+          label: string,
+          variant: ButtonVariant,
+          disabled: boolean = false,
+        ): HTMLElement {
+          // Implementation
+        }
+
+        // ✅ CORRECT: Destructured parameters with type
+        function createCard({ title, description, actions }: CardOptions): HTMLElement {
+          // Implementation
+        }
+    anti_pattern:
+      lang: "typescript"
+      code: |
+        // ❌ WRONG: Implicit any
+        function createButton(label, variant, disabled) {
+          // Implementation
+        }
+    why: "TypeScript strict mode requires explicit types. Parameter types provide IntelliSense and catch errors at compile time."
+  type_narrowing_comments:
+    id: "ICD-TTA-TNC"
+    summary: "Use comments to explain type narrowing logic."
+    pattern:
+      lang: "typescript"
+      code: |
+        function processElement(element: Element | null) {
+          // Type guard: Ensure element exists before accessing properties
+          if (!element) {
+            return;
+          }
+
+          // TypeScript now knows element is non-null
+          console.log(element.tagName);
+
+          // Type guard: Check if element is HTMLInputElement
+          if (element instanceof HTMLInputElement) {
+            // TypeScript now knows element has value property
+            console.log(element.value);
+          }
+        }
+    real_example:
+      lang: "typescript"
+      title: "From flavorable.ts"
+      code: |
+        while (current) {
+          // Check if current node is an Element and has flavor attribute
+          if (current instanceof Element && current.hasAttribute("flavor")) {
+            return current;
+          }
+
+          // Move to parent (handles both regular DOM and Shadow DOM)
+          if (current instanceof ShadowRoot) {
+            current = current.host;
+          } else if (current instanceof Element) {
+            current = current.parentNode;
+          } else {
+            break;
+          }
+        }
+    why: "Type narrowing logic can be confusing. Comments explain the intent behind type guards and instanceof checks."
+    reference:
+      type: "source_file"
+      path: "flavorable.ts"
+      lines: "197-217"
+      note: "Type narrowing example"
+
+documentation_patterns:
+  id: "ICD-DP"
+  file_header_documentation:
+    id: "ICD-DP-FHD"
+    summary: "Every file SHOULD start with a JSDoc comment explaining the file's purpose."
+    pattern:
+      lang: "typescript"
+      code: |
+        /**
+         * Component Name / Module Name
+         *
+         * Brief description of what this file contains and its purpose
+         * in the design system architecture.
+         *
+         * @module path/to/module
+         */
+
+        import statements...
+    real_example:
+      lang: "typescript"
+      title: "From flavorable.ts"
+      code: |
+        /**
+         * Flavorable Mixin
+         *
+         * Adds flavor inheritance functionality to Sando Web Components.
+         * This mixin enables components to inherit flavor from ancestor elements,
+         * implementing the core "flavor philosophy" of the Sando Design System.
+         *
+         * @example
+         * ```typescript
+         * import { LitElement } from 'lit';
+         * import { customElement } from 'lit/decorators.js';
+         * import { FlavorableMixin } from '../../mixins/flavorable.js';
+         *
+         * @customElement('my-component')
+         * export class MyComponent extends FlavorableMixin(LitElement) {
+         * // Component automatically has flavor property and inheritance
+         * }
+         * ```
+         */
+    why: "File headers provide high-level context. New developers can understand a file's purpose without reading implementation."
+    reference:
+      type: "source_file"
+      path: "flavorable.ts"
+      lines: "1-37"
+      note: "File header example"
+  interface_type_documentation:
+    id: "ICD-DP-ITD"
+    summary: "All exported interfaces and types MUST have JSDoc with property descriptions."
+    pattern:
+      lang: "typescript"
+      code: |
+        /**
+         * Interface description explaining what this represents.
+         *
+         * @example
+         * ```typescript
+         * const config: InterfaceName = {
+         * property1: 'value',
+         * property2: true
+         * };
+         * ```
+         */
+        export interface InterfaceName {
+          /**
+           * Description of property1
+           * @default 'defaultValue'
+           */
+          property1: string;
+
+          /**
+           * Description of property2
+           */
+          property2: boolean;
+
+          /**
+           * Optional property description
+           */
+          property3?: number;
+        }
+
+        /**
+         * Type description explaining allowed values and usage.
+         *
+         * - `value1`: Description of what this value means
+         * - `value2`: Description of what this value means
+         *
+         * @example
+         * ```typescript
+         * const myValue: TypeName = 'value1';
+         * ```
+         */
+        export type TypeName = "value1" | "value2" | "value3";
+    real_example:
+      lang: "typescript"
+      title: "From flavorable.ts"
+      code: |
+        /**
+         * Interface for Flavorable components
+         */
+        export interface FlavorableInterface {
+          /**
+           * Design system flavor/theme
+           * @default 'original'
+           */
+          flavor: string;
+
+          /**
+           * Get the effective flavor (explicit or inherited)
+           */
+          readonly effectiveFlavor: string;
+        }
+
+        /**
+         * Type helper for components using FlavorableMixin
+         *
+         * @example
+         * ```typescript
+         * export class MyButton extends FlavorableMixin(LitElement) {
+         * // TypeScript knows about flavor property and effectiveFlavor getter
+         * }
+         *
+         * // Type assertion helper
+         * const button = document.querySelector('my-button') as Flavorable<MyButton>;
+         * console.log(button.effectiveFlavor);
+         * ```
+         */
+        export type Flavorable<T = LitElement> = T & FlavorableInterface;
+    why: "Interfaces are contracts. Every property needs explanation. Examples show typical usage patterns."
+    reference:
+      type: "source_file"
+      path: "flavorable.ts"
+      lines: "42-61, 244-258"
+      note: "Interface and type examples"
+  build_script_documentation:
+    id: "ICD-DP-BSD"
+    summary: "Build scripts (JavaScript/Node.js) MUST use JSDoc with type hints for IDE support."
+    pattern:
+      lang: "javascript"
+      code: |
+        /**
+         * Function description
+         *
+         * @param {Object} options - Options object
+         * @param {string} options.name - Option description
+         * @param {boolean} [options.verbose] - Optional option (note square brackets)
+         * @returns {Promise<Object>} Return value description
+         */
+        export async function buildFunction(options) {
+          const { name, verbose = false } = options;
+          // Implementation
+        }
+
+        /**
+         * @typedef {Object} ConfigType
+         * @property {string} name - Config property
+         * @property {number} value - Config value
+         */
+
+        /**
+         * Function using typedef
+         * @param {ConfigType} config - Configuration object
+         * @returns {boolean} Success status
+         */
+        export function processConfig(config) {
+          // Implementation
+        }
+    real_example:
+      lang: "javascript"
+      title: "From orchestrator.js"
+      code: |
+        /**
+         * Build all token layers
+         * @param {Object} options - Build options
+         * @param {Array} options.layers - Layer configurations
+         * @param {boolean} options.force - Force rebuild ignoring cache
+         * @param {boolean} options.verbose - Show verbose output
+         * @returns {Promise<Object>} Build results for all layers
+         */
+        export async function buildAllLayers(options) {
+          const { layers, force = false, verbose = false } = options;
+          // Implementation
+        }
+
+        /**
+         * Validate build results
+         * @param {Object} results - Build results from all layers
+         * @returns {boolean} True if all builds succeeded
+         */
+        export function validateBuildResults(results) {
+          return Object.values(results).every((result) => result.success);
+        }
+    why: "JavaScript lacks TypeScript's type system. JSDoc provides type hints for IDEs and documents parameter shapes."
+    reference:
+      type: "source_file"
+      path: "orchestrator.js"
+      lines: "11-64"
+      note: "JavaScript JSDoc examples"
+
+inline_comment_best_practices:
+  id: "ICD-ICBP"
+  when_to_comment:
+    id: "ICD-ICBP-WTC"
+    do_comment:
+      - "Complex algorithms or logic"
+      - "Workarounds for bugs or browser issues"
+      - "Performance optimizations"
+      - "Non-obvious behavior or side effects"
+      - "Critical code that must not be changed without understanding"
+      - "TODO items with issue references"
+    dont_comment:
+      - "Obvious code (let x = 5; // Set x to 5)"
+      - "Repeating what code does without explaining why"
+      - "Code that can be improved to be self-explanatory"
+      - "Commented-out code (delete it instead)"
+  comment_style:
+    id: "ICD-ICBP-CS"
+    good_comments:
+      title: "Explain WHY"
+      lang: "typescript"
+      code: |
+        // Use MutationObserver for performance (faster than polling)
+        const observer = new MutationObserver(callback);
+
+        // Debounce to prevent excessive API calls
+        const debouncedSearch = debounce(searchFunction, 300);
+
+        // Cache result for repeat queries (60% perf improvement in tests)
+        const cachedData = memoize(expensiveFunction);
+    bad_comments:
+      title: "Explain WHAT (code already shows this)"
+      lang: "typescript"
+      code: |
+        // Create observer
+        const observer = new MutationObserver(callback);
+
+        // Call debounce function
+        const debouncedSearch = debounce(searchFunction, 300);
+
+        // Memoize the function
+        const cachedData = memoize(expensiveFunction);
+  todo_comments:
+    id: "ICD-ICBP-TODO"
+    summary: "Use TODO comments with issue references."
+    examples:
+      lang: "typescript"
+      code: |
+        // TODO(#123): Implement keyboard navigation for nested menus
+        // FIXME(#456): Safari focus bug when dialog opens
+        // HACK: Workaround for IE11 Promise support - remove when IE11 dropped
+        // NOTE: This approach is temporary until Web Components v2 ships
+    format: "KEYWORD(issue-ref): Description"
+    keywords:
+      - name: "TODO"
+        note: "Feature to implement"
+      - name: "FIXME"
+        note: "Known bug to fix"
+      - name: "HACK"
+        note: "Temporary workaround"
+      - name: "NOTE"
+        note: "Important context"
+
+related_guidelines:
+  - type: "guideline"
+    doc_id: "API"
+    file: "./API_REFERENCE.toon"
+    note: "External API documentation format"
+  - type: "guideline"
+    doc_id: "CS"
+    file: "../03-development/CODE_STYLE.toon"
+    note: "TypeScript and code organization"
+  - type: "guideline"
+    doc_id: "NC"
+    file: "../03-development/NAMING_CONVENTIONS.toon"
+    note: "Variable and type naming"
+
+external_references:
+  - category: "JSDoc"
+    references:
+      - url: "httpss://jsdoc.app/"
+        note: "JSDoc Official - Complete tag reference"
+      - url: "httpss://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html"
+        note: "TypeScript JSDoc - JSDoc in TypeScript"
+  - category: "TypeScript"
+    references:
+      - url: "httpss://www.typescriptlang.org/docs/handbook/intro.html"
+        note: "TypeScript Handbook - Type system guide"
+      - url: "httpss://www.typescriptlang.org/tsconfig#strict"
+        note: "Strict Mode - Strict compiler options"
+  - category: "Best Practices"
+    references:
+      - url: "httpss://google.github.io/styleguide/tsguide.html"
+        note: "Google TypeScript Style Guide - Documentation standards"
+      - url: "httpss://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882"
+        note: "Clean Code - Chapter on comments"

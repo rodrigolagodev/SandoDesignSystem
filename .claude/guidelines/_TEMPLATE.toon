@@ -1,0 +1,331 @@
+meta:
+  doc_id: "XX"
+  category: "01-design-system"
+  version: "1.0.0"
+  status: "Draft"
+  last_updated: "2025-11-09"
+  owner: "Role Name"
+
+purpose:
+  id: "XX-PU"
+  description: |
+    One-sentence description of what this guideline covers and why it exists for the Sando Design System.
+
+core_rules:
+  id: "XX-CR"
+  rules:
+    - id: "XX-CR-R1"
+      title: "Rule 1 Name (Non-Negotiable)"
+      summary: "Clear, actionable statement of the standard."
+      why: "Rationale explaining why this standard exists and its importance."
+      pattern:
+        lang: "typescript"
+        code: |
+          // ✅ Good - follows the standard
+          const goodExample = "example code";
+      anti_pattern:
+        lang: "typescript"
+        code: |
+          // ❌ Bad - violates the standard
+          const badExample = "counter-example";
+      constraint: "Specific constraint or limitation that applies to this rule."
+      exceptions: "Rare cases where deviation is acceptable (if any)."
+    - id: "XX-CR-R2"
+      title: "Rule 2 Name"
+      summary: "Another clear, actionable statement."
+      why: "Why this rule matters for the design system."
+      pattern:
+        lang: "typescript"
+        code: |
+          // ✅ Correct approach
+          const anotherGoodExample = "proper implementation";
+      anti_pattern:
+        lang: "typescript"
+        code: |
+          // ❌ Avoid this
+          const anotherBadExample = "problematic code";
+      applicability: "When and where this rule applies (components, tokens, etc.)"
+    - id: "XX-CR-R3"
+      title: "Rule 3 Name"
+      summary: "Third core rule statement."
+      specification: "Detailed specification or technical details."
+      pattern:
+        lang: "toon"
+        code:
+          example:
+            property:
+              value: "correct pattern"
+      reference:
+        type: "guideline"
+        doc_id: "TA"
+        file: "TOKEN_ARCHITECTURE.toon"
+        note: "related concept or dependency"
+
+standards:
+  id: "XX-ST"
+  summary: "Detailed standards and implementation guidelines."
+  rules:
+    - id: "XX-ST-C1"
+      title: "Standard Category 1"
+      description: "Comprehensive explanation of this standard category."
+      requirements:
+        - type: "MUST"
+          note: "Critical requirement that must be followed"
+        - type: "SHOULD"
+          note: "Recommended but not mandatory"
+        - type: "MAY"
+          note: "Optional enhancement"
+      implementation:
+        lang: "typescript"
+        code: |
+          // Complete, production-ready example
+          export const properImplementation = () => {
+            // Implementation following all standards
+          };
+      explanation: "Why this solution follows the guidelines and key aspects."
+    - id: "XX-ST-C2"
+      title: "Standard Category 2"
+      description: "Another standard category explanation."
+      pattern:
+        lang: "typescript"
+        file: "example-file.ts"
+        code: |
+          // Pattern showing proper usage
+          export const example = "implementation";
+      benefits:
+        - name: "Benefit 1"
+          description: "Description of advantage"
+        - name: "Benefit 2"
+          description: "Description of advantage"
+
+detailed_examples:
+  id: "XX-DE"
+  use_cases:
+    - id: "XX-DE-UC1"
+      title: "Use Case 1: Scenario Name"
+      scenario: "Describe a common real-world situation where this guideline applies."
+      solution:
+        lang: "typescript"
+        code: |
+          // Complete example demonstrating the guideline
+          export const solutionImplementation = () => {
+            // Implementation details
+          };
+      explanation: "Why this solution correctly follows the guidelines and what makes it compliant."
+    - id: "XX-DE-UC2"
+      title: "Use Case 2: Another Scenario"
+      scenario: "Another common situation requiring this guideline."
+      solution:
+        lang: "typescript"
+        code: |
+          // Another complete example
+          export const anotherImplementation = () => {
+            // Implementation following standards
+          };
+      key_aspects:
+        - "Important aspect 1 that makes this compliant"
+        - "Important aspect 2 demonstrating the pattern"
+
+anti_patterns:
+  id: "XX-AP"
+  summary: "Common mistakes and patterns to avoid."
+  patterns:
+    - id: "XX-AP-1"
+      title: "Anti-pattern Name"
+      problem: "What makes this an anti-pattern and why it's problematic."
+      bad_example:
+        lang: "typescript"
+        code: |
+          // ❌ DON'T DO THIS
+          const badPattern = "problematic code";
+      why_wrong: "Specific issues this creates (performance, maintainability, breaks theming, etc.)"
+      correct_approach:
+        lang: "typescript"
+        code: |
+          // ✅ CORRECT APPROACH
+          const goodPattern = "proper implementation";
+    - id: "XX-AP-2"
+      title: "Another Anti-pattern"
+      problem: "Description of the anti-pattern and its consequences."
+      bad_example:
+        lang: "typescript"
+        code: |
+          // ❌ AVOID
+          const anotherBadPattern = "code to avoid";
+      why_wrong: "Explanation of why this violates guidelines."
+      correct_approach:
+        lang: "typescript"
+        code: |
+          // ✅ BETTER
+          const betterApproach = "improved code";
+
+integration_points:
+  id: "XX-IP"
+  for_agents:
+    summary: "How agents should use this guideline."
+    usage:
+      - agent: "agent-name-1"
+        note: "How they use it and when to reference"
+      - agent: "agent-name-2"
+        note: "How they use it and when to reference"
+      - agent: "agent-name-3"
+        note: "How they use it and when to reference"
+    reference_pattern: |
+      Reference `.claude/guidelines/[category]/[this-file].md` for:
+      - Key aspect 1
+      - Key aspect 2
+      - Key aspect 3
+  for_skills:
+    summary: "How skills should reference this guideline."
+    usage:
+      - skill: "skill-name-1"
+        note: "Usage scenario and context"
+      - skill: "skill-name-2"
+        note: "Usage scenario and context"
+    enforcement: |
+      When [performing task], follow:
+      - `.claude/guidelines/[category]/[this-file].md`
+      - Specific section reference
+  for_commands:
+    summary: "How slash commands should use this guideline."
+    usage:
+      - command: "/command-name-1"
+        note: "How it uses guideline for validation"
+      - command: "/command-name-2"
+        note: "How it uses guideline for analysis"
+    analysis_pattern: |
+      Analyze compliance with:
+      - `.claude/guidelines/[category]/[this-file].md`
+      - Report deviations from [specific standards]
+
+migration_guide:
+  id: "XX-MG"
+  summary: "If this guideline introduces changes to existing patterns."
+  from_to:
+    old_approach:
+      lang: "typescript"
+      code: |
+        // Previous implementation
+        const oldApproach = "deprecated pattern";
+    new_approach:
+      lang: "typescript"
+      code: |
+        // Current standard
+        const newApproach = "updated pattern";
+  migration_steps:
+    - number: 1
+      note: "Step to identify old pattern"
+    - number: 2
+      note: "Step to refactor to new pattern"
+    - number: 3
+      note: "Step to validate the change"
+    - number: 4
+      note: "Step to test the migration"
+  breaking_changes: "List any breaking changes introduced by this guideline version."
+  backward_compatibility: "How to maintain compatibility during transition period."
+
+related_guidelines:
+  id: "XX-RG"
+  references:
+    - type: "guideline"
+      doc_id: "TA"
+      file: "TOKEN_ARCHITECTURE.toon"
+      category: "01-design-system"
+      note: "How this guideline relates (dependencies, complementary concepts, etc.)"
+    - type: "guideline"
+      doc_id: "CS"
+      file: "COLOR_SYSTEM.toon"
+      category: "01-design-system"
+      note: "Another related guideline relationship"
+    - type: "source_file"
+      path: "packages/tokens/src/ingredients/color.json"
+      note: "Reference to source code implementation"
+
+external_references:
+  id: "XX-ER"
+  references:
+    - type: "documentation"
+      url: "httpss://example.com/docs"
+      title: "External Documentation"
+      note: "Description of why this external resource is relevant"
+    - type: "standard"
+      url: "httpss://example.com/standard"
+      title: "Industry Standard"
+      note: "Relevant sections or concepts from this standard"
+    - type: "tool"
+      url: "httpss://example.com/tool"
+      title: "Tool Documentation"
+      note: "Related configuration or usage"
+    - type: "article"
+      url: "httpss://example.com/article"
+      title: "Research Article"
+      note: "Background reading or theoretical foundation"
+
+tooling_support:
+  id: "XX-TS"
+  eslint_rules:
+    summary: "ESLint rules that enforce this guideline"
+    config:
+      lang: "toon"
+      code:
+        rules:
+          rule-name:
+            - "error"
+            - option: "value"
+  typescript_config:
+    summary: "TypeScript configuration supporting this guideline"
+    config:
+      lang: "toon"
+      code:
+        compilerOptions:
+          option: "value"
+  custom_scripts:
+    - name: "validate-guideline"
+      command: "pnpm run validate:guideline-name"
+      note: "Script to enforce or validate this guideline"
+
+faq:
+  id: "XX-FAQ"
+  questions:
+    - id: "XX-FAQ-Q1"
+      q: "Common question about this guideline?"
+      a: "Answer providing clarity on confusion points or edge cases."
+    - id: "XX-FAQ-Q2"
+      q: "Another frequent question?"
+      a: "Answer addressing common concerns or misunderstandings."
+    - id: "XX-FAQ-Q3"
+      q: "Question about exceptions or special cases?"
+      a: "Answer explaining when and how rules can be adapted."
+
+approval:
+  id: "XX-APR"
+  approved_by: "Design System Team"
+  approval_date: "2025-11-09"
+  review_cycle: "Quarterly"
+  next_review: "2025-02-09"
+
+contributing:
+  id: "XX-CON"
+  summary: "To propose changes to this guideline:"
+  process:
+    - number: 1
+      note: "Open a discussion with rationale for the change"
+    - number: 2
+      note: "Draft proposed modifications using this template"
+    - number: 3
+      note: |
+        Get review from relevant stakeholders:
+        - design-system-architect (architecture changes)
+        - ui-designer (design-related changes)
+        - qa-expert (quality/testing changes)
+        - technical-writer (documentation clarity)
+    - number: 4
+      note: "Update version number following semantic versioning"
+    - number: 5
+      note: "Document in changelog"
+    - number: 6
+      note: "Update affected agents/skills/commands"
+  versioning:
+    - "MAJOR: Breaking changes that require agent updates"
+    - "MINOR: New sections or standards added"
+    - "PATCH: Clarifications or typo fixes"

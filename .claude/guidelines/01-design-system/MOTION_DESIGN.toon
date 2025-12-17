@@ -1,0 +1,483 @@
+meta:
+  doc_id: "MD"
+  category: "01-design-system"
+  version: "2.0.0"
+  status: "Active"
+  last_updated: "2025-11-09"
+  owner: "UI Designer + Frontend Developer"
+
+purpose: |
+  Establishes motion and animation principles using token-based durations and easing curves. Ensures consistent, purposeful, and accessible motion with automatic `prefers-reduced-motion` support.
+
+core_rules:
+  - id: "MD-CR-R1"
+    title: "Token-Based Durations (No Hardcoded Values)"
+    summary: "All animations use token-based durations, not hardcoded values."
+    pattern:
+      lang: "json"
+      code:
+        animation:
+          duration:
+            "0":
+              value: "0ms"
+              type: "duration" # Instant
+            "200":
+              value: "200ms"
+              type: "duration" # Fast
+            "300":
+              value: "300ms"
+              type: "duration" # Normal (default)
+            "500":
+              value: "500ms"
+              type: "duration" # Slow
+    usage_in_recipes:
+      lang: "json"
+      code:
+        button:
+          transition:
+            duration:
+              value: "{animation.duration.200.value}" # Fast hover
+    anti_pattern:
+      lang: "css"
+      code: |
+        /* ❌ Hardcoded duration */
+        .button {
+          transition: background-color 200ms; /* Not responsive to prefers-reduced-motion */
+        }
+
+        /* ✅ Token-based */
+        .button {
+          transition: background-color var(--sando-button-transition-duration);
+        }
+    why: "Token-based durations enable automatic `prefers-reduced-motion` support—all durations become 0ms when user has motion sensitivity."
+
+  - id: "MD-CR-R2"
+    title: "Automatic Reduced Motion (No Developer Action)"
+    summary: "System automatically disables animations for users with `prefers-reduced-motion: reduce`."
+    pattern_override_file:
+      lang: "json"
+      title: "flavor-motion-reduce.json (for ALL Flavors)"
+      code:
+        $description: "Reduced motion mode. Disables animations for users with motion sensitivity."
+        animation:
+          duration:
+            instant:
+              value: "0ms"
+            fast:
+              value: "0ms"
+            normal:
+              value: "0ms"
+            slow:
+              value: "0ms"
+    build_system_note: "Wraps in `@media (prefers-reduced-motion: reduce)` automatically."
+    fallback_pattern:
+      lang: "css"
+      title: "Component-Level Fallback (optional defense-in-depth)"
+      code: |
+        @media (prefers-reduced-motion: reduce) {
+          * {
+            transition-duration: 0.01ms !important;
+            animation-duration: 0.01ms !important;
+          }
+
+          .button:active {
+            transform: none; /* Remove scale transforms */
+          }
+        }
+    explanation: "Allows transitions to fire (for state tracking) without visible animation."
+    why: "Accessibility compliance (WCAG 2.3.3) without manual developer intervention."
+
+  - id: "MD-CR-R3"
+    title: "Fast Motion (100-300ms Default)"
+    summary: "Most UI animations should be FAST (100-300ms) to avoid perceived slowness."
+    duration_guidelines:
+      - name: "instant"
+        value: "0ms"
+        use_case: "Reduced motion mode, immediate state changes"
+      - name: "fast"
+        value: "200ms"
+        use_case: "Hover, focus, small transitions (most common)"
+      - name: "normal"
+        value: "300ms"
+        use_case: "Modal entrance, dropdown, tab switching"
+      - name: "slow"
+        value: "500ms"
+        use_case: "Page transitions, complex animations"
+    pattern:
+      lang: "json"
+      code:
+        button:
+          transition:
+            duration:
+              value: "{animation.duration.fast.value}" # 200ms - snappy
+        modal:
+          animation:
+            duration:
+              value: "{animation.duration.normal.value}" # 300ms - noticeable but not slow
+    anti_pattern:
+      lang: "json"
+      code:
+        # ❌ Too slow - feels sluggish
+        button:
+          transition:
+            duration:
+              value: "1000ms" # Users perceive as lag
+
+  - id: "MD-CR-R4"
+    title: "GPU-Accelerated Properties Only"
+    summary: "Animate ONLY GPU-accelerated properties to avoid layout thrashing."
+    good_properties:
+      note: "hardware accelerated"
+      properties:
+        - name: "transform"
+          details: "(translate, scale, rotate)"
+        - name: "opacity"
+        - name: "filter"
+          details: "(blur, brightness)"
+    bad_properties:
+      note: "triggers layout/paint"
+      properties:
+        - name: "width"
+        - name: "height"
+        - name: "margin"
+        - name: "padding"
+        - name: "top | left | right | bottom"
+          note: "use transform: translate() instead"
+        - name: "font-size"
+    pattern:
+      lang: "css"
+      title: "✅ Good - GPU accelerated"
+      code: |
+        .modal {
+          animation: fadeIn 300ms ease-out;
+        }
+
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(8px); /* GPU accelerated */
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+    anti_pattern:
+      lang: "css"
+      title: "❌ Bad - triggers layout reflow"
+      code: |
+        .modal {
+          animation: slideDown 300ms ease-out;
+        }
+
+        @keyframes slideDown {
+          from {
+            top: -20px; /* Causes layout reflow */
+          }
+          to {
+            top: 0;
+          }
+        }
+    why: "GPU properties run at 60fps. Layout properties can drop to < 30fps, causing jank."
+
+  - id: "MD-CR-R5"
+    title: "Semantic Easing (Context-Appropriate)"
+    summary: "Use semantic easing tokens matched to animation context."
+    token_definition:
+      lang: "json"
+      code:
+        animation:
+          easing:
+            default:
+              value: "cubic-bezier(0.4, 0, 0.2, 1)" # Smooth transitions
+            entrance:
+              value: "cubic-bezier(0, 0, 0.2, 1)" # Elements entering (ease-out)
+            exit:
+              value: "cubic-bezier(0.4, 0, 1, 1)" # Elements leaving (ease-in)
+    usage_guidelines:
+      - name: "entrance"
+        type: "ease-out"
+        note: "Elements appearing—starts fast, settles into place"
+      - name: "exit"
+        type: "ease-in"
+        note: "Elements leaving—accelerates away"
+      - name: "default"
+        type: "ease-in-out"
+        note: "State transitions—smooth throughout"
+    usage_example:
+      lang: "css"
+      code: |
+        /* Entrance animations */
+        .modal {
+          animation: fadeIn 300ms var(--sando-animation-easing-entrance);
+        }
+
+        /* Exit animations */
+        .notification-leaving {
+          animation: fadeOut 200ms var(--sando-animation-easing-exit);
+        }
+
+        /* State transitions */
+        .button {
+          transition: background-color 200ms var(--sando-animation-easing-default);
+        }
+
+token_structure:
+  - id: "MD-TS-L1"
+    title: "Layer 1: Ingredients (Primitives)"
+    duration_scale:
+      lang: "json"
+      title: "Duration Scale (milliseconds)"
+      code:
+        animation:
+          duration:
+            "0":
+              value: "0ms"
+              type: "duration"
+            "100":
+              value: "100ms"
+              type: "duration"
+            "200":
+              value: "200ms"
+              type: "duration"
+            "300":
+              value: "300ms"
+              type: "duration"
+            "500":
+              value: "500ms"
+              type: "duration"
+            "700":
+              value: "700ms"
+              type: "duration"
+    easing_functions:
+      lang: "json"
+      title: "Easing Functions"
+      code:
+        animation:
+          easing:
+            linear:
+              value: "linear"
+              type: "cubicBezier"
+            ease-in:
+              value: "cubic-bezier(0.4, 0, 1, 1)"
+              type: "cubicBezier"
+            ease-out:
+              value: "cubic-bezier(0, 0, 0.2, 1)"
+              type: "cubicBezier"
+            ease-in-out:
+              value: "cubic-bezier(0.4, 0, 0.2, 1)"
+              type: "cubicBezier"
+
+  - id: "MD-TS-L2"
+    title: "Layer 2: Flavors (Semantic)"
+    semantic_duration_tokens:
+      lang: "json"
+      title: "Semantic Duration Tokens"
+      code:
+        animation:
+          duration:
+            instant:
+              value: "{animation.duration.0.value}"
+            fast:
+              value: "{animation.duration.200.value}"
+            normal:
+              value: "{animation.duration.300.value}"
+            slow:
+              value: "{animation.duration.500.value}"
+    semantic_easing_tokens:
+      lang: "json"
+      title: "Semantic Easing Tokens"
+      code:
+        animation:
+          easing:
+            default:
+              value: "{animation.easing.ease-in-out.value}"
+            entrance:
+              value: "{animation.easing.ease-out.value}"
+            exit:
+              value: "{animation.easing.ease-in.value}"
+    mode_override:
+      lang: "json"
+      title: "Mode Override (flavor-motion-reduce.json)"
+      code:
+        animation:
+          duration:
+            instant:
+              value: "0ms"
+            fast:
+              value: "0ms"
+            normal:
+              value: "0ms"
+            slow:
+              value: "0ms"
+
+  - id: "MD-TS-L3"
+    title: "Layer 3: Recipes (Component-Specific)"
+    summary: "Components consume semantic animation tokens:"
+    recipe_pattern:
+      lang: "json"
+      code:
+        button:
+          transition:
+            duration:
+              value: "{animation.duration.fast.value}"
+            timing:
+              value: "{animation.easing.default.value}"
+        modal:
+          animation:
+            duration:
+              value: "{animation.duration.normal.value}"
+            entrance:
+              value: "{animation.easing.entrance.value}"
+            exit:
+              value: "{animation.easing.exit.value}"
+
+animation_patterns:
+  - id: "MD-AP-P1"
+    title: "State Transitions (Hover, Focus, Active)"
+    use_case: "Interactive elements changing state."
+    pattern:
+      lang: "css"
+      code: |
+        .button {
+          transition-property: background-color, transform, box-shadow;
+          transition-duration: var(--sando-button-transition-duration); /* 200ms */
+          transition-timing-function: var(
+            --sando-button-transition-timing
+          ); /* ease-in-out */
+        }
+
+        .button:hover {
+          background-color: var(--sando-button-solid-backgroundColor-hover);
+        }
+
+        .button:active {
+          transform: scale(0.98); /* Subtle press feedback */
+        }
+    animatable_properties:
+      - "background-color"
+      - "color"
+      - "border-color"
+      - "transform"
+      - "opacity"
+      - "box-shadow"
+
+  - id: "MD-AP-P2"
+    title: "Entrance Animations (Fade In, Slide In)"
+    use_case: "Elements appearing in viewport."
+    pattern:
+      lang: "css"
+      code: |
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(8px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        .modal {
+          animation: fadeIn var(--sando-animation-duration-normal)
+            var(--sando-animation-easing-entrance);
+        }
+
+  - id: "MD-AP-P3"
+    title: "Exit Animations (Fade Out, Slide Out)"
+    use_case: "Elements leaving viewport."
+    pattern:
+      lang: "css"
+      code: |
+        @keyframes fadeOut {
+          from {
+            opacity: 1;
+            transform: translateY(0);
+          }
+          to {
+            opacity: 0;
+            transform: translateY(-8px);
+          }
+        }
+
+        .notification-leaving {
+          animation: fadeOut var(--sando-animation-duration-fast)
+            var(--sando-animation-easing-exit);
+        }
+
+component_implementation:
+  - id: "MD-CI-P1"
+    title: "Complete Pattern: Button with Transitions"
+    recipe_tokens:
+      lang: "json"
+      code:
+        button:
+          transition:
+            duration:
+              value: "{animation.duration.fast.value}"
+            timing:
+              value: "{animation.easing.default.value}"
+    component_consumption:
+      lang: "typescript"
+      code: |
+        import { css } from "lit";
+
+        export const buttonStyles = css`
+          .button {
+            transition-property: background-color, color, transform, box-shadow;
+            transition-duration: var(--sando-button-transition-duration);
+            transition-timing-function: var(--sando-button-transition-timing);
+          }
+
+          @media (prefers-reduced-motion: reduce) {
+            .button {
+              transition-duration: 0.01ms !important;
+            }
+          }
+        `;
+    applicability: "All interactive components (Buttons, Inputs, Links, Cards with hover)"
+    special_cases:
+      - name: "Loading spinners"
+        note: "Use `linear` easing, longer duration (600ms)"
+      - name: "Modals/Dialogs"
+        note: "Use `entrance` easing for opening, `exit` for closing"
+      - name: "Micro-interactions (checkbox check, toggle switch)"
+        note: "200ms with slight scale"
+
+motion_vs_modes:
+  - id: "MD-MVM-D1"
+    title: "Critical Distinction"
+    summary: "Motion operates independently from color modes (dark, high-contrast)."
+    pattern_example:
+      note: "User can have:"
+      stack:
+        - name: "flavor"
+          value: "original"
+          description: "brand theme"
+        - name: "media_query"
+          value: "prefers-color-scheme: dark"
+          description: "dark mode"
+        - name: "media_query"
+          value: "prefers-reduced-motion: reduce"
+          description: "motion disabled"
+    explanation: "All three apply simultaneously via separate media queries."
+    reference:
+      type: "guideline"
+      doc_id: "TS"
+      file: "THEMING_STRATEGY.toon"
+      note: "complete Flavors vs Modes explanation"
+
+related_guidelines:
+  - type: "guideline"
+    doc_id: "TS"
+    file: "THEMING_STRATEGY.toon"
+    note: "Flavors vs Modes, automatic mode activation"
+  - type: "guideline"
+    doc_id: "TA"
+    file: "TOKEN_ARCHITECTURE.toon"
+    note: "Three-layer token system structure"
+  - type: "guideline"
+    doc_id: "CD"
+    file: "COMPONENT_DESIGN.toon"
+    note: "Interactive state patterns requiring motion"

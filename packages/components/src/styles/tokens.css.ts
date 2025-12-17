@@ -36,6 +36,7 @@ import flavorOriginalMotionReduce from '@sando/tokens/css/flavors/original/flavo
 // Import all recipes
 import recipeButton from '@sando/tokens/css/recipes/button.css?inline';
 import recipeIcon from '@sando/tokens/css/recipes/icon.css?inline';
+import recipeInput from '@sando/tokens/css/recipes/input.css?inline';
 
 /**
  * Combined token styles for Web Components
@@ -81,4 +82,5 @@ export const tokenStyles = css`
      ======================================== */
   ${unsafeCSS(recipeButton)}
   ${unsafeCSS(recipeIcon)}
+  ${unsafeCSS(recipeInput)}
 `;

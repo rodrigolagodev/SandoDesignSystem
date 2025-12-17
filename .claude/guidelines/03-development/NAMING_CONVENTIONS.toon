@@ -1,0 +1,422 @@
+meta:
+  doc_id: "NC"
+  category: "03-development"
+  version: "2.0.0"
+  status: "Active"
+  last_updated: "2025-11-09"
+  owner: "Design System Architect"
+
+purpose:
+  id: "NC-PU"
+  description: |
+    Establish consistent naming patterns for components, files, variables, tokens, and exports to ensure clarity, prevent naming conflicts, enable automated tooling, and maintain a cohesive developer experience across the Sando Design System.
+
+core_rules:
+  - id: "NC-CR-R1"
+    title: "Component Naming (Non-Negotiable)"
+    summary: "Web Component tag names MUST use the `sando-` prefix with kebab-case. Class names MUST use the `Sando` prefix with PascalCase."
+    pattern:
+      lang: "typescript"
+      code: |
+        // ✅ CORRECT: Component naming from sando-button.ts
+        @customElement("sando-button")
+        export class SandoButton extends FlavorableMixin(LitElement) {
+          // Component implementation
+        }
+
+        // Global type declaration
+        declare global {
+          interface HTMLElementTagNameMap {
+            "sando-button": SandoButton;
+          }
+        }
+    anti_pattern:
+      - lang: "typescript"
+        title: "❌ WRONG: Missing prefix"
+        code: |
+          @customElement("button")
+          export class Button extends LitElement {}
+      - lang: "typescript"
+        title: "❌ WRONG: Wrong case for tag name"
+        code: |
+          @customElement("SandoButton") // Must be kebab-case
+          export class SandoButton extends LitElement {}
+      - lang: "typescript"
+        title: "❌ WRONG: Missing prefix on class"
+        code: |
+          @customElement("sando-button")
+          export class Button extends LitElement {} // Must be SandoButton
+    why: "The `sando-` prefix prevents naming conflicts with native HTML elements and future web standards. Kebab-case is required by the Custom Elements spec. PascalCase for class names follows TypeScript/JavaScript conventions."
+
+  - id: "NC-CR-R2"
+    title: "File Naming (Non-Negotiable)"
+    summary: "File names MUST use kebab-case with specific suffixes indicating file purpose."
+    pattern:
+      lang: "text"
+      title: "✅ CORRECT: Monolithic component structure"
+      tree:
+        "packages/components/src/components/button/":
+          files:
+            - "sando-button.ts" # Component implementation
+            - "sando-button.types.ts" # Type definitions
+            - "sando-button.stories.ts" # Storybook documentation
+            - "sando-button.test.ts" # Unit tests (Vitest)
+            - "sando-button.spec.ts" # E2E tests (Playwright)
+            - "sando-button.a11y.test.ts" # Accessibility tests (axe-core)
+            - "index.ts" # Component barrel export
+    anti_pattern:
+      lang: "text"
+      title: "❌ WRONG: Inconsistent file naming"
+      tree:
+        "component/":
+          files:
+            - "SandoButton.ts" # PascalCase (wrong for files)
+            - "sando_button.types.ts" # snake_case (wrong)
+            - "sandoButton.stories.ts" # camelCase (wrong)
+            - "Button.test.ts" # Missing component prefix
+            - "sando-button.e2e.test.ts" # Use .spec.ts instead
+    why: "Kebab-case works consistently across all operating systems. File suffixes clearly indicate purpose without opening files. Standardized suffixes enable automated tooling."
+    reference:
+      type: "guideline"
+      doc_id: "CA"
+      file: "../02-architecture/COMPONENT_ARCHITECTURE.toon"
+      note: "Complete file structure patterns"
+
+  - id: "NC-CR-R3"
+    title: "Token Naming (Non-Negotiable)"
+    summary: "CSS custom properties MUST start with `--sando-` and use kebab-case. Token paths follow the three-layer architecture (Ingredients → Flavors → Recipes)."
+    css_naming_formula: "--sando-{category}-{property}-{variant?}-{state?}"
+    pattern:
+      lang: "css"
+      code: |
+        /* ✅ CORRECT: Token naming at each layer */
+
+        /* Layer 1: Ingredients (primitives) */
+        --sando-color-orange-700: hsl(25, 95%, 53%);
+        --sando-space-4: 1rem;
+
+        /* Layer 2: Flavors (semantic) */
+        --sando-color-background-base: var(--sando-color-neutral-100);
+        --sando-color-action-solid-background-default: var(--sando-color-orange-700);
+
+        /* Layer 3: Recipes (component-specific) */
+        --sando-button-solid-backgroundColor-default: var(
+          --sando-color-action-solid-background-default
+        );
+        --sando-button-solid-backgroundColor-hover: var(
+          --sando-color-action-solid-background-hover
+        );
+    anti_pattern:
+      lang: "css"
+      code: |
+        /* ❌ WRONG: Missing --sando- prefix */
+        --button-color: #f97415;
+
+        /* ❌ WRONG: Using camelCase or snake_case */
+        --sando-buttonColor: #f97415;
+        --sando-button_color: #f97415;
+    why: "The `--sando-` prefix creates a namespace preventing conflicts with other libraries. Kebab-case is the CSS standard for custom properties. The hierarchical structure makes tokens self-documenting."
+    reference:
+      type: "guideline"
+      doc_id: "TA"
+      file: "../01-design-system/TOKEN_ARCHITECTURE.toon"
+      note: "Three-layer token system architecture"
+
+  - id: "NC-CR-R4"
+    title: "Variable Naming (TypeScript/JavaScript)"
+    summary: "Variables and properties use camelCase. Types and classes use PascalCase. Constants use UPPER_SNAKE_CASE."
+    pattern:
+      lang: "typescript"
+      code: |
+        // ✅ CORRECT: Variable naming
+
+        // camelCase for variables, properties, functions
+        const isDisabled = true;
+        const buttonVariant = 'solid';
+        function handleClick(event: MouseEvent) {}
+
+        // PascalCase for classes, types, interfaces
+        class SandoButton extends LitElement {}
+        type ButtonVariant = 'solid' | 'outline' | 'ghost' | 'text';
+        interface SandoButtonProps {
+          variant?: ButtonVariant;
+        }
+
+        // UPPER_SNAKE_CASE for constants
+        const MAX_RETRIES = 3;
+        const DEFAULT_VARIANT = 'solid';
+
+        // Boolean properties: descriptive prefixes
+        const isLoading = true;
+        const hasError = false;
+        const disabled = true;  // Short form acceptable for common props
+
+        // Event handlers: handle* prefix
+        private handleClick(e: MouseEvent) {}
+    anti_pattern:
+      lang: "typescript"
+      code: |
+        // ❌ WRONG: Inconsistent casing
+        const ButtonVariant = "solid"; // Should be camelCase
+        const button_size = "medium"; // Should be camelCase
+
+        // ❌ WRONG: Type naming
+        type buttonVariant = "solid"; // Should be PascalCase
+
+        // ❌ WRONG: Unclear boolean naming
+        const loading = true; // Better: isLoading
+        const error = false; // Better: hasError
+    why: "Consistent casing conventions improve code readability, prevent naming collisions, follow TypeScript/JavaScript community standards, and enable better IDE autocomplete."
+
+  - id: "NC-CR-R5"
+    title: "Export Naming (Modules)"
+    summary: "Use named exports (not default exports). Export types separately with the `type` keyword. Use barrel exports via `index.ts`."
+    pattern:
+      lang: "typescript"
+      code: |
+        // ✅ CORRECT: Named exports (from sando-button.ts)
+        @customElement("sando-button")
+        export class SandoButton extends FlavorableMixin(LitElement) {
+          // Component implementation
+        }
+
+        // ✅ CORRECT: Type exports (from sando-button.types.ts)
+        export type ButtonVariant = "solid" | "outline" | "ghost" | "text";
+        export interface SandoButtonProps {
+          variant?: ButtonVariant;
+        }
+
+        // ✅ CORRECT: Barrel export (from index.ts)
+        export { SandoButton } from "./sando-button.js";
+        export type { ButtonVariant, SandoButtonProps } from "./sando-button.types.js";
+    anti_pattern:
+      lang: "typescript"
+      code: |
+        // ❌ WRONG: Default exports
+        export default class SandoButton extends LitElement {}
+
+        // ❌ WRONG: Not using type keyword for type-only exports
+        export { ButtonVariant }; // Should be: export type { ButtonVariant }
+    why: "Named exports provide better IDE autocomplete, clearer import statements, easier refactoring, and better tree-shaking. The `type` keyword enables TypeScript to strip type imports at compile time."
+
+component_naming:
+  id: "NC-CN"
+  tag_and_class_names:
+    format: "sando-{component-name} → Sando{ComponentName}"
+    examples:
+      - tag: "sando-button"
+        class: "SandoButton"
+        note: "Single word component"
+      - tag: "sando-card"
+        class: "SandoCard"
+        note: "Single word component"
+      - tag: "sando-text-field"
+        class: "SandoTextField"
+        note: "Multi-word component"
+      - tag: "sando-date-picker"
+        class: "SandoDatePicker"
+        note: "Multi-word component"
+    rules:
+      - "All lowercase for tag name"
+      - "Use hyphens for multi-word names"
+      - "Class name mirrors tag name in PascalCase"
+      - "Prefix both tag and class with `sando`/`Sando`"
+  global_type_declarations:
+    pattern:
+      lang: "typescript"
+      code: |
+        declare global {
+          interface HTMLElementTagNameMap {
+            "sando-button": SandoButton;
+          }
+        }
+    why: "Enables TypeScript autocomplete for HTML elements and `document.querySelector()`"
+
+token_naming_reference:
+  id: "NC-TNR"
+  three_layer_formula:
+    - name: "Ingredients (Primitives)"
+      format: "--sando-{category}-{scale}"
+      example: "--sando-color-orange-700"
+    - name: "Flavors (Semantic)"
+      format: "--sando-{context}-{property}-{variant?}"
+      example: "--sando-color-background-base"
+    - name: "Recipes (Component)"
+      format: "--sando-{component}-{variant}-{property}-{state?}"
+      example: "--sando-button-solid-backgroundColor-default"
+  json_naming:
+    note: "JSON keys use camelCase (converted to kebab-case in CSS output)"
+    pattern:
+      lang: "json"
+      code:
+        color:
+          action:
+            solid:
+              background:
+                default:
+                  value: "{color.orange.700.value}"
+    transform: "color.action.solid.background.default → --sando-color-action-solid-background-default"
+  reference:
+    type: "guideline"
+    doc_id: "TA"
+    file: "../01-design-system/TOKEN_ARCHITECTURE.toon"
+    note: "Complete architecture details"
+
+typescript_conventions:
+  id: "NC-TSC"
+  type_suffix_patterns:
+    - name: "{Component}Props"
+      example: "SandoButtonProps"
+      note: "Component props interface"
+    - name: "{Component}{Property}"
+      example: "ButtonVariant"
+      note: "Variant unions"
+    - name: "{Component}{Event}Detail"
+      example: "ButtonClickEventDetail"
+      note: "Event detail interfaces"
+    - name: "{Component}{Event}Event"
+      example: "ButtonClickEvent"
+      note: "Custom event types"
+  types_vs_interfaces:
+    use_type: "Union types / primitives"
+    use_interface: "Object shapes"
+    pattern:
+      lang: "typescript"
+      code: |
+        // ✅ CORRECT: Type for union types
+        export type ButtonVariant = "solid" | "outline" | "ghost" | "text";
+
+        // ✅ CORRECT: Interface for object shapes
+        export interface SandoButtonProps {
+          variant?: ButtonVariant;
+          size?: ButtonSize;
+        }
+  avoid_enums:
+    pattern:
+      lang: "typescript"
+      code: |
+        // ✅ CORRECT: Union types (preferred)
+        export type ButtonVariant = "solid" | "outline" | "ghost" | "text";
+
+        // ❌ WRONG: Enums (avoid)
+        export enum ButtonVariant {
+          Solid = "solid",
+          Outline = "outline",
+        }
+    why: "Union types are simpler, don't require imports for type checking, tree-shake better, and work seamlessly with string values in HTML attributes."
+
+file_naming_table:
+  id: "NC-FNT"
+  file_suffixes:
+    - name: ".ts"
+      example: "sando-button.ts"
+      note: "Component implementation"
+    - name: ".types.ts"
+      example: "sando-button.types.ts"
+      note: "Type definitions"
+    - name: ".stories.ts"
+      example: "sando-button.stories.ts"
+      note: "Storybook documentation"
+    - name: ".test.ts"
+      example: "sando-button.test.ts"
+      note: "Unit tests (Vitest)"
+    - name: ".spec.ts"
+      example: "sando-button.spec.ts"
+      note: "E2E tests (Playwright)"
+    - name: ".a11y.test.ts"
+      example: "sando-button.a11y.test.ts"
+      note: "Accessibility tests"
+    - name: ".styles.ts"
+      example: "base.styles.ts"
+      note: "Style files"
+    - name: "index.ts"
+      example: "index.ts"
+      note: "Barrel export"
+  style_file_naming:
+    structure:
+      "styles/":
+        files:
+          - "base.styles.ts" # Base styles (reset, layout)
+          - "variant.styles.ts" # Variant-specific (solid, outline)
+          - "size.styles.ts" # Size variants (xs, small, medium)
+          - "index.ts" # Barrel export
+    convention: "{purpose}.styles.ts with descriptive purpose names"
+  reference:
+    type: "guideline"
+    doc_id: "CA"
+    file: "../02-architecture/COMPONENT_ARCHITECTURE.toon"
+    note: "Complete component folder structure"
+
+variable_function_naming:
+  id: "NC-VFN"
+  booleans:
+    lang: "typescript"
+    code: |
+      // ✅ CORRECT: Clear boolean naming
+      const isLoading = true;
+      const hasError = false;
+      const canSubmit = true;
+
+      // ✅ CORRECT: Common short forms (acceptable for component props)
+      const disabled = false; // Common prop, clear meaning
+      const loading = true; // Common prop, clear meaning
+  event_handlers:
+    lang: "typescript"
+    code: |
+      // ✅ CORRECT: Event handler naming
+      private handleClick(e: MouseEvent) {}
+      private handleChange(e: Event) {}
+
+      // Callback props use on* prefix
+      interface Props {
+        onClick?: (e: MouseEvent) => void;
+        onChange?: (value: string) => void;
+      }
+  constants:
+    lang: "typescript"
+    code: |
+      // ✅ CORRECT: True constants
+      const MAX_RETRIES = 3;
+      const DEFAULT_VARIANT = "solid";
+
+      // ✅ CORRECT: camelCase for computed/configuration values
+      const defaultConfig = { timeout: 5000 };
+
+related_guidelines:
+  - type: "guideline"
+    doc_id: "TA"
+    file: "../01-design-system/TOKEN_ARCHITECTURE.toon"
+    category: "01-design-system"
+    note: "Token naming structure and three-layer system"
+  - type: "guideline"
+    doc_id: "CA"
+    file: "../02-architecture/COMPONENT_ARCHITECTURE.toon"
+    category: "02-architecture"
+    note: "Component file structure and organization"
+  - type: "guideline"
+    doc_id: "CST"
+    file: "CODE_STYLE.toon"
+    category: "03-development"
+    note: "Code formatting and import organization"
+  - type: "guideline"
+    doc_id: "TST"
+    file: "TESTING_STRATEGY.toon"
+    category: "03-development"
+    note: "Test file naming and organization"
+
+external_references:
+  - type: "specification"
+    url: "httpss://html.spec.whatwg.org/multipage/custom-elements.html#valid-custom-element-name"
+    title: "Custom Elements Spec"
+    note: "Tag name requirements"
+  - type: "specification"
+    url: "httpss://www.w3.org/TR/css-variables-1/"
+    title: "CSS Custom Properties"
+    note: "CSS variable naming standards"
+  - type: "tool"
+    url: "httpss://typescript-eslint.io/rules/naming-convention/"
+    title: "TypeScript Naming Conventions"
+    note: "ESLint naming rules"
+
+conclusion: |
+  Consistent naming is the foundation of a maintainable design system. These conventions ensure clarity, prevent conflicts, enable automated tooling, and create a cohesive developer experience across all Sando Design System code.

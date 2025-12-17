@@ -1,0 +1,384 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Flavors/Typography Roles" />
+
+# Typography Roles
+
+Semantic typography tokens that define text styles for different content types. These tokens combine primitive typography values (font size, weight, line height) into meaningful text styles.
+
+## Token Naming Convention
+
+All flavor typography tokens follow this pattern:
+
+```
+--sando-typography-[category]-[property]
+```
+
+Examples:
+- `--sando-typography-heading-fontSize`
+- `--sando-typography-body-lineHeight`
+- `--sando-typography-label-fontWeight`
+
+## Typography Categories
+
+Sando organizes typography into semantic categories:
+
+1. **Headings** - Page titles, section headers
+2. **Body** - Main readable content
+3. **Labels** - Form labels, UI labels
+4. **Code** - Monospace code, technical content
+5. **Caption** - Small secondary text
+
+## Heading Styles
+
+Tokens for headings and titles:
+
+| Token | Purpose | Default Value |
+|-------|---------|---------------|
+| `--sando-typography-heading-fontFamily` | Heading font | System font stack |
+| `--sando-typography-heading-fontWeight` | Heading weight | `700` (Bold) |
+| `--sando-typography-heading-lineHeight` | Heading line height | `1.2` (Tight) |
+| `--sando-typography-heading-letterSpacing` | Heading letter spacing | `-0.02em` (Slight tracking) |
+
+### Heading Scale
+
+| Element | Font Size Token | Responsive |
+|---------|----------------|------------|
+| `<h1>` | `--sando-font-size-900` | Yes (clamp) |
+| `<h2>` | `--sando-font-size-800` | Yes (clamp) |
+| `<h3>` | `--sando-font-size-700` | Yes (clamp) |
+| `<h4>` | `--sando-font-size-600` | Yes (clamp) |
+| `<h5>` | `--sando-font-size-500` | No |
+| `<h6>` | `--sando-font-size-400` | No |
+
+### Example Usage
+
+```css
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--sando-typography-heading-fontFamily);
+  font-weight: var(--sando-typography-heading-fontWeight);
+  line-height: var(--sando-typography-heading-lineHeight);
+  letter-spacing: var(--sando-typography-heading-letterSpacing);
+  color: var(--sando-color-text-heading);
+}
+
+h1 {
+  font-size: var(--sando-font-size-900); /* Responsive 2.5rem → 3rem */
+}
+
+h2 {
+  font-size: var(--sando-font-size-800); /* Responsive 2rem → 2.5rem */
+}
+
+h3 {
+  font-size: var(--sando-font-size-700); /* Responsive 1.5rem → 2rem */
+}
+```
+
+## Body Styles
+
+Tokens for primary readable content:
+
+| Token | Purpose | Default Value |
+|-------|---------|---------------|
+| `--sando-typography-body-fontFamily` | Body font | System font stack |
+| `--sando-typography-body-fontSize` | Body font size | `var(--sando-font-size-400)` (1rem) |
+| `--sando-typography-body-fontWeight` | Body weight | `400` (Regular) |
+| `--sando-typography-body-lineHeight` | Body line height | `1.6` (Comfortable reading) |
+| `--sando-typography-body-letterSpacing` | Body letter spacing | `0` |
+
+### Body Variants
+
+| Variant | Font Size Token | Usage |
+|---------|----------------|-------|
+| Small | `--sando-font-size-300` (0.875rem) | Fine print, metadata |
+| Base | `--sando-font-size-400` (1rem) | Default body text |
+| Large | `--sando-font-size-500` (1.125rem) | Lead paragraphs |
+
+### Example Usage
+
+```css
+body, p {
+  font-family: var(--sando-typography-body-fontFamily);
+  font-size: var(--sando-typography-body-fontSize);
+  font-weight: var(--sando-typography-body-fontWeight);
+  line-height: var(--sando-typography-body-lineHeight);
+  letter-spacing: var(--sando-typography-body-letterSpacing);
+  color: var(--sando-color-text-body);
+}
+
+.text--small {
+  font-size: var(--sando-font-size-300);
+}
+
+.text--large, .lead {
+  font-size: var(--sando-font-size-500);
+  line-height: 1.5;
+}
+```
+
+## Label Styles
+
+Tokens for UI labels (form labels, button text, navigation):
+
+| Token | Purpose | Default Value |
+|-------|---------|---------------|
+| `--sando-typography-label-fontFamily` | Label font | System font stack |
+| `--sando-typography-label-fontSize` | Label font size | `var(--sando-font-size-300)` (0.875rem) |
+| `--sando-typography-label-fontWeight` | Label weight | `500` (Medium) |
+| `--sando-typography-label-lineHeight` | Label line height | `1.4` |
+| `--sando-typography-label-letterSpacing` | Label letter spacing | `0.01em` |
+| `--sando-typography-label-textTransform` | Label case | `none` |
+
+### Example Usage
+
+```css
+label, .label {
+  font-family: var(--sando-typography-label-fontFamily);
+  font-size: var(--sando-typography-label-fontSize);
+  font-weight: var(--sando-typography-label-fontWeight);
+  line-height: var(--sando-typography-label-lineHeight);
+  letter-spacing: var(--sando-typography-label-letterSpacing);
+  text-transform: var(--sando-typography-label-textTransform);
+  color: var(--sando-color-text-body);
+}
+
+/* Uppercase variant */
+.label--uppercase {
+  --sando-typography-label-textTransform: uppercase;
+  --sando-typography-label-letterSpacing: 0.05em;
+  --sando-typography-label-fontSize: var(--sando-font-size-200);
+}
+```
+
+## Code Styles
+
+Tokens for monospace code and technical content:
+
+| Token | Purpose | Default Value |
+|-------|---------|---------------|
+| `--sando-typography-code-fontFamily` | Code font | `'Monaco', 'Courier New', monospace` |
+| `--sando-typography-code-fontSize` | Code font size | `0.875em` (14px if base is 16px) |
+| `--sando-typography-code-fontWeight` | Code weight | `400` (Regular) |
+| `--sando-typography-code-lineHeight` | Code line height | `1.5` |
+| `--sando-typography-code-letterSpacing` | Code letter spacing | `0` |
+
+### Example Usage
+
+```css
+code, kbd, samp, pre {
+  font-family: var(--sando-typography-code-fontFamily);
+  font-size: var(--sando-typography-code-fontSize);
+  font-weight: var(--sando-typography-code-fontWeight);
+  line-height: var(--sando-typography-code-lineHeight);
+  letter-spacing: var(--sando-typography-code-letterSpacing);
+}
+
+/* Inline code */
+code {
+  padding: 0.125rem 0.25rem;
+  background: var(--sando-color-background-emphasis);
+  border-radius: var(--sando-border-radius-sm);
+}
+
+/* Code blocks */
+pre {
+  padding: var(--sando-space-4);
+  background: var(--sando-color-background-surface);
+  border-radius: var(--sando-border-radius-md);
+  overflow-x: auto;
+}
+```
+
+## Caption Styles
+
+Tokens for small secondary text (captions, hints, metadata):
+
+| Token | Purpose | Default Value |
+|-------|---------|---------------|
+| `--sando-typography-caption-fontFamily` | Caption font | System font stack |
+| `--sando-typography-caption-fontSize` | Caption font size | `var(--sando-font-size-200)` (0.75rem) |
+| `--sando-typography-caption-fontWeight` | Caption weight | `400` (Regular) |
+| `--sando-typography-caption-lineHeight` | Caption line height | `1.4` |
+| `--sando-typography-caption-letterSpacing` | Caption letter spacing | `0` |
+
+### Example Usage
+
+```css
+.caption, figcaption, .helper-text {
+  font-family: var(--sando-typography-caption-fontFamily);
+  font-size: var(--sando-typography-caption-fontSize);
+  font-weight: var(--sando-typography-caption-fontWeight);
+  line-height: var(--sando-typography-caption-lineHeight);
+  letter-spacing: var(--sando-typography-caption-letterSpacing);
+  color: var(--sando-color-text-caption);
+}
+```
+
+## Link Styles
+
+Tokens for hyperlinks:
+
+| Token | Purpose | Default Value |
+|-------|---------|---------------|
+| `--sando-typography-link-fontWeight` | Link weight | `inherit` |
+| `--sando-typography-link-textDecoration` | Link decoration | `underline` |
+| `--sando-typography-link-textDecorationThickness` | Underline thickness | `1px` |
+| `--sando-typography-link-textUnderlineOffset` | Underline offset | `2px` |
+
+### Example Usage
+
+```css
+a {
+  font-weight: var(--sando-typography-link-fontWeight);
+  text-decoration: var(--sando-typography-link-textDecoration);
+  text-decoration-thickness: var(--sando-typography-link-textDecorationThickness);
+  text-underline-offset: var(--sando-typography-link-textUnderlineOffset);
+  color: var(--sando-color-text-link-default);
+}
+
+a:hover {
+  color: var(--sando-color-text-link-hover);
+  text-decoration-thickness: 2px;
+}
+```
+
+## Responsive Typography
+
+Sando uses `clamp()` for fluid typography in Ingredients layer:
+
+```css
+/* Responsive heading sizes (from Ingredients) */
+--sando-font-size-900: clamp(2.5rem, 2.2rem + 1.5vw, 3rem);    /* h1 */
+--sando-font-size-800: clamp(2rem, 1.8rem + 1vw, 2.5rem);      /* h2 */
+--sando-font-size-700: clamp(1.5rem, 1.4rem + 0.5vw, 2rem);    /* h3 */
+```
+
+Typography roles reference these responsive values:
+
+```css
+h1 {
+  font-size: var(--sando-font-size-900);  /* Automatically fluid */
+}
+```
+
+**No media queries needed!** Typography scales smoothly from mobile to desktop.
+
+## Customizing Typography Roles
+
+Create custom typography roles per flavor:
+
+```css
+/* Default typography */
+:root {
+  --sando-typography-body-lineHeight: 1.6;
+  --sando-typography-heading-fontWeight: 700;
+}
+
+/* "compact" flavor with tighter line heights */
+[flavor="compact"] {
+  --sando-typography-body-lineHeight: 1.5;
+  --sando-typography-heading-lineHeight: 1.1;
+}
+
+/* "editorial" flavor with serif fonts */
+[flavor="editorial"] {
+  --sando-typography-heading-fontFamily: 'Georgia', serif;
+  --sando-typography-body-fontFamily: 'Georgia', serif;
+  --sando-typography-body-lineHeight: 1.75; /* More relaxed for reading */
+}
+```
+
+## Accessibility Considerations
+
+### Line Height
+
+- **Body text**: Minimum 1.5 line height (WCAG 1.4.8)
+- **Headings**: Can be tighter (1.2) since they're short
+- **All text**: Configurable via typography roles
+
+### Font Size
+
+- **Minimum**: 16px (1rem) for body text
+- **Scaling**: Respect user's browser zoom
+- **Responsive**: Use `clamp()` for fluid sizing
+
+### Color Contrast
+
+Typography roles work with color roles for WCAG compliance:
+
+```css
+h1 {
+  color: var(--sando-color-text-heading);  /* 7:1 contrast (AAA) */
+}
+
+p {
+  color: var(--sando-color-text-body);     /* 4.5:1 contrast (AA) */
+}
+
+.caption {
+  color: var(--sando-color-text-caption);  /* 4.5:1 contrast (AA) */
+}
+```
+
+## Best Practices
+
+### ✅ DO
+
+- Use semantic typography roles for all text styling
+- Combine typography and color roles for accessible contrast
+- Create custom roles for brand-specific typography
+- Test typography at multiple viewport sizes
+
+### ❌ DON'T
+
+- Hardcode font sizes and weights
+- Use physical font values without semantic meaning
+- Set line heights below 1.5 for body text
+- Forget to test with user font size preferences
+
+## Complete Typography Example
+
+```css
+/* Using all typography roles together */
+.article {
+  font-family: var(--sando-typography-body-fontFamily);
+  font-size: var(--sando-typography-body-fontSize);
+  line-height: var(--sando-typography-body-lineHeight);
+  color: var(--sando-color-text-body);
+}
+
+.article h1 {
+  font-family: var(--sando-typography-heading-fontFamily);
+  font-size: var(--sando-font-size-900);
+  font-weight: var(--sando-typography-heading-fontWeight);
+  line-height: var(--sando-typography-heading-lineHeight);
+  color: var(--sando-color-text-heading);
+  margin-block-end: var(--sando-spacing-content-heading);
+}
+
+.article p {
+  margin-block-end: var(--sando-spacing-content-paragraph);
+}
+
+.article code {
+  font-family: var(--sando-typography-code-fontFamily);
+  font-size: var(--sando-typography-code-fontSize);
+  background: var(--sando-color-background-emphasis);
+}
+
+.article .caption {
+  font-size: var(--sando-typography-caption-fontSize);
+  color: var(--sando-color-text-caption);
+}
+```
+
+## Related Pages
+
+- [Flavors/Overview](/?path=/docs/flavors-overview--docs) - Understanding the Flavors layer
+- [Ingredients/Typography](/?path=/docs/ingredients-typography--docs) - Primitive typography scale
+- [Flavors/Color Roles](/?path=/docs/flavors-color-roles--docs) - Color tokens for typography
+
+---
+
+**Use semantic typography roles for accessible, consistent text styling! 📝**

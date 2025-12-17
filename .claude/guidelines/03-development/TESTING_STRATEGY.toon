@@ -1,0 +1,385 @@
+meta:
+  doc_id: "TST"
+  category: "03-development"
+  version: "1.0.0"
+  status: "Active"
+  last_updated: "2025-11-09"
+  owner: "QA Expert"
+
+purpose:
+  id: "TST-PU"
+  description: |
+    Establish testing approach for Sando Design System ensuring quality, accessibility, and maintainability through automated testing at unit, accessibility, and integration levels.
+
+core_rules:
+  - id: "TST-CR-R1"
+    title: "Test Pyramid Structure (Non-Negotiable)"
+    summary: "All components follow the test pyramid: 80% unit coverage, 100% accessibility for public components, E2E for critical flows only."
+    pattern:
+      lang: "text"
+      code: |
+        // ✅ Complete coverage
+        // sando-button.test.ts (unit)
+        // sando-button.a11y.test.ts (accessibility)
+        // sando-button.spec.ts (E2E - critical only)
+    anti_pattern:
+      lang: "text"
+      code: |
+        // ❌ Only E2E tests (slow, brittle, expensive)
+        // ❌ No accessibility tests (WCAG violations)
+    why: "Fast feedback, maintainability, cost-effective CI/CD"
+    reference:
+      type: "article"
+      url: "httpss://martinfowler.com/articles/practical-test-pyramid.html"
+      note: "Test Pyramid"
+
+  - id: "TST-CR-R2"
+    title: "Vitest for Unit Testing (Non-Negotiable)"
+    summary: "Use Vitest with @open-wc/testing for all component unit tests."
+    required_patterns:
+      - "Fixture pattern for rendering"
+      - "`updateComplete` for reactivity"
+      - "Shadow DOM queries"
+      - "Property/attribute reflection"
+      - "Event dispatching"
+    reference:
+      type: "source_file"
+      path: "packages/components/src/components/button/sando-button.test.ts"
+      note: "Complete example"
+    config:
+      type: "file"
+      path: "packages/components/vitest.config.js"
+      note: "Configuration"
+    why: "Fast, Web Components-aware, great DX"
+
+  - id: "TST-CR-R3"
+    title: "Accessibility Testing (Non-Negotiable)"
+    summary: "100% accessibility coverage for all public components using jest-axe."
+    pattern:
+      lang: "typescript"
+      code: |
+        import { fixture } from "@open-wc/testing";
+        import { axe, toHaveNoViolations } from "jest-axe";
+        expect.extend(toHaveNoViolations);
+
+        test("meets accessibility standards", async () => {
+          const el = await fixture(html`<sando-button>Text</sando-button>`);
+          const results = await axe(el);
+          expect(results).toHaveNoViolations();
+        });
+    file_naming: "{component}.a11y.test.ts (separate from unit tests)"
+    reference:
+      type: "source_file"
+      path: "packages/components/src/components/button/sando-button.a11y.test.ts"
+      note: "Complete example"
+    why: "WCAG 2.1 AA compliance, early violation detection"
+
+  - id: "TST-CR-R4"
+    title: "Token Testing (Non-Negotiable)"
+    summary: "Validate token structure, references, contrast ratios, and build output."
+    test_categories:
+      - "Structure: Schema validation, layer integrity"
+      - "References: No broken token references"
+      - "Accessibility: WCAG contrast ratios"
+      - "Build: Valid CSS/TypeScript output"
+    reference:
+      type: "directory"
+      path: "packages/tokens/tests/"
+      note: "All token tests"
+    why: "Ensures theming system integrity and accessibility"
+
+  - id: "TST-CR-R5"
+    title: "Test File Organization (Non-Negotiable)"
+    summary: "Monolithic structure with all test files colocated with component."
+    structure:
+      tree:
+        "button/":
+          files:
+            - "sando-button.ts" # Implementation
+            - "sando-button.test.ts" # Unit tests
+            - "sando-button.a11y.test.ts" # Accessibility tests
+            - "sando-button.spec.ts" # E2E tests (critical only)
+            - "index.ts" # Exports
+    why: "Easy discovery, clear ownership, portable"
+    reference:
+      type: "guideline"
+      doc_id: "CA"
+      file: "../02-architecture/COMPONENT_ARCHITECTURE.toon"
+      note: "Component architecture"
+
+test_pyramid:
+  id: "TST-TP"
+  layers:
+    - name: "Unit"
+      coverage: "80%"
+      tools: "Vitest + @open-wc"
+      files: "*.test.ts"
+      note: "Component behavior, props, events"
+    - name: "A11y"
+      coverage: "100%"
+      tools: "jest-axe"
+      files: "*.a11y.test.ts"
+      note: "WCAG compliance"
+    - name: "E2E"
+      coverage: "Critical"
+      tools: "Playwright"
+      files: "*.spec.ts"
+      note: "User flows, integration"
+    - name: "Token"
+      coverage: "100%"
+      tools: "Vitest"
+      files: "tokens/tests/"
+      note: "Build output, integrity"
+  pyramid_ratio: "70% unit : 20% a11y : 10% E2E"
+  anti_pattern: "Heavy E2E testing (slow CI, flaky tests, high maintenance)"
+
+unit_testing:
+  id: "TST-UT"
+  configuration:
+    file: "vitest.config.js"
+    path: "packages/components/"
+    settings:
+      - "Environment: `jsdom` (Web Components support)"
+      - "Coverage: 80% threshold (lines, functions, branches, statements)"
+      - "Globals: `true` (describe, it, expect)"
+      - "setupFiles: `vitest.setup.js` (jest-axe matchers)"
+  test_patterns:
+    - name: "Fixture"
+      note: "Render component: `await fixture<T>(html`...`)`"
+    - name: "updateComplete"
+      note: "Wait for reactivity: `await element.updateComplete`"
+    - name: "Shadow DOM"
+      note: "Query internal elements: `element.shadowRoot?.querySelector()`"
+    - name: "Property reflection"
+      note: "Test property/attribute sync: `element.disabled = true`"
+    - name: "Event testing"
+      note: "Verify event dispatch: `element.addEventListener('click', ...)`"
+    - name: "Slot testing"
+      note: "Verify slot content: `element.querySelector('[slot=\"icon\"]')`"
+  test_organization:
+    lang: "typescript"
+    code: |
+      describe("sando-button", () => {
+        describe("rendering", () => {
+          /* ... */
+        });
+        describe("properties", () => {
+          /* ... */
+        });
+        describe("events", () => {
+          /* ... */
+        });
+        describe("accessibility", () => {
+          /* ... */
+        });
+      });
+  commands:
+    - "pnpm --filter @sando/components test"
+    - "pnpm --filter @sando/components test:watch"
+    - "pnpm --filter @sando/components test:coverage"
+    - "pnpm --filter @sando/components test:ui"
+  reference:
+    type: "source_file"
+    path: "packages/components/src/components/button/sando-button.test.ts"
+    note: "Reference implementation"
+
+accessibility_testing:
+  id: "TST-AT"
+  requirements:
+    - "Coverage: 100% for all public components"
+    - "Tool: jest-axe (automated WCAG validation)"
+    - "Standard: WCAG 2.1 AA compliance minimum"
+    - "File naming: {component}.a11y.test.ts"
+  test_cases:
+    - "Default state - Baseline accessibility"
+    - "All variants - Variant-specific rules"
+    - "Disabled state - Disabled semantics"
+    - "Interactive states - Focus, hover, active"
+    - "With icons - Icon accessibility"
+    - "Custom content - Slot content validation"
+  common_violations:
+    - issue: "Missing label"
+      fix: "Add aria-label or text content"
+    - issue: "Low contrast"
+      fix: "Adjust token values"
+    - issue: "Missing role"
+      fix: "Add ARIA role"
+    - issue: "Keyboard trap"
+      fix: "Fix focus management"
+    - issue: "Missing alt text"
+      fix: "Add alt to images"
+  reference:
+    - type: "source_file"
+      path: "packages/components/src/components/button/sando-button.a11y.test.ts"
+      note: "Reference test"
+    - type: "specification"
+      url: "httpss://www.w3.org/WAI/WCAG21/quickref/"
+      note: "WCAG 2.1 Guidelines"
+
+token_testing:
+  id: "TST-TT"
+  test_suites:
+    location: "packages/tokens/tests/"
+    suites:
+      - name: "Structure"
+        files: "structure/*.test.ts"
+        note: "Schema validation: Token format, required fields"
+      - name: "References"
+        files: "tokens/*.test.ts"
+        note: "Reference integrity: No broken references, correct layer"
+      - name: "Accessibility"
+        files: "accessibility/*.test.ts"
+        note: "WCAG contrast: 4.5:1 AA, 7:1 AAA, 3:1 UI"
+      - name: "Build"
+        files: "build/*.test.ts"
+        note: "Output validation: Valid CSS/TS, correct transforms"
+  contrast_requirements:
+    - type: "Body text"
+      ratio: "4.5:1"
+      standard: "WCAG AA"
+      note: "Normal text"
+    - type: "Large text (18pt+)"
+      ratio: "3:1"
+      standard: "WCAG AA"
+      note: "Headings"
+    - type: "UI components"
+      ratio: "3:1"
+      standard: "WCAG AA"
+      note: "Borders, icons"
+    - type: "Enhanced"
+      ratio: "7:1"
+      standard: "WCAG AAA"
+      note: "High contrast"
+  formula: "(L1 + 0.05) / (L2 + 0.05) where L1 is lighter color"
+  commands:
+    - "pnpm --filter @sando/tokens test"
+    - "pnpm --filter @sando/tokens test:structure"
+    - "pnpm --filter @sando/tokens test:accessibility"
+    - "pnpm --filter @sando/tokens test:build"
+    - "pnpm --filter @sando/tokens test:coverage"
+
+e2e_testing:
+  id: "TST-E2E"
+  when_to_write:
+    write_for:
+      - "Multi-component interactions"
+      - "Critical user flows"
+      - "Form submissions"
+      - "Navigation flows"
+      - "State persistence"
+    dont_write_for:
+      - "Component variants (use unit tests)"
+      - "Property changes (use unit tests)"
+      - "Styling (use visual regression)"
+      - "Isolated components (use unit tests)"
+  tool: "Playwright (packages/components/playwright.config.js)"
+  commands:
+    - "pnpm --filter @sando/components test:e2e"
+    - "pnpm --filter @sando/components test:e2e:ui"
+  reference:
+    type: "source_file"
+    path: "packages/components/src/components/button/sando-button.spec.ts"
+    note: "Reference E2E test"
+
+coverage_requirements:
+  id: "TST-COV"
+  thresholds:
+    source: "packages/components/vitest.config.js"
+    thresholds:
+      - metric: "Lines"
+        value: "80%"
+        note: "All component code"
+      - metric: "Functions"
+        value: "80%"
+        note: "All exported functions"
+      - metric: "Branches"
+        value: "80%"
+        note: "All code paths"
+      - metric: "Statements"
+        value: "80%"
+        note: "All statements"
+      - metric: "A11y"
+        value: "100%"
+        note: "Public components only"
+  exclusions:
+    - "*.stories.ts (Storybook documentation)"
+    - "*.types.ts (TypeScript types)"
+    - "index.ts (Barrel exports)"
+    - "*.spec.ts (E2E tests)"
+  viewing_coverage:
+    command: "pnpm --filter @sando/components test:coverage"
+    view: "open packages/components/coverage/index.html"
+
+test_commands:
+  id: "TST-CMD"
+  global:
+    location: "root"
+    commands:
+      - "pnpm test                    # All tests (tokens + components)"
+      - "pnpm test:watch              # Watch mode"
+      - "pnpm test:coverage           # Coverage report"
+  components:
+    location: "packages/components"
+    commands:
+      - "pnpm --filter @sando/components test              # Unit + A11y"
+      - "pnpm --filter @sando/components test:watch        # Watch mode"
+      - "pnpm --filter @sando/components test:ui           # Vitest UI"
+      - "pnpm --filter @sando/components test:coverage     # Coverage"
+      - "pnpm --filter @sando/components test:e2e          # Playwright E2E"
+      - "pnpm --filter @sando/components test:e2e:ui       # Playwright UI"
+  tokens:
+    location: "packages/tokens"
+    commands:
+      - "pnpm --filter @sando/tokens test                  # All token tests"
+      - "pnpm --filter @sando/tokens test:structure        # Structure validation"
+      - "pnpm --filter @sando/tokens test:accessibility    # Contrast tests"
+      - "pnpm --filter @sando/tokens test:build            # Build output tests"
+      - "pnpm --filter @sando/tokens test:coverage         # Coverage"
+
+related_guidelines:
+  - type: "guideline"
+    doc_id: "CST"
+    file: "CODE_STYLE.toon"
+    category: "03-development"
+    note: "Code standards"
+  - type: "guideline"
+    doc_id: "NC"
+    file: "NAMING_CONVENTIONS.toon"
+    category: "03-development"
+    note: "File naming"
+  - type: "guideline"
+    doc_id: "CA"
+    file: "../02-architecture/COMPONENT_ARCHITECTURE.toon"
+    category: "02-architecture"
+    note: "Component structure"
+  - type: "guideline"
+    doc_id: "TA"
+    file: "../01-design-system/TOKEN_ARCHITECTURE.toon"
+    category: "01-design-system"
+    note: "Token system"
+
+external_references:
+  id: "TST-ER"
+  tools:
+    - url: "httpss://vitest.dev/"
+      title: "Vitest"
+      note: "Unit test framework"
+    - url: "httpss://open-wc.org/docs/testing/testing-package/"
+      title: "@open-wc/testing"
+      note: "Web Components testing utilities"
+    - url: "httpss://github.com/nickcolley/jest-axe"
+      title: "jest-axe"
+      note: "Accessibility testing"
+    - url: "httpss://playwright.dev/"
+      title: "Playwright"
+      note: "E2E testing"
+  standards:
+    - url: "httpss://www.w3.org/WAI/WCAG21/quickref/"
+      title: "WCAG 2.1"
+      note: "Accessibility guidelines"
+    - url: "httpss://martinfowler.com/articles/practical-test-pyramid.html"
+      title: "Test Pyramid"
+      note: "Testing strategy"
+
+conclusion: |
+  Testing ensures quality and accessibility across the design system. Start with the basics, season with meaning, and serve with style.

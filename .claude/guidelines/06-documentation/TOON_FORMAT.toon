@@ -1,0 +1,203 @@
+meta:
+  doc_id: "TOON"
+  category: "06-documentation"
+  version: "2.0.0"
+  status: "Active"
+  last_updated: "2025-11-15"
+  owner: "Design System Architect"
+
+purpose: |
+  Establish TOON (Token-Oriented Object Notation) as the standard format for all LLM-facing documentation, configuration, and structured data in the Sando Design System. Defines syntax rules, transformation guidelines, and best practices.
+
+summary: |
+  TOON is a compact, human-readable format for serializing structured data for LLM prompts. It achieves 30-60% token reduction over JSON/Markdown by eliminating redundant punctuation.
+
+when_to_use_toon:
+  - scenario: "Uniform arrays of objects"
+    use_toon: true
+    reason: "Ideal for list syntax. 30-60% token savings."
+  - scenario: "Configuration files with metadata"
+    use_toon: true
+    reason: "Excellent for tech stacks, dependencies, versions."
+  - scenario: "Nested objects with simple values"
+    use_toon: true
+    reason: "Nested map syntax reduces JSON verbosity."
+  - scenario: "Deeply nested, non-uniform data"
+    use_toon: false
+    reason: "JSON may be more readable; minimal token savings."
+
+core_principles:
+  - principle: "Token Efficiency"
+    description: "Eliminate redundant punctuation (braces, brackets, commas, quotes on keys)."
+  - principle: "Implicit Typing"
+    description: "Type is inferred from the value (like YAML), preventing verbosity."
+  - principle: "Human Readability"
+    description: "Maintain a scannable, indented structure (2 spaces)."
+  - principle: "LLM-Optimized"
+    description: "Clean structure is designed for efficient model parsing."
+
+syntax_rules:
+  # This is the official and correct TOON (Token-Oriented) specification.
+  assignment:
+    format: "key: value"
+    description: "Simple key-value assignment. Indentation defines nesting. Keys are not quoted."
+    example: "doc_id: EXAMPLE"
+  
+  types:
+    description: "Data types are implicit, based on the value, similar to YAML."
+    supported:
+      - type: "String"
+        example: 'key: "Quoted value"'
+      - type: "Number (Int/Float)"
+        example: "key: 123.45"
+      - type: "Boolean"
+        example: "key: true"
+      - type: "Null"
+        example: "key: null"
+
+  multiline_string:
+    format: "key: |"
+    description: "Multiline strings (prose, code blocks) use a pipe (|) and start on the next line, indented."
+    example: |
+      summary: |
+        This is a
+        multiline text block.
+  
+  maps:
+    format: "key:"
+    description: "Defines an object or 'map'. All subsequent indented keys are nested under it."
+    example: |
+      meta:
+        doc_id: "EXAMPLE"
+        version: 1.0
+
+  lists:
+    format: "- value"
+    description: "Defines an item in a list (array). Each dash defines a new item."
+    example: |
+      tech_stack:
+        - tool: "React"
+          category: "Frontend"
+        - tool: "Node.js"
+          category: "Backend"
+
+  comments:
+    format: "# Comment"
+    description: "Hash symbols (#) are used for single-line comments."
+
+transformation_process:
+  - step: 1
+    action: "Identify structure"
+    example: "Is it a uniform array, a nested object, or mixed?"
+  - step: 2
+    action: "Extract metadata"
+    example: "Put versions, dates, owners in a `meta:` map."
+  - step: 3
+    action: "Convert lists to TOON lists"
+    example: "Transform Markdown bullets or JSON arrays to `- item` format."
+  - step: 4
+    action: "Ensure implicit types"
+    example: "Ensure values are implicit (e.g., `123`, not `(int) 123` or `\"123\"`)."
+  - step: 5
+    action: "Compress descriptions"
+    example: "Shorten text while preserving meaning."
+  - step: 6
+    action: "Validate syntax"
+    example: "Ensure all rules (`key: value`, `- item`) are followed."
+
+optimization_techniques:
+  - technique: "Use implicit types"
+    description: "Use `key: 123` not `key: \"123\"`. Use `key: true`."
+    token_savings: "5-10%"
+  - technique: "Use TOON lists"
+    description: "Use `- item` for object lists instead of JSON or Markdown tables."
+    token_savings: "30-60%"
+  - technique: "Abbreviate keywords"
+    description: "Use short, descriptive keys (e.g., 'ver' instead of 'version')."
+    token_savings: "10-15%"
+  - technique: "Remove articles"
+    description: "Remove 'a', 'an', 'the' from descriptions."
+    token_savings: "5-10%"
+
+anti_patterns:
+  - anti_pattern: "JSON/Tabular Syntax"
+    why_bad: "Using `{}` or `key = (type) value` is a fatal error. TOON uses `key: value`."
+    correct_approach: "Use the official TOON (Token-Oriented) syntax."
+  - anti_pattern: "Explicit or Missing Types (Tabular)"
+    why_bad: "`key = \"value\"` (missing type) or `key = (string) \"value\"` (explicit type) are incorrect."
+    correct_approach: "Use implicit types: `key: \"value\"`."
+  - anti_pattern: "Using Markdown headers"
+    why_bad: "Headers (##) waste tokens and are not part of TOON."
+    correct_approach: "Use TOON keys (e.g., `summary:`) or comments (#)."
+  - anti_pattern: "Using Markdown code blocks"
+    why_bad: "Fences (```) waste tokens."
+    correct_approach: "Use multiline strings (`key: |`)."
+  - anti_pattern: "Missing metadata"
+    why_bad: "No doc_id, version, owner."
+    correct_approach: "Always include a `meta:` map."
+
+examples:
+  before_markdown: |
+    ## Tech Stack
+
+    - **Monorepo**: Turborepo 2.5.8 with pnpm 8.15.0 workspaces
+    - **Components**: Lit 3.3.1 (Web Components)
+    - **Tokens**: Style Dictionary 4.0.0
+
+    Benefits:
+    - 94% reduction in memory consumption
+    - 70% free workspace
+  
+  after_toon: |
+    tech_stack:
+      - category: "Monorepo"
+        tool: "Turborepo"
+        version: "2.5.8"
+        note: "pnpm 8.15.0 workspaces"
+      - category: "Components"
+        tool: "Lit"
+        version: "3.3.1"
+        note: "Web Components"
+      - category: "Tokens"
+        tool: "Style Dictionary"
+        version: "4.0.0"
+
+    benefits:
+      - "94% reduction in memory consumption"
+      - "70% free workspace"
+
+  before_json: |
+    {
+      "guidelines": [
+        {
+          "id": "TA",
+          "file": "TOKEN_ARCHITECTURE.md",
+          "version": "2.0.0"
+        },
+        {
+          "id": "CS",
+          "file": "COLOR_SYSTEM.md",
+          "version": "2.0.0"
+        }
+      ]
+    }
+
+  after_toon_json: |
+    guidelines:
+      - id: "TA"
+        file: "TOKEN_ARCHITECTURE.toon"
+        ver: "2.0.0"
+      - id: "CS"
+        file: "COLOR_SYSTEM.toon"
+        ver: "2.0.0"
+
+related_guidelines:
+  - id: "NC"
+    title: "NAMING_CONVENTIONS.md"
+  - id: "ICD"
+    title: "INLINE_CODE_DOCS.md"
+
+conclusion:
+  summary: |
+    The TOON (Token-Oriented) format is the standard for all LLM-facing structured data in the Sando Design System.
+    Proven 34% reduction in context tokens. All agents must follow these rules when creating or transforming files.

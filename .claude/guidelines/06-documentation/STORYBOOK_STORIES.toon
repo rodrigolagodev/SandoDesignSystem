@@ -1,0 +1,463 @@
+meta:
+  doc_id: "SBS"
+  category: "06-documentation"
+  version: "1.0.0"
+  status: "Active"
+  last_updated: "2025-11-09"
+  owner: "Technical Writer"
+
+purpose:
+  id: "SBS-PU"
+  description: |
+    Establish comprehensive standards for creating Storybook stories in the Sando Design System, following Strapi Design System's organization and presentation patterns. This guideline ensures consistent, interactive, and accessible component documentation that serves both designers and developers.
+
+inspiration:
+  id: "SBS-INSP"
+  note: "Strapi Design System (design-system.strapi.io)"
+
+targets:
+  id: "SBS-TGT"
+  list:
+    - "All public components, design tokens, and composition patterns"
+
+scope:
+  id: "SBS-SC"
+  note: "Story organization, argTypes configuration, interactive controls, accessibility"
+
+enforcement:
+  id: "SBS-ENF"
+  note: "Code review, Storybook build validation"
+
+core_rules:
+  - id: "SBS-CR-R1"
+    title: "Three-Section Organization (Strapi Pattern)"
+    summary: "Stories MUST be organized into three top-level sections following Strapi's structure: Design Tokens, Components, and Patterns."
+    sections:
+      - number: 1
+        name: "Design Tokens"
+        note: "Foundation layer showcasing token system"
+      - number: 2
+        name: "Components"
+        note: "Individual component documentation"
+      - number: 3
+        name: "Patterns"
+        note: "Composition examples and usage patterns"
+    pattern:
+      lang: "typescript"
+      title: "Story title patterns"
+      code: |
+        // Design Tokens stories
+        const meta: Meta = {
+          title: "Design Tokens/Colors/Brand",
+          tags: ["autodocs"],
+        };
+
+        // Component stories
+        const meta: Meta = {
+          title: "Components/Button",
+          tags: ["autodocs"],
+        };
+
+        // Pattern stories
+        const meta: Meta = {
+          title: "Patterns/Forms/Login Form",
+          tags: ["autodocs"],
+        };
+    directory_structure:
+      "packages/components/src/":
+        tokens:
+          stories:
+            - "colors.stories.ts # Design Tokens/Colors"
+            - "spacing.stories.ts # Design Tokens/Spacing"
+            - "typography.stories.ts # Design Tokens/Typography"
+        components:
+          button:
+            files:
+              - "sando-button.stories.ts # Components/Button"
+            stories: "# Additional focused stories"
+        patterns:
+          stories:
+            - "forms.stories.ts # Patterns/Forms"
+            - "navigation.stories.ts # Patterns/Navigation"
+    why: "Strapi's three-section approach clearly separates foundation (tokens), building blocks (components), and real-world usage (patterns). This structure helps users understand the system hierarchy and find what they need quickly."
+    reference:
+      type: "external"
+      url: "httpss://design-system.strapi.io"
+      note: "Strapi Design System organization"
+
+  - id: "SBS-CR-R2"
+    title: "Main Story File Per Component (Required)"
+    summary: "Each component MUST have ONE main story file (sando-component.stories.ts) that serves as the comprehensive reference and entry point."
+    pattern:
+      lang: "typescript"
+      title: "Main story file structure"
+      code: |
+        // packages/components/src/components/button/sando-button.stories.ts
+        import { html } from "lit";
+        import type { Meta, StoryObj } from "@storybook/web-components";
+        import "./sando-button";
+
+        /**
+         * # Button Component
+         *
+         * Buttons trigger actions and events. They communicate calls to action
+         * and help users interact with your application.
+         *
+         * ## Usage
+         *
+         * Use buttons to trigger immediate actions like:
+         * - Submitting forms
+         * - Opening dialogs
+         * - Navigating between pages
+         * - Confirming or canceling operations
+         *
+         * ## Accessibility
+         *
+         * - All buttons have visible focus indicators
+         * - Disabled buttons are not focusable
+         * - Icon-only buttons require aria-label
+         * - Loading state announced to screen readers
+         */
+        const meta: Meta = {
+          title: "Components/Button",
+          component: "sando-button",
+          tags: ["autodocs"],
+          argTypes: {
+            variant: {
+              control: "select",
+              options: ["solid", "outline", "ghost"],
+              description: "Visual style of the button",
+              table: {
+                category: "Appearance",
+                defaultValue: { summary: "solid" },
+              },
+            },
+          },
+          args: {
+            variant: "solid",
+            size: "medium",
+            label: "Button",
+          },
+        };
+
+        export default meta;
+        type Story = StoryObj;
+
+        export const Default: Story = {
+          args: { label: "Click me" },
+        };
+
+        export const Playground: Story = {
+          render: (args) => html`<sando-button>${args.label}</sando-button>`,
+        };
+    why: "Main story provides comprehensive documentation, interactive playground, and visual reference. All variations in one place help users understand the full component API."
+    reference:
+      type: "external"
+      url: "httpss://design-system.strapi.io"
+      note: "Strapi components have single comprehensive story files"
+
+  - id: "SBS-CR-R3"
+    title: "Automatic Flavor Modes via @media (Critical)"
+    summary: "Flavor modes (light, dark, high-contrast) are automatic via CSS @media queries and MUST NOT be manually controllable in Storybook."
+    correct_pattern:
+      lang: "typescript"
+      code: |
+        // ✅ CORRECT - No flavorMode in argTypes
+        const meta: Meta = {
+          title: "Components/Button",
+          argTypes: {
+            flavor: {
+              control: "select",
+              options: ["original", "strawberry", "ocean", "forest", "sunset"],
+              description: "Theme flavor (inherited from ancestor)",
+            },
+            // ❌ DO NOT add flavorMode control - it's automatic
+          },
+        };
+    testing_modes:
+      - "Use browser DevTools > Rendering > Emulate CSS media feature"
+      - "Change OS system preferences (Settings > Appearance)"
+      - "Storybook toolbar 'Backgrounds' addon shows mode visually"
+    implementation:
+      lang: "css"
+      code: |
+        @media (prefers-color-scheme: dark) {
+          [flavor="original"] {
+            --sando-color-background-base: var(--sando-color-neutral-900);
+          }
+        }
+    why: "Flavor modes use @media (prefers-color-scheme) for automatic system preference detection. Manual controls would contradict this behavior and confuse users."
+    reference:
+      type: "guideline"
+      doc_id: "TS"
+      file: "../01-design-system/THEMING_STRATEGY.toon"
+      note: "Sando theming system uses CSS @media queries for automatic mode switching"
+
+  - id: "SBS-CR-R4"
+    title: "Comprehensive argTypes Documentation (Required)"
+    summary: "All interactive component properties MUST have complete argTypes configuration with controls, descriptions, categories, and default values."
+    pattern:
+      lang: "typescript"
+      code: |
+        const meta: Meta = {
+          argTypes: {
+            propertyName: {
+              control: "select",
+              options: ["option1", "option2"],
+              description: "Clear explanation of what this property does",
+              table: {
+                category: "Appearance",
+                defaultValue: { summary: "default" },
+                type: { summary: "string" },
+              },
+            },
+          },
+        };
+    category_conventions:
+      - name: "Appearance"
+        note: "Visual styles (variant, size, color)"
+      - name: "State"
+        note: "Interactive states (disabled, loading, error)"
+      - name: "Content"
+        note: "Text, icons, slots"
+      - name: "Behavior"
+        note: "Event handlers, interaction settings"
+      - name: "Theming"
+        note: "Flavor, mode-related properties"
+    control_types:
+      - type: "select"
+        note: "Dropdown selection: control: 'select', options: ['small', 'medium', 'large']"
+      - type: "boolean"
+        note: "Checkbox toggle: control: 'boolean'"
+      - type: "text"
+        note: "Text input: control: 'text'"
+      - type: "number"
+        note: "Number slider: control: { type: 'number', min: 0, max: 100, step: 1 }"
+      - type: "color"
+        note: "Color picker: control: 'color'"
+      - type: "date"
+        note: "Date picker: control: 'date'"
+      - type: "object"
+        note: "Object/Array editor: control: 'object'"
+      - type: "disabled"
+        note: "Display-only: control: false"
+    why: "Comprehensive argTypes enable interactive exploration and serve as self-documenting API reference. Categories organize complex components with many properties."
+
+  - id: "SBS-CR-R5"
+    title: "Focused Stories for Complex Scenarios (Optional)"
+    summary: "Complex components MAY have additional focused story files in a stories/ subdirectory for specialized documentation."
+    pattern:
+      lang: "typescript"
+      code: |
+        // packages/components/src/components/button/stories/icons.stories.ts
+        import { html } from "lit";
+        import type { Meta, StoryObj } from "@storybook/web-components";
+        import "../sando-button";
+
+        const meta: Meta = {
+          title: "Components/Button/Icons",
+          component: "sando-button",
+          tags: ["autodocs"],
+        };
+
+        export default meta;
+        type Story = StoryObj;
+
+        export const LeadingIcon: Story = {
+          render: () => html`
+            <sando-button>
+              <svg slot="icon-start" width="16" height="16">
+                <path d="M8 2L2 8l6 6 6-6z" />
+              </svg>
+              With Icon
+            </sando-button>
+          `,
+        };
+    when_to_create:
+      - "Component has 5+ variants/states/sizes"
+      - "Special use cases (icons, forms, compositions)"
+      - "Integration examples (with other components)"
+      - "Responsive behavior demonstrations"
+      - "Complex slot configurations"
+    why: "Focused stories keep main story file manageable while providing deep-dive documentation for advanced scenarios. Strapi uses this pattern for complex components."
+
+story_templates:
+  id: "SBS-ST"
+  design_tokens_template:
+    id: "SBS-ST-DTT"
+    lang: "typescript"
+    code: |
+      // packages/components/src/tokens/stories/colors.stories.ts
+      import { html } from "lit";
+      import type { Meta, StoryObj } from "@storybook/web-components";
+
+      /**
+       * # Color Tokens
+       *
+       * Sando uses a three-layer token architecture:
+       * - Layer 1: Ingredients - Raw color values (#f97415)
+       * - Layer 2: Flavors - Semantic color roles (background, text, border)
+       * - Layer 3: Recipes - Component-specific colors (button-background)
+       */
+      const meta: Meta = {
+        title: "Design Tokens/Colors",
+        tags: ["autodocs"],
+      };
+
+      export default meta;
+      type Story = StoryObj;
+
+      export const BrandColors: Story = {
+        render: () => html`Color swatches display`,
+        parameters: { controls: { disable: true } },
+      };
+  pattern_template:
+    id: "SBS-ST-PT"
+    lang: "typescript"
+    code: |
+      // packages/components/src/patterns/stories/forms.stories.ts
+      import { html } from "lit";
+      import type { Meta, StoryObj } from "@storybook/web-components";
+
+      /**
+       * # Form Patterns
+       *
+       * Common form layouts and compositions using Sando components.
+       */
+      const meta: Meta = {
+        title: "Patterns/Forms",
+        tags: ["autodocs"],
+      };
+
+      export default meta;
+      type Story = StoryObj;
+
+      export const LoginForm: Story = {
+        render: () => html`<form>...</form>`,
+        parameters: { controls: { disable: true } },
+      };
+
+story_organization:
+  id: "SBS-SO"
+  naming_conventions:
+    id: "SBS-SO-NC"
+    story_titles:
+      - type: "Design Tokens"
+        note: "Design Tokens/Colors, Design Tokens/Spacing, Design Tokens/Typography"
+      - type: "Components"
+        note: "Components/Button, Components/Input, Components/Card"
+      - type: "Patterns"
+        note: "Patterns/Forms, Patterns/Navigation, Patterns/Layouts"
+    story_names:
+      - "Use PascalCase: Default, AllVariants, WithIcons"
+      - "Descriptive names: LoginForm, BrandColors, ResponsiveGrid"
+    file_names:
+      - "Main story per component: sando-button.stories.ts, sando-input.stories.ts"
+      - "Token stories: colors.stories.ts, spacing.stories.ts"
+      - "Pattern stories: forms.stories.ts, navigation.stories.ts"
+  story_documentation:
+    id: "SBS-SO-SD"
+    jsdoc_comments: "JSDoc comments provide context in Storybook UI with Markdown formatting support"
+    story_parameters: "Used for disabling controls, custom documentation, backgrounds, viewport sizes"
+
+common_patterns:
+  id: "SBS-CP"
+  all_variants_showcase:
+    id: "SBS-CP-AVS"
+    lang: "typescript"
+    code: |
+      export const AllVariants: Story = {
+        render: () => html`
+          <div style="display: flex; gap: 16px;">
+            ${["solid", "outline", "ghost"].map(variant => html`
+              <sando-button variant="${variant}">${variant}</sando-button>
+            `)}
+          </div>
+        `,
+        parameters: { controls: { disable: true } },
+      };
+  flavor_comparison:
+    id: "SBS-CP-FC"
+    lang: "typescript"
+    code: |
+      export const AllFlavors: Story = {
+        render: () => html`
+          <div style="display: grid; gap: 24px;">
+            ${["original", "strawberry", "ocean"].map(flavor => html`
+              <div flavor="${flavor}">
+                <sando-button>Solid</sando-button>
+              </div>
+            `)}
+          </div>
+        `,
+        parameters: { controls: { disable: true } },
+      };
+  interactive_playground:
+    id: "SBS-CP-IP"
+    lang: "typescript"
+    code: |
+      export const Playground: Story = {
+        render: (args) => html`
+          <sando-button
+            variant="${args.variant}"
+            ?disabled="${args.disabled}"
+          >${args.label}</sando-button>
+        `,
+      };
+
+accessibility_in_stories:
+  id: "SBS-AIS"
+  testing_accessibility:
+    id: "SBS-AIS-TA"
+    lang: "typescript"
+    code: |
+      import { expect } from "@storybook/jest";
+      import { axe, toHaveNoViolations } from "jest-axe";
+
+      expect.extend(toHaveNoViolations);
+
+      export const AccessibilityTest: Story = {
+        play: async ({ canvasElement }) => {
+          const results = await axe(canvasElement);
+          expect(results).toHaveNoViolations();
+        },
+      };
+  keyboard_navigation:
+    id: "SBS-AIS-KN"
+    note: "Document keyboard shortcuts and focus order in story parameters"
+
+related_guidelines:
+  - type: "guideline"
+    doc_id: "API"
+    file: "./API_REFERENCE.toon"
+    note: "Component API documentation standards"
+  - type: "guideline"
+    doc_id: "VPG"
+    file: "./VITEPRESS_GUIDES.toon"
+    note: "Long-form guide writing"
+  - type: "guideline"
+    doc_id: "WC"
+    file: "../04-accessibility/WCAG_COMPLIANCE.toon"
+    note: "Accessibility requirements"
+  - type: "guideline"
+    doc_id: "CS"
+    file: "../03-development/CODE_STYLE.toon"
+    note: "TypeScript and Lit conventions"
+
+external_references:
+  - category: "Storybook Documentation"
+    references:
+      - url: "httpss://storybook.js.org/docs"
+        note: "Storybook 8 Docs - Official documentation"
+      - url: "httpss://storybook.js.org/docs/web-components/get-started/introduction"
+        note: "Web Components in Storybook - Framework setup"
+      - url: "httpss://storybook.js.org/docs/api/arg-types"
+        note: "ArgTypes - Control configuration"
+  - category: "Design System References"
+    references:
+      - url: "httpss://design-system.strapi.io/"
+        note: "Strapi Design System - Organization inspiration"
+      - url: "httpss://m3.material.io/"
+        note: "Material Design - Component documentation patterns"
+      - url: "httpss://carbondesignsystem.com/"
+        note: "Carbon Design System - Story structure examples"

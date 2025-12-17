@@ -1,0 +1,603 @@
+meta:
+  doc_id: "TBS"
+  category: "02-architecture"
+  version: "1.0.0"
+  status: "Active"
+  last_updated: "2025-11-09"
+  owner: "Developer Tooling Specialist"
+
+purpose:
+  id: "TBS-PU"
+  description: |
+    Defines the Style Dictionary 4.0 orchestrator that builds the three-layer token system (Ingredients → Flavors → Recipes), including custom transforms, formats, build caching, and output structure. This system generates CSS custom properties and TypeScript files from JSON source tokens.
+
+core_rules:
+  - id: "TBS-CR-R1"
+    title: "Three-Layer Build Sequence (Non-Negotiable)"
+    summary: "Tokens build in strict order: Ingredients → Flavors → Recipes. Each layer must complete before the next begins."
+    build_flow:
+      - number: 1
+        layer: "Ingredients"
+        note: "Generate CSS + TS primitives"
+      - number: 2
+        layer: "Flavors"
+        note: "Generate CSS + TS semantic tokens (references Layer 1)"
+      - number: 3
+        layer: "Recipes"
+        note: "Generate CSS + TS component tokens (references Layer 2)"
+    why: "Flavors reference Ingredients, Recipes reference Flavors. Building out of order causes broken CSS variable references."
+    pattern:
+      lang: "javascript"
+      file: "packages/tokens/build/index.js"
+      code: |
+        const layers = [
+          { name: "Ingredients", config: ingredientsConfig },
+          ...flavorLayers, // Multiple flavors (original, strawberry, etc.)
+          { name: "Recipes", config: recipesConfig },
+        ];
+
+        await buildAllLayers({ layers, force, verbose });
+    reference:
+      type: "source_file"
+      path: "packages/tokens/build/index.js"
+      note: "Complete orchestrator implementation"
+
+  - id: "TBS-CR-R2"
+    title: "Custom Transforms for CSS Variables"
+    summary: "Two custom transforms process all tokens: `name/css-sando` and `name/css-var-reference`."
+    transforms:
+      - id: "TBS-CR-R2-T1"
+        name: "name/css-sando"
+        purpose: "Adds `--sando-` prefix to all CSS variable names"
+        example:
+          input: "color.orange.700"
+          output: "--sando-color-orange-700"
+        implementation:
+          lang: "javascript"
+          file: "build/transforms/name-css-sando.js"
+          code: |
+            {
+              name: 'name/css-sando',
+              type: 'name',
+              transform: (token) => {
+                return `--sando-${token.path.join('-')}`;
+              }
+            }
+      - id: "TBS-CR-R2-T2"
+        name: "name/css-var-reference"
+        purpose: "Converts `{reference}` syntax to `var(--sando-*)`"
+        example:
+          input: "{color.orange.700.value}"
+          output: "var(--sando-color-orange-700)"
+        implementation:
+          lang: "javascript"
+          file: "build/transforms/css-var-reference.js"
+          code: |
+            {
+              name: 'name/css-var-reference',
+              type: 'value',
+              filter: (token) => token.original?.value?.includes('{'),
+              transform: (token) => {
+                return token.original.value.replace(
+                  /\{([^}]+)\.value\}/g,
+                  (match, path) => `var(--sando-${path.replace(/\./g, '-')})`
+                );
+              }
+            }
+    why: "This creates the CSS variable chain that enables theming. Without these transforms, references would be resolved to absolute values, breaking theme switching."
+    reference:
+      type: "source_directory"
+      path: "packages/tokens/build/transforms/"
+      note: "Complete transform implementations"
+
+  - id: "TBS-CR-R3"
+    title: "Layer-Specific Transform Groups"
+    summary: "Each layer uses a specific transform group that determines which transforms apply."
+    transform_groups:
+      - name: "sando/css/ingredients"
+        layer: "Ingredients"
+        transforms:
+          - "name/css-sando"
+        note: "Only name transform (no references)"
+      - name: "sando/css/flavors"
+        layer: "Flavors"
+        transforms:
+          - "name/css-sando"
+          - "name/css-var-reference"
+        note: "Name + reference transforms"
+      - name: "sando/css/recipes"
+        layer: "Recipes"
+        transforms:
+          - "name/css-sando"
+          - "name/css-var-reference"
+        note: "Name + reference transforms"
+    why: "Ingredients have no references (absolute values), so they don't need the reference transform. Flavors and Recipes reference other layers, so they need both transforms."
+
+  - id: "TBS-CR-R4"
+    title: "Dual Output Formats (CSS + TypeScript)"
+    summary: "Every token layer generates TWO outputs: CSS custom properties and TypeScript files."
+    css_output:
+      location: "dist/sando-tokens/css/"
+      ingredients:
+        lang: "css"
+        code: |
+          /* Ingredients: Absolute values */
+          :root {
+            --sando-color-orange-700: oklch(0.47 0.2 25);
+          }
+      flavors:
+        lang: "css"
+        code: |
+          /* Flavors: var() references */
+          [flavor="original"] {
+            --sando-color-action-solid-background-default: var(--sando-color-orange-700);
+          }
+      recipes:
+        lang: "css"
+        code: |
+          /* Recipes: var() references */
+          :root {
+            --sando-button-solid-backgroundColor-default: var(
+              --sando-color-action-solid-background-default
+            );
+          }
+    typescript_output:
+      location: "dist/sando-tokens/ts/"
+      css_variables:
+        lang: "typescript"
+        code: |
+          // CSS variable names (for component consumption)
+          export const tokens = {
+            color: {
+              orange: {
+                700: "--sando-color-orange-700",
+              },
+            },
+          };
+      absolute_values:
+        lang: "typescript"
+        code: |
+          // Absolute values (for testing, calculations)
+          export const values = {
+            color: {
+              orange: {
+                700: "oklch(0.47 0.20 25)",
+              },
+            },
+          };
+    why:
+      - name: "CSS"
+        reason: "Runtime styling in components"
+      - name: "TypeScript"
+        reason: "Type safety, testing, design tool integration"
+    reference:
+      type: "source_directory"
+      path: "packages/tokens/build/formats/"
+      note: "Custom format implementations"
+
+  - id: "TBS-CR-R5"
+    title: "Incremental Build Caching"
+    summary: "The build system caches layer hashes in `.build-cache.json` to skip unchanged layers."
+    cache_structure:
+      lang: "json"
+      code:
+        ingredients: "abc123..."
+        flavors: "def456..."
+        recipes: "ghi789..."
+    cache_behavior:
+      - condition: "If source files unchanged → Skip build (use cached output)"
+      - condition: "If source files changed → Rebuild layer + update cache"
+      - condition: "`--force` flag → Bypass cache, rebuild everything"
+    force_rebuild:
+      - method: 1
+        command: "pnpm tokens:build --force"
+        description: "Use --force flag"
+      - method: 2
+        command: "rm packages/tokens/.build-cache.json && pnpm tokens:build"
+        description: "Delete cache manually"
+      - method: 3
+        command: "pnpm --filter @sando/tokens build:clean"
+        description: "Use build:clean script"
+    why: "Speeds up development. Changing one color shouldn't rebuild all 3 layers."
+    reference:
+      type: "source_file"
+      path: "packages/tokens/build/utils/build-cache.js"
+      note: "Cache implementation"
+
+build_orchestration:
+  id: "TBS-BO"
+  entry_point:
+    file: "build/index.js"
+    responsibilities:
+      - "Register custom transforms"
+      - "Register transform groups"
+      - "Register custom formats"
+      - "Define layer configurations"
+      - "Execute build sequence"
+      - "Print build summary"
+      - "Validate results"
+    key_flow:
+      lang: "javascript"
+      code: |
+        // 1. Register transforms
+        StyleDictionary.registerTransform(nameCssSando);
+        StyleDictionary.registerTransform(cssVarReference);
+
+        // 2. Register transform groups
+        StyleDictionary.registerTransformGroup({
+          name: "sando/css/ingredients",
+          transforms: ["name/css-sando"],
+        });
+
+        // 3. Register formats
+        StyleDictionary.registerFormat({
+          name: "css/ingredients",
+          format: cssIngredients,
+        });
+
+        // 4. Build all layers
+        const results = await buildAllLayers({ layers, force, verbose });
+
+        // 5. Validate
+        const allSucceeded = validateBuildResults(results);
+    reference:
+      type: "source_file"
+      path: "packages/tokens/build/index.js"
+      note: "Complete file (~145 lines)"
+  orchestrator:
+    file: "build/core/orchestrator.js"
+    responsibilities:
+      - "Iterate through layers sequentially"
+      - "Check cache for each layer"
+      - "Build layer if needed"
+      - "Update cache after successful build"
+      - "Collect results"
+    key_function:
+      lang: "javascript"
+      code: |
+        export async function buildAllLayers(options) {
+          const { layers, force, verbose } = options;
+          const results = {};
+
+          for (const layer of layers) {
+            const { name, config, cacheKey } = layer;
+
+            // Build layer
+            const result = await buildLayer({ name, config, verbose });
+            results[name] = result;
+
+            // Update cache if successful
+            if (result.success && cacheKey) {
+              updateCache(cacheKey, `src/${cacheKey}`);
+            }
+          }
+
+          return results;
+        }
+    reference:
+      type: "source_file"
+      path: "packages/tokens/build/core/orchestrator.js"
+      note: "Complete file (~65 lines)"
+  layer_builder:
+    file: "build/core/layer-builder.js"
+    responsibilities:
+      - "Execute Style Dictionary for single layer"
+      - "Measure build time"
+      - "Handle errors"
+      - "Return build result"
+    key_function:
+      lang: "javascript"
+      code: |
+        export async function buildLayer({ name, config, verbose }) {
+          const startTime = Date.now();
+
+          try {
+            const sd = new StyleDictionary(config);
+            await sd.buildAllPlatforms();
+
+            return {
+              success: true,
+              duration: Date.now() - startTime,
+            };
+          } catch (error) {
+            return {
+              success: false,
+              error: error.message,
+              duration: Date.now() - startTime,
+            };
+          }
+        }
+    reference:
+      type: "source_file"
+      path: "packages/tokens/build/core/layer-builder.js"
+      note: "Complete file (~40 lines)"
+
+layer_configurations:
+  id: "TBS-LC"
+  ingredients_config:
+    file: "build/configs/ingredients.config.js"
+    settings:
+      source: "src/ingredients/*.json"
+      transform_group: "sando/css/ingredients (no references)"
+      formats:
+        - "css/ingredients"
+        - "typescript/css-variables"
+        - "typescript/primitive-values"
+      output:
+        css: "dist/sando-tokens/css/ingredients/"
+        typescript: "dist/sando-tokens/ts/ingredients/"
+    output_structure:
+      tree:
+        "dist/sando-tokens":
+          "css/ingredients":
+            files:
+              - "color.css"
+              - "space.css"
+              - "index.css" # (imports all)
+          "ts/ingredients":
+            files:
+              - "color.ts"
+              - "space.ts"
+              - "index.ts" # (exports all)
+  flavors_config:
+    file: "build/configs/flavors.config.js"
+    settings:
+      source: "src/flavors/{flavor-name}/*.json"
+      transform_group: "sando/css/flavors (has references)"
+      formats:
+        - "css/flavors-modes (special format for @media wrapping)"
+      output: "dist/sando-tokens/css/flavors/{flavor-name}/"
+    special_behavior: "Mode files (flavor-dark.json, flavor-high-contrast.json) are wrapped in @media queries"
+    example:
+      lang: "css"
+      code: |
+        /* Base flavor */
+        [flavor="original"] {
+          --sando-color-action-solid-background-default: var(--sando-color-orange-700);
+        }
+
+        /* Dark mode (automatic @media wrapper) */
+        @media (prefers-color-scheme: dark) {
+          [flavor="original"] {
+            --sando-color-action-solid-background-default: var(
+              --sando-color-orange-600
+            );
+          }
+        }
+    why: "Modes are automatic (user's system preference), not manual like Flavors."
+    reference:
+      type: "guideline"
+      doc_id: "TS"
+      file: "../01-design-system/THEMING_STRATEGY.toon"
+      note: "Flavors vs Modes distinction"
+  recipes_config:
+    file: "build/configs/recipes.config.js"
+    settings:
+      source: "src/recipes/*.json"
+      transform_group: "sando/css/recipes (has references)"
+      formats:
+        - "css/recipes"
+        - "typescript/css-variables"
+      output:
+        css: "dist/sando-tokens/css/recipes/"
+        typescript: "dist/sando-tokens/ts/recipes/"
+    output_structure:
+      tree:
+        "dist/sando-tokens":
+          "css/recipes":
+            files:
+              - "button.css"
+              - "input.css"
+              - "index.css"
+          "ts/recipes":
+            files:
+              - "button.ts"
+              - "input.ts"
+              - "index.ts"
+
+build_commands:
+  id: "TBS-BC"
+  primary_commands:
+    - name: "pnpm tokens:build"
+      description: "Standard build (uses cache)"
+    - name: "pnpm tokens:build --force"
+      description: "Force rebuild (bypass cache)"
+    - name: "pnpm tokens:build --verbose"
+      description: "Verbose output (shows all tokens)"
+    - name: "pnpm tokens:dev"
+      description: "Watch mode (rebuild on file changes)"
+  development_commands:
+    - name: "pnpm --filter @sando/tokens clean"
+      description: "Clean all outputs and cache"
+    - name: "pnpm --filter @sando/tokens build:clean"
+      description: "Clean + rebuild"
+    - name: "pnpm --filter @sando/tokens test"
+      description: "Test tokens (validation tests)"
+
+output_structure:
+  id: "TBS-OS"
+  directory_tree:
+    "packages/tokens/dist/sando-tokens":
+      css:
+        ingredients:
+          files:
+            - "color.css" # Color primitives
+            - "space.css" # Spacing primitives
+            - "font.css" # Typography primitives
+            - "index.css" # Imports all ingredients
+        flavors:
+          original:
+            - "flavor.css" # Base flavor (light mode)
+            - "flavor-dark.css" # Dark mode (@media wrapped)
+            - "flavor-high-contrast.css" # High contrast mode
+            - "flavor-motion-reduce.css" # Reduced motion mode
+          strawberry:
+            - "[same structure]" # Same structure
+          files:
+            - "index.css" # Imports all flavors
+        recipes:
+          files:
+            - "button.css" # Button tokens
+            - "input.css" # Input tokens
+            - "index.css" # Imports all recipes
+        files:
+          - "index.css" # Imports ingredients + flavors + recipes
+      ts:
+        ingredients:
+          files:
+            - "color.ts" # Color exports (names + values)
+            - "index.ts" # Barrel export
+        flavors:
+          files:
+            - "original.ts" # Original flavor exports
+            - "index.ts"
+        recipes:
+          files:
+            - "button.ts" # Button token exports
+            - "index.ts"
+
+custom_formats:
+  id: "TBS-CF"
+  css_formats:
+    - name: "css/ingredients"
+      note: "Simple `:root` selector, absolute values"
+    - name: "css/flavors-modes"
+      note: "`[flavor='name']` selector + `@media` wrapping for modes"
+    - name: "css/recipes"
+      note: "`:root` selector with var() references"
+  typescript_formats:
+    - name: "typescript/css-variables"
+      description: "Exports CSS variable names"
+      example:
+        lang: "typescript"
+        code: |
+          export const tokens = {
+            color: {
+              orange: {
+                700: "--sando-color-orange-700",
+              },
+            },
+          };
+    - name: "typescript/primitive-values"
+      description: "Exports absolute values"
+      example:
+        lang: "typescript"
+        code: |
+          export const values = {
+            color: {
+              orange: {
+                700: "oklch(0.47 0.20 25)",
+              },
+            },
+          };
+  references:
+    - type: "source_directory"
+      path: "packages/tokens/build/formats/css/"
+      note: "CSS format implementations"
+    - type: "source_directory"
+      path: "packages/tokens/build/formats/typescript/"
+      note: "TypeScript format implementations"
+
+adding_tokens:
+  id: "TBS-AT"
+  adding_ingredient:
+    - step: 1
+      note: "Edit source file"
+      example:
+        lang: "bash"
+        code: |
+          echo '{
+            "color": {
+              "purple": {
+                "500": { "value": "oklch(0.55 0.25 310)", "type": "color" }
+              }
+            }
+          }' >> packages/tokens/src/ingredients/color.json
+    - step: 2
+      note: "Build (auto-detects changes)"
+      command: "pnpm tokens:build"
+    - step: 3
+      note: "Output generated"
+      output:
+        - "dist/sando-tokens/css/ingredients/color.css"
+        - "dist/sando-tokens/ts/ingredients/color.ts"
+  adding_flavor:
+    - step: 1
+      note: "Edit flavor source"
+      example:
+        lang: "bash"
+        code: |
+          echo '{
+            "color": {
+              "sidebar": {
+                "background": {
+                  "value": "{color.neutral.100.value}",
+                  "type": "color"
+                }
+              }
+            }
+          }' >> packages/tokens/src/flavors/original/flavor.json
+    - step: 2
+      note: "Build"
+      command: "pnpm tokens:build"
+    - step: 3
+      note: "Output"
+      result: "var(--sando-color-neutral-100) reference generated"
+  adding_recipe:
+    - step: 1
+      note: "Create new recipe file"
+      command: "touch packages/tokens/src/recipes/card.json"
+    - step: 2
+      note: "Add tokens"
+      example:
+        lang: "bash"
+        code: |
+          echo '{
+            "card": {
+              "backgroundColor": {
+                "value": "{color.background.surface.value}",
+                "type": "color"
+              }
+            }
+          }' > packages/tokens/src/recipes/card.json
+    - step: 3
+      note: "Build"
+      command: "pnpm tokens:build"
+    - step: 4
+      note: "Output"
+      file: "dist/sando-tokens/css/recipes/card.css"
+
+related_guidelines:
+  - type: "guideline"
+    doc_id: "TA"
+    file: "../01-design-system/TOKEN_ARCHITECTURE.toon"
+    category: "01-design-system"
+    note: "Three-layer token system rules"
+  - type: "guideline"
+    doc_id: "TS"
+    file: "../01-design-system/THEMING_STRATEGY.toon"
+    category: "01-design-system"
+    note: "Flavors vs Modes, @media wrapping"
+  - type: "guideline"
+    doc_id: "MS"
+    file: "MONOREPO_STRUCTURE.toon"
+    category: "02-architecture"
+    note: "Build order, Turborepo dependencies"
+  - type: "guideline"
+    doc_id: "CA"
+    file: "COMPONENT_ARCHITECTURE.toon"
+    category: "02-architecture"
+    note: "Token consumption in components"
+
+external_references:
+  - type: "documentation"
+    url: "httpss://styledictionary.com/"
+    title: "Style Dictionary Documentation"
+    note: "Configuration, transforms, formats"
+  - type: "repository"
+    url: "httpss://github.com/amzn/style-dictionary"
+    title: "Style Dictionary GitHub"
+    note: "Source code, examples"
+
+conclusion: |
+  This guideline documents the token build orchestration that generates CSS custom properties and TypeScript files from JSON source tokens. The three-layer build sequence (Ingredients → Flavors → Recipes) is critical for maintaining proper CSS variable references.
