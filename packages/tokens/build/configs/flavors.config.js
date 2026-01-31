@@ -140,8 +140,9 @@ const typescriptConfigs = flavorFolders.map(flavorName => {
 });
 
 // Index file config (separate)
+// NOTE: Must include ingredients to resolve token references during parsing
 const indexConfig = {
-	source: ["src/flavors/**/*.json"],
+	source: ["src/ingredients/**/*.json", "src/flavors/**/*.json"],
 	log: {
 		warnings: "disabled",
 		errors: "error",

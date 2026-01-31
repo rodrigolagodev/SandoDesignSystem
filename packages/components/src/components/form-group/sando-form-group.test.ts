@@ -24,9 +24,10 @@ describe('sando-form-group', () => {
       `);
 
       expect(el.label).to.equal('Email');
-      // TODO: Verify label renders in shadow DOM
-      // const label = el.shadowRoot?.querySelector('.form-group__label');
-      // expect(label?.textContent).to.include('Email');
+      // Verify label renders in shadow DOM
+      const label = el.shadowRoot?.querySelector('.form-group__label');
+      expect(label).to.exist;
+      expect(label?.textContent).to.include('Email');
     });
 
     it('should render required asterisk when required', async () => {
@@ -37,20 +38,24 @@ describe('sando-form-group', () => {
       `);
 
       expect(el.required).to.be.true;
-      // TODO: Verify asterisk renders
-      // const required = el.shadowRoot?.querySelector('.required');
-      // expect(required).to.exist;
+      // Verify asterisk renders
+      const required = el.shadowRoot?.querySelector('.required');
+      expect(required).to.exist;
+      expect(required?.textContent).to.equal('*');
     });
 
     it('should render helper text from prop', async () => {
       const el = await fixture<SandoFormGroup>(html`
-        <sando-form-group helperText="Enter your email address">
+        <sando-form-group helper-text="Enter your email address">
           <input type="email" />
         </sando-form-group>
       `);
 
       expect(el.helperText).to.equal('Enter your email address');
-      // TODO: Verify helper text renders
+      // Verify helper text renders
+      const helperText = el.shadowRoot?.querySelector('.form-group__helper-text');
+      expect(helperText).to.exist;
+      expect(helperText?.textContent).to.include('Enter your email address');
     });
 
     it('should render error message from prop', async () => {
@@ -61,19 +66,28 @@ describe('sando-form-group', () => {
       `);
 
       expect(el.error).to.equal('Email is required');
-      // TODO: Verify error renders with role="alert"
+      // Verify error renders with role="alert"
+      const errorEl = el.shadowRoot?.querySelector('.form-group__error');
+      expect(errorEl).to.exist;
+      expect(errorEl?.getAttribute('role')).to.equal('alert');
+      expect(errorEl?.textContent).to.include('Email is required');
     });
 
     it('should render error instead of helper text when both present', async () => {
       const el = await fixture<SandoFormGroup>(html`
-        <sando-form-group helperText="Enter your email" error="Email is invalid">
+        <sando-form-group helper-text="Enter your email" error="Email is invalid">
           <input type="email" />
         </sando-form-group>
       `);
 
-      // TODO: Verify only error renders, not helper text
+      // Verify only error renders, not helper text
       expect(el.error).to.equal('Email is invalid');
       expect(el.helperText).to.equal('Enter your email');
+
+      const errorEl = el.shadowRoot?.querySelector('.form-group__error');
+      const helperEl = el.shadowRoot?.querySelector('.form-group__helper-text');
+      expect(errorEl).to.exist;
+      expect(helperEl).to.not.exist;
     });
   });
 
@@ -215,7 +229,121 @@ describe('sando-form-group', () => {
       expect(eventDetail.errorMessage).to.be.null;
     });
 
-    // TODO: Add focus and blur event tests
-    // These require interaction with slotted form controls
+    it('should emit sando-focus when slotted input receives focus', async () => {
+      const el = await fixture<SandoFormGroup>(html`
+        <sando-form-group label="Email">
+          <input type="email" id="email-input" />
+        </sando-form-group>
+      `);
+
+      let eventFired = false;
+      el.addEventListener('sando-focus', () => {
+        eventFired = true;
+      });
+
+      const input = el.querySelector<HTMLInputElement>('#email-input');
+      input?.focus();
+
+      expect(eventFired).to.be.true;
+    });
+
+    it('should emit sando-blur when slotted input loses focus', async () => {
+      const el = await fixture<SandoFormGroup>(html`
+        <sando-form-group label="Email">
+          <input type="email" id="email-input" />
+        </sando-form-group>
+      `);
+
+      let eventFired = false;
+      el.addEventListener('sando-blur', () => {
+        eventFired = true;
+      });
+
+      const input = el.querySelector<HTMLInputElement>('#email-input');
+      input?.focus();
+      input?.blur();
+
+      expect(eventFired).to.be.true;
+    });
+  });
+
+  describe('label-input association', () => {
+    it('should associate label with input via for attribute', async () => {
+      const el = await fixture<SandoFormGroup>(html`
+        <sando-form-group label="Email">
+          <input type="email" />
+        </sando-form-group>
+      `);
+
+      const label = el.shadowRoot?.querySelector('.form-group__label') as HTMLLabelElement;
+      const input = el.querySelector('input');
+
+      expect(label?.getAttribute('for')).to.exist;
+      expect(input?.id).to.equal(label?.getAttribute('for'));
+    });
+
+    it('should preserve existing input id', async () => {
+      const el = await fixture<SandoFormGroup>(html`
+        <sando-form-group label="Email">
+          <input type="email" id="my-custom-id" />
+        </sando-form-group>
+      `);
+
+      // Wait for the re-render after detecting existing input id
+      await el.updateComplete;
+
+      const label = el.shadowRoot?.querySelector('.form-group__label') as HTMLLabelElement;
+      const input = el.querySelector('input');
+
+      expect(input?.id).to.equal('my-custom-id');
+      expect(label?.getAttribute('for')).to.equal('my-custom-id');
+    });
+
+    it('should set aria-describedby for helper text', async () => {
+      const el = await fixture<SandoFormGroup>(html`
+        <sando-form-group helper-text="Enter your email">
+          <input type="email" />
+        </sando-form-group>
+      `);
+
+      const input = el.querySelector('input');
+      const helperText = el.shadowRoot?.querySelector('.form-group__helper-text');
+
+      expect(input?.getAttribute('aria-describedby')).to.exist;
+      expect(input?.getAttribute('aria-describedby')).to.equal(helperText?.id);
+    });
+
+    it('should set aria-invalid when error is present', async () => {
+      const el = await fixture<SandoFormGroup>(html`
+        <sando-form-group error="Invalid email">
+          <input type="email" />
+        </sando-form-group>
+      `);
+
+      const input = el.querySelector('input');
+      expect(input?.getAttribute('aria-invalid')).to.equal('true');
+    });
+
+    it('should sync required attribute to slotted input', async () => {
+      const el = await fixture<SandoFormGroup>(html`
+        <sando-form-group label="Email" required>
+          <input type="email" />
+        </sando-form-group>
+      `);
+
+      const input = el.querySelector('input') as HTMLInputElement;
+      expect(input?.required).to.be.true;
+    });
+
+    it('should sync disabled attribute to slotted input', async () => {
+      const el = await fixture<SandoFormGroup>(html`
+        <sando-form-group label="Email" disabled>
+          <input type="email" />
+        </sando-form-group>
+      `);
+
+      const input = el.querySelector('input') as HTMLInputElement;
+      expect(input?.disabled).to.be.true;
+    });
   });
 });
