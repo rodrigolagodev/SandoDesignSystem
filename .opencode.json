@@ -1,0 +1,22 @@
+{
+  "$schema": "https://raw.githubusercontent.com/opencode-ai/opencode/main/opencode-schema.json",
+  "data": {
+    "directory": ".opencode"
+  },
+  "agents": {
+    "coder": {
+      "model": "claude-sonnet-4-20250514",
+      "maxTokens": 8000
+    },
+    "task": {
+      "model": "claude-sonnet-4-20250514",
+      "maxTokens": 8000
+    },
+    "title": {
+      "model": "claude-3-5-haiku-20241022",
+      "maxTokens": 80
+    }
+  },
+  "autoCompact": true,
+  "debug": false
+}
