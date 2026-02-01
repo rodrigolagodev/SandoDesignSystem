@@ -20,59 +20,25 @@ For the complete contributing guidelines, please see our [CONTRIBUTING.md](https
 
 ### Setup
 
-\`\`\`bash
-
-# Clone the repository
-
-git clone https://github.com/rodrigolagodev/SandoDesignSystem.git
+```bash
+# Clone the repository with submodules
+git clone --recursive https://github.com/rodrigolagodev/SandoDesignSystem.git
 cd SandoDesignSystem
 
-# Install dependencies
+# If you already cloned without --recursive:
+git submodule update --init --recursive
 
+# Install dependencies
 pnpm install
 
 # Build all packages
-
 pnpm build
 
 # Start development
-
 pnpm dev
-\`\`\`
-
-## Development Workflow
-
-1. **Create a branch**: `git checkout -b feat/your-feature`
-2. **Make changes**: Follow our [coding standards](#coding-standards)
-3. **Run tests**: `pnpm test`
-4. **Commit**: Use [conventional commits](#commit-format)
-5. **Push**: `git push origin feat/your-feature`
-6. **Create PR**: Open a pull request on GitHub
-
-## Coding Standards
-
-### TypeScript
-
-- Use strict mode
-- Provide explicit types
-- Avoid `any`, use `unknown` if needed
-- Use meaningful names
-
-### Naming Conventions
-
-```typescript
-// Components: PascalCase
-class SandoButton extends LitElement {}
-
-// Files: kebab-case
-sando - button.ts;
-
-// CSS custom properties: --sando- prefix
---sando - button - background - color;
-
-// Functions: camelCase
-function handleClick() {}
 ```
+
+> **Note:** The `--recursive` flag is needed to clone the `skill-creator` and `agent-creator` submodules.
 
 ### Code Style
 
