@@ -1,0 +1,82 @@
+{
+  "form-group": {
+    "gap": {
+      "value": "{space.stack.muted.value}",
+      "type": "dimension"
+    },
+    "label": {
+      "fontSize": {
+        "value": "{font.size.caption.value}",
+        "type": "dimension"
+      },
+      "fontWeight": {
+        "value": "{font.weight.emphasis.value}",
+        "type": "fontWeight"
+      },
+      "lineHeight": {
+        "value": "{font.lineHeight.caption.value}",
+        "type": "number"
+      },
+      "textColor": {
+        "default": {
+          "value": "{color.text.body.value}",
+          "type": "color"
+        },
+        "disabled": {
+          "value": "{color.text.muted.value}",
+          "type": "color"
+        }
+      },
+      "marginBottom": {
+        "value": "{space.stack.tight.value}",
+        "type": "dimension"
+      }
+    },
+    "helperText": {
+      "fontSize": {
+        "value": "{font.size.caption.value}",
+        "type": "dimension"
+      },
+      "lineHeight": {
+        "value": "{font.lineHeight.caption.value}",
+        "type": "number"
+      },
+      "textColor": {
+        "value": "{color.text.caption.value}",
+        "type": "color"
+      },
+      "marginTop": {
+        "value": "{space.stack.tight.value}",
+        "type": "dimension"
+      }
+    },
+    "error": {
+      "fontSize": {
+        "value": "{font.size.caption.value}",
+        "type": "dimension"
+      },
+      "lineHeight": {
+        "value": "{font.lineHeight.caption.value}",
+        "type": "number"
+      },
+      "textColor": {
+        "value": "{color.state.destructive.text.value}",
+        "type": "color"
+      },
+      "marginTop": {
+        "value": "{space.stack.tight.value}",
+        "type": "dimension"
+      }
+    },
+    "required": {
+      "textColor": {
+        "value": "{color.state.destructive.text.value}",
+        "type": "color"
+      }
+    },
+    "fontFamily": {
+      "value": "{font.family.body.value}",
+      "type": "fontFamily"
+    }
+  }
+}

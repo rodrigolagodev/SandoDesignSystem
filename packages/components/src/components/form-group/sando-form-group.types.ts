@@ -37,6 +37,12 @@ export interface SandoFormGroupProps {
    * @default false
    */
   required?: boolean;
+
+  /**
+   * Whether the form group is disabled
+   * @default false
+   */
+  disabled?: boolean;
 }
 
 /**

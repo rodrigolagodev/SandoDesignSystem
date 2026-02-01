@@ -1,12 +1,18 @@
-import { fixture, expect } from '@open-wc/testing';
-import { html } from 'lit';
+/**
+ * Accessibility Tests for sando-form-group
+ * Uses axe-core for WCAG compliance testing
+ */
+
+import { describe, it, expect } from 'vitest';
+import { fixture, html } from '@open-wc/testing';
 import { axe, toHaveNoViolations } from 'jest-axe';
 import './sando-form-group.js';
 import type { SandoFormGroup } from './sando-form-group.js';
 
+// Extend expect matchers
 expect.extend(toHaveNoViolations);
 
-describe('sando-form-group accessibility', () => {
+describe('sando-form-group Accessibility', () => {
   it('should pass axe accessibility tests - default state', async () => {
     const el = await fixture<SandoFormGroup>(html`
       <sando-form-group>
@@ -21,7 +27,7 @@ describe('sando-form-group accessibility', () => {
   it('should pass axe accessibility tests - with label', async () => {
     const el = await fixture<SandoFormGroup>(html`
       <sando-form-group label="Email">
-        <input type="email" id="email-input" />
+        <input type="email" id="email-input" aria-label="Email" />
       </sando-form-group>
     `);
 
@@ -32,7 +38,7 @@ describe('sando-form-group accessibility', () => {
   it('should pass axe accessibility tests - with error', async () => {
     const el = await fixture<SandoFormGroup>(html`
       <sando-form-group label="Email" error="Email is required">
-        <input type="email" id="email-input" aria-invalid="true" />
+        <input type="email" id="email-input" aria-label="Email" aria-invalid="true" />
       </sando-form-group>
     `);
 
@@ -42,8 +48,8 @@ describe('sando-form-group accessibility', () => {
 
   it('should pass axe accessibility tests - with helper text', async () => {
     const el = await fixture<SandoFormGroup>(html`
-      <sando-form-group label="Password" helperText="Must be at least 8 characters">
-        <input type="password" id="password-input" />
+      <sando-form-group label="Password" helper-text="Must be at least 8 characters">
+        <input type="password" id="password-input" aria-label="Password" />
       </sando-form-group>
     `);
 
@@ -54,7 +60,7 @@ describe('sando-form-group accessibility', () => {
   it('should pass axe accessibility tests - required field', async () => {
     const el = await fixture<SandoFormGroup>(html`
       <sando-form-group label="Username" required>
-        <input type="text" id="username-input" required />
+        <input type="text" id="username-input" aria-label="Username" required />
       </sando-form-group>
     `);
 
@@ -77,25 +83,25 @@ describe('sando-form-group accessibility', () => {
 
   describe('ARIA attributes', () => {
     it('should use role="alert" for error messages', async () => {
-      // TODO: Implement this test
-      // const el = await fixture<SandoFormGroup>(html`
-      //   <sando-form-group error="Validation error">
-      //     <input type="text" aria-label="Test input" />
-      //   </sando-form-group>
-      // `);
-      // const errorElement = el.shadowRoot?.querySelector('.form-group__error');
-      // expect(errorElement?.getAttribute('role')).to.equal('alert');
+      const el = await fixture<SandoFormGroup>(html`
+        <sando-form-group error="Validation error">
+          <input type="text" aria-label="Test input" />
+        </sando-form-group>
+      `);
+
+      const errorElement = el.shadowRoot?.querySelector('.form-group__error');
+      expect(errorElement?.getAttribute('role')).toBe('alert');
     });
 
     it('should use aria-live="polite" for error messages', async () => {
-      // TODO: Implement this test
-      // const el = await fixture<SandoFormGroup>(html`
-      //   <sando-form-group error="Validation error">
-      //     <input type="text" aria-label="Test input" />
-      //   </sando-form-group>
-      // `);
-      // const errorElement = el.shadowRoot?.querySelector('.form-group__error');
-      // expect(errorElement?.getAttribute('aria-live')).to.equal('polite');
+      const el = await fixture<SandoFormGroup>(html`
+        <sando-form-group error="Validation error">
+          <input type="text" aria-label="Test input" />
+        </sando-form-group>
+      `);
+
+      const errorElement = el.shadowRoot?.querySelector('.form-group__error');
+      expect(errorElement?.getAttribute('aria-live')).toBe('polite');
     });
   });
 
@@ -103,15 +109,15 @@ describe('sando-form-group accessibility', () => {
     it('should allow focus on slotted form controls', async () => {
       const el = await fixture<SandoFormGroup>(html`
         <sando-form-group label="Email">
-          <input type="email" id="email-input" />
+          <input type="email" id="email-input" aria-label="Email" />
         </sando-form-group>
       `);
 
       const input = el.querySelector<HTMLInputElement>('#email-input');
-      expect(input).to.exist;
+      expect(input).toBeTruthy();
 
       input?.focus();
-      expect(document.activeElement).to.equal(input);
+      expect(document.activeElement).toBe(input);
     });
   });
 
@@ -131,12 +137,11 @@ describe('sando-form-group accessibility', () => {
 
     it('should associate helper text with form controls', async () => {
       const el = await fixture<SandoFormGroup>(html`
-        <sando-form-group label="Password" helperText="Must be at least 8 characters">
-          <input type="password" id="password" />
+        <sando-form-group label="Password" helper-text="Must be at least 8 characters">
+          <input type="password" id="password" aria-label="Password" />
         </sando-form-group>
       `);
 
-      // TODO: Verify aria-describedby links helper text to input
       const results = await axe(el);
       expect(results).toHaveNoViolations();
     });
