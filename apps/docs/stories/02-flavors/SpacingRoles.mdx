@@ -1,0 +1,511 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Flavors/Spacing Roles" />
+
+# Spacing Roles
+
+Semantic spacing tokens that define layout and component spacing relationships. These tokens reference primitive spacing values from the Ingredients layer and give them contextual meaning.
+
+## Token Naming Convention
+
+All flavor spacing tokens follow this pattern:
+
+```
+--sando-spacing-[category]-[role]
+```
+
+Examples:
+
+- `--sando-spacing-component-padding`
+- `--sando-spacing-layout-section`
+- `--sando-spacing-content-gap`
+
+## Component Spacing
+
+Tokens for internal component spacing (padding, gaps within components):
+
+<table>
+  <thead>
+    <tr>
+      <th>Token</th>
+      <th>Purpose</th>
+      <th>Default Value</th>
+      <th>Usage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--sando-spacing-component-padding</code>
+      </td>
+      <td>Default component padding</td>
+      <td>
+        <code>var(--sando-space-4)</code> (1rem)
+      </td>
+      <td>Button padding, input padding</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-spacing-component-padding-sm</code>
+      </td>
+      <td>Small component padding</td>
+      <td>
+        <code>var(--sando-space-2)</code> (0.5rem)
+      </td>
+      <td>Compact buttons, dense inputs</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-spacing-component-padding-lg</code>
+      </td>
+      <td>Large component padding</td>
+      <td>
+        <code>var(--sando-space-6)</code> (1.5rem)
+      </td>
+      <td>Spacious buttons, large inputs</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-spacing-component-gap</code>
+      </td>
+      <td>Gap between component elements</td>
+      <td>
+        <code>var(--sando-space-3)</code> (0.75rem)
+      </td>
+      <td>Icon and text spacing in buttons</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-spacing-component-gap-sm</code>
+      </td>
+      <td>Small gap</td>
+      <td>
+        <code>var(--sando-space-2)</code> (0.5rem)
+      </td>
+      <td>Tight element spacing</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-spacing-component-gap-lg</code>
+      </td>
+      <td>Large gap</td>
+      <td>
+        <code>var(--sando-space-4)</code> (1rem)
+      </td>
+      <td>Relaxed element spacing</td>
+    </tr>
+  </tbody>
+</table>
+
+### Example Usage
+
+```css
+.button {
+  padding: var(--sando-spacing-component-padding);
+  gap: var(--sando-spacing-component-gap);
+}
+
+.button--small {
+  padding: var(--sando-spacing-component-padding-sm);
+  gap: var(--sando-spacing-component-gap-sm);
+}
+
+.button--large {
+  padding: var(--sando-spacing-component-padding-lg);
+  gap: var(--sando-spacing-component-gap-lg);
+}
+```
+
+## Layout Spacing
+
+Tokens for macro-level layout spacing (sections, containers):
+
+<table>
+  <thead>
+    <tr>
+      <th>Token</th>
+      <th>Purpose</th>
+      <th>Default Value</th>
+      <th>Usage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--sando-spacing-layout-section</code>
+      </td>
+      <td>Space between major sections</td>
+      <td>
+        <code>var(--sando-space-16)</code> (4rem)
+      </td>
+      <td>Section margins, page breaks</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-spacing-layout-container</code>
+      </td>
+      <td>Container padding</td>
+      <td>
+        <code>var(--sando-space-6)</code> (1.5rem)
+      </td>
+      <td>Main container padding</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-spacing-layout-gutter</code>
+      </td>
+      <td>Grid gutter</td>
+      <td>
+        <code>var(--sando-space-4)</code> (1rem)
+      </td>
+      <td>Column gaps in grids</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-spacing-layout-stack</code>
+      </td>
+      <td>Vertical stacking space</td>
+      <td>
+        <code>var(--sando-space-8)</code> (2rem)
+      </td>
+      <td>Vertical rhythm between blocks</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-spacing-layout-inline</code>
+      </td>
+      <td>Horizontal inline space</td>
+      <td>
+        <code>var(--sando-space-4)</code> (1rem)
+      </td>
+      <td>Horizontal spacing between items</td>
+    </tr>
+  </tbody>
+</table>
+
+### Example Usage
+
+```css
+.section {
+  margin-block: var(--sando-spacing-layout-section);
+}
+
+.container {
+  padding-inline: var(--sando-spacing-layout-container);
+}
+
+.grid {
+  gap: var(--sando-spacing-layout-gutter);
+}
+
+.stack > * + * {
+  margin-block-start: var(--sando-spacing-layout-stack);
+}
+```
+
+## Content Spacing
+
+Tokens for content-specific spacing (typography, media):
+
+<table>
+  <thead>
+    <tr>
+      <th>Token</th>
+      <th>Purpose</th>
+      <th>Default Value</th>
+      <th>Usage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--sando-spacing-content-paragraph</code>
+      </td>
+      <td>Space between paragraphs</td>
+      <td>
+        <code>var(--sando-space-4)</code> (1rem)
+      </td>
+      <td>Paragraph margins</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-spacing-content-heading</code>
+      </td>
+      <td>Space after headings</td>
+      <td>
+        <code>var(--sando-space-6)</code> (1.5rem)
+      </td>
+      <td>Heading bottom margin</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-spacing-content-list</code>
+      </td>
+      <td>Space between list items</td>
+      <td>
+        <code>var(--sando-space-3)</code> (0.75rem)
+      </td>
+      <td>
+        <code>&lt;li&gt;</code> margins
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-spacing-content-gap</code>
+      </td>
+      <td>General content gap</td>
+      <td>
+        <code>var(--sando-space-4)</code> (1rem)
+      </td>
+      <td>Flow content spacing</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-spacing-content-media</code>
+      </td>
+      <td>Space around media</td>
+      <td>
+        <code>var(--sando-space-6)</code> (1.5rem)
+      </td>
+      <td>Image/video margins</td>
+    </tr>
+  </tbody>
+</table>
+
+### Example Usage
+
+```css
+p {
+  margin-block-end: var(--sando-spacing-content-paragraph);
+}
+
+h1,
+h2,
+h3 {
+  margin-block-end: var(--sando-spacing-content-heading);
+}
+
+li + li {
+  margin-block-start: var(--sando-spacing-content-list);
+}
+
+img,
+video {
+  margin-block: var(--sando-spacing-content-media);
+}
+```
+
+## Form Spacing
+
+Tokens for form-specific spacing relationships:
+
+<table>
+  <thead>
+    <tr>
+      <th>Token</th>
+      <th>Purpose</th>
+      <th>Default Value</th>
+      <th>Usage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--sando-spacing-form-field-gap</code>
+      </td>
+      <td>Space between form fields</td>
+      <td>
+        <code>var(--sando-space-4)</code> (1rem)
+      </td>
+      <td>Vertical spacing between inputs</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-spacing-form-label-gap</code>
+      </td>
+      <td>Space between label and input</td>
+      <td>
+        <code>var(--sando-space-2)</code> (0.5rem)
+      </td>
+      <td>Label-to-input spacing</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-spacing-form-helper-gap</code>
+      </td>
+      <td>Space between input and helper text</td>
+      <td>
+        <code>var(--sando-space-2)</code> (0.5rem)
+      </td>
+      <td>Helper text spacing</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-spacing-form-action-gap</code>
+      </td>
+      <td>Space before form actions</td>
+      <td>
+        <code>var(--sando-space-6)</code> (1.5rem)
+      </td>
+      <td>Submit button top margin</td>
+    </tr>
+  </tbody>
+</table>
+
+### Example Usage
+
+```css
+.form-field + .form-field {
+  margin-block-start: var(--sando-spacing-form-field-gap);
+}
+
+.label {
+  margin-block-end: var(--sando-spacing-form-label-gap);
+}
+
+.helper-text {
+  margin-block-start: var(--sando-spacing-form-helper-gap);
+}
+
+.form-actions {
+  margin-block-start: var(--sando-spacing-form-action-gap);
+}
+```
+
+## Stack Spacing Utility
+
+Sando provides a stack utility pattern that uses spacing roles:
+
+```css
+/* Default stack (1rem / 16px gap) */
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sando-spacing-content-gap);
+}
+
+/* Small stack (0.5rem / 8px gap) */
+.stack--sm {
+  gap: var(--sando-space-2);
+}
+
+/* Large stack (2rem / 32px gap) */
+.stack--lg {
+  gap: var(--sando-spacing-layout-stack);
+}
+
+/* Extra large stack (4rem / 64px gap) */
+.stack--xl {
+  gap: var(--sando-spacing-layout-section);
+}
+```
+
+### Example Usage
+
+```html
+<div class="stack">
+  <h1>Heading</h1>
+  <p>Paragraph with consistent spacing</p>
+  <p>Another paragraph</p>
+</div>
+
+<div class="stack stack--lg">
+  <section>Section 1</section>
+  <section>Section 2</section>
+</div>
+```
+
+## Responsive Spacing
+
+While spacing tokens have fixed values, you can create responsive spacing using CSS:
+
+```css
+.section {
+  /* Mobile: smaller section spacing */
+  margin-block: var(--sando-space-8);
+}
+
+@media (min-width: 768px) {
+  .section {
+    /* Tablet+: use semantic layout spacing */
+    margin-block: var(--sando-spacing-layout-section);
+  }
+}
+```
+
+## Logical Properties
+
+All spacing roles are designed to work with **CSS logical properties** for RTL support:
+
+```css
+/* ✅ GOOD: Logical properties (RTL-friendly) */
+.container {
+  padding-inline: var(--sando-spacing-layout-container);
+  margin-block-end: var(--sando-spacing-layout-stack);
+}
+
+/* ❌ BAD: Physical properties (not RTL-friendly) */
+.container {
+  padding-left: var(--sando-spacing-layout-container);
+  padding-right: var(--sando-spacing-layout-container);
+  margin-bottom: var(--sando-spacing-layout-stack);
+}
+```
+
+**Logical property reference**:
+
+- `padding-inline` = `padding-left` + `padding-right` (horizontal)
+- `padding-block` = `padding-top` + `padding-bottom` (vertical)
+- `margin-inline-start` = `margin-left` in LTR, `margin-right` in RTL
+- `margin-block-end` = `margin-bottom` in horizontal writing modes
+
+## Customizing Spacing Roles
+
+You can customize spacing roles per flavor:
+
+```css
+/* Default spacing */
+:root {
+  --sando-spacing-component-padding: var(--sando-space-4);
+}
+
+/* Custom "compact" flavor with tighter spacing */
+[flavor="compact"] {
+  --sando-spacing-component-padding: var(--sando-space-2);
+  --sando-spacing-layout-section: var(--sando-space-12);
+  --sando-spacing-content-gap: var(--sando-space-3);
+}
+
+/* Custom "spacious" flavor with looser spacing */
+[flavor="spacious"] {
+  --sando-spacing-component-padding: var(--sando-space-6);
+  --sando-spacing-layout-section: var(--sando-space-20);
+  --sando-spacing-content-gap: var(--sando-space-6);
+}
+```
+
+## Best Practices
+
+### ✅ DO
+
+- Use semantic spacing roles for component and layout spacing
+- Combine with logical properties for RTL support
+- Create custom flavors to adjust spacing density
+- Use the spacing scale consistently (4px base units)
+
+### ❌ DON'T
+
+- Use raw pixel values (`padding: 16px;`)
+- Skip the Flavors layer and use Ingredients directly in components
+- Mix spacing systems (stick to Sando's scale)
+- Use physical properties (`margin-left`) instead of logical (`margin-inline-start`)
+
+## Related Pages
+
+- [Flavors/Overview](/?path=/docs/flavors-overview--docs) - Understanding the Flavors layer
+- [Ingredients/Spacing](/?path=/docs/ingredients-spacing--docs) - Primitive spacing scale
+- [Getting Started/Best Practices](/?path=/docs/getting-started-best-practices--docs) - Token usage best practices
+
+---
+
+**Use semantic spacing roles for consistent, maintainable layouts! 📐**

@@ -145,7 +145,7 @@ export const FlavorableMixin = <T extends Constructor<LitElement>>(Base: T) => {
 
     /**
      * Lifecycle: Called when properties change
-     * Updates explicit flags
+     * Updates explicit flags and syncs data-flavor attribute
      */
     override updated(changedProperties: PropertyValues) {
       super.updated(changedProperties);
@@ -153,6 +153,8 @@ export const FlavorableMixin = <T extends Constructor<LitElement>>(Base: T) => {
       if (changedProperties.has('flavor')) {
         // Check if flavor was explicitly set via attribute
         this._hasExplicitFlavor = this.hasAttribute('flavor');
+        // Sync data-flavor attribute for CSS selectors
+        this._syncDataFlavorAttribute();
       }
     }
 
@@ -160,7 +162,7 @@ export const FlavorableMixin = <T extends Constructor<LitElement>>(Base: T) => {
      * Setup flavor inheritance from ancestor elements
      *
      * Walks up the DOM tree to find the nearest ancestor with a `[flavor]` attribute.
-     * If found, stores the inherited flavor value.
+     * If found, stores the inherited flavor value and syncs data-flavor attribute.
      *
      * @private
      */
@@ -168,7 +170,9 @@ export const FlavorableMixin = <T extends Constructor<LitElement>>(Base: T) => {
       // Check if component has explicit flavor attribute
       if (this.hasAttribute('flavor')) {
         this._hasExplicitFlavor = true;
-        return; // Don't inherit if explicit flavor is set
+        // Sync data-flavor for explicit flavor
+        this._syncDataFlavorAttribute();
+        return;
       }
 
       // Find nearest ancestor with [flavor] attribute
@@ -182,7 +186,27 @@ export const FlavorableMixin = <T extends Constructor<LitElement>>(Base: T) => {
           // The effectiveFlavor getter will return the inherited value
           // But the DOM attribute stays empty, allowing CSS inheritance to work
           this._hasExplicitFlavor = false; // Mark as inherited, not explicit
+          // Sync data-flavor for inherited flavor
+          this._syncDataFlavorAttribute();
         }
+      }
+    }
+
+    /**
+     * Sync the data-flavor attribute with the effective flavor
+     *
+     * The CSS flavor files use [data-flavor="X"] selectors, so we mirror
+     * the effective flavor value to this attribute. Original flavor uses
+     * :root so we remove data-flavor to avoid conflicts.
+     *
+     * @private
+     */
+    private _syncDataFlavorAttribute() {
+      const effectiveFlavor = this.effectiveFlavor;
+      if (effectiveFlavor && effectiveFlavor !== 'original') {
+        this.setAttribute('data-flavor', effectiveFlavor);
+      } else {
+        this.removeAttribute('data-flavor');
       }
     }
 

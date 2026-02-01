@@ -72,6 +72,10 @@ export type {
 
 export { FlavorableMixin, type FlavorableInterface, type Flavorable } from './mixins/index.js';
 
+// Note: ColorModeAwareMixin was removed because it caused flickering issues.
+// Color mode switching works through CSS custom property inheritance from the document.
+// See: preview-styles.css for html[data-color-mode] overrides that inherit into Shadow DOM.
+
 // ========================================
 // Utilities
 // ========================================

@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/blocks';
+import { Meta } from "@storybook/blocks";
 
 <Meta title="Flavors/Overview" />
 
@@ -37,6 +37,7 @@ Flavors translate primitive values into **semantic roles**:
 ```
 
 **Why this matters**:
+
 - **Theming**: Change one Flavor token to retheme your entire app
 - **Consistency**: Semantic names ensure correct usage across components
 - **Dark Mode**: Flavors automatically adapt via `prefers-color-scheme`
@@ -46,13 +47,52 @@ Flavors translate primitive values into **semantic roles**:
 
 Sando provides 5 pre-built flavor themes:
 
-| Flavor | Base Color | Description |
-|--------|------------|-------------|
-| **original** (default) | Orange | Warm, energetic, welcoming |
-| **strawberry** | Orange-based | Vibrant, fruity variation |
-| **ocean** | Blue | Cool, calm, professional |
-| **forest** | Green | Natural, fresh, growth-focused |
-| **sunset** | Warm tones | Rich, dramatic, luxurious |
+<table>
+  <thead>
+    <tr>
+      <th>Flavor</th>
+      <th>Base Color</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <strong>original</strong> (default)
+      </td>
+      <td>Orange</td>
+      <td>Warm, energetic, welcoming</td>
+    </tr>
+    <tr>
+      <td>
+        <strong>strawberry</strong>
+      </td>
+      <td>Orange-based</td>
+      <td>Vibrant, fruity variation</td>
+    </tr>
+    <tr>
+      <td>
+        <strong>ocean</strong>
+      </td>
+      <td>Blue</td>
+      <td>Cool, calm, professional</td>
+    </tr>
+    <tr>
+      <td>
+        <strong>forest</strong>
+      </td>
+      <td>Green</td>
+      <td>Natural, fresh, growth-focused</td>
+    </tr>
+    <tr>
+      <td>
+        <strong>sunset</strong>
+      </td>
+      <td>Warm tones</td>
+      <td>Rich, dramatic, luxurious</td>
+    </tr>
+  </tbody>
+</table>
 
 ### Applying Flavors
 
@@ -156,6 +196,7 @@ This compiles to CSS with automatic switching:
 Flavors organize tokens into meaningful categories:
 
 ### 1. Color Roles
+
 [See Color Roles page](/?path=/docs/flavors-color-roles--docs)
 
 - Background colors (`--sando-color-background-*`)
@@ -165,6 +206,7 @@ Flavors organize tokens into meaningful categories:
 - State colors (success, warning, error, info)
 
 ### 2. Spacing Roles
+
 [See Spacing Roles page](/?path=/docs/flavors-spacing-roles--docs)
 
 - Component spacing (`--sando-spacing-component-*`)
@@ -172,6 +214,7 @@ Flavors organize tokens into meaningful categories:
 - Content spacing (`--sando-spacing-content-*`)
 
 ### 3. Typography Roles
+
 [See Typography Roles page](/?path=/docs/flavors-typography-roles--docs)
 
 - Heading styles (`--sando-typography-heading-*`)
@@ -225,6 +268,7 @@ button { background: var(--sando-button-solid-backgroundColor-default); }
 ```
 
 **Benefits**:
+
 1. Change `--sando-color-orange-700` → updates all orange UI elements
 2. Change `--sando-color-action-solid-background-default` → rethemes all solid actions
 3. Change `--sando-button-solid-backgroundColor-default` → rethemes all solid buttons

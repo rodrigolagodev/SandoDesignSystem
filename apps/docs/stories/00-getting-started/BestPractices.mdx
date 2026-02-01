@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/blocks';
+import { Meta } from "@storybook/blocks";
 
 <Meta title="Getting Started/Best Practices" />
 
@@ -60,13 +60,15 @@ Are you building a component?
 
 /* ❌ BAD: Recipe tokens pointing to Ingredients (skip Flavor) */
 :root {
-  --sando-button-custom-backgroundColor: var(--sando-color-blue-600); /* Should use Flavor */
+  --sando-button-custom-backgroundColor: var(
+    --sando-color-blue-600
+  ); /* Should use Flavor */
 }
 
 /* ❌ BAD: Hardcoded values instead of tokens */
 .custom-card {
   background: #f97316; /* No theming support! */
-  padding: 16px;       /* Won't scale with design system changes */
+  padding: 16px; /* Won't scale with design system changes */
 }
 ```
 
@@ -77,9 +79,9 @@ Are you building a component?
 ```css
 /* ✅ Use T-shirt sizing tokens */
 .container {
-  padding: var(--sando-space-4);        /* 1rem / 16px */
-  margin-bottom: var(--sando-space-6);  /* 1.5rem / 24px */
-  gap: var(--sando-space-2);            /* 0.5rem / 8px */
+  padding: var(--sando-space-4); /* 1rem / 16px */
+  margin-bottom: var(--sando-space-6); /* 1.5rem / 24px */
+  gap: var(--sando-space-2); /* 0.5rem / 8px */
 }
 
 /* ❌ Don't use hardcoded values */
@@ -111,7 +113,7 @@ Are you building a component?
 ```css
 /* ✅ Use responsive clamp() tokens */
 .heading {
-  font-size: var(--sando-font-size-700);     /* Responsive */
+  font-size: var(--sando-font-size-700); /* Responsive */
   font-weight: var(--sando-font-weight-bold);
   line-height: var(--sando-line-height-tight);
 }
@@ -161,10 +163,7 @@ pnpm test:e2e
 <span id="email-hint">We'll never share your email</span>
 
 <!-- ❌ BAD: Missing label, no error association -->
-<sando-input
-  placeholder="Email"
-  required
-></sando-input>
+<sando-input placeholder="Email" required></sando-input>
 <span style="color: red">Please enter a valid email</span>
 ```
 
@@ -176,21 +175,38 @@ pnpm test:e2e
 
 ```typescript
 // ✅ GOOD: Import specific components (smaller bundle)
-import '@sando/components/button';
-import '@sando/components/input';
+import "@sando/components/button";
+import "@sando/components/input";
 
 // ❌ BAD: Import all components (larger bundle)
-import '@sando/components';
+import "@sando/components";
 ```
 
 ### Performance Budgets
 
 Sando enforces these budgets:
 
-| Package | Budget (gzipped) | Actual |
-|---------|------------------|--------|
-| @sando/tokens | < 5 KB | ~3 KB |
-| @sando/components (each) | < 10 KB | ~6-8 KB |
+<table>
+  <thead>
+    <tr>
+      <th>Package</th>
+      <th>Budget (gzipped)</th>
+      <th>Actual</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>@sando/tokens</td>
+      <td>&lt; 5 KB</td>
+      <td>~3 KB</td>
+    </tr>
+    <tr>
+      <td>@sando/components (each)</td>
+      <td>&lt; 10 KB</td>
+      <td>~6-8 KB</td>
+    </tr>
+  </tbody>
+</table>
 
 ### Tree-Shaking
 
@@ -203,12 +219,12 @@ export default {
     rollupOptions: {
       output: {
         manualChunks: {
-          'sando-core': ['@sando/tokens'],
-        }
-      }
-    }
-  }
-}
+          "sando-core": ["@sando/tokens"],
+        },
+      },
+    },
+  },
+};
 ```
 
 ## Component Composition
@@ -290,13 +306,13 @@ Follow the test pyramid:
 
 ```typescript
 // ✅ GOOD: Test behavior, not implementation
-it('should emit event when button is clicked', async () => {
+it("should emit event when button is clicked", async () => {
   const button = await fixture<SandoButton>(
-    html`<sando-button>Click</sando-button>`
+    html`<sando-button>Click</sando-button>`,
   );
 
   const eventSpy = vi.fn();
-  button.addEventListener('sando-click', eventSpy);
+  button.addEventListener("sando-click", eventSpy);
 
   button.click();
   await button.updateComplete;
@@ -305,9 +321,9 @@ it('should emit event when button is clicked', async () => {
 });
 
 // ❌ BAD: Testing internal state
-it('should set _isClicked to true', async () => {
+it("should set _isClicked to true", async () => {
   const button = await fixture<SandoButton>(
-    html`<sando-button>Click</sando-button>`
+    html`<sando-button>Click</sando-button>`,
   );
 
   button.click();
@@ -332,7 +348,9 @@ sando-button {
 
 /* ✅ BETTER: Create custom flavor */
 [flavor="danger"] {
-  --sando-color-action-solid-background-default: var(--sando-color-state-error-500);
+  --sando-color-action-solid-background-default: var(
+    --sando-color-state-error-500
+  );
 }
 ```
 
@@ -341,8 +359,8 @@ sando-button {
 ```css
 /* ❌ BAD: Mixing units */
 .container {
-  padding: var(--sando-space-4);  /* 1rem */
-  margin: 16px;                    /* Won't scale! */
+  padding: var(--sando-space-4); /* 1rem */
+  margin: 16px; /* Won't scale! */
 }
 
 /* ✅ GOOD: Consistent token usage */
@@ -356,11 +374,11 @@ sando-button {
 
 ```typescript
 // ❌ BAD: Using 'any'
-const button: any = document.querySelector('sando-button');
+const button: any = document.querySelector("sando-button");
 
 // ✅ GOOD: Proper typing
-import type { SandoButton } from '@sando/components/button';
-const button = document.querySelector('sando-button') as SandoButton;
+import type { SandoButton } from "@sando/components/button";
+const button = document.querySelector("sando-button") as SandoButton;
 ```
 
 ## Version Management

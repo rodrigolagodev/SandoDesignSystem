@@ -19,16 +19,16 @@ import './sando-form-group';
  *
  * ## Accessibility
  *
- * - ✅ Labels are properly associated with form controls
- * - ✅ Error messages use `role="alert"` and `aria-live="polite"`
- * - ✅ Required fields are indicated with visual asterisk
- * - ✅ Helper text provides additional context for users
- * - ✅ Keyboard navigation works seamlessly with slotted controls
+ * - Labels are properly associated with form controls
+ * - Error messages use `role="alert"` and `aria-live="polite"`
+ * - Required fields are indicated with visual asterisk
+ * - Helper text provides additional context for users
+ * - Keyboard navigation works seamlessly with slotted controls
  */
 const meta: Meta = {
-  title: 'Components/Layout/Form Group',
+  title: 'Components/Form Group',
   component: 'sando-form-group',
-  tags: ['autodocs'],
+  tags: ['autodocs', 'beta'],
   argTypes: {
     label: {
       control: 'text',
@@ -74,6 +74,13 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj;
 
+// Tag constant for documentation-only stories
+const DOCS_ONLY = ['!dev', '!autodocs'];
+
+// ============================================================================
+// PUBLIC STORIES (visible in sidebar)
+// ============================================================================
+
 /**
  * Default form group with label and input
  */
@@ -109,8 +116,7 @@ export const WithHelperText: Story = {
     <sando-form-group label="Username" helperText="Choose a unique username (4-20 characters)">
       <input type="text" placeholder="username" />
     </sando-form-group>
-  `,
-  parameters: { controls: { disable: true } }
+  `
 };
 
 /**
@@ -121,14 +127,18 @@ export const WithError: Story = {
     <sando-form-group label="Email" error="Please enter a valid email address">
       <input type="email" value="invalid-email" aria-invalid="true" />
     </sando-form-group>
-  `,
-  parameters: { controls: { disable: true } }
+  `
 };
+
+// ============================================================================
+// DOCUMENTATION STORIES (hidden from sidebar, used in MDX)
+// ============================================================================
 
 /**
  * Required field with asterisk indicator
  */
 export const Required: Story = {
+  tags: DOCS_ONLY,
   render: () => html`
     <sando-form-group label="Password" helperText="Must be at least 8 characters" required>
       <input type="password" required />
@@ -141,6 +151,7 @@ export const Required: Story = {
  * Using custom slots for advanced layouts
  */
 export const WithSlots: Story = {
+  tags: DOCS_ONLY,
   render: () => html`
     <sando-form-group>
       <div slot="label">
@@ -160,6 +171,7 @@ export const WithSlots: Story = {
  * Different form control types
  */
 export const DifferentInputTypes: Story = {
+  tags: DOCS_ONLY,
   render: () => html`
     <div style="display: flex; flex-direction: column; gap: 24px;">
       <sando-form-group label="Text Input">
@@ -187,9 +199,37 @@ export const DifferentInputTypes: Story = {
 };
 
 /**
+ * All states comparison
+ */
+export const AllStates: Story = {
+  tags: DOCS_ONLY,
+  render: () => html`
+    <div style="display: flex; flex-direction: column; gap: 24px; max-width: 400px;">
+      <sando-form-group label="Default">
+        <input type="text" placeholder="Normal input" />
+      </sando-form-group>
+
+      <sando-form-group label="With Helper" helperText="This is helpful guidance text">
+        <input type="text" placeholder="With helper text" />
+      </sando-form-group>
+
+      <sando-form-group label="Required" required>
+        <input type="text" placeholder="Required field" />
+      </sando-form-group>
+
+      <sando-form-group label="With Error" error="This field has an error">
+        <input type="text" value="Invalid value" aria-invalid="true" />
+      </sando-form-group>
+    </div>
+  `,
+  parameters: { controls: { disable: true } }
+};
+
+/**
  * Complete form example
  */
 export const CompleteForm: Story = {
+  tags: DOCS_ONLY,
   render: () => html`
     <form style="max-width: 400px;">
       <div style="display: flex; flex-direction: column; gap: 20px;">
@@ -209,7 +249,12 @@ export const CompleteForm: Story = {
           <textarea rows="4" placeholder="Tell us about yourself..."></textarea>
         </sando-form-group>
 
-        <button type="submit">Submit</button>
+        <button
+          type="submit"
+          style="padding: 12px 24px; background: var(--sando-color-brand-500, #f97316); color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 1rem;"
+        >
+          Submit
+        </button>
       </div>
     </form>
   `,

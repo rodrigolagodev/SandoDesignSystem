@@ -2,26 +2,566 @@
  * Storybook Preview Global Styles
  *
  * Applies design system tokens to the Storybook preview iframe
+ * All colors use CSS custom properties for proper theme/mode switching
+ *
+ * Includes:
+ * - Base styles for html/body
+ * - Color mode overrides (for manual testing)
+ * - MDX documentation styles (always light for readability)
+ * - Table, badge, and code block styles
  */
 
-/* Apply background color from design tokens to body */
+/* ========================================
+   Color Mode Override System
+   
+   These rules allow manual color mode switching in Storybook.
+   They use higher specificity to override @media queries.
+   
+   @storybook/addon-themes sets the data-color-mode attribute
+   on the html element BEFORE stories render, preventing flickering.
+   
+   data-color-mode="" (empty) → Auto mode, follow system preference
+   data-color-mode="light" → Force light mode
+   data-color-mode="dark" → Force dark mode
+   data-color-mode="high-contrast" → Force high contrast
+   
+   When data-color-mode is empty or absent, CSS @media queries work naturally.
+   This is the "Auto" mode - it respects the user's system preference.
+   ======================================== */
+
+/* -----------------------------------------
+   LIGHT MODE - Force light regardless of system
+   ----------------------------------------- */
+html[data-color-mode="light"] {
+  /* Background tokens */
+  --sando-color-background-base: var(--sando-color-neutralWarm-100);
+  --sando-color-background-surface: var(--sando-color-neutralWarm-200);
+  --sando-color-background-raised: var(--sando-color-utility-white);
+  --sando-color-background-overlay: var(--sando-color-neutralWarm-900);
+  --sando-color-background-emphasis: var(--sando-color-neutralWarm-300);
+
+  /* Text tokens */
+  --sando-color-text-heading: var(--sando-color-neutralWarm-950);
+  --sando-color-text-body: var(--sando-color-neutralWarm-800);
+  --sando-color-text-caption: var(--sando-color-neutralWarm-700);
+  --sando-color-text-muted: var(--sando-color-neutralWarm-600);
+  --sando-color-text-on-solid: var(--sando-color-neutralWarm-100);
+
+  /* Link tokens */
+  --sando-color-text-link-default: var(--sando-color-orange-700);
+  --sando-color-text-link-hover: var(--sando-color-orange-800);
+  --sando-color-text-link-active: var(--sando-color-orange-900);
+  --sando-color-text-link-visited: var(--sando-color-orange-950);
+  --sando-color-text-link-focus: var(--sando-color-orange-700);
+
+  /* Icon tokens */
+  --sando-color-icon-default: var(--sando-color-neutralWarm-700);
+  --sando-color-icon-muted: var(--sando-color-neutralWarm-500);
+  --sando-color-icon-emphasis: var(--sando-color-neutralWarm-900);
+  --sando-color-icon-interactive: var(--sando-color-orange-700);
+  --sando-color-icon-on-solid: var(--sando-color-neutralWarm-100);
+
+  /* Border tokens */
+  --sando-color-border-muted: var(--sando-color-neutralWarm-300);
+  --sando-color-border-default: var(--sando-color-neutralWarm-400);
+  --sando-color-border-emphasis: var(--sando-color-orange-700);
+
+  /* Focus tokens */
+  --sando-color-focus-ring: var(--sando-color-orange-600);
+  --sando-color-focus-ring-offset: var(--sando-color-neutralWarm-100);
+  --sando-color-focus-background: var(--sando-color-orange-50);
+  --sando-color-focus-text: var(--sando-color-orange-900);
+
+  /* Action tokens */
+  --sando-color-action-solid-background-default: var(--sando-color-orange-700);
+  --sando-color-action-solid-background-hover: var(--sando-color-orange-800);
+  --sando-color-action-solid-text-default: var(--sando-color-neutralWarm-100);
+  --sando-color-action-outline-border-default: var(
+    --sando-color-neutralWarm-400
+  );
+  --sando-color-action-outline-border-hover: var(--sando-color-orange-700);
+  --sando-color-action-outline-text-default: var(--sando-color-neutralWarm-800);
+  --sando-color-action-ghost-background-hover: var(
+    --sando-color-neutralWarm-300
+  );
+  --sando-color-action-ghost-text-default: var(--sando-color-neutralWarm-800);
+  --sando-color-action-disabled-background: var(--sando-color-neutralWarm-200);
+  --sando-color-action-disabled-text: var(--sando-color-neutralWarm-500);
+  --sando-color-action-disabled-border: var(--sando-color-neutralWarm-300);
+
+  /* State tokens */
+  --sando-color-state-success-background: var(--sando-color-state-success-100);
+  --sando-color-state-success-text: var(--sando-color-state-success-700);
+  --sando-color-state-success-border: var(--sando-color-state-success-400);
+  --sando-color-state-destructive-background: var(
+    --sando-color-state-error-100
+  );
+  --sando-color-state-destructive-text: var(--sando-color-state-error-700);
+  --sando-color-state-destructive-border: var(--sando-color-state-error-400);
+
+  /* Selection tokens */
+  --sando-color-selection-background: var(--sando-color-orange-200);
+  --sando-color-selection-text: var(--sando-color-neutralWarm-950);
+}
+
+/* -----------------------------------------
+   DARK MODE - Force dark regardless of system
+   ----------------------------------------- */
+html[data-color-mode="dark"] {
+  /* Background tokens */
+  --sando-color-background-base: var(--sando-color-neutralWarm-950);
+  --sando-color-background-surface: var(--sando-color-neutralWarm-900);
+  --sando-color-background-raised: var(--sando-color-neutralWarm-800);
+  --sando-color-background-overlay: var(--sando-color-neutralWarm-950);
+  --sando-color-background-emphasis: var(--sando-color-neutralWarm-700);
+
+  /* Text tokens */
+  --sando-color-text-heading: var(--sando-color-neutralWarm-50);
+  --sando-color-text-body: var(--sando-color-neutralWarm-200);
+  --sando-color-text-caption: var(--sando-color-neutralWarm-400);
+  --sando-color-text-muted: var(--sando-color-neutralWarm-500);
+  --sando-color-text-on-solid: var(--sando-color-neutralWarm-950);
+
+  /* Link tokens */
+  --sando-color-text-link-default: var(--sando-color-orange-400);
+  --sando-color-text-link-hover: var(--sando-color-orange-300);
+  --sando-color-text-link-active: var(--sando-color-orange-200);
+  --sando-color-text-link-visited: var(--sando-color-orange-500);
+  --sando-color-text-link-focus: var(--sando-color-orange-400);
+
+  /* Icon tokens */
+  --sando-color-icon-default: var(--sando-color-neutralWarm-400);
+  --sando-color-icon-muted: var(--sando-color-neutralWarm-500);
+  --sando-color-icon-emphasis: var(--sando-color-neutralWarm-100);
+  --sando-color-icon-interactive: var(--sando-color-orange-400);
+  --sando-color-icon-on-solid: var(--sando-color-neutralWarm-950);
+
+  /* Border tokens */
+  --sando-color-border-muted: var(--sando-color-neutralWarm-700);
+  --sando-color-border-default: var(--sando-color-neutralWarm-600);
+  --sando-color-border-emphasis: var(--sando-color-orange-400);
+
+  /* Focus tokens */
+  --sando-color-focus-ring: var(--sando-color-orange-400);
+  --sando-color-focus-ring-offset: var(--sando-color-neutralWarm-950);
+  --sando-color-focus-background: var(--sando-color-orange-950);
+  --sando-color-focus-text: var(--sando-color-orange-100);
+
+  /* Action tokens */
+  --sando-color-action-solid-background-default: var(--sando-color-orange-600);
+  --sando-color-action-solid-background-hover: var(--sando-color-orange-500);
+  --sando-color-action-solid-text-default: var(--sando-color-neutralWarm-950);
+  --sando-color-action-outline-border-default: var(
+    --sando-color-neutralWarm-600
+  );
+  --sando-color-action-outline-border-hover: var(--sando-color-orange-400);
+  --sando-color-action-outline-text-default: var(--sando-color-neutralWarm-200);
+  --sando-color-action-ghost-background-hover: var(
+    --sando-color-neutralWarm-800
+  );
+  --sando-color-action-ghost-text-default: var(--sando-color-neutralWarm-200);
+  --sando-color-action-disabled-background: var(--sando-color-neutralWarm-800);
+  --sando-color-action-disabled-text: var(--sando-color-neutralWarm-600);
+  --sando-color-action-disabled-border: var(--sando-color-neutralWarm-700);
+
+  /* State tokens */
+  --sando-color-state-success-background: var(--sando-color-state-success-900);
+  --sando-color-state-success-text: var(--sando-color-state-success-300);
+  --sando-color-state-success-border: var(--sando-color-state-success-600);
+  --sando-color-state-destructive-background: var(
+    --sando-color-state-error-900
+  );
+  --sando-color-state-destructive-text: var(--sando-color-state-error-300);
+  --sando-color-state-destructive-border: var(--sando-color-state-error-600);
+
+  /* Selection tokens */
+  --sando-color-selection-background: var(--sando-color-orange-800);
+  --sando-color-selection-text: var(--sando-color-neutralWarm-50);
+}
+
+/* -----------------------------------------
+   HIGH CONTRAST MODE - Force high contrast
+   ----------------------------------------- */
+html[data-color-mode="high-contrast"] {
+  /* Border width overrides */
+  --sando-border-width-default: var(--sando-border-width-100);
+  --sando-border-width-emphasis: var(--sando-border-width-200);
+
+  /* Background tokens */
+  --sando-color-background-base: var(--sando-color-utility-white);
+  --sando-color-background-surface: var(--sando-color-utility-white);
+  --sando-color-background-raised: var(--sando-color-utility-white);
+  --sando-color-background-overlay: var(--sando-color-utility-black);
+  --sando-color-background-emphasis: var(--sando-color-neutralWarm-100);
+
+  /* Text tokens */
+  --sando-color-text-heading: var(--sando-color-utility-black);
+  --sando-color-text-body: var(--sando-color-utility-black);
+  --sando-color-text-caption: var(--sando-color-neutralWarm-800);
+  --sando-color-text-muted: var(--sando-color-neutralWarm-700);
+  --sando-color-text-on-solid: var(--sando-color-utility-white);
+
+  /* Link tokens */
+  --sando-color-text-link-default: var(--sando-color-orange-950);
+  --sando-color-text-link-hover: var(--sando-color-utility-black);
+  --sando-color-text-link-active: var(--sando-color-utility-black);
+  --sando-color-text-link-visited: var(--sando-color-orange-900);
+  --sando-color-text-link-focus: var(--sando-color-utility-black);
+
+  /* Icon tokens */
+  --sando-color-icon-default: var(--sando-color-utility-black);
+  --sando-color-icon-muted: var(--sando-color-neutralWarm-700);
+  --sando-color-icon-emphasis: var(--sando-color-utility-black);
+  --sando-color-icon-interactive: var(--sando-color-orange-950);
+  --sando-color-icon-on-solid: var(--sando-color-utility-white);
+
+  /* Border tokens */
+  --sando-color-border-muted: var(--sando-color-neutralWarm-600);
+  --sando-color-border-default: var(--sando-color-utility-black);
+  --sando-color-border-emphasis: var(--sando-color-utility-black);
+
+  /* Focus tokens */
+  --sando-color-focus-ring: var(--sando-color-utility-black);
+  --sando-color-focus-ring-offset: var(--sando-color-utility-white);
+  --sando-color-focus-background: var(--sando-color-utility-white);
+  --sando-color-focus-text: var(--sando-color-utility-black);
+
+  /* Action tokens */
+  --sando-color-action-solid-background-default: var(
+    --sando-color-utility-black
+  );
+  --sando-color-action-solid-background-hover: var(
+    --sando-color-neutralWarm-800
+  );
+  --sando-color-action-solid-text-default: var(--sando-color-utility-white);
+  --sando-color-action-outline-border-default: var(--sando-color-utility-black);
+  --sando-color-action-outline-border-hover: var(--sando-color-utility-black);
+  --sando-color-action-outline-text-default: var(--sando-color-utility-black);
+  --sando-color-action-ghost-background-hover: var(
+    --sando-color-neutralWarm-200
+  );
+  --sando-color-action-ghost-text-default: var(--sando-color-utility-black);
+  --sando-color-action-disabled-background: var(--sando-color-neutralWarm-300);
+  --sando-color-action-disabled-text: var(--sando-color-neutralWarm-600);
+  --sando-color-action-disabled-border: var(--sando-color-neutralWarm-500);
+
+  /* State tokens */
+  --sando-color-state-success-background: var(--sando-color-state-success-100);
+  --sando-color-state-success-text: var(--sando-color-state-success-900);
+  --sando-color-state-success-border: var(--sando-color-state-success-900);
+  --sando-color-state-destructive-background: var(
+    --sando-color-state-error-100
+  );
+  --sando-color-state-destructive-text: var(--sando-color-state-error-900);
+  --sando-color-state-destructive-border: var(--sando-color-state-error-900);
+
+  /* Selection tokens */
+  --sando-color-selection-background: var(--sando-color-utility-black);
+  --sando-color-selection-text: var(--sando-color-utility-white);
+}
+
+/* ========================================
+   Base Styles - Reset and defaults
+   ======================================== */
+
+/**
+ * CRITICAL: Prevent color/background transitions on core elements
+ * 
+ * The @storybook/addon-themes decorator uses React's useEffect to set
+ * the data-color-mode attribute AFTER the story renders. This can cause
+ * a visible flash/flicker when switching themes.
+ * 
+ * We disable color/background transitions ONLY on html and body to make
+ * the theme switch appear instant while still allowing component animations.
+ */
+html,
+body,
+#storybook-root {
+  transition:
+    background-color 0s,
+    color 0s !important;
+}
+
+html,
 body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Apply background color from design tokens to html (where attributes are set) */
+html {
   background-color: var(--sando-color-background-base);
   color: var(--sando-color-text-body);
   font-family: var(--sando-font-family-body);
-  transition:
-    background-color 0.2s ease,
-    color 0.2s ease;
+  min-height: 100%;
+}
+
+/* Body inherits from html */
+body {
+  background-color: inherit;
+  color: inherit;
+  font-family: inherit;
+  min-height: 100vh;
 }
 
 /* Ensure preview root has full height */
 #storybook-root {
   min-height: 100vh;
   padding: 2rem;
+  background-color: inherit;
 }
 
-/* Reset default margins */
-body {
-  margin: 0;
+/* ========================================
+   MDX Documentation Styles
+   
+   MDX pages (Welcome, Status, etc.) should ALWAYS be readable.
+   We force light mode styling for documentation pages to ensure
+   text is always visible against a light background.
+   ======================================== */
+
+/* MDX Container - Force light, neutral background for readability */
+.sbdocs-wrapper {
+  /* Use hardcoded light colors - docs should always be readable */
+  background: #fafaf9 !important; /* neutralWarm-100 equivalent */
+  color: #292524 !important; /* neutralWarm-800 equivalent */
+}
+
+.sbdocs-content {
+  max-width: 900px !important;
+  color: inherit;
+}
+
+/* MDX Text Elements - Force readable colors */
+.sbdocs h1,
+.sbdocs h2,
+.sbdocs h3,
+.sbdocs h4,
+.sbdocs h5,
+.sbdocs h6 {
+  color: #0c0a09 !important; /* neutralWarm-950 equivalent */
+}
+
+.sbdocs p,
+.sbdocs li,
+.sbdocs span {
+  color: #292524; /* neutralWarm-800 equivalent */
+}
+
+.sbdocs a {
+  color: #c2410c; /* orange-700 equivalent */
+}
+
+.sbdocs a:hover {
+  color: #9a3412; /* orange-800 equivalent */
+}
+
+.sbdocs a:active {
+  color: #7c2d12; /* orange-900 equivalent */
+}
+
+/* ----------------------------------------
+   Table Styles (for all MDX tables)
+   Force light mode colors for readability
+   ---------------------------------------- */
+.sbdocs table,
+.docs-story table,
+.sb-unstyled table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.875rem;
+  background-color: #ffffff; /* white */
+  border: 1px solid #d6d3d1; /* neutralWarm-300 equivalent */
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.sbdocs table th,
+.docs-story table th,
+.sb-unstyled table th {
+  background: #e7e5e4; /* neutralWarm-200 equivalent */
+  font-weight: 600;
+  color: #0c0a09; /* neutralWarm-950 equivalent */
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 2px solid #a8a29e; /* neutralWarm-400 equivalent */
+}
+
+.sbdocs table td,
+.docs-story table td,
+.sb-unstyled table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #d6d3d1; /* neutralWarm-300 equivalent */
+  color: #292524; /* neutralWarm-800 equivalent */
+  background-color: #ffffff; /* white */
+}
+
+.sbdocs table tr:hover td,
+.docs-story table tr:hover td,
+.sb-unstyled table tr:hover td {
+  background: #e7e5e4; /* neutralWarm-200 equivalent */
+}
+
+.sbdocs table code,
+.docs-story table code,
+.sb-unstyled table code {
+  background: #d6d3d1; /* neutralWarm-300 equivalent */
+  padding: 0.125rem 0.375rem;
+  border-radius: 4px;
+  font-size: 0.8125rem;
+  font-family: var(--sando-font-family-code, "Fira Code", monospace);
+  color: #292524; /* neutralWarm-800 equivalent */
+}
+
+/* ----------------------------------------
+   Status Badges (reusable)
+   Using hardcoded colors for consistency
+   ---------------------------------------- */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+/* Stable - Green */
+.status-stable {
+  background: #dcfce7; /* success-100 equivalent */
+  color: #15803d; /* success-700 equivalent */
+}
+
+/* Beta - Amber/Warning */
+.status-beta {
+  background: #fef3c7; /* warning-100 equivalent */
+  color: #b45309; /* warning-700 equivalent */
+}
+
+/* Planned - Neutral */
+.status-planned {
+  background: #e7e5e4; /* neutralWarm-200 equivalent */
+  color: #57534e; /* neutralWarm-600 equivalent */
+}
+
+/* New - Blue/Info */
+.status-new {
+  background: #dbeafe; /* info-100 equivalent */
+  color: #1d4ed8; /* info-700 equivalent */
+}
+
+/* Deprecated - Red/Error */
+.status-deprecated {
+  background: #fee2e2; /* error-100 equivalent */
+  color: #b91c1c; /* error-700 equivalent */
+}
+
+/* ----------------------------------------
+   Check/Status Icons
+   ---------------------------------------- */
+.status-check {
+  color: #15803d; /* success-700 */
+  font-weight: 600;
+}
+
+.status-partial {
+  color: #d97706; /* warning-500 */
+  font-weight: 600;
+}
+
+.status-missing {
+  color: #57534e; /* neutralWarm-600 */
+}
+
+/* ----------------------------------------
+   Interactive Examples Fix
+   These should follow the color mode since they show components
+   ---------------------------------------- */
+.sbdocs-preview,
+.docs-story {
+  background: var(--sando-color-background-surface) !important;
+  border: 1px solid var(--sando-color-border-muted) !important;
+  border-radius: 8px;
+}
+
+/* Canvas wrapper */
+.sb-story {
+  background: var(--sando-color-background-surface);
+  padding: 2rem;
+}
+
+/* ----------------------------------------
+   Code Blocks - Force light mode for MDX
+   ---------------------------------------- */
+.sbdocs pre {
+  background: #fafaf9 !important; /* neutralWarm-200 equivalent */
+  border: 1px solid #d6d3d1; /* neutralWarm-300 equivalent */
+  border-radius: 8px;
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+.sbdocs pre code {
+  background: transparent !important;
   padding: 0;
+  color: #292524; /* neutralWarm-800 equivalent */
+  font-family: var(--sando-font-family-code, "Fira Code", monospace);
+}
+
+/* Inline code in paragraphs */
+.sbdocs p code,
+.sbdocs li code {
+  background: #d6d3d1; /* neutralWarm-300 equivalent */
+  padding: 0.125rem 0.375rem;
+  border-radius: 4px;
+  font-size: 0.875em;
+  font-family: var(--sando-font-family-code, "Fira Code", monospace);
+  color: #292524; /* neutralWarm-800 equivalent */
+}
+
+/* ----------------------------------------
+   Storybook Controls Panel (in docs)
+   ---------------------------------------- */
+.docblock-argstable {
+  background: #ffffff !important; /* white */
+}
+
+.docblock-argstable th {
+  background: #e7e5e4 !important; /* neutralWarm-200 */
+  color: #0c0a09 !important; /* neutralWarm-950 */
+}
+
+.docblock-argstable td {
+  background: #ffffff !important; /* white */
+  color: #292524 !important; /* neutralWarm-800 */
+  border-bottom-color: #d6d3d1 !important; /* neutralWarm-300 */
+}
+
+/* ----------------------------------------
+   Storybook Source Code Block
+   ---------------------------------------- */
+.docblock-source {
+  background: #e7e5e4 !important; /* neutralWarm-200 */
+  border-color: #d6d3d1 !important; /* neutralWarm-300 */
+}
+
+/* ----------------------------------------
+   Blockquotes and callouts
+   ---------------------------------------- */
+.sbdocs blockquote {
+  background: #e7e5e4; /* neutralWarm-200 */
+  border-left: 4px solid #c2410c; /* orange-700 */
+  color: #292524; /* neutralWarm-800 */
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+/* ----------------------------------------
+   Horizontal rules
+   ---------------------------------------- */
+.sbdocs hr {
+  border: none;
+  border-top: 1px solid #d6d3d1; /* neutralWarm-300 */
+  margin: 2rem 0;
 }
