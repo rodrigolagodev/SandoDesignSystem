@@ -117,6 +117,25 @@ chore: update dependencies
 - Report bugs in [Issues](https://github.com/rodrigolagodev/SandoDesignSystem/issues)
 - Read the full [CONTRIBUTING.md](https://github.com/rodrigolagodev/SandoDesignSystem/blob/master/CONTRIBUTING.md)
 
+## AI-Powered Development
+
+When using [Claude Code](https://claude.com/code), you have access to **7 specialized agents** that can help you contribute:
+
+| Agent                  | Use For                                            |
+| ---------------------- | -------------------------------------------------- |
+| **sando-orchestrator** | Complex multi-step tasks, coordinates other agents |
+| **sando-developer**    | Implementing components, features, bug fixes       |
+| **sando-quality**      | Writing tests, accessibility audits                |
+| **sando-storybook**    | Creating stories, Storybook configuration          |
+| **sando-documenter**   | API docs, VitePress guides                         |
+| **sando-tokens**       | Creating design tokens                             |
+| **sando-architect**    | Architecture decisions                             |
+
+**Quick commands:**
+
+- `/project-status` - Check project health before submitting PR
+- Use `component-creator` skill to scaffold new components
+
 ## License
 
 By contributing, you agree that your contributions will be licensed under the MIT License.

@@ -95,12 +95,27 @@ Powered by [Turborepo](https://turbo.build) for lightning-fast development:
 
 ### 🤖 AI-Powered Development
 
-Built for modern workflows with **20 specialized AI agents** that help you:
+Built for modern workflows with **7 specialized AI agents** organized in an orchestrated architecture:
 
-- Create components faster with `component-creator` skill
-- Generate custom commands with `command-creator` skill
-- Get comprehensive project status with `/project-status`
-- Work with expert agents for design, development, QA, and DevOps
+| Agent                  | Role                                                              |
+| ---------------------- | ----------------------------------------------------------------- |
+| **sando-orchestrator** | Central coordinator that routes requests and manages workflows    |
+| **sando-architect**    | Architecture decisions, token system design, breaking changes     |
+| **sando-tokens**       | Creates and manages design tokens (Ingredients, Flavors, Recipes) |
+| **sando-developer**    | Implements Web Components with Lit 3+ and TypeScript              |
+| **sando-quality**      | Testing, accessibility audits, WCAG compliance                    |
+| **sando-storybook**    | Storybook configuration, stories, troubleshooting                 |
+| **sando-documenter**   | API docs, JSDoc, VitePress guides                                 |
+
+**Skills available:**
+
+- `component-creator` - Scaffold new components with 7-file pattern
+- `prompt-engineer` - Optimize prompts for LLM interactions
+- `skill-creator` / `agent-creator` - Extend the agent system
+
+**Commands:**
+
+- `/project-status` - Comprehensive project health check
 
 > Use these tools via [Claude Code](https://claude.com/code) to supercharge your workflow.
 

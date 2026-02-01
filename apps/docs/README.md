@@ -6,13 +6,13 @@ Documentation and component playground for Sando Design System using Storybook.
 
 ```bash
 # Start Storybook dev server
-npm run dev
+pnpm dev
 
 # Build static documentation
-npm run build
+pnpm build
 
 # Preview build
-npm run preview
+pnpm preview
 ```
 
 ## 📁 Structure

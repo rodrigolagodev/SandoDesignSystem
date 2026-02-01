@@ -388,6 +388,65 @@ When adding or modifying tokens:
    - Ensure color contrast ratios meet WCAG standards
    - Run `pnpm --filter @sando/tokens test:accessibility`
 
+## AI-Powered Development Workflow
+
+Sando includes **7 specialized AI agents** that can help you contribute more effectively when using [Claude Code](https://claude.com/code):
+
+### Agent Architecture
+
+```
+                    ┌─────────────────────┐
+                    │  sando-orchestrator │
+                    │   (Central Brain)   │
+                    └──────────┬──────────┘
+                               │
+        ┌──────────────────────┼──────────────────────┐
+        │                      │                      │
+        ▼                      ▼                      ▼
+┌───────────────┐    ┌─────────────────┐    ┌────────────────┐
+│sando-architect│    │  sando-tokens   │    │sando-developer │
+└───────────────┘    └─────────────────┘    └────────────────┘
+        │                      │                      │
+        ▼                      ▼                      ▼
+┌───────────────┐    ┌─────────────────┐    ┌────────────────┐
+│ sando-quality │    │ sando-storybook │    │sando-documenter│
+└───────────────┘    └─────────────────┘    └────────────────┘
+```
+
+### Available Agents
+
+| Agent                  | Domain        | Use For                                        |
+| ---------------------- | ------------- | ---------------------------------------------- |
+| **sando-orchestrator** | Coordination  | Complex tasks, multi-step workflows            |
+| **sando-architect**    | Architecture  | Patterns, token architecture, breaking changes |
+| **sando-tokens**       | Design Tokens | Creating Ingredients, Flavors, Recipes         |
+| **sando-developer**    | Components    | Implementing components, features, bug fixes   |
+| **sando-quality**      | Testing       | Unit tests, a11y tests, WCAG compliance        |
+| **sando-storybook**    | Storybook     | Stories, configuration, troubleshooting        |
+| **sando-documenter**   | Documentation | API docs, JSDoc, VitePress guides              |
+
+### Skills & Commands
+
+**Skills** (reusable workflows):
+
+- `component-creator` - Scaffold new components with 7-file pattern
+- `skill-creator` - Create new skills
+- `agent-creator` - Create new agents
+- `prompt-engineer` - Optimize LLM prompts
+
+**Commands** (quick actions):
+
+- `/project-status` - Project health check (git, builds, tests, coverage)
+
+### How to Use
+
+When working with Claude Code, the agents help you:
+
+1. **Create new components** - Orchestrator coordinates tokens → developer → quality → storybook
+2. **Add features** - Developer implements, quality validates
+3. **Fix bugs** - Developer fixes, quality ensures tests pass
+4. **Write documentation** - Documenter creates API docs, Storybook handles stories
+
 ## Questions or Issues?
 
 - **Bug reports**: [GitHub Issues](https://github.com/rodrigolagodev/SandoDesignSystem/issues)
