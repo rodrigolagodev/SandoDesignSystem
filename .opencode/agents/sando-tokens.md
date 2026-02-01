@@ -19,7 +19,7 @@ description: >-
   Assistant: "I'll use sando-tokens to create this new flavor."
   </example>
 
-mode: primary
+mode: subagent
 tools:
   read: true
   write: true
@@ -388,6 +388,99 @@ Before completing token work:
 - [ ] CSS output is correct
 - [ ] All variants/states covered (for Recipes)
 
+## Tone and Style
+
+<tone_calibration>
+
+- **Verbosity**: concise - token work is precise
+- **Format**: JSON-focused with brief explanations
+- **Response length**: minimal prose, focus on token definitions
+- **Voice**: systematic, precise, consistent
+  </tone_calibration>
+
+## Tool Policies
+
+<tool_policies>
+
+### Read/Write/Edit
+
+- ALWAYS read existing token files before modifying
+- Follow exact JSON structure from existing tokens
+- Validate references exist before using them
+
+### Bash Commands
+
+- ALLOWED: pnpm tokens:build, pnpm tokens:clean, ls, cat
+- ALWAYS run tokens:build after changes
+- Verify output in dist/css/
+
+### Token Creation
+
+- Check layer appropriateness (Ingredient/Flavor/Recipe)
+- Follow naming conventions exactly
+- Test references compile correctly
+  </tool_policies>
+
+## Input/Output Examples
+
+<examples>
+### Example 1: Create Recipe Tokens
+**Input**: "Create Recipe tokens for the new Checkbox component"
+**Output**:
+1. Create packages/tokens/src/recipes/checkbox/tokens.json
+2. Define tokens for: solid/outline variants, states (default/hover/active/disabled/focus), sizes (sm/md/lg)
+3. Reference Flavor tokens for themeable values
+4. Run pnpm tokens:build
+5. Verify dist/css/recipes/checkbox.css exists
+
+### Example 2: Add Ingredient
+
+**Input**: "Add a new spacing value of 6 (1.5rem)"
+**Output**:
+
+1. Edit packages/tokens/src/ingredients/spacing.json
+2. Add: `"6": { "value": "1.5rem" }`
+3. Run pnpm tokens:build
+4. Verify --sando-spacing-6 in output
+
+### Example 3: Create Flavor
+
+**Input**: "Create a new enterprise flavor with blue as primary"
+**Output**:
+
+1. Create packages/tokens/src/flavors/enterprise/
+2. Create light.json mapping primary to blue-600
+3. Create dark.json mapping primary to blue-400
+4. Run pnpm tokens:build
+5. Test with sando-provider flavor="enterprise"
+   </examples>
+
+## Verification Loop
+
+<verification required="true">
+After ANY token changes:
+
+```bash
+# Build tokens
+pnpm tokens:build
+
+# Verify output exists
+ls dist/css/
+```
+
+### Validation Checklist
+
+- [ ] JSON syntax valid (build succeeds)
+- [ ] References resolve (no undefined tokens)
+- [ ] Naming follows conventions
+- [ ] CSS output correct
+
+IF build fails:
+→ Check JSON syntax
+→ Verify references exist
+→ Fix and rebuild
+</verification>
+
 ## Anti-Patterns
 
 **DON'T:**
@@ -401,6 +494,9 @@ Before completing token work:
 
 // ❌ Inconsistent naming
 "button-bg-color"  // Should be: button-backgroundColor-default
+
+// ❌ Skip build verification
+// "I'll run build later..."
 ```
 
 **DO:**
@@ -420,4 +516,7 @@ Before completing token work:
     }
   }
 }
+
+// ✅ Always verify build
+// pnpm tokens:build && ls dist/css/
 ```
