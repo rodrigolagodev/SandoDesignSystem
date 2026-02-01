@@ -17,6 +17,7 @@ Step-by-step guide to analyze an existing prompt and improve its effectiveness.
 ### Step 1.1: Get the Prompt
 
 Ask the user to share their current prompt:
+
 ```
 Please share the prompt you'd like me to analyze.
 Include any context about what it's for and what results you're getting.
@@ -25,6 +26,7 @@ Include any context about what it's for and what results you're getting.
 ### Step 1.2: Quick Assessment
 
 Read the prompt and identify:
+
 - **Length**: Short (<50 words), Medium (50-200), Long (>200)
 - **Structure**: None, Minimal, Well-structured
 - **Clarity**: Vague, Somewhat clear, Very clear
@@ -39,24 +41,28 @@ Read the prompt and identify:
 Check each category:
 
 **Context Issues**
+
 - [ ] Missing background information
 - [ ] Unclear purpose or goal
 - [ ] No target audience defined
 - [ ] Missing constraints or requirements
 
 **Structure Issues**
+
 - [ ] Wall of text (no formatting)
 - [ ] Multiple objectives mixed together
 - [ ] No clear sections or organization
 - [ ] Information in wrong order
 
 **Clarity Issues**
+
 - [ ] Vague or ambiguous terms
 - [ ] Assumptions not stated
 - [ ] Output format not specified
 - [ ] Missing examples
 
 **Efficiency Issues**
+
 - [ ] Redundant information
 - [ ] Overly verbose explanations
 - [ ] Could use examples instead of rules
@@ -65,6 +71,7 @@ Check each category:
 ### Step 2.2: Identify Top 3 Problems
 
 Prioritize the issues that will have the biggest impact:
+
 1. [Most critical issue]
 2. [Second issue]
 3. [Third issue]
@@ -78,22 +85,26 @@ Prioritize the issues that will have the biggest impact:
 Based on gaps identified, ask (only what's needed):
 
 **Context questions:**
+
 - "What is the ultimate goal of this prompt?"
 - "Who will use the output? (audience/target)"
 - "What context or background should the model know?"
 
 **Requirements questions:**
+
 - "What must the output include?"
 - "What should it NOT include?"
 - "Any specific format requirements?"
 
 **Quality questions:**
+
 - "What does 'good' look like for this task?"
 - "Can you show me an example of desired output?"
 
 ### Step 3.2: Confirm Understanding
 
 Summarize what you understand:
+
 ```
 So you want a prompt that:
 - Does [X]
@@ -112,18 +123,19 @@ Is that correct?
 
 Based on the task type, choose appropriate techniques:
 
-| Task Type | Recommended Techniques |
-|-----------|----------------------|
-| Simple task | Context + Clear instructions + Output format |
-| Complex reasoning | Chain-of-thought + Structured steps |
-| Pattern matching | Few-shot examples |
-| Expert domain | Role/persona assignment |
-| Content creation | CRAFT framework |
-| Analysis | RISEN framework |
+| Task Type         | Recommended Techniques                       |
+| ----------------- | -------------------------------------------- |
+| Simple task       | Context + Clear instructions + Output format |
+| Complex reasoning | Chain-of-thought + Structured steps          |
+| Pattern matching  | Few-shot examples                            |
+| Expert domain     | Role/persona assignment                      |
+| Content creation  | CRAFT framework                              |
+| Analysis          | RISEN framework                              |
 
 ### Step 4.2: Restructure the Prompt
 
 Apply in this order:
+
 1. Add context/background
 2. Assign role if beneficial
 3. Structure with clear sections
@@ -140,6 +152,7 @@ Apply in this order:
 ### Step 5.1: Show the Optimized Prompt
 
 Present the result clearly:
+
 ```
 ## Optimized Prompt
 
@@ -149,6 +162,7 @@ Present the result clearly:
 ### Step 5.2: Explain Key Changes
 
 Briefly explain what was improved:
+
 ```
 ## Key Improvements
 
@@ -172,10 +186,12 @@ Would you like me to:
 ## Phase 6: Finalize
 
 ### If user wants adjustments:
+
 - Make specific changes requested
 - Re-present the updated version
 
 ### If user is satisfied:
+
 - Offer to save to file if not already done
 - Suggest testing with the target LLM
 
@@ -183,16 +199,16 @@ Would you like me to:
 
 ## Quick Reference: Common Fixes
 
-| Problem | Quick Fix |
-|---------|-----------|
-| Too vague | Add specific details and examples |
-| No structure | Break into ## sections |
+| Problem         | Quick Fix                               |
+| --------------- | --------------------------------------- |
+| Too vague       | Add specific details and examples       |
+| No structure    | Break into ## sections                  |
 | Missing context | Add "Context:" or "Background:" section |
-| Output unclear | Add "Output format:" specification |
-| Too wordy | Convert paragraphs to bullet points |
-| Assumptions | State them explicitly |
+| Output unclear  | Add "Output format:" specification      |
+| Too wordy       | Convert paragraphs to bullet points     |
+| Assumptions     | State them explicitly                   |
 
 ---
 
-*See [../SKILL.md](../SKILL.md) for core principles*
-*See [../references/prompting-techniques.md](../references/prompting-techniques.md) for technique details*
+_See [../SKILL.md](../SKILL.md) for core principles_
+_See [../references/prompting-techniques.md](../references/prompting-techniques.md) for technique details_

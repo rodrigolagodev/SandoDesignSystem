@@ -17,14 +17,16 @@ Step-by-step guide to transform loose ideas, requirements, or concepts into a we
 ### Step 1.1: Receive the Ideas
 
 Let the user brain-dump:
+
 ```
-Share all your ideas, requirements, and concepts - don't worry about 
+Share all your ideas, requirements, and concepts - don't worry about
 organization. I'll help you structure them into a clear prompt.
 ```
 
 ### Step 1.2: Capture Everything
 
 As user shares, note:
+
 - **Goals**: What do they want to achieve?
 - **Requirements**: What must the output have?
 - **Constraints**: What should be avoided?
@@ -40,19 +42,20 @@ As user shares, note:
 
 Check if you have:
 
-| Element | Have it? | If missing, ask: |
-|---------|----------|------------------|
-| **Goal** | □ | "What's the main objective?" |
-| **Audience** | □ | "Who will use/see the output?" |
-| **Context** | □ | "What background info is relevant?" |
-| **Requirements** | □ | "What must be included?" |
-| **Constraints** | □ | "What should be avoided?" |
-| **Format** | □ | "How should the output look?" |
-| **Quality bar** | □ | "What does 'good' look like?" |
+| Element          | Have it? | If missing, ask:                    |
+| ---------------- | -------- | ----------------------------------- |
+| **Goal**         | □        | "What's the main objective?"        |
+| **Audience**     | □        | "Who will use/see the output?"      |
+| **Context**      | □        | "What background info is relevant?" |
+| **Requirements** | □        | "What must be included?"            |
+| **Constraints**  | □        | "What should be avoided?"           |
+| **Format**       | □        | "How should the output look?"       |
+| **Quality bar**  | □        | "What does 'good' look like?"       |
 
 ### Step 2.2: Ask Focused Questions
 
 Ask only 2-3 most important questions:
+
 ```
 Before I structure your prompt, I need to clarify:
 
@@ -78,17 +81,18 @@ Anything to add or correct?
 
 ### Step 3.1: Match Task to Framework
 
-| Task Type | Best Framework |
-|-----------|----------------|
-| Content creation | CRAFT |
-| Analysis/research | RISEN |
-| Simple task | Context + Instructions + Format |
-| Complex process | Step-by-step structure |
-| Pattern-based | Few-shot examples |
+| Task Type         | Best Framework                  |
+| ----------------- | ------------------------------- |
+| Content creation  | CRAFT                           |
+| Analysis/research | RISEN                           |
+| Simple task       | Context + Instructions + Format |
+| Complex process   | Step-by-step structure          |
+| Pattern-based     | Few-shot examples               |
 
 ### Step 3.2: Select Structure
 
 **For CRAFT (content):**
+
 ```
 CONTEXT: [background]
 ROLE: [persona]
@@ -98,6 +102,7 @@ TARGET: [audience]
 ```
 
 **For RISEN (analysis):**
+
 ```
 ROLE: [persona]
 INSTRUCTIONS: [task]
@@ -107,6 +112,7 @@ NARROWING: [constraints]
 ```
 
 **For Simple tasks:**
+
 ```
 ## Context
 [background]
@@ -128,6 +134,7 @@ NARROWING: [constraints]
 ### Step 4.1: Order the Elements
 
 Optimal order:
+
 1. Context/Background
 2. Role (if using persona)
 3. Main task/objective
@@ -139,6 +146,7 @@ Optimal order:
 ### Step 4.2: Write Each Section
 
 Apply these principles:
+
 - **Be specific**: Replace vague terms with concrete ones
 - **Use bullets**: Easier to parse than paragraphs
 - **One idea per point**: Don't bundle multiple things
@@ -191,25 +199,27 @@ Would you like me to:
 
 ### Common Adjustments
 
-| Request | Action |
-|---------|--------|
-| "More detailed" | Expand requirements, add examples |
-| "Simpler" | Remove optional elements, merge sections |
-| "Different focus" | Reorder priorities, adjust emphasis |
-| "Add examples" | Include 2-3 input/output pairs |
+| Request           | Action                                   |
+| ----------------- | ---------------------------------------- |
+| "More detailed"   | Expand requirements, add examples        |
+| "Simpler"         | Remove optional elements, merge sections |
+| "Different focus" | Reorder priorities, adjust emphasis      |
+| "Add examples"    | Include 2-3 input/output pairs           |
 
 ---
 
 ## Example: Ideas to Prompt
 
 ### User's Raw Ideas:
+
 ```
-quiero hacer una landing page para mi producto saas, 
-algo moderno, con hero section, features, pricing, 
+quiero hacer una landing page para mi producto saas,
+algo moderno, con hero section, features, pricing,
 que convierta bien, para desarrolladores
 ```
 
 ### Resulting Prompt:
+
 ```
 ## Context
 Building a landing page for a SaaS product targeted at developers.
@@ -244,5 +254,5 @@ Design and code a modern landing page with these sections.
 
 ---
 
-*See [../SKILL.md](../SKILL.md) for core principles*
-*See [../references/prompting-techniques.md](../references/prompting-techniques.md) for technique details*
+_See [../SKILL.md](../SKILL.md) for core principles_
+_See [../references/prompting-techniques.md](../references/prompting-techniques.md) for technique details_

@@ -8,11 +8,11 @@ This reference has been organized into three focused documents for easier naviga
 
 ## Quick Navigation
 
-| Document | Topics | Lines |
-|----------|--------|-------|
-| [Foundational Techniques](foundational-techniques.md) | Context, Role, Instructions, Output, Structure | ~200 |
-| [Advanced Techniques](advanced-techniques.md) | Few-shot, CoT, Constraints, Refinement, Meta-prompting | ~220 |
-| [Optimization Patterns](optimization-patterns.md) | RISEN, CRAFT, Token efficiency, Anti-patterns | ~200 |
+| Document                                              | Topics                                                 | Lines |
+| ----------------------------------------------------- | ------------------------------------------------------ | ----- |
+| [Foundational Techniques](foundational-techniques.md) | Context, Role, Instructions, Output, Structure         | ~200  |
+| [Advanced Techniques](advanced-techniques.md)         | Few-shot, CoT, Constraints, Refinement, Meta-prompting | ~220  |
+| [Optimization Patterns](optimization-patterns.md)     | RISEN, CRAFT, Token efficiency, Anti-patterns          | ~200  |
 
 ---
 
@@ -50,16 +50,16 @@ This reference has been organized into three focused documents for easier naviga
 
 ## Quick Reference Card
 
-| Technique | When to Use | Key Pattern |
-|-----------|-------------|-------------|
-| Context Setting | Always | Background → Task |
-| Role Assignment | Expert knowledge needed | "You are a [role]..." |
-| Few-Shot | Pattern-based tasks | Example 1, Example 2, Now: |
-| Chain-of-Thought | Complex reasoning | "Step by step..." |
-| Output Format | Structured responses | "Format as: ..." |
-| Constraints | Prevent unwanted output | DO: / DON'T: |
-| RISEN | Comprehensive tasks | R → I → S → E → N |
-| CRAFT | Content creation | C → R → A → F → T |
+| Technique        | When to Use             | Key Pattern                |
+| ---------------- | ----------------------- | -------------------------- |
+| Context Setting  | Always                  | Background → Task          |
+| Role Assignment  | Expert knowledge needed | "You are a [role]..."      |
+| Few-Shot         | Pattern-based tasks     | Example 1, Example 2, Now: |
+| Chain-of-Thought | Complex reasoning       | "Step by step..."          |
+| Output Format    | Structured responses    | "Format as: ..."           |
+| Constraints      | Prevent unwanted output | DO: / DON'T:               |
+| RISEN            | Comprehensive tasks     | R → I → S → E → N          |
+| CRAFT            | Content creation        | C → R → A → F → T          |
 
 ---
 
@@ -72,4 +72,4 @@ This reference has been organized into three focused documents for easier naviga
 
 ---
 
-*Last updated: 2025-01-25*
+_Last updated: 2025-01-25_

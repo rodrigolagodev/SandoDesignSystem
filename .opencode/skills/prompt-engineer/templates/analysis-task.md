@@ -12,6 +12,7 @@ ROLE: You are a {{EXPERT_TYPE}} with expertise in {{DOMAIN}}.
 INSTRUCTIONS: {{MAIN_ANALYSIS_TASK}}
 
 STEPS:
+
 1. {{STEP_1}}
 2. {{STEP_2}}
 3. {{STEP_3}}
@@ -19,11 +20,13 @@ STEPS:
 5. {{FINAL_STEP}}
 
 EXPECTATIONS:
+
 - {{QUALITY_CRITERION_1}}
 - {{QUALITY_CRITERION_2}}
 - {{QUALITY_CRITERION_3}}
 
 NARROWING:
+
 - Focus on: {{SCOPE}}
 - Ignore: {{OUT_OF_SCOPE}}
 - Time frame: {{IF_APPLICABLE}}
@@ -34,12 +37,13 @@ NARROWING:
 ## Filled Example
 
 ```markdown
-ROLE: You are a senior security engineer with 15 years of experience 
+ROLE: You are a senior security engineer with 15 years of experience
 in web application security and OWASP compliance.
 
 INSTRUCTIONS: Analyze this authentication module for security vulnerabilities.
 
 STEPS:
+
 1. Identify all entry points and data flows
 2. Check for common vulnerabilities (OWASP Top 10)
 3. Evaluate password handling and session management
@@ -47,12 +51,14 @@ STEPS:
 5. Provide prioritized remediation recommendations
 
 EXPECTATIONS:
+
 - Reference specific line numbers when identifying issues
 - Classify severity (Critical, High, Medium, Low)
 - Include code snippets for recommended fixes
 - Explain the attack vector for each vulnerability
 
 NARROWING:
+
 - Focus on: Authentication and session management only
 - Ignore: UI/UX issues, performance concerns
 - Assume: Standard web deployment environment
@@ -63,6 +69,7 @@ NARROWING:
 ## Variations
 
 ### For Code Review
+
 ```markdown
 ROLE: Senior {{LANGUAGE}} developer with expertise in {{DOMAIN}}
 INSTRUCTIONS: Review this code for {{FOCUS_AREAS}}
@@ -72,6 +79,7 @@ NARROWING: Focus on {{SCOPE}}, ignore {{OUT_OF_SCOPE}}
 ```
 
 ### For Data Analysis
+
 ```markdown
 ROLE: Data analyst specializing in {{DOMAIN}}
 INSTRUCTIONS: Analyze {{DATASET}} to identify {{GOAL}}
@@ -81,6 +89,7 @@ NARROWING: Time period {{X}}, metrics {{Y}}, segment {{Z}}
 ```
 
 ### For Competitive Analysis
+
 ```markdown
 ROLE: Market researcher in {{INDUSTRY}}
 INSTRUCTIONS: Compare {{SUBJECT}} against {{COMPETITORS}}
@@ -90,6 +99,7 @@ NARROWING: Focus on {{MARKET_SEGMENT}}, exclude {{OUT_OF_SCOPE}}
 ```
 
 ### For Decision Analysis
+
 ```markdown
 ROLE: {{RELEVANT_EXPERT}}
 INSTRUCTIONS: Evaluate options for {{DECISION}}
@@ -113,4 +123,4 @@ NARROWING: Budget {{X}}, timeline {{Y}}, constraints {{Z}}
 
 ---
 
-*See [../SKILL.md](../SKILL.md) for more context*
+_See [../SKILL.md](../SKILL.md) for more context_

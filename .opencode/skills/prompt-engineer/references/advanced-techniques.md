@@ -11,6 +11,7 @@ Advanced patterns for complex tasks, reasoning, and iterative refinement.
 **Why:** Shows the pattern you want; more effective than lengthy explanations.
 
 **Pattern:**
+
 ```
 [TASK DESCRIPTION]
 
@@ -28,6 +29,7 @@ Output:
 ```
 
 **Example:**
+
 ```
 Convert these feature requests into user stories.
 
@@ -46,12 +48,12 @@ Output:
 
 ### When to Use Few-Shot
 
-| Scenario | Recommendation |
-|----------|----------------|
-| Format is unusual | 2-3 examples |
-| Task is ambiguous | 1-2 examples |
-| Pattern recognition | 3+ examples |
-| Simple, clear task | Zero-shot (no examples) |
+| Scenario            | Recommendation          |
+| ------------------- | ----------------------- |
+| Format is unusual   | 2-3 examples            |
+| Task is ambiguous   | 1-2 examples            |
+| Pattern recognition | 3+ examples             |
+| Simple, clear task  | Zero-shot (no examples) |
 
 ---
 
@@ -62,12 +64,14 @@ Output:
 **Why:** Improves accuracy on complex tasks; catches errors in logic.
 
 ### Simple CoT
+
 ```
 Solve this problem step by step, showing your reasoning:
 [PROBLEM]
 ```
 
 ### Structured CoT
+
 ```
 Analyze this situation using the following steps:
 
@@ -80,6 +84,7 @@ Situation: [SITUATION]
 ```
 
 ### Zero-Shot CoT
+
 ```
 [PROBLEM]
 
@@ -89,11 +94,12 @@ Let's think through this step by step.
 ### Tree of Thoughts
 
 For complex problems, explore multiple reasoning branches:
+
 ```
 Consider this problem from 3 different perspectives:
 
 Perspective A: [approach 1]
-Perspective B: [approach 2]  
+Perspective B: [approach 2]
 Perspective C: [approach 3]
 
 Evaluate which perspective leads to the best solution.
@@ -108,14 +114,15 @@ Evaluate which perspective leads to the best solution.
 **Why:** Reduces errors by cross-validating different approaches.
 
 **Pattern:**
+
 ```
-Solve this problem using three different approaches, then determine 
+Solve this problem using three different approaches, then determine
 which answer is most likely correct:
 
 Problem: [PROBLEM]
 
 Approach 1: [Method A]
-Approach 2: [Method B]  
+Approach 2: [Method B]
 Approach 3: [Method C]
 
 Final answer (most consistent):
@@ -130,6 +137,7 @@ Final answer (most consistent):
 **Why:** Prevents unwanted behaviors; keeps responses focused.
 
 **Pattern:**
+
 ```
 [TASK]
 
@@ -146,6 +154,7 @@ IMPORTANT:
 ```
 
 **Example:**
+
 ```
 Write a product description for wireless headphones.
 
@@ -174,6 +183,7 @@ IMPORTANT:
 **Why:** Allows for correction and improvement; handles complexity incrementally.
 
 **Pattern:**
+
 ```
 Step 1: [Initial request]
 Step 2: "Now improve X aspect"
@@ -184,6 +194,7 @@ Step 4: "Final polish on W"
 ### Refinement Commands
 
 Use these follow-up prompts:
+
 - "Make it more concise"
 - "Add more technical detail"
 - "Simplify for a non-technical audience"
@@ -200,14 +211,16 @@ Use these follow-up prompts:
 **Why:** Leverages LLM's understanding of its own capabilities.
 
 **Pattern:**
+
 ```
-I want to [GOAL]. 
+I want to [GOAL].
 
 What information would you need from me to produce the best result?
 What format should I provide the information in?
 ```
 
 **Alternative:**
+
 ```
 Here's my current prompt:
 """
@@ -226,6 +239,7 @@ How can I improve this prompt to get better results?
 **Why:** Self-correction often catches issues the initial response missed.
 
 **Pattern:**
+
 ```
 [INITIAL REQUEST]
 
@@ -246,6 +260,7 @@ Then provide a revised version addressing those issues.
 **Why:** Gets multi-faceted analysis without multiple prompts.
 
 **Example:**
+
 ```
 Review this code from three perspectives:
 
@@ -263,15 +278,15 @@ Provide feedback from each perspective, then synthesize into unified recommendat
 
 ## Quick Reference
 
-| Technique | When to Use | Key Pattern |
-|-----------|-------------|-------------|
-| Few-Shot | Pattern-based tasks | Example 1, Example 2, Now: |
-| Chain-of-Thought | Complex reasoning | "Step by step..." |
-| Self-Consistency | High-stakes decisions | Multiple approaches → compare |
-| Constraints | Prevent unwanted output | DO: / DON'T: |
-| Iterative | Building complex output | Refine in stages |
-| Meta-Prompting | Unsure how to prompt | "What do you need from me?" |
-| Critique & Revise | Quality improvement | Generate → Critique → Revise |
+| Technique         | When to Use             | Key Pattern                   |
+| ----------------- | ----------------------- | ----------------------------- |
+| Few-Shot          | Pattern-based tasks     | Example 1, Example 2, Now:    |
+| Chain-of-Thought  | Complex reasoning       | "Step by step..."             |
+| Self-Consistency  | High-stakes decisions   | Multiple approaches → compare |
+| Constraints       | Prevent unwanted output | DO: / DON'T:                  |
+| Iterative         | Building complex output | Refine in stages              |
+| Meta-Prompting    | Unsure how to prompt    | "What do you need from me?"   |
+| Critique & Revise | Quality improvement     | Generate → Critique → Revise  |
 
 ---
 
@@ -282,4 +297,4 @@ Provide feedback from each perspective, then synthesize into unified recommendat
 
 ---
 
-*See also: [../SKILL.md](../SKILL.md) for complete prompt engineering workflow*
+_See also: [../SKILL.md](../SKILL.md) for complete prompt engineering workflow_

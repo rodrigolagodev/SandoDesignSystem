@@ -22,6 +22,7 @@ and this skill adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 ### Why This Change?
 
 The original structure had a single large reference file. This update follows the skill best practice of:
+
 - Keeping SKILL.md under 500 lines
 - Using `references/` for detailed documentation
 - Using `workflows/` for step-by-step processes

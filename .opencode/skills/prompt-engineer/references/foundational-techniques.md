@@ -11,6 +11,7 @@ Core techniques for effective LLM interactions. Master these before moving to ad
 **Why:** LLMs perform better with context - they can tailor responses appropriately.
 
 **Pattern:**
+
 ```
 [CONTEXT]
 Background information about the situation, domain, or problem.
@@ -20,9 +21,10 @@ What you want the LLM to do.
 ```
 
 **Example:**
+
 ```
-I'm building a fintech startup for small business loans. Our target users 
-are small business owners with limited tech experience. We value simplicity 
+I'm building a fintech startup for small business loans. Our target users
+are small business owners with limited tech experience. We value simplicity
 and trust.
 
 Write copy for our homepage hero section.
@@ -37,6 +39,7 @@ Write copy for our homepage hero section.
 **Why:** Activates relevant knowledge patterns and adjusts response style.
 
 **Pattern:**
+
 ```
 You are a [ROLE] with [EXPERIENCE/EXPERTISE].
 Your approach is [CHARACTERISTICS].
@@ -45,15 +48,16 @@ Your approach is [CHARACTERISTICS].
 ```
 
 **Examples:**
+
 ```
-You are a senior backend engineer with 15 years of experience in 
+You are a senior backend engineer with 15 years of experience in
 distributed systems. You prioritize scalability and maintainability.
 
 Review this database schema for a high-traffic e-commerce platform.
 ```
 
 ```
-You are a UX writer who specializes in fintech applications. 
+You are a UX writer who specializes in fintech applications.
 You write in a friendly but professional tone, avoiding jargon.
 
 Write error messages for failed payment scenarios.
@@ -68,11 +72,13 @@ Write error messages for failed payment scenarios.
 **Why:** Eliminates ambiguity and reduces unwanted variations.
 
 **Before:**
+
 ```
 Help me with my resume
 ```
 
 **After:**
+
 ```
 Review my resume and provide:
 1. 3 strengths (what's working well)
@@ -92,6 +98,7 @@ Do not: change my job titles or dates.
 **Why:** Gets consistent, usable outputs without reformatting.
 
 **Pattern:**
+
 ```
 [TASK]
 
@@ -100,6 +107,7 @@ Respond in this format:
 ```
 
 **Examples:**
+
 ```
 Analyze this code for bugs.
 
@@ -133,6 +141,7 @@ Provide your answer as JSON:
 **Why:** Mirrors how LLMs process information; improves comprehension.
 
 **Pattern:**
+
 ```
 # Main Objective
 High-level goal
@@ -165,9 +174,10 @@ What success looks like
 **Why:** Easier to parse; each section can be processed distinctly.
 
 **Section Types:**
+
 ```
 ## Context / Background
-## Task / Objective  
+## Task / Objective
 ## Requirements / Specifications
 ## Constraints / Limitations
 ## Examples
@@ -176,6 +186,7 @@ What success looks like
 ```
 
 **Example:**
+
 ```
 ## Context
 Building a REST API for a task management app.
@@ -206,17 +217,19 @@ Table with: Endpoint, Method, Description, Request Body, Response
 **Why:** Prevents confusion between instructions and content to process.
 
 **Common Delimiters:**
-```
+
+````
 Triple backticks: ```content```
 XML tags: <content>...</content>
 Triple quotes: """content"""
 Brackets: [content]
 Dashes: ---content---
-```
+````
 
 **Example:**
+
 ```
-Translate the following text to Spanish. 
+Translate the following text to Spanish.
 Maintain the original formatting and tone.
 
 Text to translate:
@@ -230,15 +243,15 @@ Please complete your profile to get started.
 
 ## Quick Reference
 
-| Technique | When to Use | Key Pattern |
-|-----------|-------------|-------------|
-| Context Setting | Always | Background → Task |
-| Role Assignment | Expert knowledge needed | "You are a [role]..." |
+| Technique             | When to Use               | Key Pattern                   |
+| --------------------- | ------------------------- | ----------------------------- |
+| Context Setting       | Always                    | Background → Task             |
+| Role Assignment       | Expert knowledge needed   | "You are a [role]..."         |
 | Explicit Instructions | Complex or specific tasks | Numbered list of requirements |
-| Output Format | Structured responses | "Format as: ..." |
-| Hierarchical Org | Complex requirements | # → ## → ### |
-| Sections | Multi-part prompts | ## Context, ## Task, etc. |
-| Delimiters | Separating content | \`\`\` or """ or <tags> |
+| Output Format         | Structured responses      | "Format as: ..."              |
+| Hierarchical Org      | Complex requirements      | # → ## → ###                  |
+| Sections              | Multi-part prompts        | ## Context, ## Task, etc.     |
+| Delimiters            | Separating content        | \`\`\` or """ or <tags>       |
 
 ---
 
@@ -249,4 +262,4 @@ Please complete your profile to get started.
 
 ---
 
-*See also: [../SKILL.md](../SKILL.md) for complete prompt engineering workflow*
+_See also: [../SKILL.md](../SKILL.md) for complete prompt engineering workflow_

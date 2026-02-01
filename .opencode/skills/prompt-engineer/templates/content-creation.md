@@ -14,6 +14,7 @@ ROLE: You are a {{ROLE/EXPERTISE}} with {{EXPERIENCE_LEVEL}}.
 ACTION: {{WHAT_TO_CREATE}}
 
 FORMAT:
+
 - Length: {{WORD_COUNT_OR_SIZE}}
 - Structure: {{SECTIONS_OR_FORMAT}}
 - Style: {{TONE_AND_STYLE}}
@@ -21,6 +22,7 @@ FORMAT:
 TARGET: {{AUDIENCE_DESCRIPTION}}
 
 ADDITIONAL NOTES:
+
 - Include: {{MUST_HAVE_ELEMENTS}}
 - Avoid: {{THINGS_TO_AVOID}}
 ```
@@ -30,7 +32,7 @@ ADDITIONAL NOTES:
 ## Filled Example
 
 ```markdown
-CONTEXT: We're launching a new project management tool for remote teams. 
+CONTEXT: We're launching a new project management tool for remote teams.
 Our differentiator is AI-powered task prioritization.
 
 ROLE: You are a senior content marketer with 10 years in B2B SaaS.
@@ -38,8 +40,9 @@ ROLE: You are a senior content marketer with 10 years in B2B SaaS.
 ACTION: Write a blog post announcing the product launch.
 
 FORMAT:
+
 - Length: 800-1000 words
-- Structure: 
+- Structure:
   - Hook opening
   - Problem statement
   - Solution introduction
@@ -48,10 +51,11 @@ FORMAT:
   - CTA
 - Style: Professional but conversational, avoid corporate jargon
 
-TARGET: Engineering managers and team leads at companies with 20-200 employees 
+TARGET: Engineering managers and team leads at companies with 20-200 employees
 who struggle with remote team coordination.
 
 ADDITIONAL NOTES:
+
 - Include: Specific use cases, mention AI without being buzzwordy
 - Avoid: Comparing to competitors, making unsubstantiated claims
 ```
@@ -61,6 +65,7 @@ ADDITIONAL NOTES:
 ## Variations
 
 ### For Marketing Copy
+
 ```markdown
 CONTEXT: {{PRODUCT_AND_SITUATION}}
 ROLE: Conversion copywriter specializing in {{INDUSTRY}}
@@ -70,6 +75,7 @@ TARGET: {{AUDIENCE}} with {{PAIN_POINTS}}
 ```
 
 ### For Documentation
+
 ```markdown
 CONTEXT: {{SYSTEM_OR_FEATURE}}
 ROLE: Technical writer with expertise in {{DOMAIN}}
@@ -79,6 +85,7 @@ TARGET: {{USER_LEVEL}} (beginner, intermediate, expert)
 ```
 
 ### For Email
+
 ```markdown
 CONTEXT: {{SITUATION_AND_GOAL}}
 ROLE: Email marketer with {{SPECIALIZATION}}
@@ -101,4 +108,4 @@ TARGET: {{SUBSCRIBER_SEGMENT}}
 
 ---
 
-*See [../SKILL.md](../SKILL.md) for more context*
+_See [../SKILL.md](../SKILL.md) for more context_

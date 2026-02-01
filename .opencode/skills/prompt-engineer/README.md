@@ -13,6 +13,7 @@
 The **prompt-engineer** skill transforms vague ideas and suboptimal prompts into clear, structured instructions that produce better results with LLMs.
 
 **Key capabilities:**
+
 - Analyze prompts for weaknesses and improvement opportunities
 - Structure loose ideas into optimized prompts
 - Apply professional prompting techniques (few-shot, chain-of-thought, etc.)
@@ -32,12 +33,14 @@ git clone https://github.com/rodrigolagodev/prompt-engineer.git ~/.config/openco
 ## Quick Start
 
 **Interactive mode:**
+
 ```
 User: "Tengo estas ideas sueltas, ayúdame a crear un prompt"
 Agent: [Asks clarifying questions, then generates optimized prompt]
 ```
 
 **Quick optimization:**
+
 ```
 User: "Mejora este prompt: escribe código"
 Agent: [Analyzes, asks context questions, delivers optimized version]
@@ -93,25 +96,27 @@ prompt-engineer/
 
 ## Core Principles
 
-| Principle | Description |
-|-----------|-------------|
-| Context is King | More context = better results |
-| Optimized for LLMs | Format for maximum comprehension |
-| Token Efficiency | Fewer tokens, same quality |
-| Hierarchical Structure | General → specific organization |
-| Explicit Instructions | Say exactly what to do |
-| Examples > Rules | Few-shot beats long explanations |
+| Principle              | Description                      |
+| ---------------------- | -------------------------------- |
+| Context is King        | More context = better results    |
+| Optimized for LLMs     | Format for maximum comprehension |
+| Token Efficiency       | Fewer tokens, same quality       |
+| Hierarchical Structure | General → specific organization  |
+| Explicit Instructions  | Say exactly what to do           |
+| Examples > Rules       | Few-shot beats long explanations |
 
 ---
 
 ## Example
 
 **Before:**
+
 ```
 write code for a website
 ```
 
 **After:**
+
 ```
 Create a personal portfolio website using React.
 
