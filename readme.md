@@ -1,4 +1,4 @@
-# 🥪 Sando Design System
+# Sando Design System
 
 **The perfect recipe for building delicious UIs.**
 
@@ -18,49 +18,104 @@ Start with the basics, season with meaning, and serve with style.
 
 ---
 
-## ✨ Features
+## Features
 
-- **🎨 Three-Layer Token Architecture** - Ingredients → Flavors → Recipes for scalable design
-- **🌐 Framework-Agnostic** - Web Components that work with React, Vue, Angular, or vanilla JS
-- **♿ Accessible by Default** - WCAG 2.1 AA compliant components out of the box
-- **🎭 Multi-Theme Support** - Light, dark, high-contrast, and custom flavors
-- **📦 Monorepo Structure** - Turborepo-powered with optimized caching and parallel builds
-- **🔒 Type-Safe** - Full TypeScript support with strict mode enabled
-- **🧪 Well-Tested** - Comprehensive unit, E2E, and accessibility tests
-- **📚 Fully Documented** - Interactive Storybook playground and VitePress guides
-- **🤖 AI-Powered Workflow** - 20 specialized agents, skills, and commands for development automation
+- **Three-Layer Token Architecture** - Ingredients → Flavors → Recipes for scalable design
+- **Framework-Agnostic** - Web Components that work with React, Vue, Angular, or vanilla JS
+- **Accessible by Default** - WCAG 2.1 AA compliant components out of the box
+- **Multi-Theme Support** - Light, dark, high-contrast, and custom flavors
+- **Monorepo Structure** - Turborepo-powered with optimized caching and parallel builds
+- **Type-Safe** - Full TypeScript support with strict mode enabled
+- **Well-Tested** - Comprehensive unit, E2E, and accessibility tests
+- **Fully Documented** - Interactive Storybook playground and VitePress guides
+- **AI-Powered Workflow** - 7 specialized agents with orchestrated workflows for development automation
 
-## 🤖 AI-Powered Development
+## AI-Powered Development
 
-Sando comes with a complete AI agent system built for Claude Code, making design system development faster and more consistent:
+Sando comes with a complete AI agent system built for Claude Code, making design system development faster and more consistent.
 
-### 20 Specialized Agents
+### Agent Architecture
 
-Work with expert agents for every aspect of design system development:
+The system uses an **orchestrated multi-agent architecture** where a central orchestrator coordinates specialized agents for different tasks:
 
-- **Core Development** (8 agents): `design-system-architect`, `design-system-pm`, `ui-designer`, `frontend-developer`, `technical-writer`, `qa-expert`, `devops-automation-engineer`, `developer-tooling-specialist`
-- **Design Operations** (4 agents): `design-ops-specialist`, `version-migration-manager`, `ecosystem-integration-agent`, `performance-monitor`
-- **Quality & Architecture** (2 agents): `security-compliance-auditor`, `component-composition-specialist`
-- **Community & Growth** (3 agents): `community-contribution-manager`, `analytics-insights-agent`, `localization-i18n-specialist`
-- **Meta Agents** (3 agents): `accessibility-advocate`, `component-builder`, `agent-system-optimizer`
+```
+                    ┌─────────────────────┐
+                    │  sando-orchestrator │
+                    │   (Central Brain)   │
+                    └──────────┬──────────┘
+                               │
+        ┌──────────────────────┼──────────────────────┐
+        │                      │                      │
+        ▼                      ▼                      ▼
+┌───────────────┐    ┌─────────────────┐    ┌────────────────┐
+│sando-architect│    │  sando-tokens   │    │sando-developer │
+│ (Architecture)│    │    (Tokens)     │    │ (Components)   │
+└───────────────┘    └─────────────────┘    └────────────────┘
+        │                      │                      │
+        ▼                      ▼                      ▼
+┌───────────────┐    ┌─────────────────┐    ┌────────────────┐
+│ sando-quality │    │ sando-storybook │    │sando-documenter│
+│   (Testing)   │    │   (Stories)     │    │(Documentation) │
+└───────────────┘    └─────────────────┘    └────────────────┘
+```
+
+### 7 Specialized Agents
+
+| Agent                  | Domain        | Responsibilities                                                               |
+| ---------------------- | ------------- | ------------------------------------------------------------------------------ |
+| **sando-orchestrator** | Coordination  | Routes requests, manages workflows, parallelizes tasks, validates deliverables |
+| **sando-architect**    | Architecture  | Token architecture, patterns, build config, breaking changes, major decisions  |
+| **sando-tokens**       | Design Tokens | Creates Ingredients, Flavors, and Recipes; configures Style Dictionary         |
+| **sando-developer**    | Components    | Implements Web Components with Lit 3+, styling, interactivity                  |
+| **sando-quality**      | Testing       | Unit tests, accessibility tests, WCAG compliance, security validation          |
+| **sando-storybook**    | Storybook     | Stories, configuration, addons, troubleshooting                                |
+| **sando-documenter**   | Documentation | API docs, JSDoc, VitePress guides, README files                                |
+
+### How Agents Work Together
+
+When you request a new component, the orchestrator coordinates a multi-phase workflow:
+
+```
+PHASE 1: Preparation (Sequential)
+─────────────────────────────────
+1. Orchestrator analyzes requirements
+2. sando-tokens creates Recipe tokens
+
+PHASE 2: Implementation (Parallel)
+──────────────────────────────────
+3. sando-developer implements component
+4. sando-quality creates tests        ─┬─ Run in parallel
+5. sando-storybook creates stories    ─┘
+
+PHASE 3: Validation (Sequential)
+────────────────────────────────
+6. sando-quality runs final checks
+7. Orchestrator reports completion
+```
 
 ### Skills for Common Tasks
 
 Execute complex workflows with a single command:
 
-- **`component-creator`** - Generate boilerplate for new Web Components
-- **`command-creator`** - Create custom slash commands for your workflow
-- **`skill-creator`** - Build new skills to extend Claude's capabilities
+| Skill                 | Description                                         |
+| --------------------- | --------------------------------------------------- |
+| **component-creator** | Scaffold new Web Components with the 7-file pattern |
+| **skill-creator**     | Build new skills to extend agent capabilities       |
+| **agent-creator**     | Create and configure new specialized agents         |
+| **prompt-engineer**   | Optimize and improve prompts for LLM interactions   |
 
 ### Slash Commands
 
 Quick shortcuts for common operations:
 
-- **`/project-status`** - Comprehensive project health check (git, builds, tests, coverage)
+| Command                 | Description                                                       |
+| ----------------------- | ----------------------------------------------------------------- |
+| **/project-status**     | Comprehensive project health check (git, builds, tests, coverage) |
+| **/frontend-developer** | Invoke frontend development specialist                            |
 
 > Use agents, skills, and commands via [Claude Code](https://claude.com/code) to streamline your development workflow.
 
-## 🚀 Quick Start
+## Quick Start
 
 ```bash
 # Install dependencies (requires pnpm)
@@ -75,45 +130,102 @@ pnpm dev
 
 **Development servers will be available at:**
 
-- 📖 Storybook: http://localhost:6006
-- 📚 VitePress: http://localhost:3000
+- Storybook: http://localhost:6006
+- VitePress: http://localhost:3000
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 Built with modern tools for maximum developer experience:
 
-- **Monorepo**: Turborepo 2.5.8 + pnpm workspaces
-- **Components**: Lit 3.3.1 (Web Components)
-- **Tokens**: Style Dictionary 4.0.0
-- **Testing**: Vitest 4.0.4 + Playwright 1.55.1
-- **Docs**: Storybook 8.6.14 + VitePress 1.6.4
-- **Language**: TypeScript 5.9.3
-- **Build**: Vite 5.0.8
+| Category       | Technology                        |
+| -------------- | --------------------------------- |
+| **Monorepo**   | Turborepo 2.5.8 + pnpm workspaces |
+| **Components** | Lit 3.3.1 (Web Components)        |
+| **Tokens**     | Style Dictionary 4.0.0            |
+| **Testing**    | Vitest 3.2.4 + Playwright 1.55.1  |
+| **Docs**       | Storybook 8.6.14 + VitePress      |
+| **Language**   | TypeScript 5.9.3                  |
+| **Build**      | Vite 6.4.1                        |
 
-## 📚 Documentation
+## Documentation
 
 For detailed guides, API references, and interactive examples:
 
 - **[Storybook](http://localhost:6006)** - Component playground and visual documentation
 - **[VitePress](http://localhost:3000)** - Full guides on installation, theming, and architecture
 
-## 📦 Packages
+## Packages
 
 This monorepo contains:
 
-- **[@sando/tokens](./packages/tokens)** - Design tokens (Ingredients, Flavors, Recipes)
-- **[@sando/components](./packages/components)** - Web Components library
-- **[@sando/docs](./apps/docs)** - Storybook documentation
-- **[@sando/site](./apps/site)** - VitePress documentation site
+| Package                                        | Description                                   |
+| ---------------------------------------------- | --------------------------------------------- |
+| **[@sando/tokens](./packages/tokens)**         | Design tokens (Ingredients, Flavors, Recipes) |
+| **[@sando/components](./packages/components)** | Web Components library                        |
+| **[@sando/docs](./apps/docs)**                 | Storybook documentation                       |
+| **[@sando/site](./apps/site)**                 | VitePress documentation site                  |
 
-## 🤝 Contributing
+## Three-Layer Token Architecture
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    TOKEN ARCHITECTURE                            │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  LAYER 1: INGREDIENTS (Primitives)                              │
+│  packages/tokens/src/ingredients/                                │
+│  • color.json     → --sando-color-blue-500                      │
+│  • spacing.json   → --sando-spacing-4                           │
+│  • typography.json → --sando-font-size-base                     │
+│                                                                  │
+│  LAYER 2: FLAVORS (Themes)                                      │
+│  packages/tokens/src/flavors/{flavor}/                          │
+│  • light.json     → --sando-flavor-primary                      │
+│  • dark.json      → theme variations                            │
+│                                                                  │
+│  LAYER 3: RECIPES (Component Tokens)                            │
+│  packages/tokens/src/recipes/{component}/                        │
+│  • tokens.json    → --sando-button-solid-backgroundColor        │
+│                                                                  │
+│  ═══════════════════════════════════════════════════════════    │
+│  CONSUMPTION: Components ONLY use Layer 3 (Recipes)             │
+│  ✅ var(--sando-button-solid-backgroundColor-default)            │
+│  ❌ var(--sando-color-blue-500)                                  │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+## Project Structure
+
+```
+sando-design-system/
+├── packages/
+│   ├── tokens/          # Design tokens (Ingredients, Flavors, Recipes)
+│   └── components/      # Web Components library
+├── apps/
+│   ├── docs/            # Storybook documentation
+│   └── site/            # VitePress documentation site
+└── .opencode/
+    ├── agents/          # 7 specialized AI agents
+    ├── skills/          # 4 reusable skills
+    ├── commands/        # 2 slash commands
+    └── guidelines/      # TOON format guidelines
+```
+
+## Contributing
 
 Contributions are welcome! Please feel free to submit issues or pull requests.
 
-## 📄 License
+When contributing, the AI agent system can help you:
+
+- Create new components following the 7-file pattern
+- Ensure accessibility compliance with automated checks
+- Generate comprehensive tests and documentation
+- Maintain consistency with design system guidelines
+
+## License
 
 MIT © [Rodrigo Lago](https://github.com/rodrigolagodev)
 
 ---
 
-**Built with ❤️ and a passion for great design systems.**
+**Built with care and a passion for great design systems.**

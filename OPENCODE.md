@@ -70,40 +70,63 @@ files: - API_REFERENCE.toon - INLINE_CODE_DOCS.toon - STORYBOOK_STORIES.toon - T
 
 agents:
 location: .opencode/agents/
-total: 6
+total: 7
 prefix: sando-
 architecture: Optimized 2-tier system with orchestrator for autonomous workflows
 usage: sando-orchestrator routes requests automatically. Agents can be invoked directly via Task tool.
 
 tier_1_core:
-note: Primary agents for daily development (mode: all)
-agents: - name: sando-orchestrator
-description: Intelligent router that analyzes requests, delegates to specialists, parallelizes tasks, validates deliverables
-invoke_for: Any complex task, component creation workflows, multi-step operations - name: sando-developer
-description: Component implementation with Lit/TypeScript, 7-file pattern, keyboard navigation, ARIA
-invoke_for: Creating components, adding features, fixing bugs, code modifications - name: sando-quality
-description: Tests (Vitest), accessibility (axe-core), WCAG validation, guideline compliance
-invoke_for: Writing tests, a11y audits, quality gates, coverage checks
+note: Primary agents for daily development
+agents:
+
+- name: sando-orchestrator
+  description: Intelligent router that analyzes requests, delegates to specialists, parallelizes tasks, validates deliverables
+  invoke_for: Any complex task, component creation workflows, multi-step operations
+- name: sando-developer
+  description: Component implementation with Lit/TypeScript, 7-file pattern, keyboard navigation, ARIA
+  invoke_for: Creating components, adding features, fixing bugs, code modifications
+- name: sando-quality
+  description: Tests (Vitest), accessibility (axe-core), WCAG validation, guideline compliance
+  invoke_for: Writing tests, a11y audits, quality gates, coverage checks
 
 tier_2_support:
-note: Specialist agents for specific domains (mode: primary)
-agents: - name: sando-architect
-description: Architecture decisions, token system design, theming strategy, build configuration
-invoke_for: New patterns, architectural questions, breaking changes, system-wide decisions - name: sando-tokens
-description: Token creation across 3 layers (Ingredients/Flavors/Recipes), Style Dictionary
-invoke_for: New tokens, new flavors, Recipe creation, token modifications - name: sando-documenter
-description: Storybook stories, API documentation, JSDoc, VitePress guides
-invoke_for: Documentation, stories, API reference, usage guides
+note: Specialist agents for specific domains
+agents:
+
+- name: sando-architect
+  description: Architecture decisions, token system design, theming strategy, build configuration
+  invoke_for: New patterns, architectural questions, breaking changes, system-wide decisions
+- name: sando-tokens
+  description: Token creation across 3 layers (Ingredients/Flavors/Recipes), Style Dictionary
+  invoke_for: New tokens, new flavors, Recipe creation, token modifications
+- name: sando-storybook
+  description: Storybook configuration, stories, addons, troubleshooting with Web Components and Vite
+  invoke_for: Creating stories, Storybook config, addon setup, HMR/build issues
+- name: sando-documenter
+  description: API documentation, JSDoc, VitePress guides, README files (NOT Storybook stories)
+  invoke_for: API reference, JSDoc comments, VitePress content, package documentation
 
 commands:
 location: .opencode/commands/
-available: - command: /project-status
-description: Comprehensive project status (git builds tests coverage)
+available:
+
+- command: /project-status
+  description: Comprehensive project status (git builds tests coverage)
+- command: /frontend-developer
+  description: Invoke frontend development specialist for web tasks
 
 skills:
 location: .opencode/skills/
-available: - name: component-creator
-description: Scaffold new components with 7-file structure
+available:
+
+- name: component-creator
+  description: Scaffold new components with 7-file structure
+- name: skill-creator
+  description: Create new skills to extend agent capabilities
+- name: agent-creator
+  description: Create and configure new specialized agents
+- name: prompt-engineer
+  description: Optimize and improve prompts for LLM interactions
 
 requirements:
 package_manager: MUST use pnpm. Do NOT use npm or yarn. Repo uses pnpm workspaces.
@@ -178,7 +201,7 @@ key_files:
 - path: .opencode/guidelines/
   description: 27 guidelines in TOON format
 - path: .opencode/agents/
-  description: 6 optimized agents (orchestrator + 5 specialists)
+  description: 7 optimized agents (orchestrator + 6 specialists)
 
 quick_start:
 setup: - pnpm install - pnpm build
