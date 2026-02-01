@@ -1,12 +1,13 @@
 /**
  * Format: CSS Flavors with Mode Support
  *
- * Generates CSS for the Flavors layer with multiple mode support:
- * - Base mode (flavor.json): Default light mode
- * - Color modes: dark, high-contrast, forced-colors (mutually exclusive)
- * - Motion mode: motion-reduce (independent, auto-only)
+ * Generates CSS for the Flavors layer with automatic mode support:
+ * - Base mode (flavor.json): Default styling on :root
+ * - Color modes: dark, high-contrast, forced-colors via @media queries
+ * - Motion mode: motion-reduce via @media query
  *
- * Each mode file generates appropriate @media queries and manual overrides.
+ * Modes are AUTOMATIC ONLY - they respond to system preferences.
+ * No manual override selectors are generated.
  */
 
 import { groupBy } from '../../utils/token-tree.js';
@@ -17,41 +18,28 @@ import { capitalize } from '../../utils/formatting.js';
  */
 const MODE_CONFIGS = {
   'flavor-dark': {
-    type: 'color',
     name: 'dark',
     label: 'Dark',
     mediaQuery: '(prefers-color-scheme: dark)',
-    attribute: 'flavor-mode="dark"',
-    allowManual: true, // Allows Storybook testing while being automatic-first
-    description: 'Automatically applied via @media (prefers-color-scheme: dark) - manual override available for testing'
+    description: 'Automatically applied when system is in dark mode'
   },
   'flavor-high-contrast': {
-    type: 'color',
     name: 'high-contrast',
     label: 'High Contrast',
     mediaQuery: '(prefers-contrast: more)',
-    attribute: 'flavor-mode="high-contrast"',
-    allowManual: true, // Allows Storybook testing while being automatic-first
-    description: 'Automatically applied via @media (prefers-contrast: more) - manual override available for testing'
+    description: 'Automatically applied when system requests high contrast'
   },
   'flavor-forced-colors': {
-    type: 'color',
     name: 'forced-colors',
     label: 'Forced Colors',
     mediaQuery: '(forced-colors: active)',
-    attribute: null,
-    allowManual: false,
-    description: 'Automatically applied via @media (forced-colors: active) - system controlled'
+    description: 'Automatically applied when forced-colors mode is active'
   },
   'flavor-motion-reduce': {
-    type: 'motion',
     name: 'motion-reduce',
     label: 'Reduced Motion',
     mediaQuery: '(prefers-reduced-motion: reduce)',
-    attribute: null,
-    allowManual: false,
-    independent: true,
-    description: 'Automatically applied via @media (prefers-reduced-motion: reduce) - combines with any color mode'
+    description: 'Automatically applied when reduced motion is preferred'
   }
 };
 
@@ -76,7 +64,7 @@ export default function flavorModesFormat({ dictionary, file, options: formatOpt
   // Generate header
   let output = generateHeader(flavorName, modeConfig);
 
-  // Generate CSS selectors based on mode type
+  // Generate CSS based on mode type
   if (modeConfig === null) {
     // Base mode (flavor.json)
     output += generateBaseMode(flavorName, grouped);
@@ -110,7 +98,7 @@ function detectModeConfig(mode) {
  */
 function generateHeader(flavorName, modeConfig) {
   const modeLabel = modeConfig ? modeConfig.label : 'Base';
-  const modeDescription = modeConfig ? modeConfig.description : 'Default base mode styling';
+  const modeDescription = modeConfig ? modeConfig.description : 'Default styling applied to :root';
 
   return `/**
  * Flavors Layer - ${capitalize(flavorName)} Flavor (${modeLabel} Mode)
@@ -127,104 +115,40 @@ function generateHeader(flavorName, modeConfig) {
 
 /**
  * Generate base mode CSS (flavor.json)
- * Includes base selector + manual light mode override for Storybook testing
+ * Simple :root selector for default styling
  */
 function generateBaseMode(flavorName, grouped) {
-  let output = '';
-
-  // 1. Base selector (default light mode)
   const selector = generateBaseSelector(flavorName);
-  output += `${selector} {\n${generateTokens(grouped)}}\n`;
-  output += '\n';
-
-  // 2. Manual light mode selector (for Storybook testing)
-  // This allows forcing light mode even when system is in dark mode
-  const lightModeSelector = generateLightModeSelector(flavorName);
-  output += `${lightModeSelector} {\n${generateTokens(grouped)}}\n`;
-
-  return output;
+  return `${selector} {\n${generateTokens(grouped)}}\n`;
 }
 
 /**
  * Generate mode variant CSS (flavor-*.json)
- * Includes @media query and optional manual override
+ * Only @media query - no manual override selectors
  */
 function generateModeVariant(flavorName, grouped, modeConfig) {
-  let output = '';
+  const mediaQuery = `@media ${modeConfig.mediaQuery}`;
+  const selector = generateBaseSelector(flavorName);
 
-  // 1. @media query for automatic mode (if not manual-only)
-  if (modeConfig.mediaQuery && !modeConfig.manualOnly) {
-    const mediaQuery = `@media ${modeConfig.mediaQuery}`;
-    const mediaSelector = generateMediaSelector(flavorName, modeConfig);
-
-    output += `${mediaQuery} {\n`;
-    output += `  ${mediaSelector} {\n`;
-    output += indentTokens(generateTokens(grouped), 2);
-    output += '  }\n';
-    output += '}\n';
-    output += '\n';
-  }
-
-  // 2. Manual override (only for color modes that allow it)
-  if (modeConfig.allowManual && modeConfig.attribute) {
-    const manualSelector = generateManualModeSelector(flavorName, modeConfig);
-    output += `${manualSelector} {\n`;
-    output += generateTokens(grouped);
-    output += '}\n';
-  }
+  let output = `${mediaQuery} {\n`;
+  output += `  ${selector} {\n`;
+  output += indentTokens(generateTokens(grouped), 2);
+  output += `  }\n`;
+  output += `}\n`;
 
   return output;
 }
 
 /**
- * Generate base mode selector (for flavor.json)
+ * Generate base selector for a flavor
+ * - original: :root (default for the whole document)
+ * - other flavors: [data-flavor="name"] (scoped to elements with that attribute)
  */
 function generateBaseSelector(flavorName) {
   if (flavorName === 'original') {
-    return ':host:not([flavor]), :host([flavor="original"]), :root:not([flavor]), [flavor="original"]';
+    return ':root';
   }
-  return `:host([flavor="${flavorName}"]), [flavor="${flavorName}"]`;
-}
-
-/**
- * Generate selector for @media query (automatic mode activation)
- * Modes are ONLY automatic - no manual override via attributes
- */
-function generateMediaSelector(flavorName, modeConfig) {
-  if (flavorName === 'original') {
-    // For original flavor: match elements without flavor OR with flavor="original"
-    return `:host:not([flavor]), :host([flavor="original"]), :root:not([flavor]), [flavor="original"]`;
-  }
-
-  return `:host([flavor="${flavorName}"]), [flavor="${flavorName}"]`;
-}
-
-/**
- * Generate selector for manual light mode override (for base flavor.json)
- * Allows Storybook to force light mode even when system is in dark mode
- */
-function generateLightModeSelector(flavorName) {
-  const modeAttr = 'flavor-mode="light"';
-
-  if (flavorName === 'original') {
-    return `:host([${modeAttr}]):not([flavor]), :host([flavor="original"][${modeAttr}]), :root[${modeAttr}]:not([flavor]), [flavor="original"][${modeAttr}], [${modeAttr}] :host:not([flavor]), [${modeAttr}] :host([flavor="original"]), [${modeAttr}] [flavor="original"]`;
-  }
-
-  return `:host([flavor="${flavorName}"][${modeAttr}]), [flavor="${flavorName}"][${modeAttr}], [${modeAttr}] :host([flavor="${flavorName}"]), [${modeAttr}] [flavor="${flavorName}"]`;
-}
-
-/**
- * Generate selector for manual mode override (via [flavor-mode] attribute)
- */
-function generateManualModeSelector(flavorName, modeConfig) {
-  const modeAttr = modeConfig.attribute;
-
-  if (flavorName === 'original') {
-    // Manual override for original flavor
-    return `:host([${modeAttr}]):not([flavor]), :host([flavor="original"][${modeAttr}]), :root[${modeAttr}]:not([flavor]), [flavor="original"][${modeAttr}], [${modeAttr}] :host:not([flavor]), [${modeAttr}] :host([flavor="original"]), [${modeAttr}] [flavor="original"]`;
-  }
-
-  return `:host([flavor="${flavorName}"][${modeAttr}]), [flavor="${flavorName}"][${modeAttr}], [${modeAttr}] :host([flavor="${flavorName}"]), [${modeAttr}] [flavor="${flavorName}"]`;
+  return `[data-flavor="${flavorName}"]`;
 }
 
 /**
