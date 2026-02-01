@@ -3,7 +3,7 @@
  * Tests icon rendering, variants, and accessibility
  */
 
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { fixture, html } from '@open-wc/testing';
 import './sando-icon.js';
 import type { SandoIcon } from './sando-icon.js';

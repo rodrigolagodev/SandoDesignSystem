@@ -3,7 +3,7 @@
  * Uses axe-core for WCAG compliance testing
  */
 
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { fixture, html } from '@open-wc/testing';
 import { axe, toHaveNoViolations } from 'jest-axe';
 import './sando-input.js';
