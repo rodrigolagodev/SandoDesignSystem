@@ -29,9 +29,12 @@ This project follows a Code of Conduct to ensure a welcoming environment for all
 ### Initial Setup
 
 ```bash
-# Clone the repository
-git clone https://github.com/rodrigolagodev/SandoDesignSystem.git
+# Clone the repository with submodules
+git clone --recursive https://github.com/rodrigolagodev/SandoDesignSystem.git
 cd SandoDesignSystem
+
+# If you already cloned without --recursive:
+git submodule update --init --recursive
 
 # Install dependencies
 pnpm install
@@ -42,6 +45,8 @@ pnpm build
 # Start development mode
 pnpm dev
 ```
+
+> **About Submodules:** This project includes two skills (`skill-creator` and `agent-creator`) as [git submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules). These are shared with the community as standalone projects. The `--recursive` flag ensures they are cloned automatically.
 
 This will start:
 

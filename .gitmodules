@@ -1,0 +1,7 @@
+[submodule ".opencode/skills/agent-creator"]
+	path = .opencode/skills/agent-creator
+	url = https://github.com/rodrigolagodev/opencode-agent-creator-skill.git
+
+[submodule ".opencode/skills/skill-creator"]
+	path = .opencode/skills/skill-creator
+	url = https://github.com/rodrigolagodev/skill-creator.git

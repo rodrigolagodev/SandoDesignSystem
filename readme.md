@@ -118,6 +118,13 @@ Quick shortcuts for common operations:
 ## Quick Start
 
 ```bash
+# Clone the repository with submodules
+git clone --recursive https://github.com/rodrigolagodev/SandoDesignSystem.git
+cd SandoDesignSystem
+
+# If you already cloned without --recursive:
+git submodule update --init --recursive
+
 # Install dependencies (requires pnpm)
 pnpm install
 
@@ -206,10 +213,15 @@ sando-design-system/
 │   └── site/            # VitePress documentation site
 └── .opencode/
     ├── agents/          # 7 specialized AI agents
-    ├── skills/          # 4 reusable skills
+    ├── skills/          # 4 reusable skills (2 are git submodules)
     ├── commands/        # 2 slash commands
     └── guidelines/      # TOON format guidelines
 ```
+
+> **Note:** The `skill-creator` and `agent-creator` skills are [git submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules) pointing to their own repositories. This allows them to be shared with the community as standalone projects:
+>
+> - [skill-creator](https://github.com/rodrigolagodev/skill-creator)
+> - [agent-creator](https://github.com/rodrigolagodev/opencode-agent-creator-skill)
 
 ## Contributing
 
