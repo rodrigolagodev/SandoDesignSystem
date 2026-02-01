@@ -146,7 +146,8 @@ describe('sando-button', () => {
     it('should not have aria-pressed by default', async () => {
       await element.updateComplete;
       const button = element.shadowRoot?.querySelector('button');
-      expect(button?.getAttribute('aria-pressed')).toBe('');
+      // When toggle=false, aria-pressed should not be present (null)
+      expect(button?.getAttribute('aria-pressed')).toBeNull();
     });
 
     it('should have aria-pressed when toggle is true', async () => {

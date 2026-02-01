@@ -60,9 +60,10 @@
  * </sando-button>
  */
 
-import { LitElement, html } from 'lit';
+import { LitElement, html, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import type {
   ButtonVariant,
   ButtonSize,
@@ -82,6 +83,15 @@ import {
 
 @customElement('sando-button')
 export class SandoButton extends FlavorableMixin(LitElement) {
+  /**
+   * Shadow DOM focus delegation for proper keyboard navigation
+   * Required per KEYBOARD_NAVIGATION.toon (KN-CR-R5)
+   */
+  static shadowRootOptions = {
+    ...LitElement.shadowRootOptions,
+    delegatesFocus: true
+  };
+
   /**
    * Visual style variant of the button
    * @default 'solid'
@@ -263,8 +273,8 @@ export class SandoButton extends FlavorableMixin(LitElement) {
             ? this.download
             : this.download !== undefined}
           download=${typeof this.download === 'string' ? this.download : ''}
-          aria-label=${this.ariaLabel || ''}
-          aria-pressed=${this.toggle ? (this.active ? 'true' : 'false') : ''}
+          aria-label=${ifDefined(this.ariaLabel || undefined)}
+          aria-pressed=${this.toggle ? (this.active ? 'true' : 'false') : nothing}
           aria-disabled=${this.disabled || this.loading ? 'true' : 'false'}
           aria-busy=${this.loading ? 'true' : 'false'}
           aria-live=${this.loading ? 'polite' : 'off'}
@@ -281,8 +291,8 @@ export class SandoButton extends FlavorableMixin(LitElement) {
         class=${classMap(classes)}
         type=${this.type}
         ?disabled=${this.disabled || this.loading}
-        aria-label=${this.ariaLabel || ''}
-        aria-pressed=${this.toggle ? (this.active ? 'true' : 'false') : ''}
+        aria-label=${ifDefined(this.ariaLabel || undefined)}
+        aria-pressed=${this.toggle ? (this.active ? 'true' : 'false') : nothing}
         aria-disabled=${this.disabled || this.loading ? 'true' : 'false'}
         aria-busy=${this.loading ? 'true' : 'false'}
         aria-live=${this.loading ? 'polite' : 'off'}

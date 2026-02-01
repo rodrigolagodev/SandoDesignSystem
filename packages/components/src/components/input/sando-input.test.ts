@@ -8,7 +8,7 @@ describe('sando-input', () => {
       const el = await fixture<SandoInput>(html` <sando-input></sando-input> `);
 
       expect(el).to.exist;
-      expect(el.variant).to.equal('outlined');
+      expect(el.variant).to.equal('filled');
       expect(el.size).to.equal('medium');
       expect(el.type).to.equal('text');
       expect(el.value).to.equal('');
