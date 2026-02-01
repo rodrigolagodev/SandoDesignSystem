@@ -166,8 +166,8 @@ describe('sando-icon', () => {
       await new Promise((resolve) => setTimeout(resolve, 100));
 
       expect(loadEvent).toBeTruthy();
-      expect(loadEvent?.detail.iconName).toBe('star');
-      expect(loadEvent?.detail.success).toBe(true);
+      expect(loadEvent!.detail.iconName).toBe('star');
+      expect(loadEvent!.detail.success).toBe(true);
     });
 
     it('should fire icon-error event on failed load', async () => {
@@ -186,8 +186,8 @@ describe('sando-icon', () => {
       await new Promise((resolve) => setTimeout(resolve, 100));
 
       expect(errorEvent).toBeTruthy();
-      expect(errorEvent?.detail.iconName).toBe('invalid-icon-xyz');
-      expect(errorEvent?.detail.error).toBeTruthy();
+      expect(errorEvent!.detail.iconName).toBe('invalid-icon-xyz');
+      expect(errorEvent!.detail.error).toBeTruthy();
     });
   });
 
