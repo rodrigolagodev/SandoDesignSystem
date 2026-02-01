@@ -1,11 +1,18 @@
-import { fixture, expect, html } from '@open-wc/testing';
+/**
+ * Accessibility Tests for sando-input
+ * Uses axe-core for WCAG compliance testing
+ */
+
+import { describe, it, expect, beforeEach } from 'vitest';
+import { fixture, html } from '@open-wc/testing';
 import { axe, toHaveNoViolations } from 'jest-axe';
 import './sando-input.js';
 import type { SandoInput } from './sando-input.js';
 
+// Extend expect matchers
 expect.extend(toHaveNoViolations);
 
-describe('sando-input accessibility', () => {
+describe('sando-input Accessibility', () => {
   describe('default state', () => {
     it('should have no accessibility violations', async () => {
       const el = await fixture<SandoInput>(html`
@@ -96,7 +103,7 @@ describe('sando-input accessibility', () => {
 
     it('should pass a11y with error state', async () => {
       const el = await fixture<SandoInput>(html`
-        <sando-input label="Email" error errorText="Email is required"></sando-input>
+        <sando-input label="Email" error error-text="Email is required"></sando-input>
       `);
 
       const results = await axe(el);
@@ -105,7 +112,7 @@ describe('sando-input accessibility', () => {
 
     it('should pass a11y with helper text', async () => {
       const el = await fixture<SandoInput>(html`
-        <sando-input label="Email" helperText="Enter your email address"></sando-input>
+        <sando-input label="Email" helper-text="Enter your email address"></sando-input>
       `);
 
       const results = await axe(el);
@@ -167,7 +174,7 @@ describe('sando-input accessibility', () => {
       it(`should pass a11y with ${flavor} flavor and error`, async () => {
         const el = await fixture<SandoInput>(html`
           <div flavor="${flavor}">
-            <sando-input label="Email" error errorText="Email is required"></sando-input>
+            <sando-input label="Email" error error-text="Email is required"></sando-input>
           </div>
         `);
 
@@ -195,34 +202,34 @@ describe('sando-input accessibility', () => {
       const el = await fixture<SandoInput>(html` <sando-input label="Email" error></sando-input> `);
 
       const input = el.shadowRoot!.querySelector('input');
-      expect(input!.getAttribute('aria-invalid')).to.equal('true');
+      expect(input!.getAttribute('aria-invalid')).toBe('true');
     });
 
     it('should have aria-describedby for helper text', async () => {
       const el = await fixture<SandoInput>(html`
-        <sando-input label="Email" helperText="Helper"></sando-input>
+        <sando-input label="Email" helper-text="Helper"></sando-input>
       `);
 
       const input = el.shadowRoot!.querySelector('input');
       const describedBy = input!.getAttribute('aria-describedby');
-      expect(describedBy).to.exist;
+      expect(describedBy).toBeTruthy();
 
       const helperText = el.shadowRoot!.querySelector('.helper-text');
-      expect(helperText!.id).to.equal(describedBy);
+      expect(helperText!.id).toBe(describedBy);
     });
 
     it('should have aria-describedby for error text', async () => {
       const el = await fixture<SandoInput>(html`
-        <sando-input label="Email" error errorText="Error"></sando-input>
+        <sando-input label="Email" error error-text="Error"></sando-input>
       `);
 
       const input = el.shadowRoot!.querySelector('input');
       const describedBy = input!.getAttribute('aria-describedby');
-      expect(describedBy).to.exist;
+      expect(describedBy).toBeTruthy();
 
       const errorText = el.shadowRoot!.querySelector('.error-text');
-      expect(errorText!.id).to.equal(describedBy);
-      expect(errorText!.getAttribute('role')).to.equal('alert');
+      expect(errorText!.id).toBe(describedBy);
+      expect(errorText!.getAttribute('role')).toBe('alert');
     });
 
     it('should associate label with input', async () => {
@@ -235,8 +242,8 @@ describe('sando-input accessibility', () => {
       const labelFor = label!.getAttribute('for');
       const inputId = input!.getAttribute('id');
 
-      expect(labelFor).to.equal(inputId);
-      expect(inputId).to.exist;
+      expect(labelFor).toBe(inputId);
+      expect(inputId).toBeTruthy();
     });
   });
 
@@ -247,10 +254,10 @@ describe('sando-input accessibility', () => {
       const input = el.shadowRoot!.querySelector('input')!;
 
       // Verify input is focusable
-      expect(input.tabIndex).to.not.equal(-1);
+      expect(input.tabIndex).not.toBe(-1);
 
       // Verify not disabled
-      expect(input.disabled).to.be.false;
+      expect(input.disabled).toBe(false);
     });
 
     it('should not be keyboard accessible when disabled', async () => {
@@ -259,7 +266,7 @@ describe('sando-input accessibility', () => {
       `);
 
       const input = el.shadowRoot!.querySelector('input')!;
-      expect(input.disabled).to.be.true;
+      expect(input.disabled).toBe(true);
     });
   });
 });

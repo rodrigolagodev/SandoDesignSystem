@@ -6,8 +6,8 @@
 /**
  * Visual style variant of the input.
  *
- * - `outlined`: Input with visible border (default)
- * - `filled`: Input with filled background
+ * - `filled`: Input with filled background (default)
+ * - `outlined`: Input with visible border
  */
 export type InputVariant = 'outlined' | 'filled';
 
@@ -33,7 +33,7 @@ export type InputType = 'text' | 'email' | 'password' | 'number' | 'tel' | 'url'
 export interface SandoInputProps {
   /**
    * Visual style variant
-   * @default 'outlined'
+   * @default 'filled'
    */
   variant?: InputVariant;
 
