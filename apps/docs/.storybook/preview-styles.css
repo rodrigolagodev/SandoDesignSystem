@@ -9,6 +9,39 @@
  * - Color mode overrides (for manual testing)
  * - MDX documentation styles (always light for readability)
  * - Table, badge, and code block styles
+ *
+ * ============================================================
+ * IMPORTANT: Token Usage Rules for MDX Documentation
+ * ============================================================
+ *
+ * MDX documentation pages MUST use --sb-docs-* tokens for ALL colors.
+ * This ensures docs remain readable regardless of the color mode setting.
+ *
+ * ✅ CORRECT (use these in MDX):
+ *   color: var(--sb-docs-text-caption)
+ *   background: var(--sb-docs-bg-emphasis)
+ *   border-color: var(--sb-docs-border)
+ *
+ * ❌ INCORRECT (do NOT use these in MDX for UI colors):
+ *   color: var(--sando-color-text-caption)
+ *   background: var(--sando-color-background-emphasis)
+ *
+ * EXCEPTION: Use --sando-* tokens when DEMONSTRATING that specific token,
+ * e.g., showing a color swatch with backgroundColor: var(--sando-color-orange-700)
+ *
+ * Token Mapping:
+ * | Sando Token (avoid)                  | SB Docs Token (use)       |
+ * |--------------------------------------|---------------------------|
+ * | --sando-color-text-heading           | --sb-docs-text-heading    |
+ * | --sando-color-text-body              | --sb-docs-text-body       |
+ * | --sando-color-text-caption           | --sb-docs-text-caption    |
+ * | --sando-color-text-muted             | --sb-docs-text-muted      |
+ * | --sando-color-background-base        | --sb-docs-bg-base         |
+ * | --sando-color-background-surface     | --sb-docs-bg-surface      |
+ * | --sando-color-background-raised      | --sb-docs-bg-raised       |
+ * | --sando-color-background-emphasis    | --sb-docs-bg-emphasis     |
+ * | --sando-color-border-muted           | --sb-docs-border          |
+ * | --sando-color-border-default         | --sb-docs-border-emphasis |
  */
 
 /* ========================================
@@ -486,19 +519,21 @@ body {
 }
 
 /* ----------------------------------------
-   Interactive Examples Fix
-   These should follow the color mode since they show components
+   Interactive Examples / Component Preview
+   These MUST follow the color mode since they show actual components.
+   Uses dynamic --sando-color-* tokens so components render correctly
+   in light/dark/high-contrast modes.
    ---------------------------------------- */
 .sbdocs-preview,
 .docs-story {
-  background: var(--sb-docs-bg-surface) !important;
-  border: 1px solid var(--sb-docs-border) !important;
+  background: var(--sando-color-background-surface) !important;
+  border: 1px solid var(--sando-color-border-muted) !important;
   border-radius: 8px;
 }
 
 /* Canvas wrapper */
 .sb-story {
-  background: var(--sb-docs-bg-surface);
+  background: var(--sando-color-background-surface);
   padding: 2rem;
 }
 
