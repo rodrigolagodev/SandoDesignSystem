@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/blocks';
+import { Meta } from "@storybook/blocks";
 
 <Meta title="Ingredients/Z-Index" />
 
@@ -10,58 +10,122 @@ Z-index controls the stacking order of positioned elements along the z-axis. The
 
 Our z-index scale uses semantic names instead of arbitrary numbers, making it easier to understand element layering.
 
-<div style={{ marginTop: '32px' }}>
+<div style={{ marginTop: "32px" }}>
   {[
-    { token: 'hide', value: '-1', name: 'Hide', description: 'Hidden behind normal flow' },
-    { token: 'base', value: '0', name: 'Base', description: 'Default stacking context' },
-    { token: 'raised', value: '1', name: 'Raised', description: 'Slightly elevated content' },
-    { token: 'dropdown', value: '1000', name: 'Dropdown', description: 'Dropdown menus' },
-    { token: 'sticky', value: '1100', name: 'Sticky', description: 'Sticky headers/footers' },
-    { token: 'banner', value: '1200', name: 'Banner', description: 'Notification banners' },
-    { token: 'overlay', value: '1300', name: 'Overlay', description: 'Modal backdrops' },
-    { token: 'modal', value: '1400', name: 'Modal', description: 'Modal dialogs' },
-    { token: 'popover', value: '1500', name: 'Popover', description: 'Popovers, context menus' },
-    { token: 'toast', value: '1600', name: 'Toast', description: 'Toast notifications' },
-    { token: 'tooltip', value: '1700', name: 'Tooltip', description: 'Tooltips' },
-    { token: 'max', value: '9999', name: 'Maximum', description: 'Always on top' },
+    {
+      token: "hide",
+      value: "-1",
+      name: "Hide",
+      description: "Hidden behind normal flow",
+    },
+    {
+      token: "base",
+      value: "0",
+      name: "Base",
+      description: "Default stacking context",
+    },
+    {
+      token: "raised",
+      value: "1",
+      name: "Raised",
+      description: "Slightly elevated content",
+    },
+    {
+      token: "dropdown",
+      value: "1000",
+      name: "Dropdown",
+      description: "Dropdown menus",
+    },
+    {
+      token: "sticky",
+      value: "1100",
+      name: "Sticky",
+      description: "Sticky headers/footers",
+    },
+    {
+      token: "banner",
+      value: "1200",
+      name: "Banner",
+      description: "Notification banners",
+    },
+    {
+      token: "overlay",
+      value: "1300",
+      name: "Overlay",
+      description: "Modal backdrops",
+    },
+    {
+      token: "modal",
+      value: "1400",
+      name: "Modal",
+      description: "Modal dialogs",
+    },
+    {
+      token: "popover",
+      value: "1500",
+      name: "Popover",
+      description: "Popovers, context menus",
+    },
+    {
+      token: "toast",
+      value: "1600",
+      name: "Toast",
+      description: "Toast notifications",
+    },
+    {
+      token: "tooltip",
+      value: "1700",
+      name: "Tooltip",
+      description: "Tooltips",
+    },
+    {
+      token: "max",
+      value: "9999",
+      name: "Maximum",
+      description: "Always on top",
+    },
   ].map(({ token, value, name, description }) => (
     <div
       key={token}
       style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: '24px',
-        padding: '16px',
-        borderBottom: '1px solid var(--sando-color-border-muted)',
+        display: "flex",
+        alignItems: "center",
+        gap: "24px",
+        padding: "16px",
+        borderBottom: "1px solid var(--sando-color-border-muted)",
       }}
     >
       <div
         style={{
-          fontFamily: 'monospace',
-          fontSize: '12px',
-          color: 'var(--sando-color-text-caption)',
-          minWidth: '100px',
+          fontFamily: "monospace",
+          fontSize: "12px",
+          color: "var(--sando-color-text-caption)",
+          minWidth: "100px",
         }}
       >
         z-index-{token}
       </div>
       <div
         style={{
-          fontFamily: 'monospace',
-          fontSize: '14px',
-          fontWeight: '600',
-          color: 'var(--sando-color-text-body)',
-          minWidth: '60px',
-          textAlign: 'right',
+          fontFamily: "monospace",
+          fontSize: "14px",
+          fontWeight: "600",
+          color: "var(--sando-color-text-body)",
+          minWidth: "60px",
+          textAlign: "right",
         }}
       >
         {value}
       </div>
       <div style={{ flex: 1 }}>
-        <div style={{ fontSize: '14px', fontWeight: '600', marginBottom: '4px' }}>
+        <div
+          style={{ fontSize: "14px", fontWeight: "600", marginBottom: "4px" }}
+        >
           {name}
         </div>
-        <div style={{ fontSize: '12px', color: 'var(--sando-color-text-muted)' }}>
+        <div
+          style={{ fontSize: "12px", color: "var(--sando-color-text-muted)" }}
+        >
           {description}
         </div>
       </div>
@@ -69,8 +133,19 @@ Our z-index scale uses semantic names instead of arbitrary numbers, making it ea
   ))}
 </div>
 
-<div style={{ marginTop: '16px', padding: '12px', backgroundColor: 'var(--sando-color-background-emphasis)', borderRadius: '8px', fontSize: '14px' }}>
-  <strong>Usage:</strong> <code style={{ fontFamily: 'monospace', fontSize: '13px' }}>z-index: var(--sando-z-index-modal)</code>
+<div
+  style={{
+    marginTop: "16px",
+    padding: "12px",
+    backgroundColor: "var(--sando-color-background-emphasis)",
+    borderRadius: "8px",
+    fontSize: "14px",
+  }}
+>
+  <strong>Usage:</strong>{" "}
+  <code style={{ fontFamily: "monospace", fontSize: "13px" }}>
+    z-index: var(--sando-z-index-modal)
+  </code>
 </div>
 
 ---
@@ -79,130 +154,112 @@ Our z-index scale uses semantic names instead of arbitrary numbers, making it ea
 
 This visualization shows how elements layer on top of each other using the z-index scale.
 
-<div style={{ marginTop: '32px', position: 'relative', height: '500px', backgroundColor: 'var(--sando-color-background-base)', borderRadius: '12px', padding: '40px', overflow: 'hidden' }}>
+<div className="demo-box demo-box--stacking" style={{ height: '500px' }}>
   {/* Base layer */}
   <div
+    className="demo-card demo-card--elevated"
     style={{
       position: 'absolute',
       bottom: '40px',
       left: '40px',
       width: '250px',
-      padding: '20px',
-      backgroundColor: 'var(--sando-color-background-raised)',
-      borderRadius: '8px',
-      boxShadow: 'var(--sando-elevation-100)',
       zIndex: 'var(--sando-z-index-base)',
     }}
   >
-    <div style={{ fontSize: '14px', fontWeight: '600', marginBottom: '4px' }}>z-index: base (0)</div>
-    <div style={{ fontSize: '12px', color: 'var(--sando-color-text-caption)' }}>Normal content</div>
+    <div className="demo-title">z-index: base (0)</div>
+    <div className="demo-description">Normal content</div>
   </div>
 
-  {/* Raised */}
-  <div
-    style={{
-      position: 'absolute',
-      bottom: '80px',
-      left: '120px',
-      width: '250px',
-      padding: '20px',
-      backgroundColor: 'var(--sando-color-background-surface)',
-      borderRadius: '8px',
-      boxShadow: 'var(--sando-elevation-200)',
-      zIndex: 'var(--sando-z-index-raised)',
-    }}
-  >
-    <div style={{ fontSize: '14px', fontWeight: '600', marginBottom: '4px' }}>z-index: raised (1)</div>
-    <div style={{ fontSize: '12px', color: 'var(--sando-color-text-caption)' }}>Elevated cards</div>
-  </div>
+{/* Raised */}
 
-  {/* Dropdown */}
-  <div
-    style={{
-      position: 'absolute',
-      bottom: '120px',
-      left: '200px',
-      width: '220px',
-      padding: '16px',
-      backgroundColor: 'var(--sando-color-background-raised)',
-      borderRadius: '8px',
-      boxShadow: 'var(--sando-elevation-300)',
-      zIndex: 'var(--sando-z-index-dropdown)',
-    }}
-  >
-    <div style={{ fontSize: '14px', fontWeight: '600', marginBottom: '4px' }}>z-index: dropdown (1000)</div>
-    <div style={{ fontSize: '12px', color: 'var(--sando-color-text-caption)' }}>Menus, selects</div>
-  </div>
+<div
+  className="demo-card demo-card--elevated"
+  style={{
+    position: "absolute",
+    bottom: "80px",
+    left: "120px",
+    width: "250px",
+    zIndex: "var(--sando-z-index-raised)",
+  }}
+>
+  <div className="demo-title">z-index: raised (1)</div>
+  <div className="demo-description">Elevated cards</div>
+</div>
 
-  {/* Overlay */}
-  <div
-    style={{
-      position: 'absolute',
-      top: '40px',
-      right: '40px',
-      width: '200px',
-      padding: '16px',
-      backgroundColor: 'rgba(0, 0, 0, 0.5)',
-      color: 'white',
-      borderRadius: '8px',
-      zIndex: 'var(--sando-z-index-overlay)',
-    }}
-  >
-    <div style={{ fontSize: '14px', fontWeight: '600', marginBottom: '4px' }}>z-index: overlay (1300)</div>
-    <div style={{ fontSize: '12px', opacity: 0.9 }}>Modal backdrop</div>
-  </div>
+{/* Dropdown */}
 
-  {/* Modal */}
-  <div
-    style={{
-      position: 'absolute',
-      top: '80px',
-      right: '80px',
-      width: '220px',
-      padding: '20px',
-      backgroundColor: 'var(--sando-color-background-raised)',
-      borderRadius: '12px',
-      boxShadow: 'var(--sando-elevation-400)',
-      zIndex: 'var(--sando-z-index-modal)',
-    }}
-  >
-    <div style={{ fontSize: '14px', fontWeight: '600', marginBottom: '8px' }}>z-index: modal (1400)</div>
-    <div style={{ fontSize: '12px', color: 'var(--sando-color-text-caption)' }}>Dialog content</div>
-  </div>
+<div
+  className="demo-card demo-card--elevated"
+  style={{
+    position: "absolute",
+    bottom: "120px",
+    left: "200px",
+    width: "220px",
+    zIndex: "var(--sando-z-index-dropdown)",
+  }}
+>
+  <div className="demo-title">z-index: dropdown (1000)</div>
+  <div className="demo-description">Menus, selects</div>
+</div>
 
-  {/* Toast */}
-  <div
-    style={{
-      position: 'absolute',
-      top: '40px',
-      left: '50%',
-      transform: 'translateX(-50%)',
-      padding: '16px 24px',
-      backgroundColor: 'var(--sando-color-brand-500)',
-      color: 'white',
-      borderRadius: '8px',
-      boxShadow: 'var(--sando-elevation-500)',
-      zIndex: 'var(--sando-z-index-toast)',
-      fontSize: '14px',
-      fontWeight: '600',
-    }}
-  >
-    z-index: toast (1600)
-  </div>
+{/* Overlay */}
 
-  {/* Tooltip */}
+<div
+  className="demo-overlay"
+  style={{
+    position: "absolute",
+    top: "40px",
+    right: "40px",
+    width: "200px",
+    zIndex: "var(--sando-z-index-overlay)",
+  }}
+>
+  <div className="demo-title" style={{ color: "white" }}>
+    z-index: overlay (1300)
+  </div>
+  <div style={{ fontSize: "12px", opacity: 0.9 }}>Modal backdrop</div>
+</div>
+
+{/* Modal */}
+
+<div
+  className="demo-card demo-card--elevated"
+  style={{
+    position: "absolute",
+    top: "80px",
+    right: "80px",
+    width: "220px",
+    zIndex: "var(--sando-z-index-modal)",
+  }}
+>
+  <div className="demo-title">z-index: modal (1400)</div>
+  <div className="demo-description">Dialog content</div>
+</div>
+
+{/* Toast */}
+
+<div
+  className="demo-toast"
+  style={{
+    position: "absolute",
+    top: "40px",
+    left: "50%",
+    transform: "translateX(-50%)",
+    zIndex: "var(--sando-z-index-toast)",
+  }}
+>
+  z-index: toast (1600)
+</div>
+
+{/* Tooltip */}
+
   <div
+    className="demo-tooltip"
     style={{
       position: 'absolute',
       bottom: '200px',
       right: '180px',
-      padding: '8px 12px',
-      backgroundColor: 'var(--sando-color-neutral-900)',
-      color: 'white',
-      borderRadius: '6px',
-      boxShadow: 'var(--sando-elevation-300)',
       zIndex: 'var(--sando-z-index-tooltip)',
-      fontSize: '12px',
     }}
   >
     z-index: tooltip (1700)
@@ -217,46 +274,22 @@ This visualization shows how elements layer on top of each other using the z-ind
 
 Dropdowns appear above normal content but below modals.
 
-<div style={{ marginTop: '24px', position: 'relative', padding: '40px', backgroundColor: 'var(--sando-color-background-surface)', borderRadius: '12px', minHeight: '200px' }}>
-  <div style={{ position: 'relative', display: 'inline-block' }}>
-    <button
-      style={{
-        padding: '12px 24px',
-        backgroundColor: 'var(--sando-color-brand-500)',
-        color: 'white',
-        border: 'none',
-        borderRadius: '8px',
-        fontSize: '14px',
-        fontWeight: '600',
-        cursor: 'pointer',
-      }}
-    >
-      Open Menu
-    </button>
+<div className="demo-box" style={{ position: "relative", minHeight: "200px" }}>
+  <div style={{ position: "relative", display: "inline-block" }}>
+    <button className="demo-button">Open Menu</button>
     <div
+      className="demo-dropdown"
       style={{
-        position: 'absolute',
-        top: '100%',
+        position: "absolute",
+        top: "100%",
         left: 0,
-        marginTop: '8px',
-        width: '200px',
-        backgroundColor: 'var(--sando-color-background-raised)',
-        borderRadius: '8px',
-        boxShadow: 'var(--sando-elevation-300)',
-        zIndex: 'var(--sando-z-index-dropdown)',
-        overflow: 'hidden',
+        marginTop: "8px",
+        width: "200px",
+        zIndex: "var(--sando-z-index-dropdown)",
       }}
     >
-      {['Option 1', 'Option 2', 'Option 3'].map((option) => (
-        <div
-          key={option}
-          style={{
-            padding: '12px 16px',
-            fontSize: '14px',
-            borderBottom: '1px solid var(--sando-color-border-muted)',
-            cursor: 'pointer',
-          }}
-        >
+      {["Option 1", "Option 2", "Option 3"].map((option) => (
+        <div key={option} className="demo-dropdown-item">
           {option}
         </div>
       ))}

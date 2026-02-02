@@ -8,19 +8,75 @@
  *
  * Color Mode Implementation:
  * We use @storybook/addon-themes with withThemeByDataAttribute to set
- * data-color-mode on the html element. This prevents flickering by applying
- * themes at the correct point in Storybook's lifecycle (before story render).
+ * data-color-mode on the html element.
  *
  * For "Auto" mode (follow system preference), we use an empty string value
  * which effectively removes the attribute, letting CSS @media queries work.
  *
+ * Flicker Prevention:
+ * A preload script in preview-head.html reads the persisted theme from
+ * localStorage and applies it BEFORE React/Storybook hydrates, preventing
+ * the flash that occurs when useEffect applies the theme after render.
+ *
  * @see https://storybook.js.org/addons/@storybook/addon-themes
  * @see https://github.com/storybookjs/storybook/blob/main/code/addons/themes/docs/api.md
+ * @see https://github.com/storybookjs/storybook/issues/31625 (known flickering issue)
  *
  * @type { import('@storybook/web-components').Preview }
  */
 
 import { withThemeByDataAttribute } from "@storybook/addon-themes";
+
+/**
+ * Storage key for persisting theme preference
+ * Must match the key used in preview-head.html preload script
+ */
+const THEME_STORAGE_KEY = "@storybook/manager/globals";
+
+/**
+ * Track the last persisted theme to avoid redundant writes
+ */
+let lastPersistedTheme = null;
+
+/**
+ * Persist theme to localStorage for the preload script
+ * This runs on every story render but only writes when theme changes
+ */
+function persistTheme(theme) {
+  if (theme === lastPersistedTheme) return;
+
+  try {
+    // Read existing globals or create new object
+    const existingData = localStorage.getItem(THEME_STORAGE_KEY);
+    let globals = {};
+
+    if (existingData) {
+      try {
+        globals = JSON.parse(existingData);
+      } catch (e) {
+        // Invalid JSON, start fresh
+      }
+    }
+
+    // Update theme in globals
+    globals.theme = theme;
+    localStorage.setItem(THEME_STORAGE_KEY, JSON.stringify(globals));
+    lastPersistedTheme = theme;
+  } catch (e) {
+    // localStorage not available, ignore
+    console.debug("[Sando Theme] Could not persist theme:", e);
+  }
+}
+
+/**
+ * Custom decorator that persists theme changes to localStorage
+ * This enables the preload script to read the theme on page load
+ */
+const withThemePersistence = (storyFn, context) => {
+  const theme = context.globals?.theme || "auto";
+  persistTheme(theme);
+  return storyFn();
+};
 
 // Import design tokens CSS - Ingredients (primitives, always loaded)
 import "../../../packages/tokens/dist/sando-tokens/css/ingredients/color.css";
@@ -109,10 +165,9 @@ const preview = {
   /**
    * Decorators - Using @storybook/addon-themes for color mode switching
    *
-   * withThemeByDataAttribute applies the theme at the correct point in
-   * Storybook's lifecycle, BEFORE the story renders. This eliminates
-   * the flickering that occurs with custom decorators that manipulate
-   * DOM attributes during the render cycle.
+   * Order matters:
+   * 1. withThemePersistence - Saves theme to localStorage for preload script
+   * 2. withThemeByDataAttribute - Applies theme via data attribute
    *
    * Theme values:
    * - "auto": Empty string - removes attribute, CSS @media queries take over
@@ -121,6 +176,9 @@ const preview = {
    * - "high-contrast": Sets data-color-mode="high-contrast" - forces high contrast
    */
   decorators: [
+    // Persist theme to localStorage for the preload script
+    withThemePersistence,
+    // Apply theme via data attribute
     withThemeByDataAttribute({
       themes: {
         // Auto mode: Empty value removes the attribute entirely
