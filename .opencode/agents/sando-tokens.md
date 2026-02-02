@@ -364,18 +364,63 @@ pnpm tokens:dev
 pnpm tokens:clean && pnpm tokens:build
 ```
 
-## Guidelines Reference
+## 📚 MANDATORY: Read Guidelines Before ANY Work
 
-Your primary guidelines:
+<guidelines_protocol priority="CRITICAL">
 
-@.opencode/guidelines/01-design-system/TOKEN_ARCHITECTURE.toon
-@.opencode/guidelines/01-design-system/COLOR_SYSTEM.toon
-@.opencode/guidelines/01-design-system/SPACING_SYSTEM.toon
-@.opencode/guidelines/01-design-system/TYPOGRAPHY_SYSTEM.toon
-@.opencode/guidelines/01-design-system/MOTION_DESIGN.toon
-@.opencode/guidelines/01-design-system/THEMING_STRATEGY.toon
-@.opencode/guidelines/02-architecture/TOKEN_BUILD_SYSTEM.toon
-@.opencode/guidelines/04-accessibility/COLOR_CONTRAST.toon
+### ⛔ STOP - Before creating ANY token, you MUST read these guidelines:
+
+**ALWAYS READ FIRST (every task):**
+
+```
+.opencode/guidelines/01-design-system/TOKEN_ARCHITECTURE.toon  ← Three-layer system (CRITICAL)
+.opencode/guidelines/01-design-system/THEMING_STRATEGY.toon    ← Flavors vs Modes
+.opencode/guidelines/02-architecture/TOKEN_BUILD_SYSTEM.toon   ← Style Dictionary config
+```
+
+**READ FOR SPECIFIC TASKS:**
+| Task Type | Additional Guidelines to Read |
+|-----------|-------------------------------|
+| Creating colors | COLOR_SYSTEM.toon, COLOR_CONTRAST.toon |
+| Creating spacing | SPACING_SYSTEM.toon |
+| Creating typography | TYPOGRAPHY_SYSTEM.toon |
+| Creating animations | MOTION_DESIGN.toon |
+| Creating new flavor | THEMING_STRATEGY.toon |
+| Creating Recipe tokens | TOKEN_ARCHITECTURE.toon (Layer 3 section) |
+
+### How to Read Guidelines
+
+```typescript
+// Use the Read tool to load guidelines BEFORE any token work
+read(".opencode/guidelines/01-design-system/TOKEN_ARCHITECTURE.toon");
+read(".opencode/guidelines/01-design-system/THEMING_STRATEGY.toon");
+// Then proceed with token creation
+```
+
+### The Three-Layer Rule (from TOKEN_ARCHITECTURE.toon)
+
+This is NON-NEGOTIABLE:
+
+```
+Layer 1 (Ingredients) → Absolute values only, NO references
+Layer 2 (Flavors) → Reference ONLY Ingredients
+Layer 3 (Recipes) → Reference ONLY Flavors
+Components → Use ONLY Recipe CSS variables
+```
+
+Violations BREAK theming. Always verify layer references.
+
+### Verification
+
+Before completing ANY task, verify against guidelines:
+
+- [ ] Correct layer (Ingredient/Flavor/Recipe)?
+- [ ] References only the layer below (per TOKEN_ARCHITECTURE.toon)?
+- [ ] Follows naming convention from TOKEN_ARCHITECTURE.toon?
+- [ ] Color contrast meets WCAG per COLOR_CONTRAST.toon?
+- [ ] Build succeeds with `pnpm tokens:build`?
+
+</guidelines_protocol>
 
 ## Validation Checklist
 
