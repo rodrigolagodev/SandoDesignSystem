@@ -3,8 +3,14 @@
 Semantic tokens that give meaning and context to primitive ingredients.
 
 ::: info Current Status
-All 5 curated flavors are now available: **Original** (default), **Strawberry**, **Ocean**, **Forest**, and **Sunset**.
-:::
+All 5 curated flavors are now available, each inspired by a type of Japanese Sando (sandwich):
+
+- **Original** 🍞 - Tonos naranjas cálidos (pan tostado dorado)
+- **Strawberry** 🍓 - Tonos rojos (fresa fresca)
+- **Egg Salad** 🥚 - Tonos amarillos (yema de huevo cremosa)
+- **Tonkatsu** 🍖 - Tonos marrones (carne empanizada crujiente)
+- **Kiwi** 🥝 - Tonos verdes (fruta kiwi vibrante)
+  :::
 
 ## Overview
 
@@ -31,7 +37,7 @@ Same Ingredients + Different Flavors = Different Themes
 1. Choose a palette: blue, green, orange, purple, pink, red
 2. Map to semantic roles: action.solid.background → blue.500
 3. Build tokens: pnpm build
-4. Use in components: <sando-button flavor="ocean">
+4. Use in components: <sando-button flavor="tonkatsu">
 ```
 
 ## Structure
@@ -101,30 +107,30 @@ Orange-based flavor with warm neutral - **currently available**.
 
 [View strawberry flavor →](https://github.com/yourusername/sando-design-system/blob/master/packages/tokens/src/flavors/strawberry.json)
 
-### Ocean ✅
+### Tonkatsu 🍖 ✅
 
-Blue-based flavor - **currently available**.
+Brown-based flavor inspired by crispy breaded cutlet - **currently available**.
 
-**Palette:** `blue` + `neutral-cool`
-**Personality:** Trustworthy, professional, calm
-**Use case:** SaaS, finance, healthcare, corporate
+**Palette:** `brown` + `neutral-warm`
+**Personality:** Warm, hearty, grounded
+**Use case:** Food & beverage, hospitality, artisanal brands
 
 ```css
 /* Key tokens */
---sando-color-action-solid-background-default: var(--sando-color-blue-700)
-  --sando-color-background-base: var(--sando-color-neutral-cool-100)
-  --sando-color-text-body: var(--sando-color-neutral-cool-800);
+--sando-color-action-solid-background-default: var(--sando-color-brown-700)
+  --sando-color-background-base: var(--sando-color-neutral-warm-100)
+  --sando-color-text-body: var(--sando-color-neutral-warm-800);
 ```
 
-[View ocean flavor →](https://github.com/yourusername/sando-design-system/blob/master/packages/tokens/src/flavors/ocean.json)
+[View tonkatsu flavor →](https://github.com/yourusername/sando-design-system/blob/master/packages/tokens/src/flavors/tonkatsu.json)
 
-### Forest ✅
+### Kiwi 🥝 ✅
 
-Green-based flavor - **currently available**.
+Green-based flavor inspired by fresh kiwi fruit - **currently available**.
 
 **Palette:** `green` + `neutral`
-**Personality:** Growth, success, natural
-**Use case:** Sustainability, health & wellness, finance
+**Personality:** Fresh, natural, vibrant
+**Use case:** Sustainability, health & wellness, organic products
 
 ```css
 /* Key tokens */
@@ -133,24 +139,24 @@ Green-based flavor - **currently available**.
   --sando-color-text-body: var(--sando-color-neutral-900);
 ```
 
-[View forest flavor →](https://github.com/yourusername/sando-design-system/blob/master/packages/tokens/src/flavors/forest.json)
+[View kiwi flavor →](https://github.com/yourusername/sando-design-system/blob/master/packages/tokens/src/flavors/kiwi.json)
 
-### Sunset ✅
+### Egg Salad 🥚 ✅
 
-Orange with warm neutrals flavor - **currently available**.
+Yellow-based flavor inspired by creamy egg yolk - **currently available**.
 
-**Palette:** `orange` + `neutral-warm`
-**Personality:** Bold, vibrant, energetic
-**Use case:** Events, entertainment, creative work
+**Palette:** `yellow` + `neutral-warm`
+**Personality:** Warm, cheerful, inviting
+**Use case:** Breakfast brands, children's products, creative work
 
 ```css
 /* Key tokens */
---sando-color-action-solid-background-default: var(--sando-color-orange-700)
+--sando-color-action-solid-background-default: var(--sando-color-yellow-600)
   --sando-color-background-base: var(--sando-color-neutral-warm-100)
   --sando-color-text-body: var(--sando-color-neutral-warm-900);
 ```
 
-[View sunset flavor →](https://github.com/yourusername/sando-design-system/blob/master/packages/tokens/src/flavors/sunset.json)
+[View egg-salad flavor →](https://github.com/yourusername/sando-design-system/blob/master/packages/tokens/src/flavors/egg-salad.json)
 
 ## Token Categories
 

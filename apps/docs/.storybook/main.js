@@ -6,10 +6,9 @@ import remarkGfm from "remark-gfm";
  * @type { import('@storybook/web-components-vite').StorybookConfig }
  */
 const config = {
-  // Story file patterns - Welcome and Status first, then docs, then components
+  // Story file patterns - Welcome first, then docs, then components
   stories: [
     "../stories/Welcome.mdx",
-    "../stories/Status.mdx",
     "../stories/**/*.mdx",
     "../../../packages/components/src/components/**/*.stories.@(js|jsx|ts|tsx)",
   ],

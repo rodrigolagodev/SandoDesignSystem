@@ -1,5 +1,5 @@
 {
-  "$description": "Dark mode overrides for 'sunset' flavor. Only includes tokens that differ from light mode (index.json). Automatically applied via @media (prefers-color-scheme: dark) and [flavor-mode='dark'].",
+  "$description": "Dark mode overrides for 'kiwi' flavor. Only includes tokens that differ from light mode (index.json). Automatically applied via @media (prefers-color-scheme: dark) and [flavor-mode='dark'].",
   "color": {
     "background": {
       "base": { "value": "{color.neutralWarm.950.value}", "type": "color" },
@@ -9,24 +9,24 @@
       "emphasis": { "value": "{color.neutralWarm.700.value}", "type": "color" }
     },
     "focus": {
-      "ring": { "value": "{color.orange.400.value}", "type": "color" },
+      "ring": { "value": "{color.green.400.value}", "type": "color" },
       "ring-offset": {
         "value": "{color.neutralWarm.950.value}",
         "type": "color"
       },
-      "background": { "value": "{color.orange.950.value}", "type": "color" },
-      "text": { "value": "{color.orange.100.value}", "type": "color" }
+      "background": { "value": "{color.green.950.value}", "type": "color" },
+      "text": { "value": "{color.green.100.value}", "type": "color" }
     },
     "text": {
       "heading": { "value": "{color.neutralWarm.50.value}", "type": "color" },
       "body": { "value": "{color.neutralWarm.200.value}", "type": "color" },
       "caption": { "value": "{color.neutralWarm.400.value}", "type": "color" },
       "link": {
-        "default": { "value": "{color.orange.400.value}", "type": "color" },
-        "hover": { "value": "{color.orange.300.value}", "type": "color" },
-        "active": { "value": "{color.orange.200.value}", "type": "color" },
-        "visited": { "value": "{color.orange.500.value}", "type": "color" },
-        "focus": { "value": "{color.orange.400.value}", "type": "color" }
+        "default": { "value": "{color.green.400.value}", "type": "color" },
+        "hover": { "value": "{color.green.300.value}", "type": "color" },
+        "active": { "value": "{color.green.200.value}", "type": "color" },
+        "visited": { "value": "{color.green.500.value}", "type": "color" },
+        "focus": { "value": "{color.green.400.value}", "type": "color" }
       },
       "muted": { "value": "{color.neutralWarm.500.value}", "type": "color" },
       "on-solid": { "value": "{color.neutralWarm.950.value}", "type": "color" }
@@ -35,19 +35,19 @@
       "default": { "value": "{color.neutralWarm.400.value}", "type": "color" },
       "muted": { "value": "{color.neutralWarm.500.value}", "type": "color" },
       "emphasis": { "value": "{color.neutralWarm.100.value}", "type": "color" },
-      "interactive": { "value": "{color.orange.400.value}", "type": "color" },
+      "interactive": { "value": "{color.green.400.value}", "type": "color" },
       "on-solid": { "value": "{color.neutralWarm.950.value}", "type": "color" }
     },
     "border": {
       "muted": { "value": "{color.neutralWarm.700.value}", "type": "color" },
       "default": { "value": "{color.neutralWarm.600.value}", "type": "color" },
-      "emphasis": { "value": "{color.orange.400.value}", "type": "color" }
+      "emphasis": { "value": "{color.green.400.value}", "type": "color" }
     },
     "action": {
       "solid": {
         "background": {
-          "default": { "value": "{color.orange.600.value}", "type": "color" },
-          "hover": { "value": "{color.orange.500.value}", "type": "color" }
+          "default": { "value": "{color.green.600.value}", "type": "color" },
+          "hover": { "value": "{color.green.500.value}", "type": "color" }
         },
         "text": {
           "default": {
@@ -62,7 +62,7 @@
             "value": "{color.neutralWarm.600.value}",
             "type": "color"
           },
-          "hover": { "value": "{color.orange.400.value}", "type": "color" }
+          "hover": { "value": "{color.green.400.value}", "type": "color" }
         },
         "text": {
           "default": {
@@ -114,7 +114,7 @@
       }
     },
     "selection": {
-      "background": { "value": "{color.orange.800.value}", "type": "color" },
+      "background": { "value": "{color.green.800.value}", "type": "color" },
       "text": { "value": "{color.neutralWarm.50.value}", "type": "color" }
     }
   }

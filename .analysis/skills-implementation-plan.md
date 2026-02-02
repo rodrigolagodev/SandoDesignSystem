@@ -254,7 +254,7 @@ Acciones:
 ```yaml
 ---
 name: flavor-creator
-description: Creates a complete new flavor (theme) with all 5 required files: base, dark, high-contrast, forced-colors, motion-reduce. Maps semantic roles to Ingredient palettes. Validates 3-layer architecture (Flavors ONLY reference Ingredients). Use when creating "ocean", "sunset", "forest" flavors or any custom brand theme.
+description: Creates a complete new flavor (theme) with all 5 required files: base, dark, high-contrast, forced-colors, motion-reduce. Maps semantic roles to Ingredient palettes. Validates 3-layer architecture (Flavors ONLY reference Ingredients). Use when creating "tonkatsu", "egg-salad", "kiwi" flavors or any custom brand theme.
 allowed-tools: Read, Write, Glob, Bash
 ---
 ```
@@ -286,7 +286,7 @@ packages/tokens/src/flavors/[flavor-name]/
 **Prompts Interactivos:**
 
 ```
-1. Flavor name? (e.g., "ocean", "sunset", "forest", "lavender")
+1. Flavor name? (e.g., "tonkatsu", "egg-salad", "kiwi", "lavender")
 2. Primary color palette? [orange, blue, green, red, purple, pink]
 3. Neutral palette? [neutral, neutral-warm, neutral-cool]
 4. Spacing density? [compact, comfortable, spacious]
@@ -464,8 +464,8 @@ allowed-tools: Read, Glob, Bash
    - font.json: 12 tokens, all raw values ✓
 
 ✅ Flavors Layer: 0 violations
-   - ocean/flavor.json: 156 tokens, all reference Ingredients ✓
-   - sunset/flavor.json: 156 tokens, all reference Ingredients ✓
+   - tonkatsu/flavor.json: 156 tokens, all reference Ingredients ✓
+   - egg-salad/flavor.json: 156 tokens, all reference Ingredients ✓
 
 ❌ Recipes Layer: 2 VIOLATIONS FOUND
 
@@ -978,7 +978,7 @@ Secondary actions...
 
 \`\`\`html
 
-<div flavor="ocean">
+<div flavor="tonkatsu">
   <sando-button>Ocean themed</sando-button>
 </div>
 \`\`\`

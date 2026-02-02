@@ -1,0 +1,306 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Resources/Contributing" />
+
+# Contributing to Sando
+
+Thank you for your interest in contributing to the Sando Design System! This guide will help you get started with contributing components, documentation, or improvements.
+
+---
+
+## Ways to Contribute
+
+<div
+  style={{
+    marginTop: "24px",
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+    gap: "16px",
+  }}
+>
+  <div
+    style={{
+      padding: "20px",
+      backgroundColor: "var(--sando-color-background-raised)",
+      borderRadius: "8px",
+      border: "1px solid var(--sando-color-border-muted)",
+    }}
+  >
+    <h3 style={{ marginTop: 0 }}>Report Bugs</h3>
+    <p style={{ fontSize: "14px", marginBottom: 0 }}>
+      Found a bug? Open an issue with reproduction steps and expected behavior.
+    </p>
+  </div>
+
+  <div
+    style={{
+      padding: "20px",
+      backgroundColor: "var(--sando-color-background-raised)",
+      borderRadius: "8px",
+      border: "1px solid var(--sando-color-border-muted)",
+    }}
+  >
+    <h3 style={{ marginTop: 0 }}>Request Features</h3>
+    <p style={{ fontSize: "14px", marginBottom: 0 }}>
+      Have an idea? Open a discussion to propose new components or features.
+    </p>
+  </div>
+
+  <div
+    style={{
+      padding: "20px",
+      backgroundColor: "var(--sando-color-background-raised)",
+      borderRadius: "8px",
+      border: "1px solid var(--sando-color-border-muted)",
+    }}
+  >
+    <h3 style={{ marginTop: 0 }}>Improve Docs</h3>
+    <p style={{ fontSize: "14px", marginBottom: 0 }}>
+      Documentation improvements are always welcome. Fix typos or add examples.
+    </p>
+  </div>
+
+  <div
+    style={{
+      padding: "20px",
+      backgroundColor: "var(--sando-color-background-raised)",
+      borderRadius: "8px",
+      border: "1px solid var(--sando-color-border-muted)",
+    }}
+  >
+    <h3 style={{ marginTop: 0 }}>Build Components</h3>
+    <p style={{ fontSize: "14px", marginBottom: 0 }}>
+      Contribute new components following our architecture guidelines.
+    </p>
+  </div>
+</div>
+
+---
+
+## Development Setup
+
+### Prerequisites
+
+- Node.js 18+
+- pnpm 8+
+- Git
+
+### Getting Started
+
+```bash
+# Clone the repository
+git clone https://github.com/anomaly/sando.git
+cd sando
+
+# Install dependencies
+pnpm install
+
+# Start development server
+pnpm dev
+
+# Run Storybook
+pnpm storybook
+```
+
+### Project Structure
+
+```
+sando/
+├── apps/
+│   └── docs/              # Storybook documentation
+├── packages/
+│   ├── tokens/            # Design tokens (Ingredients, Flavors, Recipes)
+│   └── components/        # Web Components
+├── .github/               # CI/CD workflows
+└── package.json           # Workspace root
+```
+
+---
+
+## Contributing Components
+
+### Component Architecture
+
+All Sando components follow a consistent 7-file architecture:
+
+```
+packages/components/src/components/sando-button/
+├── sando-button.ts          # Main component class
+├── sando-button.styles.ts   # Component styles
+├── sando-button.types.ts    # TypeScript interfaces
+├── sando-button.stories.ts  # Storybook stories
+├── sando-button.test.ts     # Unit tests
+├── sando-button.a11y.ts     # Accessibility utilities
+└── index.ts                 # Public exports
+```
+
+### Component Guidelines
+
+1. **Use Lit** - All components are built with Lit
+2. **Use Recipe tokens** - Style with component-specific tokens
+3. **Be accessible** - Follow WCAG 2.1 AA guidelines
+4. **Be documented** - Include Storybook stories and API docs
+5. **Be tested** - Include unit tests with good coverage
+
+### Example Component
+
+```typescript
+import { LitElement, html } from "lit";
+import { customElement, property } from "lit/decorators.js";
+import { styles } from "./sando-example.styles";
+
+@customElement("sando-example")
+export class SandoExample extends LitElement {
+  static override styles = styles;
+
+  @property({ type: String }) variant: "primary" | "secondary" = "primary";
+
+  override render() {
+    return html`
+      <div class="example" part="base">
+        <slot></slot>
+      </div>
+    `;
+  }
+}
+```
+
+---
+
+## Code Standards
+
+### TypeScript
+
+- Use strict TypeScript configuration
+- Define interfaces for all props
+- Export types for consumers
+
+### CSS
+
+- Use CSS custom properties (Recipe tokens)
+- Follow BEM-like naming for internal classes
+- Support CSS `::part()` for customization
+
+### Testing
+
+- Write unit tests with Vitest
+- Include accessibility tests
+- Aim for 80%+ code coverage
+
+### Commits
+
+We use [Conventional Commits](https://www.conventionalcommits.org/):
+
+```
+feat: add new Card component
+fix: resolve button focus state issue
+docs: update accessibility guidelines
+chore: update dependencies
+```
+
+---
+
+## Pull Request Process
+
+### Before Submitting
+
+1. Ensure your code builds: `pnpm build`
+2. Run tests: `pnpm test`
+3. Check linting: `pnpm lint`
+4. Update documentation if needed
+
+### PR Guidelines
+
+- Keep PRs focused on a single change
+- Include a clear description of the change
+- Reference related issues
+- Add screenshots for visual changes
+- Request review from maintainers
+
+### Review Process
+
+1. Automated checks must pass
+2. At least one maintainer approval required
+3. All comments must be resolved
+4. Squash and merge to main branch
+
+---
+
+## Component Checklist
+
+Before a component is considered complete:
+
+<div style={{ marginTop: '24px', padding: '20px', backgroundColor: 'var(--sando-color-background-emphasis)', borderRadius: '8px' }}>
+
+- [ ] Component implementation with all variants
+- [ ] TypeScript interfaces and types
+- [ ] Recipe tokens for theming
+- [ ] Storybook stories with all states
+- [ ] Unit tests with 80%+ coverage
+- [ ] Accessibility audit (WCAG AA)
+- [ ] API documentation
+- [ ] Usage examples
+- [ ] Cross-browser testing
+- [ ] Dark mode support
+- [ ] RTL support (if applicable)
+
+</div>
+
+---
+
+## Token Contributions
+
+### Adding New Tokens
+
+1. Add Ingredient tokens in `packages/tokens/src/ingredients/`
+2. Add Flavor tokens in `packages/tokens/src/flavors/`
+3. Add Recipe tokens in `packages/tokens/src/recipes/`
+4. Run token build: `pnpm build:tokens`
+5. Update documentation
+
+### Token Guidelines
+
+- Follow existing naming conventions
+- Reference existing tokens where possible
+- Include all mode variants (light, dark, high-contrast)
+- Document the token's purpose
+
+---
+
+## Getting Help
+
+- **Questions**: Open a GitHub Discussion
+- **Bugs**: Open a GitHub Issue
+- **Chat**: Join our Discord community
+- **Email**: team@sando.design
+
+---
+
+## Code of Conduct
+
+We are committed to providing a welcoming and inclusive environment. All contributors must adhere to our Code of Conduct:
+
+- Be respectful and inclusive
+- Welcome newcomers
+- Focus on constructive feedback
+- Assume good intentions
+
+---
+
+## Recognition
+
+Contributors are recognized in:
+
+- The project README
+- Release notes for their contributions
+- Our contributors page
+
+Thank you for helping make Sando better for everyone!
+
+---
+
+## Related
+
+- [Getting Started](/docs/getting-started-introduction--docs) - Project overview
+- [Component Status](/docs/components-status--docs) - What needs work
+- [Accessibility](/docs/resources-accessibility--docs) - Accessibility requirements

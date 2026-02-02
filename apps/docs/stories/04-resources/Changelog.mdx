@@ -1,0 +1,178 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Resources/Changelog" />
+
+# Changelog
+
+All notable changes to the Sando Design System are documented here. We follow [Semantic Versioning](https://semver.org/) for releases.
+
+---
+
+## Version Format
+
+```
+MAJOR.MINOR.PATCH
+
+MAJOR - Breaking changes that require migration
+MINOR - New features, backwards compatible
+PATCH - Bug fixes, backwards compatible
+```
+
+---
+
+## Current Version
+
+### v0.1.0 - Initial Release
+
+<div
+  style={{
+    marginTop: "16px",
+    padding: "16px",
+    backgroundColor: "var(--sando-color-background-emphasis)",
+    borderRadius: "8px",
+    fontSize: "14px",
+  }}
+>
+  <strong>Release Date:</strong> February 2025 (Preview)
+  <br />
+  <strong>Status:</strong> Alpha - API may change
+</div>
+
+#### Highlights
+
+This is the initial preview release of the Sando Design System, establishing the foundation for a complete design system built on Web Components.
+
+#### Added
+
+**Token System**
+
+- Three-layer token architecture (Ingredients, Flavors, Recipes)
+- 8 brand color palettes (Orange, Yellow, Brown, Red, Pink, Purple, Blue, Green)
+- 3 neutral color variants (Neutral, Neutral Warm, Neutral Cool)
+- Complete spacing scale (4px base unit, 0-64 steps)
+- Typography scale (10px-48px)
+- Border radius and width tokens
+- Elevation system (6 levels)
+- Animation duration and easing tokens
+- Opacity scale (0-100%)
+- Z-index semantic scale
+
+**Flavor Themes**
+
+- Original (Orange) - default theme
+- Strawberry (Red)
+- Tonkatsu (Brown)
+- Kiwi (Green)
+- Egg Salad (Yellow)
+
+**Components**
+
+- `sando-button` - Button component with solid, outline, and ghost variants
+- `sando-icon` - Icon component with Lucide icon set
+- `sando-input` - Text input component with validation states
+- `sando-form-group` - Form layout component (beta)
+
+**Documentation**
+
+- Storybook documentation site
+- Token reference pages
+- Component usage examples
+- Accessibility guidelines
+
+#### Known Limitations
+
+- Dark mode is implemented but may have minor contrast issues
+- High contrast mode support is partial
+- Some neutral color palettes are still in development
+
+---
+
+## Upcoming Releases
+
+### v0.2.0 - Planned
+
+<div
+  style={{
+    marginTop: "16px",
+    padding: "16px",
+    backgroundColor: "var(--sando-color-state-info-100)",
+    borderRadius: "8px",
+    fontSize: "14px",
+  }}
+>
+  <strong>Target:</strong> Q2 2025
+  <br />
+  <strong>Theme:</strong> Component Expansion
+</div>
+
+#### Planned Features
+
+- Card component
+- Modal/Dialog component
+- Tooltip component
+- Dropdown/Select component
+- Checkbox component
+- Radio button component
+- Switch/Toggle component
+- Neutral and Neutral Cool color palettes
+
+---
+
+### v0.3.0 - Planned
+
+<div
+  style={{
+    marginTop: "16px",
+    padding: "16px",
+    backgroundColor: "var(--sando-color-state-info-100)",
+    borderRadius: "8px",
+    fontSize: "14px",
+  }}
+>
+  <strong>Target:</strong> Q3 2025
+  <br />
+  <strong>Theme:</strong> Advanced Components
+</div>
+
+#### Planned Features
+
+- Tabs component
+- Accordion component
+- Navigation components
+- Toast/Notification system
+- Badge component
+- Avatar component
+- Flavor Generator CLI tool
+
+---
+
+## Migration Guides
+
+Migration guides will be provided for any breaking changes in major version updates.
+
+---
+
+## Release Process
+
+1. **Alpha** (`0.x.x`) - Active development, API may change
+2. **Beta** (`0.x.x-beta.x`) - Feature complete, testing phase
+3. **Release Candidate** (`0.x.x-rc.x`) - Final testing before release
+4. **Stable** (`1.x.x+`) - Production ready, semantic versioning
+
+---
+
+## Subscribe to Updates
+
+Stay informed about new releases:
+
+- Watch the [GitHub repository](https://github.com/anomaly/sando) for releases
+- Follow [@sando_design](https://twitter.com/sando_design) on Twitter
+- Join our Discord community
+
+---
+
+## Related
+
+- [Contributing Guide](/docs/resources-contributing--docs) - How to contribute
+- [Component Status](/docs/components-status--docs) - Current implementation status
+- [Getting Started](/docs/getting-started-introduction--docs) - Installation guide

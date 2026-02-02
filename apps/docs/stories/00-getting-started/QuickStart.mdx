@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/blocks';
+import { Meta } from "@storybook/blocks";
 
 <Meta title="Getting Started/Quick Start" />
 
@@ -27,10 +27,11 @@ Import the CSS tokens in your main entry file (e.g., `main.ts`, `App.tsx`, or `i
 
 ```typescript
 // Import all design tokens
-import '@sando/tokens/css';
+import "@sando/tokens/css";
 ```
 
 This gives you access to all three layers:
+
 - 🥓 **Ingredients** (primitives): `--sando-color-orange-700`, `--sando-space-4`
 - 🥬 **Flavors** (semantic): `--sando-color-background-base`, `--sando-color-text-body`
 - 🍞 **Recipes** (component-specific): `--sando-button-solid-backgroundColor-default`
@@ -41,16 +42,16 @@ Import only the components you need:
 
 ```typescript
 // Import individual components
-import '@sando/components/button';
-import '@sando/components/input';
-import '@sando/components/icon';
+import "@sando/components/button";
+import "@sando/components/input";
+import "@sando/components/icon";
 ```
 
 Or import all components at once (not recommended for production):
 
 ```typescript
 // Import all components (larger bundle)
-import '@sando/components';
+import "@sando/components";
 ```
 
 ## Step 3: Use in Your HTML
@@ -69,18 +70,18 @@ Now you can use Sando components in your markup:
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Sando Example</title>
-</head>
-<body>
-  <sando-button variant="solid">Hello Sando!</sando-button>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Sando Example</title>
+  </head>
+  <body>
+    <sando-button variant="solid">Hello Sando!</sando-button>
 
-  <script type="module">
-    import '@sando/tokens/css';
-    import '@sando/components/button';
-  </script>
-</body>
+    <script type="module">
+      import "@sando/tokens/css";
+      import "@sando/components/button";
+    </script>
+  </body>
 </html>
 ```
 
@@ -88,9 +89,9 @@ Now you can use Sando components in your markup:
 
 ```tsx
 // App.tsx
-import '@sando/tokens/css';
-import '@sando/components/button';
-import '@sando/components/input';
+import "@sando/tokens/css";
+import "@sando/components/button";
+import "@sando/components/input";
 
 function App() {
   return (
@@ -109,8 +110,8 @@ export default App;
 ```typescript
 declare namespace JSX {
   interface IntrinsicElements {
-    'sando-button': any;
-    'sando-input': any;
+    "sando-button": any;
+    "sando-input": any;
     // Add other components as needed
   }
 }
@@ -128,28 +129,28 @@ declare namespace JSX {
 </template>
 
 <script setup>
-import '@sando/tokens/css';
-import '@sando/components/button';
-import '@sando/components/input';
+import "@sando/tokens/css";
+import "@sando/components/button";
+import "@sando/components/input";
 </script>
 ```
 
 Add this to your `vite.config.ts`:
 
 ```typescript
-import { defineConfig } from 'vite';
-import vue from '@vitejs/plugin-vue';
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
 
 export default defineConfig({
   plugins: [
     vue({
       template: {
         compilerOptions: {
-          isCustomElement: (tag) => tag.startsWith('sando-')
-        }
-      }
-    })
-  ]
+          isCustomElement: (tag) => tag.startsWith("sando-"),
+        },
+      },
+    }),
+  ],
 });
 ```
 
@@ -157,19 +158,19 @@ export default defineConfig({
 
 ```typescript
 // app.module.ts
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 
 @NgModule({
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class AppModule { }
+export class AppModule {}
 ```
 
 ```typescript
 // main.ts
-import '@sando/tokens/css';
-import '@sando/components/button';
-import '@sando/components/input';
+import "@sando/tokens/css";
+import "@sando/components/button";
+import "@sando/components/input";
 ```
 
 ```html
@@ -205,19 +206,19 @@ Apply different flavors using the `flavor` attribute:
   <sando-button>Strawberry</sando-button>
 </div>
 
-<!-- Ocean flavor (blue-based) -->
-<div flavor="ocean">
-  <sando-button>Ocean</sando-button>
+<!-- Tonkatsu flavor (brown-based) -->
+<div flavor="tonkatsu">
+  <sando-button>Tonkatsu</sando-button>
 </div>
 
-<!-- Forest flavor (green-based) -->
-<div flavor="forest">
-  <sando-button>Forest</sando-button>
+<!-- Kiwi flavor (green-based) -->
+<div flavor="kiwi">
+  <sando-button>Kiwi</sando-button>
 </div>
 
-<!-- Sunset flavor (warm tones) -->
-<div flavor="sunset">
-  <sando-button>Sunset</sando-button>
+<!-- Egg Salad flavor (yellow tones) -->
+<div flavor="egg-salad">
+  <sando-button>Egg Salad</sando-button>
 </div>
 ```
 

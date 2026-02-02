@@ -158,12 +158,12 @@ Blue:   oklch(60% 0.25 250)  → Predictable contrast    ✅
 **Use a pre-designed flavor:**
 
 ```html
-<html flavor="ocean">
-  <!-- blue palette -->
-  <html flavor="forest">
+<html flavor="tonkatsu">
+  <!-- brown palette -->
+  <html flavor="kiwi">
     <!-- green palette -->
-    <html flavor="sunset">
-      <!-- orange palette -->
+    <html flavor="egg-salad">
+      <!-- yellow palette -->
     </html>
   </html>
 </html>
@@ -371,7 +371,7 @@ When you need a new color (new brand color, rebrand, client work):
 
 **Need:** Get to market fast, look professional
 
-**Solution:** Use `flavor="ocean"` (blue palette)
+**Solution:** Use `flavor="tonkatsu"` (brown palette)
 
 **Result:**
 
@@ -424,7 +424,7 @@ When you need a new color (new brand color, rebrand, client work):
 **Path A: Use Our Palettes (Recommended)**
 
 ```html
-<html flavor="ocean">
+<html flavor="tonkatsu">
   <!-- Start coding immediately -->
 </html>
 ```
@@ -570,7 +570,7 @@ Submit a PR. We'd love to include it.
 
 > "We rebranded from blue to purple in 15 minutes by changing one config value. Our entire app updated instantly. This saved us weeks." — **Sarah Chen, Design Lead @ StartupCo**
 
-> "I'm not a designer, but Sando's palettes made me look like one. The ocean flavor is perfect for our SaaS product." — **Marcus Rodriguez, Solo Developer**
+> "I'm not a designer, but Sando's palettes made me look like one. The tonkatsu flavor is perfect for our artisanal food product." — **Marcus Rodriguez, Solo Developer**
 
 > "We tried Tailwind's color system first. Too many options, no guidance. Sando's 8 palettes gave us constraints that actually helped us design better." — **Alex Kim, Design System Architect @ TechCorp**
 

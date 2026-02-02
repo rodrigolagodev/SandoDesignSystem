@@ -100,29 +100,29 @@ import "../../../packages/tokens/dist/sando-tokens/css/flavors/original/flavor-d
 import "../../../packages/tokens/dist/sando-tokens/css/flavors/original/flavor-high-contrast.css";
 import "../../../packages/tokens/dist/sando-tokens/css/flavors/original/flavor-motion-reduce.css";
 
-// Strawberry (Orange-based)
+// Strawberry (Red tones)
 import "../../../packages/tokens/dist/sando-tokens/css/flavors/strawberry/flavor.css";
 import "../../../packages/tokens/dist/sando-tokens/css/flavors/strawberry/flavor-dark.css";
 import "../../../packages/tokens/dist/sando-tokens/css/flavors/strawberry/flavor-high-contrast.css";
 import "../../../packages/tokens/dist/sando-tokens/css/flavors/strawberry/flavor-motion-reduce.css";
 
-// Ocean (Blue-based)
-import "../../../packages/tokens/dist/sando-tokens/css/flavors/ocean/flavor.css";
-import "../../../packages/tokens/dist/sando-tokens/css/flavors/ocean/flavor-dark.css";
-import "../../../packages/tokens/dist/sando-tokens/css/flavors/ocean/flavor-high-contrast.css";
-import "../../../packages/tokens/dist/sando-tokens/css/flavors/ocean/flavor-motion-reduce.css";
+// Tonkatsu (Brown tones - breaded cutlet)
+import "../../../packages/tokens/dist/sando-tokens/css/flavors/tonkatsu/flavor.css";
+import "../../../packages/tokens/dist/sando-tokens/css/flavors/tonkatsu/flavor-dark.css";
+import "../../../packages/tokens/dist/sando-tokens/css/flavors/tonkatsu/flavor-high-contrast.css";
+import "../../../packages/tokens/dist/sando-tokens/css/flavors/tonkatsu/flavor-motion-reduce.css";
 
-// Forest (Green-based)
-import "../../../packages/tokens/dist/sando-tokens/css/flavors/forest/flavor.css";
-import "../../../packages/tokens/dist/sando-tokens/css/flavors/forest/flavor-dark.css";
-import "../../../packages/tokens/dist/sando-tokens/css/flavors/forest/flavor-high-contrast.css";
-import "../../../packages/tokens/dist/sando-tokens/css/flavors/forest/flavor-motion-reduce.css";
+// Kiwi (Green tones - kiwi fruit)
+import "../../../packages/tokens/dist/sando-tokens/css/flavors/kiwi/flavor.css";
+import "../../../packages/tokens/dist/sando-tokens/css/flavors/kiwi/flavor-dark.css";
+import "../../../packages/tokens/dist/sando-tokens/css/flavors/kiwi/flavor-high-contrast.css";
+import "../../../packages/tokens/dist/sando-tokens/css/flavors/kiwi/flavor-motion-reduce.css";
 
-// Sunset (Orange + Warm neutrals)
-import "../../../packages/tokens/dist/sando-tokens/css/flavors/sunset/flavor.css";
-import "../../../packages/tokens/dist/sando-tokens/css/flavors/sunset/flavor-dark.css";
-import "../../../packages/tokens/dist/sando-tokens/css/flavors/sunset/flavor-high-contrast.css";
-import "../../../packages/tokens/dist/sando-tokens/css/flavors/sunset/flavor-motion-reduce.css";
+// Egg Salad (Yellow tones - egg yolk)
+import "../../../packages/tokens/dist/sando-tokens/css/flavors/egg-salad/flavor.css";
+import "../../../packages/tokens/dist/sando-tokens/css/flavors/egg-salad/flavor-dark.css";
+import "../../../packages/tokens/dist/sando-tokens/css/flavors/egg-salad/flavor-high-contrast.css";
+import "../../../packages/tokens/dist/sando-tokens/css/flavors/egg-salad/flavor-motion-reduce.css";
 
 // Import Storybook preview global styles LAST
 // This file contains manual color mode overrides (html[data-color-mode="..."])
@@ -151,6 +151,42 @@ const preview = {
     // Docs configuration
     docs: {
       toc: true,
+    },
+
+    // Story ordering configuration
+    options: {
+      storySort: {
+        order: [
+          "Welcome",
+          "Getting Started",
+          ["Introduction", "Quick Start", "Theming", "Best Practices"],
+          "Ingredients",
+          [
+            "Overview",
+            "Color",
+            "Typography",
+            "Spacing",
+            "Border",
+            "Elevation",
+            "Animation",
+            "Opacity",
+            "Z-Index",
+          ],
+          "Flavors",
+          [
+            "Overview",
+            "Color Roles",
+            "Spacing Roles",
+            "Typography Roles",
+            "Recipes",
+          ],
+          "Components",
+          ["Overview", "Status", "Button", "Input", "Icon", "Form Group", "*"],
+          "Resources",
+          ["Accessibility", "Changelog", "Contributing"],
+          "*",
+        ],
+      },
     },
   },
 

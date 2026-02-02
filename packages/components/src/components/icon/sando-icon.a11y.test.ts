@@ -116,7 +116,7 @@ describe('sando-icon Accessibility', () => {
   });
 
   describe('flavors', () => {
-    const flavors = ['original', 'strawberry', 'ocean'];
+    const flavors = ['original', 'strawberry', 'tonkatsu'];
 
     flavors.forEach((flavor) => {
       it(`should pass a11y with ${flavor} flavor`, async () => {

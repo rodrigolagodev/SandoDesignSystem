@@ -260,14 +260,14 @@ describe('sando-icon', () => {
     it('should allow explicit flavor override', async () => {
       const container = await fixture<HTMLDivElement>(html`
         <div flavor="strawberry">
-          <sando-icon name="star" flavor="ocean"></sando-icon>
+          <sando-icon name="star" flavor="tonkatsu"></sando-icon>
         </div>
       `);
 
       element = container.querySelector('sando-icon') as SandoIcon;
       await element.updateComplete;
 
-      expect(element.flavor).toBe('ocean');
+      expect(element.flavor).toBe('tonkatsu');
     });
   });
 });
