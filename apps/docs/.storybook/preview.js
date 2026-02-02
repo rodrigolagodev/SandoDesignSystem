@@ -1,7 +1,82 @@
-/** @type { import('@storybook/web-components').Preview } */
+/**
+ * Sando Design System Storybook Preview Configuration
+ *
+ * Configuration decisions:
+ * - NO global flavor switcher - flavors are set per-component in individual stories
+ * - YES color mode switcher - uses @storybook/addon-themes for flicker-free switching
+ * - MDX docs always use light mode for readability
+ *
+ * Color Mode Implementation:
+ * We use @storybook/addon-themes with withThemeByDataAttribute to set
+ * data-color-mode on the html element.
+ *
+ * For "Auto" mode (follow system preference), we use an empty string value
+ * which effectively removes the attribute, letting CSS @media queries work.
+ *
+ * Flicker Prevention:
+ * A preload script in preview-head.html reads the persisted theme from
+ * localStorage and applies it BEFORE React/Storybook hydrates, preventing
+ * the flash that occurs when useEffect applies the theme after render.
+ *
+ * @see https://storybook.js.org/addons/@storybook/addon-themes
+ * @see https://github.com/storybookjs/storybook/blob/main/code/addons/themes/docs/api.md
+ * @see https://github.com/storybookjs/storybook/issues/31625 (known flickering issue)
+ *
+ * @type { import('@storybook/web-components').Preview }
+ */
 
-// Import Storybook preview global styles
-import "./preview-styles.css";
+import { withThemeByDataAttribute } from "@storybook/addon-themes";
+
+/**
+ * Storage key for persisting theme preference
+ * Must match the key used in preview-head.html preload script
+ */
+const THEME_STORAGE_KEY = "@storybook/manager/globals";
+
+/**
+ * Track the last persisted theme to avoid redundant writes
+ */
+let lastPersistedTheme = null;
+
+/**
+ * Persist theme to localStorage for the preload script
+ * This runs on every story render but only writes when theme changes
+ */
+function persistTheme(theme) {
+  if (theme === lastPersistedTheme) return;
+
+  try {
+    // Read existing globals or create new object
+    const existingData = localStorage.getItem(THEME_STORAGE_KEY);
+    let globals = {};
+
+    if (existingData) {
+      try {
+        globals = JSON.parse(existingData);
+      } catch (e) {
+        // Invalid JSON, start fresh
+      }
+    }
+
+    // Update theme in globals
+    globals.theme = theme;
+    localStorage.setItem(THEME_STORAGE_KEY, JSON.stringify(globals));
+    lastPersistedTheme = theme;
+  } catch (e) {
+    // localStorage not available, ignore
+    console.debug("[Sando Theme] Could not persist theme:", e);
+  }
+}
+
+/**
+ * Custom decorator that persists theme changes to localStorage
+ * This enables the preload script to read the theme on page load
+ */
+const withThemePersistence = (storyFn, context) => {
+  const theme = context.globals?.theme || "auto";
+  persistTheme(theme);
+  return storyFn();
+};
 
 // Import design tokens CSS - Ingredients (primitives, always loaded)
 import "../../../packages/tokens/dist/sando-tokens/css/ingredients/color.css";
@@ -49,143 +124,87 @@ import "../../../packages/tokens/dist/sando-tokens/css/flavors/sunset/flavor-dar
 import "../../../packages/tokens/dist/sando-tokens/css/flavors/sunset/flavor-high-contrast.css";
 import "../../../packages/tokens/dist/sando-tokens/css/flavors/sunset/flavor-motion-reduce.css";
 
-// NOTE: Color modes activate automatically via @media queries
-// The flavor-mode attribute allows manual testing in Storybook
+// Import Storybook preview global styles LAST
+// This file contains manual color mode overrides (html[data-color-mode="..."])
+// that must come AFTER all @media (prefers-color-scheme) rules to ensure
+// higher cascade priority when manually switching themes
+import "./preview-styles.css";
 
 const preview = {
+  // Global tags for all stories
+  tags: ["autodocs"],
+
   parameters: {
-    actions: { argTypesRegex: "^on[A-Z].*" },
+    // Control matchers for automatic control types
     controls: {
       matchers: {
         color: /(background|color)$/i,
         date: /Date$/i,
       },
     },
+
+    // Backgrounds addon disabled - our token system handles backgrounds
     backgrounds: {
-      default: "light",
-      values: [
-        {
-          name: "light",
-          value: "#ffffff",
-        },
-        {
-          name: "surface-light",
-          value: "#f5f5f5",
-        },
-        {
-          name: "dark",
-          value: "#0a0a0a",
-        },
-        {
-          name: "surface-dark",
-          value: "#171717",
-        },
-      ],
+      disable: true,
     },
+
+    // Docs configuration
     docs: {
       toc: true,
     },
   },
 
-  // Global toolbar items - Mode simulators for testing
-  // Note: In production, modes are automatic-only via @media queries
-  // These controls simulate @media queries for testing purposes
-  globalTypes: {
-    colorMode: {
-      name: "Color Mode",
-      description: "Simulate system color preference (testing only)",
-      defaultValue: "auto",
-      toolbar: {
-        title: "Color Mode",
-        icon: "circlehollow",
-        items: [
-          {
-            value: "auto",
-            icon: "circlehollow",
-            title: "Auto (System Preference)",
-          },
-          { value: "light", icon: "sun", title: "Simulate Light Mode" },
-          { value: "dark", icon: "moon", title: "Simulate Dark Mode" },
-          {
-            value: "high-contrast",
-            icon: "contrast",
-            title: "Simulate High Contrast",
-          },
-        ],
-        dynamicTitle: true,
-      },
-    },
-    motionMode: {
-      name: "Motion Mode",
-      description: "Simulate motion preference (testing only)",
-      defaultValue: "auto",
-      toolbar: {
-        title: "Motion",
-        icon: "play",
-        items: [
-          { value: "auto", icon: "play", title: "Auto (System Preference)" },
-          { value: "reduce", icon: "stop", title: "Simulate Reduced Motion" },
-        ],
-        dynamicTitle: true,
-      },
-    },
+  // Global argTypes to hide internal props
+  argTypes: {
+    // Hide internal properties from controls
+    ref: { table: { disable: true } },
+    class: { table: { disable: true } },
+    style: { table: { disable: true } },
   },
 
-  // Decorators - Allow manual mode switching for testing
-  // NOTE: In production, modes are automatic-only via @media queries
-  // This decorator allows Storybook to manually set color modes for visual testing
+  /**
+   * Decorators - Using @storybook/addon-themes for color mode switching
+   *
+   * Order matters:
+   * 1. withThemePersistence - Saves theme to localStorage for preload script
+   * 2. withThemeByDataAttribute - Applies theme via data attribute
+   *
+   * Theme values:
+   * - "auto": Empty string - removes attribute, CSS @media queries take over
+   * - "light": Sets data-color-mode="light" - forces light mode
+   * - "dark": Sets data-color-mode="dark" - forces dark mode
+   * - "high-contrast": Sets data-color-mode="high-contrast" - forces high contrast
+   */
   decorators: [
-    (story, context) => {
-      const colorMode = context.globals.colorMode || "auto";
-      const motionMode = context.globals.motionMode || "auto";
-
-      // Set flavor-mode attribute for manual color mode testing
-      // Note: motion-reduce is automatic-only via @media query
-      if (colorMode === "auto") {
-        document.documentElement.removeAttribute("flavor-mode");
-      } else {
-        // Set flavor-mode for light, dark, or high-contrast
-        document.documentElement.setAttribute("flavor-mode", colorMode);
-      }
-
-      // Motion mode is automatic-only - no manual override needed
-      // It activates automatically via @media (prefers-reduced-motion: reduce)
-
-      // Update background and color based on active color mode
-      let effectiveColorMode = colorMode;
-      if (colorMode === "auto") {
-        // Detect system preference
-        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-          effectiveColorMode = "dark";
-        } else if (window.matchMedia("(prefers-contrast: more)").matches) {
-          effectiveColorMode = "high-contrast";
-        } else {
-          effectiveColorMode = "light";
-        }
-      }
-
-      // Apply background and text color based on effective mode
-      if (effectiveColorMode === "dark") {
-        document.documentElement.style.backgroundColor =
-          "var(--sando-color-background-base, #0a0a0a)";
-        document.documentElement.style.color =
-          "var(--sando-color-text-body, #e5e5e5)";
-      } else if (effectiveColorMode === "high-contrast") {
-        document.documentElement.style.backgroundColor =
-          "var(--sando-color-background-base, #ffffff)";
-        document.documentElement.style.color =
-          "var(--sando-color-text-body, #000000)";
-      } else {
-        // light mode
-        document.documentElement.style.backgroundColor =
-          "var(--sando-color-background-base, #ffffff)";
-        document.documentElement.style.color =
-          "var(--sando-color-text-body, #1f2937)";
-      }
-
-      return story();
-    },
+    // Persist theme to localStorage for the preload script
+    withThemePersistence,
+    // Apply theme via data attribute
+    withThemeByDataAttribute({
+      themes: {
+        // Auto mode: Empty value removes the attribute entirely
+        // This lets CSS @media (prefers-color-scheme) queries work naturally
+        auto: "",
+        // Light mode: Explicit light override
+        light: "light",
+        // Dark mode: Sets data-color-mode="dark"
+        dark: "dark",
+        // High contrast mode: Sets data-color-mode="high-contrast"
+        "high-contrast": "high-contrast",
+      },
+      defaultTheme: "auto",
+      attributeName: "data-color-mode",
+      // Apply to html element where our CSS selectors target
+      parentSelector: "html",
+    }),
   ],
+
+  /**
+   * Initial global values
+   */
+  initialGlobals: {
+    // The addon uses 'theme' as the global key
+    theme: "auto",
+  },
 };
 
 export default preview;

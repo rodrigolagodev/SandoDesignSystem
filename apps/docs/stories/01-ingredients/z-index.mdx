@@ -1,0 +1,428 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Ingredients/Z-Index" />
+
+# Z-Index
+
+Z-index controls the stacking order of positioned elements along the z-axis. The Sando Design System provides a **semantic z-index scale** built on **Ingredients tokens** (Layer 1).
+
+## Z-Index Scale
+
+Our z-index scale uses semantic names instead of arbitrary numbers, making it easier to understand element layering.
+
+<div style={{ marginTop: "32px" }}>
+  {[
+    {
+      token: "hide",
+      value: "-1",
+      name: "Hide",
+      description: "Hidden behind normal flow",
+    },
+    {
+      token: "base",
+      value: "0",
+      name: "Base",
+      description: "Default stacking context",
+    },
+    {
+      token: "raised",
+      value: "1",
+      name: "Raised",
+      description: "Slightly elevated content",
+    },
+    {
+      token: "dropdown",
+      value: "1000",
+      name: "Dropdown",
+      description: "Dropdown menus",
+    },
+    {
+      token: "sticky",
+      value: "1100",
+      name: "Sticky",
+      description: "Sticky headers/footers",
+    },
+    {
+      token: "banner",
+      value: "1200",
+      name: "Banner",
+      description: "Notification banners",
+    },
+    {
+      token: "overlay",
+      value: "1300",
+      name: "Overlay",
+      description: "Modal backdrops",
+    },
+    {
+      token: "modal",
+      value: "1400",
+      name: "Modal",
+      description: "Modal dialogs",
+    },
+    {
+      token: "popover",
+      value: "1500",
+      name: "Popover",
+      description: "Popovers, context menus",
+    },
+    {
+      token: "toast",
+      value: "1600",
+      name: "Toast",
+      description: "Toast notifications",
+    },
+    {
+      token: "tooltip",
+      value: "1700",
+      name: "Tooltip",
+      description: "Tooltips",
+    },
+    {
+      token: "max",
+      value: "9999",
+      name: "Maximum",
+      description: "Always on top",
+    },
+  ].map(({ token, value, name, description }) => (
+    <div
+      key={token}
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: "24px",
+        padding: "16px",
+        borderBottom: "1px solid var(--sando-color-border-muted)",
+      }}
+    >
+      <div
+        style={{
+          fontFamily: "monospace",
+          fontSize: "12px",
+          color: "var(--sando-color-text-caption)",
+          minWidth: "100px",
+        }}
+      >
+        z-index-{token}
+      </div>
+      <div
+        style={{
+          fontFamily: "monospace",
+          fontSize: "14px",
+          fontWeight: "600",
+          color: "var(--sando-color-text-body)",
+          minWidth: "60px",
+          textAlign: "right",
+        }}
+      >
+        {value}
+      </div>
+      <div style={{ flex: 1 }}>
+        <div
+          style={{ fontSize: "14px", fontWeight: "600", marginBottom: "4px" }}
+        >
+          {name}
+        </div>
+        <div
+          style={{ fontSize: "12px", color: "var(--sando-color-text-muted)" }}
+        >
+          {description}
+        </div>
+      </div>
+    </div>
+  ))}
+</div>
+
+<div
+  style={{
+    marginTop: "16px",
+    padding: "12px",
+    backgroundColor: "var(--sando-color-background-emphasis)",
+    borderRadius: "8px",
+    fontSize: "14px",
+  }}
+>
+  <strong>Usage:</strong>{" "}
+  <code style={{ fontFamily: "monospace", fontSize: "13px" }}>
+    z-index: var(--sando-z-index-modal)
+  </code>
+</div>
+
+---
+
+## Stacking Visualization
+
+This visualization shows how elements layer on top of each other using the z-index scale.
+
+<div className="demo-box demo-box--stacking" style={{ height: '500px' }}>
+  {/* Base layer */}
+  <div
+    className="demo-card demo-card--elevated"
+    style={{
+      position: 'absolute',
+      bottom: '40px',
+      left: '40px',
+      width: '250px',
+      zIndex: 'var(--sando-z-index-base)',
+    }}
+  >
+    <div className="demo-title">z-index: base (0)</div>
+    <div className="demo-description">Normal content</div>
+  </div>
+
+{/* Raised */}
+
+<div
+  className="demo-card demo-card--elevated"
+  style={{
+    position: "absolute",
+    bottom: "80px",
+    left: "120px",
+    width: "250px",
+    zIndex: "var(--sando-z-index-raised)",
+  }}
+>
+  <div className="demo-title">z-index: raised (1)</div>
+  <div className="demo-description">Elevated cards</div>
+</div>
+
+{/* Dropdown */}
+
+<div
+  className="demo-card demo-card--elevated"
+  style={{
+    position: "absolute",
+    bottom: "120px",
+    left: "200px",
+    width: "220px",
+    zIndex: "var(--sando-z-index-dropdown)",
+  }}
+>
+  <div className="demo-title">z-index: dropdown (1000)</div>
+  <div className="demo-description">Menus, selects</div>
+</div>
+
+{/* Overlay */}
+
+<div
+  className="demo-overlay"
+  style={{
+    position: "absolute",
+    top: "40px",
+    right: "40px",
+    width: "200px",
+    zIndex: "var(--sando-z-index-overlay)",
+  }}
+>
+  <div className="demo-title" style={{ color: "white" }}>
+    z-index: overlay (1300)
+  </div>
+  <div style={{ fontSize: "12px", opacity: 0.9 }}>Modal backdrop</div>
+</div>
+
+{/* Modal */}
+
+<div
+  className="demo-card demo-card--elevated"
+  style={{
+    position: "absolute",
+    top: "80px",
+    right: "80px",
+    width: "220px",
+    zIndex: "var(--sando-z-index-modal)",
+  }}
+>
+  <div className="demo-title">z-index: modal (1400)</div>
+  <div className="demo-description">Dialog content</div>
+</div>
+
+{/* Toast */}
+
+<div
+  className="demo-toast"
+  style={{
+    position: "absolute",
+    top: "40px",
+    left: "50%",
+    transform: "translateX(-50%)",
+    zIndex: "var(--sando-z-index-toast)",
+  }}
+>
+  z-index: toast (1600)
+</div>
+
+{/* Tooltip */}
+
+  <div
+    className="demo-tooltip"
+    style={{
+      position: 'absolute',
+      bottom: '200px',
+      right: '180px',
+      zIndex: 'var(--sando-z-index-tooltip)',
+    }}
+  >
+    z-index: tooltip (1700)
+  </div>
+</div>
+
+---
+
+## Component Examples
+
+### Dropdown Menu
+
+Dropdowns appear above normal content but below modals.
+
+<div className="demo-box" style={{ position: "relative", minHeight: "200px" }}>
+  <div style={{ position: "relative", display: "inline-block" }}>
+    <button className="demo-button">Open Menu</button>
+    <div
+      className="demo-dropdown"
+      style={{
+        position: "absolute",
+        top: "100%",
+        left: 0,
+        marginTop: "8px",
+        width: "200px",
+        zIndex: "var(--sando-z-index-dropdown)",
+      }}
+    >
+      {["Option 1", "Option 2", "Option 3"].map((option) => (
+        <div key={option} className="demo-dropdown-item">
+          {option}
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
+
+---
+
+## Usage Guidelines
+
+### Layering Hierarchy
+
+Our z-index scale follows this logical hierarchy from bottom to top:
+
+1. **hide (-1)**: Elements intentionally behind normal flow
+2. **base (0)**: Default positioning, most content
+3. **raised (1)**: Slightly elevated cards, panels
+4. **dropdown (1000)**: Dropdown menus, select options
+5. **sticky (1100)**: Sticky headers, navigation
+6. **banner (1200)**: Notification banners, alerts
+7. **overlay (1300)**: Semi-transparent backdrops
+8. **modal (1400)**: Modal dialogs, drawers
+9. **popover (1500)**: Context menus, popovers
+10. **toast (1600)**: Toast notifications
+11. **tooltip (1700)**: Tooltips, hints
+12. **max (9999)**: Critical elements that must be on top
+
+### Do's
+
+- ✅ Use semantic token names instead of arbitrary numbers
+- ✅ Follow the established hierarchy
+- ✅ Use `position: relative/absolute/fixed/sticky` with z-index
+- ✅ Test layering with multiple overlapping elements
+
+### Don'ts
+
+- ❌ Don't use arbitrary z-index values outside the scale
+- ❌ Don't create z-index wars with escalating values
+- ❌ Don't use z-index without `position` (won't work)
+- ❌ Don't rely on z-index alone for visual hierarchy
+
+---
+
+## Common Patterns
+
+### Modal with Overlay
+
+```css
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: var(--sando-z-index-overlay);
+}
+
+.modal-content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: var(--sando-z-index-modal);
+}
+```
+
+### Sticky Header
+
+```css
+.header {
+  position: sticky;
+  top: 0;
+  z-index: var(--sando-z-index-sticky);
+}
+```
+
+### Tooltip
+
+```css
+.tooltip {
+  position: absolute;
+  z-index: var(--sando-z-index-tooltip);
+  pointer-events: none;
+}
+```
+
+---
+
+## Stacking Context
+
+Z-index only works within the same **stacking context**. A stacking context is created by:
+
+- Root element (`<html>`)
+- Positioned elements with z-index other than `auto`
+- Elements with `opacity` < 1
+- Elements with `transform`, `filter`, `perspective`
+- Elements with `position: fixed` or `position: sticky`
+
+**Important**: Child elements cannot escape their parent's stacking context, regardless of z-index value.
+
+---
+
+## Accessibility
+
+- Z-index is purely visual and doesn't affect DOM order
+- Ensure keyboard focus order matches visual layering
+- Screen readers follow DOM order, not z-index
+- Test keyboard navigation through layered elements
+- Don't rely on z-index to hide content from screen readers
+
+---
+
+## Debugging Tips
+
+```css
+/* Visualize stacking contexts in dev tools */
+* {
+  outline: 1px solid rgba(255, 0, 0, 0.2);
+}
+
+/* Show z-index values */
+[style*="z-index"]::before {
+  content: "z: " attr(style);
+  position: absolute;
+  background: yellow;
+  font-size: 10px;
+}
+```
+
+---
+
+## Related
+
+- **Flavors Layer** - Semantic z-index tokens
+- **Elevation** - Visual depth with shadows
+- **Components** - Z-index in context
+- **Accessibility** - Focus order and screen readers

@@ -1,0 +1,22 @@
+<svg width="180" height="40" viewBox="0 0 180 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Sando Logo - Sandwich Icon + Text -->
+  <g>
+    <!-- Top Bun -->
+    <path d="M6 16C6 10.4772 10.4772 6 16 6H28C33.5228 6 38 10.4772 38 16V18H6V16Z" fill="#F97316"/>
+    <!-- Filling layers -->
+    <rect x="4" y="18" width="36" height="3" rx="1" fill="#22C55E"/>
+    <rect x="4" y="21" width="36" height="2" rx="1" fill="#FBBF24"/>
+    <rect x="4" y="23" width="36" height="3" rx="1" fill="#EF4444"/>
+    <!-- Bottom Bun -->
+    <path d="M6 26H38V28C38 33.5228 33.5228 38 28 38H16C10.4772 38 6 33.5228 6 28V26Z" fill="#EA580C"/>
+  </g>
+  <!-- Sando Text -->
+  <text x="52" y="28" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="20" font-weight="700" fill="#1C1917">
+    Sando
+  </text>
+  <!-- DS badge -->
+  <rect x="118" y="12" width="28" height="16" rx="4" fill="#F97316"/>
+  <text x="122" y="24" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="10" font-weight="600" fill="white">
+    DS
+  </text>
+</svg>

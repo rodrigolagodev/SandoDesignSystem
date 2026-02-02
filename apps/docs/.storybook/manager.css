@@ -1,0 +1,66 @@
+/**
+ * Sando Design System Storybook Manager Styles
+ *
+ * Custom CSS for the Storybook manager UI, including sidebar styles
+ * and tag badge customizations.
+ */
+
+/* Import Inter font for consistent typography */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+/* Selected sidebar item styling */
+.css-10uz03s[data-selected="true"] {
+  background: #ffedd5 !important; /* orange-100 */
+  font-weight: 600 !important;
+}
+
+.css-10uz03s[data-selected="true"] a,
+.css-10uz03s[data-selected="true"] svg {
+  color: #c2410c !important; /* orange-700 */
+}
+
+/* Sidebar subheading styling */
+.sidebar-subheading .css-92gwvb {
+  letter-spacing: normal;
+  font-weight: 600;
+}
+
+/* Sidebar icons */
+svg {
+  color: #78716c !important; /* stone-500 */
+}
+
+/* Selected item icons */
+.css-10uz03s[data-selected="true"] svg {
+  color: #c2410c !important; /* orange-700 */
+}
+
+/* Badge container layout */
+.css-nze13p {
+  justify-content: normal !important;
+  margin-right: 0 !important;
+}
+
+.css-nze13p > div {
+  margin-left: 8px;
+}
+
+/* Badge typography */
+.css-nze13p > div,
+.css-19evshq > div {
+  font-weight: 500 !important;
+  font-family: "Inter", sans-serif;
+  font-size: 11px !important;
+  line-height: 20px !important;
+  height: 18px;
+  display: flex !important;
+  align-items: center;
+  padding: 0 6px !important;
+  border-radius: 4px !important;
+}
+
+/* Story item hover state */
+button[data-nodetype="component"]:hover,
+button[data-nodetype="story"]:hover {
+  background: #fafaf9; /* stone-50 */
+}

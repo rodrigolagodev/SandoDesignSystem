@@ -4,39 +4,33 @@ import './sando-button.ts';
 import '../icon/sando-icon.ts';
 
 /**
- * The Button component is used to trigger actions and events.
- * Can render as `<button>` or `<a>` based on whether `href` is provided.
+ * The Button component triggers actions and events.
+ * Renders as `<button>` by default, or `<a>` when `href` is provided.
  *
  * ## Features
  * - **4 Variants**: solid, outline, ghost, text
  * - **4 Sizes**: xs, small, medium, large
- * - **3 Border Radius**: none, default, full (circular)
+ * - **3 Border Radius**: none, default, full (pill/circular)
  * - **Status States**: default, success, destructive
  * - **Interactive States**: hover, active, disabled, loading
- * - **Icon-only Mode**: Square buttons perfect for icon-only actions
- * - **Active/Toggle State**: Persistent pressed state for filters and toggles
- * - **Accessibility**: Full ARIA support (aria-label, aria-pressed, aria-busy)
- * - **Customizable**: Slots for icons and content
- * - **Semantic HTML**: Renders as `<button>` by default, `<a>` when href is provided
- *
- * ## Design Tokens
- * This component uses design tokens from the `recipes/button` layer.
- * All colors, spacing, and typography are themeable via CSS custom properties.
- * Tokens follow the 3-layer architecture: Recipes → Flavors → Ingredients.
+ * - **Icon Support**: Start/end icon slots, icon-only mode
+ * - **Active/Toggle State**: Persistent pressed state for filters
+ * - **Link Mode**: Renders as `<a>` when href is provided
+ * - **Accessibility**: ARIA support, keyboard navigation
  *
  * ## Accessibility
- * - Use `aria-label` for icon-only buttons to provide context
- * - `aria-pressed` automatically set when `active` prop is true
- * - `aria-busy` set during loading state
+ * - Use `aria-label` for icon-only buttons
+ * - `aria-pressed` is set automatically when `active` is true
+ * - `aria-busy` is set during loading state
  * - Full keyboard navigation support
  */
 const meta: Meta = {
-  title: 'Components/Inputs/Button',
-  tags: ['autodocs'],
+  title: 'Components/Button',
+  component: 'sando-button',
+  tags: ['autodocs', 'stable'],
   render: (args) => html`
     <sando-button
       flavor="${args.flavor || 'original'}"
-      ${args.flavorMode ? `flavor-mode="${args.flavorMode}"` : ''}
       variant="${args.variant}"
       size="${args.size}"
       status="${args.status}"
@@ -64,78 +58,41 @@ const meta: Meta = {
     flavor: {
       control: 'select',
       options: ['original', 'strawberry', 'ocean', 'forest', 'sunset'],
-      description: 'Design system flavor/theme (color palette)',
+      description: 'Design system flavor/theme',
       table: {
+        category: 'Theming',
         type: { summary: 'string' },
         defaultValue: { summary: 'original' }
-      }
-    },
-    flavorMode: {
-      control: 'select',
-      options: ['', 'light', 'dark', 'high-contrast'],
-      description: 'Color mode variant (auto uses system preference, or force specific mode)',
-      table: {
-        type: { summary: 'light | dark | high-contrast' },
-        defaultValue: { summary: 'undefined (auto)' }
       }
     },
     variant: {
       control: 'select',
       options: ['solid', 'outline', 'ghost', 'text'],
-      description: 'Visual style variant of the button',
+      description: 'Visual style variant',
       table: {
-        type: { summary: 'solid | outline | ghost | text' },
+        category: 'Appearance',
+        type: { summary: "'solid' | 'outline' | 'ghost' | 'text'" },
         defaultValue: { summary: 'solid' }
       }
     },
     size: {
       control: 'select',
       options: ['xs', 'small', 'medium', 'large'],
-      description: 'Size of the button',
+      description: 'Button size (medium meets WCAG touch target)',
       table: {
-        type: { summary: 'xs | small | medium | large' },
+        category: 'Appearance',
+        type: { summary: "'xs' | 'small' | 'medium' | 'large'" },
         defaultValue: { summary: 'medium' }
       }
     },
     status: {
       control: 'select',
       options: ['default', 'success', 'destructive'],
-      description: 'Status variant for success/error states',
+      description: 'Semantic status for success/error states',
       table: {
-        type: { summary: 'default | success | destructive' },
+        category: 'Appearance',
+        type: { summary: "'default' | 'success' | 'destructive'" },
         defaultValue: { summary: 'default' }
-      }
-    },
-    disabled: {
-      control: 'boolean',
-      description: 'Whether the button is disabled',
-      table: {
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' }
-      }
-    },
-    loading: {
-      control: 'boolean',
-      description: 'Whether the button is in a loading state',
-      table: {
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' }
-      }
-    },
-    fullWidth: {
-      control: 'boolean',
-      description: 'Whether the button should take full width',
-      table: {
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' }
-      }
-    },
-    iconOnly: {
-      control: 'boolean',
-      description: 'Icon-only button (square shape, no text padding)',
-      table: {
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' }
       }
     },
     radius: {
@@ -143,14 +100,52 @@ const meta: Meta = {
       options: ['none', 'default', 'full'],
       description: 'Border radius variant',
       table: {
-        type: { summary: 'none | default | full' },
+        category: 'Appearance',
+        type: { summary: "'none' | 'default' | 'full'" },
         defaultValue: { summary: 'default' }
+      }
+    },
+    disabled: {
+      control: 'boolean',
+      description: 'Disables the button',
+      table: {
+        category: 'State',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' }
+      }
+    },
+    loading: {
+      control: 'boolean',
+      description: 'Shows loading state',
+      table: {
+        category: 'State',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' }
       }
     },
     active: {
       control: 'boolean',
-      description: 'Active/pressed state (for toggles and filters)',
+      description: 'Active/pressed state for toggles',
       table: {
+        category: 'State',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' }
+      }
+    },
+    fullWidth: {
+      control: 'boolean',
+      description: 'Expands to full container width',
+      table: {
+        category: 'Layout',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' }
+      }
+    },
+    iconOnly: {
+      control: 'boolean',
+      description: 'Icon-only mode (square button)',
+      table: {
+        category: 'Layout',
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' }
       }
@@ -158,38 +153,45 @@ const meta: Meta = {
     type: {
       control: 'select',
       options: ['button', 'submit', 'reset'],
-      description: 'Button type for form submission',
+      description: 'HTML button type',
       table: {
-        type: { summary: 'button | submit | reset' },
+        category: 'HTML',
+        type: { summary: "'button' | 'submit' | 'reset'" },
         defaultValue: { summary: 'button' }
-      }
-    },
-    ariaLabel: {
-      control: 'text',
-      description: 'Accessible label for screen readers (important for icon-only buttons)',
-      table: {
-        type: { summary: 'string' }
       }
     },
     href: {
       control: 'text',
-      description: 'URL to navigate to (renders as <a> instead of <button>)',
+      description: 'URL (renders as <a> instead of <button>)',
       table: {
+        category: 'Link',
         type: { summary: 'string' }
       }
     },
     target: {
       control: 'select',
       options: ['_self', '_blank', '_parent', '_top'],
-      description: 'Where to open the linked document (only when href is set)',
+      description: 'Link target (when href is set)',
       table: {
-        type: { summary: '_self | _blank | _parent | _top' },
+        category: 'Link',
+        type: { summary: "'_self' | '_blank' | '_parent' | '_top'" },
         defaultValue: { summary: '_self' }
+      }
+    },
+    ariaLabel: {
+      control: 'text',
+      description: 'Accessible label (required for icon-only)',
+      table: {
+        category: 'Accessibility',
+        type: { summary: 'string' }
       }
     },
     label: {
       control: 'text',
-      description: 'Button text content'
+      description: 'Button text content',
+      table: {
+        category: 'Content'
+      }
     },
     iconStart: {
       control: 'select',
@@ -207,12 +209,13 @@ const meta: Meta = {
         'minus',
         'trash-2',
         'edit',
-        'lock',
-        'unlock',
         'user',
         'home'
       ],
-      description: 'Icon to display at the start of the button (Lucide icon name)'
+      description: 'Icon at start (Lucide icon name)',
+      table: {
+        category: 'Content'
+      }
     },
     iconEnd: {
       control: 'select',
@@ -220,164 +223,373 @@ const meta: Meta = {
         'None',
         'arrow-right',
         'arrow-left',
-        'arrow-up',
-        'arrow-down',
         'chevron-right',
         'chevron-left',
+        'external-link',
         'star',
         'heart',
-        'check',
-        'x',
-        'settings',
-        'download',
-        'upload',
-        'plus',
-        'minus'
+        'check'
       ],
-      description: 'Icon to display at the end of the button (Lucide icon name)'
+      description: 'Icon at end (Lucide icon name)',
+      table: {
+        category: 'Content'
+      }
     }
+  },
+  args: {
+    flavor: 'original',
+    variant: 'solid',
+    size: 'medium',
+    status: 'default',
+    radius: 'default',
+    disabled: false,
+    loading: false,
+    active: false,
+    fullWidth: false,
+    iconOnly: false,
+    type: 'button',
+    label: 'Button',
+    iconStart: 'None',
+    iconEnd: 'None'
   }
 };
 
 export default meta;
 type Story = StoryObj;
 
+// Tag constant for documentation-only stories
+const DOCS_ONLY = ['!dev', '!autodocs'];
+
+// ============================================================================
+// PUBLIC STORIES (visible in sidebar)
+// ============================================================================
+
 /**
  * Default button with solid variant and medium size.
  */
-export const Default: Story = {
-  args: {
-    flavor: 'original',
-    variant: 'solid',
-    size: 'medium',
-    status: 'default',
-    label: 'Button',
-    disabled: false,
-    loading: false,
-    fullWidth: false,
-    type: 'button',
-    iconStart: 'None',
-    iconEnd: 'None'
-  },
-  parameters: {
-    backgrounds: {
-      default: 'light'
-    }
-  }
-};
+export const Default: Story = {};
 
 /**
- * Interactive playground - use the controls to customize the button.
+ * Interactive playground - use controls to customize.
  */
 export const Playground: Story = {
   args: {
-    flavor: 'original',
-    variant: 'solid',
-    size: 'medium',
-    status: 'default',
-    label: 'Customize me!',
-    disabled: false,
-    loading: false,
-    fullWidth: false,
-    type: 'button',
-    iconStart: 'None',
-    iconEnd: 'None'
-  },
-  parameters: {
-    backgrounds: {
-      default: 'light'
-    }
+    label: 'Customize me!'
   }
 };
 
 /**
- * Complete showcase of all button variants, sizes, states, and features.
- * Use the flavor control to test different themes.
- *
- * 💡 Tip: When switching flavors, use the Backgrounds toolbar in Storybook to change the background:
- * - Use 'light' or 'surface-light' for the 'original' flavor
- * - Use 'dark' or 'surface-dark' for the 'original-dark' flavor
+ * Button as a link with external URL.
+ */
+export const AsLink: Story = {
+  args: {
+    label: 'Visit Site',
+    href: 'https://example.com',
+    target: '_blank',
+    iconEnd: 'external-link'
+  }
+};
+
+/**
+ * Icon-only button (requires aria-label for accessibility).
+ */
+export const IconOnly: Story = {
+  args: {
+    iconOnly: true,
+    iconStart: 'heart',
+    ariaLabel: 'Like',
+    label: ''
+  }
+};
+
+// ============================================================================
+// DOCUMENTATION STORIES (hidden from sidebar, used in MDX)
+// ============================================================================
+
+/**
+ * All variant styles comparison.
+ */
+export const AllVariants: Story = {
+  tags: DOCS_ONLY,
+  render: () => html`
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
+      <sando-button variant="solid">Solid</sando-button>
+      <sando-button variant="outline">Outline</sando-button>
+      <sando-button variant="ghost">Ghost</sando-button>
+      <sando-button variant="text">Text</sando-button>
+    </div>
+  `,
+  parameters: { controls: { disable: true } }
+};
+
+/**
+ * All size options comparison.
+ */
+export const AllSizes: Story = {
+  tags: DOCS_ONLY,
+  render: () => html`
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
+      <sando-button size="xs">Extra Small</sando-button>
+      <sando-button size="small">Small</sando-button>
+      <sando-button size="medium">Medium (WCAG)</sando-button>
+      <sando-button size="large">Large</sando-button>
+    </div>
+  `,
+  parameters: { controls: { disable: true } }
+};
+
+/**
+ * All status states comparison.
+ */
+export const AllStatus: Story = {
+  tags: DOCS_ONLY,
+  render: () => html`
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
+      <sando-button status="default">Default</sando-button>
+      <sando-button status="success">
+        <sando-icon slot="icon-start" name="check" size="small"></sando-icon>
+        Success
+      </sando-button>
+      <sando-button status="destructive">
+        <sando-icon slot="icon-start" name="trash-2" size="small"></sando-icon>
+        Destructive
+      </sando-button>
+    </div>
+  `,
+  parameters: { controls: { disable: true } }
+};
+
+/**
+ * Interactive states: disabled and loading.
+ */
+export const AllStates: Story = {
+  tags: DOCS_ONLY,
+  render: () => html`
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
+      <sando-button>Default</sando-button>
+      <sando-button disabled>Disabled</sando-button>
+      <sando-button loading>Loading</sando-button>
+      <sando-button active>Active</sando-button>
+    </div>
+  `,
+  parameters: { controls: { disable: true } }
+};
+
+/**
+ * All radius variants comparison.
+ */
+export const AllRadius: Story = {
+  tags: DOCS_ONLY,
+  render: () => html`
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
+      <sando-button radius="none">None</sando-button>
+      <sando-button radius="default">Default</sando-button>
+      <sando-button radius="full">Full (Pill)</sando-button>
+    </div>
+  `,
+  parameters: { controls: { disable: true } }
+};
+
+/**
+ * Buttons with icons.
+ */
+export const WithIcons: Story = {
+  tags: DOCS_ONLY,
+  render: () => html`
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
+      <sando-button>
+        <sando-icon slot="icon-start" name="star" size="small"></sando-icon>
+        Favorite
+      </sando-button>
+      <sando-button variant="outline">
+        <sando-icon slot="icon-start" name="download" size="small"></sando-icon>
+        Download
+      </sando-button>
+      <sando-button variant="ghost">
+        Settings
+        <sando-icon slot="icon-end" name="settings" size="small"></sando-icon>
+      </sando-button>
+      <sando-button>
+        <sando-icon slot="icon-start" name="upload" size="small"></sando-icon>
+        Upload
+        <sando-icon slot="icon-end" name="arrow-right" size="small"></sando-icon>
+      </sando-button>
+    </div>
+  `,
+  parameters: { controls: { disable: true } }
+};
+
+/**
+ * Icon-only buttons in different sizes and variants.
+ */
+export const IconOnlyVariants: Story = {
+  tags: DOCS_ONLY,
+  render: () => html`
+    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+      <div>
+        <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">Sizes</h4>
+        <div style="display: flex; gap: 1rem; align-items: center;">
+          <sando-button icon-only size="xs" aria-label="Star">
+            <sando-icon slot="icon-start" name="star" size="xs"></sando-icon>
+          </sando-button>
+          <sando-button icon-only size="small" aria-label="Star">
+            <sando-icon slot="icon-start" name="star" size="small"></sando-icon>
+          </sando-button>
+          <sando-button icon-only size="medium" aria-label="Star">
+            <sando-icon slot="icon-start" name="star" size="small"></sando-icon>
+          </sando-button>
+          <sando-button icon-only size="large" aria-label="Star">
+            <sando-icon slot="icon-start" name="star" size="medium"></sando-icon>
+          </sando-button>
+        </div>
+      </div>
+      <div>
+        <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">Variants</h4>
+        <div style="display: flex; gap: 1rem; align-items: center;">
+          <sando-button icon-only variant="solid" aria-label="Heart">
+            <sando-icon slot="icon-start" name="heart" size="small"></sando-icon>
+          </sando-button>
+          <sando-button icon-only variant="outline" aria-label="Trash">
+            <sando-icon slot="icon-start" name="trash-2" size="small"></sando-icon>
+          </sando-button>
+          <sando-button icon-only variant="ghost" aria-label="Edit">
+            <sando-icon slot="icon-start" name="edit" size="small"></sando-icon>
+          </sando-button>
+        </div>
+      </div>
+      <div>
+        <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">
+          Circular (radius="full")
+        </h4>
+        <div style="display: flex; gap: 1rem; align-items: center;">
+          <sando-button icon-only radius="full" aria-label="Add">
+            <sando-icon slot="icon-start" name="plus" size="small"></sando-icon>
+          </sando-button>
+          <sando-button icon-only radius="full" status="success" aria-label="Check">
+            <sando-icon slot="icon-start" name="check" size="small"></sando-icon>
+          </sando-button>
+          <sando-button icon-only radius="full" status="destructive" aria-label="Close">
+            <sando-icon slot="icon-start" name="x" size="small"></sando-icon>
+          </sando-button>
+        </div>
+      </div>
+    </div>
+  `,
+  parameters: { controls: { disable: true } }
+};
+
+/**
+ * Full-width button layout.
+ */
+export const FullWidth: Story = {
+  tags: DOCS_ONLY,
+  render: () => html`
+    <div style="display: flex; flex-direction: column; gap: 1rem; max-width: 400px;">
+      <sando-button full-width>Full Width Solid</sando-button>
+      <sando-button full-width variant="outline">Full Width Outline</sando-button>
+      <sando-button full-width variant="ghost">Full Width Ghost</sando-button>
+    </div>
+  `,
+  parameters: { controls: { disable: true } }
+};
+
+/**
+ * Active state for filters and toggles.
+ */
+export const ActiveState: Story = {
+  tags: DOCS_ONLY,
+  render: () => html`
+    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+      <div>
+        <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">
+          Normal vs Active
+        </h4>
+        <div style="display: flex; gap: 1rem;">
+          <sando-button variant="outline">Normal</sando-button>
+          <sando-button variant="outline" active>Active</sando-button>
+        </div>
+      </div>
+      <div>
+        <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">Filter Example</h4>
+        <div style="display: flex; gap: 0.5rem;">
+          <sando-button variant="outline" size="small" active>All</sando-button>
+          <sando-button variant="outline" size="small">Active</sando-button>
+          <sando-button variant="outline" size="small">Completed</sando-button>
+          <sando-button variant="outline" size="small">Archived</sando-button>
+        </div>
+      </div>
+    </div>
+  `,
+  parameters: { controls: { disable: true } }
+};
+
+/**
+ * Button rendered as links.
+ */
+export const AsLinks: Story = {
+  tags: DOCS_ONLY,
+  render: () => html`
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
+      <sando-button href="https://example.com" target="_blank">
+        External Link
+        <sando-icon slot="icon-end" name="external-link" size="small"></sando-icon>
+      </sando-button>
+      <sando-button variant="outline" href="/">
+        <sando-icon slot="icon-start" name="home" size="small"></sando-icon>
+        Home
+      </sando-button>
+      <sando-button variant="ghost" href="/docs">Documentation</sando-button>
+      <sando-button variant="text" href="/learn">Learn More</sando-button>
+    </div>
+  `,
+  parameters: { controls: { disable: true } }
+};
+
+/**
+ * Complete showcase of all button features.
  */
 export const AllExamples: Story = {
+  tags: DOCS_ONLY,
   args: {
     flavor: 'original'
   },
   render: (args) => html`
     <div style="display: flex; flex-direction: column; gap: 2rem;">
-      <!-- Solid Variants -->
-      <div>
-        <h3 style="margin-bottom: 1rem;">Solid Variant</h3>
+      <!-- Variants -->
+      <section>
+        <h3 style="margin: 0 0 1rem 0; font-size: 1rem;">Variants</h3>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-          <sando-button flavor="${args.flavor}" size="small">Small</sando-button>
-          <sando-button flavor="${args.flavor}" size="medium">Medium</sando-button>
-          <sando-button flavor="${args.flavor}" size="large">Large</sando-button>
-          <sando-button flavor="${args.flavor}" disabled>Disabled</sando-button>
-          <sando-button flavor="${args.flavor}" loading>Loading</sando-button>
+          <sando-button flavor="${args.flavor}" variant="solid">Solid</sando-button>
+          <sando-button flavor="${args.flavor}" variant="outline">Outline</sando-button>
+          <sando-button flavor="${args.flavor}" variant="ghost">Ghost</sando-button>
+          <sando-button flavor="${args.flavor}" variant="text">Text</sando-button>
         </div>
-      </div>
+      </section>
 
-      <!-- Outline Variants -->
-      <div>
-        <h3 style="margin-bottom: 1rem;">Outline Variant</h3>
-        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-          <sando-button flavor="${args.flavor}" variant="outline" size="small">Small</sando-button>
-          <sando-button flavor="${args.flavor}" variant="outline" size="medium"
-            >Medium</sando-button
-          >
-          <sando-button flavor="${args.flavor}" variant="outline" size="large">Large</sando-button>
-          <sando-button flavor="${args.flavor}" variant="outline" disabled>Disabled</sando-button>
-          <sando-button flavor="${args.flavor}" variant="outline" loading>Loading</sando-button>
-        </div>
-      </div>
-
-      <!-- Ghost Variants -->
-      <div>
-        <h3 style="margin-bottom: 1rem;">Ghost Variant</h3>
-        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-          <sando-button flavor="${args.flavor}" variant="ghost" size="small">Small</sando-button>
-          <sando-button flavor="${args.flavor}" variant="ghost" size="medium">Medium</sando-button>
-          <sando-button flavor="${args.flavor}" variant="ghost" size="large">Large</sando-button>
-          <sando-button flavor="${args.flavor}" variant="ghost" disabled>Disabled</sando-button>
-          <sando-button flavor="${args.flavor}" variant="ghost" loading>Loading</sando-button>
-        </div>
-      </div>
-
-      <!-- Text Variants -->
-      <div>
-        <h3 style="margin-bottom: 1rem;">Text Variant</h3>
-        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-          <sando-button flavor="${args.flavor}" variant="text" size="small">Small</sando-button>
-          <sando-button flavor="${args.flavor}" variant="text" size="medium">Medium</sando-button>
-          <sando-button flavor="${args.flavor}" variant="text" size="large">Large</sando-button>
-          <sando-button flavor="${args.flavor}" variant="text" disabled>Disabled</sando-button>
-          <sando-button flavor="${args.flavor}" variant="text" loading>Loading</sando-button>
-        </div>
-      </div>
-
-      <!-- All Sizes Comparison -->
-      <div>
-        <h3 style="margin-bottom: 1rem;">All Sizes (Solid Variant)</h3>
+      <!-- Sizes -->
+      <section>
+        <h3 style="margin: 0 0 1rem 0; font-size: 1rem;">Sizes</h3>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
           <sando-button flavor="${args.flavor}" size="xs">Extra Small</sando-button>
           <sando-button flavor="${args.flavor}" size="small">Small</sando-button>
           <sando-button flavor="${args.flavor}" size="medium">Medium</sando-button>
           <sando-button flavor="${args.flavor}" size="large">Large</sando-button>
         </div>
-      </div>
+      </section>
 
-      <!-- Status States -->
-      <div>
-        <h3 style="margin-bottom: 1rem;">Status States</h3>
+      <!-- Status -->
+      <section>
+        <h3 style="margin: 0 0 1rem 0; font-size: 1rem;">Status</h3>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
           <sando-button flavor="${args.flavor}" status="default">Default</sando-button>
           <sando-button flavor="${args.flavor}" status="success">Success</sando-button>
           <sando-button flavor="${args.flavor}" status="destructive">Destructive</sando-button>
         </div>
-      </div>
+      </section>
 
       <!-- With Icons -->
-      <div>
-        <h3 style="margin-bottom: 1rem;">With Icons (sando-icon)</h3>
+      <section>
+        <h3 style="margin: 0 0 1rem 0; font-size: 1rem;">With Icons</h3>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
           <sando-button flavor="${args.flavor}">
             <sando-icon slot="icon-start" name="star" size="small"></sando-icon>
@@ -392,39 +604,14 @@ export const AllExamples: Story = {
             <sando-icon slot="icon-end" name="settings" size="small"></sando-icon>
           </sando-button>
         </div>
-      </div>
+      </section>
 
-      <!-- As Links -->
-      <div>
-        <h3 style="margin-bottom: 1rem;">As Links (renders as &lt;a&gt;)</h3>
-        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-          <sando-button flavor="${args.flavor}" href="https://example.com" target="_blank">
-            Visit Site
-            <sando-icon slot="icon-end" name="external-link" size="small"></sando-icon>
-          </sando-button>
-          <sando-button flavor="${args.flavor}" variant="outline" href="/">
-            <sando-icon slot="icon-start" name="home" size="small"></sando-icon>
-            Home
-          </sando-button>
-          <sando-button flavor="${args.flavor}" variant="ghost" href="/docs">
-            <sando-icon slot="icon-start" name="book" size="small"></sando-icon>
-            Documentation
-          </sando-button>
-        </div>
-      </div>
-
-      <!-- Icon-only Buttons -->
-      <div>
-        <h3 style="margin-bottom: 1rem;">Icon-only (Square) with sando-icon</h3>
+      <!-- Icon-only -->
+      <section>
+        <h3 style="margin: 0 0 1rem 0; font-size: 1rem;">Icon-only</h3>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
-          <sando-button flavor="${args.flavor}" icon-only size="small" aria-label="Favorite">
-            <sando-icon slot="icon-start" name="star" size="small"></sando-icon>
-          </sando-button>
-          <sando-button flavor="${args.flavor}" icon-only size="medium" aria-label="Like">
+          <sando-button flavor="${args.flavor}" icon-only aria-label="Like">
             <sando-icon slot="icon-start" name="heart" size="small"></sando-icon>
-          </sando-button>
-          <sando-button flavor="${args.flavor}" icon-only size="large" aria-label="Settings">
-            <sando-icon slot="icon-start" name="settings" size="medium"></sando-icon>
           </sando-button>
           <sando-button flavor="${args.flavor}" icon-only variant="outline" aria-label="Delete">
             <sando-icon slot="icon-start" name="trash-2" size="small"></sando-icon>
@@ -432,138 +619,87 @@ export const AllExamples: Story = {
           <sando-button flavor="${args.flavor}" icon-only variant="ghost" aria-label="Edit">
             <sando-icon slot="icon-start" name="edit" size="small"></sando-icon>
           </sando-button>
-          <sando-button flavor="${args.flavor}" icon-only status="success" aria-label="Confirm">
+          <sando-button
+            flavor="${args.flavor}"
+            icon-only
+            radius="full"
+            status="success"
+            aria-label="Confirm"
+          >
             <sando-icon slot="icon-start" name="check" size="small"></sando-icon>
           </sando-button>
-          <sando-button flavor="${args.flavor}" icon-only status="destructive" aria-label="Cancel">
+          <sando-button
+            flavor="${args.flavor}"
+            icon-only
+            radius="full"
+            status="destructive"
+            aria-label="Cancel"
+          >
             <sando-icon slot="icon-start" name="x" size="small"></sando-icon>
           </sando-button>
         </div>
-      </div>
+      </section>
+
+      <!-- States -->
+      <section>
+        <h3 style="margin: 0 0 1rem 0; font-size: 1rem;">States</h3>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+          <sando-button flavor="${args.flavor}">Default</sando-button>
+          <sando-button flavor="${args.flavor}" disabled>Disabled</sando-button>
+          <sando-button flavor="${args.flavor}" loading>Loading</sando-button>
+          <sando-button flavor="${args.flavor}" active>Active</sando-button>
+        </div>
+      </section>
     </div>
-  `
+  `,
+  parameters: { controls: { disable: true } }
 };
 
 /**
- * Color Mode comparison showing the same buttons in light, dark, and high-contrast modes.
- * This demonstrates how the flavor-mode attribute changes the button's appearance.
+ * Color mode comparison: light, dark, high-contrast.
  */
-export const ColorModeComparison: Story = {
+export const ColorModes: Story = {
+  tags: DOCS_ONLY,
   render: () => html`
-    <div style="display: flex; flex-direction: column; gap: 3rem;">
-      <!-- Light Mode (default) -->
+    <div style="display: flex; flex-direction: column; gap: 2rem;">
+      <!-- Light Mode -->
       <div style="padding: 2rem; background: #ffffff; border-radius: 8px;">
-        <h3 style="margin-bottom: 1.5rem; color: #1f2937;">Light Mode (flavor="original")</h3>
-
-        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-          <div>
-            <h4 style="margin-bottom: 0.5rem; font-size: 0.875rem; color: #6b7280;">Variants</h4>
-            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-              <sando-button flavor="original" variant="solid">Solid</sando-button>
-              <sando-button flavor="original" variant="outline">Outline</sando-button>
-              <sando-button flavor="original" variant="ghost">Ghost</sando-button>
-              <sando-button flavor="original" variant="text">Text</sando-button>
-            </div>
-          </div>
-
-          <div>
-            <h4 style="margin-bottom: 0.5rem; font-size: 0.875rem; color: #6b7280;">
-              Status States
-            </h4>
-            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-              <sando-button flavor="original" status="default">Default</sando-button>
-              <sando-button flavor="original" status="success">Success</sando-button>
-              <sando-button flavor="original" status="destructive">Destructive</sando-button>
-            </div>
-          </div>
+        <h4 style="margin: 0 0 1rem 0; color: #1c1917;">Light Mode</h4>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+          <sando-button variant="solid">Solid</sando-button>
+          <sando-button variant="outline">Outline</sando-button>
+          <sando-button variant="ghost">Ghost</sando-button>
+          <sando-button status="success">Success</sando-button>
+          <sando-button status="destructive">Destructive</sando-button>
         </div>
       </div>
 
       <!-- Dark Mode -->
       <div style="padding: 2rem; background: #0a0a0a; border-radius: 8px;">
-        <h3 style="margin-bottom: 1.5rem; color: #f5f5f5;">Dark Mode (flavor-mode="dark")</h3>
-
-        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-          <div>
-            <h4 style="margin-bottom: 0.5rem; font-size: 0.875rem; color: #a8a8a8;">Variants</h4>
-            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-              <sando-button flavor="original" flavor-mode="dark" variant="solid"
-                >Solid</sando-button
-              >
-              <sando-button flavor="original" flavor-mode="dark" variant="outline"
-                >Outline</sando-button
-              >
-              <sando-button flavor="original" flavor-mode="dark" variant="ghost"
-                >Ghost</sando-button
-              >
-              <sando-button flavor="original" flavor-mode="dark" variant="text">Text</sando-button>
-            </div>
-          </div>
-
-          <div>
-            <h4 style="margin-bottom: 0.5rem; font-size: 0.875rem; color: #a8a8a8;">
-              Status States
-            </h4>
-            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-              <sando-button flavor="original" flavor-mode="dark" status="default"
-                >Default</sando-button
-              >
-              <sando-button flavor="original" flavor-mode="dark" status="success"
-                >Success</sando-button
-              >
-              <sando-button flavor="original" flavor-mode="dark" status="destructive"
-                >Destructive</sando-button
-              >
-            </div>
-          </div>
+        <h4 style="margin: 0 0 1rem 0; color: #fafaf9;">Dark Mode (flavor-mode="dark")</h4>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+          <sando-button flavor-mode="dark" variant="solid">Solid</sando-button>
+          <sando-button flavor-mode="dark" variant="outline">Outline</sando-button>
+          <sando-button flavor-mode="dark" variant="ghost">Ghost</sando-button>
+          <sando-button flavor-mode="dark" status="success">Success</sando-button>
+          <sando-button flavor-mode="dark" status="destructive">Destructive</sando-button>
         </div>
       </div>
 
-      <!-- High Contrast Mode -->
-      <div
-        style="padding: 2rem; background: #ffffff; border: 2px solid #000000; border-radius: 8px;"
-      >
-        <h3 style="margin-bottom: 1.5rem; color: #000000;">
-          High Contrast Mode (flavor-mode="high-contrast")
-        </h3>
-
-        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-          <div>
-            <h4 style="margin-bottom: 0.5rem; font-size: 0.875rem; color: #000000;">Variants</h4>
-            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-              <sando-button flavor="original" flavor-mode="high-contrast" variant="solid"
-                >Solid</sando-button
-              >
-              <sando-button flavor="original" flavor-mode="high-contrast" variant="outline"
-                >Outline</sando-button
-              >
-              <sando-button flavor="original" flavor-mode="high-contrast" variant="ghost"
-                >Ghost</sando-button
-              >
-              <sando-button flavor="original" flavor-mode="high-contrast" variant="text"
-                >Text</sando-button
-              >
-            </div>
-          </div>
-
-          <div>
-            <h4 style="margin-bottom: 0.5rem; font-size: 0.875rem; color: #000000;">
-              Status States
-            </h4>
-            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-              <sando-button flavor="original" flavor-mode="high-contrast" status="default"
-                >Default</sando-button
-              >
-              <sando-button flavor="original" flavor-mode="high-contrast" status="success"
-                >Success</sando-button
-              >
-              <sando-button flavor="original" flavor-mode="high-contrast" status="destructive"
-                >Destructive</sando-button
-              >
-            </div>
-          </div>
+      <!-- High Contrast -->
+      <div style="padding: 2rem; background: #ffffff; border: 2px solid #000; border-radius: 8px;">
+        <h4 style="margin: 0 0 1rem 0; color: #000;">
+          High Contrast (flavor-mode="high-contrast")
+        </h4>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+          <sando-button flavor-mode="high-contrast" variant="solid">Solid</sando-button>
+          <sando-button flavor-mode="high-contrast" variant="outline">Outline</sando-button>
+          <sando-button flavor-mode="high-contrast" variant="ghost">Ghost</sando-button>
+          <sando-button flavor-mode="high-contrast" status="success">Success</sando-button>
+          <sando-button flavor-mode="high-contrast" status="destructive">Destructive</sando-button>
         </div>
       </div>
     </div>
-  `
+  `,
+  parameters: { controls: { disable: true } }
 };

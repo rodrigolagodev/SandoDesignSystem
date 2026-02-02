@@ -1,0 +1,715 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Flavors/Color Roles" />
+
+# Color Roles
+
+Semantic color tokens that give meaning to primitive color values. These tokens automatically adapt to light mode, dark mode, and high contrast based on user preferences.
+
+## Token Naming Convention
+
+All flavor color tokens follow this pattern:
+
+```
+--sando-color-[category]-[role]-[state?]
+```
+
+Examples:
+
+- `--sando-color-background-base`
+- `--sando-color-text-body`
+- `--sando-color-action-solid-background-hover`
+
+## Background Colors
+
+Tokens for surface and background colors:
+
+<table>
+  <thead>
+    <tr>
+      <th>Token</th>
+      <th>Purpose</th>
+      <th>Usage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--sando-color-background-base</code>
+      </td>
+      <td>Main page background</td>
+      <td>Body, canvas, main content area</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-color-background-surface</code>
+      </td>
+      <td>Secondary background</td>
+      <td>Cards, panels, elevated surfaces</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-color-background-raised</code>
+      </td>
+      <td>Highest elevation background</td>
+      <td>Modals, popovers, tooltips</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-color-background-overlay</code>
+      </td>
+      <td>Overlay backdrop</td>
+      <td>Behind modals and dialogs</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-color-background-emphasis</code>
+      </td>
+      <td>Emphasized background</td>
+      <td>Highlighted sections, selected items</td>
+    </tr>
+  </tbody>
+</table>
+
+### Example Usage
+
+```css
+.page {
+  background: var(--sando-color-background-base);
+}
+
+.card {
+  background: var(--sando-color-background-surface);
+}
+
+.modal {
+  background: var(--sando-color-background-raised);
+}
+
+.modal-backdrop {
+  background: var(--sando-color-background-overlay);
+  opacity: 0.5;
+}
+```
+
+## Text Colors
+
+Tokens for typography and content:
+
+<table>
+  <thead>
+    <tr>
+      <th>Token</th>
+      <th>Purpose</th>
+      <th>Usage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--sando-color-text-heading</code>
+      </td>
+      <td>Heading text</td>
+      <td>h1, h2, h3, h4, h5, h6</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-color-text-body</code>
+      </td>
+      <td>Body text</td>
+      <td>Paragraphs, most readable content</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-color-text-caption</code>
+      </td>
+      <td>Caption/secondary text</td>
+      <td>Captions, helper text, metadata</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-color-text-muted</code>
+      </td>
+      <td>De-emphasized text</td>
+      <td>Disabled, placeholder, tertiary</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-color-text-on-solid</code>
+      </td>
+      <td>Text on solid backgrounds</td>
+      <td>White/light text on dark buttons</td>
+    </tr>
+  </tbody>
+</table>
+
+### Link Colors
+
+<table>
+  <thead>
+    <tr>
+      <th>Token</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--sando-color-text-link-default</code>
+      </td>
+      <td>Default link color</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-color-text-link-hover</code>
+      </td>
+      <td>Hovered link</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-color-text-link-active</code>
+      </td>
+      <td>Clicked link</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-color-text-link-visited</code>
+      </td>
+      <td>Visited link</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-color-text-link-focus</code>
+      </td>
+      <td>Focused link</td>
+    </tr>
+  </tbody>
+</table>
+
+### Example Usage
+
+```css
+h1,
+h2,
+h3 {
+  color: var(--sando-color-text-heading);
+}
+
+p {
+  color: var(--sando-color-text-body);
+}
+
+.caption {
+  color: var(--sando-color-text-caption);
+}
+
+a {
+  color: var(--sando-color-text-link-default);
+}
+
+a:hover {
+  color: var(--sando-color-text-link-hover);
+}
+```
+
+## Icon Colors
+
+Tokens for icon fills and strokes:
+
+<table>
+  <thead>
+    <tr>
+      <th>Token</th>
+      <th>Purpose</th>
+      <th>Usage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--sando-color-icon-default</code>
+      </td>
+      <td>Default icon color</td>
+      <td>Standard icons in UI</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-color-icon-muted</code>
+      </td>
+      <td>Subtle icons</td>
+      <td>Less important icons</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-color-icon-emphasis</code>
+      </td>
+      <td>Emphasized icons</td>
+      <td>Important, highlighted icons</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-color-icon-interactive</code>
+      </td>
+      <td>Interactive icons</td>
+      <td>Clickable, hoverable icons</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-color-icon-on-solid</code>
+      </td>
+      <td>Icons on solid backgrounds</td>
+      <td>Icons on buttons, badges</td>
+    </tr>
+  </tbody>
+</table>
+
+### Example Usage
+
+```css
+.icon {
+  fill: var(--sando-color-icon-default);
+}
+
+.icon--muted {
+  fill: var(--sando-color-icon-muted);
+}
+
+.icon--interactive:hover {
+  fill: var(--sando-color-icon-interactive);
+}
+```
+
+## Border Colors
+
+Tokens for borders and dividers:
+
+<table>
+  <thead>
+    <tr>
+      <th>Token</th>
+      <th>Purpose</th>
+      <th>Usage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--sando-color-border-muted</code>
+      </td>
+      <td>Subtle borders</td>
+      <td>Light separators, subtle dividers</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-color-border-default</code>
+      </td>
+      <td>Standard borders</td>
+      <td>Input borders, card outlines</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-color-border-emphasis</code>
+      </td>
+      <td>Emphasized borders</td>
+      <td>Selected items, focused inputs</td>
+    </tr>
+  </tbody>
+</table>
+
+### Example Usage
+
+```css
+.divider {
+  border-color: var(--sando-color-border-muted);
+}
+
+.input {
+  border-color: var(--sando-color-border-default);
+}
+
+.input:focus {
+  border-color: var(--sando-color-border-emphasis);
+}
+```
+
+## Action Colors
+
+Tokens for interactive elements (buttons, links, etc.):
+
+### Solid Variant
+
+<table>
+  <thead>
+    <tr>
+      <th>Token</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--sando-color-action-solid-background-default</code>
+      </td>
+      <td>Solid button background</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-color-action-solid-background-hover</code>
+      </td>
+      <td>Hovered solid button</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-color-action-solid-text-default</code>
+      </td>
+      <td>Text on solid button</td>
+    </tr>
+  </tbody>
+</table>
+
+### Outline Variant
+
+<table>
+  <thead>
+    <tr>
+      <th>Token</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--sando-color-action-outline-border-default</code>
+      </td>
+      <td>Outline button border</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-color-action-outline-border-hover</code>
+      </td>
+      <td>Hovered outline border</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-color-action-outline-text-default</code>
+      </td>
+      <td>Outline button text</td>
+    </tr>
+  </tbody>
+</table>
+
+### Ghost Variant
+
+<table>
+  <thead>
+    <tr>
+      <th>Token</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--sando-color-action-ghost-background-hover</code>
+      </td>
+      <td>Hovered ghost button background</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-color-action-ghost-text-default</code>
+      </td>
+      <td>Ghost button text</td>
+    </tr>
+  </tbody>
+</table>
+
+### Example Usage
+
+```css
+.button--solid {
+  background: var(--sando-color-action-solid-background-default);
+  color: var(--sando-color-action-solid-text-default);
+}
+
+.button--solid:hover {
+  background: var(--sando-color-action-solid-background-hover);
+}
+
+.button--outline {
+  border-color: var(--sando-color-action-outline-border-default);
+  color: var(--sando-color-action-outline-text-default);
+}
+
+.button--outline:hover {
+  border-color: var(--sando-color-action-outline-border-hover);
+}
+```
+
+## State Colors
+
+Tokens for feedback and status communication:
+
+### Success
+
+<table>
+  <thead>
+    <tr>
+      <th>Token</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--sando-color-state-success-background</code>
+      </td>
+      <td>Success background</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-color-state-success-border</code>
+      </td>
+      <td>Success border</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-color-state-success-text</code>
+      </td>
+      <td>Success text</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-color-state-success-icon</code>
+      </td>
+      <td>Success icon</td>
+    </tr>
+  </tbody>
+</table>
+
+### Warning
+
+<table>
+  <thead>
+    <tr>
+      <th>Token</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--sando-color-state-warning-background</code>
+      </td>
+      <td>Warning background</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-color-state-warning-border</code>
+      </td>
+      <td>Warning border</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-color-state-warning-text</code>
+      </td>
+      <td>Warning text</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-color-state-warning-icon</code>
+      </td>
+      <td>Warning icon</td>
+    </tr>
+  </tbody>
+</table>
+
+### Error
+
+<table>
+  <thead>
+    <tr>
+      <th>Token</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--sando-color-state-error-background</code>
+      </td>
+      <td>Error background</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-color-state-error-border</code>
+      </td>
+      <td>Error border</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-color-state-error-text</code>
+      </td>
+      <td>Error text</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-color-state-error-icon</code>
+      </td>
+      <td>Error icon</td>
+    </tr>
+  </tbody>
+</table>
+
+### Info
+
+<table>
+  <thead>
+    <tr>
+      <th>Token</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--sando-color-state-info-background</code>
+      </td>
+      <td>Info background</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-color-state-info-border</code>
+      </td>
+      <td>Info border</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-color-state-info-text</code>
+      </td>
+      <td>Info text</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-color-state-info-icon</code>
+      </td>
+      <td>Info icon</td>
+    </tr>
+  </tbody>
+</table>
+
+### Example Usage
+
+```css
+.alert--success {
+  background: var(--sando-color-state-success-background);
+  border-color: var(--sando-color-state-success-border);
+  color: var(--sando-color-state-success-text);
+}
+
+.alert--error {
+  background: var(--sando-color-state-error-background);
+  border-color: var(--sando-color-state-error-border);
+  color: var(--sando-color-state-error-text);
+}
+```
+
+## Focus Colors
+
+Tokens for focus indicators (WCAG 2.1 AA compliant):
+
+<table>
+  <thead>
+    <tr>
+      <th>Token</th>
+      <th>Purpose</th>
+      <th>Usage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--sando-color-focus-ring</code>
+      </td>
+      <td>Focus ring outline</td>
+      <td>Focused interactive elements</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-color-focus-ring-offset</code>
+      </td>
+      <td>Focus ring offset/background</td>
+      <td>Space between element and ring</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-color-focus-background</code>
+      </td>
+      <td>Focus background</td>
+      <td>Highlighted focused element</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--sando-color-focus-text</code>
+      </td>
+      <td>Focus text</td>
+      <td>Text color when focused</td>
+    </tr>
+  </tbody>
+</table>
+
+### Example Usage
+
+```css
+.button:focus-visible {
+  outline: 2px solid var(--sando-color-focus-ring);
+  outline-offset: 2px;
+  background: var(--sando-color-focus-background);
+}
+
+.input:focus {
+  outline: 2px solid var(--sando-color-focus-ring);
+  outline-offset: -1px;
+}
+```
+
+## Automatic Dark Mode
+
+All color roles automatically adapt to dark mode via `@media (prefers-color-scheme: dark)`:
+
+```css
+/* Light mode (default) */
+:root {
+  --sando-color-background-base: var(--sando-color-neutralWarm-100);
+  --sando-color-text-body: var(--sando-color-neutralWarm-800);
+}
+
+/* Dark mode (automatic) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --sando-color-background-base: var(--sando-color-neutralWarm-900);
+    --sando-color-text-body: var(--sando-color-neutralWarm-200);
+  }
+}
+```
+
+**You don't need to write any mode-switching logic!** Just use the semantic tokens.
+
+## WCAG Compliance
+
+All color role combinations meet WCAG 2.1 AA standards:
+
+- Normal text: 4.5:1 contrast ratio
+- Large text: 3:1 contrast ratio
+- UI components: 3:1 contrast ratio
+
+When using color roles as documented, your UI will be accessible by default.
+
+## Related Pages
+
+- [Flavors/Overview](/?path=/docs/flavors-overview--docs) - Understanding the Flavors layer
+- [Ingredients/Color](/?path=/docs/ingredients-color--docs) - Primitive color values
+- [Getting Started/Theming](/?path=/docs/getting-started-theming--docs) - Theming guide
+
+---
+
+**Use semantic color roles for automatic theming, dark mode, and accessibility! 🎨**

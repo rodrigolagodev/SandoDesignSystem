@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import './sando-input.js';
+import '../icon/sando-icon.ts';
 
 /**
  * # Input Component
@@ -25,9 +26,9 @@ import './sando-input.js';
  * - Required fields have visual and semantic indicators
  */
 const meta: Meta = {
-  title: 'Components/Inputs/Input',
+  title: 'Components/Input',
   component: 'sando-input',
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     variant: {
       control: 'select',
@@ -136,6 +137,13 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj;
 
+// Tag constant for documentation-only stories
+const DOCS_ONLY = ['!dev', '!autodocs'];
+
+// ============================================================================
+// PUBLIC STORIES (visible in sidebar)
+// ============================================================================
+
 /**
  * Default input with standard configuration
  */
@@ -170,41 +178,14 @@ export const Playground: Story = {
 };
 
 /**
- * All variants side by side
+ * Input with prefix icon (search example)
  */
-export const AllVariants: Story = {
+export const WithPrefix: Story = {
   render: () => html`
-    <div style="display: flex; gap: 24px; flex-wrap: wrap;">
-      <sando-input variant="outlined" label="Outlined" value="Sample text"></sando-input>
-      <sando-input variant="filled" label="Filled" value="Sample text"></sando-input>
-    </div>
-  `,
-  parameters: { controls: { disable: true } }
-};
-
-/**
- * All sizes comparison
- */
-export const AllSizes: Story = {
-  render: () => html`
-    <div style="display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap;">
-      <sando-input size="small" label="Small" value="Small input"></sando-input>
-      <sando-input size="medium" label="Medium" value="Medium input"></sando-input>
-      <sando-input size="large" label="Large" value="Large input"></sando-input>
-    </div>
-  `,
-  parameters: { controls: { disable: true } }
-};
-
-/**
- * Input with helper text
- */
-export const WithHelperText: Story = {
-  args: {
-    label: 'Password',
-    type: 'password',
-    helperText: 'Must be at least 8 characters'
-  }
+    <sando-input label="Search" placeholder="Search...">
+      <sando-icon slot="prefix" name="search" size="small" color="muted"></sando-icon>
+    </sando-input>
+  `
 };
 
 /**
@@ -220,10 +201,78 @@ export const WithError: Story = {
   }
 };
 
+// ============================================================================
+// DOCUMENTATION STORIES (hidden from sidebar, used in MDX)
+// ============================================================================
+
+/**
+ * All variants side by side
+ */
+export const AllVariants: Story = {
+  tags: DOCS_ONLY,
+  render: () => html`
+    <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+      <sando-input variant="outlined" label="Outlined" value="Sample text"></sando-input>
+      <sando-input variant="filled" label="Filled" value="Sample text"></sando-input>
+    </div>
+  `,
+  parameters: { controls: { disable: true } }
+};
+
+/**
+ * All sizes comparison
+ */
+export const AllSizes: Story = {
+  tags: DOCS_ONLY,
+  render: () => html`
+    <div style="display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap;">
+      <sando-input size="small" label="Small" value="Small input"></sando-input>
+      <sando-input size="medium" label="Medium" value="Medium input"></sando-input>
+      <sando-input size="large" label="Large" value="Large input"></sando-input>
+    </div>
+  `,
+  parameters: { controls: { disable: true } }
+};
+
+/**
+ * All interactive states comparison
+ */
+export const AllStates: Story = {
+  tags: DOCS_ONLY,
+  render: () => html`
+    <div style="display: flex; gap: 24px; flex-wrap: wrap; align-items: flex-start;">
+      <sando-input label="Default" value="Normal input"></sando-input>
+      <sando-input label="Disabled" value="Disabled input" disabled></sando-input>
+      <sando-input label="Readonly" value="Readonly input" readonly></sando-input>
+      <sando-input label="Required" placeholder="Required field" required></sando-input>
+      <sando-input
+        label="Error"
+        value="Invalid value"
+        error
+        error-text="This field has an error"
+      ></sando-input>
+    </div>
+  `,
+  parameters: { controls: { disable: true } }
+};
+
+/**
+ * Input with helper text
+ */
+export const WithHelperText: Story = {
+  tags: DOCS_ONLY,
+  args: {
+    label: 'Password',
+    type: 'password',
+    helperText: 'Must be at least 8 characters'
+  }
+};
+
 /**
  * Required field with indicator
  */
 export const Required: Story = {
+  tags: DOCS_ONLY,
   args: {
     label: 'Email Address',
     type: 'email',
@@ -236,6 +285,7 @@ export const Required: Story = {
  * Disabled input
  */
 export const Disabled: Story = {
+  tags: DOCS_ONLY,
   args: {
     label: 'Account ID',
     value: 'ACC-12345',
@@ -247,6 +297,7 @@ export const Disabled: Story = {
  * Readonly input
  */
 export const Readonly: Story = {
+  tags: DOCS_ONLY,
   args: {
     label: 'Company Name',
     value: 'Acme Corporation',
@@ -256,28 +307,18 @@ export const Readonly: Story = {
 };
 
 /**
- * Input with prefix icon
- */
-export const WithPrefix: Story = {
-  render: () => html`
-    <sando-input label="Search" placeholder="Search...">
-      <span slot="prefix" style="opacity: 0.6;">🔍</span>
-    </sando-input>
-  `
-};
-
-/**
  * Input with suffix button
  */
 export const WithSuffix: Story = {
+  tags: DOCS_ONLY,
   render: () => html`
     <sando-input label="Search" value="sample query">
       <button
         slot="suffix"
-        style="border: none; background: none; cursor: pointer; padding: 4px;"
+        style="border: none; background: none; cursor: pointer; padding: 4px; display: flex; align-items: center;"
         aria-label="Clear search"
       >
-        ✕
+        <sando-icon name="x" size="small" color="muted"></sando-icon>
       </button>
     </sando-input>
   `
@@ -287,6 +328,7 @@ export const WithSuffix: Story = {
  * Input with both prefix and suffix
  */
 export const WithPrefixAndSuffix: Story = {
+  tags: DOCS_ONLY,
   render: () => html`
     <sando-input label="Amount" type="number" value="100">
       <span slot="prefix" style="opacity: 0.8; font-weight: 500;">$</span>
@@ -299,6 +341,7 @@ export const WithPrefixAndSuffix: Story = {
  * Different input types
  */
 export const InputTypes: Story = {
+  tags: DOCS_ONLY,
   render: () => html`
     <div style="display: flex; flex-direction: column; gap: 16px; max-width: 400px;">
       <sando-input label="Text" type="text" value="Plain text"></sando-input>
@@ -317,6 +360,7 @@ export const InputTypes: Story = {
  * Form example with multiple inputs
  */
 export const FormExample: Story = {
+  tags: DOCS_ONLY,
   render: () => html`
     <form style="max-width: 400px; display: flex; flex-direction: column; gap: 16px;">
       <sando-input label="Full Name" type="text" required placeholder="John Doe"></sando-input>
@@ -340,7 +384,7 @@ export const FormExample: Story = {
 
       <button
         type="submit"
-        style="padding: 12px 24px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 1rem;"
+        style="padding: 12px 24px; background: var(--sando-color-brand-500, #f97316); color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 1rem;"
       >
         Submit
       </button>
@@ -353,6 +397,7 @@ export const FormExample: Story = {
  * Validation states example
  */
 export const ValidationStates: Story = {
+  tags: DOCS_ONLY,
   render: () => html`
     <div style="display: flex; flex-direction: column; gap: 24px; max-width: 400px;">
       <sando-input

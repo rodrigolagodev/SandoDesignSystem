@@ -1,0 +1,137 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Ingredients/Overview" />
+
+# Ingredients (Primitives)
+
+Ingredients are the raw, atomic design tokens that form the foundation of Sando Design System. Like quality ingredients in a gourmet sandwich, these primitives ensure consistency across your entire application.
+
+## What Are Ingredients?
+
+Ingredients are **context-agnostic primitive values**. They define the raw palette of options without prescribing how they should be used. Think of them as your design vocabulary.
+
+## Token Categories
+
+<table>
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>Description</th>
+      <th>Examples</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <strong>Color</strong>
+      </td>
+      <td>Full color palette with semantic and neutral scales</td>
+      <td>
+        <code>--sando-color-orange-500</code>,{" "}
+        <code>--sando-color-neutral-900</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Typography</strong>
+      </td>
+      <td>Font families, sizes, weights, and line heights</td>
+      <td>
+        <code>--sando-font-size-400</code>,{" "}
+        <code>--sando-font-weight-semibold</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Spacing</strong>
+      </td>
+      <td>Consistent spacing scale for margins and padding</td>
+      <td>
+        <code>--sando-space-4</code>, <code>--sando-space-8</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Border</strong>
+      </td>
+      <td>Border widths and radius values</td>
+      <td>
+        <code>--sando-border-width-1</code>,{" "}
+        <code>--sando-border-radius-md</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Elevation</strong>
+      </td>
+      <td>Shadow definitions for depth</td>
+      <td>
+        <code>--sando-elevation-sm</code>, <code>--sando-elevation-lg</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Animation</strong>
+      </td>
+      <td>Timing and easing functions</td>
+      <td>
+        <code>--sando-animation-duration-fast</code>,{" "}
+        <code>--sando-animation-easing-default</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Opacity</strong>
+      </td>
+      <td>Transparency levels</td>
+      <td>
+        <code>--sando-opacity-50</code>, <code>--sando-opacity-disabled</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Z-Index</strong>
+      </td>
+      <td>Stacking order values</td>
+      <td>
+        <code>--sando-z-index-dropdown</code>,{" "}
+        <code>--sando-z-index-modal</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+## Usage Pattern
+
+Ingredients are typically not used directly in components. Instead, they're referenced by **Flavors** (semantic tokens) which are then consumed by **Recipes** (component tokens).
+
+```css
+/* Ingredient (primitive) */
+--sando-color-orange-500: hsl(25, 95%, 53%);
+
+/* Flavor (semantic) - references ingredient */
+--sando-color-action-solid-background: var(--sando-color-orange-500);
+
+/* Recipe (component) - references flavor */
+--sando-button-solid-bg: var(--sando-color-action-solid-background);
+```
+
+## Why This Architecture?
+
+1. **Single Source of Truth** — Change an ingredient, and all dependent tokens update
+2. **Easy Theming** — Swap flavors without touching component code
+3. **Consistent Design** — Components automatically follow the system
+4. **Maintainability** — Clear hierarchy of dependencies
+
+## Explore Ingredients
+
+Use the sidebar to explore each ingredient category in detail:
+
+- [Color →](?path=/docs/ingredients-color--docs)
+- [Typography →](?path=/docs/ingredients-typography--docs)
+- [Spacing →](?path=/docs/ingredients-spacing--docs)
+- [Border →](?path=/docs/ingredients-border--docs)
+- [Elevation →](?path=/docs/ingredients-elevation--docs)
+- [Animation →](?path=/docs/ingredients-animation--docs)
+- [Opacity →](?path=/docs/ingredients-opacity--docs)
+- [Z-Index →](?path=/docs/ingredients-z-index--docs)

@@ -1,0 +1,170 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Components/Overview" />
+
+# Components
+
+Sando Design System provides a collection of accessible, themeable Web Components built with [Lit 3](https://lit.dev/).
+
+## Available Components
+
+### Actions
+
+<table>
+  <thead>
+    <tr>
+      <th>Component</th>
+      <th>Status</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <strong>
+          <a href="?path=/docs/components-button--docs">Button</a>
+        </strong>
+      </td>
+      <td>Stable</td>
+      <td>Interactive button for actions and events</td>
+    </tr>
+  </tbody>
+</table>
+
+### Forms
+
+<table>
+  <thead>
+    <tr>
+      <th>Component</th>
+      <th>Status</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <strong>
+          <a href="?path=/docs/components-input--docs">Input</a>
+        </strong>
+      </td>
+      <td>Stable</td>
+      <td>Text input field with validation</td>
+    </tr>
+    <tr>
+      <td>
+        <strong>
+          <a href="?path=/docs/components-form-group--docs">Form Group</a>
+        </strong>
+      </td>
+      <td>Beta</td>
+      <td>Form field wrapper with label and error handling</td>
+    </tr>
+  </tbody>
+</table>
+
+### Display
+
+<table>
+  <thead>
+    <tr>
+      <th>Component</th>
+      <th>Status</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <strong>
+          <a href="?path=/docs/components-icon--docs">Icon</a>
+        </strong>
+      </td>
+      <td>Stable</td>
+      <td>1,637 Lucide icons with semantic colors</td>
+    </tr>
+  </tbody>
+</table>
+
+## Usage
+
+All components are Web Components and work with any framework:
+
+```bash
+npm install @sando/components @sando/tokens
+```
+
+```js
+// Import tokens
+import "@sando/tokens/css";
+
+// Import components you need
+import "@sando/components/button";
+import "@sando/components/input";
+```
+
+```html
+<sando-button variant="solid">Click me</sando-button>
+<sando-input label="Email" type="email"></sando-input>
+```
+
+## Framework Integration
+
+### Vanilla JS / HTML
+
+```html
+<script type="module">
+  import "@sando/components/button";
+</script>
+
+<sando-button>Hello</sando-button>
+```
+
+### React
+
+```jsx
+import "@sando/components/button";
+
+function App() {
+  return <sando-button onClick={handleClick}>Hello</sando-button>;
+}
+```
+
+### Vue
+
+```vue
+<template>
+  <sando-button @click="handleClick">Hello</sando-button>
+</template>
+
+<script setup>
+import "@sando/components/button";
+</script>
+```
+
+## Component Features
+
+Every Sando component includes:
+
+- **Accessibility** — WCAG 2.1 AA compliant with proper ARIA
+- **Theming** — Supports all flavors via the `flavor` attribute
+- **Dark Mode** — Automatic adaptation via `prefers-color-scheme`
+- **TypeScript** — Full type definitions included
+- **Documentation** — Stories with examples and API docs
+- **Tests** — Unit and accessibility testing
+
+## Component Anatomy
+
+Components follow the **Recipe** token layer, consuming semantic **Flavor** tokens:
+
+```css
+/* Component uses recipe tokens */
+.sando-button {
+  background: var(--sando-button-solid-bg);
+  color: var(--sando-button-solid-text);
+  padding: var(--sando-button-padding-y) var(--sando-button-padding-x);
+  border-radius: var(--sando-button-border-radius);
+}
+```
+
+This architecture enables theming by simply switching flavors — components automatically update.

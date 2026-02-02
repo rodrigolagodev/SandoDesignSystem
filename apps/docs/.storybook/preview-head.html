@@ -1,0 +1,138 @@
+<!--
+  Sando Design System - Theme Preload Script
+  
+  This script runs SYNCHRONOUSLY before React/Storybook hydrates,
+  preventing the theme flash/flickering when the page first loads.
+  
+  How it works:
+  1. Reads the user's stored theme preference from localStorage
+  2. Applies the data-color-mode attribute immediately (before any CSS renders)
+  3. Sets color-scheme for native browser support
+  
+  This solves the timing issue where @storybook/addon-themes applies
+  the theme via useEffect (AFTER render), causing a visible flash.
+  
+  @see https://github.com/storybookjs/storybook/issues/31625
+-->
+<script>
+  (function () {
+    "use strict";
+
+    /**
+     * Storybook stores globals in various localStorage keys depending on version.
+     * We check multiple possible locations to maximize compatibility.
+     *
+     * Known storage patterns:
+     * - Storybook 8.x: @storybook/manager/globals (JSON with globals object)
+     * - Storybook 7.x: @storybook/manager/store (JSON with globals property)
+     * - addon-themes: May store in storybook-globals or session storage
+     */
+    var POSSIBLE_KEYS = [
+      "@storybook/manager/globals", // Storybook 8.x globals storage
+      "storybook-globals", // Alternative globals key
+      "@storybook/manager/store", // Storybook 7.x store (has globals property)
+    ];
+
+    function getThemeFromStorage() {
+      // Check each possible localStorage key
+      for (var i = 0; i < POSSIBLE_KEYS.length; i++) {
+        var key = POSSIBLE_KEYS[i];
+        var stored = localStorage.getItem(key);
+
+        if (stored) {
+          try {
+            var parsed = JSON.parse(stored);
+
+            // Handle different storage formats
+            // Format 1: { theme: "dark" } - direct globals object
+            if (parsed && parsed.theme) {
+              return parsed.theme;
+            }
+
+            // Format 2: { globals: { theme: "dark" } } - nested in globals
+            if (parsed && parsed.globals && parsed.globals.theme) {
+              return parsed.globals.theme;
+            }
+          } catch (e) {
+            // Not JSON, try as plain string
+            if (
+              stored === "dark" ||
+              stored === "light" ||
+              stored === "high-contrast"
+            ) {
+              return stored;
+            }
+          }
+        }
+      }
+
+      // Also check URL parameters (for shared links with theme)
+      var urlParams = new URLSearchParams(window.location.search);
+      var urlTheme = urlParams.get("globals");
+      if (urlTheme) {
+        // Format: globals=theme:dark
+        var match = urlTheme.match(/theme:([^;]+)/);
+        if (match) {
+          return match[1];
+        }
+      }
+
+      return null;
+    }
+
+    try {
+      var theme = getThemeFromStorage();
+
+      // Apply theme if valid and not 'auto'
+      // 'auto' mode means follow system preference - no attribute needed
+      if (theme && theme !== "auto" && theme !== "") {
+        // Apply data-color-mode attribute BEFORE any CSS renders
+        document.documentElement.setAttribute("data-color-mode", theme);
+
+        // Also set color-scheme for native browser support
+        // This helps with scrollbars, form controls, etc.
+        if (theme === "dark") {
+          document.documentElement.style.colorScheme = "dark";
+        } else if (theme === "light" || theme === "high-contrast") {
+          document.documentElement.style.colorScheme = "light";
+        }
+
+        // Apply initial background color to prevent FOUC
+        // These are the token fallback values to prevent white flash before CSS loads
+        if (theme === "dark") {
+          document.documentElement.style.backgroundColor = "#1c1917"; // neutralWarm-950
+        } else {
+          document.documentElement.style.backgroundColor = "#fafaf9"; // neutralWarm-100 (light)
+        }
+
+        // Debug log (only in development)
+        if (window.location.hostname === "localhost") {
+          console.debug("[Sando Theme Preload] Applied theme:", theme);
+        }
+      } else {
+        // For 'auto' mode, set color-scheme to support both
+        // This lets the browser use system preference for native elements
+        document.documentElement.style.colorScheme = "light dark";
+
+        // For auto mode, use system preference for initial background
+        if (
+          window.matchMedia &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches
+        ) {
+          document.documentElement.style.backgroundColor = "#1c1917"; // neutralWarm-950
+        } else {
+          document.documentElement.style.backgroundColor = "#fafaf9"; // neutralWarm-100
+        }
+      }
+    } catch (e) {
+      // localStorage not available or other error
+      // Fail silently - let the addon handle it
+      console.debug("[Sando Theme Preload] Could not read stored theme:", e);
+    }
+  })();
+</script>
+
+<!--
+  Additional meta tags for better color scheme support
+-->
+<meta name="color-scheme" content="light dark" />

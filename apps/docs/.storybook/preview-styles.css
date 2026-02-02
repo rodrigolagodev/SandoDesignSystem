@@ -2,26 +2,831 @@
  * Storybook Preview Global Styles
  *
  * Applies design system tokens to the Storybook preview iframe
+ * All colors use CSS custom properties for proper theme/mode switching
+ *
+ * Includes:
+ * - Base styles for html/body
+ * - Color mode overrides (for manual testing)
+ * - MDX documentation styles (always light for readability)
+ * - Table, badge, and code block styles
+ *
+ * ============================================================
+ * IMPORTANT: Token Usage Rules for MDX Documentation
+ * ============================================================
+ *
+ * MDX documentation pages MUST use --sb-docs-* tokens for ALL colors.
+ * This ensures docs remain readable regardless of the color mode setting.
+ *
+ * ✅ CORRECT (use these in MDX):
+ *   color: var(--sb-docs-text-caption)
+ *   background: var(--sb-docs-bg-emphasis)
+ *   border-color: var(--sb-docs-border)
+ *
+ * ❌ INCORRECT (do NOT use these in MDX for UI colors):
+ *   color: var(--sando-color-text-caption)
+ *   background: var(--sando-color-background-emphasis)
+ *
+ * EXCEPTION: Use --sando-* tokens when DEMONSTRATING that specific token,
+ * e.g., showing a color swatch with backgroundColor: var(--sando-color-orange-700)
+ *
+ * Token Mapping:
+ * | Sando Token (avoid)                  | SB Docs Token (use)       |
+ * |--------------------------------------|---------------------------|
+ * | --sando-color-text-heading           | --sb-docs-text-heading    |
+ * | --sando-color-text-body              | --sb-docs-text-body       |
+ * | --sando-color-text-caption           | --sb-docs-text-caption    |
+ * | --sando-color-text-muted             | --sb-docs-text-muted      |
+ * | --sando-color-background-base        | --sb-docs-bg-base         |
+ * | --sando-color-background-surface     | --sb-docs-bg-surface      |
+ * | --sando-color-background-raised      | --sb-docs-bg-raised       |
+ * | --sando-color-background-emphasis    | --sb-docs-bg-emphasis     |
+ * | --sando-color-border-muted           | --sb-docs-border          |
+ * | --sando-color-border-default         | --sb-docs-border-emphasis |
  */
 
-/* Apply background color from design tokens to body */
+/* ========================================
+   Color Mode Override System
+   
+   These rules allow manual color mode switching in Storybook.
+   They use higher specificity to override @media queries.
+   
+   @storybook/addon-themes sets the data-color-mode attribute
+   on the html element BEFORE stories render, preventing flickering.
+   
+   data-color-mode="" (empty) → Auto mode, follow system preference
+   data-color-mode="light" → Force light mode
+   data-color-mode="dark" → Force dark mode
+   data-color-mode="high-contrast" → Force high contrast
+   
+   When data-color-mode is empty or absent, CSS @media queries work naturally.
+   This is the "Auto" mode - it respects the user's system preference.
+   ======================================== */
+
+/* -----------------------------------------
+   LIGHT MODE - Force light regardless of system
+   ----------------------------------------- */
+html[data-color-mode="light"] {
+  /* Background tokens */
+  --sando-color-background-base: var(--sando-color-neutralWarm-100);
+  --sando-color-background-surface: var(--sando-color-neutralWarm-200);
+  --sando-color-background-raised: var(--sando-color-utility-white);
+  --sando-color-background-overlay: var(--sando-color-neutralWarm-900);
+  --sando-color-background-emphasis: var(--sando-color-neutralWarm-300);
+
+  /* Text tokens */
+  --sando-color-text-heading: var(--sando-color-neutralWarm-950);
+  --sando-color-text-body: var(--sando-color-neutralWarm-800);
+  --sando-color-text-caption: var(--sando-color-neutralWarm-700);
+  --sando-color-text-muted: var(--sando-color-neutralWarm-600);
+  --sando-color-text-on-solid: var(--sando-color-neutralWarm-100);
+
+  /* Link tokens */
+  --sando-color-text-link-default: var(--sando-color-orange-700);
+  --sando-color-text-link-hover: var(--sando-color-orange-800);
+  --sando-color-text-link-active: var(--sando-color-orange-900);
+  --sando-color-text-link-visited: var(--sando-color-orange-950);
+  --sando-color-text-link-focus: var(--sando-color-orange-700);
+
+  /* Icon tokens */
+  --sando-color-icon-default: var(--sando-color-neutralWarm-700);
+  --sando-color-icon-muted: var(--sando-color-neutralWarm-500);
+  --sando-color-icon-emphasis: var(--sando-color-neutralWarm-900);
+  --sando-color-icon-interactive: var(--sando-color-orange-700);
+  --sando-color-icon-on-solid: var(--sando-color-neutralWarm-100);
+
+  /* Border tokens */
+  --sando-color-border-muted: var(--sando-color-neutralWarm-300);
+  --sando-color-border-default: var(--sando-color-neutralWarm-400);
+  --sando-color-border-emphasis: var(--sando-color-orange-700);
+
+  /* Focus tokens */
+  --sando-color-focus-ring: var(--sando-color-orange-600);
+  --sando-color-focus-ring-offset: var(--sando-color-neutralWarm-100);
+  --sando-color-focus-background: var(--sando-color-orange-50);
+  --sando-color-focus-text: var(--sando-color-orange-900);
+
+  /* Action tokens */
+  --sando-color-action-solid-background-default: var(--sando-color-orange-700);
+  --sando-color-action-solid-background-hover: var(--sando-color-orange-800);
+  --sando-color-action-solid-text-default: var(--sando-color-neutralWarm-100);
+  --sando-color-action-outline-border-default: var(
+    --sando-color-neutralWarm-400
+  );
+  --sando-color-action-outline-border-hover: var(--sando-color-orange-700);
+  --sando-color-action-outline-text-default: var(--sando-color-neutralWarm-800);
+  --sando-color-action-ghost-background-hover: var(
+    --sando-color-neutralWarm-300
+  );
+  --sando-color-action-ghost-text-default: var(--sando-color-neutralWarm-800);
+  --sando-color-action-disabled-background: var(--sando-color-neutralWarm-200);
+  --sando-color-action-disabled-text: var(--sando-color-neutralWarm-500);
+  --sando-color-action-disabled-border: var(--sando-color-neutralWarm-300);
+
+  /* State tokens */
+  --sando-color-state-success-background: var(--sando-color-state-success-100);
+  --sando-color-state-success-text: var(--sando-color-state-success-700);
+  --sando-color-state-success-border: var(--sando-color-state-success-400);
+  --sando-color-state-destructive-background: var(
+    --sando-color-state-error-100
+  );
+  --sando-color-state-destructive-text: var(--sando-color-state-error-700);
+  --sando-color-state-destructive-border: var(--sando-color-state-error-400);
+
+  /* Selection tokens */
+  --sando-color-selection-background: var(--sando-color-orange-200);
+  --sando-color-selection-text: var(--sando-color-neutralWarm-950);
+}
+
+/* -----------------------------------------
+   DARK MODE - Force dark regardless of system
+   ----------------------------------------- */
+html[data-color-mode="dark"] {
+  /* Background tokens */
+  --sando-color-background-base: var(--sando-color-neutralWarm-950);
+  --sando-color-background-surface: var(--sando-color-neutralWarm-900);
+  --sando-color-background-raised: var(--sando-color-neutralWarm-800);
+  --sando-color-background-overlay: var(--sando-color-neutralWarm-950);
+  --sando-color-background-emphasis: var(--sando-color-neutralWarm-700);
+
+  /* Text tokens */
+  --sando-color-text-heading: var(--sando-color-neutralWarm-50);
+  --sando-color-text-body: var(--sando-color-neutralWarm-200);
+  --sando-color-text-caption: var(--sando-color-neutralWarm-400);
+  --sando-color-text-muted: var(--sando-color-neutralWarm-500);
+  --sando-color-text-on-solid: var(--sando-color-neutralWarm-950);
+
+  /* Link tokens */
+  --sando-color-text-link-default: var(--sando-color-orange-400);
+  --sando-color-text-link-hover: var(--sando-color-orange-300);
+  --sando-color-text-link-active: var(--sando-color-orange-200);
+  --sando-color-text-link-visited: var(--sando-color-orange-500);
+  --sando-color-text-link-focus: var(--sando-color-orange-400);
+
+  /* Icon tokens */
+  --sando-color-icon-default: var(--sando-color-neutralWarm-400);
+  --sando-color-icon-muted: var(--sando-color-neutralWarm-500);
+  --sando-color-icon-emphasis: var(--sando-color-neutralWarm-100);
+  --sando-color-icon-interactive: var(--sando-color-orange-400);
+  --sando-color-icon-on-solid: var(--sando-color-neutralWarm-950);
+
+  /* Border tokens */
+  --sando-color-border-muted: var(--sando-color-neutralWarm-700);
+  --sando-color-border-default: var(--sando-color-neutralWarm-600);
+  --sando-color-border-emphasis: var(--sando-color-orange-400);
+
+  /* Focus tokens */
+  --sando-color-focus-ring: var(--sando-color-orange-400);
+  --sando-color-focus-ring-offset: var(--sando-color-neutralWarm-950);
+  --sando-color-focus-background: var(--sando-color-orange-950);
+  --sando-color-focus-text: var(--sando-color-orange-100);
+
+  /* Action tokens */
+  --sando-color-action-solid-background-default: var(--sando-color-orange-600);
+  --sando-color-action-solid-background-hover: var(--sando-color-orange-500);
+  --sando-color-action-solid-text-default: var(--sando-color-neutralWarm-950);
+  --sando-color-action-outline-border-default: var(
+    --sando-color-neutralWarm-600
+  );
+  --sando-color-action-outline-border-hover: var(--sando-color-orange-400);
+  --sando-color-action-outline-text-default: var(--sando-color-neutralWarm-200);
+  --sando-color-action-ghost-background-hover: var(
+    --sando-color-neutralWarm-800
+  );
+  --sando-color-action-ghost-text-default: var(--sando-color-neutralWarm-200);
+  --sando-color-action-disabled-background: var(--sando-color-neutralWarm-800);
+  --sando-color-action-disabled-text: var(--sando-color-neutralWarm-600);
+  --sando-color-action-disabled-border: var(--sando-color-neutralWarm-700);
+
+  /* State tokens */
+  --sando-color-state-success-background: var(--sando-color-state-success-900);
+  --sando-color-state-success-text: var(--sando-color-state-success-300);
+  --sando-color-state-success-border: var(--sando-color-state-success-600);
+  --sando-color-state-destructive-background: var(
+    --sando-color-state-error-900
+  );
+  --sando-color-state-destructive-text: var(--sando-color-state-error-300);
+  --sando-color-state-destructive-border: var(--sando-color-state-error-600);
+
+  /* Selection tokens */
+  --sando-color-selection-background: var(--sando-color-orange-800);
+  --sando-color-selection-text: var(--sando-color-neutralWarm-50);
+}
+
+/* -----------------------------------------
+   HIGH CONTRAST MODE - Force high contrast
+   ----------------------------------------- */
+html[data-color-mode="high-contrast"] {
+  /* Border width overrides */
+  --sando-border-width-default: var(--sando-border-width-100);
+  --sando-border-width-emphasis: var(--sando-border-width-200);
+
+  /* Background tokens */
+  --sando-color-background-base: var(--sando-color-utility-white);
+  --sando-color-background-surface: var(--sando-color-utility-white);
+  --sando-color-background-raised: var(--sando-color-utility-white);
+  --sando-color-background-overlay: var(--sando-color-utility-black);
+  --sando-color-background-emphasis: var(--sando-color-neutralWarm-100);
+
+  /* Text tokens */
+  --sando-color-text-heading: var(--sando-color-utility-black);
+  --sando-color-text-body: var(--sando-color-utility-black);
+  --sando-color-text-caption: var(--sando-color-neutralWarm-800);
+  --sando-color-text-muted: var(--sando-color-neutralWarm-700);
+  --sando-color-text-on-solid: var(--sando-color-utility-white);
+
+  /* Link tokens */
+  --sando-color-text-link-default: var(--sando-color-orange-950);
+  --sando-color-text-link-hover: var(--sando-color-utility-black);
+  --sando-color-text-link-active: var(--sando-color-utility-black);
+  --sando-color-text-link-visited: var(--sando-color-orange-900);
+  --sando-color-text-link-focus: var(--sando-color-utility-black);
+
+  /* Icon tokens */
+  --sando-color-icon-default: var(--sando-color-utility-black);
+  --sando-color-icon-muted: var(--sando-color-neutralWarm-700);
+  --sando-color-icon-emphasis: var(--sando-color-utility-black);
+  --sando-color-icon-interactive: var(--sando-color-orange-950);
+  --sando-color-icon-on-solid: var(--sando-color-utility-white);
+
+  /* Border tokens */
+  --sando-color-border-muted: var(--sando-color-neutralWarm-600);
+  --sando-color-border-default: var(--sando-color-utility-black);
+  --sando-color-border-emphasis: var(--sando-color-utility-black);
+
+  /* Focus tokens */
+  --sando-color-focus-ring: var(--sando-color-utility-black);
+  --sando-color-focus-ring-offset: var(--sando-color-utility-white);
+  --sando-color-focus-background: var(--sando-color-utility-white);
+  --sando-color-focus-text: var(--sando-color-utility-black);
+
+  /* Action tokens */
+  --sando-color-action-solid-background-default: var(
+    --sando-color-utility-black
+  );
+  --sando-color-action-solid-background-hover: var(
+    --sando-color-neutralWarm-800
+  );
+  --sando-color-action-solid-text-default: var(--sando-color-utility-white);
+  --sando-color-action-outline-border-default: var(--sando-color-utility-black);
+  --sando-color-action-outline-border-hover: var(--sando-color-utility-black);
+  --sando-color-action-outline-text-default: var(--sando-color-utility-black);
+  --sando-color-action-ghost-background-hover: var(
+    --sando-color-neutralWarm-200
+  );
+  --sando-color-action-ghost-text-default: var(--sando-color-utility-black);
+  --sando-color-action-disabled-background: var(--sando-color-neutralWarm-300);
+  --sando-color-action-disabled-text: var(--sando-color-neutralWarm-600);
+  --sando-color-action-disabled-border: var(--sando-color-neutralWarm-500);
+
+  /* State tokens */
+  --sando-color-state-success-background: var(--sando-color-state-success-100);
+  --sando-color-state-success-text: var(--sando-color-state-success-900);
+  --sando-color-state-success-border: var(--sando-color-state-success-900);
+  --sando-color-state-destructive-background: var(
+    --sando-color-state-error-100
+  );
+  --sando-color-state-destructive-text: var(--sando-color-state-error-900);
+  --sando-color-state-destructive-border: var(--sando-color-state-error-900);
+
+  /* Selection tokens */
+  --sando-color-selection-background: var(--sando-color-utility-black);
+  --sando-color-selection-text: var(--sando-color-utility-white);
+}
+
+/* ========================================
+   Base Styles - Reset and defaults
+   ======================================== */
+
+/**
+ * CRITICAL: Prevent color/background transitions on core elements
+ * 
+ * The @storybook/addon-themes decorator uses React's useEffect to set
+ * the data-color-mode attribute AFTER the story renders. This can cause
+ * a visible flash/flicker when switching themes.
+ * 
+ * We disable color/background transitions on ALL Storybook layout elements
+ * to make the theme switch appear instant while still allowing component 
+ * animations within stories.
+ * 
+ * Coverage includes:
+ * - html, body: Document root
+ * - #storybook-root: Story container
+ * - .sb-show-main, .sb-main-padded: Storybook main wrappers
+ * - [data-color-mode]: Any element with the theme attribute
+ */
+html,
+body,
+#storybook-root,
+.sb-show-main,
+.sb-main-padded,
+[data-color-mode] {
+  transition:
+    background 0s,
+    background-color 0s,
+    color 0s,
+    border-color 0s !important;
+}
+
+html,
 body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Apply background color from design tokens to html (where attributes are set) */
+html {
   background-color: var(--sando-color-background-base);
   color: var(--sando-color-text-body);
   font-family: var(--sando-font-family-body);
-  transition:
-    background-color 0.2s ease,
-    color 0.2s ease;
+  min-height: 100%;
+}
+
+/* Body inherits from html */
+body {
+  background-color: inherit;
+  color: inherit;
+  font-family: inherit;
+  min-height: 100vh;
 }
 
 /* Ensure preview root has full height */
 #storybook-root {
   min-height: 100vh;
   padding: 2rem;
+  background-color: inherit;
 }
 
-/* Reset default margins */
-body {
-  margin: 0;
+/* ========================================
+   MDX Documentation Styles
+   
+   MDX pages (Welcome, Status, etc.) should ALWAYS be readable.
+   We force light mode styling for documentation pages to ensure
+   text is always visible against a light background.
+   ======================================== */
+
+/* MDX Container - Force light, neutral background for readability */
+.sbdocs-wrapper {
+  background: var(--sb-docs-bg-base) !important;
+  color: var(--sb-docs-text-body) !important;
+}
+
+.sbdocs-content {
+  max-width: 900px !important;
+  color: inherit;
+}
+
+/* MDX Text Elements - Force readable colors */
+.sbdocs h1,
+.sbdocs h2,
+.sbdocs h3,
+.sbdocs h4,
+.sbdocs h5,
+.sbdocs h6 {
+  color: var(--sb-docs-text-heading) !important;
+}
+
+.sbdocs p,
+.sbdocs li,
+.sbdocs span {
+  color: var(--sb-docs-text-body);
+}
+
+.sbdocs a {
+  color: var(--sb-docs-link);
+}
+
+.sbdocs a:hover {
+  color: var(--sb-docs-link-hover);
+}
+
+.sbdocs a:active {
+  color: #7c2d12; /* orange-900 */
+}
+
+/* ----------------------------------------
+   Table Styles (for all MDX tables)
+   Force light mode colors for readability
+   ---------------------------------------- */
+.sbdocs table,
+.docs-story table,
+.sb-unstyled table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.875rem;
+  background-color: var(--sb-docs-bg-raised);
+  border: 1px solid var(--sb-docs-border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.sbdocs table th,
+.docs-story table th,
+.sb-unstyled table th {
+  background: var(--sb-docs-bg-emphasis);
+  font-weight: 600;
+  color: var(--sb-docs-text-heading);
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 2px solid var(--sb-docs-border-emphasis);
+}
+
+.sbdocs table td,
+.docs-story table td,
+.sb-unstyled table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--sb-docs-border);
+  color: var(--sb-docs-text-body);
+  background-color: var(--sb-docs-bg-raised);
+}
+
+.sbdocs table tr:hover td,
+.docs-story table tr:hover td,
+.sb-unstyled table tr:hover td {
+  background: var(--sb-docs-bg-emphasis);
+}
+
+.sbdocs table code,
+.docs-story table code,
+.sb-unstyled table code {
+  background: var(--sb-docs-code-bg);
+  padding: 0.125rem 0.375rem;
+  border-radius: 4px;
+  font-size: 0.8125rem;
+  font-family: var(--sando-font-family-code, "Fira Code", monospace);
+  color: var(--sb-docs-code-text);
+}
+
+/* ----------------------------------------
+   Status Badges (reusable)
+   Using CSS variables for consistency
+   ---------------------------------------- */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+/* Stable - Green */
+.status-stable {
+  background: var(--sb-docs-success-bg);
+  color: var(--sb-docs-success-text);
+}
+
+/* Beta - Amber/Warning */
+.status-beta {
+  background: var(--sb-docs-warning-bg);
+  color: var(--sb-docs-warning-text);
+}
+
+/* Planned - Neutral */
+.status-planned {
+  background: var(--sb-docs-bg-emphasis);
+  color: var(--sb-docs-text-caption);
+}
+
+/* New - Blue/Info */
+.status-new {
+  background: var(--sb-docs-info-bg);
+  color: var(--sb-docs-info-text);
+}
+
+/* Deprecated - Red/Error */
+.status-deprecated {
+  background: var(--sb-docs-error-bg);
+  color: var(--sb-docs-error-text);
+}
+
+/* ----------------------------------------
+   Check/Status Icons
+   ---------------------------------------- */
+.status-check {
+  color: var(--sb-docs-success-text);
+  font-weight: 600;
+}
+
+.status-partial {
+  color: var(--sb-docs-warning-text);
+  font-weight: 600;
+}
+
+.status-missing {
+  color: var(--sb-docs-text-caption);
+}
+
+/* ----------------------------------------
+   Interactive Examples / Component Preview
+   These MUST follow the color mode since they show actual components.
+   Uses dynamic --sando-color-* tokens so components render correctly
+   in light/dark/high-contrast modes.
+   ---------------------------------------- */
+.sbdocs-preview,
+.docs-story {
+  background: var(--sando-color-background-surface) !important;
+  border: 1px solid var(--sando-color-border-muted) !important;
+  border-radius: 8px;
+}
+
+/* Canvas wrapper */
+.sb-story {
+  background: var(--sando-color-background-surface);
+  padding: 2rem;
+}
+
+/* ----------------------------------------
+   Code Blocks - Force light mode for MDX
+   ---------------------------------------- */
+.sbdocs pre {
+  background: var(--sb-docs-bg-code) !important;
+  border: 1px solid var(--sb-docs-border);
+  border-radius: 8px;
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+.sbdocs pre code {
+  background: transparent !important;
   padding: 0;
+  color: var(--sb-docs-code-text);
+  font-family: var(--sando-font-family-code, "Fira Code", monospace);
+}
+
+/* Inline code in paragraphs */
+.sbdocs p code,
+.sbdocs li code {
+  background: var(--sb-docs-code-bg);
+  padding: 0.125rem 0.375rem;
+  border-radius: 4px;
+  font-size: 0.875em;
+  font-family: var(--sando-font-family-code, "Fira Code", monospace);
+  color: var(--sb-docs-code-text);
+}
+
+/* ----------------------------------------
+   Storybook Controls Panel (in docs)
+   ---------------------------------------- */
+.docblock-argstable {
+  background: var(--sb-docs-bg-raised) !important;
+}
+
+.docblock-argstable th {
+  background: var(--sb-docs-bg-emphasis) !important;
+  color: var(--sb-docs-text-heading) !important;
+}
+
+.docblock-argstable td {
+  background: var(--sb-docs-bg-raised) !important;
+  color: var(--sb-docs-text-body) !important;
+  border-bottom-color: var(--sb-docs-border) !important;
+}
+
+/* ----------------------------------------
+   Storybook Source Code Block
+   ---------------------------------------- */
+.docblock-source {
+  background: var(--sb-docs-bg-emphasis) !important;
+  border-color: var(--sb-docs-border) !important;
+}
+
+/* ----------------------------------------
+   Blockquotes and callouts
+   ---------------------------------------- */
+.sbdocs blockquote {
+  background: var(--sb-docs-bg-emphasis);
+  border-left: 4px solid var(--sb-docs-link);
+  color: var(--sb-docs-text-body);
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+/* ----------------------------------------
+   Horizontal rules
+   ---------------------------------------- */
+.sbdocs hr {
+  border: none;
+  border-top: 1px solid var(--sb-docs-border);
+  margin: 2rem 0;
+}
+
+/* ========================================
+   Storybook Docs Theme Variables
+   
+   These CSS custom properties define the docs theme colors.
+   Using variables instead of hardcoded hex values makes the
+   theme maintainable and easy to update.
+   
+   All colors are based on the Sando neutralWarm palette
+   but defined statically for consistent docs appearance.
+   ======================================== */
+:root {
+  /* Docs Background colors */
+  --sb-docs-bg-base: #fafaf9; /* neutralWarm-100 */
+  --sb-docs-bg-surface: #f5f5f4; /* neutralWarm-200 */
+  --sb-docs-bg-raised: #ffffff; /* white */
+  --sb-docs-bg-emphasis: #f5f5f4; /* neutralWarm-200 - softer, WCAG approved */
+  --sb-docs-bg-code: #fafaf9; /* neutralWarm-100 - matches base per user request */
+
+  /* Docs Text colors */
+  --sb-docs-text-heading: #0c0a09; /* neutralWarm-950 */
+  --sb-docs-text-body: #292524; /* neutralWarm-800 */
+  --sb-docs-text-caption: #44403c; /* neutralWarm-700 - WCAG AAA 8.5:1 */
+  --sb-docs-text-muted: #57534e; /* neutralWarm-600 - WCAG AA 6.0:1 */
+
+  /* Docs Border colors */
+  --sb-docs-border: #d6d3d1; /* neutralWarm-300 */
+  --sb-docs-border-emphasis: #a8a29e; /* neutralWarm-400 */
+
+  /* Docs Link colors */
+  --sb-docs-link: #c2410c; /* orange-700 */
+  --sb-docs-link-hover: #9a3412; /* orange-800 */
+
+  /* Docs Status colors */
+  --sb-docs-success-bg: #dcfce7; /* green-100 */
+  --sb-docs-success-text: #15803d; /* green-700 */
+  --sb-docs-warning-bg: #fef3c7; /* amber-100 */
+  --sb-docs-warning-text: #b45309; /* amber-700 */
+  --sb-docs-error-bg: #fee2e2; /* red-100 */
+  --sb-docs-error-text: #b91c1c; /* red-700 */
+  --sb-docs-info-bg: #dbeafe; /* blue-100 */
+  --sb-docs-info-text: #1d4ed8; /* blue-700 */
+
+  /* Docs Code colors */
+  --sb-docs-code-bg: #f0efee; /* subtle distinction from base - WCAG approved */
+  --sb-docs-code-text: #292524; /* neutralWarm-800 */
+}
+
+/* ========================================
+   Demo Box Classes
+   
+   Reusable classes for visual examples in MDX docs.
+   These always use light-mode colors for consistency
+   regardless of the color mode setting.
+   ======================================== */
+
+/* Base demo box - light background with proper contrast */
+.demo-box {
+  padding: 24px;
+  background-color: var(--sb-docs-bg-emphasis);
+  border-radius: 12px;
+  color: var(--sb-docs-text-body);
+  margin-top: 24px;
+}
+
+/* Demo box variant with border instead of background */
+.demo-box--outlined {
+  background-color: var(--sb-docs-bg-raised);
+  border: 1px solid var(--sb-docs-border);
+}
+
+/* Demo box for showing layered/stacked content */
+.demo-box--stacking {
+  position: relative;
+  min-height: 400px;
+  background-color: var(--sb-docs-bg-surface);
+  overflow: hidden;
+  padding: 40px;
+}
+
+/* Demo box card - raised element within demo box */
+.demo-card {
+  padding: 16px 20px;
+  background-color: var(--sb-docs-bg-raised);
+  border-radius: 8px;
+  border: 1px solid var(--sb-docs-border);
+  color: var(--sb-docs-text-body);
+}
+
+/* Demo card with shadow for z-index demos */
+.demo-card--elevated {
+  border: none;
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -2px rgba(0, 0, 0, 0.1);
+}
+
+/* Demo label - small caption text */
+.demo-label {
+  font-family: monospace;
+  font-size: 12px;
+  color: var(--sb-docs-text-caption);
+}
+
+/* Demo title - bold text in demos */
+.demo-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--sb-docs-text-heading);
+  margin-bottom: 4px;
+}
+
+/* Demo description - secondary text */
+.demo-description {
+  font-size: 12px;
+  color: var(--sb-docs-text-caption);
+}
+
+/* Code display in demos */
+.demo-code {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 12px;
+  padding: 2px 6px;
+  background-color: var(--sb-docs-code-bg);
+  border-radius: 4px;
+  color: var(--sb-docs-code-text);
+}
+
+/* Usage hint box */
+.demo-usage {
+  margin-top: 16px;
+  padding: 12px;
+  background-color: var(--sb-docs-bg-emphasis);
+  border-radius: 8px;
+  font-size: 14px;
+  color: var(--sb-docs-text-body);
+}
+
+/* Token row - for displaying token lists */
+.demo-token-row {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 16px;
+  border-bottom: 1px solid var(--sb-docs-border);
+}
+
+.demo-token-row:last-child {
+  border-bottom: none;
+}
+
+/* Overlay demo (dark semi-transparent) */
+.demo-overlay {
+  padding: 16px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  border-radius: 8px;
+}
+
+/* Toast/notification demo */
+.demo-toast {
+  padding: 16px 24px;
+  background-color: #c2410c;
+  color: white;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* Tooltip demo */
+.demo-tooltip {
+  padding: 8px 12px;
+  background-color: #1c1917;
+  color: white;
+  border-radius: 6px;
+  font-size: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* Button demo */
+.demo-button {
+  padding: 12px 24px;
+  background-color: #c2410c;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.demo-button:hover {
+  background-color: #9a3412;
+}
+
+/* Dropdown menu demo */
+.demo-dropdown {
+  background-color: var(--sb-docs-bg-raised);
+  border-radius: 8px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.demo-dropdown-item {
+  padding: 12px 16px;
+  font-size: 14px;
+  color: var(--sb-docs-text-body);
+  border-bottom: 1px solid var(--sb-docs-border);
+  cursor: pointer;
+}
+
+.demo-dropdown-item:last-child {
+  border-bottom: none;
+}
+
+.demo-dropdown-item:hover {
+  background-color: var(--sb-docs-bg-emphasis);
 }

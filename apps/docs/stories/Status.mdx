@@ -1,0 +1,371 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Status" />
+
+<style>
+  {`
+    .status-container {
+      max-width: 900px;
+      margin: 0 auto;
+      font-family: var(--sando-font-family-body, 'Inter', sans-serif);
+    }
+
+    .status-header {
+      margin-bottom: 2rem;
+    }
+
+    .status-header h1 {
+      font-size: 2rem;
+      margin: 0 0 0.5rem 0;
+      color: #1c1917;
+    }
+
+    .status-header p {
+      color: #78716c;
+      margin: 0;
+    }
+
+    .status-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 2rem;
+    }
+
+    .status-table th,
+    .status-table td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid #e7e5e4;
+    }
+
+    .status-table th {
+      background: #fafaf9;
+      font-weight: 600;
+      color: #1c1917;
+      font-size: 0.875rem;
+    }
+
+    .status-table td {
+      font-size: 0.875rem;
+      color: #57534e;
+    }
+
+    .status-table tr:hover td {
+      background: #fafaf9;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    .status-stable {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .status-beta {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .status-planned {
+      background: #f3f4f6;
+      color: #6b7280;
+    }
+
+    .status-check {
+      color: #22c55e;
+      font-weight: 600;
+    }
+
+    .status-partial {
+      color: #f59e0b;
+      font-weight: 600;
+    }
+
+    .status-missing {
+      color: #d1d5db;
+    }
+
+    .status-legend {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+      padding: 1rem;
+      background: #fafaf9;
+      border-radius: 8px;
+    }
+
+    .status-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      color: #57534e;
+    }
+  `}
+</style>
+
+<div className="status-container">
+
+<div className="status-header">
+  <h1>Component Status</h1>
+  <p>Current implementation status of all Sando Design System components</p>
+</div>
+
+<table className="status-table">
+  <thead>
+    <tr>
+      <th>Component</th>
+      <th>Status</th>
+      <th>Code</th>
+      <th>Docs</th>
+      <th>Tests</th>
+      <th>A11y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <strong>Button</strong>
+      </td>
+      <td>
+        <span className="status-badge status-stable">Stable</span>
+      </td>
+      <td>
+        <span className="status-check">✓</span>
+      </td>
+      <td>
+        <span className="status-check">✓</span>
+      </td>
+      <td>
+        <span className="status-check">✓</span>
+      </td>
+      <td>
+        <span className="status-check">✓</span>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Icon</strong>
+      </td>
+      <td>
+        <span className="status-badge status-stable">Stable</span>
+      </td>
+      <td>
+        <span className="status-check">✓</span>
+      </td>
+      <td>
+        <span className="status-check">✓</span>
+      </td>
+      <td>
+        <span className="status-check">✓</span>
+      </td>
+      <td>
+        <span className="status-check">✓</span>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Input</strong>
+      </td>
+      <td>
+        <span className="status-badge status-stable">Stable</span>
+      </td>
+      <td>
+        <span className="status-check">✓</span>
+      </td>
+      <td>
+        <span className="status-check">✓</span>
+      </td>
+      <td>
+        <span className="status-check">✓</span>
+      </td>
+      <td>
+        <span className="status-check">✓</span>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Form Group</strong>
+      </td>
+      <td>
+        <span className="status-badge status-beta">Beta</span>
+      </td>
+      <td>
+        <span className="status-check">✓</span>
+      </td>
+      <td>
+        <span className="status-partial">◐</span>
+      </td>
+      <td>
+        <span className="status-partial">◐</span>
+      </td>
+      <td>
+        <span className="status-check">✓</span>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Card</strong>
+      </td>
+      <td>
+        <span className="status-badge status-planned">Planned</span>
+      </td>
+      <td>
+        <span className="status-missing">—</span>
+      </td>
+      <td>
+        <span className="status-missing">—</span>
+      </td>
+      <td>
+        <span className="status-missing">—</span>
+      </td>
+      <td>
+        <span className="status-missing">—</span>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Modal</strong>
+      </td>
+      <td>
+        <span className="status-badge status-planned">Planned</span>
+      </td>
+      <td>
+        <span className="status-missing">—</span>
+      </td>
+      <td>
+        <span className="status-missing">—</span>
+      </td>
+      <td>
+        <span className="status-missing">—</span>
+      </td>
+      <td>
+        <span className="status-missing">—</span>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Tooltip</strong>
+      </td>
+      <td>
+        <span className="status-badge status-planned">Planned</span>
+      </td>
+      <td>
+        <span className="status-missing">—</span>
+      </td>
+      <td>
+        <span className="status-missing">—</span>
+      </td>
+      <td>
+        <span className="status-missing">—</span>
+      </td>
+      <td>
+        <span className="status-missing">—</span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div className="status-legend">
+  <div className="status-legend-item">
+    <span className="status-check">✓</span> Complete
+  </div>
+  <div className="status-legend-item">
+    <span className="status-partial">◐</span> Partial
+  </div>
+  <div className="status-legend-item">
+    <span className="status-missing">—</span> Not started
+  </div>
+  <div className="status-legend-item">
+    <span className="status-badge status-stable">Stable</span> Production-ready
+  </div>
+  <div className="status-legend-item">
+    <span className="status-badge status-beta">Beta</span> In testing
+  </div>
+  <div className="status-legend-item">
+    <span className="status-badge status-planned">Planned</span> Roadmap
+  </div>
+</div>
+
+## Status Definitions
+
+<table className="status-table">
+  <thead>
+    <tr>
+      <th>Status</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <span className="status-badge status-stable">Stable</span>
+      </td>
+      <td>
+        Production-ready, fully tested, and documented. Safe to use in
+        production.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span className="status-badge status-beta">Beta</span>
+      </td>
+      <td>
+        Feature-complete but still being tested. API may have minor changes.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span className="status-badge status-planned">Planned</span>
+      </td>
+      <td>On the roadmap but not yet started.</td>
+    </tr>
+  </tbody>
+</table>
+
+## Columns Explained
+
+<table className="status-table">
+  <thead>
+    <tr>
+      <th>Column</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <strong>Code</strong>
+      </td>
+      <td>Component implementation complete</td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Docs</strong>
+      </td>
+      <td>Storybook documentation with examples</td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Tests</strong>
+      </td>
+      <td>Unit tests with adequate coverage</td>
+    </tr>
+    <tr>
+      <td>
+        <strong>A11y</strong>
+      </td>
+      <td>Accessibility audit passed</td>
+    </tr>
+  </tbody>
+</table>
+
+</div>
