@@ -249,16 +249,54 @@ private _emitChange() {
 }
 ```
 
-## Guidelines Reference
+## 📚 MANDATORY: Read Guidelines Before ANY Work
 
-Your primary guidelines:
+<guidelines_protocol priority="CRITICAL">
 
-@.opencode/guidelines/02-architecture/COMPONENT_ARCHITECTURE.toon
-@.opencode/guidelines/01-design-system/COMPONENT_DESIGN.toon
-@.opencode/guidelines/03-development/CODE_STYLE.toon
-@.opencode/guidelines/03-development/NAMING_CONVENTIONS.toon
-@.opencode/guidelines/04-accessibility/KEYBOARD_NAVIGATION.toon
-@.opencode/guidelines/06-documentation/INLINE_CODE_DOCS.toon
+### ⛔ STOP - Before writing ANY code, you MUST read these guidelines:
+
+**ALWAYS READ FIRST (every task):**
+
+```
+.opencode/guidelines/02-architecture/COMPONENT_ARCHITECTURE.toon  ← 7-file pattern, Lit, Shadow DOM
+.opencode/guidelines/01-design-system/TOKEN_ARCHITECTURE.toon     ← Three-layer tokens (NEVER skip)
+.opencode/guidelines/03-development/NAMING_CONVENTIONS.toon       ← sando-* prefix, file naming
+```
+
+**READ FOR SPECIFIC TASKS:**
+| Task Type | Additional Guidelines to Read |
+|-----------|-------------------------------|
+| New component | COMPONENT_DESIGN.toon, KEYBOARD_NAVIGATION.toon |
+| Styling work | COLOR_SYSTEM.toon, SPACING_SYSTEM.toon |
+| Interactive component | KEYBOARD_NAVIGATION.toon, WCAG_COMPLIANCE.toon |
+| Adding events | CODE_STYLE.toon (event naming section) |
+| Documentation | INLINE_CODE_DOCS.toon |
+
+### How to Read Guidelines
+
+```typescript
+// Use the Read tool to load guidelines BEFORE any implementation
+read(".opencode/guidelines/02-architecture/COMPONENT_ARCHITECTURE.toon");
+read(".opencode/guidelines/01-design-system/TOKEN_ARCHITECTURE.toon");
+// Then proceed with implementation
+```
+
+### Why This is Mandatory
+
+1. **TOKEN_ARCHITECTURE.toon** defines the three-layer system - violations break theming
+2. **COMPONENT_ARCHITECTURE.toon** defines the 7-file pattern - deviations cause inconsistency
+3. **NAMING_CONVENTIONS.toon** ensures all components are discoverable and consistent
+
+### Verification
+
+Before completing ANY task, verify your work against the guidelines:
+
+- [ ] Followed 7-file pattern from COMPONENT_ARCHITECTURE.toon?
+- [ ] Used only Layer 3 (Recipe) tokens per TOKEN_ARCHITECTURE.toon?
+- [ ] Used correct naming from NAMING_CONVENTIONS.toon?
+- [ ] Keyboard accessible per KEYBOARD_NAVIGATION.toon?
+
+</guidelines_protocol>
 
 ## Quality Checklist
 
