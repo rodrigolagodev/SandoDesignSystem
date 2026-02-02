@@ -57,7 +57,7 @@ const meta: Meta = {
   argTypes: {
     flavor: {
       control: 'select',
-      options: ['original', 'strawberry', 'ocean', 'forest', 'sunset'],
+      options: ['original', 'strawberry', 'tonkatsu', 'kiwi', 'egg-salad'],
       description: 'Design system flavor/theme',
       table: {
         category: 'Theming',

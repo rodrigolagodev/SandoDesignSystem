@@ -528,9 +528,9 @@ Glob:
 ✓ font.json: 12 tokens, all raw values
 
 ✅ Flavors Layer: 0 violations (780 tokens)
-✓ ocean/flavor.json: 156 tokens, all reference Ingredients
-✓ sunset/flavor.json: 156 tokens, all reference Ingredients
-✓ forest/flavor.json: 156 tokens, all reference Ingredients
+✓ tonkatsu/flavor.json: 156 tokens, all reference Ingredients
+✓ egg-salad/flavor.json: 156 tokens, all reference Ingredients
+✓ kiwi/flavor.json: 156 tokens, all reference Ingredients
 
 ❌ Recipes Layer: 2 VIOLATIONS FOUND (45 tokens)
 
@@ -1042,13 +1042,13 @@ From code, extract:
 
 ```html
 <!-- Global theme -->
-<html flavor="ocean">
-  <sando-$ARGUMENTS>Ocean themed</sando-$ARGUMENTS>
+<html flavor="tonkatsu">
+  <sando-$ARGUMENTS>Tonkatsu themed</sando-$ARGUMENTS>
 </html>
 
 <!-- Section theme -->
-<div flavor="sunset">
-  <sando-$ARGUMENTS>Sunset themed</sando-$ARGUMENTS>
+<div flavor="egg-salad">
+  <sando-$ARGUMENTS>Egg Salad themed</sando-$ARGUMENTS>
 </div>
 
 <!-- CSS override -->
@@ -1623,9 +1623,9 @@ Total: 780 tokens (5 themes × 156 tokens)
 
 By Theme:
 ├─ original: 156 tokens (5 variants)
-├─ ocean: 156 tokens (5 variants)
-├─ sunset: 156 tokens (5 variants)
-├─ forest: 156 tokens (5 variants)
+├─ tonkatsu: 156 tokens (5 variants)
+├─ egg-salad: 156 tokens (5 variants)
+├─ kiwi: 156 tokens (5 variants)
 └─ strawberry: 156 tokens (5 variants)
 
 Variants per theme:
@@ -1970,31 +1970,31 @@ Status: Production-ready ✅
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-✅ ocean
-Primary: blue (#3b82f6)
-Neutral: neutral-cool
+✅ tonkatsu
+Primary: brown (#8B4513)
+Neutral: neutral-warm
 
 Color Palette:
-■ Primary: #3b82f6 (blue.500)
-■ Background: #f8fafc (neutral-cool.50)
-■ Text: #0f172a (neutral-cool.900)
+■ Primary: #8B4513 (brown.500)
+■ Background: #fef3e2 (neutral-warm.100)
+■ Text: #431407 (neutral-warm.900)
 
 Files: 5/5 ✅
 
 Usage:
-HTML: <html flavor="ocean">
-CSS: [flavor="ocean"] { ... }
+HTML: <html flavor="tonkatsu">
+CSS: [flavor="tonkatsu"] { ... }
 
 Status: Production-ready ✅
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-✅ sunset
-Primary: orange (#fb923c)
+✅ egg-salad
+Primary: yellow (#fbbf24)
 Neutral: neutral-warm
 
 Color Palette:
-■ Primary: #fb923c (orange.400)
+■ Primary: #fbbf24 (yellow.400)
 ■ Background: #fef3e2 (neutral-warm.100)
 ■ Text: #431407 (neutral-warm.950)
 
@@ -2003,7 +2003,7 @@ Status: Production-ready ✅
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-✅ forest
+✅ kiwi
 Primary: green (#22c55e)
 Neutral: neutral
 
@@ -2050,22 +2050,22 @@ USAGE EXAMPLES
 
 Global theme:
 
-  <html flavor="ocean">
+  <html flavor="tonkatsu">
     <body>
-      <sando-button>Ocean themed</sando-button>
+      <sando-button>Tonkatsu themed</sando-button>
     </body>
   </html>
 
 Section theme:
 
-  <div flavor="sunset">
-    <sando-button>Sunset themed</sando-button>
+  <div flavor="egg-salad">
+    <sando-button>Egg Salad themed</sando-button>
   </div>
 
 Multiple themes on page:
 
-  <header flavor="forest">...</header>
-  <main flavor="ocean">...</main>
+  <header flavor="kiwi">...</header>
+  <main flavor="tonkatsu">...</main>
   <footer flavor="original">...</footer>
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

@@ -1,5 +1,5 @@
 {
-  "$description": "Forced colors mode for 'forest' flavor. Uses CSS system colors for Windows High Contrast mode and other forced-colors environments. Automatically applied via @media (forced-colors: active). Cannot be manually overridden.",
+  "$description": "Forced colors mode for 'tonkatsu' flavor. Uses CSS system colors for Windows High Contrast mode and other forced-colors environments. Automatically applied via @media (forced-colors: active). Cannot be manually overridden.",
   "color": {
     "background": {
       "base": { "value": "Canvas", "type": "color" },

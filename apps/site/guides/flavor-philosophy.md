@@ -219,23 +219,23 @@ Flavors follow a **hierarchical inheritance model**:
 <html flavor="dark">
   <!-- Level 1: Global -->
   <body>
-    <div flavor="ocean">
+    <div flavor="tonkatsu">
       <!-- Level 2: Section -->
       <article>
-        <!-- Level 3: Inherits ocean -->
+        <!-- Level 3: Inherits tonkatsu -->
 
-        <!-- Inherits ocean from ancestor -->
-        <sando-button>Ocean button</sando-button>
+        <!-- Inherits tonkatsu from ancestor -->
+        <sando-button>Tonkatsu button</sando-button>
 
         <!-- Override to strawberry -->
         <sando-button flavor="strawberry"> Strawberry button </sando-button>
 
-        <!-- Back to ocean -->
-        <sando-button>Ocean button</sando-button>
+        <!-- Back to tonkatsu -->
+        <sando-button>Tonkatsu button</sando-button>
       </article>
     </div>
 
-    <!-- Outside the ocean section, back to dark -->
+    <!-- Outside the tonkatsu section, back to dark -->
     <sando-button>Dark button</sando-button>
   </body>
 </html>
@@ -433,9 +433,9 @@ export class SandoButton extends LitElement {
 2. **Leverage inheritance for sections**
 
    ```html
-   <section flavor="ocean">
-     <!-- All buttons here are ocean -->
-     <sando-button>Ocean button</sando-button>
+   <section flavor="tonkatsu">
+     <!-- All buttons here are tonkatsu -->
+     <sando-button>Tonkatsu button</sando-button>
    </section>
    ```
 
@@ -493,12 +493,12 @@ export class SandoButton extends LitElement {
    ```html
    <!-- ❌ Confusing -->
    <div data-theme="dark" flavor="light">
-     <sando-button class="theme-ocean">What am I?</sando-button>
+     <sando-button class="theme-tonkatsu">What am I?</sando-button>
    </div>
 
    <!-- ✅ Consistent -->
    <div flavor="dark">
-     <sando-button flavor="ocean">Clear intent</sando-button>
+     <sando-button flavor="tonkatsu">Clear intent</sando-button>
    </div>
    ```
 
@@ -523,7 +523,7 @@ export class SandoButton extends LitElement {
 
    ```typescript
    // Import pre-made flavor palettes
-   import { oceanFlavor, sunsetFlavor } from "@sando/flavors";
+   import { tonkatsuFlavor, eggSaladFlavor } from "@sando/flavors";
    ```
 
 3. **Dynamic Flavor Creation**

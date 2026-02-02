@@ -526,14 +526,14 @@ body {
    ---------------------------------------- */
 .sbdocs-preview,
 .docs-story {
-  background: var(--sando-color-background-surface) !important;
+  background: var(--sando-color-background-base) !important;
   border: 1px solid var(--sando-color-border-muted) !important;
   border-radius: 8px;
 }
 
 /* Canvas wrapper */
 .sb-story {
-  background: var(--sando-color-background-surface);
+  background: var(--sando-color-background-base);
   padding: 2rem;
 }
 

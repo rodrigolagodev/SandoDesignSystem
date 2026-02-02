@@ -28,8 +28,8 @@
  *   <my-component flavor="strawberry"></my-component>
  *
  *   <!-- Section flavor -->
- *   <div flavor="ocean">
- *     <!-- Inherits ocean -->
+ *   <div flavor="tonkatsu">
+ *     <!-- Inherits tonkatsu -->
  *     <my-component></my-component>
  *   </div>
  * </html>

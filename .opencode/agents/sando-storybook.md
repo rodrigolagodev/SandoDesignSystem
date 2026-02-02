@@ -227,11 +227,11 @@ const preview: Preview = {
       toolbar: {
         icon: "paintbrush",
         items: [
-          { value: "original", title: "Original" },
-          { value: "strawberry", title: "Strawberry" },
-          { value: "ocean", title: "Ocean" },
-          { value: "forest", title: "Forest" },
-          { value: "sunset", title: "Sunset" },
+          { value: "original", title: "Original (Tonos Cálidos)" },
+          { value: "strawberry", title: "Strawberry (Tonos Rojos)" },
+          { value: "tonkatsu", title: "Tonkatsu (Tonos Marrones)" },
+          { value: "kiwi", title: "Kiwi (Tonos Verdes)" },
+          { value: "egg-salad", title: "Egg Salad (Tonos Amarillos)" },
         ],
         dynamicTitle: true,
       },

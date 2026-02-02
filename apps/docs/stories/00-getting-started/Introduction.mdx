@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/blocks';
+import { Meta } from "@storybook/blocks";
 
 <Meta title="Getting Started/Introduction" />
 
@@ -55,9 +55,15 @@ Component tokens that ensure every piece tastes just right:
 
 ```css
 /* Button recipe */
---sando-button-solid-backgroundColor-default: var(--sando-color-action-solid-background-default);
---sando-button-solid-backgroundColor-hover: var(--sando-color-action-solid-background-hover);
---sando-button-solid-textColor-default: var(--sando-color-action-solid-text-default);
+--sando-button-solid-backgroundColor-default: var(
+  --sando-color-action-solid-background-default
+);
+--sando-button-solid-backgroundColor-hover: var(
+  --sando-color-action-solid-background-hover
+);
+--sando-button-solid-textColor-default: var(
+  --sando-color-action-solid-text-default
+);
 ```
 
 ## 🚀 Quick Taste
@@ -69,8 +75,8 @@ npm install @sando/components @sando/tokens
 ```
 
 ```js
-import '@sando/tokens/css';
-import '@sando/components/button';
+import "@sando/tokens/css";
+import "@sando/components/button";
 ```
 
 ```html
@@ -91,9 +97,9 @@ All components support theming via the `flavor` attribute:
   <sando-button>Strawberry themed</sando-button>
 </div>
 
-<!-- Forest flavor -->
-<div flavor="forest">
-  <sando-button>Forest themed</sando-button>
+<!-- Kiwi flavor -->
+<div flavor="kiwi">
+  <sando-button>Kiwi themed</sando-button>
 </div>
 ```
 

@@ -1,12 +1,12 @@
 {
-  "$description": "High contrast mode for 'sunset' flavor. Maximum contrast ratios for enhanced accessibility (WCAG AAA compliance). Automatically applied via @media (prefers-contrast: more) and [flavor-mode='high-contrast'].",
+  "$description": "High contrast mode for 'tonkatsu' flavor. Maximum contrast ratios for enhanced accessibility (WCAG AAA compliance). Automatically applied via @media (prefers-contrast: more) and [flavor-mode='high-contrast'].",
   "color": {
     "background": {
       "base": { "value": "{color.utility.white.value}", "type": "color" },
       "surface": { "value": "{color.utility.white.value}", "type": "color" },
       "raised": { "value": "{color.utility.white.value}", "type": "color" },
       "overlay": { "value": "{color.utility.black.value}", "type": "color" },
-      "emphasis": { "value": "{color.neutralWarm.100.value}", "type": "color" }
+      "emphasis": { "value": "{color.brown.100.value}", "type": "color" }
     },
     "focus": {
       "ring": { "value": "{color.utility.black.value}", "type": "color" },
@@ -20,26 +20,26 @@
     "text": {
       "heading": { "value": "{color.utility.black.value}", "type": "color" },
       "body": { "value": "{color.utility.black.value}", "type": "color" },
-      "caption": { "value": "{color.neutralWarm.800.value}", "type": "color" },
+      "caption": { "value": "{color.brown.900.value}", "type": "color" },
       "link": {
-        "default": { "value": "{color.orange.950.value}", "type": "color" },
+        "default": { "value": "{color.brown.950.value}", "type": "color" },
         "hover": { "value": "{color.utility.black.value}", "type": "color" },
         "active": { "value": "{color.utility.black.value}", "type": "color" },
-        "visited": { "value": "{color.orange.900.value}", "type": "color" },
+        "visited": { "value": "{color.brown.900.value}", "type": "color" },
         "focus": { "value": "{color.utility.black.value}", "type": "color" }
       },
-      "muted": { "value": "{color.neutralWarm.700.value}", "type": "color" },
+      "muted": { "value": "{color.brown.700.value}", "type": "color" },
       "on-solid": { "value": "{color.utility.white.value}", "type": "color" }
     },
     "icon": {
       "default": { "value": "{color.utility.black.value}", "type": "color" },
-      "muted": { "value": "{color.neutralWarm.700.value}", "type": "color" },
+      "muted": { "value": "{color.brown.700.value}", "type": "color" },
       "emphasis": { "value": "{color.utility.black.value}", "type": "color" },
-      "interactive": { "value": "{color.orange.950.value}", "type": "color" },
+      "interactive": { "value": "{color.brown.950.value}", "type": "color" },
       "on-solid": { "value": "{color.utility.white.value}", "type": "color" }
     },
     "border": {
-      "muted": { "value": "{color.neutralWarm.600.value}", "type": "color" },
+      "muted": { "value": "{color.brown.600.value}", "type": "color" },
       "default": { "value": "{color.utility.black.value}", "type": "color" },
       "emphasis": { "value": "{color.utility.black.value}", "type": "color" }
     },
@@ -50,7 +50,7 @@
             "value": "{color.utility.black.value}",
             "type": "color"
           },
-          "hover": { "value": "{color.neutralWarm.800.value}", "type": "color" }
+          "hover": { "value": "{color.brown.900.value}", "type": "color" }
         },
         "text": {
           "default": { "value": "{color.utility.white.value}", "type": "color" }
@@ -70,7 +70,7 @@
       },
       "ghost": {
         "background": {
-          "hover": { "value": "{color.neutralWarm.200.value}", "type": "color" }
+          "hover": { "value": "{color.brown.200.value}", "type": "color" }
         },
         "text": {
           "default": { "value": "{color.utility.black.value}", "type": "color" }
@@ -78,11 +78,11 @@
       },
       "disabled": {
         "background": {
-          "value": "{color.neutralWarm.300.value}",
+          "value": "{color.brown.200.value}",
           "type": "color"
         },
-        "text": { "value": "{color.neutralWarm.600.value}", "type": "color" },
-        "border": { "value": "{color.neutralWarm.500.value}", "type": "color" },
+        "text": { "value": "{color.brown.600.value}", "type": "color" },
+        "border": { "value": "{color.brown.500.value}", "type": "color" },
         "opacity": { "value": "{opacity.600.value}", "type": "number" }
       }
     },

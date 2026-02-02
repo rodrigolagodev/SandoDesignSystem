@@ -1,0 +1,500 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Resources/Accessibility" />
+
+# Accessibility
+
+The Sando Design System is built with accessibility as a core principle, not an afterthought. All components are designed to meet **WCAG 2.1 Level AA** standards and provide an inclusive experience for all users.
+
+## Our Commitment
+
+Every Sando component is:
+
+- **Keyboard accessible** - Full functionality without a mouse
+- **Screen reader compatible** - Proper ARIA attributes and semantic HTML
+- **Color contrast compliant** - Meets WCAG AA contrast ratios
+- **Motion respectful** - Honors `prefers-reduced-motion` preferences
+- **Focus visible** - Clear focus indicators for keyboard navigation
+
+---
+
+## Color Contrast
+
+### Requirements
+
+All color combinations in Sando meet WCAG 2.1 AA standards:
+
+<div style={{ marginTop: "24px" }}>
+  <table style={{ width: "100%", borderCollapse: "collapse" }}>
+    <thead>
+      <tr>
+        <th
+          style={{
+            textAlign: "left",
+            padding: "12px",
+            borderBottom: "2px solid var(--sando-color-border-default)",
+          }}
+        >
+          Content Type
+        </th>
+        <th
+          style={{
+            textAlign: "left",
+            padding: "12px",
+            borderBottom: "2px solid var(--sando-color-border-default)",
+          }}
+        >
+          Minimum Ratio
+        </th>
+        <th
+          style={{
+            textAlign: "left",
+            padding: "12px",
+            borderBottom: "2px solid var(--sando-color-border-default)",
+          }}
+        >
+          WCAG Criterion
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td
+          style={{
+            padding: "12px",
+            borderBottom: "1px solid var(--sando-color-border-muted)",
+          }}
+        >
+          Normal text (&lt;18px)
+        </td>
+        <td
+          style={{
+            padding: "12px",
+            borderBottom: "1px solid var(--sando-color-border-muted)",
+          }}
+        >
+          <strong>4.5:1</strong>
+        </td>
+        <td
+          style={{
+            padding: "12px",
+            borderBottom: "1px solid var(--sando-color-border-muted)",
+          }}
+        >
+          1.4.3
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={{
+            padding: "12px",
+            borderBottom: "1px solid var(--sando-color-border-muted)",
+          }}
+        >
+          Large text (≥18px bold or ≥24px)
+        </td>
+        <td
+          style={{
+            padding: "12px",
+            borderBottom: "1px solid var(--sando-color-border-muted)",
+          }}
+        >
+          <strong>3:1</strong>
+        </td>
+        <td
+          style={{
+            padding: "12px",
+            borderBottom: "1px solid var(--sando-color-border-muted)",
+          }}
+        >
+          1.4.3
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={{
+            padding: "12px",
+            borderBottom: "1px solid var(--sando-color-border-muted)",
+          }}
+        >
+          UI components & graphics
+        </td>
+        <td
+          style={{
+            padding: "12px",
+            borderBottom: "1px solid var(--sando-color-border-muted)",
+          }}
+        >
+          <strong>3:1</strong>
+        </td>
+        <td
+          style={{
+            padding: "12px",
+            borderBottom: "1px solid var(--sando-color-border-muted)",
+          }}
+        >
+          1.4.11
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={{
+            padding: "12px",
+            borderBottom: "1px solid var(--sando-color-border-muted)",
+          }}
+        >
+          Focus indicators
+        </td>
+        <td
+          style={{
+            padding: "12px",
+            borderBottom: "1px solid var(--sando-color-border-muted)",
+          }}
+        >
+          <strong>3:1</strong>
+        </td>
+        <td
+          style={{
+            padding: "12px",
+            borderBottom: "1px solid var(--sando-color-border-muted)",
+          }}
+        >
+          2.4.7
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+### Color Independence
+
+Never rely on color alone to convey information:
+
+```html
+<!-- BAD: Color is the only indicator -->
+<span style="color: red">Error occurred</span>
+
+<!-- GOOD: Icon + color + text -->
+<span class="error">
+  <sando-icon name="alert-circle"></sando-icon>
+  Error: Please check your input
+</span>
+```
+
+---
+
+## Keyboard Navigation
+
+### Focus Management
+
+All interactive elements in Sando:
+
+- Are focusable via keyboard (`Tab` / `Shift+Tab`)
+- Have visible focus indicators
+- Follow logical tab order
+- Support expected keyboard interactions
+
+### Standard Keyboard Patterns
+
+<div style={{ marginTop: "24px" }}>
+  <table style={{ width: "100%", borderCollapse: "collapse" }}>
+    <thead>
+      <tr>
+        <th
+          style={{
+            textAlign: "left",
+            padding: "12px",
+            borderBottom: "2px solid var(--sando-color-border-default)",
+          }}
+        >
+          Key
+        </th>
+        <th
+          style={{
+            textAlign: "left",
+            padding: "12px",
+            borderBottom: "2px solid var(--sando-color-border-default)",
+          }}
+        >
+          Action
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td
+          style={{
+            padding: "12px",
+            borderBottom: "1px solid var(--sando-color-border-muted)",
+          }}
+        >
+          <code>Tab</code>
+        </td>
+        <td
+          style={{
+            padding: "12px",
+            borderBottom: "1px solid var(--sando-color-border-muted)",
+          }}
+        >
+          Move focus to next interactive element
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={{
+            padding: "12px",
+            borderBottom: "1px solid var(--sando-color-border-muted)",
+          }}
+        >
+          <code>Shift + Tab</code>
+        </td>
+        <td
+          style={{
+            padding: "12px",
+            borderBottom: "1px solid var(--sando-color-border-muted)",
+          }}
+        >
+          Move focus to previous interactive element
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={{
+            padding: "12px",
+            borderBottom: "1px solid var(--sando-color-border-muted)",
+          }}
+        >
+          <code>Enter</code>
+        </td>
+        <td
+          style={{
+            padding: "12px",
+            borderBottom: "1px solid var(--sando-color-border-muted)",
+          }}
+        >
+          Activate buttons, links, and form submissions
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={{
+            padding: "12px",
+            borderBottom: "1px solid var(--sando-color-border-muted)",
+          }}
+        >
+          <code>Space</code>
+        </td>
+        <td
+          style={{
+            padding: "12px",
+            borderBottom: "1px solid var(--sando-color-border-muted)",
+          }}
+        >
+          Activate buttons, toggle checkboxes
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={{
+            padding: "12px",
+            borderBottom: "1px solid var(--sando-color-border-muted)",
+          }}
+        >
+          <code>Escape</code>
+        </td>
+        <td
+          style={{
+            padding: "12px",
+            borderBottom: "1px solid var(--sando-color-border-muted)",
+          }}
+        >
+          Close modals, popovers, dropdowns
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={{
+            padding: "12px",
+            borderBottom: "1px solid var(--sando-color-border-muted)",
+          }}
+        >
+          <code>Arrow keys</code>
+        </td>
+        <td
+          style={{
+            padding: "12px",
+            borderBottom: "1px solid var(--sando-color-border-muted)",
+          }}
+        >
+          Navigate within composite widgets (menus, tabs)
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+### Focus Trapping
+
+Modal dialogs and overlays implement focus trapping:
+
+- Focus is constrained within the modal
+- `Tab` cycles through modal elements
+- `Escape` closes the modal
+- Focus returns to trigger element on close
+
+---
+
+## Screen Reader Support
+
+### Semantic HTML
+
+Sando components use semantic HTML elements:
+
+```html
+<!-- Button component uses <button> element -->
+<button type="button" class="sando-button">Click me</button>
+
+<!-- Input component uses proper labeling -->
+<label for="email">Email</label>
+<input type="email" id="email" aria-describedby="email-hint" />
+<span id="email-hint">We'll never share your email</span>
+```
+
+### ARIA Attributes
+
+Components include appropriate ARIA attributes:
+
+```html
+<!-- Loading button -->
+<button aria-busy="true" aria-disabled="true">
+  <span aria-hidden="true">Loading...</span>
+  <span class="sr-only">Please wait, loading</span>
+</button>
+
+<!-- Error state input -->
+<input aria-invalid="true" aria-describedby="error-message" />
+<span id="error-message" role="alert"> This field is required </span>
+```
+
+### Live Regions
+
+Dynamic content uses ARIA live regions:
+
+```html
+<!-- Toast notifications -->
+<div role="status" aria-live="polite">Your changes have been saved</div>
+
+<!-- Error alerts -->
+<div role="alert" aria-live="assertive">Form submission failed</div>
+```
+
+---
+
+## Motion & Animation
+
+### Respecting User Preferences
+
+Sando respects the `prefers-reduced-motion` media query:
+
+```css
+/* Default: animations enabled */
+.component {
+  transition: transform 300ms ease-out;
+}
+
+/* Reduced motion: minimize or disable */
+@media (prefers-reduced-motion: reduce) {
+  .component {
+    transition: none;
+  }
+}
+```
+
+### Animation Guidelines
+
+- Animations should be subtle and purposeful
+- Avoid animations that flash more than 3 times per second
+- Provide controls to pause/stop animations when needed
+- Don't use animation as the only means of conveying information
+
+---
+
+## Testing for Accessibility
+
+### Automated Testing
+
+We use automated tools to catch common issues:
+
+- **axe-core** - Integrated into our test suite
+- **Storybook a11y addon** - Visual accessibility checks
+- **Lighthouse** - Accessibility audits in CI/CD
+
+### Manual Testing
+
+Automated tests can't catch everything. We also:
+
+- Test with keyboard-only navigation
+- Test with screen readers (VoiceOver, NVDA, JAWS)
+- Test with browser zoom at 200%
+- Test with high contrast mode
+- Test with color blindness simulators
+
+### Testing Checklist
+
+<div style={{ marginTop: '24px', padding: '20px', backgroundColor: 'var(--sando-color-background-emphasis)', borderRadius: '8px' }}>
+
+- [ ] All interactive elements are keyboard accessible
+- [ ] Focus order is logical and intuitive
+- [ ] Focus indicators are visible
+- [ ] Color contrast meets requirements
+- [ ] Images have appropriate alt text
+- [ ] Form inputs have associated labels
+- [ ] Error messages are announced to screen readers
+- [ ] Modals trap and return focus correctly
+- [ ] Animations respect reduced motion preferences
+- [ ] Content is readable at 200% zoom
+
+</div>
+
+---
+
+## Resources
+
+### WCAG Guidelines
+
+- [WCAG 2.1 Quick Reference](https://www.w3.org/WAI/WCAG21/quickref/)
+- [Understanding WCAG 2.1](https://www.w3.org/WAI/WCAG21/Understanding/)
+
+### Testing Tools
+
+- [axe DevTools](https://www.deque.com/axe/devtools/)
+- [WAVE Evaluation Tool](https://wave.webaim.org/)
+- [Color Contrast Checker](https://webaim.org/resources/contrastchecker/)
+
+### Screen Readers
+
+- [VoiceOver (macOS/iOS)](https://support.apple.com/guide/voiceover/)
+- [NVDA (Windows)](https://www.nvaccess.org/)
+- [JAWS (Windows)](https://www.freedomscientific.com/products/software/jaws/)
+
+---
+
+## Reporting Issues
+
+Found an accessibility issue? Please report it:
+
+1. Open an issue on GitHub
+2. Include the component name and version
+3. Describe the accessibility barrier
+4. Include steps to reproduce
+5. Specify your assistive technology (if applicable)
+
+We treat accessibility issues as high-priority bugs.
+
+---
+
+## Related
+
+- [Color Ingredients](/docs/ingredients-color--docs) - Color system with accessibility notes
+- [Component Status](/docs/components-status--docs) - Accessibility audit status per component
+- [Best Practices](/docs/getting-started-best-practices--docs) - Development guidelines

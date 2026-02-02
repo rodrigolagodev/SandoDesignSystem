@@ -1,4 +1,5 @@
-import { Meta } from '@storybook/blocks';
+import { Meta } from "@storybook/blocks";
+import { TokenArchitecture } from "../components/TokenArchitecture";
 
 <Meta title="Getting Started/Theming" />
 
@@ -8,31 +9,14 @@ The Sando Design System uses a **3-layer token architecture** that enables flexi
 
 ## Architecture Overview
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│  RECIPES Layer (Component Tokens)                           │
-│  • Button, Card, Modal, etc.                                │
-│  • --sando-button-solid-backgroundColor-default             │
-└──────────────────────┬──────────────────────────────────────┘
-                       ↓ references
-┌─────────────────────────────────────────────────────────────┐
-│  FLAVORS Layer (Semantic Tokens) ← YOU ARE HERE            │
-│  • Original (Light), Original Dark, etc.                    │
-│  • --sando-color-action-solid-background-default           │
-└──────────────────────┬──────────────────────────────────────┘
-                       ↓ references
-┌─────────────────────────────────────────────────────────────┐
-│  INGREDIENTS Layer (Primitive Tokens)                       │
-│  • Colors, Spacing, Typography                              │
-│  • --sando-color-brand-700: #2563eb                        │
-└─────────────────────────────────────────────────────────────┘
-```
+<TokenArchitecture />
 
 ## Sando's Color Philosophy
 
 Sando provides **8 curated color palettes** + **3 neutral variants**, all scientifically designed using OKLCH for guaranteed accessibility and perceptual uniformity.
 
 **Why 8 palettes?**
+
 - ✅ Instant start (pick a palette, begin coding in 2 minutes)
 - ✅ Scientific design (OKLCH, perceptually uniform)
 - ✅ WCAG AA guaranteed (all palettes pass accessibility)
@@ -40,8 +24,12 @@ Sando provides **8 curated color palettes** + **3 neutral variants**, all scient
 
 ## Available Flavors
 
-### 🍓 Strawberry (Default - Orange-based)
-**Currently available** - The default light theme with:
+Each flavor is inspired by a type of Japanese Sando (sandwich), with colors that evoke its ingredients and visual appeal.
+
+### 🍞 Original (Default)
+
+The classic Sando theme with warm, toasted bread tones:
+
 - Warm backgrounds (`neutral-warm.100-200`)
 - Dark text (`neutral-warm.800-950`)
 - Orange brand colors for actions (`orange.600-800`)
@@ -49,38 +37,56 @@ Sando provides **8 curated color palettes** + **3 neutral variants**, all scient
 **Palette:** Orange + Neutral Warm
 **Use case:** Startups, creative agencies, food & beverage
 
-### 🌊 Ocean (Blue-based)
-**Coming soon** - Professional theme with:
-- Cool backgrounds (`neutral-cool.50-100`)
-- Dark text (`neutral-cool.900-950`)
-- Blue brand colors (`blue.600-800`)
+### 🥚 Egg Salad (Yellow-based)
 
-**Palette:** Blue + Neutral Cool
-**Use case:** SaaS, finance, healthcare, corporate
+Creamy egg salad vibes with soft yellow tones:
 
-### 🌲 Forest (Green-based)
-**Coming soon** - Natural, growth-focused theme with:
-- Neutral backgrounds (`neutral.50-100`)
-- Dark text (`neutral.900-950`)
+- Light warm backgrounds (`neutral-warm.50-100`)
+- Yellow primary actions (`yellow.500-700`)
+- Cream accents
+
+**Palette:** Yellow + Neutral Warm
+**Use case:** Food & beverage, lifestyle, friendly brands
+
+### 🍖 Tonkatsu (Brown-based)
+
+Crispy fried cutlet theme with rich brown tones:
+
+- Warm cream backgrounds (`neutral-warm.50-100`)
+- Brown brand colors (`brown.600-800`)
+- Golden accents
+
+**Palette:** Brown + Neutral Warm
+**Use case:** Artisanal, craft, premium products
+
+### 🍓 Strawberry (Red-based)
+
+Fresh strawberry cream theme with red and pink tones:
+
+- Light backgrounds (`neutral.50-100`)
+- Red primary actions (`red.500-700`)
+- Pink accents
+
+**Palette:** Red + Neutral
+**Use case:** Creative, playful, lifestyle brands
+
+### 🥝 Kiwi (Green-based)
+
+Vibrant kiwi fruit theme with fresh green tones:
+
+- Cool backgrounds (`neutral.50-100`)
 - Green brand colors (`green.600-800`)
+- Fresh accents
 
 **Palette:** Green + Neutral
-**Use case:** Sustainability, health & wellness, finance
-
-### 🌅 Sunset (Orange + Red)
-**Coming soon** - Vibrant, bold theme with:
-- Warm backgrounds (`neutral-warm.50-100`)
-- Orange primary actions (`orange.600`)
-- Red accent actions (`red.500`)
-
-**Palette:** Orange + Red + Neutral Warm
-**Use case:** Events, entertainment, creative work
+**Use case:** Sustainability, health & wellness, nature
 
 ## How to Switch Flavors
 
 ### In Storybook
 
 Use the **Flavor** toolbar button (🎨) at the top:
+
 - ☀️ Original (Light)
 - 🌙 Original Dark
 
@@ -89,15 +95,17 @@ The entire UI will update instantly!
 ### In Your Application
 
 #### Option 1: Static Import
+
 ```javascript
 // Light mode
-import '@sando/tokens/css/flavors/original.css';
+import "@sando/tokens/css/flavors/original.css";
 
 // Dark mode
-import '@sando/tokens/css/flavors/original-dark.css';
+import "@sando/tokens/css/flavors/original-dark.css";
 ```
 
 #### Option 2: Dynamic Switching
+
 ```javascript
 function setFlavor(flavor) {
   // Remove existing flavor
@@ -117,18 +125,19 @@ setFlavor('original-dark');
 ```
 
 #### Option 3: System Preference
+
 ```javascript
-const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
 
 function updateFlavor(e) {
-  setFlavor(e.matches ? 'original-dark' : 'original');
+  setFlavor(e.matches ? "original-dark" : "original");
 }
 
 // Initial
 updateFlavor(prefersDark);
 
 // Listen for changes
-prefersDark.addEventListener('change', updateFlavor);
+prefersDark.addEventListener("change", updateFlavor);
 ```
 
 ## Creating Custom Flavors
@@ -136,6 +145,7 @@ prefersDark.addEventListener('change', updateFlavor);
 ### Option 1: Using Our Curated Palettes (Recommended)
 
 1. **Create JSON file:**
+
 ```json
 // packages/tokens/src/flavors/lavender.json
 {
@@ -155,35 +165,60 @@ prefersDark.addEventListener('change', updateFlavor);
 ```
 
 2. **Build tokens:**
+
 ```bash
 cd packages/tokens
 pnpm build
 ```
 
 3. **Use your flavor:**
+
 ```javascript
-import '@sando/tokens/css/flavors/lavender.css';
+import "@sando/tokens/css/flavors/lavender.css";
 ```
 
 ### Option 2: Generate Brand-Specific Palette (Coming Soon)
 
-<div style={{ padding: '24px', background: '#FFF4E6', borderRadius: '8px', border: '2px solid #FFB020', marginTop: '24px' }}>
-  <h4 style={{ marginTop: 0, color: '#C77700' }}>⚠️ Flavor Generator - Coming Soon</h4>
+<div
+  style={{
+    padding: "24px",
+    background: "#FFF4E6",
+    borderRadius: "8px",
+    border: "2px solid #FFB020",
+    marginTop: "24px",
+  }}
+>
+  <h4 style={{ marginTop: 0, color: "#C77700" }}>
+    ⚠️ Flavor Generator - Coming Soon
+  </h4>
   <p>
-    If none of our 8 palettes match your exact brand color, we're building a flavor generator:
+    If none of our 8 palettes match your exact brand color, we're building a
+    flavor generator:
   </p>
-  <pre style={{ background: '#2D2D2D', color: '#E6E6E6', padding: '16px', borderRadius: '6px', overflow: 'auto' }}>
+  <pre
+    style={{
+      background: "#2D2D2D",
+      color: "#E6E6E6",
+      padding: "16px",
+      borderRadius: "6px",
+      overflow: "auto",
+    }}
+  >
     <code>npx @sando/flavor-generator create --color "#FF6B00"</code>
   </pre>
-  <p style={{ fontSize: '14px' }}>
-    <strong>What it does:</strong><br/>
-    • Generates a scientifically designed 11-step palette using OKLCH<br/>
-    • Validates WCAG AA accessibility automatically<br/>
-    • Creates light + dark mode flavor variants<br/>
-    • Outputs ready-to-use token files
+  <p style={{ fontSize: "14px" }}>
+    <strong>What it does:</strong>
+    <br />
+    • Generates a scientifically designed 11-step palette using OKLCH
+    <br />
+    • Validates WCAG AA accessibility automatically
+    <br />
+    • Creates light + dark mode flavor variants
+    <br />• Outputs ready-to-use token files
   </p>
-  <p style={{ fontSize: '14px', marginBottom: 0 }}>
-    <strong>Status:</strong> Under development | <strong>Timeline:</strong> Q2 2025 | <strong>Priority:</strong> High
+  <p style={{ fontSize: "14px", marginBottom: 0 }}>
+    <strong>Status:</strong> Under development | <strong>Timeline:</strong> Q2
+    2025 | <strong>Priority:</strong> High
   </p>
 </div>
 
@@ -203,12 +238,14 @@ All flavors expose the same CSS custom properties, so components work with any f
 ## Best Practices
 
 ### ✅ DO
+
 - Use semantic tokens from Flavors layer (`--sando-color-background-base`)
 - Test components in both light and dark modes
 - Ensure 4.5:1 contrast ratio for text
 - Provide flavor switching UI for users
 
 ### ❌ DON'T
+
 - Use primitive tokens directly (`--sando-color-neutral-700`) in components
 - Hard-code color values
 - Assume light mode only
@@ -217,6 +254,7 @@ All flavors expose the same CSS custom properties, so components work with any f
 ## Accessibility
 
 All flavors are designed to meet **WCAG 2.1 Level AA**:
+
 - Text contrast ratio ≥ 4.5:1
 - Interactive elements ≥ 3:1
 - Focus indicators clearly visible
@@ -232,6 +270,7 @@ All flavors are designed to meet **WCAG 2.1 Level AA**:
 ## Roadmap
 
 Future flavors planned:
+
 - 🎨 **High Contrast:** For accessibility
 - 🌈 **Colorful:** Vibrant palette
 - 💼 **Corporate:** Professional/neutral
@@ -239,4 +278,4 @@ Future flavors planned:
 
 ---
 
-**Questions?** Check out the [Design Tokens](/?path=/docs/foundation-design-tokens--docs) documentation.
+**Questions?** Check out the [Ingredients](/?path=/docs/ingredients-overview--docs) and [Flavors](/?path=/docs/flavors-overview--docs) documentation.

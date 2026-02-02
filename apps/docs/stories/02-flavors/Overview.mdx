@@ -67,29 +67,29 @@ Sando provides 5 pre-built flavor themes:
       <td>
         <strong>strawberry</strong>
       </td>
-      <td>Orange-based</td>
-      <td>Vibrant, fruity variation</td>
+      <td>Red</td>
+      <td>Vibrant, fruity, energetic</td>
     </tr>
     <tr>
       <td>
-        <strong>ocean</strong>
+        <strong>tonkatsu</strong>
       </td>
-      <td>Blue</td>
-      <td>Cool, calm, professional</td>
+      <td>Brown</td>
+      <td>Warm, earthy, grounded</td>
     </tr>
     <tr>
       <td>
-        <strong>forest</strong>
+        <strong>kiwi</strong>
       </td>
       <td>Green</td>
-      <td>Natural, fresh, growth-focused</td>
+      <td>Fresh, natural, growth-focused</td>
     </tr>
     <tr>
       <td>
-        <strong>sunset</strong>
+        <strong>egg-salad</strong>
       </td>
-      <td>Warm tones</td>
-      <td>Rich, dramatic, luxurious</td>
+      <td>Yellow</td>
+      <td>Bright, cheerful, inviting</td>
     </tr>
   </tbody>
 </table>
@@ -108,16 +108,16 @@ Use the `flavor` attribute on any container:
   <sando-input label="Name"></sando-input>
 </div>
 
-<!-- Apply Ocean flavor -->
-<div flavor="ocean">
-  <sando-button>Ocean Button</sando-button>
+<!-- Apply Tonkatsu flavor -->
+<div flavor="tonkatsu">
+  <sando-button>Tonkatsu Button</sando-button>
 </div>
 ```
 
 **Pro Tip**: Apply `flavor` at the highest container level to theme entire sections:
 
 ```html
-<div flavor="forest">
+<div flavor="kiwi">
   <header>...</header>
   <main>
     <sando-button>All themed</sando-button>
@@ -142,8 +142,8 @@ You don't need to write any mode-switching logic—it's automatic!
 <sando-button>Auto Dark Mode</sando-button>
 
 <!-- This works in ALL flavors -->
-<div flavor="ocean">
-  <sando-button>Auto Dark Mode (Ocean)</sando-button>
+<div flavor="tonkatsu">
+  <sando-button>Auto Dark Mode (Tonkatsu)</sando-button>
 </div>
 ```
 
@@ -295,7 +295,7 @@ button { background: var(--sando-button-solid-backgroundColor-default); }
 - [Spacing Roles](/?path=/docs/flavors-spacing-roles--docs) - Semantic spacing token reference
 - [Typography Roles](/?path=/docs/flavors-typography-roles--docs) - Semantic typography token reference
 - [Getting Started/Theming](/?path=/docs/getting-started-theming--docs) - Complete theming guide
-- [Recipes](/?path=/docs/recipes--docs) - Component-specific tokens
+- [Recipes](/?path=/docs/flavors-recipes--docs) - Component-specific tokens
 
 ---
 

@@ -157,7 +157,7 @@ describe('sando-input Accessibility', () => {
   });
 
   describe('flavors', () => {
-    const flavors = ['original', 'strawberry', 'ocean', 'forest', 'sunset'];
+    const flavors = ['original', 'strawberry', 'tonkatsu', 'kiwi', 'egg-salad'];
 
     flavors.forEach((flavor) => {
       it(`should pass a11y with ${flavor} flavor`, async () => {

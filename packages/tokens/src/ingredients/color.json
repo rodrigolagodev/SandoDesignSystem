@@ -616,6 +616,120 @@
         "type": "color",
         "description": "neutral-cool 950 | OKLCH(0.22, 0.018, 220)"
       }
+    },
+    "yellow": {
+      "50": {
+        "value": "hsl(50, 100%, 96%)",
+        "type": "color",
+        "description": "yellow 50 - Egg white cream | OKLCH(0.98, 0.06, 95)"
+      },
+      "100": {
+        "value": "hsl(48, 100%, 92%)",
+        "type": "color",
+        "description": "yellow 100 - Light yolk | OKLCH(0.95, 0.08, 95)"
+      },
+      "200": {
+        "value": "hsl(47, 100%, 82%)",
+        "type": "color",
+        "description": "yellow 200 - Soft yolk | OKLCH(0.90, 0.14, 95)"
+      },
+      "300": {
+        "value": "hsl(45, 100%, 70%)",
+        "type": "color",
+        "description": "yellow 300 - Golden yolk | OKLCH(0.82, 0.18, 95)"
+      },
+      "400": {
+        "value": "hsl(43, 96%, 58%)",
+        "type": "color",
+        "description": "yellow 400 - Rich yolk | OKLCH(0.73, 0.18, 95)"
+      },
+      "500": {
+        "value": "hsl(40, 92%, 50%)",
+        "type": "color",
+        "description": "yellow 500 - Deep yolk | OKLCH(0.64, 0.18, 95)"
+      },
+      "600": {
+        "value": "hsl(38, 88%, 42%)",
+        "type": "color",
+        "description": "yellow 600 - Amber | OKLCH(0.56, 0.16, 95)"
+      },
+      "700": {
+        "value": "hsl(35, 85%, 35%)",
+        "type": "color",
+        "description": "yellow 700 - Dark amber | OKLCH(0.47, 0.14, 95)"
+      },
+      "800": {
+        "value": "hsl(32, 80%, 26%)",
+        "type": "color",
+        "description": "yellow 800 - Bronze | OKLCH(0.38, 0.12, 95)"
+      },
+      "900": {
+        "value": "hsl(28, 75%, 20%)",
+        "type": "color",
+        "description": "yellow 900 - Deep bronze | OKLCH(0.30, 0.10, 95)"
+      },
+      "950": {
+        "value": "hsl(25, 70%, 13%)",
+        "type": "color",
+        "description": "yellow 950 - Dark brown | OKLCH(0.22, 0.08, 95)"
+      }
+    },
+    "brown": {
+      "50": {
+        "value": "hsl(35, 50%, 96%)",
+        "type": "color",
+        "description": "brown 50 - Cream panko | OKLCH(0.98, 0.02, 60)"
+      },
+      "100": {
+        "value": "hsl(33, 45%, 91%)",
+        "type": "color",
+        "description": "brown 100 - Light bread | OKLCH(0.95, 0.03, 60)"
+      },
+      "200": {
+        "value": "hsl(30, 40%, 82%)",
+        "type": "color",
+        "description": "brown 200 - Toast | OKLCH(0.90, 0.06, 60)"
+      },
+      "300": {
+        "value": "hsl(28, 38%, 68%)",
+        "type": "color",
+        "description": "brown 300 - Golden crust | OKLCH(0.82, 0.08, 60)"
+      },
+      "400": {
+        "value": "hsl(25, 42%, 55%)",
+        "type": "color",
+        "description": "brown 400 - Crispy panko | OKLCH(0.73, 0.10, 60)"
+      },
+      "500": {
+        "value": "hsl(22, 45%, 45%)",
+        "type": "color",
+        "description": "brown 500 - Fried crust | OKLCH(0.64, 0.10, 60)"
+      },
+      "600": {
+        "value": "hsl(20, 48%, 38%)",
+        "type": "color",
+        "description": "brown 600 - Deep fried | OKLCH(0.56, 0.10, 60)"
+      },
+      "700": {
+        "value": "hsl(18, 50%, 30%)",
+        "type": "color",
+        "description": "brown 700 - Dark crust | OKLCH(0.47, 0.09, 60)"
+      },
+      "800": {
+        "value": "hsl(16, 45%, 23%)",
+        "type": "color",
+        "description": "brown 800 - Tonkatsu sauce | OKLCH(0.38, 0.07, 60)"
+      },
+      "900": {
+        "value": "hsl(14, 40%, 17%)",
+        "type": "color",
+        "description": "brown 900 - Dark sauce | OKLCH(0.30, 0.06, 60)"
+      },
+      "950": {
+        "value": "hsl(12, 35%, 11%)",
+        "type": "color",
+        "description": "brown 950 - Deep brown | OKLCH(0.22, 0.04, 60)"
+      }
     }
   }
 }

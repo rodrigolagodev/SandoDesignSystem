@@ -1,0 +1,285 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Flavors/Recipes" />
+
+# Recipes (Component Tokens)
+
+**Recipes** are the third and final layer of Sando's token architecture. They define component-specific tokens that consume Flavors (semantic tokens) and provide the most granular level of customization.
+
+## The 3-Layer Architecture
+
+Sando's token system follows a clear hierarchy:
+
+```
+Layer 1: Ingredients (Primitives)
+   ↓ referenced by
+Layer 2: Flavors (Semantic)
+   ↓ referenced by
+Layer 3: Recipes (Component-Specific) ← YOU ARE HERE
+```
+
+### How It Works
+
+1. **Ingredients** define raw values (colors, spacing, typography scales)
+2. **Flavors** add semantic meaning (action colors, background roles, text hierarchy)
+3. **Recipes** apply those semantics to specific components (button backgrounds, input borders)
+
+---
+
+## What Are Recipe Tokens?
+
+Recipe tokens are component-specific CSS custom properties that define every visual aspect of a component. They follow a consistent naming convention:
+
+```
+--sando-{component}-{variant}-{property}-{state}
+```
+
+### Examples
+
+```css
+/* Button Recipe Tokens */
+--sando-button-solid-backgroundColor-default
+--sando-button-solid-backgroundColor-hover
+--sando-button-solid-backgroundColor-active
+--sando-button-solid-backgroundColor-disabled
+--sando-button-solid-textColor-default
+--sando-button-solid-borderRadius
+
+/* Input Recipe Tokens */
+--sando-input-backgroundColor-default
+--sando-input-backgroundColor-focus
+--sando-input-borderColor-default
+--sando-input-borderColor-error
+--sando-input-textColor-placeholder
+```
+
+---
+
+## Token Flow Example
+
+Here's how a button's background color flows through all three layers:
+
+<div style={{ marginTop: '24px', padding: '24px', backgroundColor: 'var(--sando-color-background-emphasis)', borderRadius: '12px' }}>
+
+### Layer 1: Ingredient (Primitive)
+
+```css
+--sando-color-orange-700: oklch(67.88% 0.166 42.39);
+```
+
+### Layer 2: Flavor (Semantic)
+
+```css
+--sando-color-action-solid-background-default: var(--sando-color-orange-700);
+```
+
+### Layer 3: Recipe (Component-Specific)
+
+```css
+--sando-button-solid-backgroundColor-default: var(
+  --sando-color-action-solid-background-default
+);
+```
+
+### Component Usage
+
+```css
+.sando-button[variant="solid"] {
+  background-color: var(--sando-button-solid-backgroundColor-default);
+}
+```
+
+</div>
+
+---
+
+## Why Use Recipes?
+
+### 1. Granular Control
+
+Recipes let you customize a single component without affecting others:
+
+```css
+/* Only changes button backgrounds, not other solid actions */
+:root {
+  --sando-button-solid-backgroundColor-default: var(--sando-color-purple-600);
+}
+```
+
+### 2. State Management
+
+Each component state has its own token:
+
+```css
+/* Button states */
+--sando-button-solid-backgroundColor-default   /* Normal state */
+--sando-button-solid-backgroundColor-hover     /* Mouse hover */
+--sando-button-solid-backgroundColor-active    /* Being pressed */
+--sando-button-solid-backgroundColor-focus     /* Keyboard focus */
+--sando-button-solid-backgroundColor-disabled  /* Disabled state */
+```
+
+### 3. Variant Support
+
+Different component variants have separate token sets:
+
+```css
+/* Solid variant */
+--sando-button-solid-backgroundColor-default
+--sando-button-solid-textColor-default
+
+/* Outline variant */
+--sando-button-outline-borderColor-default
+--sando-button-outline-textColor-default
+
+/* Ghost variant */
+--sando-button-ghost-backgroundColor-hover
+--sando-button-ghost-textColor-default
+```
+
+---
+
+## Available Recipe Categories
+
+### Button Recipes
+
+<div style={{ overflowX: 'auto' }}>
+
+| Token                                    | Description              |
+| ---------------------------------------- | ------------------------ |
+| `--sando-button-solid-backgroundColor-*` | Solid button backgrounds |
+| `--sando-button-solid-textColor-*`       | Solid button text colors |
+| `--sando-button-outline-borderColor-*`   | Outline button borders   |
+| `--sando-button-ghost-backgroundColor-*` | Ghost button backgrounds |
+| `--sando-button-borderRadius`            | Button corner rounding   |
+| `--sando-button-padding-*`               | Button internal spacing  |
+
+</div>
+
+### Input Recipes
+
+<div style={{ overflowX: 'auto' }}>
+
+| Token                             | Description             |
+| --------------------------------- | ----------------------- |
+| `--sando-input-backgroundColor-*` | Input field backgrounds |
+| `--sando-input-borderColor-*`     | Input field borders     |
+| `--sando-input-textColor-*`       | Input text colors       |
+| `--sando-input-borderRadius`      | Input corner rounding   |
+| `--sando-input-padding-*`         | Input internal spacing  |
+
+</div>
+
+### Card Recipes (Planned)
+
+<div style={{ overflowX: 'auto' }}>
+
+| Token                          | Description           |
+| ------------------------------ | --------------------- |
+| `--sando-card-backgroundColor` | Card surface color    |
+| `--sando-card-borderColor`     | Card border color     |
+| `--sando-card-borderRadius`    | Card corner rounding  |
+| `--sando-card-elevation`       | Card shadow level     |
+| `--sando-card-padding`         | Card internal spacing |
+
+</div>
+
+---
+
+## Creating Custom Recipes
+
+You can override Recipe tokens to customize components:
+
+```css
+/* Custom button styling */
+[flavor="custom"] {
+  /* Override at the Recipe level */
+  --sando-button-solid-backgroundColor-default: var(--sando-color-purple-600);
+  --sando-button-solid-backgroundColor-hover: var(--sando-color-purple-700);
+  --sando-button-borderRadius: var(--sando-border-radius-full);
+}
+```
+
+---
+
+## Best Practices
+
+### DO Use Recipes For
+
+- Component-specific customizations
+- State-based styling (hover, focus, disabled)
+- Variant-specific overrides
+- Fine-grained theming control
+
+### DON'T Use Recipes For
+
+- Global theming (use Flavors instead)
+- Primitive value definitions (use Ingredients)
+- Non-component styling (use Flavors)
+
+---
+
+## Relationship to Other Layers
+
+<div
+  style={{
+    marginTop: "24px",
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+    gap: "16px",
+  }}
+>
+  <div
+    style={{
+      padding: "20px",
+      backgroundColor: "var(--sando-color-background-raised)",
+      borderRadius: "8px",
+      border: "1px solid var(--sando-color-border-muted)",
+    }}
+  >
+    <h4 style={{ marginTop: 0 }}>Ingredients</h4>
+    <p style={{ fontSize: "14px", marginBottom: 0 }}>
+      Raw design primitives. Change these to update your entire color palette,
+      spacing scale, or typography.
+    </p>
+  </div>
+
+  <div
+    style={{
+      padding: "20px",
+      backgroundColor: "var(--sando-color-background-raised)",
+      borderRadius: "8px",
+      border: "1px solid var(--sando-color-border-muted)",
+    }}
+  >
+    <h4 style={{ marginTop: 0 }}>Flavors</h4>
+    <p style={{ fontSize: "14px", marginBottom: 0 }}>
+      Semantic tokens. Change these to retheme categories of UI (all actions,
+      all backgrounds, all text).
+    </p>
+  </div>
+
+  <div
+    style={{
+      padding: "20px",
+      backgroundColor: "var(--sando-color-brand-100)",
+      borderRadius: "8px",
+      border: "2px solid var(--sando-color-brand-500)",
+    }}
+  >
+    <h4 style={{ marginTop: 0 }}>Recipes</h4>
+    <p style={{ fontSize: "14px", marginBottom: 0 }}>
+      Component tokens. Change these to customize specific components without
+      affecting others.
+    </p>
+  </div>
+</div>
+
+---
+
+## Related
+
+- [Ingredients Overview](/docs/ingredients-overview--docs) - Primitive design tokens
+- [Flavors Overview](/docs/flavors-overview--docs) - Semantic token layer
+- [Color Roles](/docs/flavors-color-roles--docs) - Semantic color reference
+- [Components Overview](/docs/components-overview--docs) - Component documentation

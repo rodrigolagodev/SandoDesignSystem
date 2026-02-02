@@ -8,10 +8,13 @@ Sando separates theming into two independent concepts:
 
 ### Flavors (Color Palettes)
 
-**Flavors** are complete color palettes - think of them as different "brands" or "themes":
+**Flavors** are complete color palettes inspired by types of Japanese Sando (sandwich):
 
-- `original` - The default Sando flavor (neutral-based) ✅ **Available**
-- `strawberry` (orange-based), `ocean` (blue-based), `forest` (green-based), `sunset` (orange+warm) ✅ **Available**
+- `original` 🍞 - Tonos naranjas cálidos (pan tostado) - **Default**
+- `strawberry` 🍓 - Tonos rojos (fresa fresca)
+- `egg-salad` 🥚 - Tonos amarillos (yema de huevo)
+- `tonkatsu` 🍖 - Tonos marrones (carne empanizada)
+- `kiwi` 🥝 - Tonos verdes (fruta kiwi)
 
 Flavors are built from our **8 curated color palettes**: orange, blue, green, red, purple, pink + 3 neutral variants (neutral, neutral-warm, neutral-cool).
 
