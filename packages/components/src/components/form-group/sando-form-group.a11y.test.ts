@@ -3,14 +3,10 @@
  * Uses axe-core for WCAG compliance testing
  */
 
-import { describe, it, expect } from 'vitest';
 import { fixture, html } from '@open-wc/testing';
-import { axe, toHaveNoViolations } from 'jest-axe';
+import { axe } from 'jest-axe';
 import './sando-form-group.js';
 import type { SandoFormGroup } from './sando-form-group.js';
-
-// Extend expect matchers
-expect.extend(toHaveNoViolations);
 
 describe('sando-form-group Accessibility', () => {
   it('should pass axe accessibility tests - default state', async () => {

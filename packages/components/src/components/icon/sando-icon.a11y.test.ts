@@ -3,14 +3,10 @@
  * Uses axe-core for WCAG compliance testing
  */
 
-import { describe, it, expect } from 'vitest';
 import { fixture, html } from '@open-wc/testing';
-import { axe, toHaveNoViolations } from 'jest-axe';
+import { axe } from 'jest-axe';
 import './sando-icon.js';
 import type { SandoIcon } from './sando-icon.js';
-
-// Extend expect matchers
-expect.extend(toHaveNoViolations);
 
 describe('sando-icon Accessibility', () => {
   describe('semantic icons', () => {

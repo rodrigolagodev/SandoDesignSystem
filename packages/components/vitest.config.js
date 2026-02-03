@@ -45,6 +45,7 @@ export default defineConfig({
     testTimeout: 10000,
     include: ['src/**/*.test.ts', 'src/**/*.a11y.test.ts'],
     exclude: ['node_modules/**', 'dist/**', '**/*.spec.ts'],
+    setupFiles: ['./src/test/vitest.setup.ts'],
 
     // Reporter: 'default' muestra resumen limpio, 'verbose' muestra cada test
     reporter: process.env.VITEST_REPORTER || 'default',

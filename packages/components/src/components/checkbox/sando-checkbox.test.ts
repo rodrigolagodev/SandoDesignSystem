@@ -3,7 +3,6 @@
  * Comprehensive tests covering rendering, properties, events, keyboard navigation, and form integration
  */
 
-import { describe, it, expect, beforeEach } from 'vitest';
 import { fixture, html, expect as expectWc } from '@open-wc/testing';
 import './sando-checkbox.js';
 import type { SandoCheckbox } from './sando-checkbox.js';
