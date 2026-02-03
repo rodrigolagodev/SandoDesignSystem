@@ -44,6 +44,18 @@ const meta: Meta = {
     ></sando-checkbox>
   `,
   argTypes: {
+    // 1. Theming (ALWAYS first)
+    flavor: {
+      control: 'select',
+      options: ['original', 'strawberry', 'tonkatsu', 'kiwi', 'egg-salad'],
+      description: 'Design system flavor/theme',
+      table: {
+        category: 'Theming',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'original' }
+      }
+    },
+    // 2. Appearance
     variant: {
       control: 'select',
       options: ['solid', 'outline'],
@@ -64,6 +76,32 @@ const meta: Meta = {
         defaultValue: { summary: 'medium' }
       }
     },
+    // 3. Content
+    label: {
+      control: 'text',
+      description: 'Label text for the checkbox',
+      table: {
+        category: 'Content',
+        type: { summary: 'string' }
+      }
+    },
+    helperText: {
+      control: 'text',
+      description: 'Helper text displayed below the checkbox',
+      table: {
+        category: 'Content',
+        type: { summary: 'string' }
+      }
+    },
+    errorText: {
+      control: 'text',
+      description: 'Error message displayed when error is true',
+      table: {
+        category: 'Content',
+        type: { summary: 'string' }
+      }
+    },
+    // 4. State
     checked: {
       control: 'boolean',
       description: 'Whether the checkbox is checked',
@@ -109,6 +147,7 @@ const meta: Meta = {
         defaultValue: { summary: 'false' }
       }
     },
+    // 5. Form
     name: {
       control: 'text',
       description: 'Form field name',
@@ -124,40 +163,6 @@ const meta: Meta = {
         category: 'Form',
         type: { summary: 'string' },
         defaultValue: { summary: 'on' }
-      }
-    },
-    label: {
-      control: 'text',
-      description: 'Label text for the checkbox',
-      table: {
-        category: 'Content',
-        type: { summary: 'string' }
-      }
-    },
-    helperText: {
-      control: 'text',
-      description: 'Helper text displayed below the checkbox',
-      table: {
-        category: 'Content',
-        type: { summary: 'string' }
-      }
-    },
-    errorText: {
-      control: 'text',
-      description: 'Error message displayed when error is true',
-      table: {
-        category: 'Content',
-        type: { summary: 'string' }
-      }
-    },
-    flavor: {
-      control: 'select',
-      options: ['original', 'strawberry', 'tonkatsu', 'kiwi', 'egg-salad'],
-      description: 'Design system flavor/theme',
-      table: {
-        category: 'Theming',
-        type: { summary: 'string' },
-        defaultValue: { summary: 'original' }
       }
     }
   },

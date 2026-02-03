@@ -30,19 +30,24 @@ const meta: Meta = {
   component: 'sando-form-group',
   tags: ['autodocs', 'beta'],
   argTypes: {
+    // 1. Theming (ALWAYS first)
+    flavor: {
+      control: 'select',
+      options: ['original', 'strawberry', 'tonkatsu', 'kiwi', 'egg-salad'],
+      description: 'Design system flavor/theme',
+      table: {
+        category: 'Theming',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'original' }
+      }
+    },
+    // 2. Content
     label: {
       control: 'text',
       description: 'Label text for the form field',
       table: {
         category: 'Content',
-        defaultValue: { summary: 'undefined' }
-      }
-    },
-    error: {
-      control: 'text',
-      description: 'Error message to display (shows error state)',
-      table: {
-        category: 'State',
+        type: { summary: 'string' },
         defaultValue: { summary: 'undefined' }
       }
     },
@@ -51,6 +56,17 @@ const meta: Meta = {
       description: 'Helper text to display below the field',
       table: {
         category: 'Content',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'undefined' }
+      }
+    },
+    // 3. State
+    error: {
+      control: 'text',
+      description: 'Error message to display (shows error state)',
+      table: {
+        category: 'State',
+        type: { summary: 'string' },
         defaultValue: { summary: 'undefined' }
       }
     },
@@ -59,11 +75,13 @@ const meta: Meta = {
       description: 'Whether the field is required (shows asterisk)',
       table: {
         category: 'State',
+        type: { summary: 'boolean' },
         defaultValue: { summary: 'false' }
       }
     }
   },
   args: {
+    flavor: 'original',
     label: 'Email',
     helperText: '',
     error: '',
@@ -86,7 +104,11 @@ const DOCS_ONLY = ['!dev', '!autodocs'];
  */
 export const Default: Story = {
   render: (args) => html`
-    <sando-form-group label=${args.label || ''} ?required=${args.required}>
+    <sando-form-group
+      flavor="${args.flavor || 'original'}"
+      label=${args.label || ''}
+      ?required=${args.required}
+    >
       <input type="text" placeholder="Enter text..." />
     </sando-form-group>
   `
@@ -98,6 +120,7 @@ export const Default: Story = {
 export const Playground: Story = {
   render: (args) => html`
     <sando-form-group
+      flavor="${args.flavor || 'original'}"
       label=${args.label || ''}
       helperText=${args.helperText || ''}
       error=${args.error || ''}

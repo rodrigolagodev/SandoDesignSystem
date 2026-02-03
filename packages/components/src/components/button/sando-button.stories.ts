@@ -190,7 +190,8 @@ const meta: Meta = {
       control: 'text',
       description: 'Button text content',
       table: {
-        category: 'Content'
+        category: 'Content',
+        type: { summary: 'string' }
       }
     },
     iconStart: {
@@ -214,7 +215,8 @@ const meta: Meta = {
       ],
       description: 'Icon at start (Lucide icon name)',
       table: {
-        category: 'Content'
+        category: 'Content',
+        type: { summary: 'string' }
       }
     },
     iconEnd: {
@@ -232,7 +234,8 @@ const meta: Meta = {
       ],
       description: 'Icon at end (Lucide icon name)',
       table: {
-        category: 'Content'
+        category: 'Content',
+        type: { summary: 'string' }
       }
     }
   },

@@ -30,12 +30,25 @@ const meta: Meta = {
   component: 'sando-input',
   tags: ['autodocs', 'stable'],
   argTypes: {
+    // 1. Theming (ALWAYS first)
+    flavor: {
+      control: 'select',
+      options: ['original', 'strawberry', 'tonkatsu', 'kiwi', 'egg-salad'],
+      description: 'Design system flavor/theme',
+      table: {
+        category: 'Theming',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'original' }
+      }
+    },
+    // 2. Appearance
     variant: {
       control: 'select',
       options: ['outlined', 'filled'],
       description: 'Visual style of the input',
       table: {
         category: 'Appearance',
+        type: { summary: "'outlined' | 'filled'" },
         defaultValue: { summary: 'filled' }
       }
     },
@@ -45,58 +58,58 @@ const meta: Meta = {
       description: 'Size of the input',
       table: {
         category: 'Appearance',
+        type: { summary: "'small' | 'medium' | 'large'" },
         defaultValue: { summary: 'medium' }
       }
     },
-    type: {
-      control: 'select',
-      options: ['text', 'email', 'password', 'number', 'tel', 'url', 'search'],
-      description: 'HTML input type',
+    // 3. Content
+    label: {
+      control: 'text',
+      description: 'Accessible label for the input',
       table: {
         category: 'Content',
-        defaultValue: { summary: 'text' }
-      }
-    },
-    value: {
-      control: 'text',
-      description: 'Input value',
-      table: {
-        category: 'Content'
+        type: { summary: 'string' }
       }
     },
     placeholder: {
       control: 'text',
       description: 'Placeholder text',
       table: {
-        category: 'Content'
+        category: 'Content',
+        type: { summary: 'string' }
       }
     },
-    label: {
+    value: {
       control: 'text',
-      description: 'Accessible label for the input',
+      description: 'Input value',
       table: {
-        category: 'Content'
+        category: 'Content',
+        type: { summary: 'string' }
       }
     },
     helperText: {
       control: 'text',
       description: 'Helper text displayed below input',
       table: {
-        category: 'Content'
+        category: 'Content',
+        type: { summary: 'string' }
       }
     },
     errorText: {
       control: 'text',
       description: 'Error message when error is true',
       table: {
-        category: 'Content'
+        category: 'Content',
+        type: { summary: 'string' }
       }
     },
+    // 4. State
     disabled: {
       control: 'boolean',
       description: 'Whether the input is disabled',
       table: {
         category: 'State',
+        type: { summary: 'boolean' },
         defaultValue: { summary: 'false' }
       }
     },
@@ -105,6 +118,7 @@ const meta: Meta = {
       description: 'Whether the input is readonly',
       table: {
         category: 'State',
+        type: { summary: 'boolean' },
         defaultValue: { summary: 'false' }
       }
     },
@@ -113,6 +127,7 @@ const meta: Meta = {
       description: 'Whether the input is required',
       table: {
         category: 'State',
+        type: { summary: 'boolean' },
         defaultValue: { summary: 'false' }
       }
     },
@@ -121,17 +136,19 @@ const meta: Meta = {
       description: 'Whether the input has an error',
       table: {
         category: 'State',
+        type: { summary: 'boolean' },
         defaultValue: { summary: 'false' }
       }
     },
-    flavor: {
+    // 5. HTML
+    type: {
       control: 'select',
-      options: ['original', 'strawberry', 'tonkatsu', 'kiwi', 'egg-salad'],
-      description: 'Design system flavor/theme',
+      options: ['text', 'email', 'password', 'number', 'tel', 'url', 'search'],
+      description: 'HTML input type',
       table: {
-        category: 'Theming',
-        type: { summary: 'string' },
-        defaultValue: { summary: 'original' }
+        category: 'HTML',
+        type: { summary: "'text' | 'email' | 'password' | 'number' | 'tel' | 'url' | 'search'" },
+        defaultValue: { summary: 'text' }
       }
     }
   },
