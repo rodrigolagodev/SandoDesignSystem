@@ -1,297 +1,40 @@
 /**
  * Storybook Preview Global Styles
  *
- * Applies design system tokens to the Storybook preview iframe
- * All colors use CSS custom properties for proper theme/mode switching
+ * Applies Storybook-specific layout and MDX documentation styles.
+ * 
+ * IMPORTANT: This file does NOT contain any --sando-* token overrides.
+ * All component tokens come exclusively from the generated CSS in:
+ *   packages/tokens/dist/sando-tokens/css/
  *
  * Includes:
- * - Base styles for html/body
- * - Color mode overrides (for manual testing)
+ * - Base styles for html/body (layout only)
  * - MDX documentation styles (always light for readability)
  * - Table, badge, and code block styles
+ * - Demo box classes for visual examples
  *
  * ============================================================
- * IMPORTANT: Token Usage Rules for MDX Documentation
+ * Token Usage Rules
  * ============================================================
  *
- * MDX documentation pages MUST use --sb-docs-* tokens for ALL colors.
- * This ensures docs remain readable regardless of the color mode setting.
+ * Components: Use --sando-* tokens from dist CSS files
+ * MDX docs: Use --sb-docs-* tokens defined in this file
  *
- * ✅ CORRECT (use these in MDX):
+ * ✅ CORRECT (for MDX docs):
  *   color: var(--sb-docs-text-caption)
  *   background: var(--sb-docs-bg-emphasis)
- *   border-color: var(--sb-docs-border)
  *
- * ❌ INCORRECT (do NOT use these in MDX for UI colors):
- *   color: var(--sando-color-text-caption)
- *   background: var(--sando-color-background-emphasis)
+ * ✅ CORRECT (for components - consumed from dist):
+ *   color: var(--sando-color-action-outline-text-default)
  *
- * EXCEPTION: Use --sando-* tokens when DEMONSTRATING that specific token,
- * e.g., showing a color swatch with backgroundColor: var(--sando-color-orange-700)
- *
- * Token Mapping:
- * | Sando Token (avoid)                  | SB Docs Token (use)       |
+ * Token Mapping (for MDX only):
+ * | Sando Token (components)             | SB Docs Token (MDX)       |
  * |--------------------------------------|---------------------------|
  * | --sando-color-text-heading           | --sb-docs-text-heading    |
  * | --sando-color-text-body              | --sb-docs-text-body       |
- * | --sando-color-text-caption           | --sb-docs-text-caption    |
- * | --sando-color-text-muted             | --sb-docs-text-muted      |
  * | --sando-color-background-base        | --sb-docs-bg-base         |
- * | --sando-color-background-surface     | --sb-docs-bg-surface      |
- * | --sando-color-background-raised      | --sb-docs-bg-raised       |
- * | --sando-color-background-emphasis    | --sb-docs-bg-emphasis     |
  * | --sando-color-border-muted           | --sb-docs-border          |
- * | --sando-color-border-default         | --sb-docs-border-emphasis |
  */
-
-/* ========================================
-   Color Mode Override System
-   
-   These rules allow manual color mode switching in Storybook.
-   They use higher specificity to override @media queries.
-   
-   @storybook/addon-themes sets the data-color-mode attribute
-   on the html element BEFORE stories render, preventing flickering.
-   
-   data-color-mode="" (empty) → Auto mode, follow system preference
-   data-color-mode="light" → Force light mode
-   data-color-mode="dark" → Force dark mode
-   data-color-mode="high-contrast" → Force high contrast
-   
-   When data-color-mode is empty or absent, CSS @media queries work naturally.
-   This is the "Auto" mode - it respects the user's system preference.
-   ======================================== */
-
-/* -----------------------------------------
-   LIGHT MODE - Force light regardless of system
-   ----------------------------------------- */
-html[data-color-mode="light"] {
-  /* Background tokens */
-  --sando-color-background-base: var(--sando-color-neutralWarm-100);
-  --sando-color-background-surface: var(--sando-color-neutralWarm-200);
-  --sando-color-background-raised: var(--sando-color-utility-white);
-  --sando-color-background-overlay: var(--sando-color-neutralWarm-900);
-  --sando-color-background-emphasis: var(--sando-color-neutralWarm-300);
-
-  /* Text tokens */
-  --sando-color-text-heading: var(--sando-color-neutralWarm-950);
-  --sando-color-text-body: var(--sando-color-neutralWarm-800);
-  --sando-color-text-caption: var(--sando-color-neutralWarm-700);
-  --sando-color-text-muted: var(--sando-color-neutralWarm-600);
-  --sando-color-text-on-solid: var(--sando-color-neutralWarm-100);
-
-  /* Link tokens */
-  --sando-color-text-link-default: var(--sando-color-orange-700);
-  --sando-color-text-link-hover: var(--sando-color-orange-800);
-  --sando-color-text-link-active: var(--sando-color-orange-900);
-  --sando-color-text-link-visited: var(--sando-color-orange-950);
-  --sando-color-text-link-focus: var(--sando-color-orange-700);
-
-  /* Icon tokens */
-  --sando-color-icon-default: var(--sando-color-neutralWarm-700);
-  --sando-color-icon-muted: var(--sando-color-neutralWarm-500);
-  --sando-color-icon-emphasis: var(--sando-color-neutralWarm-900);
-  --sando-color-icon-interactive: var(--sando-color-orange-700);
-  --sando-color-icon-on-solid: var(--sando-color-neutralWarm-100);
-
-  /* Border tokens */
-  --sando-color-border-muted: var(--sando-color-neutralWarm-300);
-  --sando-color-border-default: var(--sando-color-neutralWarm-400);
-  --sando-color-border-emphasis: var(--sando-color-orange-700);
-
-  /* Focus tokens */
-  --sando-color-focus-ring: var(--sando-color-orange-600);
-  --sando-color-focus-ring-offset: var(--sando-color-neutralWarm-100);
-  --sando-color-focus-background: var(--sando-color-orange-50);
-  --sando-color-focus-text: var(--sando-color-orange-900);
-
-  /* Action tokens */
-  --sando-color-action-solid-background-default: var(--sando-color-orange-700);
-  --sando-color-action-solid-background-hover: var(--sando-color-orange-800);
-  --sando-color-action-solid-text-default: var(--sando-color-neutralWarm-100);
-  --sando-color-action-outline-border-default: var(
-    --sando-color-neutralWarm-400
-  );
-  --sando-color-action-outline-border-hover: var(--sando-color-orange-700);
-  --sando-color-action-outline-text-default: var(--sando-color-neutralWarm-800);
-  --sando-color-action-ghost-background-hover: var(
-    --sando-color-neutralWarm-300
-  );
-  --sando-color-action-ghost-text-default: var(--sando-color-neutralWarm-800);
-  --sando-color-action-disabled-background: var(--sando-color-neutralWarm-200);
-  --sando-color-action-disabled-text: var(--sando-color-neutralWarm-500);
-  --sando-color-action-disabled-border: var(--sando-color-neutralWarm-300);
-
-  /* State tokens */
-  --sando-color-state-success-background: var(--sando-color-state-success-100);
-  --sando-color-state-success-text: var(--sando-color-state-success-700);
-  --sando-color-state-success-border: var(--sando-color-state-success-400);
-  --sando-color-state-destructive-background: var(
-    --sando-color-state-error-100
-  );
-  --sando-color-state-destructive-text: var(--sando-color-state-error-700);
-  --sando-color-state-destructive-border: var(--sando-color-state-error-400);
-
-  /* Selection tokens */
-  --sando-color-selection-background: var(--sando-color-orange-200);
-  --sando-color-selection-text: var(--sando-color-neutralWarm-950);
-}
-
-/* -----------------------------------------
-   DARK MODE - Force dark regardless of system
-   ----------------------------------------- */
-html[data-color-mode="dark"] {
-  /* Background tokens */
-  --sando-color-background-base: var(--sando-color-neutralWarm-950);
-  --sando-color-background-surface: var(--sando-color-neutralWarm-900);
-  --sando-color-background-raised: var(--sando-color-neutralWarm-800);
-  --sando-color-background-overlay: var(--sando-color-neutralWarm-950);
-  --sando-color-background-emphasis: var(--sando-color-neutralWarm-700);
-
-  /* Text tokens */
-  --sando-color-text-heading: var(--sando-color-neutralWarm-50);
-  --sando-color-text-body: var(--sando-color-neutralWarm-200);
-  --sando-color-text-caption: var(--sando-color-neutralWarm-400);
-  --sando-color-text-muted: var(--sando-color-neutralWarm-500);
-  --sando-color-text-on-solid: var(--sando-color-neutralWarm-950);
-
-  /* Link tokens */
-  --sando-color-text-link-default: var(--sando-color-orange-400);
-  --sando-color-text-link-hover: var(--sando-color-orange-300);
-  --sando-color-text-link-active: var(--sando-color-orange-200);
-  --sando-color-text-link-visited: var(--sando-color-orange-500);
-  --sando-color-text-link-focus: var(--sando-color-orange-400);
-
-  /* Icon tokens */
-  --sando-color-icon-default: var(--sando-color-neutralWarm-400);
-  --sando-color-icon-muted: var(--sando-color-neutralWarm-500);
-  --sando-color-icon-emphasis: var(--sando-color-neutralWarm-100);
-  --sando-color-icon-interactive: var(--sando-color-orange-400);
-  --sando-color-icon-on-solid: var(--sando-color-neutralWarm-950);
-
-  /* Border tokens */
-  --sando-color-border-muted: var(--sando-color-neutralWarm-700);
-  --sando-color-border-default: var(--sando-color-neutralWarm-600);
-  --sando-color-border-emphasis: var(--sando-color-orange-400);
-
-  /* Focus tokens */
-  --sando-color-focus-ring: var(--sando-color-orange-400);
-  --sando-color-focus-ring-offset: var(--sando-color-neutralWarm-950);
-  --sando-color-focus-background: var(--sando-color-orange-950);
-  --sando-color-focus-text: var(--sando-color-orange-100);
-
-  /* Action tokens */
-  --sando-color-action-solid-background-default: var(--sando-color-orange-600);
-  --sando-color-action-solid-background-hover: var(--sando-color-orange-500);
-  --sando-color-action-solid-text-default: var(--sando-color-neutralWarm-950);
-  --sando-color-action-outline-border-default: var(
-    --sando-color-neutralWarm-600
-  );
-  --sando-color-action-outline-border-hover: var(--sando-color-orange-400);
-  --sando-color-action-outline-text-default: var(--sando-color-neutralWarm-200);
-  --sando-color-action-ghost-background-hover: var(
-    --sando-color-neutralWarm-800
-  );
-  --sando-color-action-ghost-text-default: var(--sando-color-neutralWarm-200);
-  --sando-color-action-disabled-background: var(--sando-color-neutralWarm-800);
-  --sando-color-action-disabled-text: var(--sando-color-neutralWarm-600);
-  --sando-color-action-disabled-border: var(--sando-color-neutralWarm-700);
-
-  /* State tokens */
-  --sando-color-state-success-background: var(--sando-color-state-success-900);
-  --sando-color-state-success-text: var(--sando-color-state-success-300);
-  --sando-color-state-success-border: var(--sando-color-state-success-600);
-  --sando-color-state-destructive-background: var(
-    --sando-color-state-error-900
-  );
-  --sando-color-state-destructive-text: var(--sando-color-state-error-300);
-  --sando-color-state-destructive-border: var(--sando-color-state-error-600);
-
-  /* Selection tokens */
-  --sando-color-selection-background: var(--sando-color-orange-800);
-  --sando-color-selection-text: var(--sando-color-neutralWarm-50);
-}
-
-/* -----------------------------------------
-   HIGH CONTRAST MODE - Force high contrast
-   ----------------------------------------- */
-html[data-color-mode="high-contrast"] {
-  /* Border width overrides */
-  --sando-border-width-default: var(--sando-border-width-100);
-  --sando-border-width-emphasis: var(--sando-border-width-200);
-
-  /* Background tokens */
-  --sando-color-background-base: var(--sando-color-utility-white);
-  --sando-color-background-surface: var(--sando-color-utility-white);
-  --sando-color-background-raised: var(--sando-color-utility-white);
-  --sando-color-background-overlay: var(--sando-color-utility-black);
-  --sando-color-background-emphasis: var(--sando-color-neutralWarm-100);
-
-  /* Text tokens */
-  --sando-color-text-heading: var(--sando-color-utility-black);
-  --sando-color-text-body: var(--sando-color-utility-black);
-  --sando-color-text-caption: var(--sando-color-neutralWarm-800);
-  --sando-color-text-muted: var(--sando-color-neutralWarm-700);
-  --sando-color-text-on-solid: var(--sando-color-utility-white);
-
-  /* Link tokens */
-  --sando-color-text-link-default: var(--sando-color-orange-950);
-  --sando-color-text-link-hover: var(--sando-color-utility-black);
-  --sando-color-text-link-active: var(--sando-color-utility-black);
-  --sando-color-text-link-visited: var(--sando-color-orange-900);
-  --sando-color-text-link-focus: var(--sando-color-utility-black);
-
-  /* Icon tokens */
-  --sando-color-icon-default: var(--sando-color-utility-black);
-  --sando-color-icon-muted: var(--sando-color-neutralWarm-700);
-  --sando-color-icon-emphasis: var(--sando-color-utility-black);
-  --sando-color-icon-interactive: var(--sando-color-orange-950);
-  --sando-color-icon-on-solid: var(--sando-color-utility-white);
-
-  /* Border tokens */
-  --sando-color-border-muted: var(--sando-color-neutralWarm-600);
-  --sando-color-border-default: var(--sando-color-utility-black);
-  --sando-color-border-emphasis: var(--sando-color-utility-black);
-
-  /* Focus tokens */
-  --sando-color-focus-ring: var(--sando-color-utility-black);
-  --sando-color-focus-ring-offset: var(--sando-color-utility-white);
-  --sando-color-focus-background: var(--sando-color-utility-white);
-  --sando-color-focus-text: var(--sando-color-utility-black);
-
-  /* Action tokens */
-  --sando-color-action-solid-background-default: var(
-    --sando-color-utility-black
-  );
-  --sando-color-action-solid-background-hover: var(
-    --sando-color-neutralWarm-800
-  );
-  --sando-color-action-solid-text-default: var(--sando-color-utility-white);
-  --sando-color-action-outline-border-default: var(--sando-color-utility-black);
-  --sando-color-action-outline-border-hover: var(--sando-color-utility-black);
-  --sando-color-action-outline-text-default: var(--sando-color-utility-black);
-  --sando-color-action-ghost-background-hover: var(
-    --sando-color-neutralWarm-200
-  );
-  --sando-color-action-ghost-text-default: var(--sando-color-utility-black);
-  --sando-color-action-disabled-background: var(--sando-color-neutralWarm-300);
-  --sando-color-action-disabled-text: var(--sando-color-neutralWarm-600);
-  --sando-color-action-disabled-border: var(--sando-color-neutralWarm-500);
-
-  /* State tokens */
-  --sando-color-state-success-background: var(--sando-color-state-success-100);
-  --sando-color-state-success-text: var(--sando-color-state-success-900);
-  --sando-color-state-success-border: var(--sando-color-state-success-900);
-  --sando-color-state-destructive-background: var(
-    --sando-color-state-error-100
-  );
-  --sando-color-state-destructive-text: var(--sando-color-state-error-900);
-  --sando-color-state-destructive-border: var(--sando-color-state-error-900);
-
-  /* Selection tokens */
-  --sando-color-selection-background: var(--sando-color-utility-black);
-  --sando-color-selection-text: var(--sando-color-utility-white);
-}
 
 /* ========================================
    Base Styles - Reset and defaults
