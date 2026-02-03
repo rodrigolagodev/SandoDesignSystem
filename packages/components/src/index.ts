@@ -51,6 +51,15 @@ export type {
   FormGroupValidationChangeDetail
 } from './components/form-group/index.js';
 
+export { SandoCheckbox } from './components/checkbox/index.js';
+export type {
+  CheckboxVariant,
+  CheckboxSize,
+  CheckboxChangeEventDetail,
+  CheckboxChangeEvent,
+  SandoCheckboxProps
+} from './components/checkbox/index.js';
+
 // ========================================
 // Common Types
 // ========================================
