@@ -59,7 +59,7 @@ export const baseStyles = css`
   button:focus-visible,
   a:focus-visible {
     outline: var(--sando-button-focusOutlineWidth) solid var(--sando-button-focusOutlineColor);
-    outline-offset: 2px;
+    outline-offset: var(--sando-button-focusOutlineOffset);
   }
 
   /* High contrast mode support */
@@ -67,7 +67,7 @@ export const baseStyles = css`
     button:focus-visible,
     a:focus-visible {
       outline-width: 4px;
-      outline-offset: 3px;
+      outline-offset: calc(var(--sando-button-focusOutlineOffset) * 1.5);
     }
   }
 

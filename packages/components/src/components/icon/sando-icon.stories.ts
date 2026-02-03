@@ -36,6 +36,7 @@ const meta: Meta = {
       name="${args.name}"
       size="${args.size || 'medium'}"
       color="${args.color || 'default'}"
+      flavor="${args.flavor || 'original'}"
       custom-color="${args.customColor || ''}"
       custom-size="${args.customSize || ''}"
       ?flip-horizontal="${args.flipHorizontal}"
@@ -48,20 +49,25 @@ const meta: Meta = {
     ></sando-icon>
   `,
   argTypes: {
-    name: {
+    // 1. Theming (ALWAYS first)
+    flavor: {
       control: 'select',
-      options: iconNames.slice(0, 50), // Show first 50 for performance
-      description: 'Icon name from Lucide library (1,637 total icons)',
+      options: ['original', 'strawberry', 'tonkatsu', 'kiwi', 'egg-salad'],
+      description: 'Design system flavor/theme',
       table: {
-        type: { summary: 'IconName' }
+        category: 'Theming',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'original' }
       }
     },
+    // 2. Appearance
     size: {
       control: 'select',
       options: ['xs', 'small', 'medium', 'large', 'xl'],
       description: 'Icon size (scales with font sizes)',
       table: {
-        type: { summary: 'xs | small | medium | large | xl' },
+        category: 'Appearance',
+        type: { summary: "'xs' | 'small' | 'medium' | 'large' | 'xl'" },
         defaultValue: { summary: 'medium' }
       }
     },
@@ -70,14 +76,46 @@ const meta: Meta = {
       options: ['default', 'muted', 'emphasis', 'brand', 'onSolid'],
       description: 'Semantic color variant',
       table: {
-        type: { summary: 'default | muted | emphasis | brand | onSolid' },
+        category: 'Appearance',
+        type: { summary: "'default' | 'muted' | 'emphasis' | 'brand' | 'onSolid'" },
         defaultValue: { summary: 'default' }
       }
     },
+    // 3. Content
+    name: {
+      control: 'select',
+      options: iconNames.slice(0, 50), // Show first 50 for performance
+      description: 'Icon name from Lucide library (1,637 total icons)',
+      table: {
+        category: 'Content',
+        type: { summary: 'IconName' }
+      }
+    },
+    // 4. State
+    decorative: {
+      control: 'boolean',
+      description: 'Mark as decorative (hidden from screen readers)',
+      table: {
+        category: 'State',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' }
+      }
+    },
+    // 5. Accessibility
+    ariaLabel: {
+      control: 'text',
+      description: 'Accessible label (required for semantic icons)',
+      table: {
+        category: 'Accessibility',
+        type: { summary: 'string' }
+      }
+    },
+    // 6. Advanced
     customColor: {
       control: 'color',
       description: 'Custom color override (CSS color value)',
       table: {
+        category: 'Advanced',
         type: { summary: 'string' }
       }
     },
@@ -85,21 +123,24 @@ const meta: Meta = {
       control: 'text',
       description: 'Custom size override (CSS dimension)',
       table: {
+        category: 'Advanced',
         type: { summary: 'string' }
       }
     },
-    flipHorizontal: {
-      control: 'boolean',
-      description: 'Flip icon horizontally',
+    strokeWidth: {
+      control: 'number',
+      description: 'SVG stroke width',
       table: {
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' }
+        category: 'Advanced',
+        type: { summary: 'number' },
+        defaultValue: { summary: '2' }
       }
     },
-    flipVertical: {
+    inheritColor: {
       control: 'boolean',
-      description: 'Flip icon vertically',
+      description: 'Inherit color from parent text (currentColor)',
       table: {
+        category: 'Advanced',
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' }
       }
@@ -109,41 +150,32 @@ const meta: Meta = {
       options: [0, 90, 180, 270],
       description: 'Rotation angle in degrees',
       table: {
+        category: 'Advanced',
         type: { summary: '0 | 90 | 180 | 270' },
         defaultValue: { summary: '0' }
       }
     },
-    decorative: {
+    flipHorizontal: {
       control: 'boolean',
-      description: 'Mark as decorative (hidden from screen readers)',
+      description: 'Flip icon horizontally',
       table: {
+        category: 'Advanced',
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' }
       }
     },
-    ariaLabel: {
-      control: 'text',
-      description: 'Accessible label (required for semantic icons)',
-      table: {
-        type: { summary: 'string' }
-      }
-    },
-    strokeWidth: {
-      control: 'number',
-      description: 'SVG stroke width',
-      table: {
-        type: { summary: 'number' },
-        defaultValue: { summary: '2' }
-      }
-    },
-    inheritColor: {
+    flipVertical: {
       control: 'boolean',
-      description: 'Inherit color from parent text (currentColor)',
+      description: 'Flip icon vertically',
       table: {
+        category: 'Advanced',
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' }
       }
     }
+  },
+  args: {
+    flavor: 'original'
   }
 };
 

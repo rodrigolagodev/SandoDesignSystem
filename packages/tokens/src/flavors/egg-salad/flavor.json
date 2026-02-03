@@ -28,29 +28,29 @@
         "focus": { "value": "{color.yellow.700.value}", "type": "color" }
       },
       "muted": { "value": "{color.yellow.700.value}", "type": "color" },
-      "on-solid": { "value": "{color.yellow.950.value}", "type": "color" }
+      "on-solid": { "value": "{color.yellow.50.value}", "type": "color" }
     },
     "icon": {
       "default": { "value": "{color.yellow.800.value}", "type": "color" },
       "muted": { "value": "{color.yellow.600.value}", "type": "color" },
       "emphasis": { "value": "{color.yellow.900.value}", "type": "color" },
       "interactive": { "value": "{color.yellow.700.value}", "type": "color" },
-      "on-solid": { "value": "{color.yellow.950.value}", "type": "color" }
+      "on-solid": { "value": "{color.yellow.50.value}", "type": "color" }
     },
     "border": {
-      "muted": { "value": "{color.yellow.200.value}", "type": "color" },
-      "default": { "value": "{color.yellow.300.value}", "type": "color" },
-      "emphasis": { "value": "{color.yellow.600.value}", "type": "color" }
+      "muted": { "value": "{color.yellow.400.value}", "type": "color" },
+      "default": { "value": "{color.yellow.500.value}", "type": "color" },
+      "emphasis": { "value": "{color.yellow.700.value}", "type": "color" }
     },
     "action": {
       "solid": {
         "background": {
-          "default": { "value": "{color.yellow.500.value}", "type": "color" },
-          "hover": { "value": "{color.yellow.600.value}", "type": "color" }
+          "default": { "value": "{color.yellow.700.value}", "type": "color" },
+          "hover": { "value": "{color.yellow.800.value}", "type": "color" }
         },
         "text": {
           "default": {
-            "value": "{color.yellow.950.value}",
+            "value": "{color.yellow.50.value}",
             "type": "color"
           }
         }
@@ -58,10 +58,10 @@
       "outline": {
         "border": {
           "default": {
-            "value": "{color.yellow.400.value}",
+            "value": "{color.yellow.500.value}",
             "type": "color"
           },
-          "hover": { "value": "{color.yellow.600.value}", "type": "color" }
+          "hover": { "value": "{color.yellow.700.value}", "type": "color" }
         },
         "text": {
           "default": {
