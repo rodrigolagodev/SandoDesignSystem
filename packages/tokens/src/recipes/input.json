@@ -51,11 +51,11 @@
     "filled": {
       "backgroundColor": {
         "default": {
-          "value": "{color.background.surface.value}",
+          "value": "{color.background.raised.value}",
           "type": "color"
         },
         "hover": {
-          "value": "{color.background.surface.value}",
+          "value": "{color.background.base.value}",
           "type": "color"
         },
         "disabled": {
