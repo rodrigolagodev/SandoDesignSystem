@@ -23,8 +23,8 @@ description: >-
 mode: all
 tools:
   read: true
-  write: true
-  edit: true
+  write: false
+  edit: false
   glob: true
   grep: true
   bash: true
