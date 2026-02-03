@@ -26,7 +26,7 @@ yarn add @sando/tokens @sando/components
 Import the CSS tokens in your main entry file (e.g., `main.ts`, `App.tsx`, or `index.js`):
 
 ```typescript
-// Import all design tokens
+// Import all design tokens (recommended for getting started)
 import "@sando/tokens/css";
 ```
 
@@ -35,6 +35,8 @@ This gives you access to all three layers:
 - 🥓 **Ingredients** (primitives): `--sando-color-orange-700`, `--sando-space-4`
 - 🥬 **Flavors** (semantic): `--sando-color-background-base`, `--sando-color-text-body`
 - 🍞 **Recipes** (component-specific): `--sando-button-solid-backgroundColor-default`
+
+> 💡 **Want more control?** See the [Installation Guide](/?path=/docs/getting-started-installation--docs) for granular import options like importing by layer or individual token categories.
 
 ## Step 2: Import Components
 
@@ -195,6 +197,19 @@ import "@sando/components/input";
 
 ## Adding Themes (Flavors)
 
+The base token import includes the **Original** flavor. To use additional flavors, import them:
+
+```typescript
+// Base import includes Original flavor
+import "@sando/tokens/css";
+
+// Add more flavors as needed
+import "@sando/tokens/css/flavors/strawberry";
+import "@sando/tokens/css/flavors/kiwi";
+import "@sando/tokens/css/flavors/tonkatsu";
+import "@sando/tokens/css/flavors/egg-salad";
+```
+
 Apply different flavors using the `flavor` attribute:
 
 ```html
@@ -229,9 +244,10 @@ Apply different flavors using the `flavor` attribute:
 Now that you have Sando up and running:
 
 1. **Explore Components** - Browse the Components section to see all available components
-2. **Learn About Theming** - Check out the [Theming Guide](/?path=/docs/getting-started-theming--docs) for advanced theming
-3. **Understand Tokens** - Dive into Ingredients, Flavors, and Recipes to customize your design
-4. **Read Best Practices** - Follow our [Best Practices](/?path=/docs/getting-started-best-practices--docs) for optimal usage
+2. **Advanced Imports** - Check the [Installation Guide](/?path=/docs/getting-started-installation--docs) for granular import options
+3. **Learn About Theming** - Check out the [Theming Guide](/?path=/docs/getting-started-theming--docs) for advanced theming
+4. **Understand Tokens** - Dive into Ingredients, Flavors, and Recipes to customize your design
+5. **Read Best Practices** - Follow our [Best Practices](/?path=/docs/getting-started-best-practices--docs) for optimal usage
 
 ---
 

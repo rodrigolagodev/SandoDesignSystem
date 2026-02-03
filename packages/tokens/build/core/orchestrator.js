@@ -7,6 +7,7 @@
 import { buildLayer } from './layer-builder.js';
 import { needsRebuild, updateCache } from '../utils/build-cache.js';
 import { printLayerStart, printLayerComplete, printCacheStatus } from './metrics.js';
+import { generateCssBarrels, getDefaultDistDir } from '../utils/barrel-generator.js';
 
 /**
  * Build all token layers
@@ -61,4 +62,21 @@ export async function buildAllLayers(options) {
  */
 export function validateBuildResults(results) {
   return Object.values(results).every(result => result.success);
+}
+
+/**
+ * Run post-build tasks
+ * Executes after all layers are successfully built
+ * @param {Object} options - Post-build options
+ * @param {string} options.distDir - Distribution directory path
+ * @returns {Promise<Object>} Post-build results
+ */
+export async function runPostBuildTasks(options = {}) {
+  const distDir = options.distDir || getDefaultDistDir();
+
+  const results = {
+    barrels: await generateCssBarrels(distDir)
+  };
+
+  return results;
 }
