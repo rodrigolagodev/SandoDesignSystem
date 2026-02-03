@@ -3,7 +3,6 @@
  * Example test file demonstrating testing patterns
  */
 
-import { describe, it, expect, beforeEach } from 'vitest';
 import { fixture, html, expect as expectWc } from '@open-wc/testing';
 import './sando-button.js';
 import type { SandoButton } from './sando-button.js';

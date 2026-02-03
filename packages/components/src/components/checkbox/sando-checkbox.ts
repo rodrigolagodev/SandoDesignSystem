@@ -264,6 +264,20 @@ export class SandoCheckbox extends FlavorableMixin(LitElement) {
   };
 
   /**
+   * Handle keyboard events for accessibility
+   * Supports Space and Enter key activation
+   * @private
+   */
+  private _handleKeyDown = (e: KeyboardEvent): void => {
+    if (this.disabled) return;
+
+    if (e.key === ' ' || e.key === 'Enter') {
+      e.preventDefault();
+      this.toggle();
+    }
+  };
+
+  /**
    * Emit custom change event
    * @private
    */
@@ -325,7 +339,7 @@ export class SandoCheckbox extends FlavorableMixin(LitElement) {
 
     return html`
       <div class="checkbox-wrapper">
-        <label class="checkbox-container" for=${this._inputId}>
+        <label class="checkbox-container" for=${this._inputId} @keydown=${this._handleKeyDown}>
           <!-- Hidden native input for form participation and accessibility -->
           <input
             type="checkbox"

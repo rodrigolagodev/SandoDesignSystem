@@ -3,14 +3,10 @@
  * Example accessibility test using axe-core
  */
 
-import { describe, it, expect, beforeEach } from 'vitest';
 import { fixture, html } from '@open-wc/testing';
-import { axe, toHaveNoViolations } from 'jest-axe';
+import { axe } from 'jest-axe';
 import './sando-button.js';
 import type { SandoButton } from './sando-button.js';
-
-// Extend expect matchers
-expect.extend(toHaveNoViolations);
 
 describe('sando-button Accessibility', () => {
   let element: SandoButton;

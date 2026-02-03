@@ -159,10 +159,10 @@ describe('sando-input', () => {
         </sando-input>
       `);
 
-      const slot = el.shadowRoot!.querySelector('slot[name="prefix"]');
+      const slot = el.shadowRoot!.querySelector('slot[name="prefix"]') as HTMLSlotElement;
       expect(slot).to.exist;
 
-      const slottedElements = slot!.assignedElements();
+      const slottedElements = slot.assignedElements();
       expect(slottedElements).to.have.lengthOf(1);
       expect(slottedElements[0].id).to.equal('prefix-icon');
     });
@@ -174,10 +174,10 @@ describe('sando-input', () => {
         </sando-input>
       `);
 
-      const slot = el.shadowRoot!.querySelector('slot[name="suffix"]');
+      const slot = el.shadowRoot!.querySelector('slot[name="suffix"]') as HTMLSlotElement;
       expect(slot).to.exist;
 
-      const slottedElements = slot!.assignedElements();
+      const slottedElements = slot.assignedElements();
       expect(slottedElements).to.have.lengthOf(1);
       expect(slottedElements[0].id).to.equal('clear-btn');
     });

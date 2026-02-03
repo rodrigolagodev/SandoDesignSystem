@@ -3,14 +3,10 @@
  * Uses axe-core for WCAG compliance testing and manual ARIA attribute verification
  */
 
-import { describe, it, expect } from 'vitest';
 import { fixture, html } from '@open-wc/testing';
-import { axe, toHaveNoViolations } from 'jest-axe';
+import { axe } from 'jest-axe';
 import './sando-checkbox.js';
 import type { SandoCheckbox } from './sando-checkbox.js';
-
-// Extend expect matchers
-expect.extend(toHaveNoViolations);
 
 describe('sando-checkbox Accessibility', () => {
   describe('axe-core validation', () => {
