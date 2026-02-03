@@ -123,6 +123,16 @@ const meta: Meta = {
         category: 'State',
         defaultValue: { summary: 'false' }
       }
+    },
+    flavor: {
+      control: 'select',
+      options: ['original', 'strawberry', 'tonkatsu', 'kiwi', 'egg-salad'],
+      description: 'Design system flavor/theme',
+      table: {
+        category: 'Theming',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'original' }
+      }
     }
   },
   args: {
@@ -130,7 +140,8 @@ const meta: Meta = {
     size: 'medium',
     type: 'text',
     label: 'Label',
-    placeholder: 'Enter text...'
+    placeholder: 'Enter text...',
+    flavor: 'original'
   }
 };
 
@@ -164,6 +175,7 @@ export const Playground: Story = {
       variant="${args.variant}"
       size="${args.size}"
       type="${args.type}"
+      flavor="${args.flavor || 'original'}"
       value="${args.value || ''}"
       placeholder="${args.placeholder || ''}"
       label="${args.label || ''}"

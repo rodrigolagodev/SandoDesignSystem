@@ -30,6 +30,7 @@ const meta: Meta = {
     <sando-checkbox
       variant="${args.variant}"
       size="${args.size}"
+      flavor="${args.flavor || 'original'}"
       ?checked="${args.checked}"
       ?indeterminate="${args.indeterminate}"
       ?disabled="${args.disabled}"
@@ -148,6 +149,16 @@ const meta: Meta = {
         category: 'Content',
         type: { summary: 'string' }
       }
+    },
+    flavor: {
+      control: 'select',
+      options: ['original', 'strawberry', 'tonkatsu', 'kiwi', 'egg-salad'],
+      description: 'Design system flavor/theme',
+      table: {
+        category: 'Theming',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'original' }
+      }
     }
   },
   args: {
@@ -159,7 +170,8 @@ const meta: Meta = {
     required: false,
     error: false,
     value: 'on',
-    label: 'Accept terms and conditions'
+    label: 'Accept terms and conditions',
+    flavor: 'original'
   }
 };
 

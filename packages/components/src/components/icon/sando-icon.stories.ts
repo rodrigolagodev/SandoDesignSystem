@@ -36,6 +36,7 @@ const meta: Meta = {
       name="${args.name}"
       size="${args.size || 'medium'}"
       color="${args.color || 'default'}"
+      flavor="${args.flavor || 'original'}"
       custom-color="${args.customColor || ''}"
       custom-size="${args.customSize || ''}"
       ?flip-horizontal="${args.flipHorizontal}"
@@ -143,7 +144,20 @@ const meta: Meta = {
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' }
       }
+    },
+    flavor: {
+      control: 'select',
+      options: ['original', 'strawberry', 'tonkatsu', 'kiwi', 'egg-salad'],
+      description: 'Design system flavor/theme',
+      table: {
+        category: 'Theming',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'original' }
+      }
     }
+  },
+  args: {
+    flavor: 'original'
   }
 };
 
