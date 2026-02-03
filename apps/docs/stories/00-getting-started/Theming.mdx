@@ -94,51 +94,75 @@ The entire UI will update instantly!
 
 ### In Your Application
 
-#### Option 1: Static Import
+#### Option 1: Import All Tokens (Recommended)
+
+The simplest approach - imports everything including the Original flavor with all modes:
 
 ```javascript
-// Light mode
-import "@sando/tokens/css/flavors/original.css";
-
-// Dark mode
-import "@sando/tokens/css/flavors/original-dark.css";
+// Includes: Ingredients + Original Flavor (all modes) + Recipes
+import "@sando/tokens/css";
 ```
 
-#### Option 2: Dynamic Switching
+Dark mode is automatic via `prefers-color-scheme` media query!
+
+#### Option 2: Add Additional Flavors
+
+After the base import, add more flavors as needed:
 
 ```javascript
-function setFlavor(flavor) {
-  // Remove existing flavor
-  const existing = document.querySelector('link[data-flavor]');
-  if (existing) existing.remove();
+// Base import (includes Original)
+import "@sando/tokens/css";
 
-  // Add new flavor
-  const link = document.createElement('link');
-  link.rel = 'stylesheet';
-  link.href = \`/tokens/css/flavors/\${flavor}.css\`;
-  link.setAttribute('data-flavor', flavor);
-  document.head.appendChild(link);
+// Add extra flavors
+import "@sando/tokens/css/flavors/strawberry";
+import "@sando/tokens/css/flavors/kiwi";
+import "@sando/tokens/css/flavors/tonkatsu";
+import "@sando/tokens/css/flavors/egg-salad";
+```
+
+Then apply via the `flavor` attribute:
+
+```html
+<div flavor="strawberry">
+  <sando-button>Strawberry themed!</sando-button>
+</div>
+```
+
+#### Option 3: Dynamic Switching
+
+For runtime theme switching (beyond light/dark which is automatic):
+
+```javascript
+// Dynamically load a flavor
+async function loadFlavor(flavorName) {
+  await import(`@sando/tokens/css/flavors/${flavorName}`);
 }
 
-// Switch to dark mode
-setFlavor('original-dark');
+// Example: theme selector
+document.querySelector("#theme-select").addEventListener("change", (e) => {
+  loadFlavor(e.target.value);
+});
 ```
 
-#### Option 3: System Preference
+#### Option 4: System Preference (Automatic)
+
+Dark mode works automatically via CSS media queries - no JavaScript needed! But if you want manual control:
 
 ```javascript
 const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
 
-function updateFlavor(e) {
-  setFlavor(e.matches ? "original-dark" : "original");
+// Check current preference
+if (prefersDark.matches) {
+  console.log("User prefers dark mode");
 }
 
-// Initial
-updateFlavor(prefersDark);
-
 // Listen for changes
-prefersDark.addEventListener("change", updateFlavor);
+prefersDark.addEventListener("change", (e) => {
+  console.log("Dark mode:", e.matches);
+});
 ```
+
+> 💡 **Note:** Each flavor includes all color modes (light, dark, high-contrast, etc.) built-in. The browser automatically applies the right mode based on user preferences.
 
 ## Creating Custom Flavors
 

@@ -155,17 +155,19 @@ function generateModeVariant(flavorName, grouped, modeConfig) {
 
   // ========================================
   // 1. Automatic mode (media query)
-  // Excludes elements with manual override [data-color-mode]
+  // Excludes when :root has manual override [data-color-mode]
+  // The check must be on :root because that's where Storybook/apps set the mode
   // ========================================
-  output += `/* Automatic - follows system preference when no manual override */\n`;
+  output += `/* Automatic - follows system preference when no manual override on :root */\n`;
   output += `${mediaQuery} {\n`;
 
   if (flavorName === 'original') {
     // For original flavor: :root:not([data-color-mode])
     output += `  :root:not([data-color-mode]) {\n`;
   } else {
-    // For named flavors: [data-flavor="name"]:not([data-color-mode])
-    output += `  [data-flavor="${flavorName}"]:not([data-color-mode]) {\n`;
+    // For named flavors: :root:not([data-color-mode]) [data-flavor="name"]
+    // The :not() must be on :root because apps/Storybook set data-color-mode on <html>
+    output += `  :root:not([data-color-mode]) [data-flavor="${flavorName}"] {\n`;
   }
 
   output += indentTokens(generateTokens(grouped), 2);
@@ -173,17 +175,18 @@ function generateModeVariant(flavorName, grouped, modeConfig) {
   output += `}\n\n`;
 
   // ========================================
-  // 2. Manual override (data-color-mode attribute)
+  // 2. Manual override (data-color-mode attribute on :root)
   // For UI switches like Storybook, theme toggles, etc.
   // ========================================
-  output += `/* Manual override - for UI theme switches */\n`;
+  output += `/* Manual override - for UI theme switches (data-color-mode on :root) */\n`;
 
   if (flavorName === 'original') {
     // For original flavor: :root[data-color-mode="mode"]
     output += `:root[data-color-mode="${dataAttr}"] {\n`;
   } else {
-    // For named flavors: [data-flavor="name"][data-color-mode="mode"]
-    output += `[data-flavor="${flavorName}"][data-color-mode="${dataAttr}"] {\n`;
+    // For named flavors: :root[data-color-mode="mode"] [data-flavor="name"]
+    // The data-color-mode is on :root, flavor is on component
+    output += `:root[data-color-mode="${dataAttr}"] [data-flavor="${flavorName}"] {\n`;
   }
 
   output += generateTokens(grouped);

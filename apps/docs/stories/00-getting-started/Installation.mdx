@@ -1,0 +1,597 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Getting Started/Installation" />
+
+# Installation & Token Imports
+
+This guide covers all the ways to import Sando Design Tokens into your project, from quick setup to advanced optimization.
+
+## Package Installation
+
+```bash
+# Using npm
+npm install @sando/tokens @sando/components
+
+# Using pnpm
+pnpm add @sando/tokens @sando/components
+
+# Using yarn
+yarn add @sando/tokens @sando/components
+```
+
+---
+
+## Token Import Options
+
+Sando provides flexible import options to match your needs, from "just works" to "fully optimized".
+
+### Option 1: Full Bundle (Recommended for Getting Started)
+
+The simplest way to get started. Includes everything you need:
+
+```javascript
+import "@sando/tokens/css";
+```
+
+**What's included:**
+
+- All Ingredients (primitives)
+- Original Flavor (with all modes: light, dark, high-contrast, motion-reduce, forced-colors)
+- All Recipes (component tokens)
+
+**Bundle size:** ~15-20 KB gzipped (all tokens)
+
+**Best for:** Getting started, prototyping, small-to-medium projects
+
+---
+
+### Option 2: Import by Layer
+
+Import only the layers you need for more control:
+
+```javascript
+// All primitives (colors, spacing, typography, etc.)
+import "@sando/tokens/css/ingredients";
+
+// Original flavor only (default theme with all modes)
+import "@sando/tokens/css/flavors";
+
+// All component tokens
+import "@sando/tokens/css/recipes";
+```
+
+**Best for:** Projects that want layer-level control
+
+---
+
+### Option 3: Additional Flavors
+
+The base import includes only the Original flavor. Add more flavors as needed:
+
+```javascript
+// First, import the base (includes Original flavor)
+import "@sando/tokens/css";
+
+// Then add additional flavors
+import "@sando/tokens/css/flavors/strawberry"; // Red-based theme
+import "@sando/tokens/css/flavors/kiwi"; // Green-based theme
+import "@sando/tokens/css/flavors/tonkatsu"; // Brown-based theme
+import "@sando/tokens/css/flavors/egg-salad"; // Yellow-based theme
+```
+
+Each flavor includes all modes (light, dark, high-contrast, etc.) and is applied via the `flavor` attribute:
+
+```html
+<div flavor="strawberry">
+  <sando-button>Strawberry themed!</sando-button>
+</div>
+```
+
+---
+
+### Option 4: Ultra Granular (For Optimization)
+
+Import specific ingredient or recipe categories for minimal bundle size:
+
+```javascript
+// Individual ingredient categories
+import "@sando/tokens/css/ingredients/color";
+import "@sando/tokens/css/ingredients/space";
+import "@sando/tokens/css/ingredients/font";
+import "@sando/tokens/css/ingredients/border";
+import "@sando/tokens/css/ingredients/elevation";
+import "@sando/tokens/css/ingredients/opacity";
+import "@sando/tokens/css/ingredients/animation";
+import "@sando/tokens/css/ingredients/z-index";
+
+// Individual recipe files (component tokens)
+import "@sando/tokens/css/recipes/button";
+import "@sando/tokens/css/recipes/checkbox";
+import "@sando/tokens/css/recipes/input";
+import "@sando/tokens/css/recipes/icon";
+import "@sando/tokens/css/recipes/form-group";
+```
+
+**Best for:** Production apps with strict bundle size budgets, micro-frontends
+
+---
+
+## What Each Layer Contains
+
+### Ingredients (Primitives)
+
+Raw design values that never change by theme:
+
+<table>
+  <thead>
+    <tr>
+      <th>File</th>
+      <th>Description</th>
+      <th>Examples</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>color.css</code>
+      </td>
+      <td>Base color palettes</td>
+      <td>
+        <code>--sando-color-orange-500</code>,{" "}
+        <code>--sando-color-neutralWarm-100</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>space.css</code>
+      </td>
+      <td>Spacing scale</td>
+      <td>
+        <code>--sando-space-1</code> (4px) to <code>--sando-space-16</code>{" "}
+        (64px)
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>font.css</code>
+      </td>
+      <td>Typography</td>
+      <td>
+        <code>--sando-font-size-400</code>,{" "}
+        <code>--sando-font-weight-bold</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>border.css</code>
+      </td>
+      <td>Border radii and widths</td>
+      <td>
+        <code>--sando-border-radius-md</code>,{" "}
+        <code>--sando-border-width-1</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>elevation.css</code>
+      </td>
+      <td>Box shadows</td>
+      <td>
+        <code>--sando-elevation-sm</code>, <code>--sando-elevation-lg</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>opacity.css</code>
+      </td>
+      <td>Opacity values</td>
+      <td>
+        <code>--sando-opacity-50</code>, <code>--sando-opacity-disabled</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>animation.css</code>
+      </td>
+      <td>Durations and easings</td>
+      <td>
+        <code>--sando-animation-duration-fast</code>,{" "}
+        <code>--sando-animation-easing-default</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>z-index.css</code>
+      </td>
+      <td>Z-index scale</td>
+      <td>
+        <code>--sando-z-index-dropdown</code>,{" "}
+        <code>--sando-z-index-modal</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### Flavors (Semantic Tokens)
+
+Meaningful tokens that change based on theme. Each flavor includes:
+
+- **Base mode** (light)
+- **Dark mode** (via `prefers-color-scheme: dark`)
+- **High contrast** (via `prefers-contrast: more`)
+- **Reduced motion** (via `prefers-reduced-motion: reduce`)
+- **Forced colors** (via `forced-colors: active`)
+
+<table>
+  <thead>
+    <tr>
+      <th>Flavor</th>
+      <th>Description</th>
+      <th>Palette</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>original</code>
+      </td>
+      <td>Default neutral theme</td>
+      <td>Orange + Neutral Warm</td>
+    </tr>
+    <tr>
+      <td>
+        <code>strawberry</code>
+      </td>
+      <td>Red-toned theme</td>
+      <td>Red + Neutral</td>
+    </tr>
+    <tr>
+      <td>
+        <code>kiwi</code>
+      </td>
+      <td>Green-toned theme</td>
+      <td>Green + Neutral</td>
+    </tr>
+    <tr>
+      <td>
+        <code>tonkatsu</code>
+      </td>
+      <td>Brown-toned theme</td>
+      <td>Brown + Neutral Warm</td>
+    </tr>
+    <tr>
+      <td>
+        <code>egg-salad</code>
+      </td>
+      <td>Yellow-toned theme</td>
+      <td>Yellow + Neutral Warm</td>
+    </tr>
+  </tbody>
+</table>
+
+### Recipes (Component Tokens)
+
+Component-specific tokens that reference flavor tokens:
+
+<table>
+  <thead>
+    <tr>
+      <th>File</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>button.css</code>
+      </td>
+      <td>Button component tokens</td>
+    </tr>
+    <tr>
+      <td>
+        <code>checkbox.css</code>
+      </td>
+      <td>Checkbox component tokens</td>
+    </tr>
+    <tr>
+      <td>
+        <code>input.css</code>
+      </td>
+      <td>Input component tokens</td>
+    </tr>
+    <tr>
+      <td>
+        <code>icon.css</code>
+      </td>
+      <td>Icon component tokens</td>
+    </tr>
+    <tr>
+      <td>
+        <code>form-group.css</code>
+      </td>
+      <td>Form group component tokens</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+## Framework Examples
+
+### Vanilla HTML/JavaScript
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My App</title>
+  </head>
+  <body>
+    <sando-button variant="solid">Click me</sando-button>
+
+    <script type="module">
+      // Import tokens and components
+      import "@sando/tokens/css";
+      import "@sando/components/button";
+    </script>
+  </body>
+</html>
+```
+
+### React / Next.js
+
+```tsx
+// app/layout.tsx or _app.tsx
+import "@sando/tokens/css";
+import "@sando/components/button";
+import "@sando/components/input";
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+```tsx
+// components/MyForm.tsx
+export function MyForm() {
+  return (
+    <form>
+      <sando-input label="Email" type="email" />
+      <sando-button variant="solid">Submit</sando-button>
+    </form>
+  );
+}
+```
+
+### Vue 3
+
+```javascript
+// main.ts
+import { createApp } from "vue";
+import App from "./App.vue";
+
+// Import tokens
+import "@sando/tokens/css";
+
+// Import components
+import "@sando/components/button";
+import "@sando/components/input";
+
+createApp(App).mount("#app");
+```
+
+```vue
+<!-- App.vue -->
+<template>
+  <div>
+    <sando-input label="Name" />
+    <sando-button variant="solid">Submit</sando-button>
+  </div>
+</template>
+```
+
+**Vue config** (to recognize custom elements):
+
+```javascript
+// vite.config.ts
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
+
+export default defineConfig({
+  plugins: [
+    vue({
+      template: {
+        compilerOptions: {
+          isCustomElement: (tag) => tag.startsWith("sando-"),
+        },
+      },
+    }),
+  ],
+});
+```
+
+### Angular
+
+```typescript
+// main.ts
+import "@sando/tokens/css";
+import "@sando/components/button";
+import "@sando/components/input";
+```
+
+```typescript
+// app.module.ts
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+
+@NgModule({
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+})
+export class AppModule {}
+```
+
+```html
+<!-- app.component.html -->
+<sando-input label="Email"></sando-input>
+<sando-button variant="solid">Submit</sando-button>
+```
+
+### Svelte / SvelteKit
+
+```svelte
+<!-- +layout.svelte or App.svelte -->
+<script>
+  import "@sando/tokens/css";
+  import "@sando/components/button";
+  import "@sando/components/input";
+</script>
+
+<sando-input label="Name" />
+<sando-button variant="solid">Submit</sando-button>
+```
+
+---
+
+## Choosing the Right Import Strategy
+
+Use this decision tree to pick the best approach:
+
+```
+Are you just getting started or prototyping?
+├─ YES → Use full bundle: import "@sando/tokens/css"
+│
+└─ NO → Do you need multiple themes?
+    ├─ YES → Import base + additional flavors
+    │   import "@sando/tokens/css";
+    │   import "@sando/tokens/css/flavors/strawberry";
+    │
+    └─ NO → Do you have strict bundle size requirements?
+        ├─ YES → Use ultra granular imports
+        │   import "@sando/tokens/css/ingredients/color";
+        │   import "@sando/tokens/css/recipes/button";
+        │
+        └─ NO → Use layer imports for clarity
+            import "@sando/tokens/css/ingredients";
+            import "@sando/tokens/css/flavors";
+            import "@sando/tokens/css/recipes";
+```
+
+---
+
+## Bundle Size Reference
+
+<table>
+  <thead>
+    <tr>
+      <th>Import</th>
+      <th>Size (gzipped)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        Full bundle (<code>/css</code>)
+      </td>
+      <td>~15-20 KB</td>
+    </tr>
+    <tr>
+      <td>Ingredients only</td>
+      <td>~8-10 KB</td>
+    </tr>
+    <tr>
+      <td>Single flavor</td>
+      <td>~3-4 KB</td>
+    </tr>
+    <tr>
+      <td>All recipes</td>
+      <td>~2-3 KB</td>
+    </tr>
+    <tr>
+      <td>Single recipe (e.g., button)</td>
+      <td>~0.5 KB</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+## Common Patterns
+
+### Loading Additional Flavors Dynamically
+
+```javascript
+// Load a flavor on demand
+async function loadFlavor(flavorName) {
+  await import(`@sando/tokens/css/flavors/${flavorName}`);
+}
+
+// Usage
+document.querySelector("#theme-select").addEventListener("change", (e) => {
+  loadFlavor(e.target.value);
+});
+```
+
+### Using with CSS-in-JS
+
+Tokens are CSS custom properties, so they work with any CSS-in-JS solution:
+
+```javascript
+// styled-components
+const StyledCard = styled.div`
+  background: var(--sando-color-background-base);
+  padding: var(--sando-space-4);
+  border-radius: var(--sando-border-radius-md);
+`;
+
+// Emotion
+const cardStyles = css`
+  background: var(--sando-color-background-base);
+  padding: var(--sando-space-4);
+`;
+```
+
+### Server-Side Rendering (SSR)
+
+For SSR frameworks (Next.js, Nuxt, SvelteKit), import tokens in your root layout:
+
+```javascript
+// This ensures tokens are available during SSR
+import "@sando/tokens/css";
+```
+
+The CSS will be included in the initial HTML, preventing flash of unstyled content (FOUC).
+
+---
+
+## Troubleshooting
+
+### Tokens not working?
+
+1. **Check import order** — Tokens must be imported before components
+2. **Check path** — Ensure you're using the correct import path
+3. **Check bundler** — Some bundlers need CSS import configuration
+
+### Flavors not switching?
+
+1. **Ensure flavor is imported** — Only `original` is included by default
+2. **Check attribute** — Use `flavor="strawberry"` not `theme="strawberry"`
+3. **Check parent** — Flavor attribute cascades to children
+
+### Bundle too large?
+
+1. **Use granular imports** — Import only what you need
+2. **Check tree-shaking** — Ensure your bundler supports it
+3. **Analyze bundle** — Use tools like `vite-bundle-visualizer`
+
+---
+
+## Next Steps
+
+- [Quick Start →](?path=/docs/getting-started-quick-start--docs) — Build your first component
+- [Theming →](?path=/docs/getting-started-theming--docs) — Learn about flavors and themes
+- [Best Practices →](?path=/docs/getting-started-best-practices--docs) — Follow recommended patterns

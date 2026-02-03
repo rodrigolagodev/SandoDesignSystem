@@ -25,7 +25,7 @@ import flavorsConfig from './configs/flavors.config.js';
 import recipesConfig from './configs/recipes.config.js';
 
 // Import core modules
-import { buildAllLayers, validateBuildResults } from './core/orchestrator.js';
+import { buildAllLayers, validateBuildResults, runPostBuildTasks } from './core/orchestrator.js';
 import { printBuildSummary } from './core/metrics.js';
 
 // ============================================
@@ -123,6 +123,13 @@ async function main() {
     const allSucceeded = validateBuildResults(results);
 
     if (allSucceeded) {
+      // Run post-build tasks (generate barrel files)
+      const postBuildResults = await runPostBuildTasks();
+
+      if (!postBuildResults.barrels.success) {
+        console.warn('⚠️  Post-build tasks had issues, but tokens were built successfully.\n');
+      }
+
       console.log('✅ All tokens built successfully!\n');
       process.exit(0);
     } else {
