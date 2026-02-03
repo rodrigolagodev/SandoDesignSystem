@@ -6,8 +6,13 @@
  * - Color modes: dark, high-contrast, forced-colors via @media queries
  * - Motion mode: motion-reduce via @media query
  *
- * Modes are AUTOMATIC ONLY - they respond to system preferences.
- * No manual override selectors are generated.
+ * Mode variants generate BOTH:
+ * 1. @media query with :not([data-color-mode]) - automatic, follows system preference
+ * 2. [data-color-mode="mode"] selector - manual override for UI switches (Storybook)
+ *
+ * This dual approach allows:
+ * - Automatic theme switching based on OS/browser preferences
+ * - Manual override via data attribute (for theme toggles in apps)
  */
 
 import { groupBy } from '../../utils/token-tree.js';
@@ -15,31 +20,41 @@ import { capitalize } from '../../utils/formatting.js';
 
 /**
  * Mode configuration by filename
+ * Each mode includes:
+ * - name: Internal identifier
+ * - label: Human-readable label
+ * - mediaQuery: CSS media query for automatic detection
+ * - dataAttribute: Value for data-color-mode attribute (manual override)
+ * - description: Documentation string
  */
 const MODE_CONFIGS = {
   'flavor-dark': {
     name: 'dark',
     label: 'Dark',
     mediaQuery: '(prefers-color-scheme: dark)',
-    description: 'Automatically applied when system is in dark mode'
+    dataAttribute: 'dark',
+    description: 'Applied via system preference or data-color-mode="dark"'
   },
   'flavor-high-contrast': {
     name: 'high-contrast',
     label: 'High Contrast',
     mediaQuery: '(prefers-contrast: more)',
-    description: 'Automatically applied when system requests high contrast'
+    dataAttribute: 'high-contrast',
+    description: 'Applied via system preference or data-color-mode="high-contrast"'
   },
   'flavor-forced-colors': {
     name: 'forced-colors',
     label: 'Forced Colors',
     mediaQuery: '(forced-colors: active)',
-    description: 'Automatically applied when forced-colors mode is active'
+    dataAttribute: 'forced-colors',
+    description: 'Applied via system preference or data-color-mode="forced-colors"'
   },
   'flavor-motion-reduce': {
     name: 'motion-reduce',
     label: 'Reduced Motion',
     mediaQuery: '(prefers-reduced-motion: reduce)',
-    description: 'Automatically applied when reduced motion is preferred'
+    dataAttribute: 'motion-reduce',
+    description: 'Applied via system preference or data-color-mode="motion-reduce"'
   }
 };
 
@@ -124,16 +139,54 @@ function generateBaseMode(flavorName, grouped) {
 
 /**
  * Generate mode variant CSS (flavor-*.json)
- * Only @media query - no manual override selectors
+ * Generates BOTH automatic (@media query) and manual (data-color-mode) selectors
+ *
+ * Output structure:
+ * 1. @media query with :not([data-color-mode]) - automatic, follows system preference
+ *    but only when no manual override is set
+ * 2. [data-color-mode="mode"] selector - manual override for UI switches
  */
 function generateModeVariant(flavorName, grouped, modeConfig) {
   const mediaQuery = `@media ${modeConfig.mediaQuery}`;
-  const selector = generateBaseSelector(flavorName);
+  const baseSelector = generateBaseSelector(flavorName);
+  const dataAttr = modeConfig.dataAttribute;
 
-  let output = `${mediaQuery} {\n`;
-  output += `  ${selector} {\n`;
+  let output = '';
+
+  // ========================================
+  // 1. Automatic mode (media query)
+  // Excludes elements with manual override [data-color-mode]
+  // ========================================
+  output += `/* Automatic - follows system preference when no manual override */\n`;
+  output += `${mediaQuery} {\n`;
+
+  if (flavorName === 'original') {
+    // For original flavor: :root:not([data-color-mode])
+    output += `  :root:not([data-color-mode]) {\n`;
+  } else {
+    // For named flavors: [data-flavor="name"]:not([data-color-mode])
+    output += `  [data-flavor="${flavorName}"]:not([data-color-mode]) {\n`;
+  }
+
   output += indentTokens(generateTokens(grouped), 2);
   output += `  }\n`;
+  output += `}\n\n`;
+
+  // ========================================
+  // 2. Manual override (data-color-mode attribute)
+  // For UI switches like Storybook, theme toggles, etc.
+  // ========================================
+  output += `/* Manual override - for UI theme switches */\n`;
+
+  if (flavorName === 'original') {
+    // For original flavor: :root[data-color-mode="mode"]
+    output += `:root[data-color-mode="${dataAttr}"] {\n`;
+  } else {
+    // For named flavors: [data-flavor="name"][data-color-mode="mode"]
+    output += `[data-flavor="${flavorName}"][data-color-mode="${dataAttr}"] {\n`;
+  }
+
+  output += generateTokens(grouped);
   output += `}\n`;
 
   return output;
