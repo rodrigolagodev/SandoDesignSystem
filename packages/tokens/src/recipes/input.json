@@ -3,7 +3,7 @@
     "outlined": {
       "backgroundColor": {
         "default": {
-          "value": "transparent",
+          "value": "{color.background.transparent.value}",
           "type": "color"
         },
         "disabled": {

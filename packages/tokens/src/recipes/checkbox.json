@@ -87,7 +87,7 @@
     "outline": {
       "backgroundColor": {
         "default": {
-          "value": "transparent",
+          "value": "{color.background.transparent.value}",
           "type": "color"
         },
         "hover": {
@@ -95,7 +95,7 @@
           "type": "color"
         },
         "checked": {
-          "value": "transparent",
+          "value": "{color.background.transparent.value}",
           "type": "color"
         },
         "checkedHover": {
@@ -103,7 +103,7 @@
           "type": "color"
         },
         "indeterminate": {
-          "value": "transparent",
+          "value": "{color.background.transparent.value}",
           "type": "color"
         },
         "indeterminateHover": {
@@ -115,7 +115,7 @@
           "type": "color"
         },
         "error": {
-          "value": "transparent",
+          "value": "{color.background.transparent.value}",
           "type": "color"
         }
       },

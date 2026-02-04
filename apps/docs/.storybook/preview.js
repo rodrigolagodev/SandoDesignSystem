@@ -39,6 +39,7 @@ import "../../../packages/tokens/dist/sando-tokens/css/ingredients/z-index.css";
 import "../../../packages/tokens/dist/sando-tokens/css/recipes/button.css";
 import "../../../packages/tokens/dist/sando-tokens/css/recipes/icon.css";
 import "../../../packages/tokens/dist/sando-tokens/css/recipes/input.css";
+import "../../../packages/tokens/dist/sando-tokens/css/recipes/tag.css";
 
 // Import ALL Flavors with mode support
 // Original (Default flavor - base theme)

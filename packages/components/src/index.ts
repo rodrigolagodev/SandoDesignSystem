@@ -60,6 +60,15 @@ export type {
   SandoCheckboxProps
 } from './components/checkbox/index.js';
 
+export { SandoTag } from './components/tag/index.js';
+export type {
+  TagVariant,
+  TagSize,
+  SandoTagProps,
+  TagRemoveEventDetail,
+  TagRemoveEvent
+} from './components/tag/index.js';
+
 // ========================================
 // Common Types
 // ========================================

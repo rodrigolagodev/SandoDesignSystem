@@ -6,7 +6,11 @@
       "surface": { "value": "{color.neutralWarm.200.value}", "type": "color" },
       "raised": { "value": "{color.utility.white.value}", "type": "color" },
       "overlay": { "value": "{color.neutralWarm.900.value}", "type": "color" },
-      "emphasis": { "value": "{color.neutralWarm.300.value}", "type": "color" }
+      "emphasis": { "value": "{color.neutralWarm.300.value}", "type": "color" },
+      "transparent": {
+        "value": "{color.utility.transparent.value}",
+        "type": "color"
+      }
     },
     "focus": {
       "ring": { "value": "{color.red.600.value}", "type": "color" },
@@ -41,7 +45,8 @@
     "border": {
       "muted": { "value": "{color.neutralWarm.300.value}", "type": "color" },
       "default": { "value": "{color.neutralWarm.400.value}", "type": "color" },
-      "emphasis": { "value": "{color.red.700.value}", "type": "color" }
+      "emphasis": { "value": "{color.red.700.value}", "type": "color" },
+      "on-solid": { "value": "{color.red.500.value}", "type": "color" }
     },
     "action": {
       "solid": {
