@@ -59,7 +59,7 @@ Recipe tokens are component-specific CSS custom properties that define every vis
 
 Here's how a button's background color flows through all three layers:
 
-<div style={{ marginTop: '24px', padding: '24px', backgroundColor: 'var(--sando-color-background-emphasis)', borderRadius: '12px' }}>
+<div style={{ marginTop: '24px', padding: '24px', backgroundColor: '#f5f5f4', borderRadius: '12px' }}>
 
 ### Layer 1: Ingredient (Primitive)
 
@@ -232,9 +232,9 @@ You can override Recipe tokens to customize components:
   <div
     style={{
       padding: "20px",
-      backgroundColor: "var(--sando-color-background-raised)",
+      backgroundColor: "#ffffff",
       borderRadius: "8px",
-      border: "1px solid var(--sando-color-border-muted)",
+      border: "1px solid #d6d3d1",
     }}
   >
     <h4 style={{ marginTop: 0 }}>Ingredients</h4>
@@ -244,27 +244,27 @@ You can override Recipe tokens to customize components:
     </p>
   </div>
 
-  <div
-    style={{
-      padding: "20px",
-      backgroundColor: "var(--sando-color-background-raised)",
-      borderRadius: "8px",
-      border: "1px solid var(--sando-color-border-muted)",
-    }}
-  >
-    <h4 style={{ marginTop: 0 }}>Flavors</h4>
-    <p style={{ fontSize: "14px", marginBottom: 0 }}>
-      Semantic tokens. Change these to retheme categories of UI (all actions,
-      all backgrounds, all text).
-    </p>
-  </div>
+<div
+  style={{
+    padding: "20px",
+    backgroundColor: "#ffffff",
+    borderRadius: "8px",
+    border: "1px solid #d6d3d1",
+  }}
+>
+  <h4 style={{ marginTop: 0 }}>Flavors</h4>
+  <p style={{ fontSize: "14px", marginBottom: 0 }}>
+    Semantic tokens. Change these to retheme categories of UI (all actions, all
+    backgrounds, all text).
+  </p>
+</div>
 
   <div
     style={{
       padding: "20px",
-      backgroundColor: "var(--sando-color-brand-100)",
+      backgroundColor: "#fff7ed",
       borderRadius: "8px",
-      border: "2px solid var(--sando-color-brand-500)",
+      border: "2px solid #c2410c",
     }}
   >
     <h4 style={{ marginTop: 0 }}>Recipes</h4>
