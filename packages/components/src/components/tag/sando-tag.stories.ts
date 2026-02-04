@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
+import { action } from '@storybook/addon-actions';
 import './sando-tag.ts';
 import '../icon/sando-icon.ts';
 
@@ -265,7 +266,7 @@ export const Removable: Story = {
             variant="solid"
             size="${args.size}"
             flavor="${args.flavor}"
-            @sando-remove="${(e: CustomEvent) => console.log('sando-remove: JavaScript', e.detail)}"
+            @sando-remove="${(e: CustomEvent) => action('sando-remove: JavaScript')(e.detail)}"
           >
             JavaScript
           </sando-tag>
@@ -274,7 +275,7 @@ export const Removable: Story = {
             variant="outline"
             size="${args.size}"
             flavor="${args.flavor}"
-            @sando-remove="${(e: CustomEvent) => console.log('sando-remove: TypeScript', e.detail)}"
+            @sando-remove="${(e: CustomEvent) => action('sando-remove: TypeScript')(e.detail)}"
           >
             TypeScript
           </sando-tag>
@@ -283,7 +284,7 @@ export const Removable: Story = {
             variant="soft"
             size="${args.size}"
             flavor="${args.flavor}"
-            @sando-remove="${(e: CustomEvent) => console.log('sando-remove: React', e.detail)}"
+            @sando-remove="${(e: CustomEvent) => action('sando-remove: React')(e.detail)}"
           >
             React
           </sando-tag>
@@ -304,15 +305,11 @@ export const Clickable: Story = {
   tags: DOCS_ONLY,
   render: () => html`
     <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
-      <sando-tag clickable variant="solid" @click="${() => console.log('Clicked: View Details')}">
+      <sando-tag clickable variant="solid" @click="${action('Clicked: View Details')}">
         View Details
       </sando-tag>
-      <sando-tag clickable variant="outline" @click="${() => console.log('Clicked: Edit')}">
-        Edit
-      </sando-tag>
-      <sando-tag clickable variant="soft" @click="${() => console.log('Clicked: Add')}">
-        Add
-      </sando-tag>
+      <sando-tag clickable variant="outline" @click="${action('Clicked: Edit')}"> Edit </sando-tag>
+      <sando-tag clickable variant="soft" @click="${action('Clicked: Add')}"> Add </sando-tag>
     </div>
   `,
   parameters: { controls: { disable: true } }
@@ -375,11 +372,11 @@ export const WithIcon: Story = {
           Clickable (button with icon)
         </h4>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
-          <sando-tag clickable variant="solid" @click="${() => console.log('Clicked: Add Item')}">
+          <sando-tag clickable variant="solid" @click="${action('Clicked: Add Item')}">
             Add Item
             <sando-icon slot="icon" name="plus" size="xs"></sando-icon>
           </sando-tag>
-          <sando-tag clickable variant="outline" @click="${() => console.log('Clicked: Settings')}">
+          <sando-tag clickable variant="outline" @click="${action('Clicked: Settings')}">
             Settings
             <sando-icon slot="icon" name="settings" size="xs"></sando-icon>
           </sando-tag>
@@ -459,7 +456,7 @@ export const InContext: Story = {
   tags: DOCS_ONLY,
   render: () => {
     const handleRemove = (tagName: string) => (e: CustomEvent) => {
-      console.log(`Filter removed: ${tagName}`, e.detail);
+      action(`Filter removed: ${tagName}`)(e.detail);
       // In a real app, you would update state here
     };
 
