@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/blocks';
+import { Meta } from "@storybook/blocks";
 
 <Meta title="Ingredients/Border" />
 
@@ -10,50 +10,58 @@ Border properties control the visual edges and roundness of UI elements. The San
 
 Our border radius scale ranges from sharp corners to fully circular elements, providing flexibility for different design needs.
 
-<div style={{ marginTop: '32px' }}>
+<div style={{ marginTop: "32px" }}>
   {[
-    { token: '0', value: '0rem', px: '0px', name: 'None' },
-    { token: '50', value: '0.125rem', px: '2px', name: 'Subtle' },
-    { token: '100', value: '0.25rem', px: '4px', name: 'Small' },
-    { token: '200', value: '0.5rem', px: '8px', name: 'Default' },
-    { token: '300', value: '0.75rem', px: '12px', name: 'Medium' },
-    { token: '400', value: '1rem', px: '16px', name: 'Large' },
-    { token: '500', value: '1.25rem', px: '20px', name: 'XLarge' },
-    { token: '600', value: '1.5rem', px: '24px', name: 'XXLarge' },
+    { token: "0", value: "0rem", px: "0px", name: "None" },
+    { token: "50", value: "0.125rem", px: "2px", name: "Subtle" },
+    { token: "100", value: "0.25rem", px: "4px", name: "Small" },
+    { token: "200", value: "0.5rem", px: "8px", name: "Default" },
+    { token: "300", value: "0.75rem", px: "12px", name: "Medium" },
+    { token: "400", value: "1rem", px: "16px", name: "Large" },
+    { token: "500", value: "1.25rem", px: "20px", name: "XLarge" },
+    { token: "600", value: "1.5rem", px: "24px", name: "XXLarge" },
   ].map(({ token, value, px, name }) => (
     <div
       key={token}
       style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: '24px',
-        padding: '16px',
-        borderBottom: '1px solid var(--sando-color-border-muted)',
+        display: "flex",
+        alignItems: "center",
+        gap: "24px",
+        padding: "16px",
+        borderBottom: "1px solid #e7e5e4",
       }}
     >
       <div
         style={{
-          fontFamily: 'monospace',
-          fontSize: '12px',
-          color: 'var(--sando-color-text-caption)',
-          minWidth: '100px',
+          fontFamily: "monospace",
+          fontSize: "12px",
+          color: "#44403c",
+          minWidth: "100px",
         }}
       >
         radius-{token}
       </div>
       <div
         style={{
-          width: '100px',
-          height: '100px',
-          backgroundColor: 'var(--sando-color-orange-500)',
+          width: "100px",
+          height: "100px",
+          backgroundColor: "#ea580c",
           borderRadius: `var(--sando-border-radius-${token})`,
         }}
       />
       <div style={{ flex: 1 }}>
-        <div style={{ fontSize: '14px', fontWeight: '600', marginBottom: '4px' }}>
+        <div
+          style={{ fontSize: "14px", fontWeight: "600", marginBottom: "4px" }}
+        >
           {name}
         </div>
-        <div style={{ fontFamily: 'monospace', fontSize: '11px', color: 'var(--sando-color-text-muted)' }}>
+        <div
+          style={{
+            fontFamily: "monospace",
+            fontSize: "11px",
+            color: "#57534e",
+          }}
+        >
           {value} / {px}
         </div>
       </div>
@@ -69,13 +77,13 @@ Our border radius scale ranges from sharp corners to fully circular elements, pr
       style={{
         width: '120px',
         height: '120px',
-        backgroundColor: 'var(--sando-color-orange-500)',
+        backgroundColor: '#ea580c',
         borderRadius: 'var(--sando-border-radius-circle)',
         margin: '0 auto 16px',
       }}
     />
     <div style={{ textAlign: 'center', fontSize: '14px', fontWeight: '600' }}>Circle</div>
-    <div style={{ textAlign: 'center', fontFamily: 'monospace', fontSize: '11px', color: 'var(--sando-color-text-caption)' }}>
+    <div style={{ textAlign: 'center', fontFamily: 'monospace', fontSize: '11px', color: '#44403c' }}>
       radius-circle (50%)
     </div>
   </div>
@@ -85,13 +93,13 @@ Our border radius scale ranges from sharp corners to fully circular elements, pr
       style={{
         width: '120px',
         height: '60px',
-        backgroundColor: 'var(--sando-color-orange-500)',
+        backgroundColor: '#ea580c',
         borderRadius: 'var(--sando-border-radius-full)',
         margin: '0 auto 16px',
       }}
     />
     <div style={{ textAlign: 'center', fontSize: '14px', fontWeight: '600' }}>Full</div>
-    <div style={{ textAlign: 'center', fontFamily: 'monospace', fontSize: '11px', color: 'var(--sando-color-text-caption)' }}>
+    <div style={{ textAlign: 'center', fontFamily: 'monospace', fontSize: '11px', color: '#44403c' }}>
       radius-full (9999px)
     </div>
   </div>
@@ -103,52 +111,58 @@ Our border radius scale ranges from sharp corners to fully circular elements, pr
 
 A scale for border thicknesses from hairline to bold.
 
-<div style={{ marginTop: '32px' }}>
+<div style={{ marginTop: "32px" }}>
   {[
-    { token: '0', value: '0px', name: 'None' },
-    { token: '50', value: '1px', name: 'Hairline' },
-    { token: '100', value: '2px', name: 'Thin' },
-    { token: '150', value: '3px', name: 'Default' },
-    { token: '200', value: '4px', name: 'Medium' },
-    { token: '300', value: '6px', name: 'Thick' },
-    { token: '400', value: '8px', name: 'Bold' },
+    { token: "0", value: "0px", name: "None" },
+    { token: "50", value: "1px", name: "Hairline" },
+    { token: "100", value: "2px", name: "Thin" },
+    { token: "150", value: "3px", name: "Default" },
+    { token: "200", value: "4px", name: "Medium" },
+    { token: "300", value: "6px", name: "Thick" },
+    { token: "400", value: "8px", name: "Bold" },
   ].map(({ token, value, name }) => (
     <div
       key={token}
       style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: '24px',
-        padding: '16px',
-        borderBottom: '1px solid var(--sando-color-border-muted)',
+        display: "flex",
+        alignItems: "center",
+        gap: "24px",
+        padding: "16px",
+        borderBottom: "1px solid #e7e5e4",
       }}
     >
       <div
         style={{
-          fontFamily: 'monospace',
-          fontSize: '12px',
-          color: 'var(--sando-color-text-caption)',
-          minWidth: '100px',
+          fontFamily: "monospace",
+          fontSize: "12px",
+          color: "#44403c",
+          minWidth: "100px",
         }}
       >
         width-{token}
       </div>
       <div
         style={{
-          width: '200px',
-          height: '80px',
-          border: `var(--sando-border-width-${token}) solid var(--sando-color-orange-500)`,
-          borderRadius: '8px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontSize: '12px',
-          color: 'var(--sando-color-text-muted)',
+          width: "200px",
+          height: "80px",
+          border: `var(--sando-border-width-${token}) solid #ea580c`,
+          borderRadius: "8px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          fontSize: "12px",
+          color: "#57534e",
         }}
       >
         {name}
       </div>
-      <div style={{ fontFamily: 'monospace', fontSize: '11px', color: 'var(--sando-color-text-muted)' }}>
+      <div
+        style={{
+          fontFamily: "monospace",
+          fontSize: "11px",
+          color: "#57534e",
+        }}
+      >
         {value}
       </div>
     </div>
@@ -166,39 +180,41 @@ A scale for border thicknesses from hairline to bold.
     style={{
       flex: '1 1 200px',
       padding: '24px',
-      backgroundColor: 'var(--sando-color-background-raised)',
+      backgroundColor: '#ffffff',
       borderRadius: 'var(--sando-border-radius-100)',
       boxShadow: 'var(--sando-elevation-200)',
     }}
   >
     <div style={{ fontSize: '14px', fontWeight: '600', marginBottom: '8px' }}>Small Radius</div>
-    <div style={{ fontSize: '12px', color: 'var(--sando-color-text-muted)' }}>radius-100 (4px)</div>
+    <div style={{ fontSize: '12px', color: '#57534e' }}>radius-100 (4px)</div>
   </div>
+
+<div
+  style={{
+    flex: "1 1 200px",
+    padding: "24px",
+    backgroundColor: "#ffffff",
+    borderRadius: "var(--sando-border-radius-200)",
+    boxShadow: "var(--sando-elevation-200)",
+  }}
+>
+  <div style={{ fontSize: "14px", fontWeight: "600", marginBottom: "8px" }}>
+    Default Radius
+  </div>
+  <div style={{ fontSize: "12px", color: "#57534e" }}>radius-200 (8px)</div>
+</div>
 
   <div
     style={{
       flex: '1 1 200px',
       padding: '24px',
-      backgroundColor: 'var(--sando-color-background-raised)',
-      borderRadius: 'var(--sando-border-radius-200)',
-      boxShadow: 'var(--sando-elevation-200)',
-    }}
-  >
-    <div style={{ fontSize: '14px', fontWeight: '600', marginBottom: '8px' }}>Default Radius</div>
-    <div style={{ fontSize: '12px', color: 'var(--sando-color-text-muted)' }}>radius-200 (8px)</div>
-  </div>
-
-  <div
-    style={{
-      flex: '1 1 200px',
-      padding: '24px',
-      backgroundColor: 'var(--sando-color-background-raised)',
+      backgroundColor: '#ffffff',
       borderRadius: 'var(--sando-border-radius-400)',
       boxShadow: 'var(--sando-elevation-200)',
     }}
   >
     <div style={{ fontSize: '14px', fontWeight: '600', marginBottom: '8px' }}>Large Radius</div>
-    <div style={{ fontSize: '12px', color: 'var(--sando-color-text-muted)' }}>radius-400 (16px)</div>
+    <div style={{ fontSize: '12px', color: '#57534e' }}>radius-400 (16px)</div>
   </div>
 </div>
 
@@ -209,9 +225,9 @@ A scale for border thicknesses from hairline to bold.
     style={{
       padding: '12px 24px',
       backgroundColor: 'transparent',
-      border: 'var(--sando-border-width-50) solid var(--sando-color-orange-500)',
+      border: 'var(--sando-border-width-50) solid #ea580c',
       borderRadius: 'var(--sando-border-radius-200)',
-      color: 'var(--sando-color-orange-500)',
+      color: '#ea580c',
       fontSize: '14px',
       fontWeight: '600',
       cursor: 'pointer',
@@ -220,28 +236,28 @@ A scale for border thicknesses from hairline to bold.
     Hairline Border
   </button>
 
-  <button
-    style={{
-      padding: '12px 24px',
-      backgroundColor: 'transparent',
-      border: 'var(--sando-border-width-100) solid var(--sando-color-orange-500)',
-      borderRadius: 'var(--sando-border-radius-200)',
-      color: 'var(--sando-color-orange-500)',
-      fontSize: '14px',
-      fontWeight: '600',
-      cursor: 'pointer',
-    }}
-  >
-    Thin Border
-  </button>
+<button
+  style={{
+    padding: "12px 24px",
+    backgroundColor: "transparent",
+    border: "var(--sando-border-width-100) solid #ea580c",
+    borderRadius: "var(--sando-border-radius-200)",
+    color: "#ea580c",
+    fontSize: "14px",
+    fontWeight: "600",
+    cursor: "pointer",
+  }}
+>
+  Thin Border
+</button>
 
   <button
     style={{
       padding: '12px 24px',
       backgroundColor: 'transparent',
-      border: 'var(--sando-border-width-200) solid var(--sando-color-orange-500)',
+      border: 'var(--sando-border-width-200) solid #ea580c',
       borderRadius: 'var(--sando-border-radius-200)',
-      color: 'var(--sando-color-orange-500)',
+      color: '#ea580c',
       fontSize: '14px',
       fontWeight: '600',
       cursor: 'pointer',
@@ -258,6 +274,7 @@ A scale for border thicknesses from hairline to bold.
 ### Border Radius
 
 **When to Use:**
+
 - **radius-0**: Geometric, technical interfaces
 - **radius-50-100**: Subtle softness, modern look
 - **radius-200**: Default for most UI elements
@@ -269,6 +286,7 @@ A scale for border thicknesses from hairline to bold.
 ### Border Width
 
 **When to Use:**
+
 - **width-0**: Borderless elements
 - **width-50**: Hairline separators, subtle outlines
 - **width-100**: Default borders for inputs, cards
