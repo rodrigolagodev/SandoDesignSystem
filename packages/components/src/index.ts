@@ -69,6 +69,28 @@ export type {
   TagRemoveEvent
 } from './components/tag/index.js';
 
+export { SandoOption } from './components/option/index.js';
+export type {
+  SandoOptionProps,
+  OptionSelectEventDetail,
+  OptionSelectEvent
+} from './components/option/index.js';
+
+export { SandoOptionGroup } from './components/option-group/index.js';
+export type { SandoOptionGroupProps } from './components/option-group/index.js';
+
+export { SandoSelect } from './components/select/index.js';
+export type {
+  SelectVariant,
+  SelectSize,
+  SelectPlacement,
+  SandoSelectProps,
+  SelectChangeEventDetail,
+  SelectChangeEvent,
+  SelectVisibilityEventDetail,
+  SelectVisibilityEvent
+} from './components/select/index.js';
+
 // ========================================
 // Common Types
 // ========================================

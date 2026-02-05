@@ -544,11 +544,11 @@ describe('sando-tag', () => {
       expect(inner?.getAttribute('part')).toBe('tag');
     });
 
-    it('should have aria-hidden on remove icon SVG', async () => {
+    it('should have decorative attribute on remove icon for accessibility', async () => {
       element = await fixture<SandoTag>(html`<sando-tag removable>Test</sando-tag>`);
       const removeButton = element.shadowRoot?.querySelector('.tag__action--remove');
-      const svg = removeButton?.querySelector('svg');
-      expect(svg?.getAttribute('aria-hidden')).toBe('true');
+      const icon = removeButton?.querySelector('sando-icon');
+      expect(icon?.hasAttribute('decorative')).toBe(true);
     });
   });
 

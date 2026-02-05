@@ -36,7 +36,7 @@
     },
     "icon": {
       "default": { "value": "{color.yellow.800.value}", "type": "color" },
-      "muted": { "value": "{color.yellow.600.value}", "type": "color" },
+      "muted": { "value": "{color.yellow.700.value}", "type": "color" },
       "emphasis": { "value": "{color.yellow.900.value}", "type": "color" },
       "interactive": { "value": "{color.yellow.700.value}", "type": "color" },
       "on-solid": { "value": "{color.yellow.50.value}", "type": "color" }

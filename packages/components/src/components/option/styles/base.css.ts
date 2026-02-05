@@ -1,0 +1,84 @@
+/**
+ * Base Option Styles
+ *
+ * Contains:
+ * - CSS reset
+ * - Layout (flexbox, alignment)
+ * - Typography
+ * - Base appearance (cursor, transitions)
+ */
+
+import { css } from 'lit';
+
+export const baseStyles = css`
+  :host {
+    display: block;
+    font-family: var(--sando-select-fontFamily);
+    line-height: var(--sando-select-lineHeight);
+  }
+
+  .option {
+    display: flex;
+    align-items: center;
+    gap: var(--sando-select-option-gap);
+    padding-inline: var(--sando-select-option-paddingInline);
+    padding-block: var(--sando-select-option-paddingBlock);
+    min-height: var(--sando-select-option-minHeight);
+    font-size: var(--sando-select-option-fontSize);
+    cursor: pointer;
+    user-select: none;
+    transition-property: background-color, color;
+    transition-duration: var(--sando-select-transition-duration);
+    transition-timing-function: var(--sando-select-transition-timing);
+  }
+
+  /* Content layout */
+  .option-prefix {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .option-content {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .option-suffix {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  /* Checkmark icon container */
+  .option-checkmark {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1em;
+    height: 1em;
+    flex-shrink: 0;
+    opacity: 0;
+    transition-property: opacity, color;
+    transition-duration: var(--sando-select-transition-duration);
+    transition-timing-function: var(--sando-select-transition-timing);
+  }
+
+  .option-checkmark sando-icon {
+    display: block;
+    width: 100%;
+    height: 100%;
+    --icon-size: 100%;
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .option,
+    .option-checkmark {
+      transition-duration: 0.01ms !important;
+    }
+  }
+`;
