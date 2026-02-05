@@ -56,6 +56,7 @@ import recipeCheckbox from '@sando/tokens/css/recipes/checkbox.css?inline';
 import recipeFormGroup from '@sando/tokens/css/recipes/form-group.css?inline';
 import recipeIcon from '@sando/tokens/css/recipes/icon.css?inline';
 import recipeInput from '@sando/tokens/css/recipes/input.css?inline';
+import recipeSelect from '@sando/tokens/css/recipes/select.css?inline';
 
 /**
  * Combined token styles for Web Components Shadow DOM
@@ -90,4 +91,5 @@ export const tokenStyles = css`
   ${unsafeCSS(recipeFormGroup)}
   ${unsafeCSS(recipeIcon)}
   ${unsafeCSS(recipeInput)}
+  ${unsafeCSS(recipeSelect)}
 `;

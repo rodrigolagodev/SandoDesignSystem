@@ -37,8 +37,11 @@ import "../../../packages/tokens/dist/sando-tokens/css/ingredients/z-index.css";
 
 // Import Recipes (component tokens, always loaded)
 import "../../../packages/tokens/dist/sando-tokens/css/recipes/button.css";
+import "../../../packages/tokens/dist/sando-tokens/css/recipes/checkbox.css";
+import "../../../packages/tokens/dist/sando-tokens/css/recipes/form-group.css";
 import "../../../packages/tokens/dist/sando-tokens/css/recipes/icon.css";
 import "../../../packages/tokens/dist/sando-tokens/css/recipes/input.css";
+import "../../../packages/tokens/dist/sando-tokens/css/recipes/select.css";
 import "../../../packages/tokens/dist/sando-tokens/css/recipes/tag.css";
 
 // Import ALL Flavors with mode support
