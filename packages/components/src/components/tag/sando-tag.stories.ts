@@ -6,34 +6,44 @@ import '../icon/sando-icon.ts';
 
 /**
  * Tags are compact elements representing attributes, labels, or categories.
- * They support three distinct use cases with clear exclusivity rules:
+ * They feature a **mandatory icon** (default: circle-chevron-right) with specialized click behavior.
  *
- * ## Use Cases (Mutually Exclusive)
+ * ## Key Concept: Icon-Based Interaction
  *
- * 1. **Removable** (highest priority) - Chip with X button for filters/multi-select
+ * Unlike traditional tags where the entire element is clickable, Sando Tags have a
+ * **split interaction model** inspired by Strapi's Tag pattern:
+ *
+ * - **Content area**: Always display-only (not clickable)
+ * - **Icon area**: Interactive element (button, link, or remove button)
+ *
+ * ## Interaction Modes (Mutually Exclusive)
+ *
+ * 1. **Removable** (highest priority) - X button replaces the icon
  *    - `removable=true` is **EXCLUSIVE**: ignores `clickable` and `href`
- *    - Only the X button is interactive, content is display-only
- *    - Custom icons (`slot="icon"`) are NOT rendered (X replaces them)
+ *    - Only the X button is interactive → emits `sando-remove`
  *
- * 2. **Link** - Entire tag navigates to URL when `href` is set
- *    - Custom icons render normally
+ * 2. **Link** - Icon area is an anchor `<a>`
+ *    - ONLY the icon navigates to the URL
+ *    - Content is NOT clickable
  *
- * 3. **Clickable** - Entire tag acts as button when `clickable=true`
- *    - Custom icons render normally
+ * 3. **Clickable** - Icon area is a button
+ *    - ONLY the icon is clickable → emits `sando-action`
+ *    - Content is NOT clickable
  *
- * 4. **Informative** (default) - Display-only badge, no interaction
- *    - Custom icons render normally
+ * 4. **Informative** (default) - Display-only
+ *    - Icon is visible but NOT interactive
+ *    - No click events
  *
  * ## Features
+ * - **Mandatory Icon**: Always shows an icon (default: circle-chevron-right)
+ * - **Custom Icons**: Override default via `slot="icon"`
  * - **3 Variants**: solid, outline, soft
  * - **3 Sizes**: small, medium, large
- * - **Icon Support**: Custom icon slot (only for non-removable tags)
  *
  * ## Accessibility
- * - Removable tags have descriptive aria-label on X button
- * - Disabled state properly communicated to assistive technology
- * - Focus delegation for proper keyboard navigation
- * - Link tags include proper rel attributes for external links
+ * - Action buttons/links have descriptive aria-labels
+ * - Disabled state properly communicated
+ * - Focus management for keyboard navigation
  */
 const meta: Meta = {
   title: 'Components/Tag',
@@ -49,9 +59,11 @@ const meta: Meta = {
       ?disabled="${args.disabled}"
       href="${args.href || ''}"
       target="${args.target || ''}"
+      @sando-remove="${action('sando-remove')}"
+      @sando-action="${action('sando-action')}"
     >
       ${args.content}
-      ${!args.removable && args.icon && args.icon !== 'none'
+      ${!args.removable && args.icon && args.icon !== 'circle-chevron-right'
         ? html`<sando-icon slot="icon" name="${args.icon}" size="xs"></sando-icon>`
         : ''}
     </sando-tag>
@@ -89,7 +101,7 @@ const meta: Meta = {
     },
     removable: {
       control: 'boolean',
-      description: 'Shows a remove (X) button. EXCLUSIVE: ignores clickable/href, hides icon slot.',
+      description: 'Shows X button (replaces icon). EXCLUSIVE: ignores clickable/href.',
       table: {
         category: 'Behavior',
         type: { summary: 'boolean' },
@@ -98,7 +110,7 @@ const meta: Meta = {
     },
     clickable: {
       control: 'boolean',
-      description: 'Makes the entire tag clickable (button behavior). Ignored when removable=true.',
+      description: 'Makes only the icon area clickable. Ignored when removable=true.',
       table: {
         category: 'Behavior',
         type: { summary: 'boolean' },
@@ -116,7 +128,7 @@ const meta: Meta = {
     },
     href: {
       control: 'text',
-      description: 'URL to navigate to (renders as anchor). Ignored when removable=true.',
+      description: 'URL for icon navigation. Ignored when removable=true.',
       table: {
         category: 'Link',
         type: { summary: 'string' }
@@ -142,6 +154,7 @@ const meta: Meta = {
     icon: {
       control: 'select',
       options: [
+        'circle-chevron-right',
         'none',
         'star',
         'heart',
@@ -149,13 +162,15 @@ const meta: Meta = {
         'x',
         'tag',
         'arrow-right',
+        'chevron-right',
         'external-link',
         'circle',
         'info',
         'alert-circle',
         'badge-check'
       ],
-      description: 'Icon to display (only rendered when NOT removable)',
+      description:
+        'Custom icon (overrides default circle-chevron-right). NOT shown when removable.',
       table: {
         category: 'Content',
         type: { summary: 'string' }
@@ -171,7 +186,7 @@ const meta: Meta = {
     clickable: false,
     disabled: false,
     content: 'Hello World',
-    icon: 'none'
+    icon: 'circle-chevron-right'
   }
 };
 
@@ -186,18 +201,19 @@ const DOCS_ONLY = ['!dev', '!autodocs'];
 // ============================================================================
 
 /**
- * Default solid tag - informative, display-only.
+ * Default tag with mandatory icon (circle-chevron-right).
+ * The icon is always visible but not interactive in informative mode.
  */
 export const Default: Story = {};
 
 /**
  * Interactive playground - use controls to customize all properties.
- * Try selecting an icon from the dropdown (only visible when NOT removable).
+ * Notice the icon is always present (default: circle-chevron-right).
  */
 export const Playground: Story = {
   args: {
     content: 'Customize me!',
-    icon: 'star'
+    icon: 'circle-chevron-right' // Uses default circle-chevron-right
   }
 };
 
@@ -207,6 +223,7 @@ export const Playground: Story = {
 
 /**
  * All variant styles comparison: solid, outline, soft.
+ * Note: All tags show the default chevron-right icon.
  */
 export const Variants: Story = {
   tags: DOCS_ONLY,
@@ -236,18 +253,64 @@ export const Sizes: Story = {
 };
 
 // ============================================================================
-// INTERACTIVE MODES (Exclusivity Demonstration)
+// INTERACTION MODES
 // ============================================================================
+
+/**
+ * **Mandatory Icon Demo**: Tags ALWAYS show an icon.
+ *
+ * - Default: circle-chevron-right icon
+ * - Custom: use `slot="icon"` to override
+ *
+ * The icon is visible but NOT interactive in informative mode.
+ */
+export const MandatoryIcon: Story = {
+  tags: DOCS_ONLY,
+  render: () => html`
+    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+      <div>
+        <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">
+          Default Icon (circle-chevron-right)
+        </h4>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
+          <sando-tag variant="solid">New</sando-tag>
+          <sando-tag variant="outline">Featured</sando-tag>
+          <sando-tag variant="soft">Popular</sando-tag>
+        </div>
+      </div>
+      <div>
+        <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">
+          Custom Icons (via slot)
+        </h4>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
+          <sando-tag variant="solid">
+            Star
+            <sando-icon slot="icon" name="star" size="xs"></sando-icon>
+          </sando-tag>
+          <sando-tag variant="outline">
+            Heart
+            <sando-icon slot="icon" name="heart" size="xs"></sando-icon>
+          </sando-tag>
+          <sando-tag variant="soft">
+            Check
+            <sando-icon slot="icon" name="check" size="xs"></sando-icon>
+          </sando-tag>
+        </div>
+      </div>
+    </div>
+  `,
+  parameters: { controls: { disable: true } }
+};
 
 /**
  * Removable tag with X button - the EXCLUSIVE mode.
  *
  * When `removable=true`:
+ * - X button REPLACES the icon
  * - Only the X button is clickable (emits `sando-remove` event)
- * - `clickable` and `href` props are IGNORED
- * - `slot="icon"` is NOT rendered (X replaces custom icons)
+ * - `clickable`, `href`, and `slot="icon"` are IGNORED
  *
- * Click the X button and check the browser console for the event log.
+ * Click the X button and check the Actions panel.
  */
 export const Removable: Story = {
   args: {
@@ -266,7 +329,7 @@ export const Removable: Story = {
             variant="solid"
             size="${args.size}"
             flavor="${args.flavor}"
-            @sando-remove="${(e: CustomEvent) => action('sando-remove: JavaScript')(e.detail)}"
+            @sando-remove="${action('sando-remove: JavaScript')}"
           >
             JavaScript
           </sando-tag>
@@ -275,7 +338,7 @@ export const Removable: Story = {
             variant="outline"
             size="${args.size}"
             flavor="${args.flavor}"
-            @sando-remove="${(e: CustomEvent) => action('sando-remove: TypeScript')(e.detail)}"
+            @sando-remove="${action('sando-remove: TypeScript')}"
           >
             TypeScript
           </sando-tag>
@@ -284,48 +347,81 @@ export const Removable: Story = {
             variant="soft"
             size="${args.size}"
             flavor="${args.flavor}"
-            @sando-remove="${(e: CustomEvent) => action('sando-remove: React')(e.detail)}"
+            @sando-remove="${action('sando-remove: React')}"
           >
             React
           </sando-tag>
         </div>
       </div>
       <p style="font-size: 0.875rem; color: #6b7280; margin: 0;">
-        Open browser console to see <code>sando-remove</code> events.
+        Open the <strong>Actions</strong> panel to see <code>sando-remove</code> events.
       </p>
     </div>
   `
 };
 
 /**
- * Clickable tags act as buttons - entire tag is interactive.
- * These tags have NO custom icons to demonstrate pure button behavior.
+ * **Clickable tags**: Only the ICON AREA is interactive.
+ *
+ * Unlike traditional tags where the entire element is clickable,
+ * only the icon button triggers the `sando-action` event.
+ * The content area is display-only.
  */
 export const Clickable: Story = {
   tags: DOCS_ONLY,
   render: () => html`
-    <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
-      <sando-tag clickable variant="solid" @click="${action('Clicked: View Details')}">
-        View Details
-      </sando-tag>
-      <sando-tag clickable variant="outline" @click="${action('Clicked: Edit')}"> Edit </sando-tag>
-      <sando-tag clickable variant="soft" @click="${action('Clicked: Add')}"> Add </sando-tag>
+    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+      <div>
+        <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">
+          Clickable Tags (only icon area is interactive)
+        </h4>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
+          <sando-tag clickable variant="solid" @sando-action="${action('Action: View Details')}">
+            View Details
+          </sando-tag>
+          <sando-tag clickable variant="outline" @sando-action="${action('Action: Edit')}">
+            Edit
+          </sando-tag>
+          <sando-tag clickable variant="soft" @sando-action="${action('Action: Add')}">
+            Add
+          </sando-tag>
+        </div>
+      </div>
+      <p style="font-size: 0.875rem; color: #6b7280; margin: 0;">
+        <strong>Try it:</strong> Click the text (nothing happens) vs. click the icon (triggers
+        action).
+      </p>
     </div>
   `,
   parameters: { controls: { disable: true } }
 };
 
 /**
- * Tags rendered as links navigate to URLs.
- * These tags have NO custom icons to demonstrate pure link behavior.
+ * **Link tags**: Only the ICON AREA navigates.
+ *
+ * The icon is wrapped in an anchor `<a>` element.
+ * Only clicking the icon navigates to the URL.
  */
 export const AsLink: Story = {
   tags: DOCS_ONLY,
   render: () => html`
-    <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
-      <sando-tag href="/category/design" variant="solid">Design</sando-tag>
-      <sando-tag href="/category/development" variant="outline">Development</sando-tag>
-      <sando-tag href="https://example.com" target="_blank" variant="soft">External Link</sando-tag>
+    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+      <div>
+        <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">
+          Link Tags (only icon area navigates)
+        </h4>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
+          <sando-tag href="/category/design" variant="solid">Design</sando-tag>
+          <sando-tag href="/category/development" variant="outline">Development</sando-tag>
+          <sando-tag href="https://example.com" target="_blank" variant="soft">
+            External Link
+            <sando-icon slot="icon" name="external-link" size="xs"></sando-icon>
+          </sando-tag>
+        </div>
+      </div>
+      <p style="font-size: 0.875rem; color: #6b7280; margin: 0;">
+        <strong>Try it:</strong> Click the text (nothing happens) vs. click the icon (navigates).
+      </p>
     </div>
   `,
   parameters: { controls: { disable: true } }
@@ -334,21 +430,16 @@ export const AsLink: Story = {
 /**
  * Tags with custom icons using the `slot="icon"`.
  *
- * Custom icons work with:
- * - **Informative** tags (display-only, no interaction)
- * - **Clickable** tags (entire tag is a button)
- * - **Link** tags (entire tag is an anchor)
- *
- * **Note:** Icons are NOT rendered when `removable=true` (X button replaces them).
+ * Custom icons work with all modes EXCEPT removable (X replaces custom icons).
  */
-export const WithIcon: Story = {
+export const WithCustomIcon: Story = {
   tags: DOCS_ONLY,
   render: () => html`
     <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-      <!-- Informative with icon -->
+      <!-- Informative with custom icon -->
       <div>
         <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">
-          Informative (display-only with icon)
+          Informative (icon visible, not interactive)
         </h4>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
           <sando-tag variant="solid">
@@ -366,27 +457,27 @@ export const WithIcon: Story = {
         </div>
       </div>
 
-      <!-- Clickable with icon -->
+      <!-- Clickable with custom icon -->
       <div>
         <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">
-          Clickable (button with icon)
+          Clickable (only icon button triggers action)
         </h4>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
-          <sando-tag clickable variant="solid" @click="${action('Clicked: Add Item')}">
+          <sando-tag clickable variant="solid" @sando-action="${action('Action: Add Item')}">
             Add Item
             <sando-icon slot="icon" name="plus" size="xs"></sando-icon>
           </sando-tag>
-          <sando-tag clickable variant="outline" @click="${action('Clicked: Settings')}">
+          <sando-tag clickable variant="outline" @sando-action="${action('Action: Settings')}">
             Settings
             <sando-icon slot="icon" name="settings" size="xs"></sando-icon>
           </sando-tag>
         </div>
       </div>
 
-      <!-- Link with icon -->
+      <!-- Link with custom icon -->
       <div>
         <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">
-          Link (anchor with icon)
+          Link (only icon anchor navigates)
         </h4>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
           <sando-tag href="/docs" variant="solid">
@@ -455,9 +546,8 @@ export const Disabled: Story = {
 export const InContext: Story = {
   tags: DOCS_ONLY,
   render: () => {
-    const handleRemove = (tagName: string) => (e: CustomEvent) => {
-      action(`Filter removed: ${tagName}`)(e.detail);
-      // In a real app, you would update state here
+    const handleRemove = (tagName: string) => () => {
+      action(`Filter removed: ${tagName}`)();
     };
 
     return html`
@@ -522,5 +612,45 @@ export const InContext: Story = {
       </div>
     `;
   },
+  parameters: { controls: { disable: true } }
+};
+
+/**
+ * Comparison: Old vs New behavior.
+ *
+ * This story demonstrates how the new split-interaction model differs from
+ * traditional tag components where the entire element is clickable.
+ */
+export const InteractionComparison: Story = {
+  tags: DOCS_ONLY,
+  render: () => html`
+    <div style="display: flex; flex-direction: column; gap: 2rem;">
+      <div
+        style="padding: 1.5rem; border: 1px solid #e5e7eb; border-radius: 8px; background: #f9fafb;"
+      >
+        <h4 style="margin: 0 0 1rem 0; font-size: 1rem; color: #374151;">
+          🆕 Sando Tag Behavior (Split Interaction)
+        </h4>
+        <p style="font-size: 0.875rem; color: #6b7280; margin: 0 0 1rem 0;">
+          Only the <strong>icon area</strong> is interactive. The text content is display-only.
+        </p>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
+          <sando-tag clickable @sando-action="${action('Icon clicked')}"
+            >Click the icon →</sando-tag
+          >
+          <sando-tag href="#demo">Navigate via icon →</sando-tag>
+          <sando-tag removable @sando-remove="${action('X clicked')}">Remove via X</sando-tag>
+        </div>
+      </div>
+
+      <div style="padding: 1rem; background: #fef3c7; border-radius: 8px;">
+        <p style="margin: 0; font-size: 0.875rem; color: #92400e;">
+          <strong>💡 Why this pattern?</strong> Inspired by Strapi's Tag component, this approach
+          provides clearer affordance for the interactive element and prevents accidental clicks on
+          the content area.
+        </p>
+      </div>
+    </div>
+  `,
   parameters: { controls: { disable: true } }
 };

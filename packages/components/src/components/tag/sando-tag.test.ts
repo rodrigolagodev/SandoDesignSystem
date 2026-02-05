@@ -2,6 +2,14 @@
  * Unit Tests for sando-tag
  * Tests rendering, properties, events, slots, and keyboard navigation
  *
+ * NOTE: The tag component uses a "split interaction" model:
+ * - The outer .tag element is ALWAYS a <span>
+ * - Only the icon area (.tag__action) is interactive
+ * - For clickable mode: icon area is a <button>
+ * - For link mode: icon area is an <a>
+ * - For removable mode: icon area is a <button> with X
+ * - For informative mode: icon area is a <span> (not interactive)
+ *
  * @see TESTING_STRATEGY.toon (TST-CR-R1, TST-CR-R2)
  * @see KEYBOARD_NAVIGATION.toon (KN-CR-R1, KN-CR-R5)
  */
@@ -125,20 +133,20 @@ describe('sando-tag', () => {
       element = await fixture<SandoTag>(html`<sando-tag removable>Removable Tag</sando-tag>`);
     });
 
-    it('should show remove button when removable=true', () => {
-      const removeButton = element.shadowRoot?.querySelector('.tag__remove');
-      expect(removeButton).toBeDefined();
-      expect(removeButton).not.toBeNull();
+    it('should show remove action button when removable=true', () => {
+      const removeAction = element.shadowRoot?.querySelector('.tag__action--remove');
+      expect(removeAction).toBeDefined();
+      expect(removeAction).not.toBeNull();
     });
 
-    it('should hide remove button when removable=false', async () => {
+    it('should hide remove action button when removable=false', async () => {
       element.removable = false;
       await element.updateComplete;
-      const removeButton = element.shadowRoot?.querySelector('.tag__remove');
-      expect(removeButton).toBeNull();
+      const removeAction = element.shadowRoot?.querySelector('.tag__action--remove');
+      expect(removeAction).toBeNull();
     });
 
-    it('should render as span (not button) when removable', () => {
+    it('should render wrapper as span when removable', () => {
       const inner = element.shadowRoot?.querySelector('.tag');
       expect(inner?.tagName.toLowerCase()).toBe('span');
     });
@@ -157,8 +165,10 @@ describe('sando-tag', () => {
         eventDetail = e.detail;
       }) as EventListener);
 
-      const removeButton = element.shadowRoot?.querySelector('.tag__remove') as HTMLButtonElement;
-      removeButton?.click();
+      const removeAction = element.shadowRoot?.querySelector(
+        '.tag__action--remove'
+      ) as HTMLButtonElement;
+      removeAction?.click();
 
       expect(eventFired).toBe(true);
       expect(eventDetail).toHaveProperty('originalEvent');
@@ -173,15 +183,17 @@ describe('sando-tag', () => {
         eventFired = true;
       });
 
-      const removeButton = element.shadowRoot?.querySelector('.tag__remove') as HTMLButtonElement;
-      removeButton?.click();
+      const removeAction = element.shadowRoot?.querySelector(
+        '.tag__action--remove'
+      ) as HTMLButtonElement;
+      removeAction?.click();
 
       expect(eventFired).toBe(false);
     });
 
     it('should have accessible label on remove button', () => {
-      const removeButton = element.shadowRoot?.querySelector('.tag__remove');
-      const ariaLabel = removeButton?.getAttribute('aria-label');
+      const removeAction = element.shadowRoot?.querySelector('.tag__action--remove');
+      const ariaLabel = removeAction?.getAttribute('aria-label');
       expect(ariaLabel).toBe('Remove Removable Tag');
     });
 
@@ -189,8 +201,10 @@ describe('sando-tag', () => {
       element.disabled = true;
       await element.updateComplete;
 
-      const removeButton = element.shadowRoot?.querySelector('.tag__remove') as HTMLButtonElement;
-      expect(removeButton?.disabled).toBe(true);
+      const removeAction = element.shadowRoot?.querySelector(
+        '.tag__action--remove'
+      ) as HTMLButtonElement;
+      expect(removeAction?.disabled).toBe(true);
     });
   });
 
@@ -199,9 +213,14 @@ describe('sando-tag', () => {
       element = await fixture<SandoTag>(html`<sando-tag clickable>Clickable Tag</sando-tag>`);
     });
 
-    it('should render as button when clickable=true', () => {
+    it('should render wrapper as span (icon area is button)', () => {
       const inner = element.shadowRoot?.querySelector('.tag');
-      expect(inner?.tagName.toLowerCase()).toBe('button');
+      expect(inner?.tagName.toLowerCase()).toBe('span');
+    });
+
+    it('should render icon area as button when clickable=true', () => {
+      const actionButton = element.shadowRoot?.querySelector('.tag__action--button');
+      expect(actionButton?.tagName.toLowerCase()).toBe('button');
     });
 
     it('should have clickable class', () => {
@@ -209,22 +228,40 @@ describe('sando-tag', () => {
       expect(inner?.classList.contains('tag--clickable')).toBe(true);
     });
 
-    it('should be focusable when clickable', () => {
-      const button = element.shadowRoot?.querySelector('.tag') as HTMLButtonElement;
+    it('should have focusable action button when clickable', () => {
+      const button = element.shadowRoot?.querySelector('.tag__action--button') as HTMLButtonElement;
       expect(button?.disabled).toBe(false);
     });
 
     it('should not show remove button when clickable', () => {
-      const removeButton = element.shadowRoot?.querySelector('.tag__remove');
-      expect(removeButton).toBeNull();
+      const removeAction = element.shadowRoot?.querySelector('.tag__action--remove');
+      expect(removeAction).toBeNull();
     });
 
-    it('should be disabled when disabled property is set', async () => {
+    it('should disable action button when disabled property is set', async () => {
       element.disabled = true;
       await element.updateComplete;
 
-      const button = element.shadowRoot?.querySelector('.tag') as HTMLButtonElement;
+      const button = element.shadowRoot?.querySelector('.tag__action--button') as HTMLButtonElement;
       expect(button?.disabled).toBe(true);
+    });
+
+    it('should dispatch sando-action event when action button clicked', async () => {
+      let eventFired = false;
+      let eventDetail: unknown = null;
+
+      element.addEventListener('sando-action', ((e: CustomEvent) => {
+        eventFired = true;
+        eventDetail = e.detail;
+      }) as EventListener);
+
+      const actionButton = element.shadowRoot?.querySelector(
+        '.tag__action--button'
+      ) as HTMLButtonElement;
+      actionButton?.click();
+
+      expect(eventFired).toBe(true);
+      expect(eventDetail).toHaveProperty('originalEvent');
     });
   });
 
@@ -235,26 +272,31 @@ describe('sando-tag', () => {
       `);
     });
 
-    it('should render as anchor when href is set', () => {
+    it('should render wrapper as span (icon area is anchor)', () => {
       const inner = element.shadowRoot?.querySelector('.tag');
-      expect(inner?.tagName.toLowerCase()).toBe('a');
+      expect(inner?.tagName.toLowerCase()).toBe('span');
     });
 
-    it('should have correct href attribute', () => {
-      const anchor = element.shadowRoot?.querySelector('.tag') as HTMLAnchorElement;
+    it('should render icon area as anchor when href is set', () => {
+      const actionLink = element.shadowRoot?.querySelector('.tag__action--link');
+      expect(actionLink?.tagName.toLowerCase()).toBe('a');
+    });
+
+    it('should have correct href attribute on icon anchor', () => {
+      const anchor = element.shadowRoot?.querySelector('.tag__action--link') as HTMLAnchorElement;
       expect(anchor?.getAttribute('href')).toBe('/category/design');
     });
 
-    it('should have clickable class', () => {
+    it('should have link class', () => {
       const inner = element.shadowRoot?.querySelector('.tag');
-      expect(inner?.classList.contains('tag--clickable')).toBe(true);
+      expect(inner?.classList.contains('tag--link')).toBe(true);
     });
 
-    it('should apply target attribute', async () => {
+    it('should apply target attribute on icon anchor', async () => {
       element.target = '_blank';
       await element.updateComplete;
 
-      const anchor = element.shadowRoot?.querySelector('.tag') as HTMLAnchorElement;
+      const anchor = element.shadowRoot?.querySelector('.tag__action--link') as HTMLAnchorElement;
       expect(anchor?.getAttribute('target')).toBe('_blank');
     });
 
@@ -262,23 +304,23 @@ describe('sando-tag', () => {
       element.target = '_blank';
       await element.updateComplete;
 
-      const anchor = element.shadowRoot?.querySelector('.tag') as HTMLAnchorElement;
+      const anchor = element.shadowRoot?.querySelector('.tag__action--link') as HTMLAnchorElement;
       expect(anchor?.getAttribute('rel')).toBe('noopener noreferrer');
     });
 
-    it('should have aria-disabled when disabled', async () => {
+    it('should have aria-disabled on icon anchor when disabled', async () => {
       element.disabled = true;
       await element.updateComplete;
 
-      const anchor = element.shadowRoot?.querySelector('.tag') as HTMLAnchorElement;
+      const anchor = element.shadowRoot?.querySelector('.tag__action--link') as HTMLAnchorElement;
       expect(anchor?.getAttribute('aria-disabled')).toBe('true');
     });
 
-    it('should have tabindex=-1 when disabled', async () => {
+    it('should have tabindex=-1 on icon anchor when disabled', async () => {
       element.disabled = true;
       await element.updateComplete;
 
-      const anchor = element.shadowRoot?.querySelector('.tag') as HTMLAnchorElement;
+      const anchor = element.shadowRoot?.querySelector('.tag__action--link') as HTMLAnchorElement;
       expect(anchor?.getAttribute('tabindex')).toBe('-1');
     });
   });
@@ -368,38 +410,28 @@ describe('sando-tag', () => {
           eventFired = true;
         });
 
-        const removeButton = element.shadowRoot?.querySelector('.tag__remove') as HTMLButtonElement;
-        removeButton?.focus();
-
-        const enterEvent = new KeyboardEvent('keydown', {
-          key: 'Enter',
-          code: 'Enter',
-          bubbles: true,
-          cancelable: true
-        });
-        removeButton?.dispatchEvent(enterEvent);
+        const removeAction = element.shadowRoot?.querySelector(
+          '.tag__action--remove'
+        ) as HTMLButtonElement;
+        removeAction?.focus();
 
         // Native button handles Enter
-        removeButton?.click();
+        removeAction?.click();
         expect(eventFired).toBe(true);
       });
 
-      it('should activate remove on Space key', async () => {
+      it('should activate remove on Space key (native button)', async () => {
         let eventFired = false;
         element.addEventListener('sando-remove', () => {
           eventFired = true;
         });
 
-        const removeButton = element.shadowRoot?.querySelector('.tag__remove') as HTMLButtonElement;
-        removeButton?.focus();
-
-        const spaceEvent = new KeyboardEvent('keydown', {
-          key: ' ',
-          code: 'Space',
-          bubbles: true,
-          cancelable: true
-        });
-        removeButton?.dispatchEvent(spaceEvent);
+        const removeAction = element.shadowRoot?.querySelector(
+          '.tag__action--remove'
+        ) as HTMLButtonElement;
+        removeAction?.focus();
+        // Native button handles Space via click
+        removeAction?.click();
 
         expect(eventFired).toBe(true);
       });
@@ -413,10 +445,12 @@ describe('sando-tag', () => {
           eventFired = true;
         });
 
-        const removeButton = element.shadowRoot?.querySelector('.tag__remove') as HTMLButtonElement;
-        expect(removeButton?.disabled).toBe(true);
+        const removeAction = element.shadowRoot?.querySelector(
+          '.tag__action--remove'
+        ) as HTMLButtonElement;
+        expect(removeAction?.disabled).toBe(true);
 
-        removeButton?.click();
+        removeAction?.click();
         expect(eventFired).toBe(false);
       });
     });
@@ -426,22 +460,23 @@ describe('sando-tag', () => {
         element = await fixture<SandoTag>(html`<sando-tag clickable>Clickable</sando-tag>`);
       });
 
-      it('should be focusable', () => {
-        const button = element.shadowRoot?.querySelector('.tag') as HTMLButtonElement;
+      it('should have focusable action button', () => {
+        const button = element.shadowRoot?.querySelector(
+          '.tag__action--button'
+        ) as HTMLButtonElement;
         expect(button?.disabled).toBe(false);
         expect(button?.getAttribute('tabindex')).not.toBe('-1');
       });
 
-      it('should respond to Enter key', async () => {
+      it('should dispatch sando-action on click', async () => {
         let clicked = false;
-        element.addEventListener('click', () => {
+        element.addEventListener('sando-action', () => {
           clicked = true;
         });
 
-        const button = element.shadowRoot?.querySelector('.tag') as HTMLButtonElement;
-        button?.focus();
-
-        // Native button handles Enter
+        const button = element.shadowRoot?.querySelector(
+          '.tag__action--button'
+        ) as HTMLButtonElement;
         button?.click();
         expect(clicked).toBe(true);
       });
@@ -450,7 +485,9 @@ describe('sando-tag', () => {
         element.disabled = true;
         await element.updateComplete;
 
-        const button = element.shadowRoot?.querySelector('.tag') as HTMLButtonElement;
+        const button = element.shadowRoot?.querySelector(
+          '.tag__action--button'
+        ) as HTMLButtonElement;
         expect(button?.disabled).toBe(true);
       });
     });
@@ -460,8 +497,8 @@ describe('sando-tag', () => {
         element = await fixture<SandoTag>(html`<sando-tag href="/test">Link Tag</sando-tag>`);
       });
 
-      it('should be focusable', () => {
-        const anchor = element.shadowRoot?.querySelector('.tag') as HTMLAnchorElement;
+      it('should have focusable icon anchor', () => {
+        const anchor = element.shadowRoot?.querySelector('.tag__action--link') as HTMLAnchorElement;
         expect(anchor?.getAttribute('tabindex')).not.toBe('-1');
       });
 
@@ -469,7 +506,7 @@ describe('sando-tag', () => {
         element.disabled = true;
         await element.updateComplete;
 
-        const anchor = element.shadowRoot?.querySelector('.tag') as HTMLAnchorElement;
+        const anchor = element.shadowRoot?.querySelector('.tag__action--link') as HTMLAnchorElement;
         expect(anchor?.getAttribute('tabindex')).toBe('-1');
       });
     });
@@ -482,7 +519,9 @@ describe('sando-tag', () => {
         expect(element.shadowRoot).toBeDefined();
         expect(element.shadowRoot?.mode).toBe('open');
 
-        const button = element.shadowRoot?.querySelector('.tag') as HTMLButtonElement;
+        const button = element.shadowRoot?.querySelector(
+          '.tag__action--button'
+        ) as HTMLButtonElement;
         expect(button).toBeDefined();
       });
     });
@@ -507,7 +546,8 @@ describe('sando-tag', () => {
 
     it('should have aria-hidden on remove icon SVG', async () => {
       element = await fixture<SandoTag>(html`<sando-tag removable>Test</sando-tag>`);
-      const svg = element.shadowRoot?.querySelector('.tag__remove-icon');
+      const removeButton = element.shadowRoot?.querySelector('.tag__action--remove');
+      const svg = removeButton?.querySelector('svg');
       expect(svg?.getAttribute('aria-hidden')).toBe('true');
     });
   });
@@ -570,7 +610,7 @@ describe('sando-tag', () => {
         expect(inner?.getAttribute('type')).toBeNull(); // Not a button
 
         // But the remove button SHOULD exist and work
-        const removeButton = element.shadowRoot?.querySelector('.tag__remove');
+        const removeButton = element.shadowRoot?.querySelector('.tag__action--remove');
         expect(removeButton).not.toBeNull();
       });
 
@@ -594,7 +634,7 @@ describe('sando-tag', () => {
           </sando-tag>
         `);
 
-        const removeButton = element.shadowRoot?.querySelector('.tag__remove');
+        const removeButton = element.shadowRoot?.querySelector('.tag__action--remove');
         const iconSlot = element.shadowRoot?.querySelector('slot[name="icon"]');
 
         expect(removeButton).not.toBeNull();
@@ -619,9 +659,12 @@ describe('sando-tag', () => {
         `);
 
         const inner = element.shadowRoot?.querySelector('.tag');
-        // Should be anchor (href), not button (clickable)
-        expect(inner?.tagName.toLowerCase()).toBe('a');
-        expect(inner?.getAttribute('href')).toBe('/test');
+        // Wrapper is always span in split-interaction model
+        // But the icon area should be an anchor (href), not button (clickable)
+        expect(inner?.tagName.toLowerCase()).toBe('span');
+        const linkAction = element.shadowRoot?.querySelector('.tag__action--link');
+        expect(linkAction).not.toBeNull();
+        expect(linkAction?.getAttribute('href')).toBe('/test');
       });
     });
 
@@ -632,18 +675,23 @@ describe('sando-tag', () => {
       });
 
       it('should handle dynamic mode switching', async () => {
-        // Start as informative
+        // Start as informative (wrapper is always span)
         expect(element.shadowRoot?.querySelector('.tag')?.tagName.toLowerCase()).toBe('span');
+        // Should have non-interactive icon area
+        expect(element.shadowRoot?.querySelector('.tag__icon')).not.toBeNull();
 
         // Switch to clickable
         element.clickable = true;
         await element.updateComplete;
-        expect(element.shadowRoot?.querySelector('.tag')?.tagName.toLowerCase()).toBe('button');
+        // Wrapper stays span, but icon area becomes button
+        expect(element.shadowRoot?.querySelector('.tag')?.tagName.toLowerCase()).toBe('span');
+        expect(element.shadowRoot?.querySelector('.tag__action--button')).not.toBeNull();
 
         // Switch to removable (overrides clickable)
         element.removable = true;
         await element.updateComplete;
         expect(element.shadowRoot?.querySelector('.tag')?.tagName.toLowerCase()).toBe('span');
+        expect(element.shadowRoot?.querySelector('.tag__action--remove')).not.toBeNull();
       });
 
       it('should switch icon slot visibility when toggling removable', async () => {
@@ -674,16 +722,18 @@ describe('sando-tag', () => {
       it('should switch from href to removable mode correctly', async () => {
         element = await fixture<SandoTag>(html` <sando-tag href="/test">Link Tag</sando-tag> `);
 
-        // Initially an anchor
-        expect(element.shadowRoot?.querySelector('.tag')?.tagName.toLowerCase()).toBe('a');
+        // Initially has a link action in the icon area
+        expect(element.shadowRoot?.querySelector('.tag')?.tagName.toLowerCase()).toBe('span');
+        expect(element.shadowRoot?.querySelector('.tag__action--link')).not.toBeNull();
 
         // Switch to removable
         element.removable = true;
         await element.updateComplete;
 
-        // Should be span now
+        // Should still be span, but now with remove button
         expect(element.shadowRoot?.querySelector('.tag')?.tagName.toLowerCase()).toBe('span');
-        expect(element.shadowRoot?.querySelector('.tag__remove')).not.toBeNull();
+        expect(element.shadowRoot?.querySelector('.tag__action--remove')).not.toBeNull();
+        expect(element.shadowRoot?.querySelector('.tag__action--link')).toBeNull();
       });
     });
   });

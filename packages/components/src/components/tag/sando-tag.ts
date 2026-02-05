@@ -1,59 +1,72 @@
 /**
  * Sando Tag Component
  *
- * A versatile chip/badge component supporting three mutually exclusive use cases:
+ * A versatile chip/badge component with mandatory icon and specialized click behavior.
+ * Inspired by Strapi's Tag pattern where only the icon area is interactive.
  *
- * ## Priority/Exclusivity Rules
+ * ## Structure
  *
- * 1. **`removable` is EXCLUSIVE** - When `removable=true`:
- *    - Always shows the X (dismiss) button
- *    - Only the X button is clickable → emits `sando-remove`
- *    - IGNORES `clickable` and `href` props (they have no effect)
- *    - The `slot="icon"` is NOT rendered (X replaces any custom icon)
+ * All tags follow this structure:
+ * ```
+ * <span class="tag">
+ *   <span class="tag__content">text</span>
+ *   <span class="tag__divider"></span>
+ *   <icon-area>  <!-- behavior varies by mode -->
+ * </span>
+ * ```
  *
- * 2. **`href` takes precedence over `clickable`** - When `href` is set:
- *    - Renders as `<a>`, entire tag is clickable
- *    - `slot="icon"` renders if provided
+ * ## Icon Behavior
  *
- * 3. **`clickable` for button behavior** - When `clickable=true`:
- *    - Renders as `<button>`, entire tag is clickable
- *    - `slot="icon"` renders if provided
+ * - Icon is ALWAYS rendered (mandatory)
+ * - Default: circle-chevron-right icon
+ * - Custom: provide `slot="icon"` to override default
  *
- * 4. **Informative (default)** - No special props:
- *    - Display-only, no interaction
- *    - `slot="icon"` renders if provided
+ * ## Interaction Modes (Mutually Exclusive)
+ *
+ * 1. **`removable` (highest priority)** - X button replaces icon
+ *    - Only X button is clickable → emits `sando-remove`
+ *    - `slot="icon"` is NOT rendered (X replaces it)
+ *
+ * 2. **`href`** - Icon wrapped in `<a>` anchor
+ *    - ONLY the icon area navigates
+ *    - Content area is NOT clickable
+ *
+ * 3. **`clickable`** - Icon wrapped in `<button>`
+ *    - ONLY the icon area is clickable
+ *    - Content area is NOT clickable
+ *
+ * 4. **Informative (default)** - Icon visible but NOT interactive
+ *    - Display-only, no click behavior
  *
  * @element sando-tag
  *
  * @slot - Tag content/label
- * @slot icon - Optional custom icon (NOT rendered when removable=true)
+ * @slot icon - Custom icon (overrides default circle-chevron-right). NOT rendered when removable=true.
  *
  * @fires sando-remove - Fired when remove button is clicked (only when removable=true)
+ * @fires sando-action - Fired when icon action is clicked (when clickable=true)
  *
  * @cssprop --sando-tag-fontFamily - Tag font family
  * @cssprop --sando-tag-fontWeight - Tag font weight
  * @cssprop --sando-tag-borderRadius - Tag border radius
  * @cssprop --sando-tag-transition-duration - Transition duration
  *
- * @example Informative tag (display only)
+ * @example Informative tag (icon visible but not interactive)
  * <sando-tag variant="solid">New</sando-tag>
  *
- * @example Informative tag with custom icon
+ * @example Tag with custom icon
  * <sando-tag>
  *   Status
  *   <svg slot="icon">...</svg>
  * </sando-tag>
  *
- * @example Removable tag (icon slot is IGNORED, X button shown instead)
+ * @example Removable tag (X button replaces icon)
  * <sando-tag removable>JavaScript</sando-tag>
  *
- * @example Clickable tag with icon
- * <sando-tag clickable>
- *   View Details
- *   <svg slot="icon">...</svg>
- * </sando-tag>
+ * @example Clickable tag (only icon area is interactive)
+ * <sando-tag clickable>View Details</sando-tag>
  *
- * @example Tag as link
+ * @example Tag as link (only icon area navigates)
  * <sando-tag href="/category/design" target="_blank">Design</sando-tag>
  *
  * @example Size variants
@@ -68,10 +81,15 @@
  */
 
 import { LitElement, html, nothing } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { customElement, property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import type { TagVariant, TagSize, TagRemoveEventDetail } from './sando-tag.types.js';
+import type {
+  TagVariant,
+  TagSize,
+  TagRemoveEventDetail,
+  TagActionEventDetail
+} from './sando-tag.types.js';
 import { FlavorableMixin } from '../../mixins/index.js';
 import { tokenStyles } from '../../styles/tokens.css.js';
 import { baseStyles, variantStyles, sizeStyles, stateStyles } from './styles/index.js';
@@ -158,11 +176,10 @@ export class SandoTag extends FlavorableMixin(LitElement) {
   ];
 
   /**
-   * Determines if the tag is interactive (clickable or link)
+   * Tracks if a custom icon is provided in the slot
    */
-  private get _isInteractive(): boolean {
-    return (this.clickable || !!this.href) && !this.removable;
-  }
+  @state()
+  private _hasCustomIcon = false;
 
   /**
    * Handles remove button click
@@ -188,27 +205,35 @@ export class SandoTag extends FlavorableMixin(LitElement) {
   }
 
   /**
-   * Handles keyboard events on remove button
+   * Handles action button/link click (for clickable mode)
    */
-  private _handleRemoveKeydown(e: KeyboardEvent): void {
-    if (e.key === 'Enter' || e.key === ' ') {
+  private _handleAction(e: MouseEvent | KeyboardEvent): void {
+    if (this.disabled) {
       e.preventDefault();
-      this._handleRemove(e);
+      e.stopPropagation();
+      return;
     }
+
+    const detail: TagActionEventDetail = {
+      originalEvent: e
+    };
+
+    this.dispatchEvent(
+      new CustomEvent('sando-action', {
+        detail,
+        bubbles: true,
+        composed: true
+      })
+    );
   }
 
   /**
-   * Handles keyboard events on clickable tag
+   * Handles keyboard events on action button
    */
-  private _handleTagKeydown(e: KeyboardEvent): void {
-    if (!this._isInteractive || this.disabled) return;
-
+  private _handleActionKeydown(e: KeyboardEvent): void {
     if (e.key === 'Enter' || e.key === ' ') {
-      // Links handle Enter natively, but we need Space for button-like behavior
-      if (e.key === ' ' && this.clickable && !this.href) {
-        e.preventDefault();
-        this.click();
-      }
+      e.preventDefault();
+      this._handleAction(e);
     }
   }
 
@@ -216,137 +241,171 @@ export class SandoTag extends FlavorableMixin(LitElement) {
    * Gets the accessible label for the remove button
    */
   private _getRemoveLabel(): string {
-    // Try to get text content from the default slot
     const textContent = this.textContent?.trim() || 'tag';
     return `Remove ${textContent}`;
   }
 
   /**
-   * Renders the remove button (X)
+   * Gets the accessible label for the action button/link
    */
-  private _renderRemoveButton() {
-    if (!this.removable) return nothing;
+  private _getActionLabel(): string {
+    const textContent = this.textContent?.trim() || 'tag';
+    if (this.href) {
+      return `Navigate to ${textContent}`;
+    }
+    return `Action for ${textContent}`;
+  }
 
+  /**
+   * Handles slot change to detect custom icon presence
+   */
+  private _handleIconSlotChange(e: Event): void {
+    const slot = e.target as HTMLSlotElement;
+    this._hasCustomIcon = slot.assignedElements().length > 0;
+  }
+
+  /**
+   * Renders the default circle-chevron-right icon
+   */
+  private _renderDefaultIcon() {
     return html`
-      <button
-        class="tag__remove"
-        type="button"
-        aria-label=${this._getRemoveLabel()}
-        ?disabled=${this.disabled}
-        @click=${this._handleRemove}
-        @keydown=${this._handleRemoveKeydown}
+      <svg
+        class="tag__default-icon"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
       >
-        <svg
-          class="tag__remove-icon"
-          viewBox="0 0 16 16"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          aria-hidden="true"
-        >
-          <path
-            d="M12 4L4 12M4 4L12 12"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-      </button>
+        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
+        <path
+          d="M10 8L14 12L10 16"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
     `;
   }
 
   /**
-   * Checks if an icon is present in the icon slot
+   * Renders the X icon for removable tags
    */
-  private _hasIcon = false;
-
-  /**
-   * Handles slot change to detect icon presence
-   */
-  private _handleIconSlotChange(e: Event): void {
-    const slot = e.target as HTMLSlotElement;
-    this._hasIcon = slot.assignedElements().length > 0;
-    this.requestUpdate();
+  private _renderRemoveIcon() {
+    return html`
+      <svg
+        class="tag__remove-icon"
+        viewBox="0 0 16 16"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+      >
+        <path
+          d="M12 4L4 12M4 4L12 12"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    `;
   }
 
   /**
-   * Renders the divider element between content and icon/remove button
+   * Renders the icon content (slot or default)
+   * Hidden slot is always rendered to detect custom icons
+   */
+  private _renderIconContent() {
+    return html`
+      <slot
+        name="icon"
+        @slotchange=${this._handleIconSlotChange}
+        style=${this._hasCustomIcon ? '' : 'display: none'}
+      ></slot>
+      ${!this._hasCustomIcon ? this._renderDefaultIcon() : nothing}
+    `;
+  }
+
+  /**
+   * Renders the divider element between content and icon area
+   * Always shown since icon is mandatory
    */
   private _renderDivider() {
-    // Show divider when removable OR when icon slot has content
-    const showDivider = this.removable || this._hasIcon;
-    if (!showDivider) return nothing;
-
     return html`<span class="tag__divider" aria-hidden="true"></span>`;
   }
 
   /**
-   * Renders tag content (shared between all tag types)
-   * Note: icon slot is NOT rendered when removable=true
+   * Renders the icon area based on interaction mode
    */
-  private _renderContent() {
-    return html`
-      <span class="tag__content">
-        <slot></slot>
-      </span>
-      ${this._renderDivider()}
-      ${this.removable
-        ? this._renderRemoveButton()
-        : html`<slot name="icon" @slotchange=${this._handleIconSlotChange}></slot>`}
-    `;
+  private _renderIconArea() {
+    // Case 1: Removable - X button
+    if (this.removable) {
+      return html`
+        <button
+          class="tag__action tag__action--remove"
+          type="button"
+          aria-label=${this._getRemoveLabel()}
+          ?disabled=${this.disabled}
+          @click=${this._handleRemove}
+        >
+          ${this._renderRemoveIcon()}
+        </button>
+      `;
+    }
+
+    // Case 2: Link - anchor wrapping icon
+    if (this.href) {
+      return html`
+        <a
+          class="tag__action tag__action--link"
+          href=${this.href}
+          target=${ifDefined(this.target)}
+          rel=${this.target === '_blank' ? 'noopener noreferrer' : nothing}
+          aria-label=${this._getActionLabel()}
+          tabindex=${this.disabled ? -1 : 0}
+          aria-disabled=${this.disabled ? 'true' : 'false'}
+        >
+          ${this._renderIconContent()}
+        </a>
+      `;
+    }
+
+    // Case 3: Clickable - button wrapping icon
+    if (this.clickable) {
+      return html`
+        <button
+          class="tag__action tag__action--button"
+          type="button"
+          aria-label=${this._getActionLabel()}
+          ?disabled=${this.disabled}
+          @click=${this._handleAction}
+          @keydown=${this._handleActionKeydown}
+        >
+          ${this._renderIconContent()}
+        </button>
+      `;
+    }
+
+    // Case 4: Informative - span wrapping icon (not interactive)
+    return html` <span class="tag__icon" aria-hidden="true"> ${this._renderIconContent()} </span> `;
   }
 
   render() {
     const classes = {
       tag: true,
-      'tag--clickable': this._isInteractive,
       'tag--removable': this.removable,
+      'tag--clickable': this.clickable && !this.removable,
+      'tag--link': !!this.href && !this.removable,
       'tag--disabled': this.disabled
     };
 
-    // Case 1: Removable tag - span wrapper (only X is interactive)
-    if (this.removable) {
-      return html`
-        <span class=${classMap(classes)} role="status" part="tag"> ${this._renderContent()} </span>
-      `;
-    }
-
-    // Case 2: Link tag - anchor element
-    if (this.href) {
-      return html`
-        <a
-          class=${classMap(classes)}
-          href=${this.href}
-          target=${ifDefined(this.target)}
-          rel=${this.target === '_blank' ? 'noopener noreferrer' : nothing}
-          aria-disabled=${this.disabled ? 'true' : 'false'}
-          tabindex=${this.disabled ? -1 : 0}
-          part="tag"
-          @keydown=${this._handleTagKeydown}
-        >
-          ${this._renderContent()}
-        </a>
-      `;
-    }
-
-    // Case 3: Clickable tag - button element
-    if (this.clickable) {
-      return html`
-        <button
-          class=${classMap(classes)}
-          type="button"
-          ?disabled=${this.disabled}
-          part="tag"
-          @keydown=${this._handleTagKeydown}
-        >
-          ${this._renderContent()}
-        </button>
-      `;
-    }
-
-    // Case 4: Informative tag - span with status role
     return html`
-      <span class=${classMap(classes)} role="status" part="tag"> ${this._renderContent()} </span>
+      <span class=${classMap(classes)} role="status" part="tag">
+        <span class="tag__content">
+          <slot></slot>
+        </span>
+        ${this._renderDivider()} ${this._renderIconArea()}
+      </span>
     `;
   }
 }
