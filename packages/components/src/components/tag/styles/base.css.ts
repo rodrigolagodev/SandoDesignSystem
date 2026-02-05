@@ -139,13 +139,13 @@ export const baseStyles = css`
   /* Default icon (circle-chevron-right) */
   .tag__default-icon {
     flex-shrink: 0;
-    /* Size moved to size.css.ts */
+    /* Size controlled via CSS custom property */
   }
 
   /* Remove icon (X) */
   .tag__remove-icon {
     flex-shrink: 0;
-    /* Size moved to size.css.ts */
+    /* Size controlled via CSS custom property */
   }
 
   /* Icon slot styling */

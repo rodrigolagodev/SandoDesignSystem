@@ -94,6 +94,9 @@ import { FlavorableMixin } from '../../mixins/index.js';
 import { tokenStyles } from '../../styles/tokens.css.js';
 import { baseStyles, variantStyles, sizeStyles, stateStyles } from './styles/index.js';
 
+// Import sando-icon for default and remove icons
+import '../icon/sando-icon.js';
+
 @customElement('sando-tag')
 export class SandoTag extends FlavorableMixin(LitElement) {
   /**
@@ -269,22 +272,12 @@ export class SandoTag extends FlavorableMixin(LitElement) {
    */
   private _renderDefaultIcon() {
     return html`
-      <svg
+      <sando-icon
         class="tag__default-icon"
-        viewBox="0 0 24 24"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden="true"
-      >
-        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
-        <path
-          d="M10 8L14 12L10 16"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-      </svg>
+        name="circle-chevron-right"
+        decorative
+        inherit-color
+      ></sando-icon>
     `;
   }
 
@@ -293,21 +286,7 @@ export class SandoTag extends FlavorableMixin(LitElement) {
    */
   private _renderRemoveIcon() {
     return html`
-      <svg
-        class="tag__remove-icon"
-        viewBox="0 0 16 16"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden="true"
-      >
-        <path
-          d="M12 4L4 12M4 4L12 12"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-      </svg>
+      <sando-icon class="tag__remove-icon" name="x" decorative inherit-color></sando-icon>
     `;
   }
 

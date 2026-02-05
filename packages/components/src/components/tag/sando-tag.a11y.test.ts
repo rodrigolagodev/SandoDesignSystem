@@ -264,10 +264,10 @@ describe('sando-tag Accessibility', () => {
         expect(ariaLabel).toBe('Remove JavaScript');
       });
 
-      it('should hide remove icon SVG from screen readers', async () => {
+      it('should have decorative attribute on remove icon for accessibility', async () => {
         const removeButton = element.shadowRoot?.querySelector('.tag__action--remove');
-        const svg = removeButton?.querySelector('svg');
-        expect(svg?.getAttribute('aria-hidden')).toBe('true');
+        const icon = removeButton?.querySelector('sando-icon');
+        expect(icon?.hasAttribute('decorative')).toBe(true);
       });
 
       it('should have button type on remove button', async () => {

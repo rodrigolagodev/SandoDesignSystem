@@ -118,11 +118,11 @@ export const baseStyles = css`
     transition-timing-function: var(--sando-checkbox-transition-timing);
   }
 
-  .checkbox-icon svg {
+  .checkbox-icon sando-icon {
     display: block;
     width: 100%;
     height: 100%;
-    stroke-width: 2.5;
+    --icon-size: 100%;
   }
 
   /* Label text */

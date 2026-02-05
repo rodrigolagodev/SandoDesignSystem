@@ -68,6 +68,9 @@ import { FlavorableMixin } from '../../mixins/index.js';
 import { tokenStyles } from '../../styles/tokens.css.js';
 import { baseStyles, variantStyles, sizeStyles, stateStyles } from './styles/index.js';
 
+// Import sando-icon for checkmark and indeterminate icons
+import '../icon/sando-icon.js';
+
 @customElement('sando-checkbox')
 export class SandoCheckbox extends FlavorableMixin(LitElement) {
   /**
@@ -301,15 +304,7 @@ export class SandoCheckbox extends FlavorableMixin(LitElement) {
   private _renderCheckmark() {
     return html`
       <span class="checkbox-icon checkmark" aria-hidden="true">
-        <svg
-          viewBox="0 0 16 16"
-          fill="none"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <polyline points="3.5 8 6.5 11 12.5 5"></polyline>
-        </svg>
+        <sando-icon name="check" decorative inherit-color></sando-icon>
       </span>
     `;
   }
@@ -321,9 +316,7 @@ export class SandoCheckbox extends FlavorableMixin(LitElement) {
   private _renderIndeterminate() {
     return html`
       <span class="checkbox-icon indeterminate" aria-hidden="true">
-        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-linecap="round">
-          <line x1="4" y1="8" x2="12" y2="8"></line>
-        </svg>
+        <sando-icon name="minus" decorative inherit-color></sando-icon>
       </span>
     `;
   }
