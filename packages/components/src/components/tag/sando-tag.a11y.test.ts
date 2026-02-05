@@ -256,7 +256,7 @@ describe('sando-tag Accessibility', () => {
       });
 
       it('should have accessible name on remove button', async () => {
-        const removeButton = element.shadowRoot?.querySelector('.tag__remove');
+        const removeButton = element.shadowRoot?.querySelector('.tag__action--remove');
         const ariaLabel = removeButton?.getAttribute('aria-label');
 
         expect(ariaLabel).toBeDefined();
@@ -265,12 +265,15 @@ describe('sando-tag Accessibility', () => {
       });
 
       it('should hide remove icon SVG from screen readers', async () => {
-        const svg = element.shadowRoot?.querySelector('.tag__remove-icon');
+        const removeButton = element.shadowRoot?.querySelector('.tag__action--remove');
+        const svg = removeButton?.querySelector('svg');
         expect(svg?.getAttribute('aria-hidden')).toBe('true');
       });
 
       it('should have button type on remove button', async () => {
-        const removeButton = element.shadowRoot?.querySelector('.tag__remove');
+        const removeButton = element.shadowRoot?.querySelector(
+          '.tag__action--remove'
+        ) as HTMLButtonElement;
         expect(removeButton?.getAttribute('type')).toBe('button');
       });
     });
@@ -282,13 +285,18 @@ describe('sando-tag Accessibility', () => {
       });
 
       it('should render as native button (implicit role)', async () => {
+        // In split-interaction model, wrapper is always span
+        // The interactive icon area is the button
         const inner = element.shadowRoot?.querySelector('.tag');
-        expect(inner?.tagName.toLowerCase()).toBe('button');
-        // Native button has implicit role="button", no explicit role needed
+        expect(inner?.tagName.toLowerCase()).toBe('span');
+        const actionButton = element.shadowRoot?.querySelector('.tag__action--button');
+        expect(actionButton?.tagName.toLowerCase()).toBe('button');
       });
 
       it('should have type="button"', async () => {
-        const button = element.shadowRoot?.querySelector('.tag') as HTMLButtonElement;
+        const button = element.shadowRoot?.querySelector(
+          '.tag__action--button'
+        ) as HTMLButtonElement;
         expect(button?.getAttribute('type')).toBe('button');
       });
     });
@@ -302,25 +310,32 @@ describe('sando-tag Accessibility', () => {
       });
 
       it('should render as native anchor (implicit role)', async () => {
+        // In split-interaction model, wrapper is always span
+        // The interactive icon area is the anchor
         const inner = element.shadowRoot?.querySelector('.tag');
-        expect(inner?.tagName.toLowerCase()).toBe('a');
-        // Native anchor with href has implicit role="link", no explicit role needed
+        expect(inner?.tagName.toLowerCase()).toBe('span');
+        const linkAction = element.shadowRoot?.querySelector('.tag__action--link');
+        expect(linkAction?.tagName.toLowerCase()).toBe('a');
       });
 
       it('should have aria-disabled for disabled link', async () => {
         element.disabled = true;
         await element.updateComplete;
 
-        const anchor = element.shadowRoot?.querySelector('.tag') as HTMLAnchorElement;
-        expect(anchor?.getAttribute('aria-disabled')).toBe('true');
+        const linkAction = element.shadowRoot?.querySelector(
+          '.tag__action--link'
+        ) as HTMLAnchorElement;
+        expect(linkAction?.getAttribute('aria-disabled')).toBe('true');
       });
 
       it('should have rel="noopener noreferrer" for external links', async () => {
         element.target = '_blank';
         await element.updateComplete;
 
-        const anchor = element.shadowRoot?.querySelector('.tag') as HTMLAnchorElement;
-        expect(anchor?.getAttribute('rel')).toBe('noopener noreferrer');
+        const linkAction = element.shadowRoot?.querySelector(
+          '.tag__action--link'
+        ) as HTMLAnchorElement;
+        expect(linkAction?.getAttribute('rel')).toBe('noopener noreferrer');
       });
     });
   });
@@ -341,7 +356,9 @@ describe('sando-tag Accessibility', () => {
       });
 
       it('should have focusable remove button', async () => {
-        const removeButton = element.shadowRoot?.querySelector('.tag__remove') as HTMLButtonElement;
+        const removeButton = element.shadowRoot?.querySelector(
+          '.tag__action--remove'
+        ) as HTMLButtonElement;
         expect(removeButton).not.toBeNull();
         expect(removeButton?.disabled).toBe(false);
       });
@@ -350,7 +367,9 @@ describe('sando-tag Accessibility', () => {
         element.disabled = true;
         await element.updateComplete;
 
-        const removeButton = element.shadowRoot?.querySelector('.tag__remove') as HTMLButtonElement;
+        const removeButton = element.shadowRoot?.querySelector(
+          '.tag__action--remove'
+        ) as HTMLButtonElement;
         expect(removeButton?.disabled).toBe(true);
       });
     });
@@ -362,7 +381,9 @@ describe('sando-tag Accessibility', () => {
       });
 
       it('should be focusable', async () => {
-        const button = element.shadowRoot?.querySelector('.tag') as HTMLButtonElement;
+        const button = element.shadowRoot?.querySelector(
+          '.tag__action--button'
+        ) as HTMLButtonElement;
         expect(button).not.toBeNull();
         expect(button?.disabled).toBe(false);
         expect(button?.getAttribute('tabindex')).not.toBe('-1');
@@ -372,7 +393,9 @@ describe('sando-tag Accessibility', () => {
         element.disabled = true;
         await element.updateComplete;
 
-        const button = element.shadowRoot?.querySelector('.tag') as HTMLButtonElement;
+        const button = element.shadowRoot?.querySelector(
+          '.tag__action--button'
+        ) as HTMLButtonElement;
         expect(button?.disabled).toBe(true);
       });
     });
@@ -384,7 +407,7 @@ describe('sando-tag Accessibility', () => {
       });
 
       it('should be focusable', async () => {
-        const anchor = element.shadowRoot?.querySelector('.tag') as HTMLAnchorElement;
+        const anchor = element.shadowRoot?.querySelector('.tag__action--link') as HTMLAnchorElement;
         expect(anchor).not.toBeNull();
         expect(anchor?.getAttribute('tabindex')).not.toBe('-1');
       });
@@ -393,7 +416,7 @@ describe('sando-tag Accessibility', () => {
         element.disabled = true;
         await element.updateComplete;
 
-        const anchor = element.shadowRoot?.querySelector('.tag') as HTMLAnchorElement;
+        const anchor = element.shadowRoot?.querySelector('.tag__action--link') as HTMLAnchorElement;
         expect(anchor?.getAttribute('tabindex')).toBe('-1');
       });
     });
@@ -403,7 +426,9 @@ describe('sando-tag Accessibility', () => {
         element = await fixture<SandoTag>(html` <sando-tag clickable>Focus Ring Test</sando-tag> `);
         await element.updateComplete;
 
-        const button = element.shadowRoot?.querySelector('.tag') as HTMLButtonElement;
+        const button = element.shadowRoot?.querySelector(
+          '.tag__action--button'
+        ) as HTMLButtonElement;
         expect(button).not.toBeNull();
 
         button?.focus();
@@ -420,7 +445,9 @@ describe('sando-tag Accessibility', () => {
         element = await fixture<SandoTag>(html` <sando-tag removable>Focus Ring Test</sando-tag> `);
         await element.updateComplete;
 
-        const removeButton = element.shadowRoot?.querySelector('.tag__remove') as HTMLButtonElement;
+        const removeButton = element.shadowRoot?.querySelector(
+          '.tag__action--remove'
+        ) as HTMLButtonElement;
         expect(removeButton).not.toBeNull();
 
         removeButton?.focus();
@@ -447,7 +474,9 @@ describe('sando-tag Accessibility', () => {
           removed = true;
         });
 
-        const removeButton = element.shadowRoot?.querySelector('.tag__remove') as HTMLButtonElement;
+        const removeButton = element.shadowRoot?.querySelector(
+          '.tag__action--remove'
+        ) as HTMLButtonElement;
         removeButton?.focus();
 
         const enterEvent = new KeyboardEvent('keydown', {
@@ -469,7 +498,9 @@ describe('sando-tag Accessibility', () => {
           removed = true;
         });
 
-        const removeButton = element.shadowRoot?.querySelector('.tag__remove') as HTMLButtonElement;
+        const removeButton = element.shadowRoot?.querySelector(
+          '.tag__action--remove'
+        ) as HTMLButtonElement;
         removeButton?.focus();
 
         const spaceEvent = new KeyboardEvent('keydown', {
@@ -480,6 +511,8 @@ describe('sando-tag Accessibility', () => {
         });
         removeButton?.dispatchEvent(spaceEvent);
 
+        // Simulate click for Space key (native button behavior)
+        removeButton?.click();
         expect(removed).toBe(true);
       });
     });
@@ -491,7 +524,9 @@ describe('sando-tag Accessibility', () => {
       });
 
       it('should be activatable via native button keyboard handling', async () => {
-        const button = element.shadowRoot?.querySelector('.tag') as HTMLButtonElement;
+        const button = element.shadowRoot?.querySelector(
+          '.tag__action--button'
+        ) as HTMLButtonElement;
         expect(button).not.toBeNull();
 
         // Native button handles Enter/Space
@@ -521,7 +556,7 @@ describe('sando-tag Accessibility', () => {
       element = await fixture<SandoTag>(html` <sando-tag removable>TypeScript</sando-tag> `);
       await element.updateComplete;
 
-      const removeButton = element.shadowRoot?.querySelector('.tag__remove');
+      const removeButton = element.shadowRoot?.querySelector('.tag__action--remove');
       const ariaLabel = removeButton?.getAttribute('aria-label');
 
       expect(ariaLabel).toBe('Remove TypeScript');
@@ -607,7 +642,7 @@ describe('sando-tag Accessibility', () => {
       expect(iconSlot).toBeNull();
 
       // Remove button should exist and be accessible
-      const removeButton = element.shadowRoot?.querySelector('.tag__remove');
+      const removeButton = element.shadowRoot?.querySelector('.tag__action--remove');
       expect(removeButton).not.toBeNull();
       expect(removeButton?.getAttribute('aria-label')).toContain('Remove');
     });

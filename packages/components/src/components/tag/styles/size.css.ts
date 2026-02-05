@@ -20,7 +20,16 @@ export const sizeStyles = css`
     min-height: var(--sando-tag-size-small-minHeight);
   }
 
-  :host([size='small']) .tag__remove {
+  /* Icon sizes for small */
+  :host([size='small']) .tag__default-icon,
+  :host([size='small']) .tag__remove-icon,
+  :host([size='small']) ::slotted([slot='icon']) {
+    width: var(--sando-tag-size-small-iconSize);
+    height: var(--sando-tag-size-small-iconSize);
+  }
+
+  :host([size='small']) .tag__action,
+  :host([size='small']) .tag__icon {
     width: var(--sando-tag-size-small-iconSize);
     height: var(--sando-tag-size-small-iconSize);
   }
@@ -36,8 +45,21 @@ export const sizeStyles = css`
     min-height: var(--sando-tag-size-medium-minHeight);
   }
 
-  :host([size='medium']) .tag__remove,
-  :host(:not([size])) .tag__remove {
+  /* Icon sizes for medium (default) */
+  :host([size='medium']) .tag__default-icon,
+  :host([size='medium']) .tag__remove-icon,
+  :host([size='medium']) ::slotted([slot='icon']),
+  :host(:not([size])) .tag__default-icon,
+  :host(:not([size])) .tag__remove-icon,
+  :host(:not([size])) ::slotted([slot='icon']) {
+    width: var(--sando-tag-size-medium-iconSize);
+    height: var(--sando-tag-size-medium-iconSize);
+  }
+
+  :host([size='medium']) .tag__action,
+  :host([size='medium']) .tag__icon,
+  :host(:not([size])) .tag__action,
+  :host(:not([size])) .tag__icon {
     width: var(--sando-tag-size-medium-iconSize);
     height: var(--sando-tag-size-medium-iconSize);
   }
@@ -52,7 +74,16 @@ export const sizeStyles = css`
     min-height: var(--sando-tag-size-large-minHeight);
   }
 
-  :host([size='large']) .tag__remove {
+  /* Icon sizes for large */
+  :host([size='large']) .tag__default-icon,
+  :host([size='large']) .tag__remove-icon,
+  :host([size='large']) ::slotted([slot='icon']) {
+    width: var(--sando-tag-size-large-iconSize);
+    height: var(--sando-tag-size-large-iconSize);
+  }
+
+  :host([size='large']) .tag__action,
+  :host([size='large']) .tag__icon {
     width: var(--sando-tag-size-large-iconSize);
     height: var(--sando-tag-size-large-iconSize);
   }
