@@ -31,12 +31,12 @@
         "visited": { "value": "{color.orange.950.value}", "type": "color" },
         "focus": { "value": "{color.orange.700.value}", "type": "color" }
       },
-      "muted": { "value": "{color.neutralWarm.600.value}", "type": "color" },
+      "muted": { "value": "{color.neutralWarm.700.value}", "type": "color" },
       "on-solid": { "value": "{color.neutralWarm.100.value}", "type": "color" }
     },
     "icon": {
       "default": { "value": "{color.neutralWarm.700.value}", "type": "color" },
-      "muted": { "value": "{color.neutralWarm.500.value}", "type": "color" },
+      "muted": { "value": "{color.neutralWarm.700.value}", "type": "color" },
       "emphasis": { "value": "{color.neutralWarm.900.value}", "type": "color" },
       "interactive": { "value": "{color.orange.700.value}", "type": "color" },
       "on-solid": { "value": "{color.neutralWarm.100.value}", "type": "color" }
