@@ -53,7 +53,7 @@ export const baseStyles = css`
     flex-shrink: 0;
   }
 
-    /* Reduced motion support */
+  /* Reduced motion support */
   @media (prefers-reduced-motion: reduce) {
     .option,
     .option-checkmark {
