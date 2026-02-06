@@ -219,7 +219,7 @@
           "type": "dimension"
         },
         "minHeight": {
-          "value": "{sizing.control.xs.value}",
+          "value": "{sizing.control.sm.value}",
           "type": "dimension"
         }
       },
@@ -229,25 +229,25 @@
           "type": "dimension"
         },
         "paddingBlock": {
-          "value": "{space.stack.muted.value}",
+          "value": "{space.stack.tight.value}",
           "type": "dimension"
         },
         "minHeight": {
-          "value": "{sizing.control.sm.value}",
+          "value": "{sizing.control.md.value}",
           "type": "dimension"
         }
       },
       "lg": {
         "paddingInline": {
-          "value": "{space.inset.default.value}",
-          "type": "dimension"
-        },
-        "paddingBlock": {
           "value": "{space.inset.muted.value}",
           "type": "dimension"
         },
+        "paddingBlock": {
+          "value": "{space.stack.muted.value}",
+          "type": "dimension"
+        },
         "minHeight": {
-          "value": "{sizing.control.md.value}",
+          "value": "{sizing.control.lg.value}",
           "type": "dimension"
         }
       }
