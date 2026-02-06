@@ -72,7 +72,7 @@ import type { OptionSelectEventDetail } from './sando-option.types.js';
 
 import { FlavorableMixin } from '../../mixins/index.js';
 import { tokenStyles } from '../../styles/tokens.css.js';
-import { baseStyles, stateStyles } from './styles/index.js';
+import { baseStyles, stateStyles, checkboxStyles } from './styles/index.js';
 
 // Import sando-icon for checkmark
 import '../icon/sando-icon.js';
@@ -86,7 +86,8 @@ export class SandoOption extends FlavorableMixin(LitElement) {
   static styles = [
     tokenStyles, // Design tokens (Ingredients, Flavors, Recipes)
     baseStyles, // Reset, layout, typography
-    stateStyles // Hover, selected, disabled, highlighted
+    stateStyles, // Hover, selected, disabled, highlighted
+    checkboxStyles // Multi-select checkbox visual
   ];
 
   /**
@@ -110,6 +111,21 @@ export class SandoOption extends FlavorableMixin(LitElement) {
    */
   @property({ type: Boolean, reflect: true })
   selected = false;
+
+  /**
+   * Whether the parent select is in multiple selection mode
+   * Set by parent sando-select
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  multiple = false;
+
+  /**
+   * Prefix icon name from parent select (for single-select mode)
+   * Set by parent sando-select when it has a prefixIcon
+   */
+  @property({ type: String, attribute: 'parent-prefix-icon' })
+  parentPrefixIcon?: string;
 
   /**
    * Internal: Whether the option is highlighted via keyboard navigation
@@ -164,19 +180,60 @@ export class SandoOption extends FlavorableMixin(LitElement) {
   }
 
   /**
-   * Render checkmark SVG icon
-   * Shown when option is selected
+   * Render visual checkbox for multi-select mode
+   * Only presentational - the checkbox visual is managed by CSS
    * @private
    */
-  private _renderCheckmark() {
+  private _renderCheckbox() {
     return html`
-      <span class="option-checkmark" aria-hidden="true">
-        <sando-icon name="check" size="small" decorative inherit-color></sando-icon>
+      <span class="option-checkbox ${this.selected ? 'checked' : ''}" aria-hidden="true">
+        ${this.selected
+          ? html`<sando-icon name="check" size="small" decorative inherit-color></sando-icon>`
+          : nothing}
       </span>
     `;
   }
 
-  render() {
+  /**
+   * Render prefix icon from parent select (single-select mode)
+   * @private
+   */
+  private _renderParentPrefixIcon() {
+    if (!this.parentPrefixIcon) return nothing;
+    return html`
+      <sando-icon
+        name="${this.parentPrefixIcon}"
+        size="small"
+        class="option-parent-prefix-icon"
+        decorative
+        inherit-color
+      ></sando-icon>
+    `;
+  }
+
+  /**
+   * Render the prefix area based on select mode
+   * - Multi-select: visual checkbox
+   * - Single-select with prefix-icon: parent's prefix icon
+   * - Single-select without prefix: nothing (no reserved space)
+   * @private
+   */
+  private _renderPrefix() {
+    // Multi-select: always show checkbox
+    if (this.multiple) {
+      return this._renderCheckbox();
+    }
+
+    // Single-select with prefix-icon from parent
+    if (this.parentPrefixIcon) {
+      return this._renderParentPrefixIcon();
+    }
+
+    // Single-select without prefix: nothing
+    return nothing;
+  }
+
+    render() {
     return html`
       <div
         class="option"
@@ -186,7 +243,7 @@ export class SandoOption extends FlavorableMixin(LitElement) {
         aria-disabled=${this.disabled ? 'true' : nothing}
         @click=${this._handleClick}
       >
-        ${this._renderCheckmark()}
+        ${this._renderPrefix()}
 
         <span class="option-prefix" part="prefix">
           <slot name="prefix"></slot>

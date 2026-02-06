@@ -20,10 +20,6 @@ export const stateStyles = css`
     color: var(--sando-select-option-textColor-default);
   }
 
-  .option-checkmark {
-    color: var(--sando-select-option-checkmarkColor-default);
-  }
-
   /* ========================================
      HOVER STATE
      ======================================== */
@@ -48,11 +44,6 @@ export const stateStyles = css`
     color: var(--sando-select-option-textColor-selected);
   }
 
-  :host([selected]) .option-checkmark {
-    opacity: 1;
-    color: var(--sando-select-option-checkmarkColor-selected);
-  }
-
   /* Selected + Hover */
   :host([selected]:not([disabled])) .option:hover {
     background-color: var(--sando-select-option-backgroundColor-selectedHover);
@@ -69,9 +60,5 @@ export const stateStyles = css`
     cursor: not-allowed;
     background-color: var(--sando-select-option-backgroundColor-disabled);
     color: var(--sando-select-option-textColor-disabled);
-  }
-
-  :host([disabled]) .option-checkmark {
-    color: var(--sando-select-option-checkmarkColor-disabled);
   }
 `;

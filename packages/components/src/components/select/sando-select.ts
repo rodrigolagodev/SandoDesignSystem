@@ -382,6 +382,8 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
   protected firstUpdated(): void {
     this._setupScrollObserver();
     this._setupPopoverListeners();
+    // Initial context update for options already in DOM
+    this._updateOptionsContext();
   }
 
   /**
@@ -393,6 +395,11 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
     // Update option selected states when value changes
     if (changedProperties.has('value') || changedProperties.has('values')) {
       this._syncOptionSelectedStates();
+    }
+
+    // Update option context when multiple or prefixIcon changes
+    if (changedProperties.has('multiple') || changedProperties.has('prefixIcon')) {
+      this._updateOptionsContext();
     }
 
     // Update highlighted option when index changes
@@ -551,9 +558,24 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
       this._valueLabels.set(opt.getValue(), opt.getLabel());
     });
 
+    // Sync option context (multiple mode, prefix icon)
+    this._updateOptionsContext();
+
     // Sync selected states
     this._syncOptionSelectedStates();
   };
+
+  /**
+   * Update options with context from parent select
+   * Sets multiple mode and prefix icon on all options
+   * @private
+   */
+  private _updateOptionsContext(): void {
+    this._options.forEach((option) => {
+      option.multiple = this.multiple;
+      option.parentPrefixIcon = this.prefixIcon;
+    });
+  }
 
   /**
    * Sync selected attribute on options based on current value(s)
