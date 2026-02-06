@@ -167,6 +167,15 @@ export class SandoTag extends FlavorableMixin(LitElement) {
   target?: string;
 
   /**
+   * Reduces vertical padding for use in compact spaces (e.g., inside Select).
+   * Changes paddingBlock from 8px to 4px.
+   * Works with all size variants.
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  compact = false;
+
+  /**
    * Component styles - modular CSS imports
    * Order matters for specificity
    */
