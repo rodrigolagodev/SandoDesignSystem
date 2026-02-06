@@ -8,10 +8,12 @@
  * - Icon area styles (action button/link, informative icon)
  * - Focus states for interactive modes
  *
- * Note: Box-sizing and button resets are handled by resetStyles
+ * Note: Interactive elements use interactiveReset from shared styles
+ * to ensure consistent box-sizing after `all: unset`
  */
 
 import { css } from 'lit';
+import { interactiveReset } from '../../../styles/shared/base.styles.js';
 
 export const baseStyles = css`
   :host {
@@ -79,8 +81,7 @@ export const baseStyles = css`
 
   /* Interactive action button/link (clickable, link, removable modes) */
   .tag__action {
-    /* Reset supplement (cursor not in global reset) */
-    all: unset;
+    ${interactiveReset}
 
     /* Display */
     display: inline-flex;
@@ -94,7 +95,6 @@ export const baseStyles = css`
 
     /* Appearance */
     border-radius: var(--sando-tag-action-borderRadius, var(--sando-tag-removeButton-borderRadius));
-    cursor: pointer;
 
     /* Background */
     background-color: var(
@@ -153,8 +153,7 @@ export const baseStyles = css`
   /* Keep .tag__remove for backwards compatibility during transition */
 
   .tag__remove {
-    /* Reset supplement (cursor not in global reset) */
-    all: unset;
+    ${interactiveReset}
 
     /* Display */
     display: inline-flex;
@@ -168,7 +167,6 @@ export const baseStyles = css`
 
     /* Appearance */
     border-radius: var(--sando-tag-removeButton-borderRadius);
-    cursor: pointer;
 
     /* Background */
     background-color: var(--sando-tag-removeButton-backgroundColor-default);
