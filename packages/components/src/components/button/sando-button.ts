@@ -135,6 +135,14 @@ export class SandoButton extends FlavorableMixin(LitElement) {
   type: 'button' | 'submit' | 'reset' = 'button';
 
   /**
+   * When true, reduces horizontal padding for more compact appearance.
+   * Useful for toolbars, button groups, or space-constrained layouts.
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  compact = false;
+
+  /**
    * Full width button
    * @default false
    */

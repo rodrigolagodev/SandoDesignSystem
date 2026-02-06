@@ -78,6 +78,13 @@ export interface SandoButtonProps {
   fullWidth?: boolean;
 
   /**
+   * When true, reduces horizontal padding for more compact appearance.
+   * Useful for toolbars, button groups, or space-constrained layouts.
+   * @default false
+   */
+  compact?: boolean;
+
+  /**
    * Icon-only button (square shape, no padding for text)
    * @default false
    */

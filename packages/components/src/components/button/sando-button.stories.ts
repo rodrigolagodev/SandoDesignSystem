@@ -39,6 +39,7 @@ const meta: Meta = {
       ?loading="${args.loading}"
       ?full-width="${args.fullWidth}"
       ?icon-only="${args.iconOnly}"
+      ?compact="${args.compact}"
       ?active="${args.active}"
       type="${args.type}"
       href="${args.href || ''}"
@@ -150,6 +151,14 @@ const meta: Meta = {
         defaultValue: { summary: 'false' }
       }
     },
+    compact: {
+      control: 'boolean',
+      description: 'Reduces horizontal padding for compact appearance',
+      table: {
+        category: 'Appearance',
+        defaultValue: { summary: 'false' }
+      }
+    },
     type: {
       control: 'select',
       options: ['button', 'submit', 'reset'],
@@ -250,6 +259,7 @@ const meta: Meta = {
     active: false,
     fullWidth: false,
     iconOnly: false,
+    compact: false,
     type: 'button',
     label: 'Button',
     iconStart: 'None',
@@ -387,6 +397,69 @@ export const AllRadius: Story = {
       <sando-button radius="none">None</sando-button>
       <sando-button radius="default">Default</sando-button>
       <sando-button radius="full">Full (Pill)</sando-button>
+    </div>
+  `,
+  parameters: { controls: { disable: true } }
+};
+
+/**
+ * Compact mode comparison: normal vs compact padding.
+ * Compact reduces horizontal padding for denser layouts.
+ */
+export const Compact: Story = {
+  name: 'Compact',
+  tags: DOCS_ONLY,
+  render: () => html`
+    <div style="display: flex; flex-direction: column; gap: 1rem;">
+      <div style="display: flex; gap: 0.5rem; align-items: center;">
+        <span style="width: 80px; font-size: 0.875rem; color: #666;">Normal:</span>
+        <sando-button size="sm">Small</sando-button>
+        <sando-button size="md">Medium</sando-button>
+        <sando-button size="lg">Large</sando-button>
+      </div>
+      <div style="display: flex; gap: 0.5rem; align-items: center;">
+        <span style="width: 80px; font-size: 0.875rem; color: #666;">Compact:</span>
+        <sando-button size="sm" compact>Small</sando-button>
+        <sando-button size="md" compact>Medium</sando-button>
+        <sando-button size="lg" compact>Large</sando-button>
+      </div>
+    </div>
+  `,
+  parameters: { controls: { disable: true } }
+};
+
+/**
+ * Practical example: Toolbar with compact ghost buttons.
+ * Demonstrates compact mode for icon-based toolbars.
+ */
+export const ToolbarExample: Story = {
+  name: 'Toolbar Example',
+  tags: DOCS_ONLY,
+  render: () => html`
+    <div
+      style="display: flex; gap: 0.25rem; padding: 0.5rem; background: var(--sando-color-background-surface); border-radius: 0.5rem; border: 1px solid var(--sando-color-border-muted);"
+    >
+      <sando-button variant="ghost" compact icon-only aria-label="Bold">
+        <sando-icon slot="icon-start" name="bold" size="sm"></sando-icon>
+      </sando-button>
+      <sando-button variant="ghost" compact icon-only aria-label="Italic">
+        <sando-icon slot="icon-start" name="italic" size="sm"></sando-icon>
+      </sando-button>
+      <sando-button variant="ghost" compact icon-only aria-label="Underline">
+        <sando-icon slot="icon-start" name="underline" size="sm"></sando-icon>
+      </sando-button>
+      <div
+        style="width: 1px; background: var(--sando-color-border-muted); margin: 0 0.25rem;"
+      ></div>
+      <sando-button variant="ghost" compact icon-only aria-label="Align left">
+        <sando-icon slot="icon-start" name="align-left" size="sm"></sando-icon>
+      </sando-button>
+      <sando-button variant="ghost" compact icon-only aria-label="Align center">
+        <sando-icon slot="icon-start" name="align-center" size="sm"></sando-icon>
+      </sando-button>
+      <sando-button variant="ghost" compact icon-only aria-label="Align right">
+        <sando-icon slot="icon-start" name="align-right" size="sm"></sando-icon>
+      </sando-button>
     </div>
   `,
   parameters: { controls: { disable: true } }

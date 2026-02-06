@@ -74,6 +74,63 @@ describe('sando-button', () => {
       expect(element.loading).toBe(true);
       expect(element.hasAttribute('loading')).toBe(true);
     });
+
+    it('should update compact property', async () => {
+      element.compact = true;
+      await element.updateComplete;
+      expect(element.compact).toBe(true);
+      expect(element.hasAttribute('compact')).toBe(true);
+    });
+
+    it('should have compact=false by default', async () => {
+      expect(element.compact).toBe(false);
+      expect(element.hasAttribute('compact')).toBe(false);
+    });
+  });
+
+  describe('Compact Mode', () => {
+    it('should apply compact styles with sm size', async () => {
+      element = await fixture<SandoButton>(html`
+        <sando-button compact size="sm">Compact SM</sando-button>
+      `);
+      expect(element.compact).toBe(true);
+      expect(element.size).toBe('sm');
+      expect(element.hasAttribute('compact')).toBe(true);
+    });
+
+    it('should apply compact styles with md size', async () => {
+      element = await fixture<SandoButton>(html`
+        <sando-button compact size="md">Compact MD</sando-button>
+      `);
+      expect(element.compact).toBe(true);
+      expect(element.size).toBe('md');
+      expect(element.hasAttribute('compact')).toBe(true);
+    });
+
+    it('should apply compact styles with lg size', async () => {
+      element = await fixture<SandoButton>(html`
+        <sando-button compact size="lg">Compact LG</sando-button>
+      `);
+      expect(element.compact).toBe(true);
+      expect(element.size).toBe('lg');
+      expect(element.hasAttribute('compact')).toBe(true);
+    });
+
+    it('should apply compact with default size when no size specified', async () => {
+      element = await fixture<SandoButton>(html`
+        <sando-button compact>Compact Default</sando-button>
+      `);
+      expect(element.compact).toBe(true);
+      expect(element.size).toBe('md');
+      expect(element.hasAttribute('compact')).toBe(true);
+    });
+
+    it('should remain accessible when compact', async () => {
+      element = await fixture<SandoButton>(html`
+        <sando-button compact>Compact Accessible</sando-button>
+      `);
+      await expectWc(element).to.be.accessible();
+    });
   });
 
   describe('Events', () => {
