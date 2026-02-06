@@ -380,6 +380,26 @@
       "tagCloseIconColorHover": {
         "value": "{color.icon.emphasis.value}",
         "type": "color"
+      },
+      "size": {
+        "small": {
+          "paddingBlock": {
+            "value": "{space.stack.tight.value}",
+            "type": "dimension"
+          }
+        },
+        "medium": {
+          "paddingBlock": {
+            "value": "{space.stack.tight.value}",
+            "type": "dimension"
+          }
+        },
+        "large": {
+          "paddingBlock": {
+            "value": "{space.stack.muted.value}",
+            "type": "dimension"
+          }
+        }
       }
     },
     "label": {
@@ -482,7 +502,7 @@
     },
     "zIndex": {
       "dropdown": {
-        "value": "{z-index.dropdown.value}",
+        "value": "{z-index.floating.value}",
         "type": "number"
       }
     }
