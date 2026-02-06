@@ -69,6 +69,7 @@ import { LitElement, html, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import type { OptionSelectEventDetail } from './sando-option.types.js';
+import type { SandoSelect } from '../select/sando-select.js';
 
 import { FlavorableMixin } from '../../mixins/index.js';
 import { tokenStyles } from '../../styles/tokens.css.js';
@@ -136,6 +137,29 @@ export class SandoOption extends FlavorableMixin(LitElement) {
   private _highlighted = false;
 
   /**
+   * Lifecycle: Called when component is added to DOM
+   * Synchronously reads parent context before first render to prevent visual flash
+   */
+  connectedCallback(): void {
+    super.connectedCallback();
+    this._initializeParentContext();
+  }
+
+  /**
+   * Synchronously read parent select context before first render
+   * This prevents visual flash by ensuring props are set before paint
+   * @private
+   */
+  private _initializeParentContext(): void {
+    const parentSelect = this.closest('sando-select') as SandoSelect | null;
+    if (parentSelect) {
+      // Read values synchronously - these are already set on parent
+      this.multiple = parentSelect.multiple;
+      this.parentPrefixIcon = parentSelect.prefixIcon;
+    }
+  }
+
+  /**
    * Get the highlighted state (for external reading)
    */
   get highlighted(): boolean {
@@ -196,6 +220,7 @@ export class SandoOption extends FlavorableMixin(LitElement) {
 
   /**
    * Render prefix icon from parent select (single-select mode)
+   * Guard is defense-in-depth since _renderPrefix already checks parentPrefixIcon
    * @private
    */
   private _renderParentPrefixIcon() {
@@ -233,7 +258,7 @@ export class SandoOption extends FlavorableMixin(LitElement) {
     return nothing;
   }
 
-    render() {
+  render() {
     return html`
       <div
         class="option"

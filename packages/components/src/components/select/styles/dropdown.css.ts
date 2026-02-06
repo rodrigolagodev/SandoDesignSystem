@@ -30,8 +30,9 @@ export const dropdownStyles = css`
     overflow-y: auto;
     overflow-x: hidden;
     overscroll-behavior: contain;
-    /* Animation */
+    /* Animation - hidden until open */
     opacity: 0;
+    visibility: hidden;
     transform: translateY(-8px);
     pointer-events: none;
     transition-property: opacity, transform;
@@ -57,6 +58,7 @@ export const dropdownStyles = css`
   /* Open state (fallback mode) */
   :host([open]) .select-dropdown:not([popover]) {
     opacity: 1;
+    visibility: visible;
     transform: translateY(0);
     pointer-events: auto;
   }
@@ -90,6 +92,7 @@ export const dropdownStyles = css`
   .select-dropdown[popover]:not(:popover-open) {
     display: none;
     opacity: 0;
+    visibility: hidden;
     pointer-events: none;
   }
 
@@ -97,6 +100,7 @@ export const dropdownStyles = css`
   .select-dropdown[popover]:popover-open {
     /* Visual styles */
     display: block;
+    visibility: visible;
     background-color: var(--sando-select-dropdown-backgroundColor);
     border: var(--sando-select-dropdown-borderWidth) solid var(--sando-select-dropdown-borderColor);
     border-radius: var(--sando-select-dropdown-borderRadius);

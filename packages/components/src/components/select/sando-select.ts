@@ -212,14 +212,12 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
     const isOpen = e.newState === 'open';
 
     if (isOpen) {
-      this._positionDropdown();
+      // Note: _positionDropdown() is already called in show() before showPopover()
       this.open = true;
       this._setupPositionListeners();
-      // Emit show event (handled in updated, but we need to set state first)
     } else {
       this.open = false;
       this._removePositionListeners();
-      // Emit hide event (handled in updated)
     }
   };
 
@@ -382,8 +380,6 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
   protected firstUpdated(): void {
     this._setupScrollObserver();
     this._setupPopoverListeners();
-    // Initial context update for options already in DOM
-    this._updateOptionsContext();
   }
 
   /**
@@ -612,6 +608,16 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
   }
 
   /**
+   * Toggle a value in multi-select mode
+   * @private
+   */
+  private _toggleMultiValue(value: string): void {
+    this.values = this.values.includes(value)
+      ? this.values.filter((v) => v !== value)
+      : [...this.values, value];
+  }
+
+  /**
    * Handle option selection from child sando-option
    * @private
    */
@@ -619,13 +625,8 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
     const { value } = e.detail;
 
     if (this.multiple) {
-      // Toggle selection in multiple mode
-      const newValues = this.values.includes(value)
-        ? this.values.filter((v) => v !== value)
-        : [...this.values, value];
-      this.values = newValues;
+      this._toggleMultiValue(value);
     } else {
-      // Single selection
       this.value = value;
       this.hide();
     }
@@ -773,10 +774,7 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
         const value = option.getValue();
 
         if (this.multiple) {
-          const newValues = this.values.includes(value)
-            ? this.values.filter((v) => v !== value)
-            : [...this.values, value];
-          this.values = newValues;
+          this._toggleMultiValue(value);
         } else {
           this.value = value;
           this.hide();
@@ -1248,11 +1246,18 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
   /**
    * Open the dropdown
    * Uses Popover API when available, falls back to open property
+   *
+   * Options now initialize their own context in connectedCallback,
+   * so we can show the dropdown immediately without waiting.
    */
   show(): void {
     if (this.disabled) return;
 
     if (this._supportsPopover && this._dropdownElement) {
+      // Pre-position BEFORE showing to prevent visual flash
+      // The positioning only needs trigger's rect, not the popover being visible
+      this._positionDropdown();
+
       // Popover API mode - showPopover will trigger toggle event
       // which updates this.open via _handlePopoverToggle
       try {
