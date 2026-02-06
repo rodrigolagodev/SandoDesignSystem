@@ -11,9 +11,9 @@
  * @fires icon-error - Fired when the icon SVG fails to load
  *
  * @cssprop --sando-icon-size-xs - Extra small icon size (12px - matches font.size.100)
- * @cssprop --sando-icon-size-small - Small icon size (14px - matches font.size.200)
- * @cssprop --sando-icon-size-medium - Medium icon size (18px - matches font.size.400)
- * @cssprop --sando-icon-size-large - Large icon size (24px - matches font.size.600)
+ * @cssprop --sando-icon-size-sm - Small icon size (14px - matches font.size.200)
+ * @cssprop --sando-icon-size-md - Medium icon size (18px - matches font.size.400)
+ * @cssprop --sando-icon-size-lg - Large icon size (24px - matches font.size.600)
  * @cssprop --sando-icon-size-xl - Extra large icon size (32px - matches font.size.700)
  * @cssprop --sando-icon-color-default - Default icon color
  * @cssprop --sando-icon-color-muted - Muted icon color
@@ -23,14 +23,14 @@
  *
  * @example Basic usage
  * <sando-icon name="star"></sando-icon>
- * <sando-icon name="heart" size="large"></sando-icon>
+ * <sando-icon name="heart" size="lg"></sando-icon>
  * <sando-icon name="settings" color="brand"></sando-icon>
  *
  * @example Size variants (scale with font sizes)
  * <sando-icon name="star" size="xs"></sando-icon>      <!-- 12px -->
- * <sando-icon name="star" size="small"></sando-icon>   <!-- 14px -->
- * <sando-icon name="star" size="medium"></sando-icon>  <!-- 18px -->
- * <sando-icon name="star" size="large"></sando-icon>   <!-- 24px -->
+ * <sando-icon name="star" size="sm"></sando-icon>      <!-- 14px -->
+ * <sando-icon name="star" size="md"></sando-icon>      <!-- 18px -->
+ * <sando-icon name="star" size="lg"></sando-icon>      <!-- 24px -->
  * <sando-icon name="star" size="xl"></sando-icon>      <!-- 32px -->
  *
  * @example Color variants
@@ -69,6 +69,7 @@ import type { IconName } from './icon-manifest';
 import { loadIconSvg, isValidIconName } from './icon-manifest';
 import type { IconSize, IconColor } from './sando-icon.types';
 import { FlavorableMixin } from '../../mixins/index.js';
+import { resetStyles } from '../../styles/reset.css.js';
 import { tokenStyles } from '../../styles/tokens.css.js';
 
 @customElement('sando-icon')
@@ -84,10 +85,10 @@ export class SandoIcon extends FlavorableMixin(LitElement) {
   /**
    * Size of the icon
    * Icons scale with font sizes for visual harmony
-   * @default 'medium'
+   * @default 'md'
    */
   @property({ reflect: true })
-  size: IconSize = 'medium';
+  size: IconSize = 'md';
 
   /**
    * Color variant of the icon
@@ -183,6 +184,7 @@ export class SandoIcon extends FlavorableMixin(LitElement) {
    * Component styles
    */
   static styles = [
+    resetStyles,
     tokenStyles,
     css`
       :host {
@@ -195,8 +197,8 @@ export class SandoIcon extends FlavorableMixin(LitElement) {
 
       .icon-wrapper {
         display: flex;
-        width: var(--icon-size, var(--sando-icon-size-medium));
-        height: var(--icon-size, var(--sando-icon-size-medium));
+        width: var(--icon-size, var(--sando-icon-size-md));
+        height: var(--icon-size, var(--sando-icon-size-md));
         color: var(--icon-color, var(--sando-icon-color-default));
       }
 
@@ -206,19 +208,19 @@ export class SandoIcon extends FlavorableMixin(LitElement) {
         height: var(--icon-size, var(--sando-icon-size-xs));
       }
 
-      :host([size='small']) .icon-wrapper {
-        width: var(--icon-size, var(--sando-icon-size-small));
-        height: var(--icon-size, var(--sando-icon-size-small));
+      :host([size='sm']) .icon-wrapper {
+        width: var(--icon-size, var(--sando-icon-size-sm));
+        height: var(--icon-size, var(--sando-icon-size-sm));
       }
 
-      :host([size='medium']) .icon-wrapper {
-        width: var(--icon-size, var(--sando-icon-size-medium));
-        height: var(--icon-size, var(--sando-icon-size-medium));
+      :host([size='md']) .icon-wrapper {
+        width: var(--icon-size, var(--sando-icon-size-md));
+        height: var(--icon-size, var(--sando-icon-size-md));
       }
 
-      :host([size='large']) .icon-wrapper {
-        width: var(--icon-size, var(--sando-icon-size-large));
-        height: var(--icon-size, var(--sando-icon-size-large));
+      :host([size='lg']) .icon-wrapper {
+        width: var(--icon-size, var(--sando-icon-size-lg));
+        height: var(--icon-size, var(--sando-icon-size-lg));
       }
 
       :host([size='xl']) .icon-wrapper {
@@ -307,7 +309,6 @@ export class SandoIcon extends FlavorableMixin(LitElement) {
       .icon-wrapper svg {
         width: 100%;
         height: 100%;
-        display: block;
         stroke: currentColor;
         fill: none;
       }

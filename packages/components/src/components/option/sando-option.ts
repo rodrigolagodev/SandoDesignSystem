@@ -72,6 +72,7 @@ import type { OptionSelectEventDetail } from './sando-option.types.js';
 import type { SandoSelect } from '../select/sando-select.js';
 
 import { FlavorableMixin } from '../../mixins/index.js';
+import { resetStyles } from '../../styles/reset.css.js';
 import { tokenStyles } from '../../styles/tokens.css.js';
 import { baseStyles, stateStyles, checkboxStyles } from './styles/index.js';
 
@@ -85,8 +86,9 @@ export class SandoOption extends FlavorableMixin(LitElement) {
    * Order matters for specificity
    */
   static styles = [
+    resetStyles, // Universal reset (box-sizing, reduced-motion, etc.)
     tokenStyles, // Design tokens (Ingredients, Flavors, Recipes)
-    baseStyles, // Reset, layout, typography
+    baseStyles, // Layout, typography
     stateStyles, // Hover, selected, disabled, highlighted
     checkboxStyles // Multi-select checkbox visual
   ];

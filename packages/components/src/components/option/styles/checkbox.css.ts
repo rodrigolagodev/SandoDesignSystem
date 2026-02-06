@@ -76,11 +76,4 @@ export const checkboxStyles = css`
   :host([multiple]) .option-checkmark {
     display: none;
   }
-
-  /* Reduced motion support */
-  @media (prefers-reduced-motion: reduce) {
-    .option-checkbox {
-      transition-duration: 0.01ms !important;
-    }
-  }
 `;

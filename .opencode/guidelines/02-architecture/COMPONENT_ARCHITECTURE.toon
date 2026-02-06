@@ -3,7 +3,7 @@ meta:
   category: "02-architecture"
   version: "1.0.0"
   status: "Active"
-  last_updated: "2025-11-09"
+  last_updated: "2026-02-06"
   owner: "Design System Architect"
 
 purpose:
@@ -184,6 +184,50 @@ core_rules:
         - "Utility components that have no visual styles"
         - "Components that only use universal tokens (no flavor-specific tokens)"
 
+  - id: "CA-CR-R6"
+    title: "CSS Reset Import (Non-Negotiable)"
+    summary: "All components MUST import resetStyles as the FIRST style in the static styles array. This provides consistent baseline CSS across all components."
+    pattern:
+      lang: "typescript"
+      code: |
+        import { resetStyles } from '../../styles/reset.css.js';
+        import { tokenStyles } from '../../styles/tokens.css.js';
+        
+        @customElement('sando-example')
+        export class SandoExample extends FlavorableMixin(LitElement) {
+          static styles = [
+            resetStyles,   // MUST be first
+            tokenStyles,   // Then tokens
+            // Then component-specific styles
+          ];
+        }
+    what_reset_provides:
+      - "box-sizing: border-box for all elements"
+      - "Font inheritance from light DOM"
+      - ":host([hidden]) support"
+      - "Button/input/select normalization"
+      - "Typography reset (h1-h6, p margins)"
+      - "Media reset (img, svg display: block)"
+      - "prefers-reduced-motion support"
+    why:
+      - "Ensures consistent box model across all components"
+      - "Eliminates browser inconsistencies"
+      - "Centralizes reset logic (DRY principle)"
+      - "Provides automatic accessibility features"
+    anti_pattern:
+      lang: "typescript"
+      title: "❌ WRONG: Missing resetStyles or wrong order"
+      code: |
+        // WRONG: No resetStyles
+        static styles = [tokenStyles, componentStyles];
+        
+        // WRONG: resetStyles not first
+        static styles = [tokenStyles, resetStyles, componentStyles];
+    reference:
+      type: "source_file"
+      path: "packages/components/src/styles/reset.css.ts"
+      note: "Universal CSS Reset implementation"
+
 seven_file_pattern:
   id: "CA-7FP"
   summary: "Detailed specification of the 7-file component architecture pattern."
@@ -204,6 +248,8 @@ seven_file_pattern:
           import { LitElement, html, css } from "lit";
           import { customElement, property } from "lit/decorators.js";
           import { FlavorableMixin } from "../../mixins/index.js";
+          import { resetStyles } from "../../styles/reset.css.js";
+          import { tokenStyles } from "../../styles/tokens.css.js";
 
           @customElement("sando-example")
           export class SandoExample extends FlavorableMixin(LitElement) {
@@ -213,14 +259,18 @@ seven_file_pattern:
             @property({ type: Boolean, reflect: true })
             disabled = false;
 
-            static styles = css`
-              :host {
-                display: inline-block;
-              }
-              .example {
-                background: var(--sando-example-backgroundColor);
-              }
-            `;
+            static styles = [
+              resetStyles,
+              tokenStyles,
+              css`
+                :host {
+                  display: inline-block;
+                }
+                .example {
+                  background: var(--sando-example-backgroundColor);
+                }
+              `,
+            ];
 
             render() {
               return html`
@@ -398,7 +448,7 @@ seven_file_pattern:
       title: "Modular CSS (Optional)"
       when_to_use: "Complex components with many variants benefit from splitting CSS into modules."
       folder_structure:
-        - "base.css.ts" # Reset, layout, typography
+        - "base.css.ts" # Layout, typography (reset comes from resetStyles)
         - "variants.css.ts" # Variant-specific styles (solid, outline)
         - "sizes.css.ts" # Size-specific styles (small, medium, large)
         - "states.css.ts" # State styles (disabled, loading, active)

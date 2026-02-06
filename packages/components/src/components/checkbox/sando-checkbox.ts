@@ -49,9 +49,9 @@
  *
  * @example Different sizes
  * ```html
- * <sando-checkbox size="small" label="Small"></sando-checkbox>
- * <sando-checkbox size="medium" label="Medium"></sando-checkbox>
- * <sando-checkbox size="large" label="Large"></sando-checkbox>
+ * <sando-checkbox size="sm" label="Small"></sando-checkbox>
+ * <sando-checkbox size="md" label="Medium"></sando-checkbox>
+ * <sando-checkbox size="lg" label="Large"></sando-checkbox>
  * ```
  */
 
@@ -65,6 +65,7 @@ import type {
 } from './sando-checkbox.types.js';
 
 import { FlavorableMixin } from '../../mixins/index.js';
+import { resetStyles } from '../../styles/reset.css.js';
 import { tokenStyles } from '../../styles/tokens.css.js';
 import { baseStyles, variantStyles, sizeStyles, stateStyles } from './styles/index.js';
 
@@ -87,8 +88,9 @@ export class SandoCheckbox extends FlavorableMixin(LitElement) {
    * Order matters for specificity
    */
   static styles = [
+    resetStyles, // Universal CSS reset (box-sizing, reduced-motion, etc.)
     tokenStyles, // Design tokens (Ingredients, Flavors, Recipes)
-    baseStyles, // Reset, layout, typography, focus
+    baseStyles, // Layout, typography, focus
     variantStyles, // Solid, outline
     sizeStyles, // Small, medium, large
     stateStyles // Checked, indeterminate, disabled, error
@@ -165,10 +167,10 @@ export class SandoCheckbox extends FlavorableMixin(LitElement) {
 
   /**
    * Size variant of the checkbox
-   * @default 'medium'
+   * @default 'md'
    */
   @property({ reflect: true })
-  size: CheckboxSize = 'medium';
+  size: CheckboxSize = 'md';
 
   /**
    * Label text (alternative to slot)

@@ -36,6 +36,10 @@
           "value": "hsl(45, 100%, 85%)",
           "type": "color"
         },
+        "400": {
+          "value": "hsl(42, 100%, 58%)",
+          "type": "color"
+        },
         "500": {
           "value": "hsl(45, 100%, 51%)",
           "type": "color"
@@ -78,6 +82,10 @@
       "info": {
         "100": {
           "value": "hsl(213, 94%, 93%)",
+          "type": "color"
+        },
+        "400": {
+          "value": "hsl(217, 91%, 70%)",
           "type": "color"
         },
         "500": {

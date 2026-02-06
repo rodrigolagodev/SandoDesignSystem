@@ -54,12 +54,12 @@ const meta: Meta = {
     },
     size: {
       control: 'select',
-      options: ['small', 'medium', 'large'],
+      options: ['sm', 'md', 'lg'],
       description: 'Size of the input',
       table: {
         category: 'Appearance',
-        type: { summary: "'small' | 'medium' | 'large'" },
-        defaultValue: { summary: 'medium' }
+        type: { summary: "'sm' | 'md' | 'lg'" },
+        defaultValue: { summary: 'md' }
       }
     },
     // 3. Content
@@ -154,7 +154,7 @@ const meta: Meta = {
   },
   args: {
     variant: 'filled',
-    size: 'medium',
+    size: 'md',
     type: 'text',
     label: 'Label',
     placeholder: 'Enter text...',
@@ -255,9 +255,9 @@ export const AllSizes: Story = {
   tags: DOCS_ONLY,
   render: () => html`
     <div style="display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap;">
-      <sando-input size="small" label="Small" value="Small input"></sando-input>
-      <sando-input size="medium" label="Medium" value="Medium input"></sando-input>
-      <sando-input size="large" label="Large" value="Large input"></sando-input>
+      <sando-input size="sm" label="Small" value="Small input"></sando-input>
+      <sando-input size="md" label="Medium" value="Medium input"></sando-input>
+      <sando-input size="lg" label="Large" value="Large input"></sando-input>
     </div>
   `,
   parameters: { controls: { disable: true } }

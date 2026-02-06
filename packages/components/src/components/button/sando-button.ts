@@ -33,11 +33,10 @@
  * <sando-button start-icon="⭐">Favorite</sando-button>
  * <sando-button end-icon="→">Next</sando-button>
  *
- * @example Size variants (xs to large - WCAG compliant)
- * <sando-button size="xs">Extra Small</sando-button>
- * <sando-button size="small">Small</sando-button>
- * <sando-button size="medium">Medium</sando-button>
- * <sando-button size="large">Large</sando-button>
+ * @example Size variants (sm to lg - WCAG compliant)
+ * <sando-button size="sm">Small</sando-button>
+ * <sando-button size="md">Medium</sando-button>
+ * <sando-button size="lg">Large</sando-button>
  *
  * @example Icon-only button
  * <sando-button icon-only aria-label="Settings">
@@ -71,6 +70,7 @@ import type {
   ButtonRadius
 } from './sando-button.types.js';
 import { FlavorableMixin } from '../../mixins/index.js';
+import { resetStyles } from '../../styles/reset.css.js';
 import { tokenStyles } from '../../styles/tokens.css.js';
 import {
   baseStyles,
@@ -101,10 +101,10 @@ export class SandoButton extends FlavorableMixin(LitElement) {
 
   /**
    * Size of the button
-   * @default 'medium'
+   * @default 'md'
    */
   @property({ reflect: true })
-  size: ButtonSize = 'medium';
+  size: ButtonSize = 'md';
 
   /**
    * Status variant for success/error states
@@ -133,6 +133,14 @@ export class SandoButton extends FlavorableMixin(LitElement) {
    */
   @property({ reflect: true })
   type: 'button' | 'submit' | 'reset' = 'button';
+
+  /**
+   * When true, reduces horizontal padding for more compact appearance.
+   * Useful for toolbars, button groups, or space-constrained layouts.
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  compact = false;
 
   /**
    * Full width button
@@ -222,8 +230,9 @@ export class SandoButton extends FlavorableMixin(LitElement) {
    * Order matters for specificity
    */
   static styles = [
+    resetStyles, // Universal CSS reset (box-sizing, font inheritance)
     tokenStyles, // Design tokens (Ingredients, Flavors, Recipes)
-    baseStyles, // Reset, layout, typography, focus
+    baseStyles, // Layout, typography, focus
     variantStyles, // Solid, outline, ghost
     sizeStyles, // Small, medium, large, icon-only
     radiusStyles, // None, default, full

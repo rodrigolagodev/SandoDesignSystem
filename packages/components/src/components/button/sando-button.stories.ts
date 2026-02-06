@@ -9,7 +9,7 @@ import '../icon/sando-icon.ts';
  *
  * ## Features
  * - **4 Variants**: solid, outline, ghost, text
- * - **4 Sizes**: xs, small, medium, large
+ * - **3 Sizes**: sm, md, lg
  * - **3 Border Radius**: none, default, full (pill/circular)
  * - **Status States**: default, success, destructive
  * - **Interactive States**: hover, active, disabled, loading
@@ -39,6 +39,7 @@ const meta: Meta = {
       ?loading="${args.loading}"
       ?full-width="${args.fullWidth}"
       ?icon-only="${args.iconOnly}"
+      ?compact="${args.compact}"
       ?active="${args.active}"
       type="${args.type}"
       href="${args.href || ''}"
@@ -46,11 +47,11 @@ const meta: Meta = {
       aria-label="${args.ariaLabel || ''}"
     >
       ${args.iconStart && args.iconStart !== 'None'
-        ? html`<sando-icon slot="icon-start" name="${args.iconStart}" size="small"></sando-icon>`
+        ? html`<sando-icon slot="icon-start" name="${args.iconStart}" size="sm"></sando-icon>`
         : ''}
       ${args.iconOnly ? '' : args.label}
       ${args.iconEnd && args.iconEnd !== 'None'
-        ? html`<sando-icon slot="icon-end" name="${args.iconEnd}" size="small"></sando-icon>`
+        ? html`<sando-icon slot="icon-end" name="${args.iconEnd}" size="sm"></sando-icon>`
         : ''}
     </sando-button>
   `,
@@ -77,12 +78,12 @@ const meta: Meta = {
     },
     size: {
       control: 'select',
-      options: ['xs', 'small', 'medium', 'large'],
-      description: 'Button size (medium meets WCAG touch target)',
+      options: ['sm', 'md', 'lg'],
+      description: 'Button size (md meets WCAG touch target)',
       table: {
         category: 'Appearance',
-        type: { summary: "'xs' | 'small' | 'medium' | 'large'" },
-        defaultValue: { summary: 'medium' }
+        type: { summary: "'sm' | 'md' | 'lg'" },
+        defaultValue: { summary: 'md' }
       }
     },
     status: {
@@ -147,6 +148,14 @@ const meta: Meta = {
       table: {
         category: 'Layout',
         type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' }
+      }
+    },
+    compact: {
+      control: 'boolean',
+      description: 'Reduces horizontal padding for compact appearance',
+      table: {
+        category: 'Appearance',
         defaultValue: { summary: 'false' }
       }
     },
@@ -242,7 +251,7 @@ const meta: Meta = {
   args: {
     flavor: 'original',
     variant: 'solid',
-    size: 'medium',
+    size: 'md',
     status: 'default',
     radius: 'default',
     disabled: false,
@@ -250,6 +259,7 @@ const meta: Meta = {
     active: false,
     fullWidth: false,
     iconOnly: false,
+    compact: false,
     type: 'button',
     label: 'Button',
     iconStart: 'None',
@@ -332,10 +342,9 @@ export const AllSizes: Story = {
   tags: DOCS_ONLY,
   render: () => html`
     <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
-      <sando-button size="xs">Extra Small</sando-button>
-      <sando-button size="small">Small</sando-button>
-      <sando-button size="medium">Medium (WCAG)</sando-button>
-      <sando-button size="large">Large</sando-button>
+      <sando-button size="sm">Small</sando-button>
+      <sando-button size="md">Medium (WCAG)</sando-button>
+      <sando-button size="lg">Large</sando-button>
     </div>
   `,
   parameters: { controls: { disable: true } }
@@ -350,11 +359,11 @@ export const AllStatus: Story = {
     <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
       <sando-button status="default">Default</sando-button>
       <sando-button status="success">
-        <sando-icon slot="icon-start" name="check" size="small"></sando-icon>
+        <sando-icon slot="icon-start" name="check" size="sm"></sando-icon>
         Success
       </sando-button>
       <sando-button status="destructive">
-        <sando-icon slot="icon-start" name="trash-2" size="small"></sando-icon>
+        <sando-icon slot="icon-start" name="trash-2" size="sm"></sando-icon>
         Destructive
       </sando-button>
     </div>
@@ -394,6 +403,69 @@ export const AllRadius: Story = {
 };
 
 /**
+ * Compact mode comparison: normal vs compact padding.
+ * Compact reduces horizontal padding for denser layouts.
+ */
+export const Compact: Story = {
+  name: 'Compact',
+  tags: DOCS_ONLY,
+  render: () => html`
+    <div style="display: flex; flex-direction: column; gap: 1rem;">
+      <div style="display: flex; gap: 0.5rem; align-items: center;">
+        <span style="width: 80px; font-size: 0.875rem; color: #666;">Normal:</span>
+        <sando-button size="sm">Small</sando-button>
+        <sando-button size="md">Medium</sando-button>
+        <sando-button size="lg">Large</sando-button>
+      </div>
+      <div style="display: flex; gap: 0.5rem; align-items: center;">
+        <span style="width: 80px; font-size: 0.875rem; color: #666;">Compact:</span>
+        <sando-button size="sm" compact>Small</sando-button>
+        <sando-button size="md" compact>Medium</sando-button>
+        <sando-button size="lg" compact>Large</sando-button>
+      </div>
+    </div>
+  `,
+  parameters: { controls: { disable: true } }
+};
+
+/**
+ * Practical example: Toolbar with compact ghost buttons.
+ * Demonstrates compact mode for icon-based toolbars.
+ */
+export const ToolbarExample: Story = {
+  name: 'Toolbar Example',
+  tags: DOCS_ONLY,
+  render: () => html`
+    <div
+      style="display: flex; gap: 0.25rem; padding: 0.5rem; background: var(--sando-color-background-surface); border-radius: 0.5rem; border: 1px solid var(--sando-color-border-muted);"
+    >
+      <sando-button variant="ghost" compact icon-only aria-label="Bold">
+        <sando-icon slot="icon-start" name="bold" size="sm"></sando-icon>
+      </sando-button>
+      <sando-button variant="ghost" compact icon-only aria-label="Italic">
+        <sando-icon slot="icon-start" name="italic" size="sm"></sando-icon>
+      </sando-button>
+      <sando-button variant="ghost" compact icon-only aria-label="Underline">
+        <sando-icon slot="icon-start" name="underline" size="sm"></sando-icon>
+      </sando-button>
+      <div
+        style="width: 1px; background: var(--sando-color-border-muted); margin: 0 0.25rem;"
+      ></div>
+      <sando-button variant="ghost" compact icon-only aria-label="Align left">
+        <sando-icon slot="icon-start" name="align-left" size="sm"></sando-icon>
+      </sando-button>
+      <sando-button variant="ghost" compact icon-only aria-label="Align center">
+        <sando-icon slot="icon-start" name="align-center" size="sm"></sando-icon>
+      </sando-button>
+      <sando-button variant="ghost" compact icon-only aria-label="Align right">
+        <sando-icon slot="icon-start" name="align-right" size="sm"></sando-icon>
+      </sando-button>
+    </div>
+  `,
+  parameters: { controls: { disable: true } }
+};
+
+/**
  * Buttons with icons.
  */
 export const WithIcons: Story = {
@@ -401,21 +473,21 @@ export const WithIcons: Story = {
   render: () => html`
     <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
       <sando-button>
-        <sando-icon slot="icon-start" name="star" size="small"></sando-icon>
+        <sando-icon slot="icon-start" name="star" size="sm"></sando-icon>
         Favorite
       </sando-button>
       <sando-button variant="outline">
-        <sando-icon slot="icon-start" name="download" size="small"></sando-icon>
+        <sando-icon slot="icon-start" name="download" size="sm"></sando-icon>
         Download
       </sando-button>
       <sando-button variant="ghost">
         Settings
-        <sando-icon slot="icon-end" name="settings" size="small"></sando-icon>
+        <sando-icon slot="icon-end" name="settings" size="sm"></sando-icon>
       </sando-button>
       <sando-button>
-        <sando-icon slot="icon-start" name="upload" size="small"></sando-icon>
+        <sando-icon slot="icon-start" name="upload" size="sm"></sando-icon>
         Upload
-        <sando-icon slot="icon-end" name="arrow-right" size="small"></sando-icon>
+        <sando-icon slot="icon-end" name="arrow-right" size="sm"></sando-icon>
       </sando-button>
     </div>
   `,
@@ -432,17 +504,14 @@ export const IconOnlyVariants: Story = {
       <div>
         <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">Sizes</h4>
         <div style="display: flex; gap: 1rem; align-items: center;">
-          <sando-button icon-only size="xs" aria-label="Star">
-            <sando-icon slot="icon-start" name="star" size="xs"></sando-icon>
+          <sando-button icon-only size="sm" aria-label="Star">
+            <sando-icon slot="icon-start" name="star" size="sm"></sando-icon>
           </sando-button>
-          <sando-button icon-only size="small" aria-label="Star">
-            <sando-icon slot="icon-start" name="star" size="small"></sando-icon>
+          <sando-button icon-only size="md" aria-label="Star">
+            <sando-icon slot="icon-start" name="star" size="sm"></sando-icon>
           </sando-button>
-          <sando-button icon-only size="medium" aria-label="Star">
-            <sando-icon slot="icon-start" name="star" size="small"></sando-icon>
-          </sando-button>
-          <sando-button icon-only size="large" aria-label="Star">
-            <sando-icon slot="icon-start" name="star" size="medium"></sando-icon>
+          <sando-button icon-only size="lg" aria-label="Star">
+            <sando-icon slot="icon-start" name="star" size="md"></sando-icon>
           </sando-button>
         </div>
       </div>
@@ -450,13 +519,13 @@ export const IconOnlyVariants: Story = {
         <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">Variants</h4>
         <div style="display: flex; gap: 1rem; align-items: center;">
           <sando-button icon-only variant="solid" aria-label="Heart">
-            <sando-icon slot="icon-start" name="heart" size="small"></sando-icon>
+            <sando-icon slot="icon-start" name="heart" size="sm"></sando-icon>
           </sando-button>
           <sando-button icon-only variant="outline" aria-label="Trash">
-            <sando-icon slot="icon-start" name="trash-2" size="small"></sando-icon>
+            <sando-icon slot="icon-start" name="trash-2" size="sm"></sando-icon>
           </sando-button>
           <sando-button icon-only variant="ghost" aria-label="Edit">
-            <sando-icon slot="icon-start" name="edit" size="small"></sando-icon>
+            <sando-icon slot="icon-start" name="edit" size="sm"></sando-icon>
           </sando-button>
         </div>
       </div>
@@ -466,13 +535,13 @@ export const IconOnlyVariants: Story = {
         </h4>
         <div style="display: flex; gap: 1rem; align-items: center;">
           <sando-button icon-only radius="full" aria-label="Add">
-            <sando-icon slot="icon-start" name="plus" size="small"></sando-icon>
+            <sando-icon slot="icon-start" name="plus" size="sm"></sando-icon>
           </sando-button>
           <sando-button icon-only radius="full" status="success" aria-label="Check">
-            <sando-icon slot="icon-start" name="check" size="small"></sando-icon>
+            <sando-icon slot="icon-start" name="check" size="sm"></sando-icon>
           </sando-button>
           <sando-button icon-only radius="full" status="destructive" aria-label="Close">
-            <sando-icon slot="icon-start" name="x" size="small"></sando-icon>
+            <sando-icon slot="icon-start" name="x" size="sm"></sando-icon>
           </sando-button>
         </div>
       </div>
@@ -515,10 +584,10 @@ export const ActiveState: Story = {
       <div>
         <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">Filter Example</h4>
         <div style="display: flex; gap: 0.5rem;">
-          <sando-button variant="outline" size="small" active>All</sando-button>
-          <sando-button variant="outline" size="small">Active</sando-button>
-          <sando-button variant="outline" size="small">Completed</sando-button>
-          <sando-button variant="outline" size="small">Archived</sando-button>
+          <sando-button variant="outline" size="sm" active>All</sando-button>
+          <sando-button variant="outline" size="sm">Active</sando-button>
+          <sando-button variant="outline" size="sm">Completed</sando-button>
+          <sando-button variant="outline" size="sm">Archived</sando-button>
         </div>
       </div>
     </div>
@@ -535,10 +604,10 @@ export const AsLinks: Story = {
     <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
       <sando-button href="https://example.com" target="_blank">
         External Link
-        <sando-icon slot="icon-end" name="external-link" size="small"></sando-icon>
+        <sando-icon slot="icon-end" name="external-link" size="sm"></sando-icon>
       </sando-button>
       <sando-button variant="outline" href="/">
-        <sando-icon slot="icon-start" name="home" size="small"></sando-icon>
+        <sando-icon slot="icon-start" name="home" size="sm"></sando-icon>
         Home
       </sando-button>
       <sando-button variant="ghost" href="/docs">Documentation</sando-button>
@@ -573,10 +642,9 @@ export const AllExamples: Story = {
       <section>
         <h3 style="margin: 0 0 1rem 0; font-size: 1rem;">Sizes</h3>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
-          <sando-button flavor="${args.flavor}" size="xs">Extra Small</sando-button>
-          <sando-button flavor="${args.flavor}" size="small">Small</sando-button>
-          <sando-button flavor="${args.flavor}" size="medium">Medium</sando-button>
-          <sando-button flavor="${args.flavor}" size="large">Large</sando-button>
+          <sando-button flavor="${args.flavor}" size="sm">Small</sando-button>
+          <sando-button flavor="${args.flavor}" size="md">Medium</sando-button>
+          <sando-button flavor="${args.flavor}" size="lg">Large</sando-button>
         </div>
       </section>
 
@@ -595,16 +663,16 @@ export const AllExamples: Story = {
         <h3 style="margin: 0 0 1rem 0; font-size: 1rem;">With Icons</h3>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
           <sando-button flavor="${args.flavor}">
-            <sando-icon slot="icon-start" name="star" size="small"></sando-icon>
+            <sando-icon slot="icon-start" name="star" size="sm"></sando-icon>
             Favorite
           </sando-button>
           <sando-button flavor="${args.flavor}" variant="outline">
-            <sando-icon slot="icon-start" name="download" size="small"></sando-icon>
+            <sando-icon slot="icon-start" name="download" size="sm"></sando-icon>
             Download
           </sando-button>
           <sando-button flavor="${args.flavor}" variant="ghost">
             Settings
-            <sando-icon slot="icon-end" name="settings" size="small"></sando-icon>
+            <sando-icon slot="icon-end" name="settings" size="sm"></sando-icon>
           </sando-button>
         </div>
       </section>
@@ -614,13 +682,13 @@ export const AllExamples: Story = {
         <h3 style="margin: 0 0 1rem 0; font-size: 1rem;">Icon-only</h3>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
           <sando-button flavor="${args.flavor}" icon-only aria-label="Like">
-            <sando-icon slot="icon-start" name="heart" size="small"></sando-icon>
+            <sando-icon slot="icon-start" name="heart" size="sm"></sando-icon>
           </sando-button>
           <sando-button flavor="${args.flavor}" icon-only variant="outline" aria-label="Delete">
-            <sando-icon slot="icon-start" name="trash-2" size="small"></sando-icon>
+            <sando-icon slot="icon-start" name="trash-2" size="sm"></sando-icon>
           </sando-button>
           <sando-button flavor="${args.flavor}" icon-only variant="ghost" aria-label="Edit">
-            <sando-icon slot="icon-start" name="edit" size="small"></sando-icon>
+            <sando-icon slot="icon-start" name="edit" size="sm"></sando-icon>
           </sando-button>
           <sando-button
             flavor="${args.flavor}"
@@ -629,7 +697,7 @@ export const AllExamples: Story = {
             status="success"
             aria-label="Confirm"
           >
-            <sando-icon slot="icon-start" name="check" size="small"></sando-icon>
+            <sando-icon slot="icon-start" name="check" size="sm"></sando-icon>
           </sando-button>
           <sando-button
             flavor="${args.flavor}"
@@ -638,7 +706,7 @@ export const AllExamples: Story = {
             status="destructive"
             aria-label="Cancel"
           >
-            <sando-icon slot="icon-start" name="x" size="small"></sando-icon>
+            <sando-icon slot="icon-start" name="x" size="sm"></sando-icon>
           </sando-button>
         </div>
       </section>

@@ -29,7 +29,7 @@ describe('sando-tag', () => {
     it('should render with default properties', () => {
       expect(element).toBeDefined();
       expect(element.variant).toBe('solid');
-      expect(element.size).toBe('medium');
+      expect(element.size).toBe('md');
       expect(element.disabled).toBe(false);
       expect(element.removable).toBe(false);
       expect(element.clickable).toBe(false);
@@ -81,29 +81,29 @@ describe('sando-tag', () => {
   });
 
   describe('Properties - Size', () => {
-    it('should apply medium size by default', () => {
-      expect(element.size).toBe('medium');
-      expect(element.getAttribute('size')).toBe('medium');
+    it('should apply md size by default', () => {
+      expect(element.size).toBe('md');
+      expect(element.getAttribute('size')).toBe('md');
     });
 
-    it('should update size to small', async () => {
-      element.size = 'small';
+    it('should update size to sm', async () => {
+      element.size = 'sm';
       await element.updateComplete;
-      expect(element.size).toBe('small');
-      expect(element.getAttribute('size')).toBe('small');
+      expect(element.size).toBe('sm');
+      expect(element.getAttribute('size')).toBe('sm');
     });
 
-    it('should update size to large', async () => {
-      element.size = 'large';
+    it('should update size to lg', async () => {
+      element.size = 'lg';
       await element.updateComplete;
-      expect(element.size).toBe('large');
-      expect(element.getAttribute('size')).toBe('large');
+      expect(element.size).toBe('lg');
+      expect(element.getAttribute('size')).toBe('lg');
     });
 
     it('should reflect size attribute to property', async () => {
-      element.setAttribute('size', 'small');
+      element.setAttribute('size', 'sm');
       await element.updateComplete;
-      expect(element.size).toBe('small');
+      expect(element.size).toBe('sm');
     });
   });
 

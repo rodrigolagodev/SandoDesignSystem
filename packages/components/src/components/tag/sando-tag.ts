@@ -70,9 +70,9 @@
  * <sando-tag href="/category/design" target="_blank">Design</sando-tag>
  *
  * @example Size variants
- * <sando-tag size="small">Small</sando-tag>
- * <sando-tag size="medium">Medium</sando-tag>
- * <sando-tag size="large">Large</sando-tag>
+ * <sando-tag size="sm">Small</sando-tag>
+ * <sando-tag size="md">Medium</sando-tag>
+ * <sando-tag size="lg">Large</sando-tag>
  *
  * @example Variant styles
  * <sando-tag variant="solid">Solid</sando-tag>
@@ -91,6 +91,7 @@ import type {
   TagActionEventDetail
 } from './sando-tag.types.js';
 import { FlavorableMixin } from '../../mixins/index.js';
+import { resetStyles } from '../../styles/reset.css.js';
 import { tokenStyles } from '../../styles/tokens.css.js';
 import { baseStyles, variantStyles, sizeStyles, stateStyles } from './styles/index.js';
 
@@ -117,10 +118,10 @@ export class SandoTag extends FlavorableMixin(LitElement) {
 
   /**
    * Size of the tag
-   * @default 'medium'
+   * @default 'md'
    */
   @property({ reflect: true })
-  size: TagSize = 'medium';
+  size: TagSize = 'md';
 
   /**
    * Whether the tag is disabled
@@ -180,8 +181,9 @@ export class SandoTag extends FlavorableMixin(LitElement) {
    * Order matters for specificity
    */
   static styles = [
+    resetStyles, // Universal reset (box-sizing, button reset, etc.)
     tokenStyles, // Design tokens (Ingredients, Flavors, Recipes)
-    baseStyles, // Reset, layout, typography, focus
+    baseStyles, // Layout, typography, focus
     variantStyles, // Solid, outline, soft
     sizeStyles, // Small, medium, large
     stateStyles // Disabled state

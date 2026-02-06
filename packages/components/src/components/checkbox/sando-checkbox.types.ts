@@ -10,8 +10,11 @@ export type CheckboxVariant = 'solid' | 'outline';
 
 /**
  * Size variants for the checkbox
+ * - `sm` - Small: Compact size for tight layouts
+ * - `md` - Medium: Default size for most use cases
+ * - `lg` - Large: Larger touch target for mobile
  */
-export type CheckboxSize = 'small' | 'medium' | 'large';
+export type CheckboxSize = 'sm' | 'md' | 'lg';
 
 /**
  * Event detail for checkbox change events
@@ -81,7 +84,7 @@ export interface SandoCheckboxProps {
 
   /**
    * Size variant of the checkbox
-   * @default 'medium'
+   * @default 'md'
    */
   size?: CheckboxSize;
 

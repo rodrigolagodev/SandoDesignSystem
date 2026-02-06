@@ -10,6 +10,7 @@ import type {
 } from './sando-input.types.js';
 
 import { FlavorableMixin } from '../../mixins/index.js';
+import { resetStyles } from '../../styles/reset.css.js';
 import { tokenStyles } from '../../styles/tokens.css.js';
 
 /**
@@ -49,18 +50,18 @@ import { tokenStyles } from '../../styles/tokens.css.js';
  * @cssprop --sando-input-filled-textColor-default - Text color (filled variant, default state)
  * @cssprop --sando-input-filled-textColor-placeholder - Placeholder text color (filled variant)
  * @cssprop --sando-input-filled-textColor-disabled - Text color (filled variant, disabled state)
- * @cssprop --sando-input-size-small-paddingInline - Horizontal padding (small size)
- * @cssprop --sando-input-size-small-paddingBlock - Vertical padding (small size)
- * @cssprop --sando-input-size-small-fontSize - Font size (small size)
- * @cssprop --sando-input-size-small-minHeight - Minimum height (small size)
- * @cssprop --sando-input-size-medium-paddingInline - Horizontal padding (medium size)
- * @cssprop --sando-input-size-medium-paddingBlock - Vertical padding (medium size)
- * @cssprop --sando-input-size-medium-fontSize - Font size (medium size)
- * @cssprop --sando-input-size-medium-minHeight - Minimum height (medium size)
- * @cssprop --sando-input-size-large-paddingInline - Horizontal padding (large size)
- * @cssprop --sando-input-size-large-paddingBlock - Vertical padding (large size)
- * @cssprop --sando-input-size-large-fontSize - Font size (large size)
- * @cssprop --sando-input-size-large-minHeight - Minimum height (large size)
+ * @cssprop --sando-input-size-sm-paddingInline - Horizontal padding (small size)
+ * @cssprop --sando-input-size-sm-paddingBlock - Vertical padding (small size)
+ * @cssprop --sando-input-size-sm-fontSize - Font size (small size)
+ * @cssprop --sando-input-size-sm-minHeight - Minimum height (small size)
+ * @cssprop --sando-input-size-md-paddingInline - Horizontal padding (medium size)
+ * @cssprop --sando-input-size-md-paddingBlock - Vertical padding (medium size)
+ * @cssprop --sando-input-size-md-fontSize - Font size (medium size)
+ * @cssprop --sando-input-size-md-minHeight - Minimum height (medium size)
+ * @cssprop --sando-input-size-lg-paddingInline - Horizontal padding (large size)
+ * @cssprop --sando-input-size-lg-paddingBlock - Vertical padding (large size)
+ * @cssprop --sando-input-size-lg-fontSize - Font size (large size)
+ * @cssprop --sando-input-size-lg-minHeight - Minimum height (large size)
  * @cssprop --sando-input-label-textColor-default - Label text color (default state)
  * @cssprop --sando-input-label-textColor-disabled - Label text color (disabled state)
  * @cssprop --sando-input-label-fontSize - Label font size
@@ -150,10 +151,10 @@ export class SandoInput extends FlavorableMixin(LitElement) implements SandoInpu
 
   /**
    * Size of the input
-   * @default 'medium'
+   * @default 'md'
    */
   @property({ reflect: true })
-  size: InputSize = 'medium';
+  size: InputSize = 'md';
 
   /**
    * Input type
@@ -234,6 +235,7 @@ export class SandoInput extends FlavorableMixin(LitElement) implements SandoInpu
   autocomplete?: string;
 
   static styles = [
+    resetStyles,
     tokenStyles,
     css`
       :host {
@@ -274,36 +276,36 @@ export class SandoInput extends FlavorableMixin(LitElement) implements SandoInpu
       }
 
       /* Size variants */
-      :host([size='small']) .input-wrapper {
-        padding-inline: var(--sando-input-size-small-paddingInline);
-        padding-block: var(--sando-input-size-small-paddingBlock);
-        min-height: var(--sando-input-size-small-minHeight);
+      :host([size='sm']) .input-wrapper {
+        padding-inline: var(--sando-input-size-sm-paddingInline);
+        padding-block: var(--sando-input-size-sm-paddingBlock);
+        min-height: var(--sando-input-size-sm-minHeight);
       }
 
-      :host([size='small']) input {
-        font-size: var(--sando-input-size-small-fontSize);
+      :host([size='sm']) input {
+        font-size: var(--sando-input-size-sm-fontSize);
       }
 
-      :host([size='medium']) .input-wrapper,
+      :host([size='md']) .input-wrapper,
       .input-wrapper {
-        padding-inline: var(--sando-input-size-medium-paddingInline);
-        padding-block: var(--sando-input-size-medium-paddingBlock);
-        min-height: var(--sando-input-size-medium-minHeight);
+        padding-inline: var(--sando-input-size-md-paddingInline);
+        padding-block: var(--sando-input-size-md-paddingBlock);
+        min-height: var(--sando-input-size-md-minHeight);
       }
 
-      :host([size='medium']) input,
+      :host([size='md']) input,
       input {
-        font-size: var(--sando-input-size-medium-fontSize);
+        font-size: var(--sando-input-size-md-fontSize);
       }
 
-      :host([size='large']) .input-wrapper {
-        padding-inline: var(--sando-input-size-large-paddingInline);
-        padding-block: var(--sando-input-size-large-paddingBlock);
-        min-height: var(--sando-input-size-large-minHeight);
+      :host([size='lg']) .input-wrapper {
+        padding-inline: var(--sando-input-size-lg-paddingInline);
+        padding-block: var(--sando-input-size-lg-paddingBlock);
+        min-height: var(--sando-input-size-lg-minHeight);
       }
 
-      :host([size='large']) input {
-        font-size: var(--sando-input-size-large-fontSize);
+      :host([size='lg']) input {
+        font-size: var(--sando-input-size-lg-fontSize);
       }
 
       /* Filled variant */
@@ -369,8 +371,6 @@ export class SandoInput extends FlavorableMixin(LitElement) implements SandoInpu
         flex: 1;
         border: none;
         outline: none;
-        font-family: inherit;
-        line-height: inherit;
         background: transparent;
         min-width: 0;
         color: var(--sando-input-outlined-textColor-default);

@@ -7,9 +7,13 @@
  * - Base appearance (border radius, cursor, transitions)
  * - Icon area styles (action button/link, informative icon)
  * - Focus states for interactive modes
+ *
+ * Note: Interactive elements use interactiveReset from shared styles
+ * to ensure consistent box-sizing after `all: unset`
  */
 
 import { css } from 'lit';
+import { interactiveReset } from '../../../styles/shared/base.styles.js';
 
 export const baseStyles = css`
   :host {
@@ -23,14 +27,7 @@ export const baseStyles = css`
   }
 
   .tag {
-    /* Reset */
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    border: none;
-    background: none;
-    font: inherit;
-    color: inherit;
+    /* Reset (supplement to global reset) */
     text-decoration: none;
 
     /* Display */
@@ -84,9 +81,7 @@ export const baseStyles = css`
 
   /* Interactive action button/link (clickable, link, removable modes) */
   .tag__action {
-    /* Reset */
-    all: unset;
-    box-sizing: border-box;
+    ${interactiveReset}
 
     /* Display */
     display: inline-flex;
@@ -100,7 +95,6 @@ export const baseStyles = css`
 
     /* Appearance */
     border-radius: var(--sando-tag-action-borderRadius, var(--sando-tag-removeButton-borderRadius));
-    cursor: pointer;
 
     /* Background */
     background-color: var(
@@ -159,9 +153,7 @@ export const baseStyles = css`
   /* Keep .tag__remove for backwards compatibility during transition */
 
   .tag__remove {
-    /* Reset */
-    all: unset;
-    box-sizing: border-box;
+    ${interactiveReset}
 
     /* Display */
     display: inline-flex;
@@ -175,7 +167,6 @@ export const baseStyles = css`
 
     /* Appearance */
     border-radius: var(--sando-tag-removeButton-borderRadius);
-    cursor: pointer;
 
     /* Background */
     background-color: var(--sando-tag-removeButton-backgroundColor-default);
@@ -193,14 +184,5 @@ export const baseStyles = css`
   .tag__remove:focus-visible {
     outline: var(--sando-tag-focus-outlineWidth) solid var(--sando-tag-focus-outlineColor);
     outline-offset: var(--sando-tag-focus-outlineOffset);
-  }
-
-  /* Reduced motion support */
-  @media (prefers-reduced-motion: reduce) {
-    .tag,
-    .tag__action,
-    .tag__remove {
-      transition-duration: 0.01ms !important;
-    }
   }
 `;

@@ -9,7 +9,7 @@ import type { IconName } from './icon-manifest';
  * Size variants for the icon
  * Icons scale with font sizes for visual harmony with text
  */
-export type IconSize = 'xs' | 'small' | 'medium' | 'large' | 'xl';
+export type IconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 /**
  * Color variants for the icon
@@ -29,8 +29,8 @@ export interface SandoIconProps {
 
   /**
    * Size of the icon
-   * Icons scale with font sizes (xs=12px, small=14px, medium=18px, large=24px, xl=32px)
-   * @default 'medium'
+   * Icons scale with font sizes (xs=12px, sm=14px, md=18px, lg=24px, xl=32px)
+   * @default 'md'
    */
   size?: IconSize;
 

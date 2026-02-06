@@ -169,7 +169,7 @@
       }
     },
     "size": {
-      "small": {
+      "sm": {
         "boxSize": {
           "value": "1rem",
           "type": "dimension"
@@ -187,7 +187,7 @@
           "type": "dimension"
         }
       },
-      "medium": {
+      "md": {
         "boxSize": {
           "value": "1.25rem",
           "type": "dimension"
@@ -205,7 +205,7 @@
           "type": "dimension"
         }
       },
-      "large": {
+      "lg": {
         "boxSize": {
           "value": "1.5rem",
           "type": "dimension"

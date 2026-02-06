@@ -6,13 +6,35 @@
 import { css } from 'lit';
 
 /**
- * Reset styles for button elements
+ * Interactive Element Reset
+ *
+ * CRITICAL: `all: unset` removes ALL properties including `box-sizing`.
+ * This reset restores box-sizing and adds common interactive defaults.
+ *
+ * Use for: buttons, clickable elements inside Shadow DOM
  */
-export const buttonReset = css`
+export const interactiveReset = css`
   all: unset;
   box-sizing: border-box;
   cursor: pointer;
   user-select: none;
+`;
+
+// Keep buttonReset as alias for backwards compatibility
+export const buttonReset = interactiveReset;
+
+/**
+ * Anchor Element Reset
+ *
+ * Same as interactiveReset but includes text-decoration reset.
+ * Use for: anchor tags, link-like buttons
+ */
+export const anchorReset = css`
+  all: unset;
+  box-sizing: border-box;
+  cursor: pointer;
+  user-select: none;
+  text-decoration: none;
 `;
 
 /**

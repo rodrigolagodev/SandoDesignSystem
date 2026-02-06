@@ -26,7 +26,7 @@ describe('sando-checkbox', () => {
       expect(element.error).toBe(false);
       expect(element.value).toBe('on');
       expect(element.variant).toBe('solid');
-      expect(element.size).toBe('medium');
+      expect(element.size).toBe('md');
     });
 
     it('should render label from prop', async () => {
@@ -168,27 +168,27 @@ describe('sando-checkbox', () => {
     });
 
     it('should apply small size', async () => {
-      element.size = 'small';
+      element.size = 'sm';
       await element.updateComplete;
 
-      expect(element.size).toBe('small');
-      expect(element.getAttribute('size')).toBe('small');
+      expect(element.size).toBe('sm');
+      expect(element.getAttribute('size')).toBe('sm');
     });
 
     it('should apply medium size', async () => {
-      element.size = 'medium';
+      element.size = 'md';
       await element.updateComplete;
 
-      expect(element.size).toBe('medium');
-      expect(element.getAttribute('size')).toBe('medium');
+      expect(element.size).toBe('md');
+      expect(element.getAttribute('size')).toBe('md');
     });
 
     it('should apply large size', async () => {
-      element.size = 'large';
+      element.size = 'lg';
       await element.updateComplete;
 
-      expect(element.size).toBe('large');
-      expect(element.getAttribute('size')).toBe('large');
+      expect(element.size).toBe('lg');
+      expect(element.getAttribute('size')).toBe('lg');
     });
 
     it('should pass name to internal input', async () => {
@@ -604,7 +604,7 @@ describe('sando-checkbox', () => {
   });
 
   describe('Sizes', () => {
-    ['small', 'medium', 'large'].forEach((size) => {
+    ['sm', 'md', 'lg'].forEach((size) => {
       it(`should support ${size} size`, async () => {
         const el = await fixture<SandoCheckbox>(html`
           <sando-checkbox size="${size}" label="${size}"></sando-checkbox>

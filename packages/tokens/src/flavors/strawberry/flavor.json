@@ -116,6 +116,28 @@
           "value": "{color.state.success.400.value}",
           "type": "color"
         }
+      },
+      "warning": {
+        "background": {
+          "value": "{color.state.warning.100.value}",
+          "type": "color"
+        },
+        "text": { "value": "{color.state.warning.700.value}", "type": "color" },
+        "border": {
+          "value": "{color.state.warning.400.value}",
+          "type": "color"
+        }
+      },
+      "info": {
+        "background": {
+          "value": "{color.state.info.100.value}",
+          "type": "color"
+        },
+        "text": { "value": "{color.state.info.700.value}", "type": "color" },
+        "border": {
+          "value": "{color.state.info.400.value}",
+          "type": "color"
+        }
       }
     },
     "selection": {
@@ -131,6 +153,7 @@
     "size": {
       "body": { "value": "{font.size.300.value}", "type": "dimension" },
       "caption": { "value": "{font.size.100.value}", "type": "dimension" },
+      "label": { "value": "{font.size.200.value}", "type": "dimension" },
       "heading-100": {
         "value": "clamp({font.size.600.value}, 5vw, {font.size.700.value})",
         "type": "dimension"
@@ -186,16 +209,16 @@
   },
   "sizing": {
     "control": {
-      "xs": { "value": "{space.8.value}", "type": "dimension" },
-      "small": { "value": "{space.9.value}", "type": "dimension" },
-      "medium": { "value": "{space.11.value}", "type": "dimension" },
-      "large": { "value": "{space.13.value}", "type": "dimension" }
+      "xs": { "value": "{space.6.value}", "type": "dimension" },
+      "sm": { "value": "{space.8.value}", "type": "dimension" },
+      "md": { "value": "{space.9.value}", "type": "dimension" },
+      "lg": { "value": "{space.11.value}", "type": "dimension" }
     },
     "icon": {
       "xs": { "value": "{font.size.100.value}", "type": "dimension" },
-      "small": { "value": "{font.size.200.value}", "type": "dimension" },
-      "medium": { "value": "{font.size.400.value}", "type": "dimension" },
-      "large": { "value": "{font.size.600.value}", "type": "dimension" },
+      "sm": { "value": "{font.size.200.value}", "type": "dimension" },
+      "md": { "value": "{font.size.400.value}", "type": "dimension" },
+      "lg": { "value": "{font.size.600.value}", "type": "dimension" },
       "xl": { "value": "{font.size.700.value}", "type": "dimension" }
     }
   },

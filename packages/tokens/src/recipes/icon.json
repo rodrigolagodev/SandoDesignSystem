@@ -6,18 +6,18 @@
         "type": "dimension",
         "description": "Extra small icon size (12px) - matches font.size.100"
       },
-      "small": {
-        "value": "{sizing.icon.small.value}",
+      "sm": {
+        "value": "{sizing.icon.sm.value}",
         "type": "dimension",
         "description": "Small icon size (14px) - matches font.size.200"
       },
-      "medium": {
-        "value": "{sizing.icon.medium.value}",
+      "md": {
+        "value": "{sizing.icon.md.value}",
         "type": "dimension",
         "description": "Medium icon size (18px) - matches font.size.400"
       },
-      "large": {
-        "value": "{sizing.icon.large.value}",
+      "lg": {
+        "value": "{sizing.icon.lg.value}",
         "type": "dimension",
         "description": "Large icon size (24px) - matches font.size.600"
       },

@@ -62,9 +62,9 @@ describe('sando-select', () => {
     });
 
     it('should apply size attribute', async () => {
-      element.size = 'large';
+      element.size = 'lg';
       await element.updateComplete;
-      expect(element.getAttribute('size')).toBe('large');
+      expect(element.getAttribute('size')).toBe('lg');
     });
 
     it('should apply disabled attribute', async () => {

@@ -38,7 +38,7 @@ import '../icon/sando-icon.ts';
  * - **Mandatory Icon**: Always shows an icon (default: circle-chevron-right)
  * - **Custom Icons**: Override default via `slot="icon"`
  * - **3 Variants**: solid, outline, soft
- * - **3 Sizes**: small, medium, large
+ * - **3 Sizes**: sm, md, lg
  *
  * ## Accessibility
  * - Action buttons/links have descriptive aria-labels
@@ -54,6 +54,7 @@ const meta: Meta = {
       flavor="${args.flavor || 'original'}"
       variant="${args.variant}"
       size="${args.size}"
+      ?compact="${args.compact}"
       ?removable="${args.removable}"
       ?clickable="${args.clickable}"
       ?disabled="${args.disabled}"
@@ -91,12 +92,21 @@ const meta: Meta = {
     },
     size: {
       control: 'select',
-      options: ['small', 'medium', 'large'],
+      options: ['sm', 'md', 'lg'],
       description: 'Size of the tag',
       table: {
         category: 'Appearance',
-        type: { summary: "'small' | 'medium' | 'large'" },
-        defaultValue: { summary: 'medium' }
+        type: { summary: "'sm' | 'md' | 'lg'" },
+        defaultValue: { summary: 'md' }
+      }
+    },
+    compact: {
+      control: 'boolean',
+      description: 'Reduces vertical padding for use in compact spaces (e.g., inside Select)',
+      table: {
+        category: 'Appearance',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' }
       }
     },
     removable: {
@@ -181,7 +191,8 @@ const meta: Meta = {
   args: {
     flavor: 'original',
     variant: 'solid',
-    size: 'medium',
+    size: 'md',
+    compact: false,
     removable: false,
     clickable: false,
     disabled: false,
@@ -238,15 +249,15 @@ export const Variants: Story = {
 };
 
 /**
- * All size options comparison: small, medium, large.
+ * All size options comparison: sm, md, lg.
  */
 export const Sizes: Story = {
   tags: DOCS_ONLY,
   render: () => html`
     <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
-      <sando-tag size="small">Small</sando-tag>
-      <sando-tag size="medium">Medium</sando-tag>
-      <sando-tag size="large">Large</sando-tag>
+      <sando-tag size="sm">Small</sando-tag>
+      <sando-tag size="md">Medium</sando-tag>
+      <sando-tag size="lg">Large</sando-tag>
     </div>
   `,
   parameters: { controls: { disable: true } }
@@ -541,7 +552,7 @@ export const Disabled: Story = {
  * This demonstrates the proper use of removable tags for filtering:
  * - Each filter is a removable tag
  * - Clicking X removes the filter
- * - Tags use small size for compact filter bars
+ * - Tags use sm size for compact filter bars
  */
 export const InContext: Story = {
   tags: DOCS_ONLY,
@@ -573,7 +584,7 @@ export const InContext: Story = {
           <div style="display: inline-flex; gap: 0.5rem; flex-wrap: wrap; align-items: center;">
             <sando-tag
               removable
-              size="small"
+              size="sm"
               variant="soft"
               @sando-remove="${handleRemove('Electronics')}"
             >
@@ -581,7 +592,7 @@ export const InContext: Story = {
             </sando-tag>
             <sando-tag
               removable
-              size="small"
+              size="sm"
               variant="soft"
               @sando-remove="${handleRemove('Price: $50-$200')}"
             >
@@ -589,7 +600,7 @@ export const InContext: Story = {
             </sando-tag>
             <sando-tag
               removable
-              size="small"
+              size="sm"
               variant="soft"
               @sando-remove="${handleRemove('In Stock')}"
             >
@@ -597,7 +608,7 @@ export const InContext: Story = {
             </sando-tag>
             <sando-tag
               removable
-              size="small"
+              size="sm"
               variant="soft"
               @sando-remove="${handleRemove('Free Shipping')}"
             >

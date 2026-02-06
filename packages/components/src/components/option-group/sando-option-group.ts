@@ -41,6 +41,7 @@ import { customElement, property } from 'lit/decorators.js';
 import type { SandoOptionGroupProps } from './sando-option-group.types.js';
 
 import { FlavorableMixin } from '../../mixins/index.js';
+import { resetStyles } from '../../styles/reset.css.js';
 import { tokenStyles } from '../../styles/tokens.css.js';
 import { baseStyles } from './styles/index.js';
 
@@ -50,6 +51,7 @@ export class SandoOptionGroup extends FlavorableMixin(LitElement) implements San
    * Component styles - modular CSS imports
    */
   static styles = [
+    resetStyles, // CSS reset for Shadow DOM
     tokenStyles, // Design tokens (Ingredients, Flavors, Recipes)
     baseStyles // Layout, typography, divider
   ];

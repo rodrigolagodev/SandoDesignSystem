@@ -9,7 +9,7 @@ describe('sando-input', () => {
 
       expect(el).to.exist;
       expect(el.variant).to.equal('filled');
-      expect(el.size).to.equal('medium');
+      expect(el.size).to.equal('md');
       expect(el.type).to.equal('text');
       expect(el.value).to.equal('');
       expect(el.disabled).to.be.false;
@@ -56,7 +56,7 @@ describe('sando-input', () => {
   });
 
   describe('sizes', () => {
-    ['small', 'medium', 'large'].forEach((size) => {
+    ['sm', 'md', 'lg'].forEach((size) => {
       it(`should apply ${size} size`, async () => {
         const el = await fixture<SandoInput>(html` <sando-input size="${size}"></sando-input> `);
 

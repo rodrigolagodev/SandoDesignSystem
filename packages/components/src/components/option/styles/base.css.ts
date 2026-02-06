@@ -2,10 +2,11 @@
  * Base Option Styles
  *
  * Contains:
- * - CSS reset
  * - Layout (flexbox, alignment)
  * - Typography
  * - Base appearance (cursor, transitions)
+ *
+ * Note: CSS reset (box-sizing, reduced-motion) handled by resetStyles
  */
 
 import { css } from 'lit';
@@ -51,13 +52,5 @@ export const baseStyles = css`
     display: flex;
     align-items: center;
     flex-shrink: 0;
-  }
-
-  /* Reduced motion support */
-  @media (prefers-reduced-motion: reduce) {
-    .option,
-    .option-checkmark {
-      transition-duration: 0.01ms !important;
-    }
   }
 `;

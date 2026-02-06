@@ -13,7 +13,7 @@ import '../option-group/sando-option-group.js';
  *
  * ## Features
  * - **2 Variants**: filled, outlined
- * - **3 Sizes**: small, medium, large
+ * - **3 Sizes**: sm, md, lg
  * - **States**: disabled, error, required
  * - **Multiple selection**: With tag display
  * - **Option grouping**: Using sando-option-group
@@ -84,12 +84,12 @@ const meta: Meta = {
     },
     size: {
       control: 'select',
-      options: ['small', 'medium', 'large'],
+      options: ['sm', 'md', 'lg'],
       description: 'Size of the select',
       table: {
         category: 'Appearance',
-        type: { summary: "'small' | 'medium' | 'large'" },
-        defaultValue: { summary: 'medium' }
+        type: { summary: "'sm' | 'md' | 'lg'" },
+        defaultValue: { summary: 'md' }
       }
     },
     placement: {
@@ -219,7 +219,7 @@ const meta: Meta = {
   },
   args: {
     variant: 'filled',
-    size: 'medium',
+    size: 'md',
     placement: 'bottom',
     disabled: false,
     required: false,
@@ -497,7 +497,7 @@ export const Sizes: Story = {
         variant="${args.variant}"
         flavor="${args.flavor || 'original'}"
         label="Small"
-        size="small"
+        size="sm"
         placeholder="Small select"
         ?disabled="${args.disabled}"
         ?error="${args.error}"
@@ -510,7 +510,7 @@ export const Sizes: Story = {
         variant="${args.variant}"
         flavor="${args.flavor || 'original'}"
         label="Medium"
-        size="medium"
+        size="md"
         placeholder="Medium select"
         ?disabled="${args.disabled}"
         ?error="${args.error}"
@@ -523,7 +523,7 @@ export const Sizes: Story = {
         variant="${args.variant}"
         flavor="${args.flavor || 'original'}"
         label="Large"
-        size="large"
+        size="lg"
         placeholder="Large select"
         ?disabled="${args.disabled}"
         ?error="${args.error}"
@@ -1141,7 +1141,7 @@ export const AllExamples: Story = {
         <div style="display: flex; flex-direction: column; gap: 1rem;">
           <sando-select
             variant="${args.variant}"
-            size="small"
+            size="sm"
             flavor="${args.flavor || 'original'}"
             label="Small"
             value="1"
@@ -1150,7 +1150,7 @@ export const AllExamples: Story = {
           </sando-select>
           <sando-select
             variant="${args.variant}"
-            size="medium"
+            size="md"
             flavor="${args.flavor || 'original'}"
             label="Medium"
             value="1"
@@ -1159,7 +1159,7 @@ export const AllExamples: Story = {
           </sando-select>
           <sando-select
             variant="${args.variant}"
-            size="large"
+            size="lg"
             flavor="${args.flavor || 'original'}"
             label="Large"
             value="1"

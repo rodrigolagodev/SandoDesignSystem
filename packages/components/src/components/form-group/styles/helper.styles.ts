@@ -34,10 +34,5 @@ export const helperStyles = css`
     }
   }
 
-  /* Reduced motion support */
-  @media (prefers-reduced-motion: reduce) {
-    .form-group__error {
-      animation: none;
-    }
-  }
+  /* Note: Reduced motion is handled globally by resetStyles */
 `;
