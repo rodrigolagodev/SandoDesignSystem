@@ -208,10 +208,10 @@
   },
   "sizing": {
     "control": {
-      "xs": { "value": "{space.8.value}", "type": "dimension" },
-      "sm": { "value": "{space.9.value}", "type": "dimension" },
-      "md": { "value": "{space.11.value}", "type": "dimension" },
-      "lg": { "value": "{space.13.value}", "type": "dimension" }
+      "xs": { "value": "{space.6.value}", "type": "dimension" },
+      "sm": { "value": "{space.8.value}", "type": "dimension" },
+      "md": { "value": "{space.9.value}", "type": "dimension" },
+      "lg": { "value": "{space.11.value}", "type": "dimension" }
     },
     "icon": {
       "xs": { "value": "{font.size.100.value}", "type": "dimension" },
