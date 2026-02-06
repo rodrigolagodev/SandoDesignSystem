@@ -123,11 +123,11 @@
     "size": {
       "small": {
         "paddingInline": {
-          "value": "{space.inset.muted.value}",
+          "value": "{space.stack.tight.value}",
           "type": "dimension"
         },
         "paddingBlock": {
-          "value": "{space.stack.muted.value}",
+          "value": "{space.stack.tight.value}",
           "type": "dimension"
         },
         "fontSize": {
@@ -153,7 +153,7 @@
           "type": "dimension"
         },
         "fontSize": {
-          "value": "{font.size.caption.value}",
+          "value": "{font.size.label.value}",
           "type": "dimension"
         },
         "minHeight": {
@@ -167,7 +167,7 @@
       },
       "large": {
         "paddingInline": {
-          "value": "{space.inset.muted.value}",
+          "value": "{space.inset.default.value}",
           "type": "dimension"
         },
         "paddingBlock": {
