@@ -47,6 +47,10 @@ export const resetStyles = css`
   /* ============================================
      3. INTERACTIVE ELEMENTS RESET
      Buttons, inputs, selects, textareas
+     
+     NOTE: If a component uses 'all: unset' on button/input elements,
+     these styles will be overridden. For complete reset of native
+     elements, import 'interactiveReset' from 'styles/shared/base.styles.ts'
      ============================================ */
   button,
   input,
