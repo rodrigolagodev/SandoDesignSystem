@@ -22,7 +22,8 @@ export const sizeStyles = css`
   }
 
   :host([size='small']) .select-caret,
-  :host([size='small']) .select-clear {
+  :host([size='small']) .select-clear,
+  :host([size='small']) .select-prefix {
     width: 1em;
     height: 1em;
   }
@@ -50,8 +51,30 @@ export const sizeStyles = css`
   }
 
   :host([size='large']) .select-caret,
-  :host([size='large']) .select-clear {
+  :host([size='large']) .select-clear,
+  :host([size='large']) .select-prefix {
     width: 1.5em;
     height: 1.5em;
+  }
+
+  /* ========================================
+     MULTI-SELECT PADDING OVERRIDES
+     Reduces vertical padding when tags are displayed
+     ======================================== */
+
+  /* Small multi-select */
+  :host([size='small'][multiple]) .select-trigger {
+    padding-block: var(--sando-select-multiSelect-size-small-paddingBlock);
+  }
+
+  /* Medium multi-select (default size) */
+  :host([multiple]:not([size])) .select-trigger,
+  :host([size='medium'][multiple]) .select-trigger {
+    padding-block: var(--sando-select-multiSelect-size-medium-paddingBlock);
+  }
+
+  /* Large multi-select */
+  :host([size='large'][multiple]) .select-trigger {
+    padding-block: var(--sando-select-multiSelect-size-large-paddingBlock);
   }
 `;
