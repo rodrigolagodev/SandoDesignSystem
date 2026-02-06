@@ -69,6 +69,14 @@ export type {
   TagRemoveEvent
 } from './components/tag/index.js';
 
+export { SandoBadge } from './components/badge/index.js';
+export type {
+  BadgeColor,
+  BadgeVariant,
+  BadgeSize,
+  SandoBadgeProps
+} from './components/badge/index.js';
+
 export { SandoOption } from './components/option/index.js';
 export type {
   SandoOptionProps,
