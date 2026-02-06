@@ -197,9 +197,11 @@ export class SandoTag extends FlavorableMixin(LitElement) {
    * Handles remove button click
    */
   private _handleRemove(e: MouseEvent | KeyboardEvent): void {
+    // Always stop propagation to prevent parent handlers (e.g., Select trigger)
+    e.stopPropagation();
+
     if (this.disabled) {
       e.preventDefault();
-      e.stopPropagation();
       return;
     }
 
@@ -220,9 +222,11 @@ export class SandoTag extends FlavorableMixin(LitElement) {
    * Handles action button/link click (for clickable mode)
    */
   private _handleAction(e: MouseEvent | KeyboardEvent): void {
+    // Always stop propagation to prevent parent handlers
+    e.stopPropagation();
+
     if (this.disabled) {
       e.preventDefault();
-      e.stopPropagation();
       return;
     }
 
