@@ -318,7 +318,6 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
   @property({ type: String, attribute: 'prefix-icon' })
   prefixIcon?: string;
 
-
   /**
    * Lifecycle: Called when component is added to DOM
    */

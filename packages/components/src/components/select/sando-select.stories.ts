@@ -214,7 +214,7 @@ const meta: Meta = {
         category: 'Appearance',
         type: { summary: 'string' }
       }
-    },
+    }
   },
   args: {
     variant: 'filled',
@@ -591,7 +591,6 @@ export const WithPrefix: Story = {
     }
   }
 };
-
 
 /**
  * Multi-select showing tags

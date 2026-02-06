@@ -133,7 +133,6 @@ export interface SandoSelectProps {
    * Icon name to display before the value (uses sando-icon)
    */
   prefixIcon?: string;
-
 }
 
 /**
