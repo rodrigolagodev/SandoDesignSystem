@@ -10,7 +10,7 @@ import './sando-checkbox.js';
  *
  * ## Features
  * - **2 Variants**: solid, outline
- * - **3 Sizes**: small, medium, large
+ * - **3 Sizes**: sm, md, lg
  * - **States**: checked, indeterminate, disabled, error, required
  * - **Helper/Error Text**: Contextual messaging below checkbox
  * - **Form Integration**: Works with native form validation
@@ -68,12 +68,12 @@ const meta: Meta = {
     },
     size: {
       control: 'select',
-      options: ['small', 'medium', 'large'],
+      options: ['sm', 'md', 'lg'],
       description: 'Size of the checkbox',
       table: {
         category: 'Appearance',
-        type: { summary: "'small' | 'medium' | 'large'" },
-        defaultValue: { summary: 'medium' }
+        type: { summary: "'sm' | 'md' | 'lg'" },
+        defaultValue: { summary: 'md' }
       }
     },
     // 3. Content
@@ -168,7 +168,7 @@ const meta: Meta = {
   },
   args: {
     variant: 'solid',
-    size: 'medium',
+    size: 'md',
     checked: false,
     indeterminate: false,
     disabled: false,
@@ -241,9 +241,9 @@ export const Sizes: Story = {
   tags: DOCS_ONLY,
   render: () => html`
     <div style="display: flex; gap: 2rem; flex-wrap: wrap; align-items: center;">
-      <sando-checkbox size="small" label="Small" checked></sando-checkbox>
-      <sando-checkbox size="medium" label="Medium" checked></sando-checkbox>
-      <sando-checkbox size="large" label="Large" checked></sando-checkbox>
+      <sando-checkbox size="sm" label="Small" checked></sando-checkbox>
+      <sando-checkbox size="md" label="Medium" checked></sando-checkbox>
+      <sando-checkbox size="lg" label="Large" checked></sando-checkbox>
     </div>
   `,
   parameters: { controls: { disable: true } }
@@ -445,9 +445,9 @@ export const AllExamples: Story = {
       <section>
         <h3 style="margin: 0 0 1rem 0; font-size: 1rem;">Sizes</h3>
         <div style="display: flex; gap: 2rem; flex-wrap: wrap; align-items: center;">
-          <sando-checkbox size="small" label="Small" checked></sando-checkbox>
-          <sando-checkbox size="medium" label="Medium" checked></sando-checkbox>
-          <sando-checkbox size="large" label="Large" checked></sando-checkbox>
+          <sando-checkbox size="sm" label="Small" checked></sando-checkbox>
+          <sando-checkbox size="md" label="Medium" checked></sando-checkbox>
+          <sando-checkbox size="lg" label="Large" checked></sando-checkbox>
         </div>
       </section>
 

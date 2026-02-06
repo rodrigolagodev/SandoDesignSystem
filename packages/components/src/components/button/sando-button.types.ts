@@ -10,8 +10,11 @@ export type ButtonVariant = 'solid' | 'outline' | 'ghost' | 'text';
 
 /**
  * Size variants for the button
+ * - sm: Small size for compact UIs
+ * - md: Medium size (default, WCAG compliant)
+ * - lg: Large size for prominent actions
  */
-export type ButtonSize = 'xs' | 'small' | 'medium' | 'large';
+export type ButtonSize = 'sm' | 'md' | 'lg';
 
 /**
  * Status variants for success/error states
@@ -40,7 +43,7 @@ export interface SandoButtonProps {
 
   /**
    * Size of the button
-   * @default 'medium'
+   * @default 'md'
    */
   size?: ButtonSize;
 

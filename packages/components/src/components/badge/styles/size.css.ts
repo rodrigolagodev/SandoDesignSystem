@@ -2,9 +2,9 @@
  * Badge Size Styles
  *
  * Contains styles for the three size variants:
- * - Small: Compact badges for dense layouts
- * - Medium: Default size for most use cases
- * - Large: Larger badges for emphasis
+ * - sm: Compact badges for dense layouts
+ * - md: Default size for most use cases
+ * - lg: Larger badges for emphasis
  *
  * Also includes compact mode for reduced padding.
  */
@@ -13,34 +13,34 @@ import { css } from 'lit';
 
 export const sizeStyles = css`
   /* ========================================
-     SMALL SIZE
+     SMALL SIZE (sm)
      ======================================== */
-  :host([size='small']) .badge {
-    padding-inline: var(--sando-badge-size-small-paddingInline);
-    padding-block: var(--sando-badge-size-small-paddingBlock);
-    font-size: var(--sando-badge-size-small-fontSize);
-    min-height: var(--sando-badge-size-small-minHeight);
+  :host([size='sm']) .badge {
+    padding-inline: var(--sando-badge-size-sm-paddingInline);
+    padding-block: var(--sando-badge-size-sm-paddingBlock);
+    font-size: var(--sando-badge-size-sm-fontSize);
+    min-height: var(--sando-badge-size-sm-minHeight);
   }
 
   /* ========================================
-     MEDIUM SIZE (Default)
+     MEDIUM SIZE (md) - Default
      ======================================== */
-  :host([size='medium']) .badge,
+  :host([size='md']) .badge,
   :host(:not([size])) .badge {
-    padding-inline: var(--sando-badge-size-medium-paddingInline);
-    padding-block: var(--sando-badge-size-medium-paddingBlock);
-    font-size: var(--sando-badge-size-medium-fontSize);
-    min-height: var(--sando-badge-size-medium-minHeight);
+    padding-inline: var(--sando-badge-size-md-paddingInline);
+    padding-block: var(--sando-badge-size-md-paddingBlock);
+    font-size: var(--sando-badge-size-md-fontSize);
+    min-height: var(--sando-badge-size-md-minHeight);
   }
 
   /* ========================================
-     LARGE SIZE
+     LARGE SIZE (lg)
      ======================================== */
-  :host([size='large']) .badge {
-    padding-inline: var(--sando-badge-size-large-paddingInline);
-    padding-block: var(--sando-badge-size-large-paddingBlock);
-    font-size: var(--sando-badge-size-large-fontSize);
-    min-height: var(--sando-badge-size-large-minHeight);
+  :host([size='lg']) .badge {
+    padding-inline: var(--sando-badge-size-lg-paddingInline);
+    padding-block: var(--sando-badge-size-lg-paddingBlock);
+    font-size: var(--sando-badge-size-lg-fontSize);
+    min-height: var(--sando-badge-size-lg-minHeight);
   }
 
   /* ========================================

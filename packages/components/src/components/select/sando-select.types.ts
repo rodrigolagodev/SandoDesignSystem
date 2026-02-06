@@ -16,11 +16,11 @@ export type SelectVariant = 'filled' | 'outlined';
  *
  * All sizes meet WCAG 2.1 Level AA minimum touch target size (44x44px).
  *
- * - `small`: Compact size for tight spaces
- * - `medium`: Default size for most use cases
- * - `large`: Large size for emphasis
+ * - `sm`: Compact size for tight spaces
+ * - `md`: Default size for most use cases
+ * - `lg`: Large size for emphasis
  */
-export type SelectSize = 'small' | 'medium' | 'large';
+export type SelectSize = 'sm' | 'md' | 'lg';
 
 /**
  * Placement of the dropdown relative to the trigger.
@@ -95,7 +95,7 @@ export interface SandoSelectProps {
 
   /**
    * Select size
-   * @default 'medium'
+   * @default 'md'
    */
   size?: SelectSize;
 

@@ -2,99 +2,99 @@
  * Tag Size Styles
  *
  * Contains styles for the three size variants:
- * - Small: Compact tags for dense layouts
- * - Medium: Default size for most use cases
- * - Large: Larger tags for emphasis or touch targets
+ * - sm: Compact tags for dense layouts
+ * - md: Default size for most use cases
+ * - lg: Larger tags for emphasis or touch targets
  */
 
 import { css } from 'lit';
 
 export const sizeStyles = css`
   /* ========================================
-     SMALL SIZE
+     SMALL SIZE (sm)
      ======================================== */
-  :host([size='small']) .tag {
-    padding-inline: var(--sando-tag-size-small-paddingInline);
-    padding-block: var(--sando-tag-size-small-paddingBlock);
-    font-size: var(--sando-tag-size-small-fontSize);
-    min-height: var(--sando-tag-size-small-minHeight);
+  :host([size='sm']) .tag {
+    padding-inline: var(--sando-tag-size-sm-paddingInline);
+    padding-block: var(--sando-tag-size-sm-paddingBlock);
+    font-size: var(--sando-tag-size-sm-fontSize);
+    min-height: var(--sando-tag-size-sm-minHeight);
   }
 
-  /* Icon sizes for small - use custom-size for sando-icon */
-  :host([size='small']) .tag__default-icon,
-  :host([size='small']) .tag__remove-icon {
-    --icon-size: var(--sando-tag-size-small-iconSize);
+  /* Icon sizes for sm - use custom-size for sando-icon */
+  :host([size='sm']) .tag__default-icon,
+  :host([size='sm']) .tag__remove-icon {
+    --icon-size: var(--sando-tag-size-sm-iconSize);
   }
 
-  :host([size='small']) ::slotted([slot='icon']) {
-    width: var(--sando-tag-size-small-iconSize);
-    height: var(--sando-tag-size-small-iconSize);
+  :host([size='sm']) ::slotted([slot='icon']) {
+    width: var(--sando-tag-size-sm-iconSize);
+    height: var(--sando-tag-size-sm-iconSize);
   }
 
-  :host([size='small']) .tag__action,
-  :host([size='small']) .tag__icon {
-    width: var(--sando-tag-size-small-iconSize);
-    height: var(--sando-tag-size-small-iconSize);
+  :host([size='sm']) .tag__action,
+  :host([size='sm']) .tag__icon {
+    width: var(--sando-tag-size-sm-iconSize);
+    height: var(--sando-tag-size-sm-iconSize);
   }
 
   /* ========================================
-     MEDIUM SIZE (Default)
+     MEDIUM SIZE (md) - Default
      ======================================== */
-  :host([size='medium']) .tag,
+  :host([size='md']) .tag,
   :host(:not([size])) .tag {
-    padding-inline: var(--sando-tag-size-medium-paddingInline);
-    padding-block: var(--sando-tag-size-medium-paddingBlock);
-    font-size: var(--sando-tag-size-medium-fontSize);
-    min-height: var(--sando-tag-size-medium-minHeight);
+    padding-inline: var(--sando-tag-size-md-paddingInline);
+    padding-block: var(--sando-tag-size-md-paddingBlock);
+    font-size: var(--sando-tag-size-md-fontSize);
+    min-height: var(--sando-tag-size-md-minHeight);
   }
 
-  /* Icon sizes for medium (default) - use custom-size for sando-icon */
-  :host([size='medium']) .tag__default-icon,
-  :host([size='medium']) .tag__remove-icon,
+  /* Icon sizes for md (default) - use custom-size for sando-icon */
+  :host([size='md']) .tag__default-icon,
+  :host([size='md']) .tag__remove-icon,
   :host(:not([size])) .tag__default-icon,
   :host(:not([size])) .tag__remove-icon {
-    --icon-size: var(--sando-tag-size-medium-iconSize);
+    --icon-size: var(--sando-tag-size-md-iconSize);
   }
 
-  :host([size='medium']) ::slotted([slot='icon']),
+  :host([size='md']) ::slotted([slot='icon']),
   :host(:not([size])) ::slotted([slot='icon']) {
-    width: var(--sando-tag-size-medium-iconSize);
-    height: var(--sando-tag-size-medium-iconSize);
+    width: var(--sando-tag-size-md-iconSize);
+    height: var(--sando-tag-size-md-iconSize);
   }
 
-  :host([size='medium']) .tag__action,
-  :host([size='medium']) .tag__icon,
+  :host([size='md']) .tag__action,
+  :host([size='md']) .tag__icon,
   :host(:not([size])) .tag__action,
   :host(:not([size])) .tag__icon {
-    width: var(--sando-tag-size-medium-iconSize);
-    height: var(--sando-tag-size-medium-iconSize);
+    width: var(--sando-tag-size-md-iconSize);
+    height: var(--sando-tag-size-md-iconSize);
   }
 
   /* ========================================
-     LARGE SIZE
+     LARGE SIZE (lg)
      ======================================== */
-  :host([size='large']) .tag {
-    padding-inline: var(--sando-tag-size-large-paddingInline);
-    padding-block: var(--sando-tag-size-large-paddingBlock);
-    font-size: var(--sando-tag-size-large-fontSize);
-    min-height: var(--sando-tag-size-large-minHeight);
+  :host([size='lg']) .tag {
+    padding-inline: var(--sando-tag-size-lg-paddingInline);
+    padding-block: var(--sando-tag-size-lg-paddingBlock);
+    font-size: var(--sando-tag-size-lg-fontSize);
+    min-height: var(--sando-tag-size-lg-minHeight);
   }
 
-  /* Icon sizes for large - use custom-size for sando-icon */
-  :host([size='large']) .tag__default-icon,
-  :host([size='large']) .tag__remove-icon {
-    --icon-size: var(--sando-tag-size-large-iconSize);
+  /* Icon sizes for lg - use custom-size for sando-icon */
+  :host([size='lg']) .tag__default-icon,
+  :host([size='lg']) .tag__remove-icon {
+    --icon-size: var(--sando-tag-size-lg-iconSize);
   }
 
-  :host([size='large']) ::slotted([slot='icon']) {
-    width: var(--sando-tag-size-large-iconSize);
-    height: var(--sando-tag-size-large-iconSize);
+  :host([size='lg']) ::slotted([slot='icon']) {
+    width: var(--sando-tag-size-lg-iconSize);
+    height: var(--sando-tag-size-lg-iconSize);
   }
 
-  :host([size='large']) .tag__action,
-  :host([size='large']) .tag__icon {
-    width: var(--sando-tag-size-large-iconSize);
-    height: var(--sando-tag-size-large-iconSize);
+  :host([size='lg']) .tag__action,
+  :host([size='lg']) .tag__icon {
+    width: var(--sando-tag-size-lg-iconSize);
+    height: var(--sando-tag-size-lg-iconSize);
   }
 
   /* ========================================

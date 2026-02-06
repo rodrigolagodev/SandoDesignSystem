@@ -93,12 +93,12 @@ const meta: Meta = {
     },
     size: {
       control: 'select',
-      options: ['small', 'medium', 'large'],
+      options: ['sm', 'md', 'lg'],
       description: 'Size of the badge',
       table: {
         category: 'Appearance',
-        type: { summary: "'small' | 'medium' | 'large'" },
-        defaultValue: { summary: 'medium' }
+        type: { summary: "'sm' | 'md' | 'lg'" },
+        defaultValue: { summary: 'md' }
       }
     },
     compact: {
@@ -142,7 +142,7 @@ const meta: Meta = {
     flavor: 'original',
     color: 'neutral',
     variant: 'solid',
-    size: 'medium',
+    size: 'md',
     compact: false,
     icon: '',
     noIcon: false,
@@ -281,9 +281,9 @@ export const Sizes: Story = {
   tags: DOCS_ONLY,
   render: () => html`
     <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
-      <sando-badge size="small">Small</sando-badge>
-      <sando-badge size="medium">Medium</sando-badge>
-      <sando-badge size="large">Large</sando-badge>
+      <sando-badge size="sm">Small</sando-badge>
+      <sando-badge size="md">Medium</sando-badge>
+      <sando-badge size="lg">Large</sando-badge>
     </div>
   `,
   parameters: { controls: { disable: true } }
@@ -307,11 +307,11 @@ export const Compact: Story = {
         </h4>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
           <div style="display: flex; flex-direction: column; gap: 0.5rem; align-items: center;">
-            <sando-badge size="medium">Normal</sando-badge>
+            <sando-badge size="md">Normal</sando-badge>
             <span style="font-size: 0.75rem; color: #a3a3a3;">Default padding</span>
           </div>
           <div style="display: flex; flex-direction: column; gap: 0.5rem; align-items: center;">
-            <sando-badge size="medium" compact>Compact</sando-badge>
+            <sando-badge size="md" compact>Compact</sando-badge>
             <span style="font-size: 0.75rem; color: #a3a3a3;">Reduced padding</span>
           </div>
         </div>
@@ -322,9 +322,9 @@ export const Compact: Story = {
           Compact Sizes Comparison
         </h4>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
-          <sando-badge size="small" compact>Small Compact</sando-badge>
-          <sando-badge size="medium" compact>Medium Compact</sando-badge>
-          <sando-badge size="large" compact>Large Compact</sando-badge>
+          <sando-badge size="sm" compact>Small Compact</sando-badge>
+          <sando-badge size="md" compact>Medium Compact</sando-badge>
+          <sando-badge size="lg" compact>Large Compact</sando-badge>
         </div>
       </div>
     </div>
@@ -475,9 +475,9 @@ export const NoIcon: Story = {
           When to Use no-icon
         </h4>
         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-          <sando-badge color="success" no-icon size="small" compact>3</sando-badge>
-          <sando-badge color="danger" no-icon size="small" compact>!</sando-badge>
-          <sando-badge color="info" no-icon size="small" compact>NEW</sando-badge>
+          <sando-badge color="success" no-icon size="sm" compact>3</sando-badge>
+          <sando-badge color="danger" no-icon size="sm" compact>!</sando-badge>
+          <sando-badge color="info" no-icon size="sm" compact>NEW</sando-badge>
         </div>
         <p style="margin: 0.5rem 0 0 0; font-size: 0.75rem; color: #6b7280;">
           Useful for compact indicators or when the text is self-explanatory.
@@ -795,8 +795,8 @@ export const InContext: Story = {
           <div>
             <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
               <h3 style="margin: 0; font-size: 1rem; font-weight: 600;">Project Alpha</h3>
-              <sando-badge color="success" size="small" compact>Active</sando-badge>
-              <sando-badge color="info" size="small" compact variant="outline">v2.0</sando-badge>
+              <sando-badge color="success" size="sm" compact>Active</sando-badge>
+              <sando-badge color="info" size="sm" compact variant="outline">v2.0</sando-badge>
             </div>
             <p style="margin: 0; font-size: 0.875rem; color: #6b7280;">
               Main project dashboard with real-time analytics.
@@ -804,9 +804,9 @@ export const InContext: Story = {
           </div>
         </div>
         <div style="margin-top: 1rem; display: flex; gap: 0.5rem;">
-          <sando-badge color="primary" variant="soft" size="small">React</sando-badge>
-          <sando-badge color="primary" variant="soft" size="small">TypeScript</sando-badge>
-          <sando-badge color="primary" variant="soft" size="small">GraphQL</sando-badge>
+          <sando-badge color="primary" variant="soft" size="sm">React</sando-badge>
+          <sando-badge color="primary" variant="soft" size="sm">TypeScript</sando-badge>
+          <sando-badge color="primary" variant="soft" size="sm">GraphQL</sando-badge>
         </div>
       </div>
 
@@ -817,7 +817,7 @@ export const InContext: Story = {
         >
           <div style="display: flex; align-items: center; gap: 0.75rem;">
             <span style="font-size: 0.875rem; font-weight: 500;">Invoice #1234</span>
-            <sando-badge color="success" size="small">Paid</sando-badge>
+            <sando-badge color="success" size="sm">Paid</sando-badge>
           </div>
           <span style="font-size: 0.875rem; color: #6b7280;">$1,250.00</span>
         </div>
@@ -826,7 +826,7 @@ export const InContext: Story = {
         >
           <div style="display: flex; align-items: center; gap: 0.75rem;">
             <span style="font-size: 0.875rem; font-weight: 500;">Invoice #1235</span>
-            <sando-badge color="warning" size="small">Pending</sando-badge>
+            <sando-badge color="warning" size="sm">Pending</sando-badge>
           </div>
           <span style="font-size: 0.875rem; color: #6b7280;">$890.00</span>
         </div>
@@ -835,7 +835,7 @@ export const InContext: Story = {
         >
           <div style="display: flex; align-items: center; gap: 0.75rem;">
             <span style="font-size: 0.875rem; font-weight: 500;">Invoice #1236</span>
-            <sando-badge color="danger" size="small">Overdue</sando-badge>
+            <sando-badge color="danger" size="sm">Overdue</sando-badge>
           </div>
           <span style="font-size: 0.875rem; color: #6b7280;">$2,100.00</span>
         </div>
@@ -845,7 +845,7 @@ export const InContext: Story = {
       <div
         style="display: flex; align-items: flex-start; gap: 0.75rem; padding: 1rem; background: #fef3c7; border-radius: 8px;"
       >
-        <sando-badge color="warning" variant="solid" size="small" compact>
+        <sando-badge color="warning" variant="solid" size="sm" compact>
           <sando-icon name="alert-triangle" size="xs"></sando-icon>
         </sando-badge>
         <div>

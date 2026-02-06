@@ -9,7 +9,7 @@ import { iconNames } from './icon-manifest';
  *
  * ## Features
  * - **1,637 Icons**: Complete Lucide icon library embedded
- * - **5 Sizes**: xs (12px), small (14px), medium (18px), large (24px), xl (32px)
+ * - **5 Sizes**: xs (12px), sm (14px), md (18px), lg (24px), xl (32px)
  * - **5 Semantic Colors**: default, muted, emphasis, brand, onSolid
  * - **Custom Overrides**: Custom color and size via props
  * - **Transformations**: Rotate (0°, 90°, 180°, 270°), flip horizontal/vertical
@@ -34,7 +34,7 @@ const meta: Meta = {
   render: (args) => html`
     <sando-icon
       name="${args.name}"
-      size="${args.size || 'medium'}"
+      size="${args.size || 'md'}"
       color="${args.color || 'default'}"
       flavor="${args.flavor || 'original'}"
       custom-color="${args.customColor || ''}"
@@ -63,12 +63,12 @@ const meta: Meta = {
     // 2. Appearance
     size: {
       control: 'select',
-      options: ['xs', 'small', 'medium', 'large', 'xl'],
+      options: ['xs', 'sm', 'md', 'lg', 'xl'],
       description: 'Icon size (scales with font sizes)',
       table: {
         category: 'Appearance',
-        type: { summary: "'xs' | 'small' | 'medium' | 'large' | 'xl'" },
-        defaultValue: { summary: 'medium' }
+        type: { summary: "'xs' | 'sm' | 'md' | 'lg' | 'xl'" },
+        defaultValue: { summary: 'md' }
       }
     },
     color: {
@@ -195,7 +195,7 @@ const DOCS_ONLY = ['!dev', '!autodocs'];
 export const Default: Story = {
   args: {
     name: 'star',
-    size: 'medium',
+    size: 'md',
     color: 'default'
   }
 };
@@ -206,7 +206,7 @@ export const Default: Story = {
 export const Playground: Story = {
   args: {
     name: 'heart',
-    size: 'large',
+    size: 'lg',
     color: 'brand'
   }
 };
@@ -287,7 +287,7 @@ export const IconCatalog: Story = {
                       title="${name}"
                       onclick="navigator.clipboard.writeText('${name}'); this.querySelector('span').textContent = 'Copied!'; setTimeout(() => this.querySelector('span').textContent = '${name}', 1000);"
                     >
-                      <sando-icon name="${name}" size="large"></sando-icon>
+                      <sando-icon name="${name}" size="lg"></sando-icon>
                       <span
                         style="font-size: 0.625rem; color: var(--sando-color-text-caption); text-align: center; word-break: break-word; max-width: 100%;"
                       >
@@ -320,7 +320,7 @@ export const IconCatalog: Story = {
 
 /**
  * All icon sizes comparison.
- * Icons scale with font sizes: xs=12px, small=14px, medium=18px, large=24px, xl=32px.
+ * Icons scale with font sizes: xs=12px, sm=14px, md=18px, lg=24px, xl=32px.
  */
 export const Sizes: Story = {
   tags: DOCS_ONLY,
@@ -331,22 +331,16 @@ export const Sizes: Story = {
         <span style="font-size: 0.75rem; color: var(--sando-color-text-caption);">xs (12px)</span>
       </div>
       <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
-        <sando-icon name="star" size="small"></sando-icon>
-        <span style="font-size: 0.75rem; color: var(--sando-color-text-caption);"
-          >small (14px)</span
-        >
+        <sando-icon name="star" size="sm"></sando-icon>
+        <span style="font-size: 0.75rem; color: var(--sando-color-text-caption);">sm (14px)</span>
       </div>
       <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
-        <sando-icon name="star" size="medium"></sando-icon>
-        <span style="font-size: 0.75rem; color: var(--sando-color-text-caption);"
-          >medium (18px)</span
-        >
+        <sando-icon name="star" size="md"></sando-icon>
+        <span style="font-size: 0.75rem; color: var(--sando-color-text-caption);">md (18px)</span>
       </div>
       <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
-        <sando-icon name="star" size="large"></sando-icon>
-        <span style="font-size: 0.75rem; color: var(--sando-color-text-caption);"
-          >large (24px)</span
-        >
+        <sando-icon name="star" size="lg"></sando-icon>
+        <span style="font-size: 0.75rem; color: var(--sando-color-text-caption);">lg (24px)</span>
       </div>
       <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
         <sando-icon name="star" size="xl"></sando-icon>
@@ -364,25 +358,25 @@ export const Colors: Story = {
   render: () => html`
     <div style="display: flex; gap: 2rem; align-items: center; flex-wrap: wrap;">
       <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
-        <sando-icon name="circle" size="large" color="default"></sando-icon>
+        <sando-icon name="circle" size="lg" color="default"></sando-icon>
         <span style="font-size: 0.75rem; color: var(--sando-color-text-caption);">default</span>
       </div>
       <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
-        <sando-icon name="circle" size="large" color="muted"></sando-icon>
+        <sando-icon name="circle" size="lg" color="muted"></sando-icon>
         <span style="font-size: 0.75rem; color: var(--sando-color-text-caption);">muted</span>
       </div>
       <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
-        <sando-icon name="circle" size="large" color="emphasis"></sando-icon>
+        <sando-icon name="circle" size="lg" color="emphasis"></sando-icon>
         <span style="font-size: 0.75rem; color: var(--sando-color-text-caption);">emphasis</span>
       </div>
       <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
-        <sando-icon name="circle" size="large" color="brand"></sando-icon>
+        <sando-icon name="circle" size="lg" color="brand"></sando-icon>
         <span style="font-size: 0.75rem; color: var(--sando-color-text-caption);">brand</span>
       </div>
       <div
         style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem; padding: 1rem; background: var(--sando-color-brand-700); border-radius: 8px;"
       >
-        <sando-icon name="circle" size="large" color="onSolid"></sando-icon>
+        <sando-icon name="circle" size="lg" color="onSolid"></sando-icon>
         <span style="font-size: 0.75rem; color: var(--sando-color-neutral-100);">onSolid</span>
       </div>
     </div>
@@ -405,19 +399,19 @@ export const Transformations: Story = {
         </h4>
         <div style="display: flex; gap: 2rem; align-items: center;">
           <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
-            <sando-icon name="arrow-right" size="large" rotate="0"></sando-icon>
+            <sando-icon name="arrow-right" size="lg" rotate="0"></sando-icon>
             <span style="font-size: 0.75rem; color: var(--sando-color-text-caption);">0°</span>
           </div>
           <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
-            <sando-icon name="arrow-right" size="large" rotate="90"></sando-icon>
+            <sando-icon name="arrow-right" size="lg" rotate="90"></sando-icon>
             <span style="font-size: 0.75rem; color: var(--sando-color-text-caption);">90°</span>
           </div>
           <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
-            <sando-icon name="arrow-right" size="large" rotate="180"></sando-icon>
+            <sando-icon name="arrow-right" size="lg" rotate="180"></sando-icon>
             <span style="font-size: 0.75rem; color: var(--sando-color-text-caption);">180°</span>
           </div>
           <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
-            <sando-icon name="arrow-right" size="large" rotate="270"></sando-icon>
+            <sando-icon name="arrow-right" size="lg" rotate="270"></sando-icon>
             <span style="font-size: 0.75rem; color: var(--sando-color-text-caption);">270°</span>
           </div>
         </div>
@@ -432,17 +426,17 @@ export const Transformations: Story = {
         </h4>
         <div style="display: flex; gap: 2rem; align-items: center;">
           <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
-            <sando-icon name="chevron-right" size="large"></sando-icon>
+            <sando-icon name="chevron-right" size="lg"></sando-icon>
             <span style="font-size: 0.75rem; color: var(--sando-color-text-caption);">normal</span>
           </div>
           <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
-            <sando-icon name="chevron-right" size="large" flip-horizontal></sando-icon>
+            <sando-icon name="chevron-right" size="lg" flip-horizontal></sando-icon>
             <span style="font-size: 0.75rem; color: var(--sando-color-text-caption);"
               >flip-horizontal</span
             >
           </div>
           <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
-            <sando-icon name="arrow-down" size="large" flip-vertical></sando-icon>
+            <sando-icon name="arrow-down" size="lg" flip-vertical></sando-icon>
             <span style="font-size: 0.75rem; color: var(--sando-color-text-caption);"
               >flip-vertical</span
             >
@@ -462,22 +456,22 @@ export const WithText: Story = {
     <div style="display: flex; flex-direction: column; gap: 1.5rem;">
       <!-- Icons with text -->
       <div style="display: flex; gap: 1rem; align-items: center;">
-        <sando-icon name="star" size="small" color="brand"></sando-icon>
+        <sando-icon name="star" size="sm" color="brand"></sando-icon>
         <span>Favorite this item</span>
       </div>
 
       <div style="display: flex; gap: 1rem; align-items: center;">
-        <sando-icon name="download" size="small"></sando-icon>
+        <sando-icon name="download" size="sm"></sando-icon>
         <span>Download file</span>
       </div>
 
       <div style="display: flex; gap: 1rem; align-items: center;">
-        <sando-icon name="settings" size="small" color="muted"></sando-icon>
+        <sando-icon name="settings" size="sm" color="muted"></sando-icon>
         <span>Settings</span>
       </div>
 
       <div style="display: flex; gap: 1rem; align-items: center;">
-        <sando-icon name="check-circle" size="small" color="emphasis"></sando-icon>
+        <sando-icon name="check-circle" size="sm" color="emphasis"></sando-icon>
         <span>Task completed</span>
       </div>
 
@@ -489,11 +483,11 @@ export const WithText: Story = {
           Inherit color from parent
         </h4>
         <p style="color: #ef4444;">
-          <sando-icon name="alert-circle" size="small" inherit-color></sando-icon>
+          <sando-icon name="alert-circle" size="sm" inherit-color></sando-icon>
           Error message with matching icon color
         </p>
         <p style="color: #10b981;">
-          <sando-icon name="check-circle" size="small" inherit-color></sando-icon>
+          <sando-icon name="check-circle" size="sm" inherit-color></sando-icon>
           Success message with matching icon color
         </p>
       </div>
@@ -514,21 +508,21 @@ export const Accessibility: Story = {
           <button
             style="display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; border: 1px solid #ccc; border-radius: 4px; background: white; cursor: pointer;"
           >
-            <sando-icon name="trash-2" size="small" aria-label="Delete item"></sando-icon>
+            <sando-icon name="trash-2" size="sm" aria-label="Delete item"></sando-icon>
             Delete
           </button>
 
           <button
             style="display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; border: 1px solid #ccc; border-radius: 4px; background: white; cursor: pointer;"
           >
-            <sando-icon name="edit" size="small" aria-label="Edit content"></sando-icon>
+            <sando-icon name="edit" size="sm" aria-label="Edit content"></sando-icon>
             Edit
           </button>
 
           <button
             style="display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; border: 1px solid #ccc; border-radius: 4px; background: white; cursor: pointer;"
           >
-            <sando-icon name="save" size="small" aria-label="Save changes"></sando-icon>
+            <sando-icon name="save" size="sm" aria-label="Save changes"></sando-icon>
             Save
           </button>
         </div>
@@ -538,12 +532,12 @@ export const Accessibility: Story = {
         <h4 style="margin-bottom: 1rem;">Decorative icons (hidden from screen readers)</h4>
         <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
           <div style="display: flex; align-items: center; gap: 0.5rem;">
-            <sando-icon name="star" size="small" color="brand" decorative></sando-icon>
+            <sando-icon name="star" size="sm" color="brand" decorative></sando-icon>
             <span>Featured item (icon is decorative)</span>
           </div>
 
           <div style="display: flex; align-items: center; gap: 0.5rem;">
-            <sando-icon name="zap" size="small" color="emphasis" decorative></sando-icon>
+            <sando-icon name="zap" size="sm" color="emphasis" decorative></sando-icon>
             <span>Fast delivery (icon is decorative)</span>
           </div>
         </div>

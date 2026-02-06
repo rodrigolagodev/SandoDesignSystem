@@ -2,87 +2,83 @@
  * Checkbox Size Styles
  *
  * Contains styles for size variants:
- * - Small: Compact size for tight layouts
- * - Medium: Default size for most use cases
- * - Large: Larger touch target for mobile
+ * - sm: Compact size for tight layouts
+ * - md: Default size for most use cases
+ * - lg: Larger touch target for mobile
  */
 
 import { css } from 'lit';
 
 export const sizeStyles = css`
   /* ========================================
-     SMALL SIZE
+     SMALL SIZE (sm)
      ======================================== */
-  :host([size='small']) .checkbox-box {
-    width: var(--sando-checkbox-size-small-boxSize);
-    height: var(--sando-checkbox-size-small-boxSize);
+  :host([size='sm']) .checkbox-box {
+    width: var(--sando-checkbox-size-sm-boxSize);
+    height: var(--sando-checkbox-size-sm-boxSize);
   }
 
-  :host([size='small']) .checkbox-container {
-    gap: var(--sando-checkbox-size-small-gap);
+  :host([size='sm']) .checkbox-container {
+    gap: var(--sando-checkbox-size-sm-gap);
   }
 
-  :host([size='small']) .checkbox-label {
-    font-size: var(--sando-checkbox-size-small-labelFontSize);
+  :host([size='sm']) .checkbox-label {
+    font-size: var(--sando-checkbox-size-sm-labelFontSize);
   }
 
-  :host([size='small']) .checkbox-icon svg {
-    stroke-width: var(--sando-checkbox-size-small-checkmarkStrokeWidth);
+  :host([size='sm']) .checkbox-icon svg {
+    stroke-width: var(--sando-checkbox-size-sm-checkmarkStrokeWidth);
   }
 
-  :host([size='small']) .checkbox-description {
-    margin-left: calc(
-      var(--sando-checkbox-size-small-boxSize) + var(--sando-checkbox-size-small-gap)
-    );
+  :host([size='sm']) .checkbox-description {
+    margin-left: calc(var(--sando-checkbox-size-sm-boxSize) + var(--sando-checkbox-size-sm-gap));
   }
 
   /* ========================================
-     MEDIUM SIZE (default)
+     MEDIUM SIZE (md) - default
      ======================================== */
-  :host([size='medium']) .checkbox-box,
+  :host([size='md']) .checkbox-box,
   .checkbox-box {
-    width: var(--sando-checkbox-size-medium-boxSize);
-    height: var(--sando-checkbox-size-medium-boxSize);
+    width: var(--sando-checkbox-size-md-boxSize);
+    height: var(--sando-checkbox-size-md-boxSize);
   }
 
-  :host([size='medium']) .checkbox-container,
+  :host([size='md']) .checkbox-container,
   .checkbox-container {
-    gap: var(--sando-checkbox-size-medium-gap);
+    gap: var(--sando-checkbox-size-md-gap);
   }
 
-  :host([size='medium']) .checkbox-label,
+  :host([size='md']) .checkbox-label,
   .checkbox-label {
-    font-size: var(--sando-checkbox-size-medium-labelFontSize);
+    font-size: var(--sando-checkbox-size-md-labelFontSize);
   }
 
-  :host([size='medium']) .checkbox-icon svg,
+  :host([size='md']) .checkbox-icon svg,
   .checkbox-icon svg {
-    stroke-width: var(--sando-checkbox-size-medium-checkmarkStrokeWidth);
+    stroke-width: var(--sando-checkbox-size-md-checkmarkStrokeWidth);
   }
 
   /* ========================================
-     LARGE SIZE
+     LARGE SIZE (lg)
      ======================================== */
-  :host([size='large']) .checkbox-box {
-    width: var(--sando-checkbox-size-large-boxSize);
-    height: var(--sando-checkbox-size-large-boxSize);
+  :host([size='lg']) .checkbox-box {
+    width: var(--sando-checkbox-size-lg-boxSize);
+    height: var(--sando-checkbox-size-lg-boxSize);
   }
 
-  :host([size='large']) .checkbox-container {
-    gap: var(--sando-checkbox-size-large-gap);
+  :host([size='lg']) .checkbox-container {
+    gap: var(--sando-checkbox-size-lg-gap);
   }
 
-  :host([size='large']) .checkbox-label {
-    font-size: var(--sando-checkbox-size-large-labelFontSize);
+  :host([size='lg']) .checkbox-label {
+    font-size: var(--sando-checkbox-size-lg-labelFontSize);
   }
 
-  :host([size='large']) .checkbox-icon svg {
-    stroke-width: var(--sando-checkbox-size-large-checkmarkStrokeWidth);
+  :host([size='lg']) .checkbox-icon svg {
+    stroke-width: var(--sando-checkbox-size-lg-checkmarkStrokeWidth);
   }
 
-  :host([size='large']) .checkbox-description {
-    margin-left: calc(
-      var(--sando-checkbox-size-large-boxSize) + var(--sando-checkbox-size-large-gap)
-    );
+  :host([size='lg']) .checkbox-description {
+    margin-left: calc(var(--sando-checkbox-size-lg-boxSize) + var(--sando-checkbox-size-lg-gap));
   }
 `;

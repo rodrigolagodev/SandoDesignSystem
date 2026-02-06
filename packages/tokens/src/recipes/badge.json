@@ -349,7 +349,7 @@
       }
     },
     "size": {
-      "small": {
+      "sm": {
         "paddingInline": {
           "value": "{space.stack.tight.value}",
           "type": "dimension"
@@ -371,7 +371,7 @@
           "type": "dimension"
         }
       },
-      "medium": {
+      "md": {
         "paddingInline": {
           "value": "{space.inset.muted.value}",
           "type": "dimension"
@@ -385,15 +385,15 @@
           "type": "dimension"
         },
         "minHeight": {
-          "value": "{sizing.control.small.value}",
+          "value": "{sizing.control.sm.value}",
           "type": "dimension"
         },
         "iconSize": {
-          "value": "{sizing.icon.small.value}",
+          "value": "{sizing.icon.sm.value}",
           "type": "dimension"
         }
       },
-      "large": {
+      "lg": {
         "paddingInline": {
           "value": "{space.inset.default.value}",
           "type": "dimension"
@@ -407,11 +407,11 @@
           "type": "dimension"
         },
         "minHeight": {
-          "value": "{sizing.control.medium.value}",
+          "value": "{sizing.control.md.value}",
           "type": "dimension"
         },
         "iconSize": {
-          "value": "{sizing.icon.medium.value}",
+          "value": "{sizing.icon.md.value}",
           "type": "dimension"
         }
       }

@@ -36,7 +36,7 @@ describe('sando-icon Accessibility', () => {
   });
 
   describe('size variants', () => {
-    const sizes = ['xs', 'small', 'medium', 'large', 'xl'] as const;
+    const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
 
     sizes.forEach((size) => {
       it(`should pass a11y with ${size} size`, async () => {

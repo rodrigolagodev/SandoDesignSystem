@@ -40,7 +40,7 @@ describe('sando-tag Accessibility', () => {
       });
 
       it('should have no violations with all sizes', async () => {
-        const sizes = ['small', 'medium', 'large'] as const;
+        const sizes = ['sm', 'md', 'lg'] as const;
 
         for (const size of sizes) {
           element.size = size;

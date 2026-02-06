@@ -98,9 +98,9 @@
  *
  * @example Size variants
  * ```html
- * <sando-badge size="small">Small</sando-badge>
- * <sando-badge size="medium">Medium</sando-badge>
- * <sando-badge size="large">Large</sando-badge>
+ * <sando-badge size="sm">Small</sando-badge>
+ * <sando-badge size="md">Medium</sando-badge>
+ * <sando-badge size="lg">Large</sando-badge>
  * ```
  *
  * @example Compact mode for tight spaces
@@ -158,10 +158,10 @@ export class SandoBadge extends FlavorableMixin(LitElement) {
 
   /**
    * Size of the badge.
-   * @default 'medium'
+   * @default 'md'
    */
   @property({ reflect: true })
-  size: BadgeSize = 'medium';
+  size: BadgeSize = 'md';
 
   /**
    * Reduces vertical padding for use in compact spaces.

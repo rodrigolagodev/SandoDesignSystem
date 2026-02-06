@@ -19,8 +19,9 @@ export type BadgeVariant = 'solid' | 'soft' | 'outline' | 'surface';
 
 /**
  * Size variants for the badge.
+ * Uses abbreviated naming: 'sm', 'md', 'lg'
  */
-export type BadgeSize = 'small' | 'medium' | 'large';
+export type BadgeSize = 'sm' | 'md' | 'lg';
 
 /**
  * Colors that have a default semantic icon.
@@ -56,7 +57,7 @@ export interface SandoBadgeProps {
 
   /**
    * Size of the badge.
-   * @default 'medium'
+   * @default 'md'
    */
   size?: BadgeSize;
 

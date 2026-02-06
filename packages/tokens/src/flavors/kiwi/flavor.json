@@ -210,15 +210,15 @@
   "sizing": {
     "control": {
       "xs": { "value": "{space.8.value}", "type": "dimension" },
-      "small": { "value": "{space.9.value}", "type": "dimension" },
-      "medium": { "value": "{space.11.value}", "type": "dimension" },
-      "large": { "value": "{space.13.value}", "type": "dimension" }
+      "sm": { "value": "{space.9.value}", "type": "dimension" },
+      "md": { "value": "{space.11.value}", "type": "dimension" },
+      "lg": { "value": "{space.13.value}", "type": "dimension" }
     },
     "icon": {
       "xs": { "value": "{font.size.100.value}", "type": "dimension" },
-      "small": { "value": "{font.size.200.value}", "type": "dimension" },
-      "medium": { "value": "{font.size.400.value}", "type": "dimension" },
-      "large": { "value": "{font.size.600.value}", "type": "dimension" },
+      "sm": { "value": "{font.size.200.value}", "type": "dimension" },
+      "md": { "value": "{font.size.400.value}", "type": "dimension" },
+      "lg": { "value": "{font.size.600.value}", "type": "dimension" },
       "xl": { "value": "{font.size.700.value}", "type": "dimension" }
     }
   },

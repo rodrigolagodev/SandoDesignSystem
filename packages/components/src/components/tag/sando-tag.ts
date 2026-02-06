@@ -70,9 +70,9 @@
  * <sando-tag href="/category/design" target="_blank">Design</sando-tag>
  *
  * @example Size variants
- * <sando-tag size="small">Small</sando-tag>
- * <sando-tag size="medium">Medium</sando-tag>
- * <sando-tag size="large">Large</sando-tag>
+ * <sando-tag size="sm">Small</sando-tag>
+ * <sando-tag size="md">Medium</sando-tag>
+ * <sando-tag size="lg">Large</sando-tag>
  *
  * @example Variant styles
  * <sando-tag variant="solid">Solid</sando-tag>
@@ -118,10 +118,10 @@ export class SandoTag extends FlavorableMixin(LitElement) {
 
   /**
    * Size of the tag
-   * @default 'medium'
+   * @default 'md'
    */
   @property({ reflect: true })
-  size: TagSize = 'medium';
+  size: TagSize = 'md';
 
   /**
    * Whether the tag is disabled

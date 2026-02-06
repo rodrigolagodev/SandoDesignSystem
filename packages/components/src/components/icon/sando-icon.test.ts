@@ -23,7 +23,7 @@ describe('sando-icon', () => {
       element = await fixture<SandoIcon>(html`<sando-icon name="star"></sando-icon>`);
       await element.updateComplete;
 
-      expect(element.size).toBe('medium');
+      expect(element.size).toBe('md');
       expect(element.color).toBe('default');
       expect(element.decorative).toBe(false);
       expect(element.flipHorizontal).toBe(false);
@@ -44,7 +44,7 @@ describe('sando-icon', () => {
   });
 
   describe('Size Variants', () => {
-    const sizes = ['xs', 'small', 'medium', 'large', 'xl'] as const;
+    const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
 
     sizes.forEach((size) => {
       it(`should apply ${size} size`, async () => {

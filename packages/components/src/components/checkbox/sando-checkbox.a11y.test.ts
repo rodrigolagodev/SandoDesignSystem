@@ -99,7 +99,7 @@ describe('sando-checkbox Accessibility', () => {
   });
 
   describe('size accessibility', () => {
-    ['small', 'medium', 'large'].forEach((size) => {
+    ['sm', 'md', 'lg'].forEach((size) => {
       it(`should pass a11y with ${size} size`, async () => {
         const el = await fixture<SandoCheckbox>(html`
           <sando-checkbox size="${size}" label="${size} checkbox"></sando-checkbox>
@@ -457,7 +457,7 @@ describe('sando-checkbox Accessibility', () => {
           checked
           required
           variant="outline"
-          size="large"
+          size="lg"
           helper-text="Please read before accepting"
         ></sando-checkbox>
       `);

@@ -18,7 +18,7 @@ describe('sando-button', () => {
     it('should render with default properties', () => {
       expect(element).toBeDefined();
       expect(element.variant).toBe('solid');
-      expect(element.size).toBe('medium');
+      expect(element.size).toBe('md');
       expect(element.disabled).toBe(false);
       expect(element.loading).toBe(false);
     });
@@ -48,17 +48,17 @@ describe('sando-button', () => {
     });
 
     it('should update size property', async () => {
-      element.size = 'large';
+      element.size = 'lg';
       await element.updateComplete;
-      expect(element.size).toBe('large');
-      expect(element.getAttribute('size')).toBe('large');
+      expect(element.size).toBe('lg');
+      expect(element.getAttribute('size')).toBe('lg');
     });
 
-    it('should support xs size', async () => {
-      element.size = 'xs';
+    it('should support sm size', async () => {
+      element.size = 'sm';
       await element.updateComplete;
-      expect(element.size).toBe('xs');
-      expect(element.getAttribute('size')).toBe('xs');
+      expect(element.size).toBe('sm');
+      expect(element.getAttribute('size')).toBe('sm');
     });
 
     it('should update disabled property', async () => {

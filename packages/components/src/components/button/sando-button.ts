@@ -33,11 +33,10 @@
  * <sando-button start-icon="⭐">Favorite</sando-button>
  * <sando-button end-icon="→">Next</sando-button>
  *
- * @example Size variants (xs to large - WCAG compliant)
- * <sando-button size="xs">Extra Small</sando-button>
- * <sando-button size="small">Small</sando-button>
- * <sando-button size="medium">Medium</sando-button>
- * <sando-button size="large">Large</sando-button>
+ * @example Size variants (sm to lg - WCAG compliant)
+ * <sando-button size="sm">Small</sando-button>
+ * <sando-button size="md">Medium</sando-button>
+ * <sando-button size="lg">Large</sando-button>
  *
  * @example Icon-only button
  * <sando-button icon-only aria-label="Settings">
@@ -102,10 +101,10 @@ export class SandoButton extends FlavorableMixin(LitElement) {
 
   /**
    * Size of the button
-   * @default 'medium'
+   * @default 'md'
    */
   @property({ reflect: true })
-  size: ButtonSize = 'medium';
+  size: ButtonSize = 'md';
 
   /**
    * Status variant for success/error states

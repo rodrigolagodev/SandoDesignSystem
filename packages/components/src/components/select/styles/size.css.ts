@@ -2,57 +2,57 @@
  * Select Size Styles
  *
  * Contains styles for size variants:
- * - small: Compact size for tight spaces
- * - medium: Default size for most use cases
- * - large: Large size for emphasis
+ * - sm: Compact size for tight spaces
+ * - md: Default size for most use cases
+ * - lg: Large size for emphasis
  */
 
 import { css } from 'lit';
 
 export const sizeStyles = css`
   /* ========================================
-     SMALL SIZE
+     SMALL SIZE (sm)
      ======================================== */
-  :host([size='small']) .select-trigger {
-    padding-inline: var(--sando-select-size-small-paddingInline);
-    padding-block: var(--sando-select-size-small-paddingBlock);
-    min-height: var(--sando-select-size-small-minHeight);
-    font-size: var(--sando-select-size-small-fontSize);
-    gap: var(--sando-select-size-small-gap);
+  :host([size='sm']) .select-trigger {
+    padding-inline: var(--sando-select-size-sm-paddingInline);
+    padding-block: var(--sando-select-size-sm-paddingBlock);
+    min-height: var(--sando-select-size-sm-minHeight);
+    font-size: var(--sando-select-size-sm-fontSize);
+    gap: var(--sando-select-size-sm-gap);
   }
 
-  :host([size='small']) .select-caret,
-  :host([size='small']) .select-clear,
-  :host([size='small']) .select-prefix {
+  :host([size='sm']) .select-caret,
+  :host([size='sm']) .select-clear,
+  :host([size='sm']) .select-prefix {
     width: 1em;
     height: 1em;
   }
 
   /* ========================================
-     MEDIUM SIZE (default)
+     MEDIUM SIZE (md) - default
      ======================================== */
   .select-trigger {
-    padding-inline: var(--sando-select-size-medium-paddingInline);
-    padding-block: var(--sando-select-size-medium-paddingBlock);
-    min-height: var(--sando-select-size-medium-minHeight);
-    font-size: var(--sando-select-size-medium-fontSize);
-    gap: var(--sando-select-size-medium-gap);
+    padding-inline: var(--sando-select-size-md-paddingInline);
+    padding-block: var(--sando-select-size-md-paddingBlock);
+    min-height: var(--sando-select-size-md-minHeight);
+    font-size: var(--sando-select-size-md-fontSize);
+    gap: var(--sando-select-size-md-gap);
   }
 
   /* ========================================
-     LARGE SIZE
+     LARGE SIZE (lg)
      ======================================== */
-  :host([size='large']) .select-trigger {
-    padding-inline: var(--sando-select-size-large-paddingInline);
-    padding-block: var(--sando-select-size-large-paddingBlock);
-    min-height: var(--sando-select-size-large-minHeight);
-    font-size: var(--sando-select-size-large-fontSize);
-    gap: var(--sando-select-size-large-gap);
+  :host([size='lg']) .select-trigger {
+    padding-inline: var(--sando-select-size-lg-paddingInline);
+    padding-block: var(--sando-select-size-lg-paddingBlock);
+    min-height: var(--sando-select-size-lg-minHeight);
+    font-size: var(--sando-select-size-lg-fontSize);
+    gap: var(--sando-select-size-lg-gap);
   }
 
-  :host([size='large']) .select-caret,
-  :host([size='large']) .select-clear,
-  :host([size='large']) .select-prefix {
+  :host([size='lg']) .select-caret,
+  :host([size='lg']) .select-clear,
+  :host([size='lg']) .select-prefix {
     width: 1.5em;
     height: 1.5em;
   }
@@ -63,18 +63,18 @@ export const sizeStyles = css`
      ======================================== */
 
   /* Small multi-select */
-  :host([size='small'][multiple]) .select-trigger {
-    padding-block: var(--sando-select-multiSelect-size-small-paddingBlock);
+  :host([size='sm'][multiple]) .select-trigger {
+    padding-block: var(--sando-select-multiSelect-size-sm-paddingBlock);
   }
 
   /* Medium multi-select (default size) */
   :host([multiple]:not([size])) .select-trigger,
-  :host([size='medium'][multiple]) .select-trigger {
-    padding-block: var(--sando-select-multiSelect-size-medium-paddingBlock);
+  :host([size='md'][multiple]) .select-trigger {
+    padding-block: var(--sando-select-multiSelect-size-md-paddingBlock);
   }
 
   /* Large multi-select */
-  :host([size='large'][multiple]) .select-trigger {
-    padding-block: var(--sando-select-multiSelect-size-large-paddingBlock);
+  :host([size='lg'][multiple]) .select-trigger {
+    padding-block: var(--sando-select-multiSelect-size-lg-paddingBlock);
   }
 `;

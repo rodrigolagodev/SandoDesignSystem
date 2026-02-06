@@ -309,10 +309,10 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
 
   /**
    * Select size
-   * @default 'medium'
+   * @default 'md'
    */
   @property({ reflect: true })
-  size: SelectSize = 'medium';
+  size: SelectSize = 'md';
 
   /**
    * Whether multiple options can be selected
@@ -1062,9 +1062,9 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
    */
   private _getTagSize(): TagSize {
     const sizeMap: Record<SelectSize, TagSize> = {
-      small: 'small',
-      medium: 'small',
-      large: 'medium'
+      sm: 'sm',
+      md: 'sm',
+      lg: 'md'
     };
     return sizeMap[this.size];
   }

@@ -49,9 +49,9 @@
  *
  * @example Different sizes
  * ```html
- * <sando-checkbox size="small" label="Small"></sando-checkbox>
- * <sando-checkbox size="medium" label="Medium"></sando-checkbox>
- * <sando-checkbox size="large" label="Large"></sando-checkbox>
+ * <sando-checkbox size="sm" label="Small"></sando-checkbox>
+ * <sando-checkbox size="md" label="Medium"></sando-checkbox>
+ * <sando-checkbox size="lg" label="Large"></sando-checkbox>
  * ```
  */
 
@@ -167,10 +167,10 @@ export class SandoCheckbox extends FlavorableMixin(LitElement) {
 
   /**
    * Size variant of the checkbox
-   * @default 'medium'
+   * @default 'md'
    */
   @property({ reflect: true })
-  size: CheckboxSize = 'medium';
+  size: CheckboxSize = 'md';
 
   /**
    * Label text (alternative to slot)

@@ -7,7 +7,7 @@
  * - Uses role="status" for accessibility
  * - Supports semantic colors: neutral, primary, success, warning, danger, info
  * - Supports visual variants: solid, soft, outline, surface
- * - Supports sizes: small, medium, large
+ * - Supports sizes: sm, md, lg
  * - Supports compact mode for tight spaces
  *
  * @see TESTING_STRATEGY.toon (TST-CR-R1, TST-CR-R2)
@@ -30,7 +30,7 @@ describe('sando-badge', () => {
       expect(element).toBeDefined();
       expect(element.color).toBe('neutral');
       expect(element.variant).toBe('solid');
-      expect(element.size).toBe('medium');
+      expect(element.size).toBe('md');
       expect(element.compact).toBe(false);
     });
 
@@ -76,7 +76,7 @@ describe('sando-badge', () => {
     });
 
     it('should render with each size', async () => {
-      const sizes = ['small', 'medium', 'large'] as const;
+      const sizes = ['sm', 'md', 'lg'] as const;
 
       for (const size of sizes) {
         element = await fixture<SandoBadge>(html` <sando-badge size=${size}>Badge</sando-badge> `);
@@ -169,29 +169,29 @@ describe('sando-badge', () => {
   });
 
   describe('Properties - Size', () => {
-    it('should apply medium size by default', () => {
-      expect(element.size).toBe('medium');
-      expect(element.getAttribute('size')).toBe('medium');
+    it('should apply md size by default', () => {
+      expect(element.size).toBe('md');
+      expect(element.getAttribute('size')).toBe('md');
     });
 
-    it('should update size to small', async () => {
-      element.size = 'small';
+    it('should update size to sm', async () => {
+      element.size = 'sm';
       await element.updateComplete;
-      expect(element.size).toBe('small');
-      expect(element.getAttribute('size')).toBe('small');
+      expect(element.size).toBe('sm');
+      expect(element.getAttribute('size')).toBe('sm');
     });
 
-    it('should update size to large', async () => {
-      element.size = 'large';
+    it('should update size to lg', async () => {
+      element.size = 'lg';
       await element.updateComplete;
-      expect(element.size).toBe('large');
-      expect(element.getAttribute('size')).toBe('large');
+      expect(element.size).toBe('lg');
+      expect(element.getAttribute('size')).toBe('lg');
     });
 
     it('should reflect size attribute to property', async () => {
-      element.setAttribute('size', 'small');
+      element.setAttribute('size', 'sm');
       await element.updateComplete;
-      expect(element.size).toBe('small');
+      expect(element.size).toBe('sm');
     });
   });
 
@@ -215,7 +215,7 @@ describe('sando-badge', () => {
     });
 
     it('should work with all sizes when compact', async () => {
-      const sizes = ['small', 'medium', 'large'] as const;
+      const sizes = ['sm', 'md', 'lg'] as const;
 
       for (const size of sizes) {
         element = await fixture<SandoBadge>(html`
@@ -307,24 +307,24 @@ describe('sando-badge', () => {
       // Start with defaults
       expect(element.color).toBe('neutral');
       expect(element.variant).toBe('solid');
-      expect(element.size).toBe('medium');
+      expect(element.size).toBe('md');
 
       // Update all properties
       element.color = 'success';
       element.variant = 'outline';
-      element.size = 'small';
+      element.size = 'sm';
       element.compact = true;
       await element.updateComplete;
 
       expect(element.color).toBe('success');
       expect(element.variant).toBe('outline');
-      expect(element.size).toBe('small');
+      expect(element.size).toBe('sm');
       expect(element.compact).toBe(true);
 
       // Verify attribute reflection
       expect(element.getAttribute('color')).toBe('success');
       expect(element.getAttribute('variant')).toBe('outline');
-      expect(element.getAttribute('size')).toBe('small');
+      expect(element.getAttribute('size')).toBe('sm');
       expect(element.hasAttribute('compact')).toBe(true);
     });
 
@@ -588,7 +588,7 @@ describe('sando-badge', () => {
       });
 
       it('should render icon for all sizes', async () => {
-        const sizes = ['small', 'medium', 'large'] as const;
+        const sizes = ['sm', 'md', 'lg'] as const;
 
         for (const size of sizes) {
           element = await fixture<SandoBadge>(html`

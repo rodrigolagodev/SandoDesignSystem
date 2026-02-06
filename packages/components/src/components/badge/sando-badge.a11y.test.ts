@@ -165,9 +165,9 @@ describe('sando-badge Accessibility', () => {
     });
 
     describe('Size Variants', () => {
-      it('should have no violations with small size', async () => {
+      it('should have no violations with sm size', async () => {
         element = await fixture<SandoBadge>(html`
-          <sando-badge size="small">Small Badge</sando-badge>
+          <sando-badge size="sm">Small Badge</sando-badge>
         `);
         await element.updateComplete;
 
@@ -175,9 +175,9 @@ describe('sando-badge Accessibility', () => {
         expect(results).toHaveNoViolations();
       });
 
-      it('should have no violations with medium size', async () => {
+      it('should have no violations with md size', async () => {
         element = await fixture<SandoBadge>(html`
-          <sando-badge size="medium">Medium Badge</sando-badge>
+          <sando-badge size="md">Medium Badge</sando-badge>
         `);
         await element.updateComplete;
 
@@ -185,9 +185,9 @@ describe('sando-badge Accessibility', () => {
         expect(results).toHaveNoViolations();
       });
 
-      it('should have no violations with large size', async () => {
+      it('should have no violations with lg size', async () => {
         element = await fixture<SandoBadge>(html`
-          <sando-badge size="large">Large Badge</sando-badge>
+          <sando-badge size="lg">Large Badge</sando-badge>
         `);
         await element.updateComplete;
 
@@ -196,7 +196,7 @@ describe('sando-badge Accessibility', () => {
       });
 
       it('should have no violations for all sizes (batch)', async () => {
-        const sizes = ['small', 'medium', 'large'] as const;
+        const sizes = ['sm', 'md', 'lg'] as const;
 
         for (const size of sizes) {
           element = await fixture<SandoBadge>(html`
@@ -222,7 +222,7 @@ describe('sando-badge Accessibility', () => {
       });
 
       it('should have no violations with compact mode and all sizes', async () => {
-        const sizes = ['small', 'medium', 'large'] as const;
+        const sizes = ['sm', 'md', 'lg'] as const;
 
         for (const size of sizes) {
           element = await fixture<SandoBadge>(html`

@@ -12,9 +12,9 @@
 export type TagVariant = 'solid' | 'outline' | 'soft';
 
 /**
- * Size variants for the tag
+ * Size variants for the tag (sm, md, lg)
  */
-export type TagSize = 'small' | 'medium' | 'large';
+export type TagSize = 'sm' | 'md' | 'lg';
 
 /**
  * Props for the SandoTag component
@@ -28,7 +28,7 @@ export interface SandoTagProps {
 
   /**
    * Size of the tag
-   * @default 'medium'
+   * @default 'md'
    */
   size?: TagSize;
 
