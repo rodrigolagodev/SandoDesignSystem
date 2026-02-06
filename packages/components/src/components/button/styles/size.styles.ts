@@ -24,9 +24,13 @@ export const sizeStyles = css`
 
   /* ========================================
      MEDIUM SIZE (Default)
+     :not([size]) handles when no size attribute is present
+     (Lit doesn't reflect initial property values to DOM)
      ======================================== */
   :host([size='md']) button,
-  :host([size='md']) a {
+  :host([size='md']) a,
+  :host(:not([size])) button,
+  :host(:not([size])) a {
     padding: var(--sando-button-size-md-paddingBlock) var(--sando-button-size-md-paddingInline);
     font-size: var(--sando-button-size-md-fontSize);
     min-height: var(--sando-button-size-md-minHeight);
@@ -53,7 +57,9 @@ export const sizeStyles = css`
   }
 
   :host([icon-only][size='md']) button,
-  :host([icon-only][size='md']) a {
+  :host([icon-only][size='md']) a,
+  :host([icon-only]:not([size])) button,
+  :host([icon-only]:not([size])) a {
     padding: var(--sando-button-size-md-paddingBlock);
     aspect-ratio: 1;
   }
@@ -62,5 +68,30 @@ export const sizeStyles = css`
   :host([icon-only][size='lg']) a {
     padding: var(--sando-button-size-lg-paddingBlock);
     aspect-ratio: 1;
+  }
+
+  /* ========================================
+     COMPACT MODE
+     Reduces horizontal padding for tight spaces
+     Works with all sizes, maintains minHeight
+     ======================================== */
+  :host([compact][size='sm']) button,
+  :host([compact][size='sm']) a {
+    padding: var(--sando-button-compact-sm-paddingBlock)
+      var(--sando-button-compact-sm-paddingInline);
+  }
+
+  :host([compact][size='md']) button,
+  :host([compact][size='md']) a,
+  :host([compact]:not([size])) button,
+  :host([compact]:not([size])) a {
+    padding: var(--sando-button-compact-md-paddingBlock)
+      var(--sando-button-compact-md-paddingInline);
+  }
+
+  :host([compact][size='lg']) button,
+  :host([compact][size='lg']) a {
+    padding: var(--sando-button-compact-lg-paddingBlock)
+      var(--sando-button-compact-lg-paddingInline);
   }
 `;

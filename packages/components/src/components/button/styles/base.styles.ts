@@ -2,7 +2,7 @@
  * Base Button Styles
  *
  * Contains:
- * - CSS reset
+ * - CSS reset (via shared interactiveReset/anchorReset)
  * - Layout (flexbox, alignment)
  * - Typography (font family, weight, line height)
  * - Base appearance (border radius, cursor, transitions)
@@ -10,10 +10,13 @@
  */
 
 import { css } from 'lit';
+import { interactiveReset, anchorReset } from '../../../styles/shared/base.styles.js';
 
 export const baseStyles = css`
   :host {
     display: inline-block;
+    vertical-align: top;
+    line-height: var(--sando-button-lineHeight);
   }
 
   :host([full-width]) {
@@ -24,11 +27,8 @@ export const baseStyles = css`
     pointer-events: none;
   }
 
-  button,
-  a {
-    /* Reset - all:unset needed for complete button reset */
-    all: unset;
-    /* Note: box-sizing comes from resetStyles */
+  button {
+    ${interactiveReset}
 
     /* Display */
     display: inline-flex;
@@ -47,8 +47,32 @@ export const baseStyles = css`
 
     /* Appearance */
     border-radius: var(--sando-button-borderRadius);
-    cursor: pointer;
-    user-select: none;
+
+    /* Transition */
+    transition-property: background-color, color, border-color, transform, box-shadow;
+    transition-duration: var(--sando-button-transition-duration);
+    transition-timing-function: var(--sando-button-transition-timing);
+  }
+
+  a {
+    ${anchorReset}
+
+    /* Display */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+    width: 100%;
+
+    /* Typography */
+    font-family: var(--sando-button-fontFamily);
+    font-weight: var(--sando-button-fontWeight);
+    line-height: var(--sando-button-lineHeight);
+    text-align: center;
+    white-space: nowrap;
+
+    /* Appearance */
+    border-radius: var(--sando-button-borderRadius);
 
     /* Transition */
     transition-property: background-color, color, border-color, transform, box-shadow;
