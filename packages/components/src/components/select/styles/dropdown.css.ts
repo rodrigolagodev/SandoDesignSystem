@@ -2,17 +2,18 @@
  * Select Dropdown Styles
  *
  * Contains styles for the dropdown/listbox:
- * - Positioning
+ * - Positioning (absolute for fallback, fixed for popover)
  * - Box shadow
  * - Animation
  * - Scrolling
+ * - Popover API support
  */
 
 import { css } from 'lit';
 
 export const dropdownStyles = css`
   /* ========================================
-     DROPDOWN CONTAINER
+     DROPDOWN CONTAINER (Fallback mode)
      ======================================== */
   .select-dropdown {
     position: absolute;
@@ -53,17 +54,80 @@ export const dropdownStyles = css`
     transform: translateY(8px);
   }
 
-  /* Open state */
-  :host([open]) .select-dropdown {
+  /* Open state (fallback mode) */
+  :host([open]) .select-dropdown:not([popover]) {
     opacity: 1;
     transform: translateY(0);
     pointer-events: auto;
   }
 
-  /* Hidden attribute for closed state */
+  /* Hidden attribute for closed state (fallback mode) */
   .select-dropdown[hidden] {
     display: none;
   }
+
+  /* ========================================
+     POPOVER API MODE
+     When popover attribute is present, the dropdown
+     renders in the browser's top layer and escapes
+     overflow: hidden containers.
+     ======================================== */
+
+  /* Reset browser popover styles */
+  .select-dropdown[popover] {
+    /* Reset default popover styling */
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    /* Allow our styles to take over */
+    overflow: visible;
+    /* Position will be set via JS */
+    inset: unset;
+  }
+
+  /* Closed state (handled by popover, but ensure hidden) */
+  .select-dropdown[popover]:not(:popover-open) {
+    display: none;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Open state (popover mode) */
+  .select-dropdown[popover]:popover-open {
+    /* Visual styles */
+    display: block;
+    background-color: var(--sando-select-dropdown-backgroundColor);
+    border: var(--sando-select-dropdown-borderWidth) solid var(--sando-select-dropdown-borderColor);
+    border-radius: var(--sando-select-dropdown-borderRadius);
+    box-shadow: var(--sando-select-dropdown-boxShadow);
+    padding-block: var(--sando-select-dropdown-paddingBlock);
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
+    /* Animation */
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    transition-property: opacity, transform;
+    transition-duration: var(--sando-select-transition-duration);
+    transition-timing-function: var(--sando-select-transition-timing);
+  }
+
+  /* Top placement animation for popover */
+  :host([placement='top']) .select-dropdown[popover]:popover-open {
+    transform: translateY(0);
+  }
+
+  /* No backdrop for select dropdown */
+  .select-dropdown::backdrop {
+    background: transparent;
+    pointer-events: none;
+  }
+
+  /* ========================================
+     SHARED STYLES
+     ======================================== */
 
   /* Scroll sentinel for infinite scroll */
   .scroll-sentinel {

@@ -19,6 +19,7 @@ import '../option-group/sando-option-group.js';
  * - **Option grouping**: Using sando-option-group
  * - **Clearable**: Optional clear button
  * - **Keyboard navigation**: Full arrow key, home/end, type-ahead support
+ * - **Popover API**: Dropdown escapes overflow containers in modern browsers
  *
  * ## Accessibility
  * - Full keyboard navigation (Arrow keys, Enter, Space, Escape)

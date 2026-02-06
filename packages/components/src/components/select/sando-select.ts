@@ -187,6 +187,43 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
   private _scrollObserver: IntersectionObserver | null = null;
 
   /**
+   * Internal: Check if browser supports Popover API
+   * @private
+   */
+  private get _supportsPopover(): boolean {
+    return 'popover' in HTMLElement.prototype;
+  }
+
+  /**
+   * Internal: Bound handler for scroll/resize repositioning
+   * @private
+   */
+  private _handleScrollOrResize = (): void => {
+    if (this.open) {
+      this._positionDropdown();
+    }
+  };
+
+  /**
+   * Internal: Bound handler for popover toggle events
+   * @private
+   */
+  private _handlePopoverToggle = (e: ToggleEvent): void => {
+    const isOpen = e.newState === 'open';
+
+    if (isOpen) {
+      this._positionDropdown();
+      this.open = true;
+      this._setupPositionListeners();
+      // Emit show event (handled in updated, but we need to set state first)
+    } else {
+      this.open = false;
+      this._removePositionListeners();
+      // Emit hide event (handled in updated)
+    }
+  };
+
+  /**
    * Internal: type-ahead buffer for quick selection
    * @private
    */
@@ -335,6 +372,8 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
     this._removeEventListeners();
     this._detachFormListeners();
     this._destroyScrollObserver();
+    this._removePositionListeners();
+    this._removePopoverListeners();
   }
 
   /**
@@ -342,6 +381,7 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
    */
   protected firstUpdated(): void {
     this._setupScrollObserver();
+    this._setupPopoverListeners();
   }
 
   /**
@@ -816,6 +856,100 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
   }
 
   // ========================================
+  // Popover Positioning (for Popover API mode)
+  // ========================================
+
+  /**
+   * Position the dropdown relative to the trigger using manual calculations
+   * Used when Popover API is available since popover renders in top layer
+   * @private
+   */
+  private _positionDropdown(): void {
+    if (!this._supportsPopover) return;
+
+    const trigger = this._triggerElement?.getBoundingClientRect();
+    const dropdown = this._dropdownElement;
+
+    if (!trigger || !dropdown) return;
+
+    const gap = 4;
+    const viewportPadding = 8;
+    const maxHeight = 300;
+
+    // Available space
+    const spaceBelow = window.innerHeight - trigger.bottom - gap - viewportPadding;
+    const spaceAbove = trigger.top - gap - viewportPadding;
+
+    // Decide direction: show above if not enough space below AND more space above
+    const showAbove = spaceBelow < 100 && spaceAbove > spaceBelow;
+
+    // Calculate horizontal position (avoid overflowing viewport)
+    let left = trigger.left;
+    const right = left + trigger.width;
+
+    if (right > window.innerWidth - viewportPadding) {
+      left = window.innerWidth - trigger.width - viewportPadding;
+    }
+    if (left < viewportPadding) {
+      left = viewportPadding;
+    }
+
+    // Apply styles for fixed positioning in top layer
+    Object.assign(dropdown.style, {
+      position: 'fixed',
+      top: showAbove ? 'auto' : `${trigger.bottom + gap}px`,
+      bottom: showAbove ? `${window.innerHeight - trigger.top + gap}px` : 'auto',
+      left: `${left}px`,
+      width: `${trigger.width}px`,
+      maxHeight: `${Math.min(maxHeight, showAbove ? spaceAbove : spaceBelow)}px`
+    });
+
+    // Update placement attribute for CSS animations
+    this.placement = showAbove ? 'top' : 'bottom';
+  }
+
+  /**
+   * Setup scroll and resize listeners for repositioning
+   * @private
+   */
+  private _setupPositionListeners(): void {
+    window.addEventListener('scroll', this._handleScrollOrResize, { passive: true, capture: true });
+    window.addEventListener('resize', this._handleScrollOrResize, { passive: true });
+  }
+
+  /**
+   * Remove scroll and resize listeners
+   * @private
+   */
+  private _removePositionListeners(): void {
+    window.removeEventListener('scroll', this._handleScrollOrResize, { capture: true });
+    window.removeEventListener('resize', this._handleScrollOrResize);
+  }
+
+  /**
+   * Setup popover toggle event listener
+   * @private
+   */
+  private _setupPopoverListeners(): void {
+    if (this._supportsPopover && this._dropdownElement) {
+      this._dropdownElement.addEventListener('toggle', this._handlePopoverToggle as EventListener);
+    }
+  }
+
+  /**
+   * Remove popover toggle event listener
+   * @private
+   */
+  private _removePopoverListeners(): void {
+    if (this._supportsPopover && this._dropdownElement) {
+      this._dropdownElement.removeEventListener(
+        'toggle',
+        this._handlePopoverToggle as EventListener
+      );
+    }
+  }
+
+  // ========================================
   // Event Emitters
   // ========================================
 
@@ -1061,7 +1195,8 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
           role="listbox"
           aria-labelledby="${this._inputId}-label"
           aria-multiselectable=${this.multiple ? 'true' : nothing}
-          ?hidden=${!this.open}
+          popover=${this._supportsPopover ? 'auto' : nothing}
+          ?hidden=${!this._supportsPopover && !this.open}
           @sando-option-select=${this._handleOptionSelect}
         >
           <slot @slotchange=${this._handleSlotChange}></slot>
@@ -1090,18 +1225,40 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
 
   /**
    * Open the dropdown
+   * Uses Popover API when available, falls back to open property
    */
   show(): void {
-    if (!this.disabled && !this.open) {
+    if (this.disabled) return;
+
+    if (this._supportsPopover && this._dropdownElement) {
+      // Popover API mode - showPopover will trigger toggle event
+      // which updates this.open via _handlePopoverToggle
+      try {
+        this._dropdownElement.showPopover();
+      } catch {
+        // Fallback if popover fails
+        this.open = true;
+      }
+    } else {
+      // Fallback mode
       this.open = true;
     }
   }
 
   /**
    * Close the dropdown
+   * Uses Popover API when available, falls back to open property
    */
   hide(): void {
-    if (this.open) {
+    if (this._supportsPopover && this._dropdownElement) {
+      // Popover API mode
+      try {
+        this._dropdownElement.hidePopover();
+      } catch {
+        // May fail if already closed, that's fine
+      }
+    } else {
+      // Fallback mode
       this.open = false;
     }
   }
