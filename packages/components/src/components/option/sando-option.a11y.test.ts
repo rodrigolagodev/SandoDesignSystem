@@ -102,22 +102,30 @@ describe('sando-option accessibility', () => {
   });
 
   describe('Visual feedback', () => {
-    it('should have checkmark element', async () => {
+    it('should NOT have checkmark in single-select mode', async () => {
       const el = await fixture<SandoOption>(html`
         <sando-option value="test" selected>Selected</sando-option>
       `);
       const checkmark = el.shadowRoot?.querySelector('.option-checkmark');
-      expect(checkmark).not.toBeNull();
-      // Checkmark should be visible (opacity: 1) when selected
-      // This is handled via CSS :host([selected]) .option-checkmark { opacity: 1 }
+      // Single-select uses color to indicate selection, not checkmark
+      expect(checkmark).toBeNull();
     });
 
-    it('should have aria-hidden on checkmark icon', async () => {
+    it('should have checkbox visual in multi-select mode', async () => {
       const el = await fixture<SandoOption>(html`
-        <sando-option value="test">Option</sando-option>
+        <sando-option value="test" multiple selected>Selected</sando-option>
       `);
-      const checkmark = el.shadowRoot?.querySelector('.option-checkmark');
-      expect(checkmark?.getAttribute('aria-hidden')).toBe('true');
+      const checkbox = el.shadowRoot?.querySelector('.option-checkbox');
+      expect(checkbox).not.toBeNull();
+      expect(checkbox?.getAttribute('aria-hidden')).toBe('true');
+    });
+
+    it('should show checked state in multi-select when selected', async () => {
+      const el = await fixture<SandoOption>(html`
+        <sando-option value="test" multiple selected>Selected</sando-option>
+      `);
+      const checkbox = el.shadowRoot?.querySelector('.option-checkbox');
+      expect(checkbox?.classList.contains('checked')).toBe(true);
     });
   });
 

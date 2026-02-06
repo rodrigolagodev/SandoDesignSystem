@@ -53,27 +53,6 @@ export const baseStyles = css`
     flex-shrink: 0;
   }
 
-  /* Checkmark icon container */
-  .option-checkmark {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 1em;
-    height: 1em;
-    flex-shrink: 0;
-    opacity: 0;
-    transition-property: opacity, color;
-    transition-duration: var(--sando-select-transition-duration);
-    transition-timing-function: var(--sando-select-transition-timing);
-  }
-
-  .option-checkmark sando-icon {
-    display: block;
-    width: 100%;
-    height: 100%;
-    --icon-size: 100%;
-  }
-
   /* Reduced motion support */
   @media (prefers-reduced-motion: reduce) {
     .option,

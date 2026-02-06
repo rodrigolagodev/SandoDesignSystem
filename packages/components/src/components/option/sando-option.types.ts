@@ -24,6 +24,19 @@ export interface SandoOptionProps {
    * @default false
    */
   selected?: boolean;
+
+  /**
+   * Whether the parent select is in multiple selection mode
+   * Set by parent sando-select
+   * @default false
+   */
+  multiple?: boolean;
+
+  /**
+   * Prefix icon name from parent select (for single-select mode)
+   * Set by parent sando-select when it has a prefixIcon
+   */
+  parentPrefixIcon?: string;
 }
 
 /**

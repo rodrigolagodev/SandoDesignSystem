@@ -212,14 +212,12 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
     const isOpen = e.newState === 'open';
 
     if (isOpen) {
-      this._positionDropdown();
+      // Note: _positionDropdown() is already called in show() before showPopover()
       this.open = true;
       this._setupPositionListeners();
-      // Emit show event (handled in updated, but we need to set state first)
     } else {
       this.open = false;
       this._removePositionListeners();
-      // Emit hide event (handled in updated)
     }
   };
 
@@ -395,6 +393,11 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
       this._syncOptionSelectedStates();
     }
 
+    // Update option context when multiple or prefixIcon changes
+    if (changedProperties.has('multiple') || changedProperties.has('prefixIcon')) {
+      this._updateOptionsContext();
+    }
+
     // Update highlighted option when index changes
     if (changedProperties.has('_highlightedIndex')) {
       this._updateHighlightedOption();
@@ -551,9 +554,24 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
       this._valueLabels.set(opt.getValue(), opt.getLabel());
     });
 
+    // Sync option context (multiple mode, prefix icon)
+    this._updateOptionsContext();
+
     // Sync selected states
     this._syncOptionSelectedStates();
   };
+
+  /**
+   * Update options with context from parent select
+   * Sets multiple mode and prefix icon on all options
+   * @private
+   */
+  private _updateOptionsContext(): void {
+    this._options.forEach((option) => {
+      option.multiple = this.multiple;
+      option.parentPrefixIcon = this.prefixIcon;
+    });
+  }
 
   /**
    * Sync selected attribute on options based on current value(s)
@@ -590,6 +608,16 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
   }
 
   /**
+   * Toggle a value in multi-select mode
+   * @private
+   */
+  private _toggleMultiValue(value: string): void {
+    this.values = this.values.includes(value)
+      ? this.values.filter((v) => v !== value)
+      : [...this.values, value];
+  }
+
+  /**
    * Handle option selection from child sando-option
    * @private
    */
@@ -597,13 +625,8 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
     const { value } = e.detail;
 
     if (this.multiple) {
-      // Toggle selection in multiple mode
-      const newValues = this.values.includes(value)
-        ? this.values.filter((v) => v !== value)
-        : [...this.values, value];
-      this.values = newValues;
+      this._toggleMultiValue(value);
     } else {
-      // Single selection
       this.value = value;
       this.hide();
     }
@@ -751,10 +774,7 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
         const value = option.getValue();
 
         if (this.multiple) {
-          const newValues = this.values.includes(value)
-            ? this.values.filter((v) => v !== value)
-            : [...this.values, value];
-          this.values = newValues;
+          this._toggleMultiValue(value);
         } else {
           this.value = value;
           this.hide();
@@ -1226,11 +1246,18 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
   /**
    * Open the dropdown
    * Uses Popover API when available, falls back to open property
+   *
+   * Options now initialize their own context in connectedCallback,
+   * so we can show the dropdown immediately without waiting.
    */
   show(): void {
     if (this.disabled) return;
 
     if (this._supportsPopover && this._dropdownElement) {
+      // Pre-position BEFORE showing to prevent visual flash
+      // The positioning only needs trigger's rect, not the popover being visible
+      this._positionDropdown();
+
       // Popover API mode - showPopover will trigger toggle event
       // which updates this.open via _handlePopoverToggle
       try {
