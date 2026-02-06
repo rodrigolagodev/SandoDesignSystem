@@ -188,6 +188,12 @@
         }
       }
     },
+    "compact": {
+      "paddingBlock": {
+        "value": "{space.stack.tight.value}",
+        "type": "dimension"
+      }
+    },
     "fontFamily": {
       "value": "{font.family.body.value}",
       "type": "fontFamily"

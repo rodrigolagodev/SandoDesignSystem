@@ -175,7 +175,7 @@
           "type": "dimension"
         },
         "checkmarkStrokeWidth": {
-          "value": "{border.width.100.value}",
+          "value": "{border.width.stroke.value}",
           "type": "dimension"
         },
         "labelFontSize": {
@@ -193,7 +193,7 @@
           "type": "dimension"
         },
         "checkmarkStrokeWidth": {
-          "value": "{border.width.100.value}",
+          "value": "{border.width.stroke.value}",
           "type": "dimension"
         },
         "labelFontSize": {
@@ -211,7 +211,7 @@
           "type": "dimension"
         },
         "checkmarkStrokeWidth": {
-          "value": "{border.width.150.value}",
+          "value": "{border.width.strokeEmphasis.value}",
           "type": "dimension"
         },
         "labelFontSize": {
@@ -273,11 +273,11 @@
       }
     },
     "borderWidth": {
-      "value": "{border.width.100.value}",
+      "value": "{border.width.stroke.value}",
       "type": "dimension"
     },
     "borderRadius": {
-      "value": "{border.radius.50.value}",
+      "value": "{border.radius.muted.value}",
       "type": "dimension"
     },
     "focusOutlineColor": {

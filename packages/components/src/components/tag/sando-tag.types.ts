@@ -78,6 +78,13 @@ export interface SandoTagProps {
    * @default 'original'
    */
   flavor?: string;
+
+  /**
+   * Reduces vertical padding for use in compact spaces (e.g., inside Select)
+   * Changes paddingBlock from 8px to 4px
+   * @default false
+   */
+  compact?: boolean;
 }
 
 /**

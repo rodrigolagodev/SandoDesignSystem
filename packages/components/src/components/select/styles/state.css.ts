@@ -30,7 +30,8 @@ export const stateStyles = css`
     color: var(--sando-select-outlined-textColor-disabled);
   }
 
-  :host([disabled]) .select-caret {
+  :host([disabled]) .select-caret,
+  :host([disabled]) .select-prefix {
     color: var(--sando-select-outlined-iconColor-disabled);
   }
 
@@ -40,7 +41,8 @@ export const stateStyles = css`
     color: var(--sando-select-filled-textColor-disabled);
   }
 
-  :host([disabled][variant='filled']) .select-caret {
+  :host([disabled][variant='filled']) .select-caret,
+  :host([disabled][variant='filled']) .select-prefix {
     color: var(--sando-select-filled-iconColor-disabled);
   }
 `;

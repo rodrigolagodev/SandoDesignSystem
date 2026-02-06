@@ -153,6 +153,7 @@
   },
   "border": {
     "radius": {
+      "muted": { "value": "{border.radius.50.value}", "type": "dimension" },
       "default": { "value": "{border.radius.100.value}", "type": "dimension" },
       "emphasis": { "value": "{border.radius.200.value}", "type": "dimension" },
       "circular": {
@@ -162,7 +163,12 @@
     },
     "width": {
       "default": { "value": "{border.width.50.value}", "type": "dimension" },
-      "emphasis": { "value": "{border.width.100.value}", "type": "dimension" }
+      "emphasis": { "value": "{border.width.100.value}", "type": "dimension" },
+      "stroke": { "value": "{border.width.100.value}", "type": "dimension" },
+      "strokeEmphasis": {
+        "value": "{border.width.150.value}",
+        "type": "dimension"
+      }
     }
   },
   "space": {
@@ -230,5 +236,10 @@
     "disabled": { "value": "{opacity.600.value}", "type": "number" },
     "hover": { "value": "{opacity.900.value}", "type": "number" },
     "loading": { "value": "{opacity.600.value}", "type": "number" }
+  },
+  "z-index": {
+    "floating": { "value": "{z-index.dropdown.value}", "type": "number" },
+    "overlay": { "value": "{z-index.modal.value}", "type": "number" },
+    "popover": { "value": "{z-index.tooltip.value}", "type": "number" }
   }
 }

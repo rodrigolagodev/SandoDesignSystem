@@ -7,8 +7,7 @@
  * @element sando-select
  *
  * @slot - sando-option and sando-option-group elements
- * @slot prefix - Icon before the value display
- * @slot suffix - Icon after value, before caret
+ * @slot prefix-icon - Custom prefix icon (overrides prefixIcon prop)
  * @slot clear-icon - Custom clear icon
  * @slot expand-icon - Custom expand/caret icon
  *
@@ -312,6 +311,12 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
    */
   @property({ type: Number, attribute: 'max-tags-visible' })
   maxTagsVisible = 3;
+
+  /**
+   * Icon name to display before the value (uses sando-icon)
+   */
+  @property({ type: String, attribute: 'prefix-icon' })
+  prefixIcon?: string;
 
   /**
    * Lifecycle: Called when component is added to DOM
@@ -960,6 +965,7 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
           return html`
             <sando-tag
               removable
+              compact
               size=${this._getTagSize()}
               variant="solid"
               ?disabled=${this.disabled}
@@ -1006,7 +1012,7 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
           role="combobox"
           aria-haspopup="listbox"
           aria-expanded=${this.open ? 'true' : 'false'}
-          aria-controls=${this.open ? `${this._inputId}-listbox` : nothing}
+          aria-controls="${this._inputId}-listbox"
           aria-activedescendant=${activeDescendant || nothing}
           aria-required=${this.required ? 'true' : nothing}
           aria-invalid=${this.error ? 'true' : 'false'}
@@ -1016,16 +1022,21 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
           @click=${this._handleTriggerClick}
           @keydown=${this._handleTriggerKeydown}
         >
-          <span class="select-prefix">
-            <slot name="prefix"></slot>
-          </span>
-
+          ${this.prefixIcon
+            ? html`
+                <span class="select-prefix" aria-hidden="true">
+                  <slot name="prefix-icon">
+                    <sando-icon
+                      name="${this.prefixIcon}"
+                      size="small"
+                      decorative
+                      inherit-color
+                    ></sando-icon>
+                  </slot>
+                </span>
+              `
+            : nothing}
           ${this.multiple ? this._renderMultiValue() : this._renderSingleValue()}
-
-          <span class="select-suffix">
-            <slot name="suffix"></slot>
-          </span>
-
           ${this.clearable && this._hasValue() && !this.disabled
             ? html`
                 <button

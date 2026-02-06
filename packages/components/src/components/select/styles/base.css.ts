@@ -91,12 +91,21 @@ export const baseStyles = css`
   /* Placeholder text color is handled by variant tokens (e.g., --sando-select-outlined-textColor-placeholder)
      which use color.text.muted - a WCAG AA compliant muted gray. No opacity needed. */
 
-  /* Prefix and suffix slots */
-  .select-prefix,
-  .select-suffix {
+  /* Prefix and suffix icons */
+  .select-prefix {
     display: flex;
     align-items: center;
+    justify-content: center;
+    width: 1.25em;
+    height: 1.25em;
     flex-shrink: 0;
+    color: var(--sando-select-outlined-iconColor-default);
+  }
+
+  .select-prefix sando-icon {
+    width: 100%;
+    height: 100%;
+    --icon-size: 100%;
   }
 
   /* Clear button */

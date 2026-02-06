@@ -128,6 +128,11 @@ export interface SandoSelectProps {
    * @default 3
    */
   maxTagsVisible?: number;
+
+  /**
+   * Icon name to display before the value (uses sando-icon)
+   */
+  prefixIcon?: string;
 }
 
 /**

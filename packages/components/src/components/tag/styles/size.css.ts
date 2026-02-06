@@ -96,4 +96,15 @@ export const sizeStyles = css`
     width: var(--sando-tag-size-large-iconSize);
     height: var(--sando-tag-size-large-iconSize);
   }
+
+  /* ========================================
+     COMPACT MODE
+     Reduces vertical padding for tight spaces
+     Removes min-height constraint
+     Works with all sizes
+     ======================================== */
+  :host([compact]) .tag {
+    padding-block: var(--sando-tag-compact-paddingBlock);
+    min-height: auto;
+  }
 `;

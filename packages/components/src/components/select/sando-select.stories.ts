@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import './sando-select.js';
 import '../option/sando-option.js';
 import '../option-group/sando-option-group.js';
@@ -41,6 +42,7 @@ const meta: Meta = {
       value="${args.value || ''}"
       helper-text="${args.helperText || ''}"
       error-text="${args.errorText || ''}"
+      prefix-icon="${ifDefined(args.prefixIcon)}"
       ?disabled="${args.disabled}"
       ?required="${args.required}"
       ?error="${args.error}"
@@ -203,6 +205,14 @@ const meta: Meta = {
         category: 'Behavior',
         type: { summary: 'number' },
         defaultValue: { summary: '3' }
+      }
+    },
+    prefixIcon: {
+      control: 'text',
+      description: 'Icon name for prefix (e.g., "search", "map-pin")',
+      table: {
+        category: 'Appearance',
+        type: { summary: 'string' }
       }
     }
   },
@@ -551,10 +561,9 @@ export const VariantFilled: Story = {
 };
 
 /**
- * Select with prefix icon slot
+ * Select with prefix icon
  */
 export const WithPrefix: Story = {
-  tags: DOCS_ONLY,
   render: (args) => html`
     <sando-select
       variant="${args.variant}"
@@ -563,15 +572,12 @@ export const WithPrefix: Story = {
       flavor="${args.flavor || 'original'}"
       label="${args.label || 'Location'}"
       placeholder="${args.placeholder || 'Select a location'}"
-      value="${args.value || ''}"
-      helper-text="${args.helperText || ''}"
-      error-text="${args.errorText || ''}"
+      prefix-icon="map-pin"
       ?disabled="${args.disabled}"
       ?required="${args.required}"
       ?error="${args.error}"
       ?clearable="${args.clearable}"
     >
-      <span slot="prefix" style="opacity: 0.7;">📍</span>
       <sando-option value="ny">New York</sando-option>
       <sando-option value="la">Los Angeles</sando-option>
       <sando-option value="chi">Chicago</sando-option>
@@ -580,7 +586,7 @@ export const WithPrefix: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Use the `prefix` slot to add an icon before the value display.'
+        story: 'Use the `prefix-icon` prop to add an icon before the value display.'
       }
     }
   }

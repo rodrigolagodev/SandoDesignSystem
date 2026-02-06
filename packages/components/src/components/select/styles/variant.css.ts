@@ -22,7 +22,8 @@ export const variantStyles = css`
     color: var(--sando-select-outlined-textColor-placeholder);
   }
 
-  .select-caret {
+  .select-caret,
+  .select-prefix {
     color: var(--sando-select-outlined-iconColor-default);
   }
 
@@ -31,7 +32,8 @@ export const variantStyles = css`
     border-color: var(--sando-select-outlined-borderColor-hover);
   }
 
-  :host(:not([disabled])) .select-trigger:hover .select-caret {
+  :host(:not([disabled])) .select-trigger:hover .select-caret,
+  :host(:not([disabled])) .select-trigger:hover .select-prefix {
     color: var(--sando-select-outlined-iconColor-hover);
   }
 
@@ -53,7 +55,8 @@ export const variantStyles = css`
     color: var(--sando-select-filled-textColor-placeholder);
   }
 
-  :host([variant='filled']) .select-caret {
+  :host([variant='filled']) .select-caret,
+  :host([variant='filled']) .select-prefix {
     color: var(--sando-select-filled-iconColor-default);
   }
 
@@ -63,7 +66,8 @@ export const variantStyles = css`
     border-color: var(--sando-select-filled-borderColor-hover);
   }
 
-  :host([variant='filled']:not([disabled])) .select-trigger:hover .select-caret {
+  :host([variant='filled']:not([disabled])) .select-trigger:hover .select-caret,
+  :host([variant='filled']:not([disabled])) .select-trigger:hover .select-prefix {
     color: var(--sando-select-filled-iconColor-hover);
   }
 
