@@ -7,6 +7,8 @@
  * - Base appearance (border radius, cursor, transitions)
  * - Icon area styles (action button/link, informative icon)
  * - Focus states for interactive modes
+ *
+ * Note: Box-sizing and button resets are handled by resetStyles
  */
 
 import { css } from 'lit';
@@ -23,14 +25,7 @@ export const baseStyles = css`
   }
 
   .tag {
-    /* Reset */
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    border: none;
-    background: none;
-    font: inherit;
-    color: inherit;
+    /* Reset (supplement to global reset) */
     text-decoration: none;
 
     /* Display */
@@ -84,9 +79,8 @@ export const baseStyles = css`
 
   /* Interactive action button/link (clickable, link, removable modes) */
   .tag__action {
-    /* Reset */
+    /* Reset supplement (cursor not in global reset) */
     all: unset;
-    box-sizing: border-box;
 
     /* Display */
     display: inline-flex;
@@ -159,9 +153,8 @@ export const baseStyles = css`
   /* Keep .tag__remove for backwards compatibility during transition */
 
   .tag__remove {
-    /* Reset */
+    /* Reset supplement (cursor not in global reset) */
     all: unset;
-    box-sizing: border-box;
 
     /* Display */
     display: inline-flex;
@@ -193,14 +186,5 @@ export const baseStyles = css`
   .tag__remove:focus-visible {
     outline: var(--sando-tag-focus-outlineWidth) solid var(--sando-tag-focus-outlineColor);
     outline-offset: var(--sando-tag-focus-outlineOffset);
-  }
-
-  /* Reduced motion support */
-  @media (prefers-reduced-motion: reduce) {
-    .tag,
-    .tag__action,
-    .tag__remove {
-      transition-duration: 0.01ms !important;
-    }
   }
 `;

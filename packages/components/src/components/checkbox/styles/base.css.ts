@@ -2,11 +2,12 @@
  * Base Checkbox Styles
  *
  * Contains:
- * - CSS reset
  * - Layout (flexbox, alignment)
  * - Typography
  * - Base appearance (border radius, cursor, transitions)
  * - Focus states
+ *
+ * Note: CSS reset and reduced motion are handled by resetStyles
  */
 
 import { css } from 'lit';
@@ -154,13 +155,5 @@ export const baseStyles = css`
   .error-text {
     font-size: var(--sando-checkbox-helperText-fontSize);
     color: var(--sando-checkbox-helperText-textColor-error);
-  }
-
-  /* Reduced motion support */
-  @media (prefers-reduced-motion: reduce) {
-    .checkbox-box,
-    .checkbox-icon {
-      transition-duration: 0.01ms !important;
-    }
   }
 `;

@@ -96,6 +96,7 @@ import '../tag/sando-tag.js';
 import '../icon/sando-icon.js';
 
 import { FlavorableMixin } from '../../mixins/index.js';
+import { resetStyles } from '../../styles/reset.css.js';
 import { tokenStyles } from '../../styles/tokens.css.js';
 import {
   baseStyles,
@@ -122,8 +123,9 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
    * Order matters for specificity
    */
   static styles = [
+    resetStyles, // Universal reset (box-sizing, font inheritance, reduced motion)
     tokenStyles, // Design tokens (Ingredients, Flavors, Recipes)
-    baseStyles, // Reset, layout, typography, focus
+    baseStyles, // Layout, typography, focus
     variantStyles, // Outlined, filled
     sizeStyles, // Small, medium, large
     stateStyles, // Error, disabled

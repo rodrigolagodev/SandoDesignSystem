@@ -71,6 +71,7 @@ import type {
   ButtonRadius
 } from './sando-button.types.js';
 import { FlavorableMixin } from '../../mixins/index.js';
+import { resetStyles } from '../../styles/reset.css.js';
 import { tokenStyles } from '../../styles/tokens.css.js';
 import {
   baseStyles,
@@ -222,8 +223,9 @@ export class SandoButton extends FlavorableMixin(LitElement) {
    * Order matters for specificity
    */
   static styles = [
+    resetStyles, // Universal CSS reset (box-sizing, font inheritance)
     tokenStyles, // Design tokens (Ingredients, Flavors, Recipes)
-    baseStyles, // Reset, layout, typography, focus
+    baseStyles, // Layout, typography, focus
     variantStyles, // Solid, outline, ghost
     sizeStyles, // Small, medium, large, icon-only
     radiusStyles, // None, default, full

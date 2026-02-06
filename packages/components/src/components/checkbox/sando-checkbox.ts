@@ -65,6 +65,7 @@ import type {
 } from './sando-checkbox.types.js';
 
 import { FlavorableMixin } from '../../mixins/index.js';
+import { resetStyles } from '../../styles/reset.css.js';
 import { tokenStyles } from '../../styles/tokens.css.js';
 import { baseStyles, variantStyles, sizeStyles, stateStyles } from './styles/index.js';
 
@@ -87,8 +88,9 @@ export class SandoCheckbox extends FlavorableMixin(LitElement) {
    * Order matters for specificity
    */
   static styles = [
+    resetStyles, // Universal CSS reset (box-sizing, reduced-motion, etc.)
     tokenStyles, // Design tokens (Ingredients, Flavors, Recipes)
-    baseStyles, // Reset, layout, typography, focus
+    baseStyles, // Layout, typography, focus
     variantStyles, // Solid, outline
     sizeStyles, // Small, medium, large
     stateStyles // Checked, indeterminate, disabled, error

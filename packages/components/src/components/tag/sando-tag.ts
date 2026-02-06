@@ -91,6 +91,7 @@ import type {
   TagActionEventDetail
 } from './sando-tag.types.js';
 import { FlavorableMixin } from '../../mixins/index.js';
+import { resetStyles } from '../../styles/reset.css.js';
 import { tokenStyles } from '../../styles/tokens.css.js';
 import { baseStyles, variantStyles, sizeStyles, stateStyles } from './styles/index.js';
 
@@ -180,8 +181,9 @@ export class SandoTag extends FlavorableMixin(LitElement) {
    * Order matters for specificity
    */
   static styles = [
+    resetStyles, // Universal reset (box-sizing, button reset, etc.)
     tokenStyles, // Design tokens (Ingredients, Flavors, Recipes)
-    baseStyles, // Reset, layout, typography, focus
+    baseStyles, // Layout, typography, focus
     variantStyles, // Solid, outline, soft
     sizeStyles, // Small, medium, large
     stateStyles // Disabled state

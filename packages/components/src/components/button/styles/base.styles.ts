@@ -26,9 +26,9 @@ export const baseStyles = css`
 
   button,
   a {
-    /* Reset */
+    /* Reset - all:unset needed for complete button reset */
     all: unset;
-    box-sizing: border-box;
+    /* Note: box-sizing comes from resetStyles */
 
     /* Display */
     display: inline-flex;

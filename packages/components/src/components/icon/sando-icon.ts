@@ -69,6 +69,7 @@ import type { IconName } from './icon-manifest';
 import { loadIconSvg, isValidIconName } from './icon-manifest';
 import type { IconSize, IconColor } from './sando-icon.types';
 import { FlavorableMixin } from '../../mixins/index.js';
+import { resetStyles } from '../../styles/reset.css.js';
 import { tokenStyles } from '../../styles/tokens.css.js';
 
 @customElement('sando-icon')
@@ -183,6 +184,7 @@ export class SandoIcon extends FlavorableMixin(LitElement) {
    * Component styles
    */
   static styles = [
+    resetStyles,
     tokenStyles,
     css`
       :host {
@@ -307,7 +309,6 @@ export class SandoIcon extends FlavorableMixin(LitElement) {
       .icon-wrapper svg {
         width: 100%;
         height: 100%;
-        display: block;
         stroke: currentColor;
         fill: none;
       }

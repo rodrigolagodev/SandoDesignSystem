@@ -5,6 +5,7 @@ import type {
   FormGroupValidationChangeDetail
 } from './sando-form-group.types.js';
 import { FlavorableMixin } from '../../mixins/index.js';
+import { resetStyles } from '../../styles/reset.css.js';
 import { tokenStyles } from '../../styles/tokens.css.js';
 import { baseStyles, labelStyles, helperStyles } from './styles/index.js';
 
@@ -73,8 +74,9 @@ import { baseStyles, labelStyles, helperStyles } from './styles/index.js';
 export class SandoFormGroup extends FlavorableMixin(LitElement) implements SandoFormGroupProps {
   /**
    * Component styles - modular CSS from styles directory
+   * resetStyles must be first to establish baseline
    */
-  static styles = [tokenStyles, baseStyles, labelStyles, helperStyles];
+  static styles = [resetStyles, tokenStyles, baseStyles, labelStyles, helperStyles];
 
   /**
    * Unique ID for label-input association

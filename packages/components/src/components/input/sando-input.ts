@@ -10,6 +10,7 @@ import type {
 } from './sando-input.types.js';
 
 import { FlavorableMixin } from '../../mixins/index.js';
+import { resetStyles } from '../../styles/reset.css.js';
 import { tokenStyles } from '../../styles/tokens.css.js';
 
 /**
@@ -234,6 +235,7 @@ export class SandoInput extends FlavorableMixin(LitElement) implements SandoInpu
   autocomplete?: string;
 
   static styles = [
+    resetStyles,
     tokenStyles,
     css`
       :host {
@@ -369,8 +371,6 @@ export class SandoInput extends FlavorableMixin(LitElement) implements SandoInpu
         flex: 1;
         border: none;
         outline: none;
-        font-family: inherit;
-        line-height: inherit;
         background: transparent;
         min-width: 0;
         color: var(--sando-input-outlined-textColor-default);

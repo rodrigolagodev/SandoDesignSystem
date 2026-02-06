@@ -2,11 +2,12 @@
  * Base Select Styles
  *
  * Contains:
- * - CSS reset
  * - Layout (flexbox, alignment)
  * - Typography
  * - Base appearance (border radius, cursor, transitions)
  * - Focus states
+ *
+ * Note: CSS reset is handled by resetStyles (imported in component)
  */
 
 import { css } from 'lit';
@@ -59,10 +60,6 @@ export const baseStyles = css`
     border-width: var(--sando-select-borderWidth);
     border-style: solid;
     cursor: pointer;
-    background: none;
-    font-family: inherit;
-    font-size: inherit;
-    line-height: inherit;
     text-align: left;
     transition-property: border-color, background-color, box-shadow, outline;
     transition-duration: var(--sando-select-transition-duration);
@@ -185,15 +182,6 @@ export const baseStyles = css`
     .select-trigger:focus-visible {
       outline-width: 4px;
       outline-offset: 3px;
-    }
-  }
-
-  /* Reduced motion support */
-  @media (prefers-reduced-motion: reduce) {
-    .select-trigger,
-    .select-caret,
-    .select-clear {
-      transition-duration: 0.01ms !important;
     }
   }
 `;
