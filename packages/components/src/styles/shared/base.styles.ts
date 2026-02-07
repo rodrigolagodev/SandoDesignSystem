@@ -56,8 +56,8 @@ export const visuallyHidden = css`
  * Focus visible outline styles
  */
 export const focusVisible = css`
-  outline: var(--sando-focus-outline-width, 2px) solid var(--sando-focus-outline-color, #0066cc);
-  outline-offset: 2px;
+  outline: var(--sando-focus-outline-width) solid var(--sando-color-focus-ring);
+  outline-offset: var(--sando-focus-outline-offset);
 `;
 
 /**
@@ -65,7 +65,7 @@ export const focusVisible = css`
  */
 export const disabledState = css`
   cursor: not-allowed;
-  opacity: var(--sando-disabled-opacity, 0.5);
+  opacity: var(--sando-opacity-disabled);
   pointer-events: none;
 `;
 
@@ -74,8 +74,8 @@ export const disabledState = css`
  */
 export const transition = css`
   transition-property: background-color, color, border-color, transform, box-shadow, opacity;
-  transition-duration: var(--sando-transition-duration-fast, 150ms);
-  transition-timing-function: var(--sando-transition-timing, ease-in-out);
+  transition-duration: var(--sando-animation-duration-fast);
+  transition-timing-function: var(--sando-animation-easing-default);
 `;
 
 /**

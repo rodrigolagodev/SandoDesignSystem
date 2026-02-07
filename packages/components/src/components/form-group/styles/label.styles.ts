@@ -25,6 +25,6 @@ export const labelStyles = css`
 
   .required {
     color: var(--sando-form-group-required-textColor);
-    margin-inline-start: 0.125rem;
+    margin-inline-start: var(--sando-form-group-required-marginInlineStart);
   }
 `;
