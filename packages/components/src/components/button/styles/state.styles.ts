@@ -27,10 +27,11 @@ export const stateStyles = css`
     display: inline-block;
     width: 1em;
     height: 1em;
-    border: 2px solid var(--sando-button-loading-spinnerColor);
+    border: var(--sando-button-loading-spinnerBorderWidth) solid
+      var(--sando-button-loading-spinnerColor);
     border-top-color: transparent;
-    border-radius: 50%;
-    animation: spin 0.6s linear infinite;
+    border-radius: var(--sando-border-radius-circular);
+    animation: spin var(--sando-button-loading-spinnerDuration) linear infinite;
   }
 
   :host([loading]) .spinner {

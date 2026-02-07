@@ -34,7 +34,7 @@ export const baseStyles = css`
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5em;
+    gap: var(--sando-button-gap);
     width: 100%;
 
     /* Typography */
@@ -61,7 +61,7 @@ export const baseStyles = css`
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5em;
+    gap: var(--sando-button-gap);
     width: 100%;
 
     /* Typography */
@@ -90,33 +90,33 @@ export const baseStyles = css`
   @media (prefers-contrast: high) {
     button:focus-visible,
     a:focus-visible {
-      outline-width: 4px;
-      outline-offset: calc(var(--sando-button-focusOutlineOffset) * 1.5);
+      outline-width: var(--sando-border-width-emphasis);
+      outline-offset: var(--sando-button-focusOutlineOffset);
     }
   }
 
   button:active,
   a:active {
-    transform: scale(0.98);
+    transform: scale(var(--sando-button-transform-active));
   }
 
   /* Icons - Slots and Props */
   ::slotted([slot='icon-start']),
   .icon-start {
-    margin-inline-end: 0.25em;
+    margin-inline-end: var(--sando-button-icon-gap);
   }
 
   ::slotted([slot='icon-end']),
   .icon-end {
-    margin-inline-start: 0.25em;
+    margin-inline-start: var(--sando-button-icon-gap);
   }
 
   /* Reduced motion support */
   @media (prefers-reduced-motion: reduce) {
     button,
     a {
-      transition-duration: 0.01ms !important;
-      animation-duration: 0.01ms !important;
+      transition-duration: 0s !important;
+      animation-duration: 0s !important;
     }
 
     button:active,
