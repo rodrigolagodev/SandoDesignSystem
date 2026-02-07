@@ -34,6 +34,7 @@ import "../../../packages/tokens/dist/sando-tokens/css/ingredients/elevation.css
 import "../../../packages/tokens/dist/sando-tokens/css/ingredients/opacity.css";
 import "../../../packages/tokens/dist/sando-tokens/css/ingredients/animation.css";
 import "../../../packages/tokens/dist/sando-tokens/css/ingredients/z-index.css";
+import "../../../packages/tokens/dist/sando-tokens/css/ingredients/scale.css";
 
 // Import Recipes (component tokens, always loaded)
 import "../../../packages/tokens/dist/sando-tokens/css/recipes/button.css";
