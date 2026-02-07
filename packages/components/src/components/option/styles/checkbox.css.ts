@@ -19,29 +19,28 @@ export const checkboxStyles = css`
     flex-shrink: 0;
 
     /* Use checkbox tokens for visual consistency */
-    width: var(--sando-checkbox-size-medium, 18px);
-    height: var(--sando-checkbox-size-medium, 18px);
-    border: var(--sando-checkbox-borderWidth, 2px) solid
-      var(--sando-checkbox-borderColor-default, #d1d5db);
-    border-radius: var(--sando-checkbox-borderRadius, 4px);
-    background: var(--sando-checkbox-backgroundColor-default, transparent);
+    width: var(--sando-checkbox-size-medium);
+    height: var(--sando-checkbox-size-medium);
+    border: var(--sando-checkbox-borderWidth) solid var(--sando-checkbox-borderColor-default);
+    border-radius: var(--sando-checkbox-borderRadius);
+    background: var(--sando-checkbox-backgroundColor-default);
 
     /* Smooth transition */
     transition-property: background-color, border-color, color;
-    transition-duration: var(--sando-select-transition-duration, 150ms);
-    transition-timing-function: var(--sando-select-transition-timing, ease);
+    transition-duration: var(--sando-select-transition-duration);
+    transition-timing-function: var(--sando-select-transition-timing);
   }
 
   /* Checkbox hover state (when option is hovered) */
   :host(:not([disabled])) .option:hover .option-checkbox:not(.checked) {
-    border-color: var(--sando-checkbox-borderColor-hover, #9ca3af);
+    border-color: var(--sando-checkbox-borderColor-hover);
   }
 
   /* Checkbox checked state */
   .option-checkbox.checked {
-    background: var(--sando-checkbox-backgroundColor-checked, #f97316);
-    border-color: var(--sando-checkbox-borderColor-checked, #f97316);
-    color: var(--sando-checkbox-iconColor-checked, white);
+    background: var(--sando-checkbox-backgroundColor-checked);
+    border-color: var(--sando-checkbox-borderColor-checked);
+    color: var(--sando-checkbox-iconColor-checked);
   }
 
   /* Checkbox icon sizing */
@@ -51,14 +50,14 @@ export const checkboxStyles = css`
 
   /* Disabled state */
   :host([disabled]) .option-checkbox {
-    background: var(--sando-checkbox-backgroundColor-disabled, #f3f4f6);
-    border-color: var(--sando-checkbox-borderColor-disabled, #e5e7eb);
+    background: var(--sando-checkbox-backgroundColor-disabled);
+    border-color: var(--sando-checkbox-borderColor-disabled);
   }
 
   :host([disabled]) .option-checkbox.checked {
-    background: var(--sando-checkbox-backgroundColor-checked-disabled, #d1d5db);
-    border-color: var(--sando-checkbox-borderColor-checked-disabled, #d1d5db);
-    color: var(--sando-checkbox-iconColor-disabled, #9ca3af);
+    background: var(--sando-checkbox-backgroundColor-checked-disabled);
+    border-color: var(--sando-checkbox-borderColor-checked-disabled);
+    color: var(--sando-checkbox-iconColor-disabled);
   }
 
   /* ========================================
