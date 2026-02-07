@@ -258,9 +258,37 @@
       "type": "fontWeight"
     },
     "lineHeight": { "value": "{font.lineHeight.body.value}", "type": "number" },
+    "borderWidth": {
+      "value": "{border.width.default.value}",
+      "type": "dimension"
+    },
     "borderRadius": {
       "value": "{border.radius.default.value}",
       "type": "dimension"
+    },
+    "radius": {
+      "none": { "value": "0", "type": "dimension" },
+      "default": {
+        "value": "{border.radius.default.value}",
+        "type": "dimension"
+      },
+      "full": { "value": "{border.radius.full.value}", "type": "dimension" }
+    },
+    "gap": {
+      "value": "{space.stack.muted.value}",
+      "type": "dimension"
+    },
+    "icon": {
+      "gap": {
+        "value": "{space.stack.tight.value}",
+        "type": "dimension"
+      }
+    },
+    "transform": {
+      "active": {
+        "value": "{scale.press.subtle.value}",
+        "type": "number"
+      }
     },
     "focusOutlineColor": {
       "value": "{color.focus.ring.value}",
@@ -279,7 +307,15 @@
         "value": "{color.text.on-solid.value}",
         "type": "color"
       },
-      "opacity": { "value": "{opacity.loading.value}", "type": "number" }
+      "opacity": { "value": "{opacity.loading.value}", "type": "number" },
+      "spinnerBorderWidth": {
+        "value": "{border.width.emphasis.value}",
+        "type": "dimension"
+      },
+      "spinnerDuration": {
+        "value": "{animation.duration.slow.value}",
+        "type": "duration"
+      }
     },
     "transition": {
       "duration": {
