@@ -2,7 +2,7 @@
  * Token Value Validation Tests
  *
  * Tests the actual values of tokens:
- * - Color format (HSL)
+ * - Color format (OKLCH)
  * - Dimension units (rem, px)
  * - Value ranges (opacity 0-1, etc.)
  * - Font weights (100-900)
@@ -53,7 +53,7 @@ describe("Color Token Values", () => {
     expect(colorTokens.length).toBeGreaterThan(0);
   });
 
-  describe("HSL Format", () => {
+  describe("OKLCH Format", () => {
     colorTokens.forEach(({ path, value }) => {
       // Skip references and special values
       if (
@@ -63,35 +63,38 @@ describe("Color Token Values", () => {
         return;
       }
 
-      it(`${path} should use HSL format`, () => {
-        const hslPattern = /^hsl\(\s*\d+\s*,\s*\d+%\s*,\s*\d+%\s*\)$/;
-        expect(value).toMatch(hslPattern);
+      it(`${path} should use OKLCH format`, () => {
+        // OKLCH format: oklch(L C H) where L, C, H are numbers (with optional decimals)
+        const oklchPattern = /^oklch\(\d+\.?\d*\s+\d+\.?\d*\s+\d+\.?\d*\)$/;
+        expect(value).toMatch(oklchPattern);
+      });
+
+      it(`${path} should have valid lightness (0-1)`, () => {
+        const match = value.match(/oklch\((\d+\.?\d*)\s+/);
+        if (match) {
+          const lightness = parseFloat(match[1]);
+          expect(lightness).toBeGreaterThanOrEqual(0);
+          expect(lightness).toBeLessThanOrEqual(1);
+        }
+      });
+
+      it(`${path} should have valid chroma (0-0.5)`, () => {
+        const match = value.match(/oklch\(\d+\.?\d*\s+(\d+\.?\d*)\s+/);
+        if (match) {
+          const chroma = parseFloat(match[1]);
+          expect(chroma).toBeGreaterThanOrEqual(0);
+          expect(chroma).toBeLessThanOrEqual(0.5);
+        }
       });
 
       it(`${path} should have valid hue (0-360)`, () => {
-        const match = value.match(/hsl\((\d+),/);
+        const match = value.match(
+          /oklch\(\d+\.?\d*\s+\d+\.?\d*\s+(\d+\.?\d*)\)/,
+        );
         if (match) {
-          const hue = parseInt(match[1]);
+          const hue = parseFloat(match[1]);
           expect(hue).toBeGreaterThanOrEqual(0);
           expect(hue).toBeLessThanOrEqual(360);
-        }
-      });
-
-      it(`${path} should have valid saturation (0-100%)`, () => {
-        const match = value.match(/,\s*(\d+)%/);
-        if (match) {
-          const saturation = parseInt(match[1]);
-          expect(saturation).toBeGreaterThanOrEqual(0);
-          expect(saturation).toBeLessThanOrEqual(100);
-        }
-      });
-
-      it(`${path} should have valid lightness (0-100%)`, () => {
-        const match = value.match(/,\s*\d+%\s*,\s*(\d+)%/);
-        if (match) {
-          const lightness = parseInt(match[1]);
-          expect(lightness).toBeGreaterThanOrEqual(0);
-          expect(lightness).toBeLessThanOrEqual(100);
         }
       });
     });
