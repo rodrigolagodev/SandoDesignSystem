@@ -189,9 +189,23 @@
       }
     },
     "compact": {
-      "paddingBlock": {
-        "value": "{space.stack.tight.value}",
-        "type": "dimension"
+      "sm": {
+        "paddingBlock": {
+          "value": "{space.stack.none.value}",
+          "type": "dimension"
+        }
+      },
+      "md": {
+        "paddingBlock": {
+          "value": "{space.stack.tight.value}",
+          "type": "dimension"
+        }
+      },
+      "lg": {
+        "paddingBlock": {
+          "value": "{space.stack.tight.value}",
+          "type": "dimension"
+        }
       }
     },
     "fontFamily": {

@@ -333,10 +333,14 @@ export const AllStates: Story = {
     <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
       <!-- Enabled Group -->
       <div>
-        <h4 style="margin: 0 0 0.5rem 0; font-size: 0.875rem; color: #78716c;">Enabled</h4>
+        <h4
+          style="margin: 0 0 0.5rem 0; font-size: 0.875rem; color: var(--sando-color-text-muted);"
+        >
+          Enabled
+        </h4>
         <div
           role="listbox"
-          style="width: 250px; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;"
+          style="width: 250px; border: 1px solid var(--sando-color-border-default); border-radius: 8px; overflow: hidden;"
         >
           <sando-option-group label="Fruits">
             <sando-option value="apple">Apple</sando-option>
@@ -348,10 +352,14 @@ export const AllStates: Story = {
 
       <!-- Disabled Group -->
       <div>
-        <h4 style="margin: 0 0 0.5rem 0; font-size: 0.875rem; color: #78716c;">Disabled</h4>
+        <h4
+          style="margin: 0 0 0.5rem 0; font-size: 0.875rem; color: var(--sando-color-text-muted);"
+        >
+          Disabled
+        </h4>
         <div
           role="listbox"
-          style="width: 250px; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;"
+          style="width: 250px; border: 1px solid var(--sando-color-border-default); border-radius: 8px; overflow: hidden;"
         >
           <sando-option-group label="Fruits" disabled>
             <sando-option value="apple">Apple</sando-option>
@@ -378,7 +386,7 @@ export const AllExamples: Story = {
         <h3 style="margin: 0 0 0.75rem 0; font-size: 1rem;">Basic Groups</h3>
         <div
           role="listbox"
-          style="max-width: 300px; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;"
+          style="max-width: 300px; border: 1px solid var(--sando-color-border-default); border-radius: 8px; overflow: hidden;"
         >
           <sando-option-group label="Fruits">
             <sando-option value="apple">Apple</sando-option>
@@ -396,7 +404,7 @@ export const AllExamples: Story = {
         <h3 style="margin: 0 0 0.75rem 0; font-size: 1rem;">Mixed States</h3>
         <div
           role="listbox"
-          style="max-width: 300px; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;"
+          style="max-width: 300px; border: 1px solid var(--sando-color-border-default); border-radius: 8px; overflow: hidden;"
         >
           <sando-option-group label="Available">
             <sando-option value="opt1" selected>Selected Option</sando-option>
@@ -414,18 +422,22 @@ export const AllExamples: Story = {
         <h3 style="margin: 0 0 0.75rem 0; font-size: 1rem;">With Rich Content</h3>
         <div
           role="listbox"
-          style="max-width: 300px; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;"
+          style="max-width: 300px; border: 1px solid var(--sando-color-border-default); border-radius: 8px; overflow: hidden;"
         >
           <sando-option-group label="Premium Plans">
             <sando-option value="pro">
               <span slot="prefix">⭐</span>
               Pro
-              <span slot="suffix" style="font-size: 12px; color: #64748b;">$10/mo</span>
+              <span slot="suffix" style="font-size: 12px; color: var(--sando-color-text-muted);"
+                >$10/mo</span
+              >
             </sando-option>
             <sando-option value="team">
               <span slot="prefix">👥</span>
               Team
-              <span slot="suffix" style="font-size: 12px; color: #64748b;">$50/mo</span>
+              <span slot="suffix" style="font-size: 12px; color: var(--sando-color-text-muted);"
+                >$50/mo</span
+              >
             </sando-option>
           </sando-option-group>
         </div>

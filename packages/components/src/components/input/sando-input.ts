@@ -1,4 +1,4 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 
 import type {
@@ -12,6 +12,7 @@ import type {
 import { FlavorableMixin } from '../../mixins/index.js';
 import { resetStyles } from '../../styles/reset.css.js';
 import { tokenStyles } from '../../styles/tokens.css.js';
+import { baseStyles, variantStyles, sizeStyles, stateStyles } from './styles/index.js';
 
 /**
  * Sando Input Component
@@ -234,183 +235,7 @@ export class SandoInput extends FlavorableMixin(LitElement) implements SandoInpu
   @property({ reflect: true })
   autocomplete?: string;
 
-  static styles = [
-    resetStyles,
-    tokenStyles,
-    css`
-      :host {
-        display: inline-block;
-        width: 100%;
-        font-family: var(--sando-input-fontFamily);
-        line-height: var(--sando-input-lineHeight);
-      }
-
-      /* Label styles */
-      .label {
-        display: block;
-        margin-bottom: var(--sando-input-label-marginBottom);
-        color: var(--sando-input-label-textColor-default);
-        font-size: var(--sando-input-label-fontSize);
-        font-weight: var(--sando-input-label-fontWeight);
-      }
-
-      :host([disabled]) .label {
-        color: var(--sando-input-label-textColor-disabled);
-      }
-
-      .required-indicator {
-        color: var(--sando-input-required-textColor);
-      }
-
-      /* Input wrapper styles - outlined variant (default) */
-      .input-wrapper {
-        display: flex;
-        align-items: center;
-        gap: var(--sando-input-gap);
-        border: var(--sando-input-borderWidth) solid var(--sando-input-outlined-borderColor-default);
-        border-radius: var(--sando-input-borderRadius);
-        background: var(--sando-input-outlined-backgroundColor-default);
-        transition-property: border-color, background-color, box-shadow;
-        transition-duration: var(--sando-input-transition-duration);
-        transition-timing-function: var(--sando-input-transition-timing);
-      }
-
-      /* Size variants */
-      :host([size='sm']) .input-wrapper {
-        padding-inline: var(--sando-input-size-sm-paddingInline);
-        padding-block: var(--sando-input-size-sm-paddingBlock);
-        min-height: var(--sando-input-size-sm-minHeight);
-      }
-
-      :host([size='sm']) input {
-        font-size: var(--sando-input-size-sm-fontSize);
-      }
-
-      :host([size='md']) .input-wrapper,
-      .input-wrapper {
-        padding-inline: var(--sando-input-size-md-paddingInline);
-        padding-block: var(--sando-input-size-md-paddingBlock);
-        min-height: var(--sando-input-size-md-minHeight);
-      }
-
-      :host([size='md']) input,
-      input {
-        font-size: var(--sando-input-size-md-fontSize);
-      }
-
-      :host([size='lg']) .input-wrapper {
-        padding-inline: var(--sando-input-size-lg-paddingInline);
-        padding-block: var(--sando-input-size-lg-paddingBlock);
-        min-height: var(--sando-input-size-lg-minHeight);
-      }
-
-      :host([size='lg']) input {
-        font-size: var(--sando-input-size-lg-fontSize);
-      }
-
-      /* Filled variant */
-      :host([variant='filled']) .input-wrapper {
-        background: var(--sando-input-filled-backgroundColor-default);
-        border-color: var(--sando-input-filled-borderColor-default);
-      }
-
-      :host([variant='filled']) .input-wrapper:hover:not(.disabled) {
-        background: var(--sando-input-filled-backgroundColor-hover);
-        border-color: var(--sando-input-filled-borderColor-hover);
-      }
-
-      /* Hover state - outlined */
-      :host([variant='outlined']) .input-wrapper:hover:not(.disabled):not(.error),
-      .input-wrapper:hover:not(.disabled):not(.error) {
-        border-color: var(--sando-input-outlined-borderColor-hover);
-      }
-
-      /* Focus state - outlined */
-      :host([variant='outlined']) .input-wrapper.focused,
-      .input-wrapper.focused {
-        border-color: var(--sando-input-outlined-borderColor-focus);
-        outline: var(--sando-input-focusOutlineWidth) solid var(--sando-input-focusOutlineColor);
-        outline-offset: var(--sando-input-focusOutlineOffset);
-      }
-
-      /* Focus state - filled */
-      :host([variant='filled']) .input-wrapper.focused {
-        border-color: var(--sando-input-filled-borderColor-focus);
-        outline: var(--sando-input-focusOutlineWidth) solid var(--sando-input-focusOutlineColor);
-        outline-offset: var(--sando-input-focusOutlineOffset);
-      }
-
-      /* Error state - outlined */
-      :host([variant='outlined']) .input-wrapper.error,
-      .input-wrapper.error {
-        border-color: var(--sando-input-outlined-borderColor-error);
-      }
-
-      /* Error state - filled */
-      :host([variant='filled']) .input-wrapper.error {
-        border-color: var(--sando-input-filled-borderColor-error);
-      }
-
-      /* Disabled state - outlined */
-      :host([variant='outlined']) .input-wrapper.disabled,
-      .input-wrapper.disabled {
-        background: var(--sando-input-outlined-backgroundColor-disabled);
-        border-color: var(--sando-input-outlined-borderColor-disabled);
-        cursor: not-allowed;
-      }
-
-      /* Disabled state - filled */
-      :host([variant='filled']) .input-wrapper.disabled {
-        background: var(--sando-input-filled-backgroundColor-disabled);
-        border-color: var(--sando-input-filled-borderColor-disabled);
-        cursor: not-allowed;
-      }
-
-      /* Native input element */
-      input {
-        flex: 1;
-        min-width: 0;
-        /* Reset outline (not handled by global reset) */
-        outline: none;
-        color: var(--sando-input-outlined-textColor-default);
-      }
-
-      input::placeholder {
-        color: var(--sando-input-outlined-textColor-placeholder);
-      }
-
-      :host([variant='filled']) input {
-        color: var(--sando-input-filled-textColor-default);
-      }
-
-      :host([variant='filled']) input::placeholder {
-        color: var(--sando-input-filled-textColor-placeholder);
-      }
-
-      input:disabled {
-        cursor: not-allowed;
-        color: var(--sando-input-outlined-textColor-disabled);
-      }
-
-      :host([variant='filled']) input:disabled {
-        color: var(--sando-input-filled-textColor-disabled);
-      }
-
-      /* Helper text */
-      .helper-text {
-        margin-top: var(--sando-input-helperText-marginTop);
-        color: var(--sando-input-helperText-textColor-default);
-        font-size: var(--sando-input-helperText-fontSize);
-      }
-
-      /* Error text */
-      .error-text {
-        margin-top: var(--sando-input-errorText-marginTop);
-        color: var(--sando-input-errorText-textColor);
-        font-size: var(--sando-input-errorText-fontSize);
-      }
-    `
-  ];
+  static styles = [resetStyles, tokenStyles, baseStyles, variantStyles, sizeStyles, stateStyles];
 
   /**
    * Lifecycle: Called when component is added to DOM

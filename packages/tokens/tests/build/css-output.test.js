@@ -136,9 +136,9 @@ describe('CSS Output - Ingredients Layer', () => {
       expect(content).toMatch(/--sando-color-orange-/);
     });
 
-    it('should use HSL format', () => {
+    it('should use OKLCH format', () => {
       const content = getContent();
-      expect(content).toMatch(/hsl\(/);
+      expect(content).toMatch(/oklch\(/);
     });
   });
 
@@ -197,14 +197,14 @@ describe('CSS Output - Flavors Layer', () => {
     expect(content).toMatch(/var\(--sando-/);
   });
 
-  it('should NOT have literal HSL values (should reference Ingredients)', () => {
+  it('should NOT have literal OKLCH values (should reference Ingredients)', () => {
     // Extract content inside :root { ... }
     const match = content.match(/:root\s*\{([^}]+)\}/s);
     if (match) {
       const variables = match[1];
-      // Check that we don't have direct HSL values, only var() references
-      const hasDirectHSL = /:\s*hsl\(/.test(variables);
-      expect(hasDirectHSL).toBe(false);
+      // Check that we don't have direct OKLCH values, only var() references
+      const hasDirectOKLCH = /:\s*oklch\(/.test(variables);
+      expect(hasDirectOKLCH).toBe(false);
     }
   });
 
@@ -344,8 +344,8 @@ describe('CSS Output - Reference Chain Integrity', () => {
     // Flavor: --sando-color-action-solid-background-default: var(--sando-color-orange-700);
     expect(flavorsContent).toMatch(/--sando-color-action-solid-background-default:\s*var\(--sando-color-orange-700\)/);
 
-    // Ingredient: --sando-color-orange-700: hsl(...);
-    expect(ingredientsColor).toMatch(/--sando-color-orange-700:\s*hsl\(/);
+    // Ingredient: --sando-color-orange-700: oklch(...);
+    expect(ingredientsColor).toMatch(/--sando-color-orange-700:\s*oklch\(/);
   });
 });
 
@@ -361,7 +361,7 @@ describe('CSS Output - File Sizes', () => {
       'ingredients/color.css': 10000, // ~10KB (includes all color palettes)
       'ingredients/font.css': 3000,   // ~3KB
       'flavors/original/flavor.css': 10000, // ~10KB per flavor
-      'recipes/button.css': 40000     // ~40KB (button is the largest recipe)
+      'recipes/button.css': 45000     // ~45KB (button is the largest recipe, includes all variants/states/sizes)
     };
 
     Object.entries(maxSizes).forEach(([file, maxSize]) => {

@@ -413,7 +413,7 @@ export const FormExample: Story = {
 
       <button
         type="submit"
-        style="padding: 12px 24px; background: var(--sando-color-brand-500, #f97316); color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 1rem;"
+        style="padding: 12px 24px; background: var(--sando-color-action-solid-background-default); color: var(--sando-color-text-on-solid); border: none; border-radius: 4px; cursor: pointer; font-size: 1rem;"
       >
         Submit
       </button>
