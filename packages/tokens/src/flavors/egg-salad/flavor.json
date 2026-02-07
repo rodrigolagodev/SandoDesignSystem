@@ -201,6 +201,7 @@
       "emphasis": { "value": "{space.6.value}", "type": "dimension" }
     },
     "stack": {
+      "none": { "value": "{space.0.value}", "type": "dimension" },
       "tight": { "value": "{space.1.value}", "type": "dimension" },
       "muted": { "value": "{space.2.value}", "type": "dimension" },
       "default": { "value": "{space.4.value}", "type": "dimension" },

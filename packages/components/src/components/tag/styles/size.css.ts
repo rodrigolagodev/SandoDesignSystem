@@ -103,8 +103,19 @@ export const sizeStyles = css`
      Removes min-height constraint
      Works with all sizes
      ======================================== */
-  :host([compact]) .tag {
-    padding-block: var(--sando-tag-compact-paddingBlock);
+  :host([compact][size='sm']) .tag {
+    padding-block: var(--sando-tag-compact-sm-paddingBlock);
+    min-height: auto;
+  }
+
+  :host([compact][size='md']) .tag,
+  :host([compact]:not([size])) .tag {
+    padding-block: var(--sando-tag-compact-md-paddingBlock);
+    min-height: auto;
+  }
+
+  :host([compact][size='lg']) .tag {
+    padding-block: var(--sando-tag-compact-lg-paddingBlock);
     min-height: auto;
   }
 `;
