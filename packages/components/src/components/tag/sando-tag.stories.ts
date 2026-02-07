@@ -280,7 +280,9 @@ export const MandatoryIcon: Story = {
   render: () => html`
     <div style="display: flex; flex-direction: column; gap: 1.5rem;">
       <div>
-        <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">
+        <h4
+          style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: var(--sando-color-text-heading);"
+        >
           Default Icon (circle-chevron-right)
         </h4>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
@@ -290,7 +292,9 @@ export const MandatoryIcon: Story = {
         </div>
       </div>
       <div>
-        <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">
+        <h4
+          style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: var(--sando-color-text-heading);"
+        >
           Custom Icons (via slot)
         </h4>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
@@ -331,7 +335,9 @@ export const Removable: Story = {
   render: (args) => html`
     <div style="display: flex; flex-direction: column; gap: 1.5rem;">
       <div>
-        <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">
+        <h4
+          style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: var(--sando-color-text-heading);"
+        >
           Removable Tags (click X to remove)
         </h4>
         <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center;">
@@ -364,7 +370,7 @@ export const Removable: Story = {
           </sando-tag>
         </div>
       </div>
-      <p style="font-size: 0.875rem; color: #6b7280; margin: 0;">
+      <p style="font-size: 0.875rem; color: var(--sando-color-text-caption); margin: 0;">
         Open the <strong>Actions</strong> panel to see <code>sando-remove</code> events.
       </p>
     </div>
@@ -383,7 +389,9 @@ export const Clickable: Story = {
   render: () => html`
     <div style="display: flex; flex-direction: column; gap: 1.5rem;">
       <div>
-        <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">
+        <h4
+          style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: var(--sando-color-text-heading);"
+        >
           Clickable Tags (only icon area is interactive)
         </h4>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
@@ -398,7 +406,7 @@ export const Clickable: Story = {
           </sando-tag>
         </div>
       </div>
-      <p style="font-size: 0.875rem; color: #6b7280; margin: 0;">
+      <p style="font-size: 0.875rem; color: var(--sando-color-text-caption); margin: 0;">
         <strong>Try it:</strong> Click the text (nothing happens) vs. click the icon (triggers
         action).
       </p>
@@ -418,7 +426,9 @@ export const AsLink: Story = {
   render: () => html`
     <div style="display: flex; flex-direction: column; gap: 1.5rem;">
       <div>
-        <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">
+        <h4
+          style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: var(--sando-color-text-heading);"
+        >
           Link Tags (only icon area navigates)
         </h4>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
@@ -430,7 +440,7 @@ export const AsLink: Story = {
           </sando-tag>
         </div>
       </div>
-      <p style="font-size: 0.875rem; color: #6b7280; margin: 0;">
+      <p style="font-size: 0.875rem; color: var(--sando-color-text-caption); margin: 0;">
         <strong>Try it:</strong> Click the text (nothing happens) vs. click the icon (navigates).
       </p>
     </div>
@@ -449,7 +459,9 @@ export const WithCustomIcon: Story = {
     <div style="display: flex; flex-direction: column; gap: 1.5rem;">
       <!-- Informative with custom icon -->
       <div>
-        <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">
+        <h4
+          style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: var(--sando-color-text-heading);"
+        >
           Informative (icon visible, not interactive)
         </h4>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
@@ -470,7 +482,9 @@ export const WithCustomIcon: Story = {
 
       <!-- Clickable with custom icon -->
       <div>
-        <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">
+        <h4
+          style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: var(--sando-color-text-heading);"
+        >
           Clickable (only icon button triggers action)
         </h4>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
@@ -487,7 +501,9 @@ export const WithCustomIcon: Story = {
 
       <!-- Link with custom icon -->
       <div>
-        <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">
+        <h4
+          style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: var(--sando-color-text-heading);"
+        >
           Link (only icon anchor navigates)
         </h4>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
@@ -518,7 +534,9 @@ export const Disabled: Story = {
   render: () => html`
     <div style="display: flex; flex-direction: column; gap: 1.5rem;">
       <div>
-        <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">
+        <h4
+          style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: var(--sando-color-text-heading);"
+        >
           Disabled Variants
         </h4>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
@@ -528,7 +546,9 @@ export const Disabled: Story = {
         </div>
       </div>
       <div>
-        <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">
+        <h4
+          style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: var(--sando-color-text-heading);"
+        >
           Disabled Interactive Modes
         </h4>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
@@ -563,22 +583,25 @@ export const InContext: Story = {
 
     return html`
       <div
-        style="max-width: 600px; padding: 1.5rem; border: 1px solid #e5e7eb; border-radius: 8px; background: #fafafa;"
+        style="max-width: 600px; padding: 1.5rem; border: 1px solid var(--sando-color-border-muted); border-radius: 8px; background: var(--sando-color-background-surface);"
       >
         <div style="margin-bottom: 1rem;">
-          <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #374151;">
+          <label
+            style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: var(--sando-color-text-body);"
+          >
             Search Results
           </label>
           <input
             type="text"
             placeholder="Search products..."
             value="wireless headphones"
-            style="width: 100%; padding: 0.5rem 0.75rem; border: 1px solid #d1d5db; border-radius: 6px; font-size: 0.875rem;"
+            style="width: 100%; padding: 0.5rem 0.75rem; border: 1px solid var(--sando-color-border-default); border-radius: 6px; font-size: 0.875rem;"
           />
         </div>
 
         <div style="margin-bottom: 1rem;">
-          <span style="font-size: 0.75rem; color: #6b7280; margin-right: 0.5rem;"
+          <span
+            style="font-size: 0.75rem; color: var(--sando-color-text-caption); margin-right: 0.5rem;"
             >Active Filters:</span
           >
           <div style="display: inline-flex; gap: 0.5rem; flex-wrap: wrap; align-items: center;">
@@ -617,8 +640,10 @@ export const InContext: Story = {
           </div>
         </div>
 
-        <div style="padding-top: 1rem; border-top: 1px solid #e5e7eb;">
-          <span style="font-size: 0.875rem; color: #374151;">Showing 24 results</span>
+        <div style="padding-top: 1rem; border-top: 1px solid var(--sando-color-border-muted);">
+          <span style="font-size: 0.875rem; color: var(--sando-color-text-body);"
+            >Showing 24 results</span
+          >
         </div>
       </div>
     `;
@@ -637,12 +662,12 @@ export const InteractionComparison: Story = {
   render: () => html`
     <div style="display: flex; flex-direction: column; gap: 2rem;">
       <div
-        style="padding: 1.5rem; border: 1px solid #e5e7eb; border-radius: 8px; background: #f9fafb;"
+        style="padding: 1.5rem; border: 1px solid var(--sando-color-border-muted); border-radius: 8px; background: var(--sando-color-background-surface);"
       >
-        <h4 style="margin: 0 0 1rem 0; font-size: 1rem; color: #374151;">
+        <h4 style="margin: 0 0 1rem 0; font-size: 1rem; color: var(--sando-color-text-body);">
           🆕 Sando Tag Behavior (Split Interaction)
         </h4>
-        <p style="font-size: 0.875rem; color: #6b7280; margin: 0 0 1rem 0;">
+        <p style="font-size: 0.875rem; color: var(--sando-color-text-caption); margin: 0 0 1rem 0;">
           Only the <strong>icon area</strong> is interactive. The text content is display-only.
         </p>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
@@ -654,8 +679,10 @@ export const InteractionComparison: Story = {
         </div>
       </div>
 
-      <div style="padding: 1rem; background: #fef3c7; border-radius: 8px;">
-        <p style="margin: 0; font-size: 0.875rem; color: #92400e;">
+      <div
+        style="padding: 1rem; background: var(--sando-color-state-warning-background); border-radius: 8px;"
+      >
+        <p style="margin: 0; font-size: 0.875rem; color: var(--sando-color-state-warning-text);">
           <strong>💡 Why this pattern?</strong> Inspired by Strapi's Tag component, this approach
           provides clearer affordance for the interactive element and prevents accidental clicks on
           the content area.

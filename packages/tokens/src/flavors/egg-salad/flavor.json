@@ -181,7 +181,8 @@
       "circular": {
         "value": "{border.radius.circle.value}",
         "type": "dimension"
-      }
+      },
+      "full": { "value": "{border.radius.pill.value}", "type": "dimension" }
     },
     "width": {
       "default": { "value": "{border.width.50.value}", "type": "dimension" },
@@ -263,5 +264,11 @@
     "floating": { "value": "{z-index.dropdown.value}", "type": "number" },
     "overlay": { "value": "{z-index.modal.value}", "type": "number" },
     "popover": { "value": "{z-index.tooltip.value}", "type": "number" }
+  },
+  "focus": {
+    "outline": {
+      "width": { "value": "{border.width.100.value}", "type": "dimension" },
+      "offset": { "value": "{space.1.value}", "type": "dimension" }
+    }
   }
 }

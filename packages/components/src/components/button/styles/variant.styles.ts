@@ -43,7 +43,7 @@ export const variantStyles = css`
   :host([variant='outline']) a {
     background-color: transparent;
     color: var(--sando-button-outline-textColor-default);
-    border: 1px solid var(--sando-button-outline-borderColor-default);
+    border: var(--sando-button-borderWidth) solid var(--sando-button-outline-borderColor-default);
   }
 
   :host([variant='outline']) button:hover,

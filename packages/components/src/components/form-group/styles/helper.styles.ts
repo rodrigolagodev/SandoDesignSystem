@@ -30,7 +30,7 @@ export const helperStyles = css`
   /* High contrast mode support */
   @media (prefers-contrast: high) {
     .form-group__error {
-      font-weight: 700;
+      font-weight: var(--sando-font-weight-emphasis);
     }
   }
 

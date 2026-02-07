@@ -1,0 +1,28 @@
+{
+  "scale": {
+    "95": {
+      "value": "0.95",
+      "type": "number"
+    },
+    "98": {
+      "value": "0.98",
+      "type": "number"
+    },
+    "100": {
+      "value": "1",
+      "type": "number"
+    },
+    "102": {
+      "value": "1.02",
+      "type": "number"
+    },
+    "105": {
+      "value": "1.05",
+      "type": "number"
+    },
+    "110": {
+      "value": "1.10",
+      "type": "number"
+    }
+  }
+}

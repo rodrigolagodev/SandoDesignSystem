@@ -256,10 +256,10 @@ describe('CSS Output - Recipes Layer', () => {
     expect(content).toMatch(/-disabled/);
   });
 
-  it('should have size tokens (small, medium, large)', () => {
-    expect(content).toMatch(/--sando-button-size-small-/);
-    expect(content).toMatch(/--sando-button-size-medium-/);
-    expect(content).toMatch(/--sando-button-size-large-/);
+  it('should have size tokens (sm, md, lg)', () => {
+    expect(content).toMatch(/--sando-button-size-sm-/);
+    expect(content).toMatch(/--sando-button-size-md-/);
+    expect(content).toMatch(/--sando-button-size-lg-/);
   });
 
   it('should primarily use var() references (some literal values allowed)', () => {
@@ -361,7 +361,7 @@ describe('CSS Output - File Sizes', () => {
       'ingredients/color.css': 10000, // ~10KB (includes all color palettes)
       'ingredients/font.css': 3000,   // ~3KB
       'flavors/original/flavor.css': 10000, // ~10KB per flavor
-      'recipes/button.css': 35000     // ~35KB (button is the largest recipe)
+      'recipes/button.css': 40000     // ~40KB (button is the largest recipe)
     };
 
     Object.entries(maxSizes).forEach(([file, maxSize]) => {

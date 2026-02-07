@@ -273,10 +273,10 @@ describe('TypeScript Output - Recipes Layer (CSS Variable Names)', () => {
       expect(content).toMatch(/disabled/);
     });
 
-    it('should have button sizes (small, medium, large)', () => {
-      expect(content).toMatch(/small/);
-      expect(content).toMatch(/medium/);
-      expect(content).toMatch(/large/);
+    it('should have button sizes (sm, md, lg)', () => {
+      expect(content).toMatch(/sm/);
+      expect(content).toMatch(/md/);
+      expect(content).toMatch(/lg/);
     });
 
     it('should have JSDoc with usage example', () => {

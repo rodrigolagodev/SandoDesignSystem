@@ -94,11 +94,21 @@ describe('sando-select accessibility', () => {
       expect(trigger?.getAttribute('aria-expanded')).toBe('true');
     });
 
-    it('should have aria-controls pointing to listbox', () => {
+    it('should have aria-controls pointing to listbox when open', async () => {
       const trigger = element.shadowRoot?.querySelector('.select-trigger');
       const listbox = element.shadowRoot?.querySelector('[role="listbox"]');
+
+      // Per WAI-ARIA APG: aria-controls only needs to be set when popup is visible
+      // When closed, aria-controls should not be present to avoid axe-core violations
+      expect(trigger?.hasAttribute('aria-controls')).toBe(false);
+
+      // Open the select
+      element.show();
+      await element.updateComplete;
+
+      // Now aria-controls should be present and point to listbox
       const controlsId = trigger?.getAttribute('aria-controls');
-      expect(listbox?.id).toBe(controlsId);
+      expect(controlsId).toBe(listbox?.id);
     });
 
     it('should have role="listbox" on dropdown', () => {

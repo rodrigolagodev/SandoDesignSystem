@@ -72,6 +72,10 @@
       "textColor": {
         "value": "{color.state.destructive.text.value}",
         "type": "color"
+      },
+      "marginInlineStart": {
+        "value": "{space.stack.tight.value}",
+        "type": "dimension"
       }
     },
     "fontFamily": {

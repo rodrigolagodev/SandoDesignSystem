@@ -181,7 +181,8 @@
       "circular": {
         "value": "{border.radius.circle.value}",
         "type": "dimension"
-      }
+      },
+      "full": { "value": "{border.radius.pill.value}", "type": "dimension" }
     },
     "width": {
       "default": { "value": "{border.width.50.value}", "type": "dimension" },
@@ -263,5 +264,23 @@
     "floating": { "value": "{z-index.dropdown.value}", "type": "number" },
     "overlay": { "value": "{z-index.modal.value}", "type": "number" },
     "popover": { "value": "{z-index.tooltip.value}", "type": "number" }
+  },
+  "scale": {
+    "press": {
+      "subtle": { "value": "{scale.98.value}", "type": "number" },
+      "default": { "value": "{scale.95.value}", "type": "number" }
+    },
+    "hover": {
+      "subtle": { "value": "{scale.102.value}", "type": "number" },
+      "default": { "value": "{scale.105.value}", "type": "number" },
+      "emphasis": { "value": "{scale.110.value}", "type": "number" }
+    },
+    "base": { "value": "{scale.100.value}", "type": "number" }
+  },
+  "focus": {
+    "outline": {
+      "width": { "value": "{border.width.100.value}", "type": "dimension" },
+      "offset": { "value": "{space.1.value}", "type": "dimension" }
+    }
   }
 }

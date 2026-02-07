@@ -15,7 +15,7 @@ export const radiusStyles = css`
      ======================================== */
   :host([radius='none']) button,
   :host([radius='none']) a {
-    border-radius: 0;
+    border-radius: var(--sando-button-radius-none);
   }
 
   /* ========================================
@@ -30,6 +30,6 @@ export const radiusStyles = css`
      ======================================== */
   :host([radius='full']) button,
   :host([radius='full']) a {
-    border-radius: 9999px;
+    border-radius: var(--sando-button-radius-full);
   }
 `;

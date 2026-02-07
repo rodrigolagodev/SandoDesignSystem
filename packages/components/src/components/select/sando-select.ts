@@ -1168,7 +1168,7 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
           role="combobox"
           aria-haspopup="listbox"
           aria-expanded=${this.open ? 'true' : 'false'}
-          aria-controls="${this._inputId}-listbox"
+          aria-controls=${this.open ? `${this._inputId}-listbox` : nothing}
           aria-activedescendant=${activeDescendant || nothing}
           aria-required=${this.required ? 'true' : nothing}
           aria-invalid=${this.error ? 'true' : 'false'}
