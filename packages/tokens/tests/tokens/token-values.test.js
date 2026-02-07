@@ -157,7 +157,9 @@ describe("Dimension Token Values", () => {
   describe("Border Radius", () => {
     it("should have special values", () => {
       expect(border.border.radius.circle.value).toBe("50%");
-      expect(border.border.radius.full.value).toBe("9999px");
+      // "pill" is the Ingredient (primitive) name for 9999px
+      // "full" is the semantic Flavor name that references "pill"
+      expect(border.border.radius.pill.value).toBe("9999px");
     });
   });
 });

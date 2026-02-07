@@ -37,7 +37,7 @@
         "value": "50%",
         "type": "dimension"
       },
-      "full": {
+      "pill": {
         "value": "9999px",
         "type": "dimension"
       }
