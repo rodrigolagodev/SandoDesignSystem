@@ -369,10 +369,9 @@ export class SandoInput extends FlavorableMixin(LitElement) implements SandoInpu
       /* Native input element */
       input {
         flex: 1;
-        border: none;
-        outline: none;
-        background: transparent;
         min-width: 0;
+        /* Reset outline (not handled by global reset) */
+        outline: none;
         color: var(--sando-input-outlined-textColor-default);
       }
 

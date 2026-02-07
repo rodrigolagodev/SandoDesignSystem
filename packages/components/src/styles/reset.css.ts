@@ -45,12 +45,18 @@ export const resetStyles = css`
   }
 
   /* ============================================
-     3. INTERACTIVE ELEMENTS RESET
-     Buttons, inputs, selects, textareas
+     3. FORM ELEMENTS RESET
      
-     NOTE: If a component uses 'all: unset' on button/input elements,
-     these styles will be overridden. For complete reset of native
-     elements, import 'interactiveReset' from 'styles/shared/base.styles.ts'
+     All form elements receive a consistent baseline:
+     - padding: 0 (components apply their own via tokens)
+     - background: transparent (prevents browser backgrounds)
+     - border: none (prevents browser borders)
+     
+     This ensures all components (Input, Select, Textarea, etc.)
+     start from the same visual foundation.
+     
+     For complete element reset (all: unset), use:
+     import { interactiveReset } from 'styles/shared/base.styles.ts'
      ============================================ */
   button,
   input,
@@ -65,18 +71,20 @@ export const resetStyles = css`
     /* Remove default margin */
     margin: 0;
 
+    /* Remove default padding for consistent sizing */
+    padding: 0;
+
+    /* Remove default background and border */
+    background: transparent;
+    border: none;
+
     /* Box sizing */
     box-sizing: border-box;
   }
 
   button {
-    /* Remove default button styles */
-    background: none;
-    border: none;
-    padding: 0;
+    /* Button-specific behavior */
     cursor: pointer;
-
-    /* Inherit text styles */
     text-align: inherit;
   }
 
