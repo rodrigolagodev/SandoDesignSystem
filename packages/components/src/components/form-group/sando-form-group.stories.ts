@@ -179,7 +179,7 @@ export const WithSlots: Story = {
     <sando-form-group>
       <div slot="label">
         <strong>Custom Label</strong>
-        <em style="font-size: 0.875em; color: #666;">(optional)</em>
+        <em style="font-size: 0.875em; color: var(--sando-color-text-muted);">(optional)</em>
       </div>
       <input type="text" placeholder="Enter text..." />
       <div slot="helper-text" style="font-style: italic;">
@@ -274,7 +274,7 @@ export const CompleteForm: Story = {
 
         <button
           type="submit"
-          style="padding: 12px 24px; background: var(--sando-color-brand-500, #f97316); color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 1rem;"
+          style="padding: 12px 24px; background: var(--sando-color-action-solid-background-default); color: var(--sando-color-text-on-solid); border: none; border-radius: 4px; cursor: pointer; font-size: 1rem;"
         >
           Submit
         </button>

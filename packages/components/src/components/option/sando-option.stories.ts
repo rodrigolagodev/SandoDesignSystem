@@ -321,10 +321,14 @@ export const AllExamples: Story = {
     <div style="display: flex; flex-direction: column; gap: 2rem;">
       <!-- Basic States -->
       <section>
-        <h3 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">States</h3>
+        <h3
+          style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: var(--sando-color-text-muted);"
+        >
+          States
+        </h3>
         <div
           role="listbox"
-          style="max-width: 300px; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;"
+          style="max-width: 300px; border: 1px solid var(--sando-color-border-default); border-radius: 8px; overflow: hidden;"
         >
           <sando-option value="default">Default</sando-option>
           <sando-option value="selected" selected>Selected</sando-option>
@@ -334,10 +338,14 @@ export const AllExamples: Story = {
 
       <!-- With Icons -->
       <section>
-        <h3 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">With Icons</h3>
+        <h3
+          style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: var(--sando-color-text-muted);"
+        >
+          With Icons
+        </h3>
         <div
           role="listbox"
-          style="max-width: 300px; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;"
+          style="max-width: 300px; border: 1px solid var(--sando-color-border-default); border-radius: 8px; overflow: hidden;"
         >
           <sando-option value="edit">
             <span slot="prefix">✏️</span>
@@ -356,22 +364,32 @@ export const AllExamples: Story = {
 
       <!-- With Suffix -->
       <section>
-        <h3 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">With Suffix</h3>
+        <h3
+          style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: var(--sando-color-text-muted);"
+        >
+          With Suffix
+        </h3>
         <div
           role="listbox"
-          style="max-width: 300px; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;"
+          style="max-width: 300px; border: 1px solid var(--sando-color-border-default); border-radius: 8px; overflow: hidden;"
         >
           <sando-option value="free">
             Free
-            <span slot="suffix" style="font-size: 12px; color: #64748b;">$0</span>
+            <span slot="suffix" style="font-size: 12px; color: var(--sando-color-text-muted);"
+              >$0</span
+            >
           </sando-option>
           <sando-option value="pro" selected>
             Pro
-            <span slot="suffix" style="font-size: 12px; color: #64748b;">$10</span>
+            <span slot="suffix" style="font-size: 12px; color: var(--sando-color-text-muted);"
+              >$10</span
+            >
           </sando-option>
           <sando-option value="team" disabled>
             Team
-            <span slot="suffix" style="font-size: 12px; color: #64748b;">$50</span>
+            <span slot="suffix" style="font-size: 12px; color: var(--sando-color-text-muted);"
+              >$50</span
+            >
           </sando-option>
         </div>
       </section>

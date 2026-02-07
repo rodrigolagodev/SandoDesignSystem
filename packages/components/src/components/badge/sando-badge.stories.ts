@@ -210,7 +210,9 @@ export const Variants: Story = {
   render: () => html`
     <div style="display: flex; flex-direction: column; gap: 1.5rem;">
       <div>
-        <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">
+        <h4
+          style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: var(--sando-color-text-muted);"
+        >
           Solid (High Emphasis)
         </h4>
         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
@@ -224,7 +226,9 @@ export const Variants: Story = {
       </div>
 
       <div>
-        <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">
+        <h4
+          style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: var(--sando-color-text-muted);"
+        >
           Soft (Medium Emphasis)
         </h4>
         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
@@ -238,7 +242,9 @@ export const Variants: Story = {
       </div>
 
       <div>
-        <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">
+        <h4
+          style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: var(--sando-color-text-muted);"
+        >
           Outline (Low Emphasis)
         </h4>
         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
@@ -252,7 +258,9 @@ export const Variants: Story = {
       </div>
 
       <div>
-        <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">
+        <h4
+          style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: var(--sando-color-text-muted);"
+        >
           Surface (Raised Background)
         </h4>
         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
@@ -302,23 +310,31 @@ export const Compact: Story = {
   render: () => html`
     <div style="display: flex; flex-direction: column; gap: 1.5rem;">
       <div>
-        <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">
+        <h4
+          style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: var(--sando-color-text-muted);"
+        >
           Normal vs Compact
         </h4>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
           <div style="display: flex; flex-direction: column; gap: 0.5rem; align-items: center;">
             <sando-badge size="md">Normal</sando-badge>
-            <span style="font-size: 0.75rem; color: #a3a3a3;">Default padding</span>
+            <span style="font-size: 0.75rem; color: var(--sando-color-text-caption);"
+              >Default padding</span
+            >
           </div>
           <div style="display: flex; flex-direction: column; gap: 0.5rem; align-items: center;">
             <sando-badge size="md" compact>Compact</sando-badge>
-            <span style="font-size: 0.75rem; color: #a3a3a3;">Reduced padding</span>
+            <span style="font-size: 0.75rem; color: var(--sando-color-text-caption);"
+              >Reduced padding</span
+            >
           </div>
         </div>
       </div>
 
       <div>
-        <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">
+        <h4
+          style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: var(--sando-color-text-muted);"
+        >
           Compact Sizes Comparison
         </h4>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
@@ -350,7 +366,9 @@ export const WithIcons: Story = {
   render: () => html`
     <div style="display: flex; flex-direction: column; gap: 1.5rem;">
       <div>
-        <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">
+        <h4
+          style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: var(--sando-color-text-muted);"
+        >
           Semantic Colors with Default Icons
         </h4>
         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
@@ -362,7 +380,9 @@ export const WithIcons: Story = {
       </div>
 
       <div>
-        <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">
+        <h4
+          style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: var(--sando-color-text-muted);"
+        >
           Non-Semantic Colors (No Default Icon)
         </h4>
         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
@@ -372,7 +392,9 @@ export const WithIcons: Story = {
       </div>
 
       <div>
-        <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">
+        <h4
+          style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: var(--sando-color-text-muted);"
+        >
           All Variants with Icons
         </h4>
         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
@@ -396,18 +418,22 @@ export const CustomIcon: Story = {
   render: () => html`
     <div style="display: flex; flex-direction: column; gap: 1.5rem;">
       <div>
-        <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">
+        <h4
+          style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: var(--sando-color-text-muted);"
+        >
           Override Default Icon
         </h4>
         <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
           <sando-badge color="success">Default (check)</sando-badge>
-          <span style="color: #a3a3a3;">→</span>
+          <span style="color: var(--sando-color-text-caption);">→</span>
           <sando-badge color="success" icon="thumbs-up">Custom (thumbs-up)</sando-badge>
         </div>
       </div>
 
       <div>
-        <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">
+        <h4
+          style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: var(--sando-color-text-muted);"
+        >
           Add Icons to Non-Semantic Colors
         </h4>
         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
@@ -419,7 +445,9 @@ export const CustomIcon: Story = {
       </div>
 
       <div>
-        <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">
+        <h4
+          style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: var(--sando-color-text-muted);"
+        >
           Creative Status Examples
         </h4>
         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
@@ -443,23 +471,31 @@ export const NoIcon: Story = {
   render: () => html`
     <div style="display: flex; flex-direction: column; gap: 1.5rem;">
       <div>
-        <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">
+        <h4
+          style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: var(--sando-color-text-muted);"
+        >
           With Icon vs Without Icon
         </h4>
         <div style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
           <div style="display: flex; flex-direction: column; gap: 0.5rem; align-items: center;">
             <sando-badge color="success">Active</sando-badge>
-            <span style="font-size: 0.75rem; color: #a3a3a3;">Default (with icon)</span>
+            <span style="font-size: 0.75rem; color: var(--sando-color-text-caption);"
+              >Default (with icon)</span
+            >
           </div>
           <div style="display: flex; flex-direction: column; gap: 0.5rem; align-items: center;">
             <sando-badge color="success" no-icon>Active</sando-badge>
-            <span style="font-size: 0.75rem; color: #a3a3a3;">With no-icon</span>
+            <span style="font-size: 0.75rem; color: var(--sando-color-text-caption);"
+              >With no-icon</span
+            >
           </div>
         </div>
       </div>
 
       <div>
-        <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">
+        <h4
+          style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: var(--sando-color-text-muted);"
+        >
           All Semantic Colors - Text Only
         </h4>
         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
@@ -471,7 +507,9 @@ export const NoIcon: Story = {
       </div>
 
       <div>
-        <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">
+        <h4
+          style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: var(--sando-color-text-muted);"
+        >
           When to Use no-icon
         </h4>
         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
@@ -479,7 +517,9 @@ export const NoIcon: Story = {
           <sando-badge color="danger" no-icon size="sm" compact>!</sando-badge>
           <sando-badge color="info" no-icon size="sm" compact>NEW</sando-badge>
         </div>
-        <p style="margin: 0.5rem 0 0 0; font-size: 0.75rem; color: #6b7280;">
+        <p
+          style="margin: 0.5rem 0 0 0; font-size: 0.75rem; color: var(--sando-color-text-caption);"
+        >
           Useful for compact indicators or when the text is self-explanatory.
         </p>
       </div>
@@ -497,7 +537,9 @@ export const IconComparison: Story = {
   render: () => html`
     <div style="display: flex; flex-direction: column; gap: 2rem;">
       <div>
-        <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">
+        <h4
+          style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: var(--sando-color-text-muted);"
+        >
           Badge: Icon on LEFT (Automatic for Semantic Colors)
         </h4>
         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
@@ -506,38 +548,72 @@ export const IconComparison: Story = {
           <sando-badge color="danger">Error</sando-badge>
           <sando-badge color="info">New</sando-badge>
         </div>
-        <p style="margin: 0.5rem 0 0 0; font-size: 0.75rem; color: #6b7280;">
+        <p
+          style="margin: 0.5rem 0 0 0; font-size: 0.75rem; color: var(--sando-color-text-caption);"
+        >
           Badge is purely informational. Icons reinforce the semantic meaning.
         </p>
       </div>
 
       <div
-        style="padding: 1rem; background: #f5f5f4; border-radius: 8px; border: 1px dashed #d6d3d1;"
+        style="padding: 1rem; background: var(--sando-color-background-surface); border-radius: 8px; border: 1px dashed var(--sando-color-border-muted);"
       >
-        <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">Key Differences</h4>
+        <h4
+          style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: var(--sando-color-text-muted);"
+        >
+          Key Differences
+        </h4>
         <table style="font-size: 0.875rem; width: 100%; border-collapse: collapse;">
           <tr>
-            <td style="padding: 0.5rem 0; border-bottom: 1px solid #e5e7eb; font-weight: 500;">
+            <td
+              style="padding: 0.5rem 0; border-bottom: 1px solid var(--sando-color-border-default); font-weight: 500;"
+            >
               Feature
             </td>
-            <td style="padding: 0.5rem 0; border-bottom: 1px solid #e5e7eb;">Badge</td>
-            <td style="padding: 0.5rem 0; border-bottom: 1px solid #e5e7eb;">Tag</td>
+            <td
+              style="padding: 0.5rem 0; border-bottom: 1px solid var(--sando-color-border-default);"
+            >
+              Badge
+            </td>
+            <td
+              style="padding: 0.5rem 0; border-bottom: 1px solid var(--sando-color-border-default);"
+            >
+              Tag
+            </td>
           </tr>
           <tr>
-            <td style="padding: 0.5rem 0; border-bottom: 1px solid #e5e7eb; font-weight: 500;">
+            <td
+              style="padding: 0.5rem 0; border-bottom: 1px solid var(--sando-color-border-default); font-weight: 500;"
+            >
               Icon Position
             </td>
-            <td style="padding: 0.5rem 0; border-bottom: 1px solid #e5e7eb;">LEFT (leading)</td>
-            <td style="padding: 0.5rem 0; border-bottom: 1px solid #e5e7eb;">RIGHT (trailing)</td>
+            <td
+              style="padding: 0.5rem 0; border-bottom: 1px solid var(--sando-color-border-default);"
+            >
+              LEFT (leading)
+            </td>
+            <td
+              style="padding: 0.5rem 0; border-bottom: 1px solid var(--sando-color-border-default);"
+            >
+              RIGHT (trailing)
+            </td>
           </tr>
           <tr>
-            <td style="padding: 0.5rem 0; border-bottom: 1px solid #e5e7eb; font-weight: 500;">
+            <td
+              style="padding: 0.5rem 0; border-bottom: 1px solid var(--sando-color-border-default); font-weight: 500;"
+            >
               Icon Source
             </td>
-            <td style="padding: 0.5rem 0; border-bottom: 1px solid #e5e7eb;">
+            <td
+              style="padding: 0.5rem 0; border-bottom: 1px solid var(--sando-color-border-default);"
+            >
               Automatic (semantic)
             </td>
-            <td style="padding: 0.5rem 0; border-bottom: 1px solid #e5e7eb;">User-provided</td>
+            <td
+              style="padding: 0.5rem 0; border-bottom: 1px solid var(--sando-color-border-default);"
+            >
+              User-provided
+            </td>
           </tr>
           <tr>
             <td style="padding: 0.5rem 0; font-weight: 500;">Interactivity</td>
@@ -548,25 +624,35 @@ export const IconComparison: Story = {
       </div>
 
       <div>
-        <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">
+        <h4
+          style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: var(--sando-color-text-muted);"
+        >
           Which to Choose?
         </h4>
         <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
           <div>
-            <p style="margin: 0 0 0.5rem 0; font-size: 0.875rem; font-weight: 500; color: #374151;">
+            <p
+              style="margin: 0 0 0.5rem 0; font-size: 0.875rem; font-weight: 500; color: var(--sando-color-text-body);"
+            >
               Use Badge for:
             </p>
-            <ul style="margin: 0; padding-left: 1.25rem; font-size: 0.75rem; color: #6b7280;">
+            <ul
+              style="margin: 0; padding-left: 1.25rem; font-size: 0.75rem; color: var(--sando-color-text-caption);"
+            >
               <li>Status indicators</li>
               <li>Labels and categories</li>
               <li>Read-only information</li>
             </ul>
           </div>
           <div>
-            <p style="margin: 0 0 0.5rem 0; font-size: 0.875rem; font-weight: 500; color: #374151;">
+            <p
+              style="margin: 0 0 0.5rem 0; font-size: 0.875rem; font-weight: 500; color: var(--sando-color-text-body);"
+            >
               Use Tag for:
             </p>
-            <ul style="margin: 0; padding-left: 1.25rem; font-size: 0.75rem; color: #6b7280;">
+            <ul
+              style="margin: 0; padding-left: 1.25rem; font-size: 0.75rem; color: var(--sando-color-text-caption);"
+            >
               <li>Filters and selections</li>
               <li>Removable items</li>
               <li>Interactive actions</li>
@@ -594,7 +680,9 @@ export const WithSlottedIcon: Story = {
   render: () => html`
     <div style="display: flex; flex-direction: column; gap: 1.5rem;">
       <div>
-        <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">
+        <h4
+          style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: var(--sando-color-text-muted);"
+        >
           Status with Icons
         </h4>
         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
@@ -618,7 +706,9 @@ export const WithSlottedIcon: Story = {
       </div>
 
       <div>
-        <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">
+        <h4
+          style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: var(--sando-color-text-muted);"
+        >
           Categories with Icons
         </h4>
         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
@@ -638,7 +728,9 @@ export const WithSlottedIcon: Story = {
       </div>
 
       <div>
-        <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">
+        <h4
+          style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: var(--sando-color-text-muted);"
+        >
           Labels with Icons
         </h4>
         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
@@ -681,7 +773,7 @@ export const AllCombinations: Story = {
           (variant) => html`
             <div>
               <h4
-                style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c; text-transform: capitalize;"
+                style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: var(--sando-color-text-muted); text-transform: capitalize;"
               >
                 ${variant}
               </h4>
@@ -716,7 +808,9 @@ export const UseCases: Story = {
     <div style="display: flex; flex-direction: column; gap: 2rem;">
       <!-- Status Indicators -->
       <div>
-        <h4 style="margin: 0 0 1rem 0; font-size: 1rem; color: #374151;">Status Indicators</h4>
+        <h4 style="margin: 0 0 1rem 0; font-size: 1rem; color: var(--sando-color-text-body);">
+          Status Indicators
+        </h4>
         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
           <sando-badge color="success" variant="solid">Active</sando-badge>
           <sando-badge color="warning" variant="solid">Pending</sando-badge>
@@ -728,7 +822,9 @@ export const UseCases: Story = {
 
       <!-- Labels -->
       <div>
-        <h4 style="margin: 0 0 1rem 0; font-size: 1rem; color: #374151;">Labels</h4>
+        <h4 style="margin: 0 0 1rem 0; font-size: 1rem; color: var(--sando-color-text-body);">
+          Labels
+        </h4>
         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
           <sando-badge color="info" variant="solid">New</sando-badge>
           <sando-badge color="warning" variant="outline">Beta</sando-badge>
@@ -740,7 +836,9 @@ export const UseCases: Story = {
 
       <!-- Categories -->
       <div>
-        <h4 style="margin: 0 0 1rem 0; font-size: 1rem; color: #374151;">Categories</h4>
+        <h4 style="margin: 0 0 1rem 0; font-size: 1rem; color: var(--sando-color-text-body);">
+          Categories
+        </h4>
         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
           <sando-badge color="primary" variant="soft">Design</sando-badge>
           <sando-badge color="primary" variant="soft">Development</sando-badge>
@@ -752,7 +850,9 @@ export const UseCases: Story = {
 
       <!-- Priority Levels -->
       <div>
-        <h4 style="margin: 0 0 1rem 0; font-size: 1rem; color: #374151;">Priority Levels</h4>
+        <h4 style="margin: 0 0 1rem 0; font-size: 1rem; color: var(--sando-color-text-body);">
+          Priority Levels
+        </h4>
         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
           <sando-badge color="danger" variant="solid">Critical</sando-badge>
           <sando-badge color="warning" variant="solid">High</sando-badge>
@@ -763,7 +863,9 @@ export const UseCases: Story = {
 
       <!-- User Roles -->
       <div>
-        <h4 style="margin: 0 0 1rem 0; font-size: 1rem; color: #374151;">User Roles</h4>
+        <h4 style="margin: 0 0 1rem 0; font-size: 1rem; color: var(--sando-color-text-body);">
+          User Roles
+        </h4>
         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
           <sando-badge color="primary" variant="solid">Admin</sando-badge>
           <sando-badge color="success" variant="soft">Editor</sando-badge>
@@ -789,7 +891,7 @@ export const InContext: Story = {
     <div style="display: flex; flex-direction: column; gap: 2rem; max-width: 600px;">
       <!-- Card Example -->
       <div
-        style="padding: 1.5rem; border: 1px solid #e5e7eb; border-radius: 8px; background: #fafafa;"
+        style="padding: 1.5rem; border: 1px solid var(--sando-color-border-default); border-radius: 8px; background: var(--sando-color-background-surface);"
       >
         <div style="display: flex; justify-content: space-between; align-items: flex-start;">
           <div>
@@ -798,7 +900,7 @@ export const InContext: Story = {
               <sando-badge color="success" size="sm" compact>Active</sando-badge>
               <sando-badge color="info" size="sm" compact variant="outline">v2.0</sando-badge>
             </div>
-            <p style="margin: 0; font-size: 0.875rem; color: #6b7280;">
+            <p style="margin: 0; font-size: 0.875rem; color: var(--sando-color-text-caption);">
               Main project dashboard with real-time analytics.
             </p>
           </div>
@@ -811,24 +913,28 @@ export const InContext: Story = {
       </div>
 
       <!-- List Example -->
-      <div style="border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden;">
+      <div
+        style="border: 1px solid var(--sando-color-border-default); border-radius: 8px; overflow: hidden;"
+      >
         <div
-          style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; border-bottom: 1px solid #e5e7eb;"
+          style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; border-bottom: 1px solid var(--sando-color-border-default);"
         >
           <div style="display: flex; align-items: center; gap: 0.75rem;">
             <span style="font-size: 0.875rem; font-weight: 500;">Invoice #1234</span>
             <sando-badge color="success" size="sm">Paid</sando-badge>
           </div>
-          <span style="font-size: 0.875rem; color: #6b7280;">$1,250.00</span>
+          <span style="font-size: 0.875rem; color: var(--sando-color-text-caption);"
+            >$1,250.00</span
+          >
         </div>
         <div
-          style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; border-bottom: 1px solid #e5e7eb;"
+          style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; border-bottom: 1px solid var(--sando-color-border-default);"
         >
           <div style="display: flex; align-items: center; gap: 0.75rem;">
             <span style="font-size: 0.875rem; font-weight: 500;">Invoice #1235</span>
             <sando-badge color="warning" size="sm">Pending</sando-badge>
           </div>
-          <span style="font-size: 0.875rem; color: #6b7280;">$890.00</span>
+          <span style="font-size: 0.875rem; color: var(--sando-color-text-caption);">$890.00</span>
         </div>
         <div
           style="display: flex; justify-content: space-between; align-items: center; padding: 1rem;"
@@ -837,22 +943,28 @@ export const InContext: Story = {
             <span style="font-size: 0.875rem; font-weight: 500;">Invoice #1236</span>
             <sando-badge color="danger" size="sm">Overdue</sando-badge>
           </div>
-          <span style="font-size: 0.875rem; color: #6b7280;">$2,100.00</span>
+          <span style="font-size: 0.875rem; color: var(--sando-color-text-caption);"
+            >$2,100.00</span
+          >
         </div>
       </div>
 
       <!-- Notification Example -->
       <div
-        style="display: flex; align-items: flex-start; gap: 0.75rem; padding: 1rem; background: #fef3c7; border-radius: 8px;"
+        style="display: flex; align-items: flex-start; gap: 0.75rem; padding: 1rem; background: var(--sando-color-state-warning-background); border-radius: 8px;"
       >
         <sando-badge color="warning" variant="solid" size="sm" compact>
           <sando-icon name="alert-triangle" size="xs"></sando-icon>
         </sando-badge>
         <div>
-          <p style="margin: 0; font-size: 0.875rem; font-weight: 500; color: #92400e;">
+          <p
+            style="margin: 0; font-size: 0.875rem; font-weight: 500; color: var(--sando-color-state-warning-text);"
+          >
             Your trial ends in 3 days
           </p>
-          <p style="margin: 0.25rem 0 0 0; font-size: 0.75rem; color: #a16207;">
+          <p
+            style="margin: 0.25rem 0 0 0; font-size: 0.75rem; color: var(--sando-color-state-warning-text);"
+          >
             Upgrade to Pro to continue using all features.
           </p>
         </div>

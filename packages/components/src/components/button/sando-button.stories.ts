@@ -412,13 +412,17 @@ export const Compact: Story = {
   render: () => html`
     <div style="display: flex; flex-direction: column; gap: 1rem;">
       <div style="display: flex; gap: 0.5rem; align-items: center;">
-        <span style="width: 80px; font-size: 0.875rem; color: #666;">Normal:</span>
+        <span style="width: 80px; font-size: 0.875rem; color: var(--sando-color-text-muted);"
+          >Normal:</span
+        >
         <sando-button size="sm">Small</sando-button>
         <sando-button size="md">Medium</sando-button>
         <sando-button size="lg">Large</sando-button>
       </div>
       <div style="display: flex; gap: 0.5rem; align-items: center;">
-        <span style="width: 80px; font-size: 0.875rem; color: #666;">Compact:</span>
+        <span style="width: 80px; font-size: 0.875rem; color: var(--sando-color-text-muted);"
+          >Compact:</span
+        >
         <sando-button size="sm" compact>Small</sando-button>
         <sando-button size="md" compact>Medium</sando-button>
         <sando-button size="lg" compact>Large</sando-button>
@@ -502,7 +506,11 @@ export const IconOnlyVariants: Story = {
   render: () => html`
     <div style="display: flex; flex-direction: column; gap: 1.5rem;">
       <div>
-        <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">Sizes</h4>
+        <h4
+          style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: var(--sando-color-text-muted);"
+        >
+          Sizes
+        </h4>
         <div style="display: flex; gap: 1rem; align-items: center;">
           <sando-button icon-only size="sm" aria-label="Star">
             <sando-icon slot="icon-start" name="star" size="sm"></sando-icon>
@@ -516,7 +524,11 @@ export const IconOnlyVariants: Story = {
         </div>
       </div>
       <div>
-        <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">Variants</h4>
+        <h4
+          style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: var(--sando-color-text-muted);"
+        >
+          Variants
+        </h4>
         <div style="display: flex; gap: 1rem; align-items: center;">
           <sando-button icon-only variant="solid" aria-label="Heart">
             <sando-icon slot="icon-start" name="heart" size="sm"></sando-icon>
@@ -530,7 +542,9 @@ export const IconOnlyVariants: Story = {
         </div>
       </div>
       <div>
-        <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">
+        <h4
+          style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: var(--sando-color-text-muted);"
+        >
           Circular (radius="full")
         </h4>
         <div style="display: flex; gap: 1rem; align-items: center;">
@@ -573,7 +587,9 @@ export const ActiveState: Story = {
   render: () => html`
     <div style="display: flex; flex-direction: column; gap: 1.5rem;">
       <div>
-        <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">
+        <h4
+          style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: var(--sando-color-text-muted);"
+        >
           Normal vs Active
         </h4>
         <div style="display: flex; gap: 1rem;">
@@ -582,7 +598,11 @@ export const ActiveState: Story = {
         </div>
       </div>
       <div>
-        <h4 style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: #78716c;">Filter Example</h4>
+        <h4
+          style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: var(--sando-color-text-muted);"
+        >
+          Filter Example
+        </h4>
         <div style="display: flex; gap: 0.5rem;">
           <sando-button variant="outline" size="sm" active>All</sando-button>
           <sando-button variant="outline" size="sm">Active</sando-button>
@@ -734,8 +754,10 @@ export const ColorModes: Story = {
   render: () => html`
     <div style="display: flex; flex-direction: column; gap: 2rem;">
       <!-- Light Mode -->
-      <div style="padding: 2rem; background: #ffffff; border-radius: 8px;">
-        <h4 style="margin: 0 0 1rem 0; color: #1c1917;">Light Mode</h4>
+      <div
+        style="padding: 2rem; background: var(--sando-color-background-raised); border-radius: 8px;"
+      >
+        <h4 style="margin: 0 0 1rem 0; color: var(--sando-color-text-heading);">Light Mode</h4>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
           <sando-button variant="solid">Solid</sando-button>
           <sando-button variant="outline">Outline</sando-button>
@@ -746,8 +768,12 @@ export const ColorModes: Story = {
       </div>
 
       <!-- Dark Mode -->
-      <div style="padding: 2rem; background: #0a0a0a; border-radius: 8px;">
-        <h4 style="margin: 0 0 1rem 0; color: #fafaf9;">Dark Mode (flavor-mode="dark")</h4>
+      <div
+        style="padding: 2rem; background: var(--sando-color-background-overlay); border-radius: 8px;"
+      >
+        <h4 style="margin: 0 0 1rem 0; color: var(--sando-color-text-on-solid);">
+          Dark Mode (flavor-mode="dark")
+        </h4>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
           <sando-button flavor-mode="dark" variant="solid">Solid</sando-button>
           <sando-button flavor-mode="dark" variant="outline">Outline</sando-button>
@@ -758,8 +784,10 @@ export const ColorModes: Story = {
       </div>
 
       <!-- High Contrast -->
-      <div style="padding: 2rem; background: #ffffff; border: 2px solid #000; border-radius: 8px;">
-        <h4 style="margin: 0 0 1rem 0; color: #000;">
+      <div
+        style="padding: 2rem; background: var(--sando-color-background-raised); border: 2px solid var(--sando-color-text-heading); border-radius: 8px;"
+      >
+        <h4 style="margin: 0 0 1rem 0; color: var(--sando-color-text-heading);">
           High Contrast (flavor-mode="high-contrast")
         </h4>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap;">

@@ -482,11 +482,11 @@ export const WithText: Story = {
         >
           Inherit color from parent
         </h4>
-        <p style="color: #ef4444;">
+        <p style="color: var(--sando-color-state-destructive-text);">
           <sando-icon name="alert-circle" size="sm" inherit-color></sando-icon>
           Error message with matching icon color
         </p>
-        <p style="color: #10b981;">
+        <p style="color: var(--sando-color-state-success-text);">
           <sando-icon name="check-circle" size="sm" inherit-color></sando-icon>
           Success message with matching icon color
         </p>
@@ -506,21 +506,21 @@ export const Accessibility: Story = {
         <h4 style="margin-bottom: 1rem;">Semantic icons (with aria-label)</h4>
         <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
           <button
-            style="display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; border: 1px solid #ccc; border-radius: 4px; background: white; cursor: pointer;"
+            style="display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; border: 1px solid var(--sando-color-border-muted); border-radius: 4px; background: var(--sando-color-background-raised); cursor: pointer;"
           >
             <sando-icon name="trash-2" size="sm" aria-label="Delete item"></sando-icon>
             Delete
           </button>
 
           <button
-            style="display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; border: 1px solid #ccc; border-radius: 4px; background: white; cursor: pointer;"
+            style="display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; border: 1px solid var(--sando-color-border-muted); border-radius: 4px; background: var(--sando-color-background-raised); cursor: pointer;"
           >
             <sando-icon name="edit" size="sm" aria-label="Edit content"></sando-icon>
             Edit
           </button>
 
           <button
-            style="display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; border: 1px solid #ccc; border-radius: 4px; background: white; cursor: pointer;"
+            style="display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; border: 1px solid var(--sando-color-border-muted); border-radius: 4px; background: var(--sando-color-background-raised); cursor: pointer;"
           >
             <sando-icon name="save" size="sm" aria-label="Save changes"></sando-icon>
             Save

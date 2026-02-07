@@ -865,13 +865,13 @@ export const FormIntegration: Story = {
       <div style="display: flex; gap: 1rem;">
         <button
           type="submit"
-          style="padding: 12px 24px; background: var(--sando-color-brand-500, #f97316); color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 1rem; font-weight: 500;"
+          style="padding: 12px 24px; background: var(--sando-color-action-solid-background-default); color: var(--sando-color-text-on-solid); border: none; border-radius: 6px; cursor: pointer; font-size: 1rem; font-weight: 500;"
         >
           Submit
         </button>
         <button
           type="reset"
-          style="padding: 12px 24px; background: transparent; color: #64748b; border: 1px solid #e2e8f0; border-radius: 6px; cursor: pointer; font-size: 1rem;"
+          style="padding: 12px 24px; background: transparent; color: var(--sando-color-text-muted); border: 1px solid var(--sando-color-border-default); border-radius: 6px; cursor: pointer; font-size: 1rem;"
         >
           Reset
         </button>
@@ -1006,7 +1006,9 @@ export const AllVariants: Story = {
   render: (args) => html`
     <div style="display: flex; gap: 2rem; flex-wrap: wrap; align-items: flex-start;">
       <div style="display: flex; flex-direction: column; gap: 1rem; min-width: 250px;">
-        <h4 style="margin: 0; font-size: 0.875rem; color: #78716c;">Filled (default)</h4>
+        <h4 style="margin: 0; font-size: 0.875rem; color: var(--sando-color-text-muted);">
+          Filled (default)
+        </h4>
         <sando-select
           variant="filled"
           size="${args.size}"
@@ -1033,7 +1035,9 @@ export const AllVariants: Story = {
         </sando-select>
       </div>
       <div style="display: flex; flex-direction: column; gap: 1rem; min-width: 250px;">
-        <h4 style="margin: 0; font-size: 0.875rem; color: #78716c;">Outlined</h4>
+        <h4 style="margin: 0; font-size: 0.875rem; color: var(--sando-color-text-muted);">
+          Outlined
+        </h4>
         <sando-select
           variant="outlined"
           size="${args.size}"

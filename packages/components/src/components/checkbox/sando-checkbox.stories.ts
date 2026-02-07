@@ -220,12 +220,16 @@ export const Variants: Story = {
   render: () => html`
     <div style="display: flex; gap: 2rem; flex-wrap: wrap; align-items: flex-start;">
       <div style="display: flex; flex-direction: column; gap: 1rem;">
-        <h4 style="margin: 0; font-size: 0.875rem; color: #78716c;">Solid (default)</h4>
+        <h4 style="margin: 0; font-size: 0.875rem; color: var(--sando-color-text-muted);">
+          Solid (default)
+        </h4>
         <sando-checkbox variant="solid" label="Unchecked"></sando-checkbox>
         <sando-checkbox variant="solid" label="Checked" checked></sando-checkbox>
       </div>
       <div style="display: flex; flex-direction: column; gap: 1rem;">
-        <h4 style="margin: 0; font-size: 0.875rem; color: #78716c;">Outline</h4>
+        <h4 style="margin: 0; font-size: 0.875rem; color: var(--sando-color-text-muted);">
+          Outline
+        </h4>
         <sando-checkbox variant="outline" label="Unchecked"></sando-checkbox>
         <sando-checkbox variant="outline" label="Checked" checked></sando-checkbox>
       </div>
@@ -337,7 +341,7 @@ export const InGroup: Story = {
   tags: DOCS_ONLY,
   render: () => html`
     <fieldset
-      style="border: 1px solid #e5e7eb; border-radius: 8px; padding: 1.5rem; max-width: 400px;"
+      style="border: 1px solid var(--sando-color-border-default); border-radius: 8px; padding: 1.5rem; max-width: 400px;"
     >
       <legend style="font-weight: 600; padding: 0 0.5rem;">Notification Preferences</legend>
       <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 0.5rem;">
@@ -409,13 +413,13 @@ export const FormIntegration: Story = {
       <div style="display: flex; gap: 1rem;">
         <button
           type="submit"
-          style="padding: 12px 24px; background: var(--sando-color-brand-500, #f97316); color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 1rem; font-weight: 500;"
+          style="padding: 12px 24px; background: var(--sando-color-action-solid-background-default); color: var(--sando-color-action-solid-text-default); border: none; border-radius: 6px; cursor: pointer; font-size: 1rem; font-weight: 500;"
         >
           Create Account
         </button>
         <button
           type="reset"
-          style="padding: 12px 24px; background: transparent; color: #64748b; border: 1px solid #e2e8f0; border-radius: 6px; cursor: pointer; font-size: 1rem;"
+          style="padding: 12px 24px; background: transparent; color: var(--sando-color-text-muted); border: 1px solid var(--sando-color-border-default); border-radius: 6px; cursor: pointer; font-size: 1rem;"
         >
           Reset
         </button>
