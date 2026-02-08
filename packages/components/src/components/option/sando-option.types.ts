@@ -4,6 +4,11 @@
  */
 
 /**
+ * Size variants for the option (inherited from parent select)
+ */
+export type OptionSize = 'sm' | 'md' | 'lg';
+
+/**
  * Props for the SandoOption component
  */
 export interface SandoOptionProps {
@@ -37,6 +42,12 @@ export interface SandoOptionProps {
    * Set by parent sando-select when it has a prefixIcon
    */
   parentPrefixIcon?: string;
+
+  /**
+   * Size of the option (inherited from parent select)
+   * @default 'md'
+   */
+  size?: OptionSize;
 }
 
 /**
