@@ -1,17 +1,17 @@
 {
-  "$description": "Dark mode overrides for 'kiwi' flavor. Only includes tokens that differ from light mode (index.json). Automatically applied via @media (prefers-color-scheme: dark) and [flavor-mode='dark'].",
+  "$description": "Dark mode overrides for 'kiwi' flavor - Natural/Organic style. Only includes tokens that differ from light mode. Automatically applied via @media (prefers-color-scheme: dark) and [flavor-mode='dark'].",
   "color": {
     "background": {
-      "base": { "value": "{color.neutralWarm.950.value}", "type": "color" },
-      "surface": { "value": "{color.neutralWarm.900.value}", "type": "color" },
+      "base": { "value": "{color.green.950.value}", "type": "color" },
+      "surface": { "value": "{color.green.900.value}", "type": "color" },
       "raised": { "value": "{color.neutralWarm.800.value}", "type": "color" },
-      "overlay": { "value": "{color.neutralWarm.950.value}", "type": "color" },
-      "emphasis": { "value": "{color.neutralWarm.700.value}", "type": "color" }
+      "overlay": { "value": "{color.green.950.value}", "type": "color" },
+      "emphasis": { "value": "{color.green.800.value}", "type": "color" }
     },
     "focus": {
       "ring": { "value": "{color.green.400.value}", "type": "color" },
       "ring-offset": {
-        "value": "{color.neutralWarm.950.value}",
+        "value": "{color.green.950.value}",
         "type": "color"
       },
       "background": { "value": "{color.green.950.value}", "type": "color" },
@@ -39,8 +39,8 @@
       "on-solid": { "value": "{color.utility.white.value}", "type": "color" }
     },
     "border": {
-      "muted": { "value": "{color.neutralWarm.700.value}", "type": "color" },
-      "default": { "value": "{color.neutralWarm.600.value}", "type": "color" },
+      "muted": { "value": "{color.green.800.value}", "type": "color" },
+      "default": { "value": "{color.green.700.value}", "type": "color" },
       "emphasis": { "value": "{color.green.400.value}", "type": "color" }
     },
     "action": {
@@ -59,7 +59,7 @@
       "outline": {
         "border": {
           "default": {
-            "value": "{color.neutralWarm.600.value}",
+            "value": "{color.green.700.value}",
             "type": "color"
           },
           "hover": { "value": "{color.green.400.value}", "type": "color" }
@@ -73,7 +73,7 @@
       },
       "ghost": {
         "background": {
-          "hover": { "value": "{color.neutralWarm.800.value}", "type": "color" }
+          "hover": { "value": "{color.green.800.value}", "type": "color" }
         },
         "text": {
           "default": {

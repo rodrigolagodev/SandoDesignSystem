@@ -1,5 +1,5 @@
 {
-  "$description": "Dark mode overrides for 'strawberry' flavor. Only includes tokens that differ from light mode (index.json). Automatically applied via @media (prefers-color-scheme: dark) and [flavor-mode='dark'].",
+  "$description": "Dark mode overrides for 'strawberry' flavor. Romantic and elegant style with softer reds. Only includes tokens that differ from light mode. Automatically applied via @media (prefers-color-scheme: dark) and [flavor-mode='dark'].",
   "color": {
     "background": {
       "base": { "value": "{color.neutralWarm.950.value}", "type": "color" },
@@ -46,8 +46,8 @@
     "action": {
       "solid": {
         "background": {
-          "default": { "value": "{color.red.600.value}", "type": "color" },
-          "hover": { "value": "{color.red.500.value}", "type": "color" }
+          "default": { "value": "{color.red.500.value}", "type": "color" },
+          "hover": { "value": "{color.red.400.value}", "type": "color" }
         },
         "text": {
           "default": {
@@ -89,7 +89,7 @@
         },
         "text": { "value": "{color.neutralWarm.600.value}", "type": "color" },
         "border": { "value": "{color.neutralWarm.700.value}", "type": "color" },
-        "opacity": { "value": "{opacity.600.value}", "type": "number" }
+        "opacity": { "value": "{opacity.500.value}", "type": "number" }
       }
     },
     "state": {
