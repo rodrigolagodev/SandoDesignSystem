@@ -12,3 +12,32 @@
   No preload script is needed because the CSS selectors handle both cases.
 -->
 <meta name="color-scheme" content="light dark" />
+
+<!--
+  Google Fonts - Preconnect
+  
+  Establish early connections to Google Fonts servers to improve load times.
+  The crossorigin attribute is required for fonts.gstatic.com.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+<!--
+  Google Fonts - Font Family Imports
+  
+  These fonts correspond to the Sando Design System font-family categories:
+  
+  - Bebas Neue       → display (headlines, hero text)
+  - Playfair Display → display-serif (elegant headlines)
+  - Nunito           → rounded (friendly UI elements)
+  - Barlow Condensed → condensed (compact layouts, data-dense UI)
+  - Caveat           → handwritten (personal touch, annotations)
+  - Roboto Slab      → slab (technical, editorial content)
+  
+  Using display=swap to prevent FOIT (Flash of Invisible Text).
+  All fonts are grouped into a single request for optimal performance.
+-->
+<link
+  href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Bebas+Neue&family=Caveat:wght@400;500;600;700&family=Nunito:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Roboto+Slab:wght@300;400;500;700&display=swap"
+  rel="stylesheet"
+/>

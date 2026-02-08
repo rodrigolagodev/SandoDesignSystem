@@ -1,12 +1,12 @@
 {
-  "$description": "Kiwi flavor - light mode base tokens. Fresh green color palette inspired by kiwi fruit, perfect for organic, natural, and eco-friendly themes.",
+  "$description": "Kiwi flavor - Natural/Organic style. Clean, minimal, zen aesthetic with soft green tints. Perfect for wellness, eco-friendly, and natural themes.",
   "color": {
     "background": {
-      "base": { "value": "{color.neutralWarm.100.value}", "type": "color" },
-      "surface": { "value": "{color.neutralWarm.200.value}", "type": "color" },
+      "base": { "value": "{color.green.50.value}", "type": "color" },
+      "surface": { "value": "{color.green.100.value}", "type": "color" },
       "raised": { "value": "{color.utility.white.value}", "type": "color" },
       "overlay": { "value": "{color.neutralWarm.900.value}", "type": "color" },
-      "emphasis": { "value": "{color.neutralWarm.300.value}", "type": "color" },
+      "emphasis": { "value": "{color.green.200.value}", "type": "color" },
       "transparent": {
         "value": "{color.utility.transparent.value}",
         "type": "color"
@@ -15,7 +15,7 @@
     "focus": {
       "ring": { "value": "{color.green.600.value}", "type": "color" },
       "ring-offset": {
-        "value": "{color.neutralWarm.100.value}",
+        "value": "{color.green.50.value}",
         "type": "color"
       },
       "background": { "value": "{color.green.50.value}", "type": "color" },
@@ -147,8 +147,11 @@
   },
   "font": {
     "family": {
-      "body": { "value": "{font.family.sans.value}", "type": "fontFamily" },
-      "heading": { "value": "{font.family.sans.value}", "type": "fontFamily" }
+      "body": { "value": "{font.family.rounded.value}", "type": "fontFamily" },
+      "heading": {
+        "value": "{font.family.rounded.value}",
+        "type": "fontFamily"
+      }
     },
     "size": {
       "body": { "value": "{font.size.300.value}", "type": "dimension" },
@@ -165,20 +168,20 @@
     },
     "weight": {
       "body": { "value": "{font.weight.400.value}", "type": "fontWeight" },
-      "heading": { "value": "{font.weight.700.value}", "type": "fontWeight" },
-      "emphasis": { "value": "{font.weight.700.value}", "type": "fontWeight" }
+      "heading": { "value": "{font.weight.600.value}", "type": "fontWeight" },
+      "emphasis": { "value": "{font.weight.600.value}", "type": "fontWeight" }
     },
     "lineHeight": {
-      "body": { "value": "{font.lineHeight.150.value}", "type": "number" },
-      "heading": { "value": "{font.lineHeight.120.value}", "type": "number" },
-      "caption": { "value": "{font.lineHeight.140.value}", "type": "number" }
+      "body": { "value": "{font.lineHeight.160.value}", "type": "number" },
+      "heading": { "value": "{font.lineHeight.140.value}", "type": "number" },
+      "caption": { "value": "{font.lineHeight.150.value}", "type": "number" }
     }
   },
   "border": {
     "radius": {
-      "muted": { "value": "{border.radius.50.value}", "type": "dimension" },
-      "default": { "value": "{border.radius.100.value}", "type": "dimension" },
-      "emphasis": { "value": "{border.radius.200.value}", "type": "dimension" },
+      "muted": { "value": "{border.radius.100.value}", "type": "dimension" },
+      "default": { "value": "{border.radius.200.value}", "type": "dimension" },
+      "emphasis": { "value": "{border.radius.300.value}", "type": "dimension" },
       "circular": {
         "value": "{border.radius.circle.value}",
         "type": "dimension"
@@ -187,10 +190,10 @@
     },
     "width": {
       "default": { "value": "{border.width.50.value}", "type": "dimension" },
-      "emphasis": { "value": "{border.width.100.value}", "type": "dimension" },
-      "stroke": { "value": "{border.width.100.value}", "type": "dimension" },
+      "emphasis": { "value": "{border.width.50.value}", "type": "dimension" },
+      "stroke": { "value": "{border.width.50.value}", "type": "dimension" },
       "strokeEmphasis": {
-        "value": "{border.width.150.value}",
+        "value": "{border.width.100.value}",
         "type": "dimension"
       }
     }
@@ -225,9 +228,9 @@
     }
   },
   "elevation": {
-    "muted": { "value": "{elevation.100.value}", "type": "shadow" },
-    "default": { "value": "{elevation.200.value}", "type": "shadow" },
-    "emphasis": { "value": "{elevation.300.value}", "type": "shadow" }
+    "muted": { "value": "{elevation.0.value}", "type": "shadow" },
+    "default": { "value": "{elevation.0.value}", "type": "shadow" },
+    "emphasis": { "value": "{elevation.100.value}", "type": "shadow" }
   },
   "animation": {
     "duration": {
@@ -272,5 +275,17 @@
       "width": { "value": "{border.width.100.value}", "type": "dimension" },
       "offset": { "value": "{space.1.value}", "type": "dimension" }
     }
+  },
+  "scale": {
+    "press": {
+      "subtle": { "value": "{scale.100.value}", "type": "number" },
+      "default": { "value": "{scale.98.value}", "type": "number" }
+    },
+    "hover": {
+      "subtle": { "value": "{scale.100.value}", "type": "number" },
+      "default": { "value": "{scale.100.value}", "type": "number" },
+      "emphasis": { "value": "{scale.102.value}", "type": "number" }
+    },
+    "base": { "value": "{scale.100.value}", "type": "number" }
   }
 }

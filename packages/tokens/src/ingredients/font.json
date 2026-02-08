@@ -12,6 +12,30 @@
       "mono": {
         "value": "'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace",
         "type": "fontFamily"
+      },
+      "display": {
+        "value": "'Bebas Neue', Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif",
+        "type": "fontFamily"
+      },
+      "display-serif": {
+        "value": "'Playfair Display', Didot, Georgia, serif",
+        "type": "fontFamily"
+      },
+      "rounded": {
+        "value": "'Nunito', Verdana, sans-serif",
+        "type": "fontFamily"
+      },
+      "condensed": {
+        "value": "'Barlow Condensed', 'Arial Narrow', sans-serif",
+        "type": "fontFamily"
+      },
+      "handwritten": {
+        "value": "'Caveat', 'Brush Script MT', cursive",
+        "type": "fontFamily"
+      },
+      "slab": {
+        "value": "'Roboto Slab', Rockwell, Georgia, serif",
+        "type": "fontFamily"
       }
     },
     "size": {

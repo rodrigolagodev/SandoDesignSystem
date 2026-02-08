@@ -6,6 +6,53 @@ import { Meta } from "@storybook/blocks";
 
 The Sando Design System typography foundation provides a comprehensive type scale, font families, weights, and spacing controls built on **Ingredients tokens** (Layer 1).
 
+---
+
+## Font Loading
+
+<div
+  style={{
+    padding: "16px",
+    backgroundColor: "#fef3c7",
+    borderRadius: "8px",
+    border: "1px solid #f59e0b",
+    marginBottom: "24px",
+  }}
+>
+  <strong style={{ color: "#92400e" }}>⚠️ Important:</strong>{" "}
+  <span style={{ color: "#78350f" }}>
+    The Sando Design System does <strong>not</strong> include web fonts. This is
+    intentional and follows industry standards (IBM Carbon, Material Design,
+    etc.). Tokens define <code>font-family</code> stacks with system fallbacks
+    that work without loading external fonts.
+  </span>
+</div>
+
+### Loading Google Fonts (Recommended)
+
+To use the full range of expressive fonts, add this snippet to your HTML `<head>`:
+
+<div className="demo-code-dark">
+  <pre>{`<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Bebas+Neue&family=Caveat:wght@400;500;600;700&family=Nunito:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Roboto+Slab:wght@300;400;500;700&display=swap" rel="stylesheet" />`}</pre>
+</div>
+
+<div
+  style={{
+    padding: "12px",
+    backgroundColor: "#f5f5f4",
+    borderRadius: "8px",
+    fontSize: "14px",
+  }}
+>
+  <strong>Note:</strong> If fonts don't load, the system fallbacks ensure your
+  UI remains functional and readable. Core fonts (sans, serif, mono) use system
+  fonts by default.
+</div>
+
+---
+
 ## Type Scale
 
 Our type scale follows a modular progression from 10px (0.625rem) to 48px (3rem), providing flexibility for all interface needs.
@@ -86,9 +133,13 @@ Our type scale follows a modular progression from 10px (0.625rem) to 48px (3rem)
 
 ## Font Families
 
-System font stacks optimized for performance and cross-platform consistency.
+The Sando Design System provides 9 font family categories organized into three groups: **Core** (system fonts, always available), **Display** (for headlines), and **Expressive** (for personality and special use cases).
 
-### Sans Serif (Default)
+### Core Fonts
+
+System font stacks optimized for performance and cross-platform consistency. These fonts are **always available** without loading external fonts.
+
+#### Sans Serif (Default)
 
 The primary font family for all interface text.
 
@@ -119,7 +170,7 @@ The primary font family for all interface text.
   </code>
 </div>
 
-### Serif
+#### Serif
 
 For editorial content and emphasis.
 
@@ -150,7 +201,7 @@ For editorial content and emphasis.
   </code>
 </div>
 
-### Monospace
+#### Monospace
 
 For code, data, and technical content.
 
@@ -179,6 +230,196 @@ For code, data, and technical content.
   <code className="demo-code">
     'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace
   </code>
+</div>
+
+---
+
+### Display Fonts
+
+Bold, impactful fonts designed for headlines and hero sections. **Requires loading Google Fonts**.
+
+#### Display
+
+For bold, impactful headlines that demand attention.
+
+<div className="demo-box">
+  <div
+    style={{
+      fontFamily: "var(--sando-font-family-display)",
+      fontSize: "36px",
+      fontWeight: "400",
+      marginBottom: "8px",
+      letterSpacing: "0.02em",
+    }}
+  >
+    BEBAS NEUE DISPLAY
+  </div>
+  <div
+    style={{
+      fontFamily: "var(--sando-font-family-display)",
+      fontSize: "24px",
+      lineHeight: "1.2",
+      marginBottom: "16px",
+    }}
+  >
+    THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG
+  </div>
+  <code className="demo-code">
+    'Bebas Neue', Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
+  </code>
+</div>
+
+#### Display Serif
+
+For elegant, editorial headlines with a sophisticated feel.
+
+<div className="demo-box">
+  <div
+    style={{
+      fontFamily: "var(--sando-font-family-display-serif)",
+      fontSize: "36px",
+      fontWeight: "600",
+      marginBottom: "8px",
+    }}
+  >
+    Playfair Display
+  </div>
+  <div
+    style={{
+      fontFamily: "var(--sando-font-family-display-serif)",
+      fontSize: "24px",
+      lineHeight: "1.3",
+      marginBottom: "16px",
+      fontStyle: "italic",
+    }}
+  >
+    The quick brown fox jumps over the lazy dog. Elegant & Editorial.
+  </div>
+  <code className="demo-code">'Playfair Display', Didot, Georgia, serif</code>
+</div>
+
+---
+
+### Expressive Fonts
+
+Fonts with distinct personality for special use cases. **Requires loading Google Fonts**.
+
+#### Rounded
+
+Friendly and approachable, perfect for welcoming interfaces.
+
+<div className="demo-box">
+  <div
+    style={{
+      fontFamily: "var(--sando-font-family-rounded)",
+      fontSize: "28px",
+      fontWeight: "700",
+      marginBottom: "8px",
+    }}
+  >
+    Nunito Rounded
+  </div>
+  <div
+    style={{
+      fontFamily: "var(--sando-font-family-rounded)",
+      fontSize: "16px",
+      lineHeight: "1.5",
+      marginBottom: "16px",
+    }}
+  >
+    The quick brown fox jumps over the lazy dog. ABCDEFGHIJKLMNOPQRSTUVWXYZ
+    0123456789
+  </div>
+  <code className="demo-code">'Nunito', Verdana, sans-serif</code>
+</div>
+
+#### Condensed
+
+Compact and efficient, ideal for space-constrained layouts.
+
+<div className="demo-box">
+  <div
+    style={{
+      fontFamily: "var(--sando-font-family-condensed)",
+      fontSize: "28px",
+      fontWeight: "600",
+      marginBottom: "8px",
+    }}
+  >
+    Barlow Condensed
+  </div>
+  <div
+    style={{
+      fontFamily: "var(--sando-font-family-condensed)",
+      fontSize: "16px",
+      lineHeight: "1.5",
+      marginBottom: "16px",
+    }}
+  >
+    The quick brown fox jumps over the lazy dog. ABCDEFGHIJKLMNOPQRSTUVWXYZ
+    0123456789
+  </div>
+  <code className="demo-code">
+    'Barlow Condensed', 'Arial Narrow', sans-serif
+  </code>
+</div>
+
+#### Handwritten
+
+Personal and artistic, for creative and informal contexts.
+
+<div className="demo-box">
+  <div
+    style={{
+      fontFamily: "var(--sando-font-family-handwritten)",
+      fontSize: "32px",
+      fontWeight: "500",
+      marginBottom: "8px",
+    }}
+  >
+    Caveat Handwritten
+  </div>
+  <div
+    style={{
+      fontFamily: "var(--sando-font-family-handwritten)",
+      fontSize: "20px",
+      lineHeight: "1.4",
+      marginBottom: "16px",
+    }}
+  >
+    The quick brown fox jumps over the lazy dog. A personal touch for your
+    designs.
+  </div>
+  <code className="demo-code">'Caveat', 'Brush Script MT', cursive</code>
+</div>
+
+#### Slab
+
+Bold and reliable, conveying trust and authority.
+
+<div className="demo-box">
+  <div
+    style={{
+      fontFamily: "var(--sando-font-family-slab)",
+      fontSize: "28px",
+      fontWeight: "700",
+      marginBottom: "8px",
+    }}
+  >
+    Roboto Slab
+  </div>
+  <div
+    style={{
+      fontFamily: "var(--sando-font-family-slab)",
+      fontSize: "16px",
+      lineHeight: "1.5",
+      marginBottom: "16px",
+    }}
+  >
+    The quick brown fox jumps over the lazy dog. ABCDEFGHIJKLMNOPQRSTUVWXYZ
+    0123456789
+  </div>
+  <code className="demo-code">'Roboto Slab', Rockwell, Georgia, serif</code>
 </div>
 
 ---

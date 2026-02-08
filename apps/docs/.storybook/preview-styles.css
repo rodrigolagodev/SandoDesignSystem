@@ -482,6 +482,29 @@ body {
   color: var(--sb-docs-code-text);
 }
 
+/* Dark code block - for terminal/CLI snippets */
+.demo-code-dark {
+  background-color: #1c1917 !important;
+  border-radius: 8px;
+  padding: 16px;
+  overflow: auto;
+  margin-top: 16px;
+  margin-bottom: 24px;
+}
+
+.demo-code-dark pre,
+.demo-code-dark code {
+  background-color: transparent !important;
+  color: #fafaf9 !important;
+  margin: 0;
+  padding: 0;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
 /* Usage hint box */
 .demo-usage {
   margin-top: 16px;
