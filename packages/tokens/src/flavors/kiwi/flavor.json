@@ -147,8 +147,11 @@
   },
   "font": {
     "family": {
-      "body": { "value": "{font.family.sans.value}", "type": "fontFamily" },
-      "heading": { "value": "{font.family.sans.value}", "type": "fontFamily" }
+      "body": { "value": "{font.family.rounded.value}", "type": "fontFamily" },
+      "heading": {
+        "value": "{font.family.rounded.value}",
+        "type": "fontFamily"
+      }
     },
     "size": {
       "body": { "value": "{font.size.300.value}", "type": "dimension" },
