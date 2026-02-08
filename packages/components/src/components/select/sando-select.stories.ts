@@ -296,6 +296,7 @@ export const WithGroups: Story = {
       value="${args.value || ''}"
       helper-text="${args.helperText || ''}"
       error-text="${args.errorText || ''}"
+      prefix-icon="${ifDefined(args.prefixIcon)}"
       ?disabled="${args.disabled}"
       ?required="${args.required}"
       ?error="${args.error}"
@@ -335,6 +336,7 @@ export const MultiSelect: Story = {
       placeholder="${args.placeholder || 'Select technologies'}"
       helper-text="${args.helperText || ''}"
       error-text="${args.errorText || ''}"
+      prefix-icon="${ifDefined(args.prefixIcon)}"
       ?disabled="${args.disabled}"
       ?required="${args.required}"
       ?error="${args.error}"
@@ -565,6 +567,11 @@ export const VariantFilled: Story = {
  * Select with prefix icon
  */
 export const WithPrefix: Story = {
+  args: {
+    prefixIcon: 'map-pin',
+    label: 'Location',
+    placeholder: 'Select a location'
+  },
   render: (args) => html`
     <sando-select
       variant="${args.variant}"
@@ -573,7 +580,7 @@ export const WithPrefix: Story = {
       flavor="${args.flavor || 'original'}"
       label="${args.label || 'Location'}"
       placeholder="${args.placeholder || 'Select a location'}"
-      prefix-icon="map-pin"
+      prefix-icon="${ifDefined(args.prefixIcon)}"
       ?disabled="${args.disabled}"
       ?required="${args.required}"
       ?error="${args.error}"

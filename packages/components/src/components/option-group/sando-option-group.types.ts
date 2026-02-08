@@ -7,6 +7,12 @@
  */
 
 /**
+ * Available sizes for option group
+ * Matches the parent sando-select size options
+ */
+export type OptionGroupSize = 'sm' | 'md' | 'lg';
+
+/**
  * Props interface for the SandoOptionGroup component
  */
 export interface SandoOptionGroupProps {
@@ -20,4 +26,11 @@ export interface SandoOptionGroupProps {
    * @default false
    */
   disabled?: boolean;
+
+  /**
+   * Size of the option group (inherited from parent select)
+   * Affects label padding to align with options
+   * @default 'md'
+   */
+  size?: OptionGroupSize;
 }

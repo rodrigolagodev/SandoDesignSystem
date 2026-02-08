@@ -68,13 +68,13 @@
 import { LitElement, html, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import type { OptionSelectEventDetail } from './sando-option.types.js';
+import type { OptionSelectEventDetail, OptionSize } from './sando-option.types.js';
 import type { SandoSelect } from '../select/sando-select.js';
 
 import { FlavorableMixin } from '../../mixins/index.js';
 import { resetStyles } from '../../styles/reset.css.js';
 import { tokenStyles } from '../../styles/tokens.css.js';
-import { baseStyles, stateStyles, checkboxStyles } from './styles/index.js';
+import { baseStyles, sizeStyles, stateStyles, checkboxStyles } from './styles/index.js';
 
 // Import sando-icon for checkmark
 import '../icon/sando-icon.js';
@@ -88,7 +88,8 @@ export class SandoOption extends FlavorableMixin(LitElement) {
   static styles = [
     resetStyles, // Universal reset (box-sizing, reduced-motion, etc.)
     tokenStyles, // Design tokens (Ingredients, Flavors, Recipes)
-    baseStyles, // Layout, typography
+    baseStyles, // Layout, transitions
+    sizeStyles, // Size variants (sm, md, lg)
     stateStyles, // Hover, selected, disabled, highlighted
     checkboxStyles // Multi-select checkbox visual
   ];
@@ -131,12 +132,64 @@ export class SandoOption extends FlavorableMixin(LitElement) {
   parentPrefixIcon?: string;
 
   /**
+   * Size of the option (inherited from parent select)
+   * @default 'md'
+   */
+  @property({ reflect: true })
+  size: OptionSize = 'md';
+
+  /**
    * Internal: Whether the option is highlighted via keyboard navigation
    * Set by parent sando-select during arrow key navigation
    * @private
    */
   @state()
   private _highlighted = false;
+
+  /**
+   * Internal: Whether the prefix slot has content
+   * Used for conditional rendering to avoid empty space
+   * @private
+   */
+  @state()
+  private _hasPrefixSlot = false;
+
+  /**
+   * Internal: Whether the suffix slot has content
+   * Used for conditional rendering to avoid empty space
+   * @private
+   */
+  @state()
+  private _hasSuffixSlot = false;
+
+  /**
+   * Get the icon size based on option size
+   * Maps option size to appropriate icon size for visual consistency
+   * @private
+   */
+  private get _iconSize(): 'small' | 'medium' {
+    return this.size === 'lg' ? 'medium' : 'small';
+  }
+
+  /**
+   * Handle slotchange for prefix slot
+   * Updates state to conditionally render the wrapper span
+   * @private
+   */
+  private _handlePrefixSlotChange(e: Event): void {
+    const slot = e.target as HTMLSlotElement;
+    this._hasPrefixSlot = slot.assignedNodes({ flatten: true }).length > 0;
+  }
+
+  /**
+   * Handle slotchange for suffix slot
+   * Updates state to conditionally render the wrapper span
+   * @private
+   */
+  private _handleSuffixSlotChange(e: Event): void {
+    const slot = e.target as HTMLSlotElement;
+    this._hasSuffixSlot = slot.assignedNodes({ flatten: true }).length > 0;
+  }
 
   /**
    * Lifecycle: Called when component is added to DOM
@@ -158,6 +211,7 @@ export class SandoOption extends FlavorableMixin(LitElement) {
       // Read values synchronously - these are already set on parent
       this.multiple = parentSelect.multiple;
       this.parentPrefixIcon = parentSelect.prefixIcon;
+      this.size = parentSelect.size;
     }
   }
 
@@ -206,21 +260,6 @@ export class SandoOption extends FlavorableMixin(LitElement) {
   }
 
   /**
-   * Render visual checkbox for multi-select mode
-   * Only presentational - the checkbox visual is managed by CSS
-   * @private
-   */
-  private _renderCheckbox() {
-    return html`
-      <span class="option-checkbox ${this.selected ? 'checked' : ''}" aria-hidden="true">
-        ${this.selected
-          ? html`<sando-icon name="check" size="small" decorative inherit-color></sando-icon>`
-          : nothing}
-      </span>
-    `;
-  }
-
-  /**
    * Render prefix icon from parent select (single-select mode)
    * Guard is defense-in-depth since _renderPrefix already checks parentPrefixIcon
    * @private
@@ -230,7 +269,7 @@ export class SandoOption extends FlavorableMixin(LitElement) {
     return html`
       <sando-icon
         name="${this.parentPrefixIcon}"
-        size="small"
+        size="${this._iconSize}"
         class="option-parent-prefix-icon"
         decorative
         inherit-color
@@ -240,24 +279,60 @@ export class SandoOption extends FlavorableMixin(LitElement) {
 
   /**
    * Render the prefix area based on select mode
-   * - Multi-select: visual checkbox
-   * - Single-select with prefix-icon: parent's prefix icon
-   * - Single-select without prefix: nothing (no reserved space)
+   * - With prefix-icon: parent's prefix icon (both single and multi-select)
+   * - Without prefix-icon: nothing (no reserved space)
    * @private
    */
   private _renderPrefix() {
-    // Multi-select: always show checkbox
-    if (this.multiple) {
-      return this._renderCheckbox();
-    }
-
-    // Single-select with prefix-icon from parent
+    // Render parent's prefix-icon if it exists (both single and multi-select)
     if (this.parentPrefixIcon) {
       return this._renderParentPrefixIcon();
     }
 
-    // Single-select without prefix: nothing
+    // No prefix icon: nothing
     return nothing;
+  }
+
+  /**
+   * Render the prefix slot area
+   * Slot is always present to detect changes, but wrapper span only renders if content exists
+   * @private
+   */
+  private _renderPrefixSlot() {
+    if (this._hasPrefixSlot) {
+      return html`
+        <span class="option-prefix" part="prefix">
+          <slot name="prefix" @slotchange=${this._handlePrefixSlotChange}></slot>
+        </span>
+      `;
+    }
+    // Slot without wrapper - hidden but still detects content changes
+    return html`<slot
+      name="prefix"
+      @slotchange=${this._handlePrefixSlotChange}
+      class="hidden-slot"
+    ></slot>`;
+  }
+
+  /**
+   * Render the suffix slot area
+   * Slot is always present to detect changes, but wrapper span only renders if content exists
+   * @private
+   */
+  private _renderSuffixSlot() {
+    if (this._hasSuffixSlot) {
+      return html`
+        <span class="option-suffix" part="suffix">
+          <slot name="suffix" @slotchange=${this._handleSuffixSlotChange}></slot>
+        </span>
+      `;
+    }
+    // Slot without wrapper - hidden but still detects content changes
+    return html`<slot
+      name="suffix"
+      @slotchange=${this._handleSuffixSlotChange}
+      class="hidden-slot"
+    ></slot>`;
   }
 
   render() {
@@ -270,19 +345,13 @@ export class SandoOption extends FlavorableMixin(LitElement) {
         aria-disabled=${this.disabled ? 'true' : nothing}
         @click=${this._handleClick}
       >
-        ${this._renderPrefix()}
-
-        <span class="option-prefix" part="prefix">
-          <slot name="prefix"></slot>
-        </span>
+        ${this._renderPrefix()} ${this._renderPrefixSlot()}
 
         <span class="option-content" part="content">
           <slot></slot>
         </span>
 
-        <span class="option-suffix" part="suffix">
-          <slot name="suffix"></slot>
-        </span>
+        ${this._renderSuffixSlot()}
       </div>
     `;
   }

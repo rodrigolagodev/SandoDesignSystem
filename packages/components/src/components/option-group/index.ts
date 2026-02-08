@@ -7,4 +7,4 @@
 export { SandoOptionGroup } from './sando-option-group.js';
 
 // Type definitions
-export type { SandoOptionGroupProps } from './sando-option-group.types.js';
+export type { SandoOptionGroupProps, OptionGroupSize } from './sando-option-group.types.js';

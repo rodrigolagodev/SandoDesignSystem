@@ -395,8 +395,12 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
       this._syncOptionSelectedStates();
     }
 
-    // Update option context when multiple or prefixIcon changes
-    if (changedProperties.has('multiple') || changedProperties.has('prefixIcon')) {
+    // Update option context when multiple, prefixIcon, or size changes
+    if (
+      changedProperties.has('multiple') ||
+      changedProperties.has('prefixIcon') ||
+      changedProperties.has('size')
+    ) {
       this._updateOptionsContext();
     }
 
@@ -565,13 +569,21 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
 
   /**
    * Update options with context from parent select
-   * Sets multiple mode and prefix icon on all options
+   * Sets multiple mode, prefix icon, and size on all options and option-groups
    * @private
    */
   private _updateOptionsContext(): void {
+    // Update options
     this._options.forEach((option) => {
       option.multiple = this.multiple;
       option.parentPrefixIcon = this.prefixIcon;
+      option.size = this.size;
+    });
+
+    // Update option-groups
+    const optionGroups = this.querySelectorAll('sando-option-group');
+    optionGroups.forEach((group) => {
+      (group as HTMLElement & { size: string }).size = this.size;
     });
   }
 
@@ -1070,12 +1082,26 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
   }
 
   /**
+   * Get the icon size based on select size
+   * Maps select size to appropriate icon size for visual consistency
+   * @private
+   */
+  private get _iconSize(): 'small' | 'medium' {
+    return this.size === 'lg' ? 'medium' : 'small';
+  }
+
+  /**
    * Render caret icon
    * @private
    */
   private _renderCaretIcon() {
     return html`
-      <sando-icon name="chevron-down" size="small" decorative inherit-color></sando-icon>
+      <sando-icon
+        name="chevron-down"
+        size="${this._iconSize}"
+        decorative
+        inherit-color
+      ></sando-icon>
     `;
   }
 
@@ -1084,7 +1110,9 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
    * @private
    */
   private _renderClearIcon() {
-    return html` <sando-icon name="x" size="small" decorative inherit-color></sando-icon> `;
+    return html`
+      <sando-icon name="x" size="${this._iconSize}" decorative inherit-color></sando-icon>
+    `;
   }
 
   /**
@@ -1184,7 +1212,7 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
                   <slot name="prefix-icon">
                     <sando-icon
                       name="${this.prefixIcon}"
-                      size="small"
+                      size="${this._iconSize}"
                       decorative
                       inherit-color
                     ></sando-icon>

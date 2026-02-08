@@ -19,8 +19,6 @@ export const checkboxStyles = css`
     flex-shrink: 0;
 
     /* Use checkbox tokens for visual consistency */
-    width: var(--sando-checkbox-size-medium);
-    height: var(--sando-checkbox-size-medium);
     border: var(--sando-checkbox-borderWidth) solid var(--sando-checkbox-borderColor-default);
     border-radius: var(--sando-checkbox-borderRadius);
     background: var(--sando-checkbox-backgroundColor-default);
@@ -29,6 +27,24 @@ export const checkboxStyles = css`
     transition-property: background-color, border-color, color;
     transition-duration: var(--sando-select-transition-duration);
     transition-timing-function: var(--sando-select-transition-timing);
+  }
+
+  /* ========================================
+     CHECKBOX SIZE VARIANTS
+     Scale checkbox based on option size
+     ======================================== */
+
+  /* Small/Medium option - smaller checkbox */
+  :host([size='sm']) .option-checkbox,
+  :host([size='md']) .option-checkbox {
+    width: var(--sando-checkbox-size-small, 16px);
+    height: var(--sando-checkbox-size-small, 16px);
+  }
+
+  /* Large option - medium checkbox */
+  :host([size='lg']) .option-checkbox {
+    width: var(--sando-checkbox-size-medium, 20px);
+    height: var(--sando-checkbox-size-medium, 20px);
   }
 
   /* Checkbox hover state (when option is hovered) */
@@ -43,9 +59,20 @@ export const checkboxStyles = css`
     color: var(--sando-checkbox-iconColor-checked);
   }
 
-  /* Checkbox icon sizing */
-  .option-checkbox sando-icon {
-    --sando-icon-size: 14px;
+  /* ========================================
+     CHECKBOX ICON SIZE VARIANTS
+     Scale icon inside checkbox based on option size
+     ======================================== */
+
+  /* Small/Medium option - smaller icon */
+  :host([size='sm']) .option-checkbox sando-icon,
+  :host([size='md']) .option-checkbox sando-icon {
+    --sando-icon-size: 12px;
+  }
+
+  /* Large option - larger icon */
+  :host([size='lg']) .option-checkbox sando-icon {
+    --sando-icon-size: 16px;
   }
 
   /* Disabled state */
