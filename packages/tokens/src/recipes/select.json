@@ -308,6 +308,74 @@
       "minHeight": {
         "value": "{sizing.control.sm.value}",
         "type": "dimension"
+      },
+      "size": {
+        "sm": {
+          "paddingInline": {
+            "value": "{space.inset.muted.value}",
+            "type": "dimension"
+          },
+          "paddingBlock": {
+            "value": "{space.stack.tight.value}",
+            "type": "dimension"
+          },
+          "fontSize": {
+            "value": "{font.size.caption.value}",
+            "type": "dimension"
+          },
+          "minHeight": {
+            "value": "{sizing.control.xs.value}",
+            "type": "dimension"
+          },
+          "gap": {
+            "value": "{space.stack.tight.value}",
+            "type": "dimension"
+          }
+        },
+        "md": {
+          "paddingInline": {
+            "value": "{space.inset.default.value}",
+            "type": "dimension"
+          },
+          "paddingBlock": {
+            "value": "{space.inset.muted.value}",
+            "type": "dimension"
+          },
+          "fontSize": {
+            "value": "{font.size.body.value}",
+            "type": "dimension"
+          },
+          "minHeight": {
+            "value": "{sizing.control.sm.value}",
+            "type": "dimension"
+          },
+          "gap": {
+            "value": "{space.stack.muted.value}",
+            "type": "dimension"
+          }
+        },
+        "lg": {
+          "paddingInline": {
+            "value": "{space.inset.emphasis.value}",
+            "type": "dimension"
+          },
+          "paddingBlock": {
+            "value": "{space.inset.default.value}",
+            "type": "dimension"
+          },
+          "fontSize": {
+            "value": "{font.size.body.value}",
+            "type": "dimension"
+          },
+          "minHeight": {
+            "value": "{sizing.control.md.value}",
+            "type": "dimension"
+          },
+          "gap": {
+            "value": "{space.stack.default.value}",
+            "type": "dimension"
+          }
+        }
       }
     },
     "optionGroup": {
@@ -342,6 +410,26 @@
       "marginTop": {
         "value": "{space.stack.muted.value}",
         "type": "dimension"
+      },
+      "size": {
+        "sm": {
+          "labelPaddingInline": {
+            "value": "{space.inset.muted.value}",
+            "type": "dimension"
+          }
+        },
+        "md": {
+          "labelPaddingInline": {
+            "value": "{space.inset.default.value}",
+            "type": "dimension"
+          }
+        },
+        "lg": {
+          "labelPaddingInline": {
+            "value": "{space.inset.emphasis.value}",
+            "type": "dimension"
+          }
+        }
       }
     },
     "multiSelect": {
