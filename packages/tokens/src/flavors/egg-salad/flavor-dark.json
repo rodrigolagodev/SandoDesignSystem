@@ -1,5 +1,5 @@
 {
-  "$description": "Dark mode overrides for 'egg-salad' flavor. Only includes tokens that differ from light mode. Automatically applied via @media (prefers-color-scheme: dark) and [flavor-mode='dark'].",
+  "$description": "Dark mode overrides for 'egg-salad' flavor (Modern/Playful). Only includes tokens that differ from light mode. Automatically applied via @media (prefers-color-scheme: dark) and [flavor-mode='dark'].",
   "color": {
     "background": {
       "base": { "value": "{color.yellow.950.value}", "type": "color" },
@@ -117,5 +117,67 @@
       "background": { "value": "{color.yellow.700.value}", "type": "color" },
       "text": { "value": "{color.yellow.50.value}", "type": "color" }
     }
+  },
+  "font": {
+    "family": {
+      "body": { "value": "{font.family.sans.value}", "type": "fontFamily" },
+      "heading": { "value": "{font.family.serif.value}", "type": "fontFamily" }
+    }
+  },
+  "elevation": {
+    "muted": { "value": "{elevation.200.value}", "type": "shadow" },
+    "default": { "value": "{elevation.400.value}", "type": "shadow" },
+    "emphasis": { "value": "{elevation.500.value}", "type": "shadow" }
+  },
+  "animation": {
+    "duration": {
+      "instant": {
+        "value": "{animation.duration.0.value}",
+        "type": "duration"
+      },
+      "fast": { "value": "{animation.duration.300.value}", "type": "duration" },
+      "normal": {
+        "value": "{animation.duration.500.value}",
+        "type": "duration"
+      },
+      "slow": { "value": "{animation.duration.700.value}", "type": "duration" }
+    },
+    "easing": {
+      "default": {
+        "value": "{animation.easing.bounce.value}",
+        "type": "cubicBezier"
+      },
+      "entrance": {
+        "value": "{animation.easing.bounce.value}",
+        "type": "cubicBezier"
+      },
+      "exit": {
+        "value": "{animation.easing.ease-in.value}",
+        "type": "cubicBezier"
+      }
+    }
+  },
+  "opacity": {
+    "disabled": { "value": "{opacity.500.value}", "type": "number" },
+    "hover": { "value": "{opacity.800.value}", "type": "number" },
+    "loading": { "value": "{opacity.500.value}", "type": "number" }
+  },
+  "focus": {
+    "outline": {
+      "width": { "value": "{border.width.150.value}", "type": "dimension" },
+      "offset": { "value": "{space.2.value}", "type": "dimension" }
+    }
+  },
+  "scale": {
+    "press": {
+      "subtle": { "value": "{scale.98.value}", "type": "number" },
+      "default": { "value": "{scale.95.value}", "type": "number" }
+    },
+    "hover": {
+      "subtle": { "value": "{scale.105.value}", "type": "number" },
+      "default": { "value": "{scale.110.value}", "type": "number" },
+      "emphasis": { "value": "{scale.110.value}", "type": "number" }
+    },
+    "base": { "value": "{scale.100.value}", "type": "number" }
   }
 }
