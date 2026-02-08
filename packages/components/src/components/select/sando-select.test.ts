@@ -330,6 +330,87 @@ describe('sando-select', () => {
     });
   });
 
+  describe('Size Propagation to Options', () => {
+    it("should propagate size='sm' to child options", async () => {
+      const el = await fixture<SandoSelect>(html`
+        <sando-select label="Test" size="sm">
+          <sando-option value="a">Option A</sando-option>
+          <sando-option value="b">Option B</sando-option>
+        </sando-select>
+      `);
+      await el.updateComplete;
+
+      const options = el.querySelectorAll('sando-option');
+      options.forEach((option) => {
+        expect(option.size).toBe('sm');
+        expect(option.getAttribute('size')).toBe('sm');
+      });
+    });
+
+    it("should propagate size='lg' to child options", async () => {
+      const el = await fixture<SandoSelect>(html`
+        <sando-select label="Test" size="lg">
+          <sando-option value="a">Option A</sando-option>
+          <sando-option value="b">Option B</sando-option>
+        </sando-select>
+      `);
+      await el.updateComplete;
+
+      const options = el.querySelectorAll('sando-option');
+      options.forEach((option) => {
+        expect(option.size).toBe('lg');
+        expect(option.getAttribute('size')).toBe('lg');
+      });
+    });
+
+    it('should update option sizes when select size changes dynamically', async () => {
+      const el = await fixture<SandoSelect>(html`
+        <sando-select label="Test" size="md">
+          <sando-option value="a">Option A</sando-option>
+          <sando-option value="b">Option B</sando-option>
+        </sando-select>
+      `);
+      await el.updateComplete;
+
+      // Verify initial size
+      const options = el.querySelectorAll('sando-option');
+      options.forEach((option) => {
+        expect(option.size).toBe('md');
+      });
+
+      // Change select size dynamically
+      el.size = 'lg';
+      await el.updateComplete;
+
+      // Verify options updated
+      options.forEach((option) => {
+        expect(option.size).toBe('lg');
+        expect(option.getAttribute('size')).toBe('lg');
+      });
+
+      // Change again to sm
+      el.size = 'sm';
+      await el.updateComplete;
+
+      options.forEach((option) => {
+        expect(option.size).toBe('sm');
+        expect(option.getAttribute('size')).toBe('sm');
+      });
+    });
+
+    it("should inherit default size 'md' when select has no size specified", async () => {
+      const el = await fixture<SandoSelect>(html`
+        <sando-select label="Test">
+          <sando-option value="a">Option A</sando-option>
+        </sando-select>
+      `);
+      await el.updateComplete;
+
+      const option = el.querySelector('sando-option');
+      expect(option?.size).toBe('md');
+    });
+  });
+
   describe('ARIA Attributes', () => {
     it('should have aria-expanded matching open state', async () => {
       const trigger = element.shadowRoot?.querySelector('.select-trigger');
