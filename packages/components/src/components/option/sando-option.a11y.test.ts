@@ -111,21 +111,26 @@ describe('sando-option accessibility', () => {
       expect(checkmark).toBeNull();
     });
 
-    it('should have checkbox visual in multi-select mode', async () => {
+    it('should NOT have checkbox visual in multi-select mode (uses background color instead)', async () => {
       const el = await fixture<SandoOption>(html`
         <sando-option value="test" multiple selected>Selected</sando-option>
       `);
+      // Checkbox was removed to avoid visual collision with prefix icons
+      // Selection is indicated via background color styling
       const checkbox = el.shadowRoot?.querySelector('.option-checkbox');
-      expect(checkbox).not.toBeNull();
-      expect(checkbox?.getAttribute('aria-hidden')).toBe('true');
+      expect(checkbox).toBeNull();
     });
 
-    it('should show checked state in multi-select when selected', async () => {
+    it('should rely on selected attribute for styling in multi-select mode', async () => {
       const el = await fixture<SandoOption>(html`
         <sando-option value="test" multiple selected>Selected</sando-option>
       `);
-      const checkbox = el.shadowRoot?.querySelector('.option-checkbox');
-      expect(checkbox?.classList.contains('checked')).toBe(true);
+      // Selection state is communicated via:
+      // 1. aria-selected="true" (accessibility)
+      // 2. [selected] attribute on host (CSS styling via background color)
+      const option = el.shadowRoot?.querySelector('.option');
+      expect(option?.getAttribute('aria-selected')).toBe('true');
+      expect(el.hasAttribute('selected')).toBe(true);
     });
   });
 
