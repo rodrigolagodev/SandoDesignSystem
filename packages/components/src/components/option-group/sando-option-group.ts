@@ -38,12 +38,13 @@
 import { LitElement, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import type { SandoOptionGroupProps } from './sando-option-group.types.js';
+import type { SandoOptionGroupProps, OptionGroupSize } from './sando-option-group.types.js';
+import type { SandoSelect } from '../select/sando-select.js';
 
 import { FlavorableMixin } from '../../mixins/index.js';
 import { resetStyles } from '../../styles/reset.css.js';
 import { tokenStyles } from '../../styles/tokens.css.js';
-import { baseStyles } from './styles/index.js';
+import { baseStyles, sizeStyles } from './styles/index.js';
 
 @customElement('sando-option-group')
 export class SandoOptionGroup extends FlavorableMixin(LitElement) implements SandoOptionGroupProps {
@@ -53,7 +54,8 @@ export class SandoOptionGroup extends FlavorableMixin(LitElement) implements San
   static styles = [
     resetStyles, // CSS reset for Shadow DOM
     tokenStyles, // Design tokens (Ingredients, Flavors, Recipes)
-    baseStyles // Layout, typography, divider
+    baseStyles, // Layout, typography, divider
+    sizeStyles // Size variants (sm, md, lg)
   ];
 
   /**
@@ -68,6 +70,35 @@ export class SandoOptionGroup extends FlavorableMixin(LitElement) implements San
    */
   @property({ type: Boolean, reflect: true })
   disabled = false;
+
+  /**
+   * Size of the option group (inherited from parent select)
+   * Affects label padding to align with options
+   * @default 'md'
+   */
+  @property({ reflect: true })
+  size: OptionGroupSize = 'md';
+
+  /**
+   * Lifecycle: Called when component is added to DOM
+   * Synchronously reads parent context before first render
+   */
+  connectedCallback(): void {
+    super.connectedCallback();
+    this._initializeParentContext();
+  }
+
+  /**
+   * Synchronously read parent select context before first render
+   * This prevents visual flash by ensuring props are set before paint
+   * @private
+   */
+  private _initializeParentContext(): void {
+    const parentSelect = this.closest('sando-select') as SandoSelect | null;
+    if (parentSelect) {
+      this.size = parentSelect.size;
+    }
+  }
 
   /**
    * Lifecycle: Called when properties change

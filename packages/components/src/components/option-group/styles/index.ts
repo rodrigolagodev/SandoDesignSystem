@@ -8,3 +8,4 @@
  */
 
 export { baseStyles } from './base.css.js';
+export { sizeStyles } from './size.css.js';
