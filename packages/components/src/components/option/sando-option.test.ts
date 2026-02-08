@@ -174,6 +174,58 @@ describe('sando-option', () => {
     });
   });
 
+  describe('Size Prop', () => {
+    it("should have default size 'md'", async () => {
+      const el = await fixture<SandoOption>(html`
+        <sando-option value="test">Option</sando-option>
+      `);
+      expect(el.size).toBe('md');
+    });
+
+    it('should reflect size attribute to DOM', async () => {
+      const el = await fixture<SandoOption>(html`
+        <sando-option value="test" size="lg">Option</sando-option>
+      `);
+      expect(el.getAttribute('size')).toBe('lg');
+    });
+
+    it("should accept 'sm' as valid size", async () => {
+      const el = await fixture<SandoOption>(html`
+        <sando-option value="test" size="sm">Small Option</sando-option>
+      `);
+      expect(el.size).toBe('sm');
+      expect(el.getAttribute('size')).toBe('sm');
+    });
+
+    it("should accept 'md' as valid size", async () => {
+      const el = await fixture<SandoOption>(html`
+        <sando-option value="test" size="md">Medium Option</sando-option>
+      `);
+      expect(el.size).toBe('md');
+      expect(el.getAttribute('size')).toBe('md');
+    });
+
+    it("should accept 'lg' as valid size", async () => {
+      const el = await fixture<SandoOption>(html`
+        <sando-option value="test" size="lg">Large Option</sando-option>
+      `);
+      expect(el.size).toBe('lg');
+      expect(el.getAttribute('size')).toBe('lg');
+    });
+
+    it('should update size when changed dynamically', async () => {
+      const el = await fixture<SandoOption>(html`
+        <sando-option value="test">Option</sando-option>
+      `);
+
+      el.size = 'sm';
+      await el.updateComplete;
+
+      expect(el.size).toBe('sm');
+      expect(el.getAttribute('size')).toBe('sm');
+    });
+  });
+
   describe('Public API', () => {
     it('getLabel() should return text content', async () => {
       const el = await fixture<SandoOption>(html`

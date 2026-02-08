@@ -3,9 +3,10 @@
  *
  * Contains:
  * - Layout (flexbox, alignment)
- * - Typography
  * - Base appearance (cursor, transitions)
  *
+ * Note: Size-specific properties (padding, fontSize, gap, minHeight)
+ * are handled by size.css.ts
  * Note: CSS reset (box-sizing, reduced-motion) handled by resetStyles
  */
 
@@ -21,11 +22,6 @@ export const baseStyles = css`
   .option {
     display: flex;
     align-items: center;
-    gap: var(--sando-select-option-gap);
-    padding-inline: var(--sando-select-option-paddingInline);
-    padding-block: var(--sando-select-option-paddingBlock);
-    min-height: var(--sando-select-option-minHeight);
-    font-size: var(--sando-select-option-fontSize);
     cursor: pointer;
     user-select: none;
     transition-property: background-color, color;
@@ -33,8 +29,9 @@ export const baseStyles = css`
     transition-timing-function: var(--sando-select-transition-timing);
   }
 
-  /* Content layout */
-  .option-prefix {
+  /* Content layout - prefix/suffix wrappers */
+  .option-prefix,
+  .option-suffix {
     display: flex;
     align-items: center;
     flex-shrink: 0;
@@ -48,9 +45,8 @@ export const baseStyles = css`
     white-space: nowrap;
   }
 
-  .option-suffix {
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
+  /* Hidden slot - used when slot has no content */
+  .hidden-slot {
+    display: none;
   }
 `;
