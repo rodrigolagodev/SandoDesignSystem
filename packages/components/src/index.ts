@@ -60,6 +60,15 @@ export type {
   SandoCheckboxProps
 } from './components/checkbox/index.js';
 
+export { SandoRadio } from './components/radio/index.js';
+export type {
+  RadioVariant,
+  RadioSize,
+  RadioChangeEventDetail,
+  RadioChangeEvent,
+  SandoRadioProps
+} from './components/radio/index.js';
+
 export { SandoTag } from './components/tag/index.js';
 export type {
   TagVariant,
