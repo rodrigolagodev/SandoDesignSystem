@@ -65,7 +65,7 @@ export const baseStyles = css`
     transition-duration: var(--sando-select-transition-duration);
     transition-timing-function: var(--sando-select-transition-timing);
     position: relative;
-    outline: 2px solid transparent;
+    outline: var(--sando-select-focusOutlineWidth) solid transparent;
     outline-offset: var(--sando-select-focusOutlineOffset);
   }
 
