@@ -69,6 +69,14 @@ export type {
   SandoRadioProps
 } from './components/radio/index.js';
 
+export { SandoRadioGroup } from './components/radio-group/index.js';
+export type {
+  RadioGroupOrientation,
+  RadioGroupChangeEventDetail,
+  RadioGroupChangeEvent,
+  SandoRadioGroupProps
+} from './components/radio-group/index.js';
+
 export { SandoTag } from './components/tag/index.js';
 export type {
   TagVariant,
