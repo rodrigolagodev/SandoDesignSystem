@@ -1,5 +1,5 @@
 {
-  "checkbox": {
+  "radio": {
     "solid": {
       "backgroundColor": {
         "default": {
@@ -15,14 +15,6 @@
           "type": "color"
         },
         "checkedHover": {
-          "value": "{color.action.solid.background.hover.value}",
-          "type": "color"
-        },
-        "indeterminate": {
-          "value": "{color.action.solid.background.default.value}",
-          "type": "color"
-        },
-        "indeterminateHover": {
           "value": "{color.action.solid.background.hover.value}",
           "type": "color"
         },
@@ -56,14 +48,6 @@
           "value": "{color.action.solid.background.hover.value}",
           "type": "color"
         },
-        "indeterminate": {
-          "value": "{color.action.solid.background.default.value}",
-          "type": "color"
-        },
-        "indeterminateHover": {
-          "value": "{color.action.solid.background.hover.value}",
-          "type": "color"
-        },
         "disabled": {
           "value": "{color.action.disabled.border.value}",
           "type": "color"
@@ -73,7 +57,7 @@
           "type": "color"
         }
       },
-      "checkmarkColor": {
+      "dotColor": {
         "default": {
           "value": "{color.text.on-solid.value}",
           "type": "color"
@@ -99,14 +83,6 @@
           "type": "color"
         },
         "checkedHover": {
-          "value": "{color.background.emphasis.value}",
-          "type": "color"
-        },
-        "indeterminate": {
-          "value": "{color.background.transparent.value}",
-          "type": "color"
-        },
-        "indeterminateHover": {
           "value": "{color.background.emphasis.value}",
           "type": "color"
         },
@@ -140,14 +116,6 @@
           "value": "{color.action.solid.background.hover.value}",
           "type": "color"
         },
-        "indeterminate": {
-          "value": "{color.action.solid.background.default.value}",
-          "type": "color"
-        },
-        "indeterminateHover": {
-          "value": "{color.action.solid.background.hover.value}",
-          "type": "color"
-        },
         "disabled": {
           "value": "{color.action.disabled.border.value}",
           "type": "color"
@@ -157,7 +125,7 @@
           "type": "color"
         }
       },
-      "checkmarkColor": {
+      "dotColor": {
         "default": {
           "value": "{color.action.solid.background.default.value}",
           "type": "color"
@@ -174,8 +142,8 @@
           "value": "1rem",
           "type": "dimension"
         },
-        "checkmarkStrokeWidth": {
-          "value": "{border.width.stroke.value}",
+        "dotSize": {
+          "value": "0.375rem",
           "type": "dimension"
         },
         "labelFontSize": {
@@ -192,8 +160,8 @@
           "value": "1.25rem",
           "type": "dimension"
         },
-        "checkmarkStrokeWidth": {
-          "value": "{border.width.stroke.value}",
+        "dotSize": {
+          "value": "0.5rem",
           "type": "dimension"
         },
         "labelFontSize": {
@@ -210,8 +178,8 @@
           "value": "1.5rem",
           "type": "dimension"
         },
-        "checkmarkStrokeWidth": {
-          "value": "{border.width.strokeEmphasis.value}",
+        "dotSize": {
+          "value": "0.625rem",
           "type": "dimension"
         },
         "labelFontSize": {
@@ -277,7 +245,7 @@
       "type": "dimension"
     },
     "borderRadius": {
-      "value": "{border.radius.muted.value}",
+      "value": "{border.radius.circular.value}",
       "type": "dimension"
     },
     "focusOutlineColor": {
@@ -292,12 +260,6 @@
       "value": "{space.stack.tight.value}",
       "type": "dimension"
     },
-    "requiredIndicator": {
-      "marginInlineStart": {
-        "value": "{space.stack.tight.value}",
-        "type": "dimension"
-      }
-    },
     "transition": {
       "duration": {
         "value": "{animation.duration.fast.value}",
@@ -306,6 +268,12 @@
       "timing": {
         "value": "{animation.easing.default.value}",
         "type": "cubicBezier"
+      }
+    },
+    "requiredIndicator": {
+      "marginInlineStart": {
+        "value": "{space.stack.tight.value}",
+        "type": "dimension"
       }
     }
   }

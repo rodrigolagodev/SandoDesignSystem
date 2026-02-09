@@ -33,8 +33,9 @@ export const baseStyles = css`
     align-items: center;
     cursor: pointer;
     position: relative;
-    padding: 0.25rem;
-    margin: -0.25rem;
+    /* Use focusOutlineOffset token (0.25rem) for hover area padding */
+    padding: var(--sando-checkbox-focusOutlineOffset);
+    margin: calc(-1 * var(--sando-checkbox-focusOutlineOffset));
     border-radius: var(--sando-checkbox-borderRadius);
   }
 
@@ -73,21 +74,21 @@ export const baseStyles = css`
     transition-timing-function: var(--sando-checkbox-transition-timing);
     position: relative;
     /* Prepare for focus outline */
-    outline: 2px solid transparent;
-    outline-offset: var(--sando-checkbox-focusOutlineOffset, 2px);
+    outline: var(--sando-checkbox-focusOutlineWidth) solid transparent;
+    outline-offset: var(--sando-checkbox-focusOutlineOffset);
   }
 
   /* Focus visible on the box when native input is focused */
   .native-input:focus-visible ~ .checkbox-box {
     outline-color: var(--sando-checkbox-focusOutlineColor);
-    outline-width: var(--sando-checkbox-focusOutlineWidth, 2px);
+    outline-width: var(--sando-checkbox-focusOutlineWidth);
     outline-style: solid;
   }
 
   /* Fallback: also target when container has focus-within */
   .checkbox-container:focus-within .checkbox-box {
     outline-color: var(--sando-checkbox-focusOutlineColor);
-    outline-width: var(--sando-checkbox-focusOutlineWidth, 2px);
+    outline-width: var(--sando-checkbox-focusOutlineWidth);
     outline-style: solid;
   }
 
@@ -100,8 +101,8 @@ export const baseStyles = css`
   @media (prefers-contrast: high) {
     .native-input:focus-visible ~ .checkbox-box,
     .checkbox-container:focus-within .checkbox-box {
-      outline-width: 4px;
-      outline-offset: 3px;
+      outline-width: calc(var(--sando-checkbox-focusOutlineWidth) * 2);
+      outline-offset: calc(var(--sando-checkbox-focusOutlineOffset) * 1.5);
     }
   }
 
@@ -136,7 +137,7 @@ export const baseStyles = css`
   /* Required indicator */
   .required-indicator {
     color: var(--sando-checkbox-helperText-textColor-error);
-    margin-left: 0.25em;
+    margin-inline-start: var(--sando-checkbox-requiredIndicator-marginInlineStart);
   }
 
   /* Helper and error text container */

@@ -6,7 +6,8 @@
       "surface": { "value": "{color.green.900.value}", "type": "color" },
       "raised": { "value": "{color.neutralWarm.800.value}", "type": "color" },
       "overlay": { "value": "{color.green.950.value}", "type": "color" },
-      "emphasis": { "value": "{color.green.800.value}", "type": "color" }
+      "emphasis": { "value": "{color.green.800.value}", "type": "color" },
+      "hover": { "value": "{color.green.900.value}", "type": "color" }
     },
     "focus": {
       "ring": { "value": "{color.green.400.value}", "type": "color" },

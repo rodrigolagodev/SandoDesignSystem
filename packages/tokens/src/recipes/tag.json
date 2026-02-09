@@ -43,7 +43,7 @@
           "type": "color"
         },
         "hover": {
-          "value": "{color.background.emphasis.value}",
+          "value": "{color.background.hover.value}",
           "type": "color"
         },
         "active": {
@@ -91,7 +91,7 @@
           "type": "color"
         },
         "hover": {
-          "value": "{color.background.emphasis.value}",
+          "value": "{color.background.hover.value}",
           "type": "color"
         },
         "active": {
@@ -239,7 +239,7 @@
           "type": "color"
         },
         "hover": {
-          "value": "{color.background.emphasis.value}",
+          "value": "{color.background.hover.value}",
           "type": "color"
         }
       },

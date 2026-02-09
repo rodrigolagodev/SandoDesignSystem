@@ -6,6 +6,7 @@
       "raised": { "value": "{color.utility.white.value}", "type": "color" },
       "overlay": { "value": "{color.brown.950.value}", "type": "color" },
       "emphasis": { "value": "{color.brown.200.value}", "type": "color" },
+      "hover": { "value": "{color.brown.200.value}", "type": "color" },
       "transparent": {
         "value": "{color.utility.transparent.value}",
         "type": "color"

@@ -51,12 +51,17 @@ import ingredientsZIndex from '@sando/tokens/css/ingredients/z-index.css?inline'
 // These reference Flavor tokens (e.g., var(--sando-color-text-body)).
 // The actual values come from Flavors loaded in the Light DOM.
 // ============================================================================
+import recipeBadge from '@sando/tokens/css/recipes/badge.css?inline';
 import recipeButton from '@sando/tokens/css/recipes/button.css?inline';
 import recipeCheckbox from '@sando/tokens/css/recipes/checkbox.css?inline';
 import recipeFormGroup from '@sando/tokens/css/recipes/form-group.css?inline';
 import recipeIcon from '@sando/tokens/css/recipes/icon.css?inline';
 import recipeInput from '@sando/tokens/css/recipes/input.css?inline';
+import recipeOption from '@sando/tokens/css/recipes/option.css?inline';
+import recipeOptionGroup from '@sando/tokens/css/recipes/option-group.css?inline';
+import recipeRadio from '@sando/tokens/css/recipes/radio.css?inline';
 import recipeSelect from '@sando/tokens/css/recipes/select.css?inline';
+import recipeTag from '@sando/tokens/css/recipes/tag.css?inline';
 
 /**
  * Combined token styles for Web Components Shadow DOM
@@ -86,10 +91,15 @@ export const tokenStyles = css`
      RECIPES LAYER - Component Tokens
      Reference Flavor tokens from Light DOM
      ======================================== */
+  ${unsafeCSS(recipeBadge)}
   ${unsafeCSS(recipeButton)}
   ${unsafeCSS(recipeCheckbox)}
   ${unsafeCSS(recipeFormGroup)}
   ${unsafeCSS(recipeIcon)}
   ${unsafeCSS(recipeInput)}
+  ${unsafeCSS(recipeOption)}
+  ${unsafeCSS(recipeOptionGroup)}
+  ${unsafeCSS(recipeRadio)}
   ${unsafeCSS(recipeSelect)}
+  ${unsafeCSS(recipeTag)}
 `;
