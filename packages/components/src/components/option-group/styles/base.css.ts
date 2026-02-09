@@ -35,6 +35,7 @@ export const baseStyles = css`
   }
 
   .option-group-label {
+    font-family: var(--sando-option-group-label-fontFamily);
     font-size: var(--sando-select-optionGroup-labelFontSize);
     font-weight: var(--sando-select-optionGroup-labelFontWeight);
     color: var(--sando-select-optionGroup-labelColor);
