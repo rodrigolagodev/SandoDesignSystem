@@ -33,9 +33,21 @@ import '../option/sando-option.js';
  * ```
  */
 const meta: Meta = {
-  title: 'Components/Select/OptionGroup',
+  title: 'Components/Option Group',
   component: 'sando-option-group',
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
+  render: (args) => html`
+    <sando-option-group
+      label="${args.label}"
+      size="${args.size}"
+      ?disabled="${args.disabled}"
+      flavor="${args.flavor || 'original'}"
+    >
+      <sando-option value="option1">Option 1</sando-option>
+      <sando-option value="option2">Option 2</sando-option>
+      <sando-option value="option3">Option 3</sando-option>
+    </sando-option-group>
+  `,
   argTypes: {
     // 1. Theming (ALWAYS first)
     flavor: {
@@ -48,7 +60,18 @@ const meta: Meta = {
         defaultValue: { summary: 'original' }
       }
     },
-    // 2. Content
+    // 2. Appearance
+    size: {
+      control: 'select',
+      options: ['sm', 'md', 'lg'],
+      description: 'Size of the option group',
+      table: {
+        category: 'Appearance',
+        type: { summary: "'sm' | 'md' | 'lg'" },
+        defaultValue: { summary: 'md' }
+      }
+    },
+    // 3. Content
     label: {
       control: 'text',
       description: 'The group label text displayed above the options',
@@ -57,7 +80,7 @@ const meta: Meta = {
         type: { summary: 'string' }
       }
     },
-    // 3. State
+    // 4. State
     disabled: {
       control: 'boolean',
       description: 'Whether the group and all its child options are disabled',
@@ -70,14 +93,17 @@ const meta: Meta = {
   },
   args: {
     label: 'Option Group',
+    size: 'md',
     disabled: false,
     flavor: 'original'
   },
-  // Wrap in a container for proper rendering context
+  // Wrap in a container for proper rendering context with flavor support
   decorators: [
-    (Story) => html`
+    (Story, context) => html`
       <div
         role="listbox"
+        aria-label="Option groups"
+        flavor="${context.args.flavor || 'original'}"
         style="max-width: 300px; border: 1px solid var(--sando-color-border-default, #e2e8f0); border-radius: 8px; overflow: hidden; background: var(--sando-color-background-base, #fff);"
       >
         ${Story()}
@@ -97,33 +123,17 @@ const DOCS_ONLY = ['!dev', '!autodocs'];
 // ============================================================================
 
 /**
- * Default option group with child options
+ * Default option group with child options.
  */
-export const Default: Story = {
-  render: (args) => html`
-    <sando-option-group label="${args.label}" ?disabled="${args.disabled}">
-      <sando-option value="apple">Apple</sando-option>
-      <sando-option value="banana">Banana</sando-option>
-      <sando-option value="orange">Orange</sando-option>
-    </sando-option-group>
-  `
-};
+export const Default: Story = {};
 
 /**
- * Interactive playground - use controls to customize
+ * Interactive playground - use controls to customize.
  */
 export const Playground: Story = {
-  render: (args) => html`
-    <sando-option-group
-      label="${args.label}"
-      ?disabled="${args.disabled}"
-      flavor="${args.flavor || 'original'}"
-    >
-      <sando-option value="option1">Option 1</sando-option>
-      <sando-option value="option2">Option 2</sando-option>
-      <sando-option value="option3">Option 3</sando-option>
-    </sando-option-group>
-  `
+  args: {
+    label: 'Customize me!'
+  }
 };
 
 // ============================================================================
@@ -340,6 +350,7 @@ export const AllStates: Story = {
         </h4>
         <div
           role="listbox"
+          aria-label="Option groups"
           style="width: 250px; border: 1px solid var(--sando-color-border-default); border-radius: 8px; overflow: hidden;"
         >
           <sando-option-group label="Fruits">
@@ -359,6 +370,7 @@ export const AllStates: Story = {
         </h4>
         <div
           role="listbox"
+          aria-label="Option groups"
           style="width: 250px; border: 1px solid var(--sando-color-border-default); border-radius: 8px; overflow: hidden;"
         >
           <sando-option-group label="Fruits" disabled>
@@ -386,6 +398,7 @@ export const AllExamples: Story = {
         <h3 style="margin: 0 0 0.75rem 0; font-size: 1rem;">Basic Groups</h3>
         <div
           role="listbox"
+          aria-label="Option groups"
           style="max-width: 300px; border: 1px solid var(--sando-color-border-default); border-radius: 8px; overflow: hidden;"
         >
           <sando-option-group label="Fruits">
@@ -404,6 +417,7 @@ export const AllExamples: Story = {
         <h3 style="margin: 0 0 0.75rem 0; font-size: 1rem;">Mixed States</h3>
         <div
           role="listbox"
+          aria-label="Option groups"
           style="max-width: 300px; border: 1px solid var(--sando-color-border-default); border-radius: 8px; overflow: hidden;"
         >
           <sando-option-group label="Available">
@@ -422,6 +436,7 @@ export const AllExamples: Story = {
         <h3 style="margin: 0 0 0.75rem 0; font-size: 1rem;">With Rich Content</h3>
         <div
           role="listbox"
+          aria-label="Option groups"
           style="max-width: 300px; border: 1px solid var(--sando-color-border-default); border-radius: 8px; overflow: hidden;"
         >
           <sando-option-group label="Premium Plans">
