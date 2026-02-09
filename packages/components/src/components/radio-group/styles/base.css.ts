@@ -23,19 +23,37 @@ export const baseStyles = css`
     gap: var(--sando-radio-group-gap);
   }
 
-  /* Label container */
+  /* Label container - using shared sando-label tokens */
+  /* Note: font-size and line-height are set per size below */
   .radio-group-label {
     display: block;
-    color: var(--sando-radio-group-label-textColor-default);
-    font-size: var(--sando-radio-group-label-fontSize);
-    font-weight: var(--sando-radio-group-label-fontWeight);
-    line-height: var(--sando-radio-group-label-lineHeight);
+    color: var(--sando-label-textColor-default);
+    font-weight: var(--sando-label-fontWeight-medium);
   }
 
-  /* Required indicator */
+  /* Small size label */
+  :host([size='sm']) .radio-group-label {
+    font-size: var(--sando-label-size-sm-fontSize);
+    line-height: var(--sando-label-size-sm-lineHeight);
+  }
+
+  /* Medium size label (default) */
+  :host([size='md']) .radio-group-label,
+  .radio-group-label {
+    font-size: var(--sando-label-size-md-fontSize);
+    line-height: var(--sando-label-size-md-lineHeight);
+  }
+
+  /* Large size label */
+  :host([size='lg']) .radio-group-label {
+    font-size: var(--sando-label-size-lg-fontSize);
+    line-height: var(--sando-label-size-lg-lineHeight);
+  }
+
+  /* Required indicator - using shared sando-label tokens */
   .required-indicator {
-    color: var(--sando-radio-group-required-textColor);
-    margin-inline-start: var(--sando-radio-group-required-marginInlineStart);
+    color: var(--sando-label-required-textColor);
+    margin-inline-start: var(--sando-label-required-marginInlineStart);
   }
 
   /* Options container - default vertical */

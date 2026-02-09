@@ -30,22 +30,21 @@ export const baseStyles = css`
     width: 100%;
   }
 
-  /* Label */
+  /* Label - using shared sando-label tokens */
+  /* Note: font-size and line-height are set per size in size.css.ts */
   .textarea-label {
     display: block;
-    font-family: var(--sando-textarea-label-fontFamily);
-    font-size: var(--sando-textarea-label-fontSize);
-    font-weight: var(--sando-textarea-label-fontWeight);
-    line-height: var(--sando-textarea-label-lineHeight);
-    color: var(--sando-textarea-label-textColor-default);
-    margin-bottom: var(--sando-textarea-helperText-marginTop);
+    font-family: var(--sando-label-fontFamily);
+    font-weight: var(--sando-label-fontWeight-medium);
+    color: var(--sando-label-textColor-default);
+    margin-bottom: var(--sando-label-marginBottom);
     user-select: none;
   }
 
-  /* Required indicator */
+  /* Required indicator - using shared sando-label tokens */
   .required-indicator {
-    color: var(--sando-textarea-helperText-textColor-error);
-    margin-inline-start: var(--sando-textarea-requiredIndicator-marginInlineStart);
+    color: var(--sando-label-required-textColor);
+    margin-inline-start: var(--sando-label-required-marginInlineStart);
   }
 
   /* Native textarea element */

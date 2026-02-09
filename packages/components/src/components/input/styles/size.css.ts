@@ -23,6 +23,11 @@ export const sizeStyles = css`
     font-size: var(--sando-input-size-sm-fontSize);
   }
 
+  :host([size='sm']) .label {
+    font-size: var(--sando-label-size-sm-fontSize);
+    line-height: var(--sando-label-size-sm-lineHeight);
+  }
+
   /* ========================================
      MEDIUM SIZE (default)
      ======================================== */
@@ -38,6 +43,12 @@ export const sizeStyles = css`
     font-size: var(--sando-input-size-md-fontSize);
   }
 
+  :host([size='md']) .label,
+  .label {
+    font-size: var(--sando-label-size-md-fontSize);
+    line-height: var(--sando-label-size-md-lineHeight);
+  }
+
   /* ========================================
      LARGE SIZE
      ======================================== */
@@ -49,5 +60,10 @@ export const sizeStyles = css`
 
   :host([size='lg']) input {
     font-size: var(--sando-input-size-lg-fontSize);
+  }
+
+  :host([size='lg']) .label {
+    font-size: var(--sando-label-size-lg-fontSize);
+    line-height: var(--sando-label-size-lg-lineHeight);
   }
 `;

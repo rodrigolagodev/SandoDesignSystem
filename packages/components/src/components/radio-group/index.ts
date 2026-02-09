@@ -15,6 +15,7 @@
 export { SandoRadioGroup } from './sando-radio-group.js';
 export type {
   RadioGroupOrientation,
+  RadioGroupSize,
   RadioGroupChangeEventDetail,
   RadioGroupChangeEvent,
   SandoRadioGroupProps

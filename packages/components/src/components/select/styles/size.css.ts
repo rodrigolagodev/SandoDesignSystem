@@ -28,6 +28,11 @@ export const sizeStyles = css`
     height: 1em;
   }
 
+  :host([size='sm']) .select-label {
+    font-size: var(--sando-label-size-sm-fontSize);
+    line-height: var(--sando-label-size-sm-lineHeight);
+  }
+
   /* ========================================
      MEDIUM SIZE (md) - default
      ======================================== */
@@ -37,6 +42,11 @@ export const sizeStyles = css`
     min-height: var(--sando-select-size-md-minHeight);
     font-size: var(--sando-select-size-md-fontSize);
     gap: var(--sando-select-size-md-gap);
+  }
+
+  .select-label {
+    font-size: var(--sando-label-size-md-fontSize);
+    line-height: var(--sando-label-size-md-lineHeight);
   }
 
   /* ========================================
@@ -55,6 +65,11 @@ export const sizeStyles = css`
   :host([size='lg']) .select-prefix {
     width: 1.5em;
     height: 1.5em;
+  }
+
+  :host([size='lg']) .select-label {
+    font-size: var(--sando-label-size-lg-fontSize);
+    line-height: var(--sando-label-size-lg-lineHeight);
   }
 
   /* ========================================

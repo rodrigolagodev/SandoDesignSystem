@@ -75,6 +75,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import type {
   SandoRadioGroupProps,
   RadioGroupOrientation,
+  RadioGroupSize,
   RadioGroupChangeEventDetail
 } from './sando-radio-group.types.js';
 import type { SandoRadio } from '../radio/sando-radio.js';
@@ -171,6 +172,13 @@ export class SandoRadioGroup extends FlavorableMixin(LitElement) implements Sand
   orientation: RadioGroupOrientation = 'vertical';
 
   /**
+   * Size variant (propagates to children)
+   * @default 'md'
+   */
+  @property({ type: String, reflect: true })
+  size: RadioGroupSize = 'md';
+
+  /**
    * Lifecycle: Called when component is added to DOM
    */
   connectedCallback(): void {
@@ -218,6 +226,10 @@ export class SandoRadioGroup extends FlavorableMixin(LitElement) implements Sand
     if (changedProperties.has('name')) {
       this._syncNameToRadios();
     }
+
+    if (changedProperties.has('size')) {
+      this._syncSizeToRadios();
+    }
   }
 
   /**
@@ -261,6 +273,9 @@ export class SandoRadioGroup extends FlavorableMixin(LitElement) implements Sand
       if (this.error) {
         radio.error = true;
       }
+
+      // Propagate size
+      radio.setAttribute('size', this.size);
 
       // Set checked state based on value
       if (this.value && radio.value === this.value) {
@@ -469,6 +484,17 @@ export class SandoRadioGroup extends FlavorableMixin(LitElement) implements Sand
     const radios = this._getRadios();
     radios.forEach((radio) => {
       radio.name = this.name;
+    });
+  }
+
+  /**
+   * Sync size to child radios
+   * @private
+   */
+  private _syncSizeToRadios(): void {
+    const radios = this._getRadios();
+    radios.forEach((radio) => {
+      radio.setAttribute('size', this.size);
     });
   }
 

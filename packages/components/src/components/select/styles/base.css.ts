@@ -32,22 +32,22 @@ export const baseStyles = css`
     position: relative;
   }
 
-  /* Label styles */
+  /* Label styles - using shared sando-label tokens */
+  /* Note: font-size is set per size in size.css.ts */
   .select-label {
     display: block;
-    margin-bottom: var(--sando-select-label-marginBottom);
-    color: var(--sando-select-label-textColor-default);
-    font-size: var(--sando-select-label-fontSize);
-    font-weight: var(--sando-select-label-fontWeight);
+    margin-bottom: var(--sando-label-marginBottom);
+    color: var(--sando-label-textColor-default);
+    font-weight: var(--sando-label-fontWeight-medium);
   }
 
   :host([disabled]) .select-label {
-    color: var(--sando-select-label-textColor-disabled);
+    color: var(--sando-label-textColor-disabled);
   }
 
   .required-indicator {
-    color: var(--sando-select-required-textColor);
-    margin-left: 0.25em;
+    color: var(--sando-label-required-textColor);
+    margin-inline-start: var(--sando-label-required-marginInlineStart);
   }
 
   /* Trigger button */
