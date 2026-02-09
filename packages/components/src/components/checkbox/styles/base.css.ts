@@ -35,15 +35,6 @@ export const baseStyles = css`
     align-items: center;
     cursor: pointer;
     position: relative;
-    /* Use focusOutlineOffset token (0.25rem) for hover area padding */
-    padding: var(--sando-checkbox-focusOutlineOffset);
-    margin: calc(-1 * var(--sando-checkbox-focusOutlineOffset));
-    border-radius: var(--sando-checkbox-borderRadius);
-  }
-
-  /* Hover effect on the entire label area */
-  .checkbox-container:hover {
-    background-color: var(--sando-checkbox-solid-backgroundColor-hover);
   }
 
   /* Hidden native input - visually hidden but accessible */

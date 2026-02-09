@@ -27,10 +27,6 @@ export const stateStyles = css`
     cursor: not-allowed;
   }
 
-  :host([disabled]) .radio-container:hover {
-    background-color: transparent;
-  }
-
   :host([disabled]) .radio-box {
     background-color: var(--sando-radio-solid-backgroundColor-disabled);
     border-color: var(--sando-radio-solid-borderColor-disabled);

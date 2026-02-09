@@ -36,17 +36,6 @@ export const baseStyles = css`
     align-items: center;
     cursor: pointer;
     position: relative;
-    /* Use focusOutlineOffset token (0.25rem) for hover area padding */
-    padding: var(--sando-radio-focusOutlineOffset);
-    margin: calc(-1 * var(--sando-radio-focusOutlineOffset));
-    /* Container uses default border-radius (Layer 2 semantic token) */
-    /* TODO: Add --sando-radio-container-borderRadius recipe token */
-    border-radius: var(--sando-border-radius-default);
-  }
-
-  /* Hover effect on the entire label area */
-  .radio-container:hover {
-    background-color: var(--sando-radio-solid-backgroundColor-hover);
   }
 
   /* Hidden native input - visually hidden but accessible */
