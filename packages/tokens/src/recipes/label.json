@@ -1,0 +1,124 @@
+{
+  "label": {
+    "size": {
+      "sm": {
+        "fontSize": {
+          "value": "{font.size.caption.value}",
+          "type": "dimension"
+        },
+        "lineHeight": {
+          "value": "{font.lineHeight.caption.value}",
+          "type": "number"
+        }
+      },
+      "md": {
+        "fontSize": {
+          "value": "{font.size.label.value}",
+          "type": "dimension"
+        },
+        "lineHeight": {
+          "value": "{font.lineHeight.caption.value}",
+          "type": "number"
+        }
+      },
+      "lg": {
+        "fontSize": {
+          "value": "{font.size.body.value}",
+          "type": "dimension"
+        },
+        "lineHeight": {
+          "value": "{font.lineHeight.body.value}",
+          "type": "number"
+        }
+      }
+    },
+    "fontFamily": {
+      "value": "{font.family.body.value}",
+      "type": "fontFamily"
+    },
+    "fontWeight": {
+      "normal": {
+        "value": "{font.weight.body.value}",
+        "type": "fontWeight"
+      },
+      "medium": {
+        "value": "{font.weight.body.value}",
+        "type": "fontWeight"
+      },
+      "semibold": {
+        "value": "{font.weight.emphasis.value}",
+        "type": "fontWeight"
+      }
+    },
+    "textColor": {
+      "default": {
+        "value": "{color.text.body.value}",
+        "type": "color"
+      },
+      "disabled": {
+        "value": "{color.text.muted.value}",
+        "type": "color"
+      }
+    },
+    "required": {
+      "textColor": {
+        "value": "{color.state.destructive.text.value}",
+        "type": "color"
+      },
+      "marginInlineStart": {
+        "value": "{space.stack.tight.value}",
+        "type": "dimension"
+      }
+    },
+    "optional": {
+      "textColor": {
+        "value": "{color.text.muted.value}",
+        "type": "color"
+      },
+      "marginInlineStart": {
+        "value": "{space.stack.tight.value}",
+        "type": "dimension"
+      }
+    },
+    "helperText": {
+      "fontSize": {
+        "value": "{font.size.caption.value}",
+        "type": "dimension"
+      },
+      "lineHeight": {
+        "value": "{font.lineHeight.caption.value}",
+        "type": "number"
+      },
+      "textColor": {
+        "value": "{color.text.caption.value}",
+        "type": "color"
+      },
+      "marginTop": {
+        "value": "{space.stack.tight.value}",
+        "type": "dimension"
+      }
+    },
+    "tooltip": {
+      "iconSize": {
+        "value": "{sizing.icon.xs.value}",
+        "type": "dimension"
+      },
+      "iconColor": {
+        "value": "{color.icon.muted.value}",
+        "type": "color"
+      },
+      "marginInlineStart": {
+        "value": "{space.stack.tight.value}",
+        "type": "dimension"
+      }
+    },
+    "gap": {
+      "value": "{space.stack.tight.value}",
+      "type": "dimension"
+    },
+    "marginBottom": {
+      "value": "{space.stack.tight.value}",
+      "type": "dimension"
+    }
+  }
+}

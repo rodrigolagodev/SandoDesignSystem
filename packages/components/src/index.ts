@@ -138,6 +138,9 @@ export type {
   SandoSwitchProps
 } from './components/switch/index.js';
 
+export { SandoLabel } from './components/label/index.js';
+export type { LabelSize, LabelWeight, SandoLabelProps } from './components/label/index.js';
+
 // ========================================
 // Common Types
 // ========================================
