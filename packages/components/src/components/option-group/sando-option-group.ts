@@ -40,6 +40,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import type { SandoOptionGroupProps, OptionGroupSize } from './sando-option-group.types.js';
 import type { SandoSelect } from '../select/sando-select.js';
+import type { SandoOption } from '../option/sando-option.js';
 
 import { FlavorableMixin } from '../../mixins/index.js';
 import { resetStyles } from '../../styles/reset.css.js';
@@ -102,13 +103,17 @@ export class SandoOptionGroup extends FlavorableMixin(LitElement) implements San
 
   /**
    * Lifecycle: Called when properties change
-   * Propagates disabled state to child options
+   * Propagates disabled state and size to child options
    */
   protected updated(changedProperties: Map<string, unknown>): void {
     super.updated(changedProperties);
 
     if (changedProperties.has('disabled')) {
       this._updateChildOptionsDisabled();
+    }
+
+    if (changedProperties.has('size')) {
+      this._updateChildOptionsSize();
     }
   }
 
@@ -124,6 +129,17 @@ export class SandoOptionGroup extends FlavorableMixin(LitElement) implements San
       } else {
         option.removeAttribute('group-disabled');
       }
+    });
+  }
+
+  /**
+   * Update all child sando-option elements with the group's size
+   * @private
+   */
+  private _updateChildOptionsSize(): void {
+    const options = this.querySelectorAll<SandoOption>('sando-option');
+    options.forEach((option) => {
+      option.size = this.size;
     });
   }
 
@@ -144,13 +160,14 @@ export class SandoOptionGroup extends FlavorableMixin(LitElement) implements San
   }
 
   /**
-   * Handle slot changes to apply disabled state to dynamically added options
+   * Handle slot changes to apply disabled state and size to dynamically added options
    * @private
    */
   private _handleSlotChange(): void {
     if (this.disabled) {
       this._updateChildOptionsDisabled();
     }
+    this._updateChildOptionsSize();
   }
 }
 

@@ -40,10 +40,6 @@ export const stateStyles = css`
     cursor: not-allowed;
   }
 
-  :host([disabled]) .checkbox-container:hover {
-    background-color: transparent;
-  }
-
   :host([disabled]) .checkbox-box {
     background-color: var(--sando-checkbox-solid-backgroundColor-disabled);
     border-color: var(--sando-checkbox-solid-borderColor-disabled);

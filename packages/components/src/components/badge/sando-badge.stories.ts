@@ -46,7 +46,7 @@ import '../icon/sando-icon.js';
 const meta: Meta = {
   title: 'Components/Badge',
   component: 'sando-badge',
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   render: (args) => html`
     <sando-badge
       flavor="${args.flavor || 'original'}"

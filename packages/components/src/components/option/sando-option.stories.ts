@@ -29,9 +29,20 @@ import './sando-option.js';
  * ```
  */
 const meta: Meta = {
-  title: 'Components/Select/Option',
+  title: 'Components/Option',
   component: 'sando-option',
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
+  render: (args) => html`
+    <sando-option
+      value="${args.value}"
+      size="${args.size}"
+      ?selected="${args.selected}"
+      ?disabled="${args.disabled}"
+      flavor="${args.flavor || 'original'}"
+    >
+      ${args.label}
+    </sando-option>
+  `,
   argTypes: {
     // 1. Theming (ALWAYS first)
     flavor: {
@@ -44,7 +55,18 @@ const meta: Meta = {
         defaultValue: { summary: 'original' }
       }
     },
-    // 2. Content
+    // 2. Appearance
+    size: {
+      control: 'select',
+      options: ['sm', 'md', 'lg'],
+      description: 'Size of the option',
+      table: {
+        category: 'Appearance',
+        type: { summary: "'sm' | 'md' | 'lg'" },
+        defaultValue: { summary: 'md' }
+      }
+    },
+    // 3. Content
     value: {
       control: 'text',
       description: 'The value of this option (required)',
@@ -53,7 +75,15 @@ const meta: Meta = {
         type: { summary: 'string' }
       }
     },
-    // 3. State
+    label: {
+      control: 'text',
+      description: 'Text content displayed in the option',
+      table: {
+        category: 'Content',
+        type: { summary: 'string' }
+      }
+    },
+    // 4. State
     selected: {
       control: 'boolean',
       description: 'Whether the option is selected',
@@ -75,15 +105,19 @@ const meta: Meta = {
   },
   args: {
     value: 'option',
+    label: 'Sample Option',
+    size: 'md',
     selected: false,
     disabled: false,
     flavor: 'original'
   },
-  // Wrap in a listbox for proper rendering context
+  // Wrap in a listbox for proper rendering context with flavor support
   decorators: [
-    (Story) => html`
+    (Story, context) => html`
       <div
         role="listbox"
+        aria-label="Options"
+        flavor="${context.args.flavor || 'original'}"
         style="max-width: 300px; border: 1px solid var(--sando-color-border-default, #e2e8f0); border-radius: 8px; overflow: hidden; background: var(--sando-color-background-base, #fff);"
       >
         ${Story()}
@@ -103,30 +137,17 @@ const DOCS_ONLY = ['!dev', '!autodocs'];
 // ============================================================================
 
 /**
- * Default option appearance
+ * Default option - use controls to customize
  */
-export const Default: Story = {
-  render: () => html`
-    <sando-option value="apple">Apple</sando-option>
-    <sando-option value="banana">Banana</sando-option>
-    <sando-option value="cherry">Cherry</sando-option>
-  `
-};
+export const Default: Story = {};
 
 /**
- * Interactive playground - use controls to customize
+ * Interactive playground - use controls to customize.
  */
 export const Playground: Story = {
-  render: (args) => html`
-    <sando-option
-      value="${args.value}"
-      ?selected="${args.selected}"
-      ?disabled="${args.disabled}"
-      flavor="${args.flavor || 'original'}"
-    >
-      Sample Option
-    </sando-option>
-  `
+  args: {
+    label: 'Customize me!'
+  }
 };
 
 // ============================================================================
@@ -328,6 +349,7 @@ export const AllExamples: Story = {
         </h3>
         <div
           role="listbox"
+          aria-label="States demo"
           style="max-width: 300px; border: 1px solid var(--sando-color-border-default); border-radius: 8px; overflow: hidden;"
         >
           <sando-option value="default">Default</sando-option>
@@ -345,6 +367,7 @@ export const AllExamples: Story = {
         </h3>
         <div
           role="listbox"
+          aria-label="Options with icons"
           style="max-width: 300px; border: 1px solid var(--sando-color-border-default); border-radius: 8px; overflow: hidden;"
         >
           <sando-option value="edit">
@@ -371,6 +394,7 @@ export const AllExamples: Story = {
         </h3>
         <div
           role="listbox"
+          aria-label="Pricing options"
           style="max-width: 300px; border: 1px solid var(--sando-color-border-default); border-radius: 8px; overflow: hidden;"
         >
           <sando-option value="free">

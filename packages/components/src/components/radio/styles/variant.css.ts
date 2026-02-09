@@ -18,21 +18,10 @@ export const variantStyles = css`
     border-color: var(--sando-radio-solid-borderColor-default);
   }
 
-  :host([variant='solid']) .radio-container:hover .radio-box,
-  :host(:not([disabled])) .radio-container:hover .radio-box {
-    border-color: var(--sando-radio-solid-borderColor-hover);
-  }
-
   :host([variant='solid'][checked]) .radio-box,
   :host([checked]) .radio-box {
     background-color: var(--sando-radio-solid-backgroundColor-checked);
     border-color: var(--sando-radio-solid-borderColor-checked);
-  }
-
-  :host([variant='solid'][checked]) .radio-container:hover .radio-box,
-  :host([checked]:not([disabled])) .radio-container:hover .radio-box {
-    background-color: var(--sando-radio-solid-backgroundColor-checkedHover);
-    border-color: var(--sando-radio-solid-borderColor-checkedHover);
   }
 
   :host([variant='solid']) .radio-dot,
@@ -48,18 +37,9 @@ export const variantStyles = css`
     border-color: var(--sando-radio-outline-borderColor-default);
   }
 
-  :host([variant='outline']:not([disabled])) .radio-container:hover .radio-box {
-    border-color: var(--sando-radio-outline-borderColor-hover);
-  }
-
   :host([variant='outline'][checked]) .radio-box {
     background-color: var(--sando-radio-outline-backgroundColor-checked);
     border-color: var(--sando-radio-outline-borderColor-checked);
-  }
-
-  :host([variant='outline'][checked]:not([disabled])) .radio-container:hover .radio-box {
-    background-color: var(--sando-radio-outline-backgroundColor-checkedHover);
-    border-color: var(--sando-radio-outline-borderColor-checkedHover);
   }
 
   :host([variant='outline']) .radio-dot {
