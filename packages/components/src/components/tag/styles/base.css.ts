@@ -124,6 +124,25 @@ export const baseStyles = css`
     outline-offset: var(--sando-tag-focus-outlineOffset);
   }
 
+  /* ===== Removable Tag Focus Enhancement ===== */
+  /* For removable tags, show focus ring on entire tag instead of small X button */
+
+  /* Hide focus ring on the small button when in removable mode */
+  .tag--removable .tag__action:focus-visible {
+    outline: none;
+  }
+
+  /* Show focus ring on the entire tag when removable and action is focused */
+  .tag--removable:focus-within {
+    outline: var(--sando-tag-focus-outlineWidth) solid var(--sando-tag-focus-outlineColor);
+    outline-offset: var(--sando-tag-focus-outlineOffset);
+  }
+
+  /* Only show focus ring for keyboard navigation (not mouse clicks) */
+  .tag--removable:focus-within:not(:has(.tag__action:focus-visible)) {
+    outline: none;
+  }
+
   .tag__action:disabled,
   .tag__action[aria-disabled='true'] {
     cursor: not-allowed;
@@ -184,5 +203,10 @@ export const baseStyles = css`
   .tag__remove:focus-visible {
     outline: var(--sando-tag-focus-outlineWidth) solid var(--sando-tag-focus-outlineColor);
     outline-offset: var(--sando-tag-focus-outlineOffset);
+  }
+
+  /* Legacy: Hide focus ring on small button when in removable mode */
+  .tag--removable .tag__remove:focus-visible {
+    outline: none;
   }
 `;
