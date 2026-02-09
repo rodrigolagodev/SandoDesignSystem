@@ -18,6 +18,8 @@ export const baseStyles = css`
     display: inline-block;
     font-family: var(--sando-radio-label-fontFamily);
     line-height: var(--sando-radio-label-lineHeight);
+    /* Remove native browser focus ring from host - we show custom focus on .radio-box */
+    outline: none;
   }
 
   :host([disabled]) {
@@ -89,22 +91,33 @@ export const baseStyles = css`
     outline-style: solid;
   }
 
-  /* Fallback: also target when container has focus-within */
-  .radio-container:focus-within .radio-box {
+  /*
+   * Focus ring when HOST receives keyboard focus (roving tabindex pattern)
+   * The host controls tabIndex (0 or -1), so :host(:focus-visible) detects
+   * keyboard navigation. This is the primary focus indicator.
+   */
+  :host(:focus-visible) .radio-box {
     outline-color: var(--sando-radio-focusOutlineColor);
     outline-width: var(--sando-radio-focusOutlineWidth);
     outline-style: solid;
   }
 
-  /* Hide focus ring when not using keyboard (mouse/touch) */
-  .radio-container:focus-within:not(:focus-visible) .radio-box {
-    outline-color: transparent;
+  /*
+   * Fallback: Show focus ring when native input is focused programmatically
+   * (e.g., via our focus() override). Since input has tabindex="-1", it won't
+   * get :focus-visible, but will get :focus when focus() is called directly.
+   */
+  .native-input:focus ~ .radio-box {
+    outline-color: var(--sando-radio-focusOutlineColor);
+    outline-width: var(--sando-radio-focusOutlineWidth);
+    outline-style: solid;
   }
 
   /* High contrast mode support */
   @media (prefers-contrast: high) {
     .native-input:focus-visible ~ .radio-box,
-    .radio-container:focus-within .radio-box {
+    .native-input:focus ~ .radio-box,
+    :host(:focus-visible) .radio-box {
       outline-width: calc(var(--sando-radio-focusOutlineWidth) * 2);
       outline-offset: calc(var(--sando-radio-focusOutlineOffset) * 1.5);
     }
