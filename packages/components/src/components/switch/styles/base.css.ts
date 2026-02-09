@@ -70,29 +70,16 @@ export const baseStyles = css`
     outline-offset: var(--sando-switch-focusOutlineOffset);
   }
 
-  /* Focus visible on the track when native input is focused */
-  .native-input:focus-visible ~ .switch-track {
+  /* Focus visible on the track - uses JS-managed .focused class for reliability across Shadow DOM */
+  .switch-track.focused {
     outline-color: var(--sando-switch-focusOutlineColor);
     outline-width: var(--sando-switch-focusOutlineWidth);
     outline-style: solid;
-  }
-
-  /* Fallback: also target when container has focus-within */
-  .switch-container:focus-within .switch-track {
-    outline-color: var(--sando-switch-focusOutlineColor);
-    outline-width: var(--sando-switch-focusOutlineWidth);
-    outline-style: solid;
-  }
-
-  /* Hide focus ring when not using keyboard (mouse/touch) */
-  .switch-container:focus-within:not(:focus-visible) .switch-track {
-    outline-color: transparent;
   }
 
   /* High contrast mode support */
   @media (prefers-contrast: high) {
-    .native-input:focus-visible ~ .switch-track,
-    .switch-container:focus-within .switch-track {
+    .switch-track.focused {
       outline-width: calc(var(--sando-switch-focusOutlineWidth) * 2);
       outline-offset: calc(var(--sando-switch-focusOutlineOffset) * 1.5);
     }
