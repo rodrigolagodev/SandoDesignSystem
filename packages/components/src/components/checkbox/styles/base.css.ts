@@ -17,6 +17,8 @@ export const baseStyles = css`
     display: inline-block;
     font-family: var(--sando-checkbox-label-fontFamily);
     line-height: var(--sando-checkbox-label-lineHeight);
+    /* Remove native browser focus ring from host - we show custom focus on .checkbox-box */
+    outline: none;
   }
 
   :host([disabled]) {

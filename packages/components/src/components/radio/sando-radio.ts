@@ -64,15 +64,6 @@ import { baseStyles, variantStyles, sizeStyles, stateStyles } from './styles/ind
 @customElement('sando-radio')
 export class SandoRadio extends FlavorableMixin(LitElement) {
   /**
-   * Shadow DOM focus delegation for proper keyboard navigation
-   * Required per KEYBOARD_NAVIGATION.toon (KN-CR-R5)
-   */
-  static shadowRootOptions = {
-    ...LitElement.shadowRootOptions,
-    delegatesFocus: true
-  };
-
-  /**
    * Component styles - modular CSS imports
    * Order matters for specificity
    */
@@ -172,6 +163,20 @@ export class SandoRadio extends FlavorableMixin(LitElement) {
    */
   @property({ reflect: true, attribute: 'error-text' })
   errorText?: string;
+
+  /**
+   * Tabindex for roving tabindex pattern in radio groups.
+   * Managed by sando-radio-group to implement WAI-ARIA radio group navigation.
+   * - tabindex="0": This radio is focusable via Tab
+   * - tabindex="-1": This radio is not in tab order (only arrow key accessible)
+   *
+   * Note: This controls the HOST element's tab order. When the host receives focus,
+   * the focus() override forwards focus to the internal input. The internal input
+   * always has tabindex="-1" and is never directly tabbable.
+   * @default 0
+   */
+  @property({ type: Number, reflect: true })
+  override tabIndex = 0;
 
   /**
    * Lifecycle: Called when component is added to DOM
@@ -287,6 +292,7 @@ export class SandoRadio extends FlavorableMixin(LitElement) {
             name=${this.name || nothing}
             .value=${this.value}
             .checked=${this.checked}
+            tabindex="-1"
             ?disabled=${this.disabled}
             ?required=${this.required}
             aria-checked=${this.checked ? 'true' : 'false'}

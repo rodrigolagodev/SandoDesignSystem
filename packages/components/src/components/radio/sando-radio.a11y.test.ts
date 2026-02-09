@@ -624,9 +624,14 @@ describe('sando-radio Accessibility', () => {
         <sando-radio name="test" value="a" label="Keyboard test"></sando-radio>
       `);
 
-      // Verify element is in tab order
+      // Verify HOST element is in tab order (roving tabindex pattern)
+      // The host controls tabbability, not the internal input
+      expect(el.tabIndex).toBeGreaterThanOrEqual(0);
+
+      // Internal input should NOT be directly tabbable (tabindex=-1)
+      // Focus is delegated via the focus() method override
       const input = el.shadowRoot!.querySelector('input');
-      expect(input!.tabIndex).toBeGreaterThanOrEqual(0);
+      expect(input!.tabIndex).toBe(-1);
 
       // Verify keyboard activation works
       const label = el.shadowRoot!.querySelector('label');

@@ -60,6 +60,7 @@ import recipeInput from '@sando/tokens/css/recipes/input.css?inline';
 import recipeOption from '@sando/tokens/css/recipes/option.css?inline';
 import recipeOptionGroup from '@sando/tokens/css/recipes/option-group.css?inline';
 import recipeRadio from '@sando/tokens/css/recipes/radio.css?inline';
+import recipeRadioGroup from '@sando/tokens/css/recipes/radio-group.css?inline';
 import recipeSelect from '@sando/tokens/css/recipes/select.css?inline';
 import recipeTag from '@sando/tokens/css/recipes/tag.css?inline';
 
@@ -100,6 +101,7 @@ export const tokenStyles = css`
   ${unsafeCSS(recipeOption)}
   ${unsafeCSS(recipeOptionGroup)}
   ${unsafeCSS(recipeRadio)}
+  ${unsafeCSS(recipeRadioGroup)}
   ${unsafeCSS(recipeSelect)}
   ${unsafeCSS(recipeTag)}
 `;

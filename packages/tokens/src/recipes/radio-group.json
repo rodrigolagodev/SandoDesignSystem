@@ -1,0 +1,89 @@
+{
+  "radio-group": {
+    "gap": {
+      "value": "{space.stack.muted.value}",
+      "type": "dimension",
+      "description": "Gap between label and radio options"
+    },
+    "optionsGap": {
+      "value": "{space.stack.tight.value}",
+      "type": "dimension",
+      "description": "Gap between individual radio buttons"
+    },
+    "label": {
+      "fontSize": {
+        "value": "{font.size.caption.value}",
+        "type": "dimension"
+      },
+      "fontWeight": {
+        "value": "{font.weight.emphasis.value}",
+        "type": "fontWeight"
+      },
+      "lineHeight": {
+        "value": "{font.lineHeight.caption.value}",
+        "type": "number"
+      },
+      "textColor": {
+        "default": {
+          "value": "{color.text.body.value}",
+          "type": "color"
+        },
+        "disabled": {
+          "value": "{color.text.muted.value}",
+          "type": "color"
+        },
+        "error": {
+          "value": "{color.state.destructive.text.value}",
+          "type": "color"
+        }
+      }
+    },
+    "helperText": {
+      "fontSize": {
+        "value": "{font.size.caption.value}",
+        "type": "dimension"
+      },
+      "lineHeight": {
+        "value": "{font.lineHeight.caption.value}",
+        "type": "number"
+      },
+      "textColor": {
+        "default": {
+          "value": "{color.text.caption.value}",
+          "type": "color"
+        },
+        "error": {
+          "value": "{color.state.destructive.text.value}",
+          "type": "color"
+        }
+      },
+      "marginTop": {
+        "value": "{space.stack.tight.value}",
+        "type": "dimension"
+      }
+    },
+    "required": {
+      "textColor": {
+        "value": "{color.state.destructive.text.value}",
+        "type": "color"
+      },
+      "marginInlineStart": {
+        "value": "{space.stack.tight.value}",
+        "type": "dimension"
+      }
+    },
+    "fontFamily": {
+      "value": "{font.family.body.value}",
+      "type": "fontFamily"
+    },
+    "orientation": {
+      "horizontal": {
+        "gap": {
+          "value": "{space.inset.default.value}",
+          "type": "dimension",
+          "description": "Gap between radio buttons in horizontal orientation"
+        }
+      }
+    }
+  }
+}
