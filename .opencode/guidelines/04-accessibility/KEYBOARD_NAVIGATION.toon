@@ -1,10 +1,17 @@
 meta:
   doc_id: "KN"
   category: "04-accessibility"
-  version: "1.0.0"
+  version: "1.1.0"
   status: "Active"
-  last_updated: "2025-11-09"
+  last_updated: "2026-02-09"
   owner: "QA Expert"
+  changelog:
+    - version: "1.1.0"
+      date: "2026-02-09"
+      changes:
+        - "Added KN-CR-R6: Robust Focus Ring Pattern for Composite Controls"
+        - "Updated KN-FVS: Clarified :focus-visible limitations in Shadow DOM"
+        - "Documented JS-based _focused state pattern for Checkbox, Radio, Switch"
 
 purpose:
   id: "KN-PU"
@@ -123,6 +130,103 @@ core_rules:
       type: "source_file"
       path: "packages/components/src/components/button/sando-button.test.ts"
       note: "focus delegation tests"
+
+  - id: "KN-CR-R6"
+    title: "Robust Focus Ring Pattern for Composite Controls"
+    summary: "Components with hidden inputs MUST use JavaScript-based focus state tracking, not CSS :focus-visible sibling selectors, for reliable focus ring visibility."
+    when_to_use_css_only:
+      description: "Use CSS :focus-visible when the focusable element IS the styled element"
+      components:
+        - "Button - native <button> receives focus and styling"
+        - "Input - native <input> receives focus and styling"
+        - "Textarea - native <textarea> receives focus and styling"
+        - "Select - trigger element receives focus and styling"
+        - "Tag - interactive element receives focus and styling"
+      pattern:
+        lang: "css"
+        title: "✅ CSS-only pattern (focusable = styled element)"
+        code: |
+          button:focus-visible {
+            outline: 2px solid var(--sando-color-focus);
+            outline-offset: 2px;
+          }
+    when_to_use_js_state:
+      description: "Use JavaScript _focused state when the focusable element is DIFFERENT from the styled element"
+      components:
+        - "Checkbox - hidden <input> + styled .checkbox-box sibling"
+        - "Radio - hidden <input> + styled .radio-box sibling"
+        - "Switch - hidden <input> + styled .switch-track sibling"
+      why: "CSS :focus-visible sibling selector (input:focus-visible ~ .box) doesn't work reliably across Shadow DOM boundaries"
+      pattern:
+        lang: "typescript"
+        title: "✅ JS-based focus tracking (focusable ≠ styled element)"
+        code: |
+          // 1. Add reactive state for focus tracking
+          @state() private _focused = false;
+
+          // 2. Create focus/blur handlers
+          private _handleFocus = (): void => {
+            this._focused = true;
+          };
+
+          private _handleBlur = (): void => {
+            this._focused = false;
+          };
+
+          // 3. Bind handlers to native input
+          render() {
+            return html`
+              <input
+                type="checkbox"
+                class="native-input"
+                @focus=${this._handleFocus}
+                @blur=${this._handleBlur}
+              />
+              <!-- 4. Apply .focused class to styled element -->
+              <span class="checkbox-box${this._focused ? ' focused' : ''}"></span>
+            `;
+          }
+      css_pattern:
+        lang: "css"
+        title: "✅ Use class instead of :focus-visible sibling"
+        code: |
+          /* Style focus ring using .focused class */
+          .checkbox-box.focused {
+            outline-color: var(--sando-checkbox-focusOutlineColor);
+            outline-width: var(--sando-checkbox-focusOutlineWidth);
+            outline-style: solid;
+          }
+    anti_pattern:
+      lang: "css"
+      title: "❌ Fragile sibling selectors (don't use)"
+      code: |
+        /* These patterns are fragile in Shadow DOM: */
+        .native-input:focus-visible ~ .checkbox-box {
+          outline: 2px solid var(--sando-color-focus);
+        }
+
+        /* Complex hacks that still fail: */
+        .container:focus-within:not(:focus-visible) .checkbox-box {
+          outline: transparent;
+        }
+      why_anti_pattern: |
+        :focus-visible sibling selector doesn't reliably cross Shadow DOM boundaries.
+        Different browsers handle this inconsistently. The JS approach works everywhere.
+    enforcement: "Code review, verified in accessibility tests (*.a11y.test.ts)"
+    references:
+      - type: "source_file"
+        path: "packages/components/src/components/checkbox/sando-checkbox.ts"
+        lines: "118-120, 298-309, 379-384"
+        note: "Checkbox _focused state implementation"
+      - type: "source_file"
+        path: "packages/components/src/components/radio/sando-radio.ts"
+        note: "Radio _focused state implementation"
+      - type: "source_file"
+        path: "packages/components/src/components/switch/sando-switch.ts"
+        note: "Switch _focused state implementation"
+      - type: "source_file"
+        path: "packages/components/src/components/input/sando-input.ts"
+        note: "Input uses same pattern (original reference implementation)"
 
 wcag_keyboard_criteria:
   id: "KN-WC"
@@ -316,18 +420,36 @@ focus_visible_styles:
   id: "KN-FVS"
   required_pattern:
     id: "KN-FVS-RP"
-    summary: "Use :focus-visible pseudo-class"
+    summary: "Use :focus-visible pseudo-class when focusable element IS the styled element"
+    important_note: |
+      This CSS-only pattern ONLY works when the focusable element is the same as the styled element.
+      For composite controls (Checkbox, Radio, Switch), see KN-CR-R6 for the JavaScript-based pattern.
     pattern:
       lang: "css"
       code: |
+        /* Works: Button is both focusable AND styled */
         button:focus-visible {
           outline: 2px solid var(--sando-color-focus);
           outline-offset: 2px;
         }
+
+        /* Works: Input is both focusable AND styled */
+        input:focus-visible {
+          outline: 2px solid var(--sando-color-focus);
+        }
+    does_not_work:
+      lang: "css"
+      code: |
+        /* DOES NOT WORK in Shadow DOM: sibling selector */
+        input.native-input:focus-visible ~ .checkbox-box {
+          outline: 2px solid var(--sando-color-focus);
+        }
+      solution: "Use JavaScript _focused state pattern (see KN-CR-R6)"
     why_focus_visible:
       - ":focus shows outline on mouse click (visually distracting)"
       - ":focus-visible shows outline only for keyboard navigation"
       - "Browsers automatically determine when focus should be visible"
+      - "LIMITATION: :focus-visible sibling selectors don't cross Shadow DOM reliably"
   wcag_requirements:
     id: "KN-FVS-WR"
     requirements:

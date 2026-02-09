@@ -129,6 +129,15 @@ export type {
   SandoTextareaProps
 } from './components/textarea/index.js';
 
+export { SandoSwitch } from './components/switch/index.js';
+export type {
+  SwitchVariant,
+  SwitchSize,
+  SwitchChangeEventDetail,
+  SwitchChangeEvent,
+  SandoSwitchProps
+} from './components/switch/index.js';
+
 // ========================================
 // Common Types
 // ========================================

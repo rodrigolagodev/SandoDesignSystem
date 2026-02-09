@@ -73,8 +73,8 @@ export const baseStyles = css`
     outline-offset: var(--sando-radio-focusOutlineOffset);
   }
 
-  /* Focus visible on the box when native input is focused */
-  .native-input:focus-visible ~ .radio-box {
+  /* Focus visible on the box - uses JS-managed .focused class for reliability across Shadow DOM */
+  .radio-box.focused {
     outline-color: var(--sando-radio-focusOutlineColor);
     outline-width: var(--sando-radio-focusOutlineWidth);
     outline-style: solid;
@@ -91,21 +91,9 @@ export const baseStyles = css`
     outline-style: solid;
   }
 
-  /*
-   * Fallback: Show focus ring when native input is focused programmatically
-   * (e.g., via our focus() override). Since input has tabindex="-1", it won't
-   * get :focus-visible, but will get :focus when focus() is called directly.
-   */
-  .native-input:focus ~ .radio-box {
-    outline-color: var(--sando-radio-focusOutlineColor);
-    outline-width: var(--sando-radio-focusOutlineWidth);
-    outline-style: solid;
-  }
-
   /* High contrast mode support */
   @media (prefers-contrast: high) {
-    .native-input:focus-visible ~ .radio-box,
-    .native-input:focus ~ .radio-box,
+    .radio-box.focused,
     :host(:focus-visible) .radio-box {
       outline-width: calc(var(--sando-radio-focusOutlineWidth) * 2);
       outline-offset: calc(var(--sando-radio-focusOutlineOffset) * 1.5);

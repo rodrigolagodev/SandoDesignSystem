@@ -143,6 +143,35 @@
     "selection": {
       "background": { "value": "{color.orange.200.value}", "type": "color" },
       "text": { "value": "{color.neutralWarm.950.value}", "type": "color" }
+    },
+    "control": {
+      "surface": {
+        "thumb": {
+          "value": "{color.utility.white.value}",
+          "type": "color",
+          "description": "Toggle control thumb - always high contrast"
+        },
+        "trackInactive": {
+          "value": "{color.neutralWarm.500.value}",
+          "type": "color",
+          "description": "Toggle track when OFF"
+        },
+        "trackActive": {
+          "value": "{color.orange.700.value}",
+          "type": "color",
+          "description": "Toggle track when ON"
+        },
+        "trackDisabled": {
+          "value": "{color.neutralWarm.300.value}",
+          "type": "color",
+          "description": "Toggle track when disabled"
+        },
+        "thumbDisabled": {
+          "value": "{color.neutralWarm.400.value}",
+          "type": "color",
+          "description": "Toggle thumb when disabled"
+        }
+      }
     }
   },
   "font": {
@@ -222,6 +251,28 @@
       "md": { "value": "{font.size.400.value}", "type": "dimension" },
       "lg": { "value": "{font.size.600.value}", "type": "dimension" },
       "xl": { "value": "{font.size.700.value}", "type": "dimension" }
+    },
+    "switch": {
+      "track": {
+        "sm": {
+          "width": { "value": "{space.8.value}", "type": "dimension" },
+          "height": { "value": "{space.5.value}", "type": "dimension" }
+        },
+        "md": {
+          "width": { "value": "{space.10.value}", "type": "dimension" },
+          "height": { "value": "{space.6.value}", "type": "dimension" }
+        },
+        "lg": {
+          "width": { "value": "{space.12.value}", "type": "dimension" },
+          "height": { "value": "{space.7.value}", "type": "dimension" }
+        }
+      },
+      "thumb": {
+        "sm": { "value": "{space.3.value}", "type": "dimension" },
+        "md": { "value": "{space.4.value}", "type": "dimension" },
+        "lg": { "value": "{space.5.value}", "type": "dimension" }
+      },
+      "offset": { "value": "{space.1.value}", "type": "dimension" }
     }
   },
   "elevation": {

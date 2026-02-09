@@ -1,79 +1,76 @@
 /**
- * Sando Checkbox Component
+ * Sando Switch Component
  *
- * A fully accessible checkbox component built with Lit following industry standards.
- * Supports checked, indeterminate, and disabled states with multiple variants and sizes.
+ * A fully accessible toggle switch component built with Lit following industry standards.
+ * Supports on/off states with multiple variants and sizes.
  *
- * @element sando-checkbox
+ * The switch uses role="switch" for proper ARIA semantics, distinguishing it from
+ * a checkbox which uses role="checkbox".
+ *
+ * @element sando-switch
  *
  * @slot - Label content (alternative to label prop)
  *
- * @fires sando-change - Fired when checkbox state changes
+ * @fires sando-change - Fired when switch state changes
  *
- * @cssprop --sando-checkbox-solid-backgroundColor-default - Background color (solid variant, unchecked)
- * @cssprop --sando-checkbox-solid-backgroundColor-checked - Background color (solid variant, checked)
- * @cssprop --sando-checkbox-solid-borderColor-default - Border color (solid variant, default state)
- * @cssprop --sando-checkbox-solid-checkmarkColor-default - Checkmark color (solid variant)
- * @cssprop --sando-checkbox-size-medium-boxSize - Checkbox box size (medium)
- * @cssprop --sando-checkbox-size-medium-labelFontSize - Label font size (medium)
- * @cssprop --sando-checkbox-size-medium-gap - Gap between box and label (medium)
- * @cssprop --sando-checkbox-focusOutlineColor - Focus outline color
- * @cssprop --sando-checkbox-transition-duration - Transition duration
+ * @cssprop --sando-switch-solid-track-backgroundColor-default - Track background color (solid variant, off)
+ * @cssprop --sando-switch-solid-track-backgroundColor-checked - Track background color (solid variant, on)
+ * @cssprop --sando-switch-solid-thumb-backgroundColor-default - Thumb color (solid variant, off)
+ * @cssprop --sando-switch-solid-thumb-backgroundColor-checked - Thumb color (solid variant, on)
+ * @cssprop --sando-switch-size-md-trackWidth - Track width (medium)
+ * @cssprop --sando-switch-size-md-trackHeight - Track height (medium)
+ * @cssprop --sando-switch-size-md-thumbSize - Thumb diameter (medium)
+ * @cssprop --sando-switch-borderRadius - Track border radius (full pill shape)
+ * @cssprop --sando-switch-focusOutlineColor - Focus outline color
+ * @cssprop --sando-switch-transition-duration - Transition duration
  *
  * @example Basic usage
  * ```html
- * <sando-checkbox label="Accept terms and conditions"></sando-checkbox>
+ * <sando-switch label="Enable notifications"></sando-switch>
  * ```
  *
  * @example With slot for label
  * ```html
- * <sando-checkbox>
- *   I agree to the <a href="/terms">Terms of Service</a>
- * </sando-checkbox>
+ * <sando-switch>
+ *   Enable <strong>dark mode</strong>
+ * </sando-switch>
  * ```
  *
  * @example Controlled checked state
  * ```html
- * <sando-checkbox checked label="Selected option"></sando-checkbox>
+ * <sando-switch checked label="Feature enabled"></sando-switch>
  * ```
  *
- * @example Indeterminate state (partial selection)
+ * @example With helper text
  * ```html
- * <sando-checkbox indeterminate label="Select all"></sando-checkbox>
+ * <sando-switch label="Auto-save" helperText="Save changes automatically"></sando-switch>
  * ```
  *
  * @example With error state
  * ```html
- * <sando-checkbox error errorText="This field is required" label="Required field"></sando-checkbox>
+ * <sando-switch error errorText="This setting is required" label="Accept terms"></sando-switch>
  * ```
  *
  * @example Different sizes
  * ```html
- * <sando-checkbox size="sm" label="Small"></sando-checkbox>
- * <sando-checkbox size="md" label="Medium"></sando-checkbox>
- * <sando-checkbox size="lg" label="Large"></sando-checkbox>
+ * <sando-switch size="sm" label="Small"></sando-switch>
+ * <sando-switch size="md" label="Medium"></sando-switch>
+ * <sando-switch size="lg" label="Large"></sando-switch>
  * ```
  */
 
 import { LitElement, html, nothing } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 
-import type {
-  CheckboxVariant,
-  CheckboxSize,
-  CheckboxChangeEventDetail
-} from './sando-checkbox.types.js';
+import type { SwitchVariant, SwitchSize, SwitchChangeEventDetail } from './sando-switch.types.js';
 
 import { FlavorableMixin } from '../../mixins/index.js';
 import { resetStyles } from '../../styles/reset.css.js';
 import { tokenStyles } from '../../styles/tokens.css.js';
 import { baseStyles, variantStyles, sizeStyles, stateStyles } from './styles/index.js';
 
-// Import sando-icon for checkmark and indeterminate icons
-import '../icon/sando-icon.js';
-
-@customElement('sando-checkbox')
-export class SandoCheckbox extends FlavorableMixin(LitElement) {
+@customElement('sando-switch')
+export class SandoSwitch extends FlavorableMixin(LitElement) {
   /**
    * Shadow DOM focus delegation for proper keyboard navigation
    * Required per KEYBOARD_NAVIGATION.toon (KN-CR-R5)
@@ -93,7 +90,7 @@ export class SandoCheckbox extends FlavorableMixin(LitElement) {
     baseStyles, // Layout, typography, focus
     variantStyles, // Solid, outline
     sizeStyles, // Small, medium, large
-    stateStyles // Checked, indeterminate, disabled, error
+    stateStyles // Checked, disabled, error
   ];
 
   /**
@@ -108,7 +105,7 @@ export class SandoCheckbox extends FlavorableMixin(LitElement) {
    * @private
    */
   @state()
-  private _inputId = `sando-checkbox-${Math.random().toString(36).substring(2, 11)}`;
+  private _inputId = `sando-switch-${Math.random().toString(36).substring(2, 11)}`;
 
   /**
    * Internal: tracks whether input is currently focused
@@ -119,35 +116,28 @@ export class SandoCheckbox extends FlavorableMixin(LitElement) {
   private _focused = false;
 
   /**
-   * Whether the checkbox is checked
+   * Whether the switch is checked (on)
    * @default false
    */
   @property({ type: Boolean, reflect: true })
   checked = false;
 
   /**
-   * Whether the checkbox is in indeterminate state (partial selection)
-   * @default false
-   */
-  @property({ type: Boolean, reflect: true })
-  indeterminate = false;
-
-  /**
-   * Whether the checkbox is disabled
+   * Whether the switch is disabled
    * @default false
    */
   @property({ type: Boolean, reflect: true })
   disabled = false;
 
   /**
-   * Whether the checkbox is required for form validation
+   * Whether the switch is required for form validation
    * @default false
    */
   @property({ type: Boolean, reflect: true })
   required = false;
 
   /**
-   * Whether the checkbox is in error state
+   * Whether the switch is in error state
    * @default false
    */
   @property({ type: Boolean, reflect: true })
@@ -167,18 +157,18 @@ export class SandoCheckbox extends FlavorableMixin(LitElement) {
   value = 'on';
 
   /**
-   * Visual variant of the checkbox
+   * Visual variant of the switch
    * @default 'solid'
    */
   @property({ reflect: true })
-  variant: CheckboxVariant = 'solid';
+  variant: SwitchVariant = 'solid';
 
   /**
-   * Size variant of the checkbox
+   * Size variant of the switch
    * @default 'md'
    */
   @property({ reflect: true })
-  size: CheckboxSize = 'md';
+  size: SwitchSize = 'md';
 
   /**
    * Label text (alternative to slot)
@@ -187,7 +177,7 @@ export class SandoCheckbox extends FlavorableMixin(LitElement) {
   label?: string;
 
   /**
-   * Helper text displayed below the checkbox
+   * Helper text displayed below the switch
    */
   @property({ reflect: true, attribute: 'helper-text' })
   helperText?: string;
@@ -212,19 +202,6 @@ export class SandoCheckbox extends FlavorableMixin(LitElement) {
   disconnectedCallback(): void {
     super.disconnectedCallback();
     this._detachFormListeners();
-  }
-
-  /**
-   * Lifecycle: Called when properties change
-   * Syncs indeterminate state with native input
-   */
-  protected updated(changedProperties: Map<string, unknown>): void {
-    super.updated(changedProperties);
-
-    // Sync indeterminate state to native input (can't be set via attribute)
-    if (changedProperties.has('indeterminate') && this._inputElement) {
-      this._inputElement.indeterminate = this.indeterminate;
-    }
   }
 
   /**
@@ -255,7 +232,6 @@ export class SandoCheckbox extends FlavorableMixin(LitElement) {
    */
   private _handleFormReset = (): void => {
     this.checked = false;
-    this.indeterminate = false;
     this.error = false;
   };
 
@@ -268,9 +244,6 @@ export class SandoCheckbox extends FlavorableMixin(LitElement) {
     if (this.disabled) return;
 
     const target = e.target as HTMLInputElement;
-
-    // Clear indeterminate on user interaction
-    this.indeterminate = false;
     this.checked = target.checked;
 
     this._emitChangeEvent();
@@ -314,39 +287,14 @@ export class SandoCheckbox extends FlavorableMixin(LitElement) {
    */
   private _emitChangeEvent(): void {
     this.dispatchEvent(
-      new CustomEvent<CheckboxChangeEventDetail>('sando-change', {
+      new CustomEvent<SwitchChangeEventDetail>('sando-change', {
         detail: {
-          checked: this.checked,
-          indeterminate: this.indeterminate
+          checked: this.checked
         },
         bubbles: true,
         composed: true
       })
     );
-  }
-
-  /**
-   * Render checkmark SVG icon
-   * @private
-   */
-  private _renderCheckmark() {
-    return html`
-      <span class="checkbox-icon checkmark" aria-hidden="true">
-        <sando-icon name="check" decorative inherit-color></sando-icon>
-      </span>
-    `;
-  }
-
-  /**
-   * Render indeterminate SVG icon (horizontal line)
-   * @private
-   */
-  private _renderIndeterminate() {
-    return html`
-      <span class="checkbox-icon indeterminate" aria-hidden="true">
-        <sando-icon name="minus" decorative inherit-color></sando-icon>
-      </span>
-    `;
   }
 
   render() {
@@ -355,24 +303,22 @@ export class SandoCheckbox extends FlavorableMixin(LitElement) {
     const hasErrorText = this.errorText && this.error;
     const describedBy = hasHelperText || hasErrorText ? `${this._inputId}-description` : undefined;
 
-    // Determine aria-checked value
-    const ariaChecked = this.indeterminate ? 'mixed' : this.checked ? 'true' : 'false';
-
     return html`
-      <div class="checkbox-wrapper">
-        <label class="checkbox-container" for=${this._inputId} @keydown=${this._handleKeyDown}>
+      <div class="switch-wrapper">
+        <label class="switch-container" for=${this._inputId} @keydown=${this._handleKeyDown}>
           <!-- Hidden native input for form participation and accessibility -->
+          <!-- Note: role="switch" overrides the checkbox semantics for proper switch behavior -->
           <input
             type="checkbox"
+            role="switch"
             class="native-input"
             id=${this._inputId}
             name=${this.name || nothing}
             .value=${this.value}
             .checked=${this.checked}
-            .indeterminate=${this.indeterminate}
             ?disabled=${this.disabled}
             ?required=${this.required}
-            aria-checked=${ariaChecked}
+            aria-checked=${this.checked ? 'true' : 'false'}
             aria-invalid=${this.error ? 'true' : 'false'}
             aria-describedby=${describedBy || nothing}
             @change=${this._handleInputChange}
@@ -380,15 +326,16 @@ export class SandoCheckbox extends FlavorableMixin(LitElement) {
             @blur=${this._handleBlur}
           />
 
-          <!-- Custom visual checkbox -->
-          <span class="checkbox-box${this._focused ? ' focused' : ''}" role="presentation">
-            ${this._renderCheckmark()} ${this._renderIndeterminate()}
+          <!-- Custom visual switch track (the pill-shaped container) -->
+          <span class="switch-track${this._focused ? ' focused' : ''}" role="presentation">
+            <!-- Thumb (circular sliding element) -->
+            <span class="switch-thumb"></span>
           </span>
 
           <!-- Label text -->
           ${hasLabel
             ? html`
-                <span class="checkbox-label">
+                <span class="switch-label">
                   ${this.label || ''}<slot></slot>${this.required
                     ? html`<span class="required-indicator" aria-hidden="true">*</span>`
                     : nothing}
@@ -400,14 +347,14 @@ export class SandoCheckbox extends FlavorableMixin(LitElement) {
         <!-- Helper/Error text -->
         ${hasHelperText
           ? html`
-              <div id="${this._inputId}-description" class="checkbox-description">
+              <div id="${this._inputId}-description" class="switch-description">
                 <span class="helper-text">${this.helperText}</span>
               </div>
             `
           : nothing}
         ${hasErrorText
           ? html`
-              <div id="${this._inputId}-description" class="checkbox-description">
+              <div id="${this._inputId}-description" class="switch-description">
                 <span class="error-text" role="alert">${this.errorText}</span>
               </div>
             `
@@ -417,32 +364,31 @@ export class SandoCheckbox extends FlavorableMixin(LitElement) {
   }
 
   /**
-   * Public API: Focus the checkbox
+   * Public API: Focus the switch
    */
   override focus(): void {
     this._inputElement?.focus();
   }
 
   /**
-   * Public API: Blur the checkbox
+   * Public API: Blur the switch
    */
   blur(): void {
     this._inputElement?.blur();
   }
 
   /**
-   * Public API: Toggle the checkbox state
+   * Public API: Toggle the switch state
    */
   toggle(): void {
     if (!this.disabled) {
-      this.indeterminate = false;
       this.checked = !this.checked;
       this._emitChangeEvent();
     }
   }
 
   /**
-   * Public API: Check validity of checkbox
+   * Public API: Check validity of switch
    * Delegates to native input validation API
    */
   checkValidity(): boolean {
@@ -484,6 +430,6 @@ export class SandoCheckbox extends FlavorableMixin(LitElement) {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sando-checkbox': SandoCheckbox;
+    'sando-switch': SandoSwitch;
   }
 }

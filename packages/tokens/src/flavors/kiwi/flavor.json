@@ -144,6 +144,35 @@
     "selection": {
       "background": { "value": "{color.green.200.value}", "type": "color" },
       "text": { "value": "{color.neutralWarm.950.value}", "type": "color" }
+    },
+    "control": {
+      "surface": {
+        "thumb": {
+          "value": "{color.utility.white.value}",
+          "type": "color",
+          "description": "Toggle control thumb - always high contrast"
+        },
+        "trackInactive": {
+          "value": "{color.neutralWarm.500.value}",
+          "type": "color",
+          "description": "Toggle track when OFF"
+        },
+        "trackActive": {
+          "value": "{color.green.700.value}",
+          "type": "color",
+          "description": "Toggle track when ON"
+        },
+        "trackDisabled": {
+          "value": "{color.neutralWarm.300.value}",
+          "type": "color",
+          "description": "Toggle track when disabled"
+        },
+        "thumbDisabled": {
+          "value": "{color.neutralWarm.400.value}",
+          "type": "color",
+          "description": "Toggle thumb when disabled"
+        }
+      }
     }
   },
   "font": {

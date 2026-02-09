@@ -71,29 +71,16 @@ export const baseStyles = css`
     outline-offset: var(--sando-checkbox-focusOutlineOffset);
   }
 
-  /* Focus visible on the box when native input is focused */
-  .native-input:focus-visible ~ .checkbox-box {
+  /* Focus visible on the box - uses JS-managed .focused class for reliability across Shadow DOM */
+  .checkbox-box.focused {
     outline-color: var(--sando-checkbox-focusOutlineColor);
     outline-width: var(--sando-checkbox-focusOutlineWidth);
     outline-style: solid;
-  }
-
-  /* Fallback: also target when container has focus-within */
-  .checkbox-container:focus-within .checkbox-box {
-    outline-color: var(--sando-checkbox-focusOutlineColor);
-    outline-width: var(--sando-checkbox-focusOutlineWidth);
-    outline-style: solid;
-  }
-
-  /* Hide focus ring when not using keyboard (mouse/touch) */
-  .checkbox-container:focus-within:not(:focus-visible) .checkbox-box {
-    outline-color: transparent;
   }
 
   /* High contrast mode support */
   @media (prefers-contrast: high) {
-    .native-input:focus-visible ~ .checkbox-box,
-    .checkbox-container:focus-within .checkbox-box {
+    .checkbox-box.focused {
       outline-width: calc(var(--sando-checkbox-focusOutlineWidth) * 2);
       outline-offset: calc(var(--sando-checkbox-focusOutlineOffset) * 1.5);
     }

@@ -64,6 +64,15 @@ import { baseStyles, variantStyles, sizeStyles, stateStyles } from './styles/ind
 @customElement('sando-radio')
 export class SandoRadio extends FlavorableMixin(LitElement) {
   /**
+   * Shadow DOM focus delegation for proper keyboard navigation.
+   * Required per KEYBOARD_NAVIGATION.toon (KN-CR-R5)
+   */
+  static shadowRootOptions = {
+    ...LitElement.shadowRootOptions,
+    delegatesFocus: true
+  };
+
+  /**
    * Component styles - modular CSS imports
    * Order matters for specificity
    */
@@ -89,6 +98,14 @@ export class SandoRadio extends FlavorableMixin(LitElement) {
    */
   @state()
   private _inputId = `sando-radio-${Math.random().toString(36).substring(2, 11)}`;
+
+  /**
+   * Internal: tracks whether input is currently focused
+   * Used to apply .focused class for reliable focus ring visibility
+   * @private
+   */
+  @state()
+  private _focused = false;
 
   /**
    * Whether the radio is checked
@@ -259,6 +276,24 @@ export class SandoRadio extends FlavorableMixin(LitElement) {
   };
 
   /**
+   * Handle focus event on native input
+   * Tracks focus state for reliable focus ring visibility
+   * @private
+   */
+  private _handleFocus = (): void => {
+    this._focused = true;
+  };
+
+  /**
+   * Handle blur event on native input
+   * Clears focus state
+   * @private
+   */
+  private _handleBlur = (): void => {
+    this._focused = false;
+  };
+
+  /**
    * Emit custom change event
    * @private
    */
@@ -299,10 +334,12 @@ export class SandoRadio extends FlavorableMixin(LitElement) {
             aria-invalid=${this.error ? 'true' : 'false'}
             aria-describedby=${describedBy || nothing}
             @change=${this._handleInputChange}
+            @focus=${this._handleFocus}
+            @blur=${this._handleBlur}
           />
 
           <!-- Custom visual radio -->
-          <span class="radio-box" role="presentation">
+          <span class="radio-box${this._focused ? ' focused' : ''}" role="presentation">
             <span class="radio-dot" aria-hidden="true"></span>
           </span>
 
