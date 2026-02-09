@@ -25,7 +25,7 @@ import './sando-switch.js';
 const meta: Meta = {
   title: 'Components/Switch',
   component: 'sando-switch',
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   render: (args) => html`
     <sando-switch
       variant="${args.variant}"
