@@ -64,6 +64,15 @@ import { baseStyles, variantStyles, sizeStyles, stateStyles } from './styles/ind
 @customElement('sando-radio')
 export class SandoRadio extends FlavorableMixin(LitElement) {
   /**
+   * Shadow DOM focus delegation for proper keyboard navigation.
+   * Required per KEYBOARD_NAVIGATION.toon (KN-CR-R5)
+   */
+  static shadowRootOptions = {
+    ...LitElement.shadowRootOptions,
+    delegatesFocus: true
+  };
+
+  /**
    * Component styles - modular CSS imports
    * Order matters for specificity
    */

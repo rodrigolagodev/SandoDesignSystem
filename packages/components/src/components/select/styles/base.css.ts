@@ -130,8 +130,8 @@ export const baseStyles = css`
   }
 
   .select-clear:focus-visible {
-    outline: 2px solid var(--sando-select-focusOutlineColor);
-    outline-offset: 1px;
+    outline: var(--sando-select-focusOutlineWidth) solid var(--sando-select-focusOutlineColor);
+    outline-offset: var(--sando-select-focusOutlineOffset);
   }
 
   .select-clear sando-icon {
@@ -180,8 +180,8 @@ export const baseStyles = css`
   /* High contrast mode support */
   @media (prefers-contrast: high) {
     .select-trigger:focus-visible {
-      outline-width: 4px;
-      outline-offset: 3px;
+      outline-width: calc(var(--sando-select-focusOutlineWidth) * 2);
+      outline-offset: calc(var(--sando-select-focusOutlineOffset) * 1.5);
     }
   }
 `;
