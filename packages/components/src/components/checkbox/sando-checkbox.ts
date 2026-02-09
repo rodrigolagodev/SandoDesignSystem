@@ -57,6 +57,7 @@
 
 import { LitElement, html, nothing } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 
 import type {
   CheckboxVariant,
@@ -96,25 +97,12 @@ export class SandoCheckbox extends FlavorableMixin(LitElement) {
     stateStyles // Checked, indeterminate, disabled, error
   ];
 
-  /**
-   * Reference to the native input element
-   * @private
-   */
   @query('input')
   private _inputElement!: HTMLInputElement;
 
-  /**
-   * Internal: unique ID for label/input association (generated once)
-   * @private
-   */
   @state()
   private _inputId = `sando-checkbox-${Math.random().toString(36).substring(2, 11)}`;
 
-  /**
-   * Internal: tracks whether input is currently focused
-   * Used to apply .focused class for reliable focus ring visibility
-   * @private
-   */
   @state()
   private _focused = false;
 
@@ -227,10 +215,6 @@ export class SandoCheckbox extends FlavorableMixin(LitElement) {
     }
   }
 
-  /**
-   * Attach form reset listener
-   * @private
-   */
   private _attachFormListeners(): void {
     const form = this.closest('form');
     if (form) {
@@ -238,10 +222,6 @@ export class SandoCheckbox extends FlavorableMixin(LitElement) {
     }
   }
 
-  /**
-   * Detach form reset listener
-   * @private
-   */
   private _detachFormListeners(): void {
     const form = this.closest('form');
     if (form) {
@@ -249,21 +229,12 @@ export class SandoCheckbox extends FlavorableMixin(LitElement) {
     }
   }
 
-  /**
-   * Handle form reset event
-   * @private
-   */
   private _handleFormReset = (): void => {
     this.checked = false;
     this.indeterminate = false;
     this.error = false;
   };
 
-  /**
-   * Handle native input change event
-   * This is the ONLY handler for state changes - triggered by label click or direct input click
-   * @private
-   */
   private _handleInputChange = (e: Event): void => {
     if (this.disabled) return;
 
@@ -276,42 +247,22 @@ export class SandoCheckbox extends FlavorableMixin(LitElement) {
     this._emitChangeEvent();
   };
 
-  /**
-   * Handle keyboard events for accessibility
-   * Supports Space and Enter key activation
-   * @private
-   */
+  /** Handle Space and Enter keys for toggle activation. */
   private _handleKeyDown = (e: KeyboardEvent): void => {
-    if (this.disabled) return;
-
-    if (e.key === ' ' || e.key === 'Enter') {
+    if (!this.disabled && (e.key === ' ' || e.key === 'Enter')) {
       e.preventDefault();
       this.toggle();
     }
   };
 
-  /**
-   * Handle focus event on native input
-   * Tracks focus state for reliable focus ring visibility
-   * @private
-   */
   private _handleFocus = (): void => {
     this._focused = true;
   };
 
-  /**
-   * Handle blur event on native input
-   * Clears focus state
-   * @private
-   */
   private _handleBlur = (): void => {
     this._focused = false;
   };
 
-  /**
-   * Emit custom change event
-   * @private
-   */
   private _emitChangeEvent(): void {
     this.dispatchEvent(
       new CustomEvent<CheckboxChangeEventDetail>('sando-change', {
@@ -325,10 +276,6 @@ export class SandoCheckbox extends FlavorableMixin(LitElement) {
     );
   }
 
-  /**
-   * Render checkmark SVG icon
-   * @private
-   */
   private _renderCheckmark() {
     return html`
       <span class="checkbox-icon checkmark" aria-hidden="true">
@@ -337,10 +284,6 @@ export class SandoCheckbox extends FlavorableMixin(LitElement) {
     `;
   }
 
-  /**
-   * Render indeterminate SVG icon (horizontal line)
-   * @private
-   */
   private _renderIndeterminate() {
     return html`
       <span class="checkbox-icon indeterminate" aria-hidden="true">
@@ -350,18 +293,19 @@ export class SandoCheckbox extends FlavorableMixin(LitElement) {
   }
 
   render() {
-    const hasLabel = this.label || this.querySelector('[slot=""]') !== null;
     const hasHelperText = this.helperText && !this.error;
     const hasErrorText = this.errorText && this.error;
     const describedBy = hasHelperText || hasErrorText ? `${this._inputId}-description` : undefined;
-
-    // Determine aria-checked value
     const ariaChecked = this.indeterminate ? 'mixed' : this.checked ? 'true' : 'false';
+
+    const boxClasses = classMap({
+      'checkbox-box': true,
+      focused: this._focused
+    });
 
     return html`
       <div class="checkbox-wrapper">
         <label class="checkbox-container" for=${this._inputId} @keydown=${this._handleKeyDown}>
-          <!-- Hidden native input for form participation and accessibility -->
           <input
             type="checkbox"
             class="native-input"
@@ -380,35 +324,23 @@ export class SandoCheckbox extends FlavorableMixin(LitElement) {
             @blur=${this._handleBlur}
           />
 
-          <!-- Custom visual checkbox -->
-          <span class="checkbox-box${this._focused ? ' focused' : ''}" role="presentation">
+          <span class=${boxClasses} role="presentation">
             ${this._renderCheckmark()} ${this._renderIndeterminate()}
           </span>
 
-          <!-- Label text -->
-          ${hasLabel
-            ? html`
-                <span class="checkbox-label">
-                  ${this.label || ''}<slot></slot>${this.required
-                    ? html`<span class="required-indicator" aria-hidden="true">*</span>`
-                    : nothing}
-                </span>
-              `
-            : nothing}
+          <span class="checkbox-label">
+            ${this.label || ''}<slot></slot>${this.required
+              ? html`<span class="required-indicator" aria-hidden="true">*</span>`
+              : nothing}
+          </span>
         </label>
 
-        <!-- Helper/Error text -->
-        ${hasHelperText
+        ${hasHelperText || hasErrorText
           ? html`
               <div id="${this._inputId}-description" class="checkbox-description">
-                <span class="helper-text">${this.helperText}</span>
-              </div>
-            `
-          : nothing}
-        ${hasErrorText
-          ? html`
-              <div id="${this._inputId}-description" class="checkbox-description">
-                <span class="error-text" role="alert">${this.errorText}</span>
+                ${hasErrorText
+                  ? html`<span class="error-text" role="alert">${this.errorText}</span>`
+                  : html`<span class="helper-text">${this.helperText}</span>`}
               </div>
             `
           : nothing}
