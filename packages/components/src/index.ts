@@ -116,6 +116,19 @@ export type {
   SelectVisibilityEvent
 } from './components/select/index.js';
 
+export { SandoTextarea } from './components/textarea/index.js';
+export type {
+  TextareaVariant,
+  TextareaSize,
+  TextareaResize,
+  TextareaWrap,
+  TextareaInputEventDetail,
+  TextareaChangeEventDetail,
+  TextareaInputEvent,
+  TextareaChangeEvent,
+  SandoTextareaProps
+} from './components/textarea/index.js';
+
 // ========================================
 // Common Types
 // ========================================
