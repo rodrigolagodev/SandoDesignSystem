@@ -117,6 +117,30 @@
     "selection": {
       "background": { "value": "{color.brown.700.value}", "type": "color" },
       "text": { "value": "{color.brown.50.value}", "type": "color" }
+    },
+    "control": {
+      "surface": {
+        "thumb": {
+          "value": "{color.utility.white.value}",
+          "type": "color"
+        },
+        "trackInactive": {
+          "value": "{color.brown.600.value}",
+          "type": "color"
+        },
+        "trackActive": {
+          "value": "{color.brown.500.value}",
+          "type": "color"
+        },
+        "trackDisabled": {
+          "value": "{color.brown.700.value}",
+          "type": "color"
+        },
+        "thumbDisabled": {
+          "value": "{color.brown.600.value}",
+          "type": "color"
+        }
+      }
     }
   }
 }
