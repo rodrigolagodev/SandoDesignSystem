@@ -6,7 +6,8 @@
       "surface": { "value": "Canvas", "type": "color" },
       "raised": { "value": "Canvas", "type": "color" },
       "overlay": { "value": "Canvas", "type": "color" },
-      "emphasis": { "value": "Canvas", "type": "color" }
+      "emphasis": { "value": "Canvas", "type": "color" },
+      "hover": { "value": "Canvas", "type": "color" }
     },
     "focus": {
       "ring": { "value": "Highlight", "type": "color" },

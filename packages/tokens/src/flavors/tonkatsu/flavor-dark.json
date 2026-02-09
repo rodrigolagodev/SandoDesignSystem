@@ -6,7 +6,8 @@
       "surface": { "value": "{color.brown.900.value}", "type": "color" },
       "raised": { "value": "{color.brown.800.value}", "type": "color" },
       "overlay": { "value": "{color.brown.950.value}", "type": "color" },
-      "emphasis": { "value": "{color.brown.800.value}", "type": "color" }
+      "emphasis": { "value": "{color.brown.800.value}", "type": "color" },
+      "hover": { "value": "{color.brown.800.value}", "type": "color" }
     },
     "focus": {
       "ring": { "value": "{color.brown.400.value}", "type": "color" },
