@@ -36,6 +36,8 @@ const meta: Meta = {
   render: (args) => html`
     <div style="max-width: 700px;">
       <sando-skeleton-article
+        flavor="${args.flavor || 'original'}"
+        size="${args.size || 'md'}"
         ?show-meta="${args.showMeta}"
         paragraphs="${args.paragraphs || 3}"
         title-width="${args.titleWidth || '70%'}"
@@ -43,6 +45,26 @@ const meta: Meta = {
     </div>
   `,
   argTypes: {
+    flavor: {
+      control: 'select',
+      options: ['original', 'strawberry', 'tonkatsu', 'kiwi', 'egg-salad'],
+      description: 'Visual flavor/theme of the component',
+      table: {
+        category: 'Appearance',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'original' }
+      }
+    },
+    size: {
+      control: 'select',
+      options: ['sm', 'md', 'lg'],
+      description: 'Size of paragraph lines (controls line height and spacing)',
+      table: {
+        category: 'Appearance',
+        type: { summary: "'sm' | 'md' | 'lg'" },
+        defaultValue: { summary: 'md' }
+      }
+    },
     showMeta: {
       control: 'boolean',
       description: 'Show date/author meta line below title',
@@ -72,6 +94,8 @@ const meta: Meta = {
     }
   },
   args: {
+    flavor: 'original',
+    size: 'md',
     showMeta: true,
     paragraphs: 3,
     titleWidth: '70%'
@@ -103,6 +127,36 @@ export const Playground: Story = {
 // ============================================================================
 // DOCUMENTATION STORIES (hidden from sidebar, used in MDX)
 // ============================================================================
+
+/**
+ * Different size variants showing line height and spacing differences.
+ */
+export const SizeVariants: Story = {
+  tags: DOCS_ONLY,
+  render: () => html`
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;">
+      <div>
+        <p style="margin-bottom: 12px; font-size: 14px; font-weight: 600; color: #374151;">
+          Small (sm)
+        </p>
+        <sando-skeleton-article size="sm" paragraphs="2"></sando-skeleton-article>
+      </div>
+      <div>
+        <p style="margin-bottom: 12px; font-size: 14px; font-weight: 600; color: #374151;">
+          Medium (md) - default
+        </p>
+        <sando-skeleton-article size="md" paragraphs="2"></sando-skeleton-article>
+      </div>
+      <div>
+        <p style="margin-bottom: 12px; font-size: 14px; font-weight: 600; color: #374151;">
+          Large (lg)
+        </p>
+        <sando-skeleton-article size="lg" paragraphs="2"></sando-skeleton-article>
+      </div>
+    </div>
+  `,
+  parameters: { controls: { disable: true } }
+};
 
 /**
  * Different paragraph counts.
