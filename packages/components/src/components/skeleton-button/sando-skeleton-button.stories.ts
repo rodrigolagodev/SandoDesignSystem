@@ -26,12 +26,23 @@ const meta: Meta = {
   tags: ['autodocs', 'stable'],
   render: (args) => html`
     <sando-skeleton-button
+      flavor="${args.flavor || 'original'}"
       size="${args.size || 'md'}"
       width="${args.width || 'auto'}"
       effect="${args.effect || 'shimmer'}"
     ></sando-skeleton-button>
   `,
   argTypes: {
+    flavor: {
+      control: 'select',
+      options: ['original', 'strawberry', 'tonkatsu', 'kiwi', 'egg-salad'],
+      description: 'Visual flavor/theme of the component',
+      table: {
+        category: 'Appearance',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'original' }
+      }
+    },
     size: {
       control: 'select',
       options: ['sm', 'md', 'lg'],
@@ -63,6 +74,7 @@ const meta: Meta = {
     }
   },
   args: {
+    flavor: 'original',
     size: 'md',
     width: 'auto',
     effect: 'shimmer'

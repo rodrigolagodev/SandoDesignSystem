@@ -134,23 +134,6 @@
             "type": "dimension",
             "description": "Large button skeleton height"
           }
-        },
-        "width": {
-          "sm": {
-            "value": "4rem",
-            "type": "dimension",
-            "description": "Small button skeleton width (64px)"
-          },
-          "md": {
-            "value": "6rem",
-            "type": "dimension",
-            "description": "Medium button skeleton width (96px)"
-          },
-          "lg": {
-            "value": "8rem",
-            "type": "dimension",
-            "description": "Large button skeleton width (128px)"
-          }
         }
       }
     },
