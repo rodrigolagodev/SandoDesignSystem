@@ -221,6 +221,11 @@
       "strokeEmphasis": {
         "value": "{border.width.150.value}",
         "type": "dimension"
+      },
+      "strokeHeavy": {
+        "value": "{border.width.200.value}",
+        "type": "dimension",
+        "description": "Heavy stroke width (4px) for large spinners"
       }
     }
   },
@@ -251,6 +256,33 @@
       "md": { "value": "{font.size.400.value}", "type": "dimension" },
       "lg": { "value": "{font.size.600.value}", "type": "dimension" },
       "xl": { "value": "{font.size.700.value}", "type": "dimension" }
+    },
+    "spinner": {
+      "xs": {
+        "value": "{font.size.100.value}",
+        "type": "dimension",
+        "description": "12px - inline, badges"
+      },
+      "sm": {
+        "value": "{font.size.300.value}",
+        "type": "dimension",
+        "description": "16px - small buttons"
+      },
+      "md": {
+        "value": "{font.size.600.value}",
+        "type": "dimension",
+        "description": "24px - default"
+      },
+      "lg": {
+        "value": "{font.size.700.value}",
+        "type": "dimension",
+        "description": "32px - sections"
+      },
+      "xl": {
+        "value": "{font.size.900.value}",
+        "type": "dimension",
+        "description": "48px - page loading"
+      }
     },
     "switch": {
       "track": {
@@ -291,7 +323,12 @@
         "value": "{animation.duration.300.value}",
         "type": "duration"
       },
-      "slow": { "value": "{animation.duration.500.value}", "type": "duration" }
+      "slow": { "value": "{animation.duration.500.value}", "type": "duration" },
+      "continuous": {
+        "value": "{animation.duration.700.value}",
+        "type": "duration",
+        "description": "Duration for continuous animations like spinners (700ms)"
+      }
     },
     "easing": {
       "default": {
@@ -305,6 +342,11 @@
       "exit": {
         "value": "{animation.easing.ease-in.value}",
         "type": "cubicBezier"
+      },
+      "continuous": {
+        "value": "{animation.easing.organic.value}",
+        "type": "cubicBezier",
+        "description": "Easing for continuous animations like spinners"
       }
     }
   },

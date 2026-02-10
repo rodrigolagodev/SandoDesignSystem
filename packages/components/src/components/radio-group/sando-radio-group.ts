@@ -556,10 +556,8 @@ export class SandoRadioGroup extends FlavorableMixin(LitElement) implements Sand
    */
   private _renderLabel() {
     return html`
-      <span id=${this._labelId} class="radio-group-label">
-        ${this.label}${this.required
-          ? html`<span class="required-indicator" aria-hidden="true">*</span>`
-          : nothing}
+      <span id=${this._labelId} class="radio-group-label" ?data-required=${this.required}>
+        ${this.label}
       </span>
     `;
   }

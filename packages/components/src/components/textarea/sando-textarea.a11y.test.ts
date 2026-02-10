@@ -553,10 +553,10 @@ Line 2"
         <sando-textarea label="Required field" required></sando-textarea>
       `);
 
-      const requiredIndicator = el.shadowRoot!.querySelector('.required-indicator');
-      expect(requiredIndicator).toBeDefined();
-      expect(requiredIndicator!.textContent).toBe('*');
-      expect(requiredIndicator!.getAttribute('aria-hidden')).toBe('true');
+      // Required indicator is now via CSS ::after (aria-hidden by nature since CSS content isn't in accessibility tree)
+      const label = el.shadowRoot!.querySelector('.textarea-label');
+      expect(label).toBeDefined();
+      expect(label!.hasAttribute('data-required')).toBe(true);
     });
 
     it('should expose maxlength via native attribute', async () => {

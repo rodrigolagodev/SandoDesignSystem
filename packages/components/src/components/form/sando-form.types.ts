@@ -107,10 +107,16 @@ export type FormValidateEvent = CustomEvent<FormValidateEventDetail>;
  */
 export interface SandoFormProps {
   /**
-   * When true, disables all child form controls
+   * When true, disables all child form controls and shows a loading overlay
    * @default false
    */
   loading?: boolean;
+
+  /**
+   * Custom label for the loading spinner (accessibility)
+   * @default 'Submitting form'
+   */
+  loadingLabel?: string;
 
   /**
    * Skip native HTML validation

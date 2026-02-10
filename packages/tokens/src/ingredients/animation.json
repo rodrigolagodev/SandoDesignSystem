@@ -50,6 +50,26 @@
       "bounce": {
         "value": "cubic-bezier(0.68, -0.55, 0.265, 1.55)",
         "type": "cubicBezier"
+      },
+      "smooth": {
+        "value": "cubic-bezier(0.45, 0.05, 0.55, 0.95)",
+        "type": "cubicBezier",
+        "description": "Smooth, gradual acceleration/deceleration"
+      },
+      "gentle": {
+        "value": "cubic-bezier(0.4, 0.1, 0.6, 0.9)",
+        "type": "cubicBezier",
+        "description": "Gentle, subtle movement"
+      },
+      "energetic": {
+        "value": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+        "type": "cubicBezier",
+        "description": "Energetic, snappy movement"
+      },
+      "organic": {
+        "value": "cubic-bezier(0.42, 0, 0.58, 1)",
+        "type": "cubicBezier",
+        "description": "Organic, natural symmetric easing"
       }
     }
   }

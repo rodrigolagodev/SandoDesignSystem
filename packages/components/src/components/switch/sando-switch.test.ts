@@ -204,9 +204,11 @@ describe('sando-switch', () => {
       element.required = true;
       await element.updateComplete;
 
-      const requiredIndicator = element.shadowRoot!.querySelector('.required-indicator');
-      expect(requiredIndicator).toBeDefined();
-      expect(requiredIndicator!.textContent).toBe('*');
+      // Required indicator is now rendered via CSS ::after pseudo-element
+      // We verify the data-required attribute is present on the label
+      const label = element.shadowRoot!.querySelector('.switch-label');
+      expect(label).toBeDefined();
+      expect(label!.hasAttribute('data-required')).toBe(true);
     });
   });
 

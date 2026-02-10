@@ -193,8 +193,9 @@ describe('sando-select accessibility', () => {
     it('should show visual required indicator', async () => {
       element.required = true;
       await element.updateComplete;
-      const indicator = element.shadowRoot?.querySelector('.required-indicator');
-      expect(indicator).toBeDefined();
+      // Required indicator is now via CSS ::after
+      const label = element.shadowRoot?.querySelector('.select-label');
+      expect(label?.hasAttribute('data-required')).toBe(true);
     });
   });
 

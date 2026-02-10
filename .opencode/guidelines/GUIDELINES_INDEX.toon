@@ -6,7 +6,7 @@ meta:
   title: "Sando Design System Guidelines Index"
 
 summary: |
-  Complete catalog of 27 guidelines - single source of truth for Sando Design System standardization.
+  Complete catalog of 28 guidelines - single source of truth for Sando Design System standardization.
 
 navigation:
   - cat: "Design System"
@@ -67,6 +67,11 @@ design_system:
       ver: "2.0.0"
       desc: "Token-based durations, GPU properties, reduced-motion"
       owner: "sando-tokens"
+    - id: "LS"
+      file: "LOADING_STATES.toon"
+      ver: "1.0.0"
+      desc: "Spinner vs Skeleton patterns, loading prop API, accessibility"
+      owner: "sando-architect"
   agents: "sando-architect, sando-tokens, sando-developer"
   skills: "component-creator"
 
@@ -230,7 +235,7 @@ maintenance:
     task: "Major review of all guidelines"
 
 stats:
-  total: 27
+  total: 28
   categories: 6
   format: "TOON"
   ext: ".toon"

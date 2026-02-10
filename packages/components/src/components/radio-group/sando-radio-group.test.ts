@@ -147,17 +147,18 @@ describe('sando-radio-group', () => {
       const el = await createRadioGroup({ label: 'Required field', required: true });
       await el.updateComplete;
 
-      const indicator = el.shadowRoot!.querySelector('.required-indicator');
-      expect(indicator).toBeDefined();
-      expect(indicator!.textContent).toBe('*');
+      const label = el.shadowRoot!.querySelector('.radio-group-label');
+      expect(label).toBeDefined();
+      expect(label!.hasAttribute('data-required')).toBe(true);
     });
 
     it('should NOT render required indicator when no label', async () => {
       const el = await createRadioGroup({ required: true });
       await el.updateComplete;
 
-      const indicator = el.shadowRoot!.querySelector('.required-indicator');
-      expect(indicator).toBeNull();
+      // No label, so no required indicator to show
+      const label = el.shadowRoot!.querySelector('.radio-group-label');
+      expect(label).toBeNull();
     });
 
     it('should render in vertical orientation by default', async () => {
@@ -977,12 +978,14 @@ describe('sando-radio-group', () => {
       expect(description!.getAttribute('role')).toBeNull();
     });
 
-    it('should have aria-hidden on required indicator', async () => {
+    it('should use CSS ::after for required indicator (aria-hidden by nature)', async () => {
       const el = await createRadioGroup({ label: 'Label', required: true });
       await el.updateComplete;
 
-      const indicator = el.shadowRoot!.querySelector('.required-indicator');
-      expect(indicator!.getAttribute('aria-hidden')).toBe('true');
+      // Required indicator is now via CSS ::after, not a DOM element
+      // It's automatically aria-hidden since CSS content isn't in the accessibility tree
+      const label = el.shadowRoot!.querySelector('.radio-group-label');
+      expect(label!.hasAttribute('data-required')).toBe(true);
     });
 
     it('should be accessible (axe check)', async () => {

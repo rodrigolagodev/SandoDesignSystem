@@ -1,0 +1,305 @@
+meta:
+  doc_id: "LS"
+  category: "01-design-system"
+  version: "2.0.0"
+  status: "Active"
+  last_updated: "2026-02-10"
+  owner: "Design System Architect"
+
+purpose: |
+  Defines WHEN to use Spinner vs Skeleton loading patterns and establishes behavioral requirements for accessible, flicker-free loading states.
+
+core_rules:
+  - id: "LS-CR-R1"
+    title: "Spinner for Actions, Skeleton for Content"
+    summary: "Use Spinner for user-initiated actions. Use Skeleton for system-initiated content loading."
+    why: "Spinner provides immediate action feedback (user did something). Skeleton reduces perceived wait time for content loading (system is working). Using the wrong type creates confusing UX."
+    decision_criteria:
+      - context: "User clicked a button, submitted a form"
+        pattern: "Spinner"
+        reason: "Action feedback - user expects immediate response"
+      - context: "Page loading, data fetching, background refresh"
+        pattern: "Skeleton"
+        reason: "Content preview - reduces perceived wait time"
+      - context: "Unknown content structure during fetch"
+        pattern: "Spinner (centered)"
+        reason: "No layout to preview"
+    constraint: "All components with async states must follow this decision matrix."
+
+  - id: "LS-CR-R2"
+    title: "Respect Reduced Motion (Non-Negotiable)"
+    summary: "Loading animations MUST respect `prefers-reduced-motion`. Spinner rotation and skeleton pulse/wave animations must stop."
+    why: "Motion-sensitive users may experience discomfort from continuous animations. WCAG 2.3.3 requires respecting motion preferences."
+    behavioral_requirement: |
+      When `prefers-reduced-motion: reduce` is active:
+      - Spinner: Stop rotation, show static indicator (opacity change)
+      - Skeleton: Stop pulse/wave animation, show static placeholder
+    implementation_note: "Achieved via motion tokens—components inherit reduced motion automatically when using token-based animation durations."
+    reference:
+      type: "guideline"
+      doc_id: "MD"
+      file: "MOTION_DESIGN.toon"
+      note: "MD-CR-R2: Automatic Reduced Motion"
+
+  - id: "LS-CR-R3"
+    title: "Minimum Display Duration (Avoid Flicker)"
+    summary: "Loading states MUST NOT appear for operations completing in under 200ms. Once shown, display for minimum 500ms."
+    why: "Brief loading indicators create visual noise and make the UI feel unstable. A loading state appearing and disappearing instantly is worse than no loading state."
+    timing_requirements:
+      - threshold: "200ms"
+        behavior: "Debounce before showing loading state"
+        reason: "Prevents flicker for fast operations"
+      - threshold: "500ms"
+        behavior: "Minimum display duration once shown"
+        reason: "Prevents jarring flash if operation completes immediately after indicator appears"
+    constraint: "All components with `loading` prop must implement this timing behavior internally."
+
+  - id: "LS-CR-R4"
+    title: "Accessible Announcements (Non-Negotiable)"
+    summary: "Loading states MUST be announced to assistive technology using `aria-busy` pattern."
+    why: "Screen reader users must know content is loading and when it's ready. WCAG 4.1.3 requires status messages to be programmatically determinable."
+    aria_requirements:
+      - attribute: "aria-busy"
+        value: "true"
+        when: "Loading state is active"
+        scope: "On the container being loaded"
+      - attribute: "aria-busy"
+        value: "false"
+        when: "Loading completes"
+        scope: "Same container"
+      - attribute: "aria-label"
+        purpose: "Provides context for what is loading"
+        example: "Loading user profile"
+    reference:
+      type: "guideline"
+      doc_id: "WC"
+      file: "../04-accessibility/WCAG_COMPLIANCE.toon"
+      note: "WCAG 4.1.3 Status Messages"
+
+  - id: "LS-CR-R5"
+    title: "Token-Based Animation (No Hardcoded Values)"
+    summary: "Loading animations MUST use token-based durations and colors. Never hardcode animation values."
+    why: "Token-based animations enable automatic reduced-motion support, theme consistency, and centralized timing adjustments."
+    constraint: "Components reference Recipe tokens for all animation timing, not raw millisecond values."
+    reference:
+      type: "guideline"
+      doc_id: "TA"
+      file: "TOKEN_ARCHITECTURE.toon"
+      note: "Layer 3 Recipe tokens"
+
+decision_matrix:
+  id: "LS-DM"
+  summary: "Use this matrix to select the appropriate loading pattern for any scenario."
+
+  by_trigger:
+    - id: "LS-DM-T1"
+      trigger: "User-initiated action"
+      examples: "Button click, form submit, menu selection"
+      pattern: "Spinner"
+      reason: "Action feedback—user expects immediate visual response to their action"
+
+    - id: "LS-DM-T2"
+      trigger: "System-initiated load"
+      examples: "Page load, route change, background data fetch"
+      pattern: "Skeleton"
+      reason: "Content preview—reduces perceived wait by showing layout structure"
+
+    - id: "LS-DM-T3"
+      trigger: "Unknown content structure"
+      examples: "Dynamic content with variable layout"
+      pattern: "Centered Spinner"
+      reason: "No predictable layout to skeleton—centered spinner is neutral"
+
+  by_component_category:
+    - id: "LS-DM-C1"
+      category: "Action Components"
+      components: "Button, IconButton, Link (with action)"
+      pattern: "Spinner (inline)"
+      behavior: "Replaces content/icon, disables interaction"
+
+    - id: "LS-DM-C2"
+      category: "Content Components"
+      components: "Card, Table, List, Article"
+      pattern: "Skeleton"
+      behavior: "Shows placeholder matching content layout"
+
+    - id: "LS-DM-C3"
+      category: "Media Components"
+      components: "Avatar, Image, Thumbnail"
+      pattern: "Skeleton"
+      behavior: "Shape matches media aspect ratio"
+
+    - id: "LS-DM-C4"
+      category: "Input Components"
+      components: "Input, Textarea, Checkbox, Radio"
+      pattern: "None"
+      behavior: "Inputs use validation states, not loading states"
+
+    - id: "LS-DM-C5"
+      category: "Selector Components"
+      components: "Select, Combobox, Autocomplete"
+      pattern: "Spinner (in dropdown)"
+      behavior: "Shows spinner while fetching options"
+
+    - id: "LS-DM-C6"
+      category: "Container Components"
+      components: "Modal, Dialog, Drawer"
+      pattern: "Either (context-dependent)"
+      behavior: "Skeleton for known layout, Spinner for confirmation actions"
+
+  decision_flowchart:
+    summary: "Quick decision path for loading pattern selection"
+    flow:
+      - step: 1
+        question: "Did the user initiate this action?"
+        yes: "Use SPINNER"
+        no: "Continue to step 2"
+      - step: 2
+        question: "Is the content structure known?"
+        yes: "Use SKELETON matching layout"
+        no: "Continue to step 3"
+      - step: 3
+        question: "Is it a full-page or section load?"
+        yes: "Use centered SPINNER"
+        no: "Consider if loading indicator is needed at all"
+
+token_integration:
+  id: "LS-TI"
+  summary: "How loading states integrate with the three-layer token architecture."
+
+  layer_2_flavors:
+    title: "Semantic Animation Tokens (Layer 2)"
+    description: "Loading components consume semantic animation tokens from Flavors, NOT raw durations."
+    relevant_tokens:
+      - category: "animation.duration"
+        tokens: "fast, normal, slow"
+        loading_usage: "Spinner uses 700ms (between normal and slow), Skeleton uses slow variants"
+      - category: "animation.easing"
+        tokens: "linear, default"
+        loading_usage: "Spinner uses linear (continuous rotation), Skeleton uses default (natural pulse)"
+    reference:
+      type: "guideline"
+      doc_id: "MD"
+      file: "MOTION_DESIGN.toon"
+      note: "Complete animation token definitions"
+
+  layer_3_recipes:
+    title: "Component-Specific Tokens (Layer 3)"
+    description: "Each loading component defines Recipe tokens for its specific needs."
+    token_categories:
+      - component: "Spinner"
+        tokens: "size (by t-shirt), track-color, indicator-color, animation-duration, animation-timing"
+      - component: "Skeleton"
+        tokens: "backgroundColor, wave-color, borderRadius (by variant), animation-duration (pulse/wave)"
+    constraint: "Recipe tokens reference Flavor tokens—never hardcoded values."
+    reference:
+      type: "guideline"
+      doc_id: "TA"
+      file: "TOKEN_ARCHITECTURE.toon"
+      note: "Layer 3 Recipe token structure"
+
+  automatic_reduced_motion:
+    title: "Motion Token Override"
+    description: "When `prefers-reduced-motion: reduce` is active, animation duration tokens become 0ms automatically."
+    effect: "Loading animations stop without component-level code changes."
+    reference:
+      type: "guideline"
+      doc_id: "MD"
+      file: "MOTION_DESIGN.toon"
+      note: "MD-CR-R2: Automatic Reduced Motion"
+
+anti_patterns:
+  id: "LS-AP"
+  summary: "Decision-level mistakes to avoid when choosing and implementing loading states."
+
+  - id: "LS-AP-1"
+    title: "Wrong Loading Type for Context"
+    mistake: "Using Spinner for content loading or Skeleton for action feedback"
+    consequence: "Spinner makes content loading feel longer. Skeleton in action contexts is confusing."
+    correct_decision: "Match pattern to trigger type—action = Spinner, content = Skeleton"
+
+  - id: "LS-AP-2"
+    title: "Ignoring Reduced Motion"
+    mistake: "Hardcoding animation durations, bypassing token system"
+    consequence: "Motion-sensitive users experience continuous animation. WCAG 2.3.3 violation."
+    correct_decision: "Use token-based animation—reduced motion handled automatically"
+
+  - id: "LS-AP-3"
+    title: "Loading Flicker"
+    mistake: "Showing loading state immediately without debounce"
+    consequence: "Fast operations flash loading indicator—feels broken"
+    correct_decision: "200ms debounce before showing, 500ms minimum display once shown"
+
+  - id: "LS-AP-4"
+    title: "Missing Accessibility Announcements"
+    mistake: "No `aria-busy` or `aria-label` on loading regions"
+    consequence: "Screen reader users don't know content is loading or when complete"
+    correct_decision: "Always use `aria-busy` pattern on loading containers"
+
+  - id: "LS-AP-5"
+    title: "Mismatched Skeleton Layout"
+    mistake: "Skeleton structure doesn't match actual content layout"
+    consequence: "Layout shift when content loads (CLS penalty, jarring UX)"
+    correct_decision: "Skeleton dimensions and structure must match content that will replace it"
+
+  - id: "LS-AP-6"
+    title: "Loading States on Inputs"
+    mistake: "Adding loading prop to Input, Checkbox, Radio components"
+    consequence: "Confusing UX—inputs don't have async operations, use validation states instead"
+    correct_decision: "Input components use status/validation states, not loading states"
+
+related_guidelines:
+  - type: "guideline"
+    doc_id: "MD"
+    file: "MOTION_DESIGN.toon"
+    category: "01-design-system"
+    note: "Animation tokens, reduced motion support, easing patterns"
+
+  - type: "guideline"
+    doc_id: "CD"
+    file: "COMPONENT_DESIGN.toon"
+    category: "01-design-system"
+    note: "Loading as optional interactive state (CD-SIS-R2)"
+
+  - type: "guideline"
+    doc_id: "WC"
+    file: "../04-accessibility/WCAG_COMPLIANCE.toon"
+    category: "04-accessibility"
+    note: "ARIA patterns for loading states (aria-busy, aria-live)"
+
+  - type: "guideline"
+    doc_id: "TA"
+    file: "TOKEN_ARCHITECTURE.toon"
+    category: "01-design-system"
+    note: "Three-layer token system for loading component tokens"
+
+  - type: "guideline"
+    doc_id: "CA"
+    file: "../02-architecture/COMPONENT_ARCHITECTURE.toon"
+    category: "02-architecture"
+    note: "7-file pattern for Spinner and Skeleton component implementation"
+
+external_references:
+  - type: "research"
+    source: "Nielsen Norman Group"
+    url: "https://www.nngroup.com/articles/progress-indicators/"
+    title: "Progress Indicators Make a Slow System Less Insufferable"
+    relevance: "Research backing Spinner vs Skeleton decision criteria"
+
+  - type: "research"
+    source: "Nielsen Norman Group"
+    url: "https://www.nngroup.com/articles/skeleton-screens/"
+    title: "Skeleton Screens 101"
+    relevance: "When and why skeletons reduce perceived wait time"
+
+  - type: "specification"
+    source: "W3C"
+    url: "https://www.w3.org/WAI/WCAG21/Understanding/status-messages.html"
+    title: "WCAG 2.1 SC 4.1.3: Status Messages"
+    relevance: "Accessibility requirement for loading announcements"
+
+  - type: "specification"
+    source: "W3C"
+    url: "https://www.w3.org/WAI/WCAG21/Understanding/animation-from-interactions.html"
+    title: "WCAG 2.1 SC 2.3.3: Animation from Interactions"
+    relevance: "Reduced motion accessibility requirement"

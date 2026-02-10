@@ -33,9 +33,9 @@ describe('sando-input', () => {
         <sando-input label="Username" required></sando-input>
       `);
 
-      const indicator = el.shadowRoot!.querySelector('.required-indicator');
-      expect(indicator).to.exist;
-      expect(indicator!.textContent).to.equal('*');
+      const label = el.shadowRoot!.querySelector('.label');
+      expect(label).to.exist;
+      expect(label!.hasAttribute('data-required')).to.be.true;
     });
   });
 

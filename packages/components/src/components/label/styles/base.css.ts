@@ -42,6 +42,7 @@ export const baseStyles = css`
     /* Typography */
     font-family: var(--sando-label-fontFamily);
     color: var(--sando-label-textColor-default);
+    text-wrap: balance; /* Prevents orphan wrapping of required indicator */
 
     /* Transition for theming */
     transition-property: color;
@@ -49,15 +50,17 @@ export const baseStyles = css`
     transition-timing-function: var(--sando-transition-timing-default, ease);
   }
 
+  /* Required indicator via ::after pseudo-element */
+  .label[data-required]::after {
+    content: '*';
+    color: var(--sando-label-required-textColor);
+    margin-inline-start: var(--sando-label-required-marginInlineStart);
+  }
+
   .label__text {
     display: inline-flex;
     align-items: center;
     gap: var(--sando-label-gap);
-  }
-
-  .label__required {
-    color: var(--sando-label-required-textColor);
-    margin-inline-start: var(--sando-label-required-marginInlineStart);
   }
 
   .label__optional {

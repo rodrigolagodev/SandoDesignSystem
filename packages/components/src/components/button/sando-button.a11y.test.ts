@@ -102,11 +102,13 @@ describe('sando-button Accessibility', () => {
     await element.updateComplete;
 
     const button = element.shadowRoot?.querySelector('button');
-    const spinner = element.shadowRoot?.querySelector('.spinner');
+    const spinner = element.shadowRoot?.querySelector('sando-spinner');
     expect(button).not.toBeNull();
 
     expect(button?.getAttribute('aria-busy')).toBe('true');
-    expect(spinner?.getAttribute('aria-label')).toBe('Loading');
+    // sando-spinner handles its own accessibility via aria-label on inner span
+    // Check the label property is set correctly
+    expect((spinner as HTMLElement & { label: string })?.label).toBe('Loading');
   });
 
   it('should work with different themes maintaining contrast', async () => {

@@ -151,9 +151,11 @@ describe('sando-radio', () => {
         <sando-radio label="Test" required></sando-radio>
       `);
 
-      const indicator = el.shadowRoot!.querySelector('.required-indicator');
-      expect(indicator).toBeDefined();
-      expect(indicator!.textContent).toBe('*');
+      // Required indicator is now rendered via CSS ::after pseudo-element
+      // We verify the data-required attribute is present on the label
+      const label = el.shadowRoot!.querySelector('.radio-label');
+      expect(label).toBeDefined();
+      expect(label!.hasAttribute('data-required')).toBe(true);
     });
 
     it('should apply solid variant class', async () => {

@@ -133,6 +133,15 @@ export const dropdownStyles = css`
      SHARED STYLES
      ======================================== */
 
+  /* Loading state container */
+  .select-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--sando-spacing-lg, 1rem);
+    min-height: 100px;
+  }
+
   /* Scroll sentinel for infinite scroll */
   .scroll-sentinel {
     height: 1px;

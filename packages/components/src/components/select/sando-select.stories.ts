@@ -50,6 +50,7 @@ const meta: Meta = {
       ?multiple="${args.multiple}"
       ?clearable="${args.clearable}"
       ?open="${args.open}"
+      ?loading="${args.loading}"
       max-tags-visible="${args.maxTagsVisible}"
     >
       <sando-option value="option1">Option 1</sando-option>
@@ -180,6 +181,15 @@ const meta: Meta = {
         defaultValue: { summary: 'false' }
       }
     },
+    loading: {
+      control: 'boolean',
+      description: 'Whether the select is loading options',
+      table: {
+        category: 'State',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' }
+      }
+    },
     // 5. Behavior
     multiple: {
       control: 'boolean',
@@ -227,6 +237,7 @@ const meta: Meta = {
     multiple: false,
     clearable: false,
     open: false,
+    loading: false,
     maxTagsVisible: 3,
     label: 'Select',
     placeholder: 'Select an option',
@@ -270,6 +281,7 @@ export const Playground: Story = {
       ?multiple="${args.multiple}"
       ?clearable="${args.clearable}"
       ?open="${args.open}"
+      ?loading="${args.loading}"
       max-tags-visible="${args.maxTagsVisible}"
     >
       <sando-option value="option1">Option 1</sando-option>

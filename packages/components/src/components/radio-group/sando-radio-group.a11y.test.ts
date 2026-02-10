@@ -495,10 +495,10 @@ describe('sando-radio-group Accessibility', () => {
 
     it('should display required indicator in label when required', async () => {
       const el = await createGroup({ label: 'Required Field', required: true });
-      const requiredIndicator = el.shadowRoot?.querySelector('.required-indicator');
-      expect(requiredIndicator).toBeTruthy();
-      expect(requiredIndicator?.textContent).toContain('*');
-      expect(requiredIndicator?.getAttribute('aria-hidden')).toBe('true');
+      // Required indicator is now via CSS ::after (aria-hidden by nature since CSS content isn't in accessibility tree)
+      const label = el.shadowRoot?.querySelector('.radio-group-label');
+      expect(label).toBeTruthy();
+      expect(label?.hasAttribute('data-required')).toBe(true);
     });
 
     it('should propagate name to all child radios', async () => {

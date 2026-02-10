@@ -82,16 +82,15 @@ describe('sando-label', () => {
 
   describe('Properties - required', () => {
     it('should not show required indicator by default', () => {
-      const required = element.shadowRoot?.querySelector('.label__required');
-      expect(required).toBeNull();
+      const label = element.shadowRoot?.querySelector('.label');
+      expect(label?.hasAttribute('data-required')).toBe(false);
     });
 
     it('should show required indicator (*) when required is true', async () => {
       element = await fixture<SandoLabel>(html` <sando-label required>Full Name</sando-label> `);
 
-      const required = element.shadowRoot?.querySelector('.label__required');
-      expect(required).not.toBeNull();
-      expect(required?.textContent).toContain('*');
+      const label = element.shadowRoot?.querySelector('.label');
+      expect(label?.hasAttribute('data-required')).toBe(true);
     });
 
     it('should reflect required attribute', async () => {
@@ -102,11 +101,11 @@ describe('sando-label', () => {
       expect(element.required).toBe(true);
     });
 
-    it('should have aria-hidden on required indicator', async () => {
+    it('should apply data-required to label element', async () => {
       element = await fixture<SandoLabel>(html` <sando-label required>Full Name</sando-label> `);
 
-      const required = element.shadowRoot?.querySelector('.label__required');
-      expect(required?.getAttribute('aria-hidden')).toBe('true');
+      const label = element.shadowRoot?.querySelector('.label');
+      expect(label?.hasAttribute('data-required')).toBe(true);
     });
   });
 
@@ -134,41 +133,41 @@ describe('sando-label', () => {
   });
 
   describe('Properties - required and optional mutual exclusivity', () => {
-    it('should show neither when both required and optional are true', async () => {
+    it('should not show data-required when both required and optional are true', async () => {
       element = await fixture<SandoLabel>(html`
         <sando-label required optional>Field</sando-label>
       `);
 
-      const required = element.shadowRoot?.querySelector('.label__required');
+      const label = element.shadowRoot?.querySelector('.label');
       const optional = element.shadowRoot?.querySelector('.label__optional');
 
       // When both are set, neither indicator is shown (mutual exclusivity)
-      expect(required).toBeNull();
+      expect(label?.hasAttribute('data-required')).toBe(false);
       expect(optional).toBeNull();
     });
 
-    it('should show neither when both properties are set dynamically', async () => {
+    it('should not show data-required when both properties are set dynamically', async () => {
       element.required = true;
       element.optional = true;
       await element.updateComplete;
 
-      const required = element.shadowRoot?.querySelector('.label__required');
+      const label = element.shadowRoot?.querySelector('.label');
       const optional = element.shadowRoot?.querySelector('.label__optional');
 
       // When both are set, neither indicator is shown
-      expect(required).toBeNull();
+      expect(label?.hasAttribute('data-required')).toBe(false);
       expect(optional).toBeNull();
     });
 
-    it('should show required only when optional is false', async () => {
+    it('should show data-required only when optional is false', async () => {
       element = await fixture<SandoLabel>(html`
         <sando-label required>Required Only</sando-label>
       `);
 
-      const required = element.shadowRoot?.querySelector('.label__required');
+      const label = element.shadowRoot?.querySelector('.label');
       const optional = element.shadowRoot?.querySelector('.label__optional');
 
-      expect(required).not.toBeNull();
+      expect(label?.hasAttribute('data-required')).toBe(true);
       expect(optional).toBeNull();
     });
 
@@ -177,10 +176,10 @@ describe('sando-label', () => {
         <sando-label optional>Optional Only</sando-label>
       `);
 
-      const required = element.shadowRoot?.querySelector('.label__required');
+      const label = element.shadowRoot?.querySelector('.label');
       const optional = element.shadowRoot?.querySelector('.label__optional');
 
-      expect(required).toBeNull();
+      expect(label?.hasAttribute('data-required')).toBe(false);
       expect(optional).not.toBeNull();
     });
   });
@@ -408,21 +407,6 @@ describe('sando-label', () => {
       });
     });
 
-    describe('required-indicator slot', () => {
-      it('should allow custom required indicator', async () => {
-        element = await fixture<SandoLabel>(html`
-          <sando-label required>
-            Required Field
-            <span slot="required-indicator">(Required)</span>
-          </sando-label>
-        `);
-
-        const slottedContent = element.querySelector('[slot="required-indicator"]');
-        expect(slottedContent).not.toBeNull();
-        expect(slottedContent?.textContent).toContain('(Required)');
-      });
-    });
-
     describe('optional-indicator slot', () => {
       it('should allow custom optional indicator', async () => {
         element = await fixture<SandoLabel>(html`
@@ -463,13 +447,6 @@ describe('sando-label', () => {
     it('should have part="text" on the text wrapper', async () => {
       const text = element.shadowRoot?.querySelector('.label__text');
       expect(text?.getAttribute('part')).toBe('text');
-    });
-
-    it('should have part="required" on the required indicator', async () => {
-      element = await fixture<SandoLabel>(html` <sando-label required>Required</sando-label> `);
-
-      const required = element.shadowRoot?.querySelector('.label__required');
-      expect(required?.getAttribute('part')).toBe('required');
     });
 
     it('should have part="optional" on the optional text', async () => {

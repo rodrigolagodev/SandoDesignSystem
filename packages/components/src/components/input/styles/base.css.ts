@@ -28,14 +28,18 @@ export const baseStyles = css`
     margin-bottom: var(--sando-label-marginBottom);
     color: var(--sando-label-textColor-default);
     font-weight: var(--sando-label-fontWeight-medium);
+    text-wrap: balance; /* Prevents orphan wrapping of required indicator */
   }
 
   :host([disabled]) .label {
     color: var(--sando-label-textColor-disabled);
   }
 
-  .required-indicator {
+  /* Required indicator via ::after pseudo-element */
+  .label[data-required]::after {
+    content: '*';
     color: var(--sando-label-required-textColor);
+    margin-inline-start: var(--sando-label-required-marginInlineStart);
   }
 
   /* Input wrapper - base layout */
