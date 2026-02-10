@@ -155,6 +155,9 @@ export type {
   SandoSwitchProps
 } from './components/switch/index.js';
 
+export { SandoSpinner } from './components/spinner/index.js';
+export type { SpinnerSize, SpinnerVariant, SandoSpinnerProps } from './components/spinner/index.js';
+
 export { SandoLabel } from './components/label/index.js';
 export type { LabelSize, LabelWeight, SandoLabelProps } from './components/label/index.js';
 

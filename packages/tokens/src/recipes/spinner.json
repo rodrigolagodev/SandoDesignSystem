@@ -1,0 +1,82 @@
+{
+  "spinner": {
+    "size": {
+      "xs": {
+        "value": "{sizing.spinner.xs.value}",
+        "type": "dimension",
+        "description": "Extra small spinner (12px) - inline use, badges"
+      },
+      "sm": {
+        "value": "{sizing.spinner.sm.value}",
+        "type": "dimension",
+        "description": "Small spinner (16px) - small buttons"
+      },
+      "md": {
+        "value": "{sizing.spinner.md.value}",
+        "type": "dimension",
+        "description": "Medium spinner (24px) - default size"
+      },
+      "lg": {
+        "value": "{sizing.spinner.lg.value}",
+        "type": "dimension",
+        "description": "Large spinner (32px) - section loading"
+      },
+      "xl": {
+        "value": "{sizing.spinner.xl.value}",
+        "type": "dimension",
+        "description": "Extra large spinner (48px) - page loading"
+      }
+    },
+    "stroke": {
+      "xs": {
+        "value": "{border.width.default.value}",
+        "type": "dimension",
+        "description": "Stroke width for xs spinner (1px)"
+      },
+      "sm": {
+        "value": "{border.width.emphasis.value}",
+        "type": "dimension",
+        "description": "Stroke width for sm spinner (2px)"
+      },
+      "md": {
+        "value": "{border.width.emphasis.value}",
+        "type": "dimension",
+        "description": "Stroke width for md spinner (2px)"
+      },
+      "lg": {
+        "value": "{border.width.strokeEmphasis.value}",
+        "type": "dimension",
+        "description": "Stroke width for lg spinner (3px)"
+      },
+      "xl": {
+        "value": "{border.width.strokeHeavy.value}",
+        "type": "dimension",
+        "description": "Stroke width for xl spinner (4px)"
+      }
+    },
+    "color": {
+      "default": {
+        "value": "{color.icon.default.value}",
+        "type": "color",
+        "description": "Default spinner color for light backgrounds"
+      },
+      "inverted": {
+        "value": "{color.icon.on-solid.value}",
+        "type": "color",
+        "description": "Inverted spinner color for dark backgrounds"
+      }
+    },
+    "animation": {
+      "duration": {
+        "value": "{animation.duration.continuous.value}",
+        "type": "duration",
+        "description": "Full rotation duration (700ms)"
+      },
+      "easing": {
+        "value": "{animation.easing.continuous.value}",
+        "type": "cubicBezier",
+        "description": "Flavor-specific easing for spinner animation"
+      }
+    }
+  }
+}
