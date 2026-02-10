@@ -21,6 +21,11 @@ export const sizeStyles = css`
     min-height: var(--sando-textarea-size-sm-minHeight);
   }
 
+  :host([size='sm']) .textarea-label {
+    font-size: var(--sando-label-size-sm-fontSize);
+    line-height: var(--sando-label-size-sm-lineHeight);
+  }
+
   /* ========================================
      MEDIUM SIZE (md) - default
      ======================================== */
@@ -33,6 +38,12 @@ export const sizeStyles = css`
     min-height: var(--sando-textarea-size-md-minHeight);
   }
 
+  :host([size='md']) .textarea-label,
+  .textarea-label {
+    font-size: var(--sando-label-size-md-fontSize);
+    line-height: var(--sando-label-size-md-lineHeight);
+  }
+
   /* ========================================
      LARGE SIZE (lg)
      ======================================== */
@@ -42,5 +53,10 @@ export const sizeStyles = css`
     font-size: var(--sando-textarea-size-lg-fontSize);
     line-height: var(--sando-textarea-size-lg-lineHeight);
     min-height: var(--sando-textarea-size-lg-minHeight);
+  }
+
+  :host([size='lg']) .textarea-label {
+    font-size: var(--sando-label-size-lg-fontSize);
+    line-height: var(--sando-label-size-lg-lineHeight);
   }
 `;

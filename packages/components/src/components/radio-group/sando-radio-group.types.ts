@@ -10,6 +10,11 @@
 export type RadioGroupOrientation = 'vertical' | 'horizontal';
 
 /**
+ * Size options for radio group
+ */
+export type RadioGroupSize = 'sm' | 'md' | 'lg';
+
+/**
  * Event detail for radio group change events
  */
 export interface RadioGroupChangeEventDetail {
@@ -78,6 +83,12 @@ export interface SandoRadioGroupProps {
    * @default 'vertical'
    */
   orientation?: RadioGroupOrientation;
+
+  /**
+   * Size variant (propagates to children)
+   * @default 'md'
+   */
+  size?: RadioGroupSize;
 
   /**
    * Design system flavor/theme

@@ -21,21 +21,21 @@ export const baseStyles = css`
     line-height: var(--sando-input-lineHeight);
   }
 
-  /* Label styles */
+  /* Label styles - using shared sando-label tokens */
+  /* Note: font-size and line-height are set per size in size.css.ts */
   .label {
     display: block;
-    margin-bottom: var(--sando-input-label-marginBottom);
-    color: var(--sando-input-label-textColor-default);
-    font-size: var(--sando-input-label-fontSize);
-    font-weight: var(--sando-input-label-fontWeight);
+    margin-bottom: var(--sando-label-marginBottom);
+    color: var(--sando-label-textColor-default);
+    font-weight: var(--sando-label-fontWeight-medium);
   }
 
   :host([disabled]) .label {
-    color: var(--sando-input-label-textColor-disabled);
+    color: var(--sando-label-textColor-disabled);
   }
 
   .required-indicator {
-    color: var(--sando-input-required-textColor);
+    color: var(--sando-label-required-textColor);
   }
 
   /* Input wrapper - base layout */

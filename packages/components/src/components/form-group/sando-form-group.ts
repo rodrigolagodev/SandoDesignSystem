@@ -12,6 +12,9 @@ import { baseStyles, labelStyles, helperStyles } from './styles/index.js';
 /**
  * Sando Form Group Component
  *
+ * @deprecated Use Sando form components directly with their built-in labels,
+ * or use sando-form for form submission handling.
+ *
  * A form group component that provides consistent layout and labeling for form controls.
  * Supports labels, helper text, error messages, and required field indicators.
  *

@@ -40,6 +40,7 @@ const meta: Meta<SandoRadioGroupProps> = {
       helper-text="${args.helperText || ''}"
       error-text="${args.errorText || ''}"
       orientation="${args.orientation}"
+      size="${args.size || 'md'}"
       flavor="${args.flavor || 'original'}"
       ?required="${args.required}"
       ?disabled="${args.disabled}"
@@ -72,6 +73,16 @@ const meta: Meta<SandoRadioGroupProps> = {
         category: 'Appearance',
         type: { summary: "'vertical' | 'horizontal'" },
         defaultValue: { summary: 'vertical' }
+      }
+    },
+    size: {
+      control: 'select',
+      options: ['sm', 'md', 'lg'],
+      description: 'Size variant that propagates to all child radios',
+      table: {
+        category: 'Appearance',
+        type: { summary: "'sm' | 'md' | 'lg'" },
+        defaultValue: { summary: 'md' }
       }
     },
     // 3. Content
@@ -149,6 +160,7 @@ const meta: Meta<SandoRadioGroupProps> = {
     name: 'demo-group',
     label: 'Select an option',
     orientation: 'vertical',
+    size: 'md',
     disabled: false,
     required: false,
     error: false,
@@ -184,6 +196,43 @@ export const Playground: Story = {
     name: 'playground-group',
     label: 'Customize me!'
   }
+};
+
+/**
+ * Demonstrating radio group size variants.
+ * The size prop on the radio-group propagates to all child radios.
+ */
+export const Size: Story = {
+  args: {
+    name: 'size-demo',
+    label: 'Radio Group Size Examples',
+    size: 'md'
+  },
+  render: () => html`
+    <div style="display: flex; flex-direction: column; gap: 2rem;">
+      <!-- Small -->
+      <sando-radio-group name="size-sm" label="Small Radio Group" size="sm">
+        <sando-radio value="option1" label="Option 1"></sando-radio>
+        <sando-radio value="option2" label="Option 2"></sando-radio>
+        <sando-radio value="option3" label="Option 3"></sando-radio>
+      </sando-radio-group>
+
+      <!-- Medium (default) -->
+      <sando-radio-group name="size-md" label="Medium Radio Group" size="md">
+        <sando-radio value="option1" label="Option 1"></sando-radio>
+        <sando-radio value="option2" label="Option 2"></sando-radio>
+        <sando-radio value="option3" label="Option 3"></sando-radio>
+      </sando-radio-group>
+
+      <!-- Large -->
+      <sando-radio-group name="size-lg" label="Large Radio Group" size="lg">
+        <sando-radio value="option1" label="Option 1"></sando-radio>
+        <sando-radio value="option2" label="Option 2"></sando-radio>
+        <sando-radio value="option3" label="Option 3"></sando-radio>
+      </sando-radio-group>
+    </div>
+  `,
+  parameters: { controls: { disable: true } }
 };
 
 // ============================================================================

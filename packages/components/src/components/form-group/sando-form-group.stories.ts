@@ -1,34 +1,44 @@
 import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import './sando-form-group';
+import '../badge/sando-badge.js';
 
 /**
  * # Form Group Component
  *
- * The Form Group component provides consistent layout and labeling for form controls.
- * It supports labels, helper text, error messages, and required field indicators.
+ * @deprecated This component is deprecated. Use `<sando-form>` for form management
+ * or use Sando form components directly (they have their own labels).
  *
- * ## Usage
+ * ## Why deprecated?
  *
- * Use Form Group to:
- * - Provide accessible labels for form inputs
- * - Display validation errors
- * - Show helpful guidance text
- * - Indicate required fields
- * - Maintain consistent form field spacing
+ * Sando form components (sando-input, sando-select, sando-checkbox, etc.) are self-contained
+ * and include their own labels, helper text, and error handling. FormGroup duplicated this
+ * functionality and created accessibility issues with label association across Shadow DOM.
  *
- * ## Accessibility
+ * ## Migration
  *
- * - Labels are properly associated with form controls
- * - Error messages use `role="alert"` and `aria-live="polite"`
- * - Required fields are indicated with visual asterisk
- * - Helper text provides additional context for users
- * - Keyboard navigation works seamlessly with slotted controls
+ * **Before (deprecated):**
+ * ```html
+ * <sando-form-group label="Email" helper-text="Your email" required>
+ *   <sando-input></sando-input>
+ * </sando-form-group>
+ * ```
+ *
+ * **After (recommended):**
+ * ```html
+ * <sando-input
+ *   label="Email"
+ *   helper-text="Your email"
+ *   required
+ * ></sando-input>
+ * ```
+ *
+ * For form submission handling, use the new `<sando-form>` component.
  */
 const meta: Meta = {
   title: 'Components/Form Group',
   component: 'sando-form-group',
-  tags: ['autodocs', 'beta'],
+  tags: ['autodocs', 'deprecated'],
   argTypes: {
     // 1. Theming (ALWAYS first)
     flavor: {
@@ -100,6 +110,34 @@ const DOCS_ONLY = ['!dev', '!autodocs'];
 // ============================================================================
 
 /**
+ * ⚠️ Deprecation notice for this component
+ */
+export const DeprecationNotice: Story = {
+  render: () => html`
+    <sando-badge variant="warning" size="lg"> ⚠️ This component is deprecated </sando-badge>
+    <div
+      style="margin-top: 16px; padding: 16px; background: #fff3cd; border-radius: 8px; border-left: 4px solid #ffc107;"
+    >
+      <p style="margin: 0 0 12px 0; font-weight: 600;">Migration Required</p>
+      <p style="margin: 0 0 12px 0;">
+        <code>sando-form-group</code> is deprecated. Sando form components already include their own
+        labels, helper text, and error handling.
+      </p>
+      <p style="margin: 0;">
+        For form submission, use the new <code>&lt;sando-form&gt;</code> component.
+      </p>
+    </div>
+  `,
+  parameters: {
+    docs: {
+      description: {
+        story: 'This component is deprecated. See migration guide above.'
+      }
+    }
+  }
+};
+
+/**
  * Default form group with label and input
  */
 export const Default: Story = {
@@ -111,7 +149,14 @@ export const Default: Story = {
     >
       <input type="text" placeholder="Enter text..." />
     </sando-form-group>
-  `
+  `,
+  parameters: {
+    docs: {
+      description: {
+        story: '⚠️ Deprecated - Use sando-input/sando-select directly with their own label prop.'
+      }
+    }
+  }
 };
 
 /**
@@ -128,7 +173,14 @@ export const Playground: Story = {
     >
       <input type="text" placeholder="Enter text..." />
     </sando-form-group>
-  `
+  `,
+  parameters: {
+    docs: {
+      description: {
+        story: '⚠️ Deprecated - Use sando-input/sando-select directly with their own label prop.'
+      }
+    }
+  }
 };
 
 /**
@@ -139,7 +191,14 @@ export const WithHelperText: Story = {
     <sando-form-group label="Username" helperText="Choose a unique username (4-20 characters)">
       <input type="text" placeholder="username" />
     </sando-form-group>
-  `
+  `,
+  parameters: {
+    docs: {
+      description: {
+        story: '⚠️ Deprecated - Use sando-input/sando-select directly with their own label prop.'
+      }
+    }
+  }
 };
 
 /**
@@ -150,7 +209,14 @@ export const WithError: Story = {
     <sando-form-group label="Email" error="Please enter a valid email address">
       <input type="email" value="invalid-email" aria-invalid="true" />
     </sando-form-group>
-  `
+  `,
+  parameters: {
+    docs: {
+      description: {
+        story: '⚠️ Deprecated - Use sando-input/sando-select directly with their own label prop.'
+      }
+    }
+  }
 };
 
 // ============================================================================

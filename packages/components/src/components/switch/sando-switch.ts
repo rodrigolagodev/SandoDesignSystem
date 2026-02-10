@@ -61,6 +61,7 @@
 
 import { LitElement, html, nothing } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 
 import type { SwitchVariant, SwitchSize, SwitchChangeEventDetail } from './sando-switch.types.js';
 
@@ -93,25 +94,12 @@ export class SandoSwitch extends FlavorableMixin(LitElement) {
     stateStyles // Checked, disabled, error
   ];
 
-  /**
-   * Reference to the native input element
-   * @private
-   */
   @query('input')
   private _inputElement!: HTMLInputElement;
 
-  /**
-   * Internal: unique ID for label/input association (generated once)
-   * @private
-   */
   @state()
   private _inputId = `sando-switch-${Math.random().toString(36).substring(2, 11)}`;
 
-  /**
-   * Internal: tracks whether input is currently focused
-   * Used to apply .focused class for reliable focus ring visibility
-   * @private
-   */
   @state()
   private _focused = false;
 
@@ -204,10 +192,6 @@ export class SandoSwitch extends FlavorableMixin(LitElement) {
     this._detachFormListeners();
   }
 
-  /**
-   * Attach form reset listener
-   * @private
-   */
   private _attachFormListeners(): void {
     const form = this.closest('form');
     if (form) {
@@ -215,10 +199,6 @@ export class SandoSwitch extends FlavorableMixin(LitElement) {
     }
   }
 
-  /**
-   * Detach form reset listener
-   * @private
-   */
   private _detachFormListeners(): void {
     const form = this.closest('form');
     if (form) {
@@ -226,20 +206,11 @@ export class SandoSwitch extends FlavorableMixin(LitElement) {
     }
   }
 
-  /**
-   * Handle form reset event
-   * @private
-   */
   private _handleFormReset = (): void => {
     this.checked = false;
     this.error = false;
   };
 
-  /**
-   * Handle native input change event
-   * This is the ONLY handler for state changes - triggered by label click or direct input click
-   * @private
-   */
   private _handleInputChange = (e: Event): void => {
     if (this.disabled) return;
 
@@ -249,42 +220,22 @@ export class SandoSwitch extends FlavorableMixin(LitElement) {
     this._emitChangeEvent();
   };
 
-  /**
-   * Handle keyboard events for accessibility
-   * Supports Space and Enter key activation
-   * @private
-   */
+  /** Handle Space and Enter keys for toggle activation. */
   private _handleKeyDown = (e: KeyboardEvent): void => {
-    if (this.disabled) return;
-
-    if (e.key === ' ' || e.key === 'Enter') {
+    if (!this.disabled && (e.key === ' ' || e.key === 'Enter')) {
       e.preventDefault();
       this.toggle();
     }
   };
 
-  /**
-   * Handle focus event on native input
-   * Tracks focus state for reliable focus ring visibility
-   * @private
-   */
   private _handleFocus = (): void => {
     this._focused = true;
   };
 
-  /**
-   * Handle blur event on native input
-   * Clears focus state
-   * @private
-   */
   private _handleBlur = (): void => {
     this._focused = false;
   };
 
-  /**
-   * Emit custom change event
-   * @private
-   */
   private _emitChangeEvent(): void {
     this.dispatchEvent(
       new CustomEvent<SwitchChangeEventDetail>('sando-change', {
@@ -298,16 +249,18 @@ export class SandoSwitch extends FlavorableMixin(LitElement) {
   }
 
   render() {
-    const hasLabel = this.label || this.querySelector('[slot=""]') !== null;
     const hasHelperText = this.helperText && !this.error;
     const hasErrorText = this.errorText && this.error;
     const describedBy = hasHelperText || hasErrorText ? `${this._inputId}-description` : undefined;
 
+    const trackClasses = classMap({
+      'switch-track': true,
+      focused: this._focused
+    });
+
     return html`
       <div class="switch-wrapper">
         <label class="switch-container" for=${this._inputId} @keydown=${this._handleKeyDown}>
-          <!-- Hidden native input for form participation and accessibility -->
-          <!-- Note: role="switch" overrides the checkbox semantics for proper switch behavior -->
           <input
             type="checkbox"
             role="switch"
@@ -326,36 +279,23 @@ export class SandoSwitch extends FlavorableMixin(LitElement) {
             @blur=${this._handleBlur}
           />
 
-          <!-- Custom visual switch track (the pill-shaped container) -->
-          <span class="switch-track${this._focused ? ' focused' : ''}" role="presentation">
-            <!-- Thumb (circular sliding element) -->
+          <span class=${trackClasses} role="presentation">
             <span class="switch-thumb"></span>
           </span>
 
-          <!-- Label text -->
-          ${hasLabel
-            ? html`
-                <span class="switch-label">
-                  ${this.label || ''}<slot></slot>${this.required
-                    ? html`<span class="required-indicator" aria-hidden="true">*</span>`
-                    : nothing}
-                </span>
-              `
-            : nothing}
+          <span class="switch-label">
+            ${this.label || ''}<slot></slot>${this.required
+              ? html`<span class="required-indicator" aria-hidden="true">*</span>`
+              : nothing}
+          </span>
         </label>
 
-        <!-- Helper/Error text -->
-        ${hasHelperText
+        ${hasHelperText || hasErrorText
           ? html`
               <div id="${this._inputId}-description" class="switch-description">
-                <span class="helper-text">${this.helperText}</span>
-              </div>
-            `
-          : nothing}
-        ${hasErrorText
-          ? html`
-              <div id="${this._inputId}-description" class="switch-description">
-                <span class="error-text" role="alert">${this.errorText}</span>
+                ${hasErrorText
+                  ? html`<span class="error-text" role="alert">${this.errorText}</span>`
+                  : html`<span class="helper-text">${this.helperText}</span>`}
               </div>
             `
           : nothing}
@@ -389,18 +329,26 @@ export class SandoSwitch extends FlavorableMixin(LitElement) {
 
   /**
    * Public API: Check validity of switch
-   * Delegates to native input validation API
+   * Validates required constraint and delegates to native input
    */
   checkValidity(): boolean {
+    // Check required constraint manually (native input is not in a form context)
+    if (this.required && !this.checked) {
+      return false;
+    }
     return this._inputElement?.checkValidity() ?? true;
   }
 
   /**
-   * Public API: Report validity with browser UI
-   * Delegates to native input validation API
+   * Public API: Report validity with visual feedback
+   * Sets error state if invalid
    */
   reportValidity(): boolean {
-    return this._inputElement?.reportValidity() ?? true;
+    const isValid = this.checkValidity();
+    if (!isValid) {
+      this.error = true;
+    }
+    return isValid;
   }
 
   /**

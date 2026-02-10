@@ -601,8 +601,10 @@ describe('sando-switch', () => {
 
       expect(el).toBeDefined();
       const labelSpan = el.shadowRoot!.querySelector('.switch-label');
-      // Label should not render if no label prop or slot content
-      expect(labelSpan).toBeNull();
+      // Label container always renders to allow slot projection
+      // The container exists but has no text content when no label prop or slot is provided
+      expect(labelSpan).not.toBeNull();
+      expect(labelSpan!.textContent?.trim()).toBe('');
     });
 
     it('should handle empty label string', async () => {

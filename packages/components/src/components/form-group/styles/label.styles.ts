@@ -10,21 +10,22 @@
 import { css } from 'lit';
 
 export const labelStyles = css`
+  /* Using shared sando-label tokens for consistent label styling */
   .form-group__label {
     display: block;
-    margin-bottom: var(--sando-form-group-label-marginBottom);
-    color: var(--sando-form-group-label-textColor-default);
-    font-size: var(--sando-form-group-label-fontSize);
-    font-weight: var(--sando-form-group-label-fontWeight);
-    line-height: var(--sando-form-group-label-lineHeight);
+    margin-bottom: var(--sando-label-marginBottom);
+    color: var(--sando-label-textColor-default);
+    font-size: var(--sando-label-size-md-fontSize);
+    font-weight: var(--sando-label-fontWeight-medium);
+    line-height: var(--sando-label-size-md-lineHeight);
   }
 
   :host([disabled]) .form-group__label {
-    color: var(--sando-form-group-label-textColor-disabled);
+    color: var(--sando-label-textColor-disabled);
   }
 
   .required {
-    color: var(--sando-form-group-required-textColor);
-    margin-inline-start: var(--sando-form-group-required-marginInlineStart);
+    color: var(--sando-label-required-textColor);
+    margin-inline-start: var(--sando-label-required-marginInlineStart);
   }
 `;
