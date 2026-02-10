@@ -1,0 +1,149 @@
+/**
+ * Sando Skeleton Paragraph Component
+ *
+ * A skeleton placeholder for multiple lines of text content.
+ * Renders configurable number of skeleton lines with the last line
+ * having a different width for a more natural paragraph appearance.
+ *
+ * @element sando-skeleton-paragraph
+ *
+ * @cssprop --sando-skeleton-spacing-gap-xs - Extra small gap between lines
+ * @cssprop --sando-skeleton-spacing-gap-sm - Small gap between lines
+ * @cssprop --sando-skeleton-spacing-gap-md - Medium gap between lines
+ * @cssprop --sando-skeleton-spacing-gap-lg - Large gap between lines
+ *
+ * @example Basic usage
+ * <sando-skeleton-paragraph></sando-skeleton-paragraph>
+ *
+ * @example Different line counts
+ * <sando-skeleton-paragraph lines="5"></sando-skeleton-paragraph>
+ * <sando-skeleton-paragraph lines="1"></sando-skeleton-paragraph>
+ *
+ * @example Custom last line width
+ * <sando-skeleton-paragraph last-line-width="40%"></sando-skeleton-paragraph>
+ *
+ * @example Different spacings
+ * <sando-skeleton-paragraph spacing="xs"></sando-skeleton-paragraph>
+ * <sando-skeleton-paragraph spacing="lg"></sando-skeleton-paragraph>
+ *
+ * @example Different effects
+ * <sando-skeleton-paragraph effect="pulse"></sando-skeleton-paragraph>
+ * <sando-skeleton-paragraph effect="none"></sando-skeleton-paragraph>
+ */
+
+import { LitElement, html, css } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
+import { FlavorableMixin } from '../../mixins/index.js';
+import { resetStyles } from '../../styles/reset.css.js';
+import { tokenStyles } from '../../styles/tokens.css.js';
+import '../skeleton/sando-skeleton.js';
+import type { SkeletonParagraphSpacing, SkeletonEffect } from './sando-skeleton-paragraph.types.js';
+
+/**
+ * Default values for skeleton paragraph properties
+ */
+const DEFAULT_LINES = 3;
+const DEFAULT_LAST_LINE_WIDTH = '60%';
+const DEFAULT_SPACING: SkeletonParagraphSpacing = 'sm';
+const DEFAULT_EFFECT: SkeletonEffect = 'shimmer';
+
+@customElement('sando-skeleton-paragraph')
+export class SandoSkeletonParagraph extends FlavorableMixin(LitElement) {
+  /**
+   * Number of text lines to render
+   * @default 3
+   */
+  @property({ type: Number })
+  lines: number = DEFAULT_LINES;
+
+  /**
+   * Width of the last line (CSS value)
+   * Creates a more natural paragraph appearance
+   * @default '60%'
+   */
+  @property({ attribute: 'last-line-width' })
+  lastLineWidth: string = DEFAULT_LAST_LINE_WIDTH;
+
+  /**
+   * Gap between lines
+   * @default 'sm'
+   */
+  @property({ reflect: true })
+  spacing: SkeletonParagraphSpacing = DEFAULT_SPACING;
+
+  /**
+   * Animation effect applied to all skeleton lines
+   * @default 'shimmer'
+   */
+  @property({ reflect: true })
+  effect: SkeletonEffect = DEFAULT_EFFECT;
+
+  /**
+   * Component styles
+   */
+  static styles = [
+    resetStyles,
+    tokenStyles,
+    css`
+      /* ============================================
+         HOST
+         ============================================ */
+
+      :host {
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* ============================================
+         SPACING VARIANTS
+         ============================================ */
+
+      :host([spacing='xs']) {
+        gap: var(--sando-skeleton-spacing-gap-xs);
+      }
+
+      :host([spacing='sm']) {
+        gap: var(--sando-skeleton-spacing-gap-sm);
+      }
+
+      :host([spacing='md']) {
+        gap: var(--sando-skeleton-spacing-gap-md);
+      }
+
+      :host([spacing='lg']) {
+        gap: var(--sando-skeleton-spacing-gap-lg);
+      }
+    `
+  ];
+
+  /**
+   * Render the skeleton paragraph lines
+   */
+  render() {
+    // Ensure lines is at least 1
+    const lineCount = Math.max(1, this.lines);
+    const lineArray = Array.from({ length: lineCount }, (_, i) => i);
+
+    return html`
+      ${lineArray.map((_, index) => {
+        const isLast = index === lineCount - 1;
+        const width = isLast ? this.lastLineWidth : '100%';
+
+        return html`
+          <sando-skeleton
+            shape="text"
+            effect=${this.effect}
+            width=${width}
+            height="1em"
+          ></sando-skeleton>
+        `;
+      })}
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'sando-skeleton-paragraph': SandoSkeletonParagraph;
+  }
+}

@@ -1,0 +1,51 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`sando-skeleton-text > snapshots > matches snapshot for custom width 1`] = `
+"<!---->
+      <sando-skeleton shape="text" effect="shimmer" width="80%" height="1em" flavor="original"></sando-skeleton>
+    <style>
+    :host {
+      display: block;
+    }
+  </style>"
+`;
+
+exports[`sando-skeleton-text > snapshots > matches snapshot for default state 1`] = `
+"<!---->
+      <sando-skeleton shape="text" effect="shimmer" width="100%" height="1em" flavor="original"></sando-skeleton>
+    <style>
+    :host {
+      display: block;
+    }
+  </style>"
+`;
+
+exports[`sando-skeleton-text > snapshots > matches snapshot for pulse effect 1`] = `
+"<!---->
+      <sando-skeleton shape="text" effect="pulse" width="100%" height="1em" flavor="original"></sando-skeleton>
+    <style>
+    :host {
+      display: block;
+    }
+  </style>"
+`;
+
+exports[`sando-skeleton-text > snapshots > matches snapshot for size="lg" 1`] = `
+"<!---->
+      <sando-skeleton shape="text" effect="shimmer" width="100%" height="1.25em" flavor="original"></sando-skeleton>
+    <style>
+    :host {
+      display: block;
+    }
+  </style>"
+`;
+
+exports[`sando-skeleton-text > snapshots > matches snapshot for size="sm" 1`] = `
+"<!---->
+      <sando-skeleton shape="text" effect="shimmer" width="100%" height="0.875em" flavor="original"></sando-skeleton>
+    <style>
+    :host {
+      display: block;
+    }
+  </style>"
+`;

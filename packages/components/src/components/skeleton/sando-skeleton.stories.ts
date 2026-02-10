@@ -5,72 +5,86 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import './sando-skeleton.js';
-import type { SkeletonShape, SkeletonEffect } from './sando-skeleton.types.js';
 
-interface SkeletonArgs {
-  shape: SkeletonShape;
-  effect: SkeletonEffect;
-  width: string;
-  height: string;
-}
-
-const meta: Meta<SkeletonArgs> = {
+/**
+ * A loading placeholder component that indicates content is being loaded.
+ * Used for system-initiated content loading to reduce perceived wait time.
+ *
+ * ## Usage Guidelines
+ * - Use for content loading (page load, data fetching)
+ * - Match skeleton dimensions to actual content layout
+ * - Respects prefers-reduced-motion automatically
+ * - Skeleton is purely decorative (aria-hidden="true")
+ *
+ * ## When to Use Skeleton vs Spinner
+ * - **Skeleton**: System-initiated content loading (known layout)
+ * - **Spinner**: User-initiated actions (button clicks, form submits)
+ */
+const meta: Meta = {
   title: 'Components/Skeleton',
   component: 'sando-skeleton',
-  tags: ['autodocs'],
-  parameters: {
-    docs: {
-      description: {
-        component: `
-A loading placeholder component that indicates content is being loaded.
-Used for system-initiated content loading to reduce perceived wait time.
-
-## Usage Guidelines
-- Use for content loading (page load, data fetching)
-- Match skeleton dimensions to actual content layout
-- Respect prefers-reduced-motion automatically
-- Skeleton is purely decorative (aria-hidden="true")
-
-## When to Use Skeleton vs Spinner
-- **Skeleton**: System-initiated content loading (known layout)
-- **Spinner**: User-initiated actions (button clicks, form submits)
-        `
-      }
-    }
-  },
+  tags: ['autodocs', 'stable'],
+  render: (args) => html`
+    <sando-skeleton
+      flavor="${args.flavor || 'original'}"
+      shape="${args.shape || 'text'}"
+      effect="${args.effect || 'shimmer'}"
+      width="${args.width || '100%'}"
+      height="${args.height || '1em'}"
+    ></sando-skeleton>
+  `,
   argTypes: {
+    flavor: {
+      control: 'select',
+      options: ['original', 'strawberry', 'tonkatsu', 'kiwi', 'egg-salad'],
+      description: 'Visual flavor/theme of the component',
+      table: {
+        category: 'Appearance',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'original' }
+      }
+    },
     shape: {
-      control: { type: 'select' },
+      control: 'select',
       options: ['text', 'circular', 'rectangular', 'rounded'],
       description: 'Shape variant of the skeleton',
       table: {
+        category: 'Appearance',
+        type: { summary: "'text' | 'circular' | 'rectangular' | 'rounded'" },
         defaultValue: { summary: 'text' }
       }
     },
     effect: {
-      control: { type: 'select' },
+      control: 'select',
       options: ['shimmer', 'pulse', 'none'],
       description: 'Animation effect applied to the skeleton',
       table: {
+        category: 'Appearance',
+        type: { summary: "'shimmer' | 'pulse' | 'none'" },
         defaultValue: { summary: 'shimmer' }
       }
     },
     width: {
-      control: { type: 'text' },
-      description: 'CSS width value',
+      control: 'text',
+      description: 'CSS width value (px, %, em, rem)',
       table: {
+        category: 'Dimensions',
+        type: { summary: 'string' },
         defaultValue: { summary: '100%' }
       }
     },
     height: {
-      control: { type: 'text' },
-      description: 'CSS height value',
+      control: 'text',
+      description: 'CSS height value (px, %, em, rem)',
       table: {
+        category: 'Dimensions',
+        type: { summary: 'string' },
         defaultValue: { summary: '1em' }
       }
     }
   },
   args: {
+    flavor: 'original',
     shape: 'text',
     effect: 'shimmer',
     width: '100%',
@@ -79,29 +93,39 @@ Used for system-initiated content loading to reduce perceived wait time.
 };
 
 export default meta;
-type Story = StoryObj<SkeletonArgs>;
+type Story = StoryObj;
 
-// ============================================
-// DEFAULT STORY
-// ============================================
+// Tag constant for documentation-only stories
+const DOCS_ONLY = ['!dev', '!autodocs'];
 
-export const Default: Story = {
-  render: (args) => html`
-    <sando-skeleton
-      shape=${args.shape}
-      effect=${args.effect}
-      width=${args.width}
-      height=${args.height}
-    ></sando-skeleton>
-  `
+// ============================================================================
+// PUBLIC STORIES (visible in sidebar)
+// ============================================================================
+
+/**
+ * Default skeleton with text shape and shimmer effect.
+ */
+export const Default: Story = {};
+
+/**
+ * Interactive playground - use controls to customize all properties.
+ */
+export const Playground: Story = {
+  args: {
+    width: '200px',
+    height: '24px'
+  }
 };
 
-// ============================================
-// SHAPE VARIANTS
-// ============================================
+// ============================================================================
+// DOCUMENTATION STORIES (hidden from sidebar, used in MDX)
+// ============================================================================
 
+/**
+ * All shape variants: text, circular, rectangular, and rounded.
+ */
 export const AllShapes: Story = {
-  name: 'All Shapes',
+  tags: DOCS_ONLY,
   render: () => html`
     <div style="display: flex; flex-direction: column; gap: 24px; max-width: 400px;">
       <div>
@@ -131,17 +155,14 @@ export const AllShapes: Story = {
       </div>
     </div>
   `,
-  parameters: {
-    docs: {
-      description: {
-        story: 'The four shape variants: text, circular, rectangular, and rounded.'
-      }
-    }
-  }
+  parameters: { controls: { disable: true } }
 };
 
+/**
+ * Text shape with subtle border-radius for text line placeholders.
+ */
 export const TextShape: Story = {
-  name: 'Text Shape',
+  tags: DOCS_ONLY,
   render: () => html`
     <div style="max-width: 400px;">
       <sando-skeleton shape="text" width="90%" height="1em"></sando-skeleton>
@@ -151,17 +172,14 @@ export const TextShape: Story = {
       <sando-skeleton shape="text" width="75%" height="1em"></sando-skeleton>
     </div>
   `,
-  parameters: {
-    docs: {
-      description: {
-        story: 'Text shape with subtle border-radius for text line placeholders.'
-      }
-    }
-  }
+  parameters: { controls: { disable: true } }
 };
 
+/**
+ * Circular shape with 50% border-radius for avatar placeholders.
+ */
 export const CircularShape: Story = {
-  name: 'Circular Shape',
+  tags: DOCS_ONLY,
   render: () => html`
     <div style="display: flex; gap: 16px; align-items: center;">
       <sando-skeleton shape="circular" width="24px" height="24px"></sando-skeleton>
@@ -171,52 +189,39 @@ export const CircularShape: Story = {
       <sando-skeleton shape="circular" width="64px" height="64px"></sando-skeleton>
     </div>
   `,
-  parameters: {
-    docs: {
-      description: {
-        story: 'Circular shape with 50% border-radius for avatar placeholders.'
-      }
-    }
-  }
+  parameters: { controls: { disable: true } }
 };
 
+/**
+ * Rectangular shape with no border-radius for image placeholders.
+ */
 export const RectangularShape: Story = {
-  name: 'Rectangular Shape',
+  tags: DOCS_ONLY,
   render: () => html`
     <div style="display: flex; gap: 16px;">
       <sando-skeleton shape="rectangular" width="150px" height="100px"></sando-skeleton>
       <sando-skeleton shape="rectangular" width="200px" height="150px"></sando-skeleton>
     </div>
   `,
-  parameters: {
-    docs: {
-      description: {
-        story: 'Rectangular shape with no border-radius for image placeholders.'
-      }
-    }
-  }
+  parameters: { controls: { disable: true } }
 };
 
+/**
+ * Rounded shape with medium border-radius for card-like placeholders.
+ */
 export const RoundedShape: Story = {
-  name: 'Rounded Shape',
+  tags: DOCS_ONLY,
   render: () => html`
     <sando-skeleton shape="rounded" width="300px" height="80px"></sando-skeleton>
   `,
-  parameters: {
-    docs: {
-      description: {
-        story: 'Rounded shape with medium border-radius for card-like placeholders.'
-      }
-    }
-  }
+  parameters: { controls: { disable: true } }
 };
 
-// ============================================
-// EFFECT VARIANTS
-// ============================================
-
+/**
+ * All effect variants: shimmer, pulse, and none.
+ */
 export const AllEffects: Story = {
-  name: 'All Effects',
+  tags: DOCS_ONLY,
   render: () => html`
     <div style="display: flex; flex-direction: column; gap: 24px; max-width: 400px;">
       <div>
@@ -235,61 +240,45 @@ export const AllEffects: Story = {
       </div>
     </div>
   `,
-  parameters: {
-    docs: {
-      description: {
-        story: 'The three effect variants: shimmer, pulse, and none.'
-      }
-    }
-  }
+  parameters: { controls: { disable: true } }
 };
 
+/**
+ * Shimmer effect with gradient moving from left to right.
+ */
 export const ShimmerEffect: Story = {
-  name: 'Shimmer Effect',
+  tags: DOCS_ONLY,
   render: () => html`
     <sando-skeleton effect="shimmer" width="300px" height="40px"></sando-skeleton>
   `,
-  parameters: {
-    docs: {
-      description: {
-        story: 'Shimmer effect with gradient moving from left to right.'
-      }
-    }
-  }
+  parameters: { controls: { disable: true } }
 };
 
+/**
+ * Pulse effect with opacity oscillating between 0.4 and 1.
+ */
 export const PulseEffect: Story = {
-  name: 'Pulse Effect',
+  tags: DOCS_ONLY,
   render: () => html`
     <sando-skeleton effect="pulse" width="300px" height="40px"></sando-skeleton>
   `,
-  parameters: {
-    docs: {
-      description: {
-        story: 'Pulse effect with opacity oscillating between 0.4 and 1.'
-      }
-    }
-  }
+  parameters: { controls: { disable: true } }
 };
 
+/**
+ * Static skeleton with no animation (also used for reduced motion).
+ */
 export const NoEffect: Story = {
-  name: 'No Effect',
+  tags: DOCS_ONLY,
   render: () => html` <sando-skeleton effect="none" width="300px" height="40px"></sando-skeleton> `,
-  parameters: {
-    docs: {
-      description: {
-        story: 'Static skeleton with no animation (also used for reduced motion).'
-      }
-    }
-  }
+  parameters: { controls: { disable: true } }
 };
 
-// ============================================
-// CUSTOM DIMENSIONS
-// ============================================
-
+/**
+ * Skeleton with various width and height values (px, %, em, rem).
+ */
 export const CustomDimensions: Story = {
-  name: 'Custom Dimensions',
+  tags: DOCS_ONLY,
   render: () => html`
     <div style="display: flex; flex-direction: column; gap: 16px; max-width: 400px;">
       <sando-skeleton width="100px" height="16px"></sando-skeleton>
@@ -299,21 +288,14 @@ export const CustomDimensions: Story = {
       <sando-skeleton width="100%" height="100px"></sando-skeleton>
     </div>
   `,
-  parameters: {
-    docs: {
-      description: {
-        story: 'Skeleton with various width and height values (px, %, em, rem).'
-      }
-    }
-  }
+  parameters: { controls: { disable: true } }
 };
 
-// ============================================
-// REAL-WORLD EXAMPLES
-// ============================================
-
+/**
+ * Example of a card loading state using multiple skeleton elements.
+ */
 export const CardSkeleton: Story = {
-  name: 'Card Skeleton',
+  tags: DOCS_ONLY,
   render: () => html`
     <div style="width: 300px; padding: 16px; border: 1px solid #e5e5e5; border-radius: 8px;">
       <!-- Image placeholder -->
@@ -339,17 +321,14 @@ export const CardSkeleton: Story = {
       </div>
     </div>
   `,
-  parameters: {
-    docs: {
-      description: {
-        story: 'Example of a card loading state using multiple skeleton elements.'
-      }
-    }
-  }
+  parameters: { controls: { disable: true } }
 };
 
+/**
+ * Example of list items loading state with avatar and text.
+ */
 export const ListItemSkeleton: Story = {
-  name: 'List Item Skeleton',
+  tags: DOCS_ONLY,
   render: () => html`
     <div style="width: 400px; display: flex; flex-direction: column; gap: 16px;">
       ${[1, 2, 3].map(
@@ -370,17 +349,14 @@ export const ListItemSkeleton: Story = {
       )}
     </div>
   `,
-  parameters: {
-    docs: {
-      description: {
-        story: 'Example of list items loading state with avatar and text.'
-      }
-    }
-  }
+  parameters: { controls: { disable: true } }
 };
 
+/**
+ * Example of an article page loading state.
+ */
 export const ArticleSkeleton: Story = {
-  name: 'Article Skeleton',
+  tags: DOCS_ONLY,
   render: () => html`
     <div style="max-width: 600px;">
       <!-- Headline -->
@@ -412,40 +388,5 @@ export const ArticleSkeleton: Story = {
       <sando-skeleton shape="text" width="85%" height="1em"></sando-skeleton>
     </div>
   `,
-  parameters: {
-    docs: {
-      description: {
-        story: 'Example of an article page loading state.'
-      }
-    }
-  }
-};
-
-// ============================================
-// PLAYGROUND
-// ============================================
-
-export const Playground: Story = {
-  name: 'Playground',
-  render: (args) => html`
-    <sando-skeleton
-      shape=${args.shape}
-      effect=${args.effect}
-      width=${args.width}
-      height=${args.height}
-    ></sando-skeleton>
-  `,
-  args: {
-    shape: 'text',
-    effect: 'shimmer',
-    width: '200px',
-    height: '24px'
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Interactive playground to test all skeleton props.'
-      }
-    }
-  }
+  parameters: { controls: { disable: true } }
 };

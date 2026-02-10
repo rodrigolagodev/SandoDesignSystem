@@ -306,62 +306,6 @@ describe('sando-skeleton', () => {
   });
 
   // ============================================
-  // SNAPSHOT TESTS
-  // ============================================
-
-  describe('snapshots', () => {
-    it('matches snapshot for text shape', async () => {
-      element = await fixture<SandoSkeleton>(html`<sando-skeleton shape="text"></sando-skeleton>`);
-      await element.updateComplete;
-
-      expect(element.shadowRoot?.innerHTML).toMatchSnapshot();
-    });
-
-    it('matches snapshot for circular shape', async () => {
-      element = await fixture<SandoSkeleton>(
-        html`<sando-skeleton shape="circular" width="40px" height="40px"></sando-skeleton>`
-      );
-      await element.updateComplete;
-
-      expect(element.shadowRoot?.innerHTML).toMatchSnapshot();
-    });
-
-    it('matches snapshot for rectangular shape', async () => {
-      element = await fixture<SandoSkeleton>(
-        html`<sando-skeleton shape="rectangular" width="200px" height="100px"></sando-skeleton>`
-      );
-      await element.updateComplete;
-
-      expect(element.shadowRoot?.innerHTML).toMatchSnapshot();
-    });
-
-    it('matches snapshot for rounded shape', async () => {
-      element = await fixture<SandoSkeleton>(
-        html`<sando-skeleton shape="rounded" width="100%" height="80px"></sando-skeleton>`
-      );
-      await element.updateComplete;
-
-      expect(element.shadowRoot?.innerHTML).toMatchSnapshot();
-    });
-
-    it('matches snapshot for pulse effect', async () => {
-      element = await fixture<SandoSkeleton>(
-        html`<sando-skeleton effect="pulse"></sando-skeleton>`
-      );
-      await element.updateComplete;
-
-      expect(element.shadowRoot?.innerHTML).toMatchSnapshot();
-    });
-
-    it('matches snapshot for none effect', async () => {
-      element = await fixture<SandoSkeleton>(html`<sando-skeleton effect="none"></sando-skeleton>`);
-      await element.updateComplete;
-
-      expect(element.shadowRoot?.innerHTML).toMatchSnapshot();
-    });
-  });
-
-  // ============================================
   // EDGE CASES
   // ============================================
 

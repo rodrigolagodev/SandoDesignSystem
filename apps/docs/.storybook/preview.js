@@ -2,9 +2,14 @@
  * Sando Design System Storybook Preview Configuration
  *
  * Configuration decisions:
- * - NO global flavor switcher - flavors are set per-component in individual stories
+ * - YES global flavor switcher - uses globalTypes + custom decorator with data-flavor attribute
  * - YES color mode switcher - uses @storybook/addon-themes for flicker-free switching
  * - MDX docs always use light mode for readability
+ *
+ * Flavor Switcher Implementation:
+ * We use globalTypes with a custom decorator to set data-flavor on the html element.
+ * The "original" flavor applies to :root by default, while other flavors use
+ * [data-flavor="name"] selectors.
  *
  * Color Mode Implementation:
  * We use @storybook/addon-themes with withThemeByDataAttribute to set
@@ -43,6 +48,8 @@ import "../../../packages/tokens/dist/sando-tokens/css/recipes/form-group.css";
 import "../../../packages/tokens/dist/sando-tokens/css/recipes/icon.css";
 import "../../../packages/tokens/dist/sando-tokens/css/recipes/input.css";
 import "../../../packages/tokens/dist/sando-tokens/css/recipes/select.css";
+import "../../../packages/tokens/dist/sando-tokens/css/recipes/skeleton.css";
+import "../../../packages/tokens/dist/sando-tokens/css/recipes/spinner.css";
 import "../../../packages/tokens/dist/sando-tokens/css/recipes/tag.css";
 
 // Import ALL Flavors with mode support
@@ -150,15 +157,64 @@ const preview = {
   },
 
   /**
-   * Decorators - Using @storybook/addon-themes for color mode switching
+   * Global Types - Flavor switcher in toolbar
    *
-   * Theme values:
+   * This creates a dropdown in the Storybook toolbar to switch between flavors.
+   * The selected flavor is applied via a custom decorator that sets data-flavor
+   * on the html element.
+   */
+  globalTypes: {
+    flavor: {
+      name: "Flavor",
+      description: "Design system flavor/theme",
+      toolbar: {
+        icon: "paintbrush",
+        title: "Flavor",
+        items: [
+          { value: "original", title: "🍞 Original", right: "Default" },
+          { value: "strawberry", title: "🍓 Strawberry", right: "Red tones" },
+          { value: "tonkatsu", title: "🍖 Tonkatsu", right: "Brown tones" },
+          { value: "kiwi", title: "🥝 Kiwi", right: "Green tones" },
+          { value: "egg-salad", title: "🥚 Egg Salad", right: "Yellow tones" },
+        ],
+        dynamicTitle: true,
+      },
+    },
+  },
+
+  /**
+   * Decorators - Flavor switcher (custom) + Color mode switcher (addon-themes)
+   *
+   * Flavor Switcher (custom decorator):
+   * - "original": Default flavor (no data-flavor attribute, uses :root styles)
+   * - "strawberry": Red tones (data-flavor="strawberry")
+   * - "tonkatsu": Brown tones (data-flavor="tonkatsu")
+   * - "kiwi": Green tones (data-flavor="kiwi")
+   * - "egg-salad": Yellow tones (data-flavor="egg-salad")
+   *
+   * Color Mode Switcher (addon-themes):
    * - "auto": Empty string - removes attribute, CSS @media queries take over
    * - "light": Sets data-color-mode="light" - forces light mode
    * - "dark": Sets data-color-mode="dark" - forces dark mode
    * - "high-contrast": Sets data-color-mode="high-contrast" - forces high contrast
    */
   decorators: [
+    // Flavor switcher - custom decorator that sets data-flavor attribute
+    (storyFn, context) => {
+      const flavor = context.globals.flavor || "original";
+      const htmlElement = document.documentElement;
+
+      // Original flavor uses :root styles (no attribute needed)
+      // Other flavors use [data-flavor="name"] selectors
+      if (flavor === "original") {
+        htmlElement.removeAttribute("data-flavor");
+      } else {
+        htmlElement.setAttribute("data-flavor", flavor);
+      }
+
+      return storyFn();
+    },
+    // Color mode switcher - sets data-color-mode attribute
     withThemeByDataAttribute({
       themes: {
         // Auto mode: Empty value removes the attribute entirely
@@ -182,8 +238,8 @@ const preview = {
    * Initial global values
    */
   initialGlobals: {
-    // The addon uses 'theme' as the global key
-    theme: "auto",
+    // Flavor switcher default
+    flavor: "original",
   },
 };
 

@@ -34,8 +34,7 @@ export const baseStyles = css`
      ============================================ */
 
   :host {
-    display: inline-block;
-    vertical-align: middle;
+    display: block;
     line-height: 0;
   }
 
@@ -67,6 +66,7 @@ export const baseStyles = css`
     );
     animation: sando-shimmer var(--sando-skeleton-animation-duration) infinite;
     animation-timing-function: var(--sando-skeleton-animation-easing);
+    animation-delay: var(--skeleton-animation-delay, 0ms);
   }
 
   /* ============================================
@@ -76,6 +76,7 @@ export const baseStyles = css`
   :host([effect='pulse']) .skeleton {
     animation: sando-pulse var(--sando-skeleton-animation-duration) infinite;
     animation-timing-function: var(--sando-skeleton-animation-easing);
+    animation-delay: var(--skeleton-animation-delay, 0ms);
   }
 
   /* ============================================
