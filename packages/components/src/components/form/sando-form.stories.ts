@@ -178,8 +178,16 @@ export const Playground: Story = {
  * Form in loading state - all controls disabled
  */
 export const LoadingState: Story = {
-  render: () => html`
-    <sando-form loading @sando-submit="${onSandoSubmit}">
+  args: {
+    loading: true
+  },
+  render: (args) => html`
+    <sando-form
+      flavor="${args.flavor || 'original'}"
+      ?loading="${args.loading}"
+      ?novalidate="${args.novalidate}"
+      @sando-submit="${onSandoSubmit}"
+    >
       <div style="display: flex; flex-direction: column; gap: 16px; max-width: 400px;">
         <sando-input name="email" label="Email" value="user@example.com"></sando-input>
         <sando-input
@@ -206,8 +214,14 @@ export const LoadingState: Story = {
  * Form with validation
  */
 export const WithValidation: Story = {
-  render: () => html`
-    <sando-form @sando-submit="${onSandoSubmit}" @sando-invalid="${onSandoInvalid}">
+  render: (args) => html`
+    <sando-form
+      flavor="${args.flavor || 'original'}"
+      ?loading="${args.loading}"
+      ?novalidate="${args.novalidate}"
+      @sando-submit="${onSandoSubmit}"
+      @sando-invalid="${onSandoInvalid}"
+    >
       <div style="display: flex; flex-direction: column; gap: 16px; max-width: 400px;">
         <sando-input
           name="email"
@@ -508,7 +522,7 @@ Interact with the form to see events...</pre
  * Demonstrates dirty/pristine state tracking
  */
 export const DirtyStateTracking: Story = {
-  render: () => {
+  render: (args) => {
     const updateStatus = () => {
       const form = document.querySelector<SandoForm>('#dirty-form');
       const status = document.querySelector('#dirty-status');
@@ -550,6 +564,9 @@ export const DirtyStateTracking: Story = {
 
         <sando-form
           id="dirty-form"
+          flavor="${args.flavor || 'original'}"
+          ?loading="${args.loading}"
+          ?novalidate="${args.novalidate}"
           @sando-submit=${handleSave}
           @sando-change=${updateStatus}
           @sando-reset=${updateStatus}
@@ -580,7 +597,7 @@ export const DirtyStateTracking: Story = {
  * Custom validation with password confirmation
  */
 export const CustomValidation: Story = {
-  render: () => {
+  render: (args) => {
     const handleValidate = (e: CustomEvent) => {
       const { json, addError } = e.detail;
 
@@ -599,6 +616,9 @@ export const CustomValidation: Story = {
 
     return html`
       <sando-form
+        flavor="${args.flavor || 'original'}"
+        ?loading="${args.loading}"
+        ?novalidate="${args.novalidate}"
         @sando-submit="${onSandoSubmit}"
         @sando-invalid="${onSandoInvalid}"
         @sando-validate="${handleValidate}"
@@ -645,8 +665,14 @@ export const CustomValidation: Story = {
  * Form with required checkbox (terms acceptance)
  */
 export const RequiredCheckbox: Story = {
-  render: () => html`
-    <sando-form @sando-submit="${onSandoSubmit}" @sando-invalid="${onSandoInvalid}">
+  render: (args) => html`
+    <sando-form
+      flavor="${args.flavor || 'original'}"
+      ?loading="${args.loading}"
+      ?novalidate="${args.novalidate}"
+      @sando-submit="${onSandoSubmit}"
+      @sando-invalid="${onSandoInvalid}"
+    >
       <div style="display: flex; flex-direction: column; gap: 16px; max-width: 400px;">
         <sando-input
           name="email"
@@ -677,8 +703,14 @@ export const RequiredCheckbox: Story = {
  * Form with required radio group
  */
 export const RadioGroupValidation: Story = {
-  render: () => html`
-    <sando-form @sando-submit="${onSandoSubmit}" @sando-invalid="${onSandoInvalid}">
+  render: (args) => html`
+    <sando-form
+      flavor="${args.flavor || 'original'}"
+      ?loading="${args.loading}"
+      ?novalidate="${args.novalidate}"
+      @sando-submit="${onSandoSubmit}"
+      @sando-invalid="${onSandoInvalid}"
+    >
       <div style="display: flex; flex-direction: column; gap: 16px; max-width: 400px;">
         <sando-input name="name" label="Name" required error-text="Name is required"></sando-input>
 
