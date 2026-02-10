@@ -42,7 +42,7 @@ import '../skeleton-image/sando-skeleton-image.js';
 import '../skeleton-paragraph/sando-skeleton-paragraph.js';
 import '../skeleton-button/sando-skeleton-button.js';
 
-import type { SkeletonCardImageRatio } from './sando-skeleton-card.types.js';
+import type { SkeletonCardImageRatio, SkeletonCardWidth } from './sando-skeleton-card.types.js';
 
 /**
  * Default values for skeleton card properties
@@ -91,6 +91,16 @@ export class SandoSkeletonCard extends FlavorableMixin(LitElement) {
   imageRatio: SkeletonCardImageRatio = DEFAULT_IMAGE_RATIO;
 
   /**
+   * Width of the card
+   * - 'auto': Natural width based on content/container
+   * - 'full': 100% of container width
+   * - Custom string: Any valid CSS width (e.g., '300px', '20rem')
+   * @default 'auto'
+   */
+  @property({ reflect: true })
+  width: SkeletonCardWidth = 'auto';
+
+  /**
    * Component styles
    */
   static styles = [
@@ -99,6 +109,10 @@ export class SandoSkeletonCard extends FlavorableMixin(LitElement) {
     css`
       :host {
         display: block;
+      }
+
+      :host([width='full']) {
+        width: 100%;
       }
     `
   ];
@@ -159,8 +173,10 @@ export class SandoSkeletonCard extends FlavorableMixin(LitElement) {
    * Render the skeleton card
    */
   render() {
+    const customWidth = this.width !== 'auto' && this.width !== 'full' ? this.width : null;
+
     return html`
-      <sando-skeleton-composer>
+      <sando-skeleton-composer style=${customWidth ? `width: ${customWidth}` : nothing}>
         <sando-skeleton-stack gap="md">
           ${this._renderHeader()} ${this._renderImage()} ${this._renderParagraph()}
           ${this._renderActions()}

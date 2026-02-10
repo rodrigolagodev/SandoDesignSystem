@@ -24,6 +24,14 @@ export type SkeletonParagraphSpacing = 'xs' | 'sm' | 'md' | 'lg';
 export type SkeletonParagraphSize = 'sm' | 'md' | 'lg';
 
 /**
+ * Width options for skeleton paragraph
+ * - 'auto': Natural width based on parent
+ * - 'full': 100% of container width
+ * - string: Custom CSS width value
+ */
+export type SkeletonParagraphWidth = 'auto' | 'full' | string;
+
+/**
  * Props for the SandoSkeletonParagraph component
  */
 export interface SandoSkeletonParagraphProps {
@@ -67,6 +75,15 @@ export interface SandoSkeletonParagraphProps {
    * @default 'shimmer'
    */
   effect?: SkeletonEffect;
+
+  /**
+   * Width of the paragraph container
+   * - 'auto': Natural width (100% of parent by default)
+   * - 'full': Explicit 100% width
+   * - Custom string: Any valid CSS width (e.g., '300px', '20rem')
+   * @default 'auto'
+   */
+  width?: SkeletonParagraphWidth;
 }
 
 // Re-export SkeletonEffect for convenience

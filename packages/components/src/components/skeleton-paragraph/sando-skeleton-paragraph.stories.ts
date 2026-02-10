@@ -28,15 +28,27 @@ const meta: Meta = {
   render: (args) => html`
     <div style="max-width: 400px;">
       <sando-skeleton-paragraph
+        flavor="${args.flavor || 'original'}"
         size="${args.size || 'md'}"
         lines="${args.lines || 3}"
         last-line-width="${args.lastLineWidth || '60%'}"
         spacing="${args.spacing || 'sm'}"
         effect="${args.effect || 'shimmer'}"
+        width="${args.width || 'auto'}"
       ></sando-skeleton-paragraph>
     </div>
   `,
   argTypes: {
+    flavor: {
+      control: 'select',
+      options: ['original', 'strawberry', 'tonkatsu', 'kiwi', 'egg-salad'],
+      description: 'Visual flavor/theme of the component',
+      table: {
+        category: 'Appearance',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'original' }
+      }
+    },
     size: {
       control: 'select',
       options: ['sm', 'md', 'lg'],
@@ -84,14 +96,25 @@ const meta: Meta = {
         type: { summary: "'shimmer' | 'pulse' | 'none'" },
         defaultValue: { summary: 'shimmer' }
       }
+    },
+    width: {
+      control: 'text',
+      description: 'Width of the paragraph: auto, full, or custom CSS value',
+      table: {
+        category: 'Dimensions',
+        type: { summary: "'auto' | 'full' | string" },
+        defaultValue: { summary: 'auto' }
+      }
     }
   },
   args: {
+    flavor: 'original',
     size: 'md',
     lines: 3,
     lastLineWidth: '60%',
     spacing: 'sm',
-    effect: 'shimmer'
+    effect: 'shimmer',
+    width: 'auto'
   }
 };
 

@@ -13,6 +13,14 @@
 export type SkeletonCardImageRatio = '1/1' | '4/3' | '16/9' | '21/9';
 
 /**
+ * Width variants for the skeleton card
+ * - 'auto': Natural width based on content/container
+ * - 'full': 100% of container width
+ * - string: Any valid CSS width value (e.g., '300px', '20rem')
+ */
+export type SkeletonCardWidth = 'auto' | 'full' | string;
+
+/**
  * Props for the SandoSkeletonCard component
  */
 export interface SandoSkeletonCardProps {
@@ -45,4 +53,13 @@ export interface SandoSkeletonCardProps {
    * @default '16/9'
    */
   imageRatio?: SkeletonCardImageRatio;
+
+  /**
+   * Width of the card
+   * - 'auto': Natural width based on content/container
+   * - 'full': 100% of container width
+   * - Custom string: Any valid CSS width (e.g., '300px', '20rem')
+   * @default 'auto'
+   */
+  width?: SkeletonCardWidth;
 }

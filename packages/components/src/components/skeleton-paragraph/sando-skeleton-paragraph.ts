@@ -39,7 +39,7 @@
  * <sando-skeleton-paragraph effect="none"></sando-skeleton-paragraph>
  */
 
-import { LitElement, html, css } from 'lit';
+import { LitElement, html, css, type PropertyValues } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { FlavorableMixin } from '../../mixins/index.js';
 import { resetStyles } from '../../styles/reset.css.js';
@@ -48,6 +48,7 @@ import '../skeleton/sando-skeleton.js';
 import type {
   SkeletonParagraphSpacing,
   SkeletonParagraphSize,
+  SkeletonParagraphWidth,
   SkeletonEffect
 } from './sando-skeleton-paragraph.types.js';
 
@@ -97,6 +98,16 @@ export class SandoSkeletonParagraph extends FlavorableMixin(LitElement) {
    */
   @property({ reflect: true })
   effect: SkeletonEffect = DEFAULT_EFFECT;
+
+  /**
+   * Width of the paragraph container
+   * - 'auto': Natural width (100% of parent by default)
+   * - 'full': Explicit 100% width
+   * - Custom string: Any valid CSS width (e.g., '300px', '20rem')
+   * @default 'auto'
+   */
+  @property({ reflect: true })
+  width: SkeletonParagraphWidth = 'auto';
 
   /**
    * Component styles
@@ -154,8 +165,34 @@ export class SandoSkeletonParagraph extends FlavorableMixin(LitElement) {
       :host([spacing='lg']) {
         gap: var(--sando-skeleton-spacing-gap-lg);
       }
+
+      /* ============================================
+         WIDTH VARIANTS
+         ============================================ */
+
+      :host([width='full']) {
+        width: 100%;
+      }
     `
   ];
+
+  /**
+   * Update host width style when width property changes
+   */
+  protected override updated(changedProperties: PropertyValues): void {
+    super.updated(changedProperties);
+
+    if (changedProperties.has('width')) {
+      if (this.width !== 'auto' && this.width !== 'full') {
+        // Custom width value - apply inline style
+        this.style.width = this.width;
+      } else if (this.width === 'auto') {
+        // Reset to natural width
+        this.style.width = '';
+      }
+      // 'full' is handled by CSS attribute selector
+    }
+  }
 
   /**
    * Get line height based on size

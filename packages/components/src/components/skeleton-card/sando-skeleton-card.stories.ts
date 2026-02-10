@@ -38,8 +38,10 @@ const meta: Meta = {
   component: 'sando-skeleton-card',
   tags: ['autodocs', 'stable'],
   render: (args) => html`
-    <div style="max-width: 400px;">
+    <div style="max-width: ${args.width === 'auto' ? '400px' : 'none'};">
       <sando-skeleton-card
+        flavor="${args.flavor || 'original'}"
+        width="${args.width || 'auto'}"
         ?show-avatar="${args.showAvatar}"
         ?show-image="${args.showImage}"
         ?show-actions="${args.showActions}"
@@ -49,6 +51,25 @@ const meta: Meta = {
     </div>
   `,
   argTypes: {
+    flavor: {
+      control: 'select',
+      options: ['original', 'strawberry', 'tonkatsu', 'kiwi', 'egg-salad'],
+      description: 'Visual flavor/theme of the component',
+      table: {
+        category: 'Appearance',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'original' }
+      }
+    },
+    width: {
+      control: 'text',
+      description: 'Width of the card: auto, full, or custom CSS value',
+      table: {
+        category: 'Dimensions',
+        type: { summary: "'auto' | 'full' | string" },
+        defaultValue: { summary: 'auto' }
+      }
+    },
     showAvatar: {
       control: 'boolean',
       description: 'Show avatar in header section',
@@ -97,6 +118,8 @@ const meta: Meta = {
     }
   },
   args: {
+    flavor: 'original',
+    width: 'auto',
     showAvatar: true,
     showImage: false,
     showActions: false,

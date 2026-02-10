@@ -111,6 +111,16 @@ export class SandoSkeletonArticle extends FlavorableMixin(LitElement) {
   titleWidth: string = DEFAULT_TITLE_WIDTH;
 
   /**
+   * Width of the article container
+   * - 'auto': Natural width based on content/container
+   * - 'full': 100% of container width
+   * - Custom string: Any valid CSS width (e.g., '600px', '40rem')
+   * @default 'auto'
+   */
+  @property({ reflect: true })
+  width: 'auto' | 'full' | string = 'auto';
+
+  /**
    * Component styles
    */
   static styles = [
@@ -119,6 +129,10 @@ export class SandoSkeletonArticle extends FlavorableMixin(LitElement) {
     css`
       :host {
         display: block;
+      }
+
+      :host([width='full']) {
+        width: 100%;
       }
     `
   ];
@@ -199,8 +213,10 @@ export class SandoSkeletonArticle extends FlavorableMixin(LitElement) {
    * Render the skeleton article
    */
   render() {
+    const customWidth = this.width !== 'auto' && this.width !== 'full' ? this.width : null;
+
     return html`
-      <sando-skeleton-composer>
+      <sando-skeleton-composer style=${customWidth ? `width: ${customWidth}` : nothing}>
         <sando-skeleton-stack gap="md">
           ${this._renderTitle()} ${this._renderMeta()} ${this._renderParagraphs()}
         </sando-skeleton-stack>

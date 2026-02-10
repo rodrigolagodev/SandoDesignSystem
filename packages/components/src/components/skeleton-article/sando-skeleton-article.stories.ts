@@ -41,6 +41,7 @@ const meta: Meta = {
         ?show-meta="${args.showMeta}"
         paragraphs="${args.paragraphs || 3}"
         title-width="${args.titleWidth || '70%'}"
+        width="${args.width || 'auto'}"
       ></sando-skeleton-article>
     </div>
   `,
@@ -91,6 +92,15 @@ const meta: Meta = {
         type: { summary: 'string' },
         defaultValue: { summary: '70%' }
       }
+    },
+    width: {
+      control: 'text',
+      description: 'Width of the article: auto, full, or custom CSS value',
+      table: {
+        category: 'Dimensions',
+        type: { summary: "'auto' | 'full' | string" },
+        defaultValue: { summary: 'auto' }
+      }
     }
   },
   args: {
@@ -98,7 +108,8 @@ const meta: Meta = {
     size: 'md',
     showMeta: true,
     paragraphs: 3,
-    titleWidth: '70%'
+    titleWidth: '70%',
+    width: 'auto'
   }
 };
 

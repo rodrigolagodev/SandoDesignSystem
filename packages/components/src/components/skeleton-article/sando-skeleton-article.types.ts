@@ -13,6 +13,14 @@
 export type SkeletonArticleSize = 'sm' | 'md' | 'lg';
 
 /**
+ * Width options for skeleton article
+ * - 'auto': Natural width based on content/container
+ * - 'full': 100% of container width
+ * - string: Custom CSS width value
+ */
+export type SkeletonArticleWidth = 'auto' | 'full' | string;
+
+/**
  * Props for the SandoSkeletonArticle component
  */
 export interface SandoSkeletonArticleProps {
@@ -43,4 +51,10 @@ export interface SandoSkeletonArticleProps {
    * @default '70%'
    */
   titleWidth?: string;
+
+  /**
+   * Width of the article container
+   * @default 'auto'
+   */
+  width?: SkeletonArticleWidth;
 }
