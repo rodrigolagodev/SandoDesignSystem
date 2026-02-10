@@ -112,9 +112,9 @@
           "description": "Large avatar skeleton (44px)"
         },
         "xl": {
-          "value": "{sizing.icon.xl.value}",
+          "value": "{sizing.control.xl.value}",
           "type": "dimension",
-          "description": "Extra large avatar skeleton (64px via icon sizing)"
+          "description": "Extra large avatar skeleton (64px)"
         }
       },
       "button": {
