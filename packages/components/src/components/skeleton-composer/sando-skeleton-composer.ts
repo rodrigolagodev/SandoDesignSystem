@@ -1,14 +1,14 @@
 /**
  * Sando Skeleton Composer Component
  *
- * An orchestrator component that synchronizes animations across all child skeleton
- * elements. Controls timing coordination for cohesive loading states.
+ * A container component that can apply staggered animation delays to child
+ * skeleton elements for a wave effect.
  *
  * @element sando-skeleton-composer
  *
  * @slot - Default slot for skeleton child elements
  *
- * @example Synchronized animations (default)
+ * @example Basic usage (no special behavior)
  * <sando-skeleton-composer>
  *   <sando-skeleton-text></sando-skeleton-text>
  *   <sando-skeleton-text width="80%"></sando-skeleton-text>
@@ -21,12 +21,6 @@
  *   <sando-skeleton-text></sando-skeleton-text>
  *   <sando-skeleton-text></sando-skeleton-text>
  * </sando-skeleton-composer>
- *
- * @example Independent animations (browser default)
- * <sando-skeleton-composer sync="false">
- *   <sando-skeleton-text></sando-skeleton-text>
- *   <sando-skeleton-text></sando-skeleton-text>
- * </sando-skeleton-composer>
  */
 
 import { LitElement, html, css } from 'lit';
@@ -36,7 +30,7 @@ import { resetStyles } from '../../styles/reset.css.js';
 import { tokenStyles } from '../../styles/tokens.css.js';
 
 /**
- * Selector for all skeleton components that support animation synchronization
+ * Selector for all skeleton components that support stagger
  */
 const SKELETON_SELECTOR = [
   'sando-skeleton',
@@ -50,17 +44,9 @@ const SKELETON_SELECTOR = [
 @customElement('sando-skeleton-composer')
 export class SandoSkeletonComposer extends FlavorableMixin(LitElement) {
   /**
-   * Synchronize all child skeleton animations
-   * When true, all skeletons animate at exactly the same time
-   * When false with no stagger, animations run independently
-   * @default true
-   */
-  @property({ type: Boolean, reflect: true })
-  sync = true;
-
-  /**
-   * Delay between each skeleton's animation start
-   * Creates a wave effect (e.g., '50ms', '100ms')
+   * Delay between each skeleton's animation start.
+   * Creates a wave effect (e.g., '50ms', '100ms').
+   * When not set, skeletons animate independently (browser default).
    */
   @property({ type: String })
   stagger?: string;
@@ -84,14 +70,14 @@ export class SandoSkeletonComposer extends FlavorableMixin(LitElement) {
   ];
 
   /**
-   * Setup animation sync and observer when connected
+   * Setup stagger delays and observer when connected
    */
   connectedCallback() {
     super.connectedCallback();
-    this._syncAnimations();
+    this._applyStagger();
 
     // Watch for dynamically added skeleton children
-    this._observer = new MutationObserver(() => this._syncAnimations());
+    this._observer = new MutationObserver(() => this._applyStagger());
     this._observer.observe(this, { childList: true, subtree: true });
   }
 
@@ -104,40 +90,37 @@ export class SandoSkeletonComposer extends FlavorableMixin(LitElement) {
   }
 
   /**
-   * Re-sync animations when sync or stagger properties change
+   * Re-apply stagger when property changes
    */
   updated(changedProperties: Map<string, unknown>) {
     super.updated(changedProperties);
-    if (changedProperties.has('sync') || changedProperties.has('stagger')) {
-      this._syncAnimations();
+    if (changedProperties.has('stagger')) {
+      this._applyStagger();
     }
   }
 
   /**
-   * Synchronize animation timing across all child skeletons
+   * Apply staggered animation delays to child skeletons.
+   * Each skeleton gets an incremental delay (0ms, 50ms, 100ms, etc.)
    */
-  private _syncAnimations() {
+  private _applyStagger() {
     const skeletons = this.querySelectorAll(SKELETON_SELECTOR);
 
-    // If not syncing and no stagger, reset to independent animations
-    if (!this.sync && !this.stagger) {
+    if (!this.stagger) {
+      // No stagger - remove any previously set delays
       skeletons.forEach((skeleton) => {
         (skeleton as HTMLElement).style.removeProperty('--skeleton-animation-delay');
       });
       return;
     }
 
-    const staggerMs = this.stagger ? this._parseTime(this.stagger) : 0;
+    const staggerMs = this._parseTime(this.stagger);
 
     skeletons.forEach((skeleton, index) => {
-      if (this.stagger) {
-        // Apply staggered delay - each skeleton starts after the previous
-        const delay = index * staggerMs;
-        (skeleton as HTMLElement).style.setProperty('--skeleton-animation-delay', `${delay}ms`);
-      } else if (this.sync) {
-        // Sync: all animations start at the same time (delay = 0)
-        (skeleton as HTMLElement).style.setProperty('--skeleton-animation-delay', '0ms');
-      }
+      (skeleton as HTMLElement).style.setProperty(
+        '--skeleton-animation-delay',
+        `${index * staggerMs}ms`
+      );
     });
   }
 

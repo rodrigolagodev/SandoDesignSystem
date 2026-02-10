@@ -1,20 +1,12 @@
 /**
  * Type definitions for sando-skeleton-composer component
- * Orchestrator that synchronizes animations across child skeletons
+ * Container that can apply staggered animation delays to child skeletons
  */
 
 /**
  * Props for the SandoSkeletonComposer component
  */
 export interface SandoSkeletonComposerProps {
-  /**
-   * Synchronize all child skeleton animations to start at the same time
-   * When true, all skeletons animate in unison
-   * When false with no stagger, each skeleton animates independently
-   * @default true
-   */
-  sync?: boolean;
-
   /**
    * Delay between each skeleton's animation start time
    * Creates a wave effect where each skeleton starts after the previous
