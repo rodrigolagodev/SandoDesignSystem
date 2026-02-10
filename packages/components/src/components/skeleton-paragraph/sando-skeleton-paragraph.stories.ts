@@ -16,8 +16,9 @@ const DOCS_ONLY = ['!dev', '!autodocs'];
  *
  * ## Features
  * - Configurable line count
+ * - Size variants: sm, md, lg (controls line height and spacing)
  * - Custom last line width for natural look
- * - Spacing variants: xs, sm, md, lg
+ * - Spacing variants: xs, sm, md, lg (overrides size-based spacing)
  * - Inherits animation effects from base skeleton
  */
 const meta: Meta = {
@@ -27,6 +28,7 @@ const meta: Meta = {
   render: (args) => html`
     <div style="max-width: 400px;">
       <sando-skeleton-paragraph
+        size="${args.size || 'md'}"
         lines="${args.lines || 3}"
         last-line-width="${args.lastLineWidth || '60%'}"
         spacing="${args.spacing || 'sm'}"
@@ -35,6 +37,16 @@ const meta: Meta = {
     </div>
   `,
   argTypes: {
+    size: {
+      control: 'select',
+      options: ['sm', 'md', 'lg'],
+      description: 'Size of text lines (controls line height and default spacing)',
+      table: {
+        category: 'Appearance',
+        type: { summary: "'sm' | 'md' | 'lg'" },
+        defaultValue: { summary: 'md' }
+      }
+    },
     lines: {
       control: { type: 'number', min: 1, max: 10 },
       description: 'Number of text lines to render',
@@ -56,7 +68,7 @@ const meta: Meta = {
     spacing: {
       control: 'select',
       options: ['xs', 'sm', 'md', 'lg'],
-      description: 'Gap between lines',
+      description: 'Gap between lines (overrides size-based spacing)',
       table: {
         category: 'Appearance',
         type: { summary: "'xs' | 'sm' | 'md' | 'lg'" },
@@ -75,6 +87,7 @@ const meta: Meta = {
     }
   },
   args: {
+    size: 'md',
     lines: 3,
     lastLineWidth: '60%',
     spacing: 'sm',
@@ -107,6 +120,30 @@ export const Playground: Story = {
 // ============================================================================
 // DOCUMENTATION STORIES (hidden from sidebar, used in MDX)
 // ============================================================================
+
+/**
+ * Different size variants showing line height and spacing differences.
+ */
+export const SizeVariants: Story = {
+  tags: DOCS_ONLY,
+  render: () => html`
+    <div style="display: flex; gap: 32px; max-width: 800px;">
+      <div style="flex: 1;">
+        <p style="margin-bottom: 8px; font-weight: 500;">sm (caption-sized)</p>
+        <sando-skeleton-paragraph size="sm"></sando-skeleton-paragraph>
+      </div>
+      <div style="flex: 1;">
+        <p style="margin-bottom: 8px; font-weight: 500;">md (body-sized, default)</p>
+        <sando-skeleton-paragraph size="md"></sando-skeleton-paragraph>
+      </div>
+      <div style="flex: 1;">
+        <p style="margin-bottom: 8px; font-weight: 500;">lg (heading-sized)</p>
+        <sando-skeleton-paragraph size="lg"></sando-skeleton-paragraph>
+      </div>
+    </div>
+  `,
+  parameters: { controls: { disable: true } }
+};
 
 /**
  * Different line counts for various content types.

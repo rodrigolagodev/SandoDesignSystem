@@ -11,6 +11,9 @@
  * @cssprop --sando-skeleton-spacing-gap-sm - Small gap between lines
  * @cssprop --sando-skeleton-spacing-gap-md - Medium gap between lines
  * @cssprop --sando-skeleton-spacing-gap-lg - Large gap between lines
+ * @cssprop --sando-skeleton-paragraph-lineSpacing-sm - Line spacing for sm size
+ * @cssprop --sando-skeleton-paragraph-lineSpacing-md - Line spacing for md size
+ * @cssprop --sando-skeleton-paragraph-lineSpacing-lg - Line spacing for lg size
  *
  * @example Basic usage
  * <sando-skeleton-paragraph></sando-skeleton-paragraph>
@@ -22,7 +25,12 @@
  * @example Custom last line width
  * <sando-skeleton-paragraph last-line-width="40%"></sando-skeleton-paragraph>
  *
- * @example Different spacings
+ * @example Different sizes (controls line height and spacing)
+ * <sando-skeleton-paragraph size="sm"></sando-skeleton-paragraph>
+ * <sando-skeleton-paragraph size="md"></sando-skeleton-paragraph>
+ * <sando-skeleton-paragraph size="lg"></sando-skeleton-paragraph>
+ *
+ * @example Different spacings (overrides size-based spacing)
  * <sando-skeleton-paragraph spacing="xs"></sando-skeleton-paragraph>
  * <sando-skeleton-paragraph spacing="lg"></sando-skeleton-paragraph>
  *
@@ -37,7 +45,11 @@ import { FlavorableMixin } from '../../mixins/index.js';
 import { resetStyles } from '../../styles/reset.css.js';
 import { tokenStyles } from '../../styles/tokens.css.js';
 import '../skeleton/sando-skeleton.js';
-import type { SkeletonParagraphSpacing, SkeletonEffect } from './sando-skeleton-paragraph.types.js';
+import type {
+  SkeletonParagraphSpacing,
+  SkeletonParagraphSize,
+  SkeletonEffect
+} from './sando-skeleton-paragraph.types.js';
 
 /**
  * Default values for skeleton paragraph properties
@@ -45,10 +57,18 @@ import type { SkeletonParagraphSpacing, SkeletonEffect } from './sando-skeleton-
 const DEFAULT_LINES = 3;
 const DEFAULT_LAST_LINE_WIDTH = '60%';
 const DEFAULT_SPACING: SkeletonParagraphSpacing = 'sm';
+const DEFAULT_SIZE: SkeletonParagraphSize = 'md';
 const DEFAULT_EFFECT: SkeletonEffect = 'shimmer';
 
 @customElement('sando-skeleton-paragraph')
 export class SandoSkeletonParagraph extends FlavorableMixin(LitElement) {
+  /**
+   * Size of text lines (controls line height)
+   * @default 'md'
+   */
+  @property({ reflect: true })
+  size: SkeletonParagraphSize = DEFAULT_SIZE;
+
   /**
    * Number of text lines to render
    * @default 3
@@ -92,10 +112,31 @@ export class SandoSkeletonParagraph extends FlavorableMixin(LitElement) {
       :host {
         display: flex;
         flex-direction: column;
+        /* Default gap based on size, can be overridden by spacing attribute */
+        gap: var(--skeleton-paragraph-gap, var(--sando-skeleton-paragraph-lineSpacing-md));
       }
 
       /* ============================================
-         SPACING VARIANTS
+         SIZE VARIANTS - Line height and default spacing
+         ============================================ */
+
+      :host([size='sm']) {
+        --skeleton-paragraph-line-height: var(--sando-skeleton-size-text-height-sm);
+        --skeleton-paragraph-gap: var(--sando-skeleton-paragraph-lineSpacing-sm);
+      }
+
+      :host([size='md']) {
+        --skeleton-paragraph-line-height: var(--sando-skeleton-size-text-height-md);
+        --skeleton-paragraph-gap: var(--sando-skeleton-paragraph-lineSpacing-md);
+      }
+
+      :host([size='lg']) {
+        --skeleton-paragraph-line-height: var(--sando-skeleton-size-text-height-lg);
+        --skeleton-paragraph-gap: var(--sando-skeleton-paragraph-lineSpacing-lg);
+      }
+
+      /* ============================================
+         SPACING VARIANTS (overrides size-based gap)
          ============================================ */
 
       :host([spacing='xs']) {
@@ -117,12 +158,20 @@ export class SandoSkeletonParagraph extends FlavorableMixin(LitElement) {
   ];
 
   /**
+   * Get line height based on size
+   */
+  private _getLineHeight(): string {
+    return `var(--skeleton-paragraph-line-height, var(--sando-skeleton-size-text-height-md))`;
+  }
+
+  /**
    * Render the skeleton paragraph lines
    */
   render() {
     // Ensure lines is at least 1
     const lineCount = Math.max(1, this.lines);
     const lineArray = Array.from({ length: lineCount }, (_, i) => i);
+    const lineHeight = this._getLineHeight();
 
     return html`
       ${lineArray.map((_, index) => {
@@ -134,7 +183,7 @@ export class SandoSkeletonParagraph extends FlavorableMixin(LitElement) {
             shape="text"
             effect=${this.effect}
             width=${width}
-            height="1em"
+            height=${lineHeight}
           ></sando-skeleton>
         `;
       })}

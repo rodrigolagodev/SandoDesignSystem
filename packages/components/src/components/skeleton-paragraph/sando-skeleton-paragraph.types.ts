@@ -15,9 +15,27 @@ import type { SkeletonEffect } from '../skeleton/sando-skeleton.types.js';
 export type SkeletonParagraphSpacing = 'xs' | 'sm' | 'md' | 'lg';
 
 /**
+ * Size variants for paragraph text lines
+ * Controls the height of each skeleton line
+ * - sm: Caption-sized text
+ * - md: Body-sized text (default)
+ * - lg: Heading-sized text
+ */
+export type SkeletonParagraphSize = 'sm' | 'md' | 'lg';
+
+/**
  * Props for the SandoSkeletonParagraph component
  */
 export interface SandoSkeletonParagraphProps {
+  /**
+   * Size of text lines (controls line height)
+   * - sm: Caption-sized
+   * - md: Body-sized (default)
+   * - lg: Heading-sized
+   * @default 'md'
+   */
+  size?: SkeletonParagraphSize;
+
   /**
    * Number of text lines to render
    * @default 3

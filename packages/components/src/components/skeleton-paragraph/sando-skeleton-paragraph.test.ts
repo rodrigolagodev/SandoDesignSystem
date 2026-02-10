@@ -120,6 +120,54 @@ describe('sando-skeleton-paragraph', () => {
   });
 
   // ============================================
+  // SIZE
+  // ============================================
+
+  it('has default size of md', async () => {
+    const el = await fixture<SandoSkeletonParagraph>(
+      html`<sando-skeleton-paragraph></sando-skeleton-paragraph>`
+    );
+
+    expect(el.size).to.equal('md');
+    expect(el.getAttribute('size')).to.equal('md');
+  });
+
+  it('reflects size attribute', async () => {
+    const el = await fixture<SandoSkeletonParagraph>(
+      html`<sando-skeleton-paragraph size="lg"></sando-skeleton-paragraph>`
+    );
+
+    expect(el.size).to.equal('lg');
+    expect(el.getAttribute('size')).to.equal('lg');
+  });
+
+  it('accepts all size values', async () => {
+    const sizes: Array<'sm' | 'md' | 'lg'> = ['sm', 'md', 'lg'];
+
+    for (const size of sizes) {
+      const el = await fixture<SandoSkeletonParagraph>(
+        html`<sando-skeleton-paragraph size=${size}></sando-skeleton-paragraph>`
+      );
+
+      expect(el.size).to.equal(size);
+    }
+  });
+
+  it('updates size dynamically', async () => {
+    const el = await fixture<SandoSkeletonParagraph>(
+      html`<sando-skeleton-paragraph size="sm"></sando-skeleton-paragraph>`
+    );
+
+    expect(el.size).to.equal('sm');
+
+    el.size = 'lg';
+    await el.updateComplete;
+
+    expect(el.size).to.equal('lg');
+    expect(el.getAttribute('size')).to.equal('lg');
+  });
+
+  // ============================================
   // EFFECT
   // ============================================
 
@@ -171,7 +219,7 @@ describe('sando-skeleton-paragraph', () => {
     });
   });
 
-  it('all skeletons have 1em height', async () => {
+  it('all skeletons use token-based height', async () => {
     const el = await fixture<SandoSkeletonParagraph>(
       html`<sando-skeleton-paragraph lines="3"></sando-skeleton-paragraph>`
     );
@@ -179,7 +227,9 @@ describe('sando-skeleton-paragraph', () => {
     const skeletons = el.shadowRoot!.querySelectorAll('sando-skeleton');
 
     skeletons.forEach((skeleton) => {
-      expect(skeleton.getAttribute('height')).to.equal('1em');
+      const height = skeleton.getAttribute('height');
+      // Height should use CSS variable for token-based sizing
+      expect(height).to.include('var(--skeleton-paragraph-line-height');
     });
   });
 
