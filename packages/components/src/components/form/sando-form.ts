@@ -1,5 +1,6 @@
-import { LitElement, html } from 'lit';
+import { LitElement, html, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
+import '../spinner/sando-spinner.js';
 import type {
   SandoFormProps,
   FormMethod,
@@ -81,11 +82,18 @@ export class SandoForm extends FlavorableMixin(LitElement) implements SandoFormP
   static styles = [resetStyles, tokenStyles, baseStyles];
 
   /**
-   * When true, disables all child form controls
+   * When true, disables all child form controls and shows a loading overlay
    * @default false
    */
   @property({ type: Boolean, reflect: true })
   loading = false;
+
+  /**
+   * Custom label for the loading spinner (accessibility)
+   * @default 'Submitting form'
+   */
+  @property({ type: String, attribute: 'loading-label' })
+  loadingLabel = 'Submitting form';
 
   /**
    * Skip native HTML validation
@@ -608,6 +616,12 @@ export class SandoForm extends FlavorableMixin(LitElement) implements SandoFormP
         (button as HTMLButtonElement).disabled = this.loading;
       }
     });
+
+    // Set loading state on sando-button submit buttons
+    const sandoSubmitButtons = this.querySelectorAll('sando-button[type="submit"]');
+    sandoSubmitButtons.forEach((button) => {
+      (button as HTMLElement & { loading: boolean }).loading = this.loading;
+    });
   }
 
   /**
@@ -723,15 +737,23 @@ export class SandoForm extends FlavorableMixin(LitElement) implements SandoFormP
     return html`
       <form
         class="form"
-        name=${this.name || ''}
-        action=${this.action || ''}
+        name=${this.name || nothing}
+        action=${this.action || nothing}
         method=${this.method}
-        enctype=${this.enctype || ''}
+        enctype=${this.enctype || nothing}
         ?novalidate=${this.novalidate}
+        aria-busy=${this.loading ? 'true' : 'false'}
         @submit=${this._handleSubmit}
         @reset=${this._handleReset}
       >
         <slot></slot>
+        ${this.loading
+          ? html`
+              <div class="form-loading-overlay" aria-hidden="true">
+                <sando-spinner size="lg" label=${this.loadingLabel}></sando-spinner>
+              </div>
+            `
+          : nothing}
       </form>
     `;
   }

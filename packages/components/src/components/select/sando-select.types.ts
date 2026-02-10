@@ -133,6 +133,13 @@ export interface SandoSelectProps {
    * Icon name to display before the value (uses sando-icon)
    */
   prefixIcon?: string;
+
+  /**
+   * Whether the select is in a loading state
+   * Shows spinner while fetching options asynchronously
+   * @default false
+   */
+  loading?: boolean;
 }
 
 /**

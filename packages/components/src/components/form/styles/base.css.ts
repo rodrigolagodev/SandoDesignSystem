@@ -4,7 +4,7 @@
  * Contains:
  * - Host display and reset
  * - Native form element styling
- * - Loading state overlay
+ * - Loading state overlay with spinner
  */
 
 import { css } from 'lit';
@@ -12,6 +12,7 @@ import { css } from 'lit';
 export const baseStyles = css`
   :host {
     display: block;
+    position: relative;
   }
 
   :host([hidden]) {
@@ -28,13 +29,44 @@ export const baseStyles = css`
     pointer-events: none;
   }
 
-  /* Optional: Visual feedback for loading state */
-  :host([loading]) .form::after {
-    content: '';
+  /* Loading overlay with centered spinner */
+  .form-loading-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(255, 255, 255, 0.5);
-    cursor: wait;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Light semi-transparent white - spinner is visible on this */
+    background-color: rgba(255, 255, 255, 0.85);
+    z-index: 10;
+    border-radius: inherit;
+    /* Subtle backdrop blur for modern browsers */
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+  }
+
+  /* Dark mode - use LIGHT overlay so dark spinner remains visible */
+  @media (prefers-color-scheme: dark) {
+    .form-loading-overlay {
+      /* Light overlay in dark mode ensures default (dark) spinner is visible */
+      background-color: rgba(255, 255, 255, 0.75);
+    }
+  }
+
+  /* Respect reduced motion - higher opacity for clearer static state */
+  @media (prefers-reduced-motion: reduce) {
+    .form-loading-overlay {
+      background-color: rgba(255, 255, 255, 0.92);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .form-loading-overlay {
+        /* Light overlay in dark mode with higher opacity for static state */
+        background-color: rgba(255, 255, 255, 0.88);
+      }
+    }
   }
 
   /* Slotted elements maintain their normal layout */

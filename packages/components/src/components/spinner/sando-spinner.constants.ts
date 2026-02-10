@@ -22,9 +22,9 @@ export const DEFAULT_LABEL = 'Loading';
 
 /**
  * Default arc percentage (0.1 to 1.0)
- * 0.75 = 75% of the circle is visible
+ * 0.25 = 25% of the circle is visible
  */
-export const DEFAULT_ARC = 0.75;
+export const DEFAULT_ARC = 0.25;
 
 /**
  * Minimum arc percentage (10% visible)

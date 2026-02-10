@@ -100,7 +100,7 @@ export class SandoSpinner extends FlavorableMixin(LitElement) {
   /**
    * Arc percentage (0.1 to 1.0)
    * Controls how much of the circle is visible
-   * @default 0.75 (75% of circle visible)
+   * @default 0.25 (25% of circle visible)
    */
   @property({ type: Number, reflect: true })
   arc: number = DEFAULT_ARC;

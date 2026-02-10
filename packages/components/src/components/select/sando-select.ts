@@ -88,12 +88,16 @@ import type {
 import type { SandoOption } from '../option/sando-option.js';
 import type { OptionSelectEventDetail } from '../option/sando-option.types.js';
 import type { TagSize } from '../tag/sando-tag.types.js';
+import type { SpinnerSize } from '../spinner/sando-spinner.types.js';
 
 // Import sando-tag for multi-select tags
 import '../tag/sando-tag.js';
 
 // Import sando-icon for caret and clear icons
 import '../icon/sando-icon.js';
+
+// Import sando-spinner for loading state
+import '../spinner/sando-spinner.js';
 
 import { FlavorableMixin } from '../../mixins/index.js';
 import { resetStyles } from '../../styles/reset.css.js';
@@ -354,6 +358,14 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
    */
   @property({ type: String, attribute: 'prefix-icon' })
   prefixIcon?: string;
+
+  /**
+   * Whether the select is in a loading state (fetching options)
+   * Shows spinner in dropdown and disables interaction
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  loading = false;
 
   /**
    * Lifecycle: Called when component is added to DOM
@@ -657,7 +669,7 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
    * @private
    */
   private _handleTriggerKeydown = (e: KeyboardEvent): void => {
-    if (this.disabled) return;
+    if (this.disabled || this.loading) return;
 
     switch (e.key) {
       case 'Enter':
@@ -1012,7 +1024,7 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
    * @private
    */
   private _handleTriggerClick = (): void => {
-    if (this.disabled) return;
+    if (this.disabled || this.loading) return;
     this.toggle();
   };
 
@@ -1088,6 +1100,35 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
    */
   private get _iconSize(): 'small' | 'medium' {
     return this.size === 'lg' ? 'medium' : 'small';
+  }
+
+  /**
+   * Get spinner size for trigger based on select size
+   * Maps directly: sm→sm, md→md, lg→lg
+   * @private
+   */
+  private _getSpinnerSize(): SpinnerSize {
+    const sizeMap: Record<SelectSize, SpinnerSize> = {
+      sm: 'sm',
+      md: 'md',
+      lg: 'lg'
+    };
+    return sizeMap[this.size];
+  }
+
+  /**
+   * Get spinner size for dropdown loading indicator
+   * One size larger than trigger spinner for visual prominence
+   * Maps: sm→md, md→lg, lg→xl
+   * @private
+   */
+  private _getDropdownSpinnerSize(): SpinnerSize {
+    const sizeMap: Record<SelectSize, SpinnerSize> = {
+      sm: 'md',
+      md: 'lg',
+      lg: 'xl'
+    };
+    return sizeMap[this.size];
   }
 
   /**
@@ -1203,8 +1244,9 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
           aria-required=${this.required ? 'true' : nothing}
           aria-invalid=${this.error ? 'true' : 'false'}
           aria-disabled=${this.disabled ? 'true' : nothing}
+          aria-busy=${this.loading ? 'true' : 'false'}
           aria-describedby=${describedBy || nothing}
-          ?disabled=${this.disabled}
+          ?disabled=${this.disabled || this.loading}
           @click=${this._handleTriggerClick}
           @keydown=${this._handleTriggerKeydown}
         >
@@ -1237,7 +1279,9 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
             : nothing}
 
           <span class="select-caret" aria-hidden="true">
-            <slot name="expand-icon"> ${this._renderCaretIcon()} </slot>
+            ${this.loading
+              ? html`<sando-spinner size=${this._getSpinnerSize()}></sando-spinner>`
+              : html`<slot name="expand-icon"> ${this._renderCaretIcon()} </slot>`}
           </span>
         </button>
 
@@ -1247,11 +1291,21 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
           role="listbox"
           aria-labelledby="${this._inputId}-label"
           aria-multiselectable=${this.multiple ? 'true' : nothing}
+          aria-busy=${this.loading ? 'true' : 'false'}
           popover=${this._supportsPopover ? 'auto' : nothing}
           ?hidden=${!this._supportsPopover && !this.open}
           @sando-option-select=${this._handleOptionSelect}
         >
-          <slot @slotchange=${this._handleSlotChange}></slot>
+          ${this.loading
+            ? html`
+                <div class="select-loading">
+                  <sando-spinner
+                    size=${this._getDropdownSpinnerSize()}
+                    label="Loading options"
+                  ></sando-spinner>
+                </div>
+              `
+            : html`<slot @slotchange=${this._handleSlotChange}></slot>`}
           <div class="scroll-sentinel" aria-hidden="true"></div>
         </div>
 

@@ -63,13 +63,17 @@ import { LitElement, html, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
+
 import type {
   ButtonVariant,
   ButtonSize,
   ButtonStatus,
   ButtonRadius
 } from './sando-button.types.js';
+import type { SpinnerSize, SpinnerVariant } from '../spinner/sando-spinner.types.js';
+
 import { FlavorableMixin } from '../../mixins/index.js';
+import '../spinner/sando-spinner.js';
 import { resetStyles } from '../../styles/reset.css.js';
 import { tokenStyles } from '../../styles/tokens.css.js';
 import {
@@ -252,6 +256,32 @@ export class SandoButton extends FlavorableMixin(LitElement) {
     // No need to dispatch a custom event
   }
 
+  /**
+   * Get appropriate spinner size based on button size
+   * Spinner should be slightly smaller than button text
+   */
+  private _getSpinnerSize(): SpinnerSize {
+    const sizeMap: Record<ButtonSize, SpinnerSize> = {
+      sm: 'sm',
+      md: 'md',
+      lg: 'lg'
+    };
+    return sizeMap[this.size];
+  }
+
+  /**
+   * Get spinner variant based on button variant
+   * Use inverted for solid buttons (dark bg), default for others
+   */
+  private _getSpinnerVariant(): SpinnerVariant {
+    // Solid buttons have colored background, need inverted spinner
+    if (this.variant === 'solid') {
+      return 'inverted';
+    }
+    // Outline, ghost, text buttons have light/no background
+    return 'default';
+  }
+
   render() {
     const classes = {
       button: true,
@@ -260,7 +290,14 @@ export class SandoButton extends FlavorableMixin(LitElement) {
     };
 
     const content = html`
-      ${this.loading ? html`<span class="spinner" role="status" aria-label="Loading"></span>` : ''}
+      ${this.loading
+        ? html`<sando-spinner
+            class="spinner"
+            size="${this._getSpinnerSize()}"
+            variant="${this._getSpinnerVariant()}"
+            label="${this.ariaLabel || 'Loading'}"
+          ></sando-spinner>`
+        : nothing}
       <span class="content">
         ${this.startIcon ? html`<span class="icon-start">${this.startIcon}</span>` : ''}
         <slot name="icon-start"></slot>

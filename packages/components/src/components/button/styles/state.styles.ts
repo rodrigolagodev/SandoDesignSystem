@@ -23,28 +23,12 @@ export const stateStyles = css`
     visibility: hidden;
   }
 
+  /* Position the sando-spinner component */
   .spinner {
-    display: inline-block;
-    width: 1em;
-    height: 1em;
-    border: var(--sando-button-loading-spinnerBorderWidth) solid
-      var(--sando-button-loading-spinnerColor);
-    border-top-color: transparent;
-    border-radius: var(--sando-border-radius-circular);
-    animation: spin var(--sando-button-loading-spinnerDuration) linear infinite;
-  }
-
-  :host([loading]) .spinner {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-  }
-
-  @keyframes spin {
-    to {
-      transform: translate(-50%, -50%) rotate(360deg);
-    }
   }
 
   /* ========================================

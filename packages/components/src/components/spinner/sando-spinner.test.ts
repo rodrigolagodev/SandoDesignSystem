@@ -618,7 +618,7 @@ describe('sando-spinner', () => {
     });
 
     it('should have correct default arc', () => {
-      expect(DEFAULT_ARC).toBe(0.75);
+      expect(DEFAULT_ARC).toBe(0.25);
     });
 
     it('should have correct MIN_ARC', () => {
