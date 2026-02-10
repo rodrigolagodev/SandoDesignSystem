@@ -373,10 +373,8 @@ export class SandoTextarea extends FlavorableMixin(LitElement) {
         <!-- Label -->
         ${hasLabel
           ? html`
-              <label class="textarea-label" for=${this._textareaId}>
-                ${this.label || ''}<slot></slot>${this.required
-                  ? html`<span class="required-indicator" aria-hidden="true">*</span>`
-                  : nothing}
+              <label class="textarea-label" for=${this._textareaId} ?data-required=${this.required}>
+                ${this.label || ''}<slot></slot>
               </label>
             `
           : nothing}

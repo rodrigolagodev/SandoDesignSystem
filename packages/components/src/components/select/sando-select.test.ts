@@ -76,8 +76,8 @@ describe('sando-select', () => {
     it('should apply required indicator', async () => {
       element.required = true;
       await element.updateComplete;
-      const indicator = element.shadowRoot?.querySelector('.required-indicator');
-      expect(indicator).toBeDefined();
+      const label = element.shadowRoot?.querySelector('.select-label');
+      expect(label?.hasAttribute('data-required')).toBe(true);
     });
 
     it('should apply error state', async () => {

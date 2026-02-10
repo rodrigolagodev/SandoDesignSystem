@@ -1180,11 +1180,13 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
       <div class="select-wrapper">
         ${this.label
           ? html`
-              <label class="select-label" id="${this._inputId}-label" for="${this._inputId}">
+              <label
+                class="select-label"
+                id="${this._inputId}-label"
+                for="${this._inputId}"
+                ?data-required=${this.required}
+              >
                 ${this.label}
-                ${this.required
-                  ? html`<span class="required-indicator" aria-hidden="true">*</span>`
-                  : nothing}
               </label>
             `
           : nothing}

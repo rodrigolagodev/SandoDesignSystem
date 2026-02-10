@@ -38,10 +38,10 @@ describe('sando-form-group', () => {
       `);
 
       expect(el.required).to.be.true;
-      // Verify asterisk renders
-      const required = el.shadowRoot?.querySelector('.required');
-      expect(required).to.exist;
-      expect(required?.textContent).to.equal('*');
+      // Verify data-required attribute for asterisk (rendered via CSS ::after)
+      const label = el.shadowRoot?.querySelector('.form-group__label');
+      expect(label).to.exist;
+      expect(label?.hasAttribute('data-required')).to.be.true;
     });
 
     it('should render helper text from prop', async () => {

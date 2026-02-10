@@ -415,8 +415,8 @@ export class SandoInput extends FlavorableMixin(LitElement) implements SandoInpu
     return html`
       ${this.label
         ? html`
-            <label class="label" for="${this._inputId}">
-              ${this.label} ${this.required ? html`<span class="required-indicator">*</span>` : ''}
+            <label class="label" for="${this._inputId}" ?data-required=${this.required}>
+              ${this.label}
             </label>
           `
         : ''}

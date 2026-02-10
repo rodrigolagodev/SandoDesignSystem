@@ -39,10 +39,12 @@ export const baseStyles = css`
     color: var(--sando-label-textColor-default);
     margin-bottom: var(--sando-label-marginBottom);
     user-select: none;
+    text-wrap: balance; /* Prevents orphan wrapping of required indicator */
   }
 
-  /* Required indicator - using shared sando-label tokens */
-  .required-indicator {
+  /* Required indicator via ::after pseudo-element */
+  .textarea-label[data-required]::after {
+    content: '*';
     color: var(--sando-label-required-textColor);
     margin-inline-start: var(--sando-label-required-marginInlineStart);
   }

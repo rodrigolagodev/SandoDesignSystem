@@ -27,12 +27,10 @@
  * @slot - Label text content
  * @slot helper-text - Custom helper text content
  * @slot tooltip - Custom tooltip content
- * @slot required-indicator - Custom required indicator (default: *)
  * @slot optional-indicator - Custom optional indicator (default: "(optional)")
  *
  * @csspart label - The native label element
  * @csspart text - The text content wrapper
- * @csspart required - The required indicator
  * @csspart optional - The optional text
  * @csspart helper-text - The helper text container
  * @csspart tooltip - The tooltip icon/wrapper
@@ -190,24 +188,6 @@ export class SandoLabel extends FlavorableMixin(LitElement) {
   srOnly = false;
 
   /**
-   * Renders the required indicator.
-   * Only shown if `required` is true and `optional` is false.
-   * @private
-   */
-  private _renderRequired() {
-    // Required takes precedence, but don't show if optional is also set
-    if (!this.required || this.optional) {
-      return nothing;
-    }
-
-    return html`
-      <span class="label__required" part="required" aria-hidden="true">
-        <slot name="required-indicator">*</slot>
-      </span>
-    `;
-  }
-
-  /**
    * Renders the optional indicator.
    * Only shown if `optional` is true and `required` is false.
    * @private
@@ -265,10 +245,15 @@ export class SandoLabel extends FlavorableMixin(LitElement) {
 
   render() {
     return html`
-      <label class="label" part="label" for=${this.for || nothing}>
+      <label
+        class="label"
+        part="label"
+        for=${this.for || nothing}
+        ?data-required=${this.required && !this.optional}
+      >
         <span class="label__text" part="text">
           <slot></slot>
-          ${this._renderRequired()} ${this._renderOptional()} ${this._renderTooltip()}
+          ${this._renderOptional()} ${this._renderTooltip()}
         </span>
       </label>
       ${this._renderHelperText()}

@@ -328,10 +328,8 @@ export class SandoCheckbox extends FlavorableMixin(LitElement) {
             ${this._renderCheckmark()} ${this._renderIndeterminate()}
           </span>
 
-          <span class="checkbox-label">
-            ${this.label || ''}<slot></slot>${this.required
-              ? html`<span class="required-indicator" aria-hidden="true">*</span>`
-              : nothing}
+          <span class="checkbox-label" ?data-required=${this.required}>
+            ${this.label || ''}<slot></slot>
           </span>
         </label>
 

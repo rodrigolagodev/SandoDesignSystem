@@ -33,7 +33,12 @@ export const baseStyles = css`
 
   .radio-container {
     display: inline-flex;
-    align-items: center;
+    /*
+     * Alignment fix: Use flex-start so the radio box aligns to the top
+     * of multi-line label text instead of vertically centering with all lines.
+     * The radio-box has margin-top to visually center with the first line.
+     */
+    align-items: flex-start;
     cursor: pointer;
     position: relative;
   }
@@ -71,6 +76,13 @@ export const baseStyles = css`
     /* Prepare for focus outline */
     outline: var(--sando-radio-focusOutlineWidth) solid transparent;
     outline-offset: var(--sando-radio-focusOutlineOffset);
+    /*
+     * Vertical alignment fix: When container uses align-items: flex-start,
+     * we need margin-top to visually center the box with the first line of text.
+     * Formula: (lineHeight - 1em) / 2 approximates centering with x-height.
+     * Using 0.125em works well for typical line-heights (1.4-1.6).
+     */
+    margin-top: 0.125em;
   }
 
   /* Focus visible on the box - uses JS-managed .focused class for reliability across Shadow DOM */
@@ -118,10 +130,12 @@ export const baseStyles = css`
     font-weight: var(--sando-radio-label-fontWeight);
     color: var(--sando-radio-label-textColor-default);
     user-select: none;
+    text-wrap: balance; /* Prevents orphan wrapping of required indicator */
   }
 
   /* Required indicator */
-  .required-indicator {
+  .radio-label[data-required]::after {
+    content: '*';
     color: var(--sando-radio-helperText-textColor-error);
     margin-inline-start: var(--sando-radio-requiredIndicator-marginInlineStart);
   }

@@ -397,12 +397,8 @@ export class SandoFormGroup extends FlavorableMixin(LitElement) implements Sando
     if (!hasLabel) return '';
 
     return html`
-      <label class="form-group__label" for=${this._inputId}>
-        <slot name="label">
-          ${this.label}${this.required
-            ? html`<span class="required" aria-hidden="true">*</span>`
-            : ''}
-        </slot>
+      <label class="form-group__label" for=${this._inputId} ?data-required=${this.required}>
+        <slot name="label"> ${this.label} </slot>
       </label>
     `;
   }

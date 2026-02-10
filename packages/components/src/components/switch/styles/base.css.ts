@@ -32,7 +32,12 @@ export const baseStyles = css`
 
   .switch-container {
     display: inline-flex;
-    align-items: center;
+    /*
+     * Alignment fix: Use flex-start so the switch track aligns to the top
+     * of multi-line label text instead of vertically centering with all lines.
+     * The switch-track has margin-top to visually center with the first line.
+     */
+    align-items: flex-start;
     cursor: pointer;
     position: relative;
   }
@@ -68,6 +73,13 @@ export const baseStyles = css`
     /* Prepare for focus outline */
     outline: var(--sando-switch-focusOutlineWidth) solid transparent;
     outline-offset: var(--sando-switch-focusOutlineOffset);
+    /*
+     * Vertical alignment fix: When container uses align-items: flex-start,
+     * we need margin-top to visually center the track with the first line of text.
+     * Formula: (lineHeight - 1em) / 2 approximates centering with x-height.
+     * Using 0.125em works well for typical line-heights (1.4-1.6).
+     */
+    margin-top: 0.125em;
   }
 
   /* Focus visible on the track - uses JS-managed .focused class for reliability across Shadow DOM */
@@ -103,10 +115,12 @@ export const baseStyles = css`
     font-weight: var(--sando-switch-label-fontWeight);
     color: var(--sando-switch-label-textColor-default);
     user-select: none;
+    text-wrap: balance; /* Prevents orphan wrapping of required indicator */
   }
 
   /* Required indicator */
-  .required-indicator {
+  .switch-label[data-required]::after {
+    content: '*';
     color: var(--sando-switch-helperText-textColor-error);
     margin-inline-start: var(--sando-switch-requiredIndicator-marginInlineStart);
   }

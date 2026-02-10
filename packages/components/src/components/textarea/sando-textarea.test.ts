@@ -165,9 +165,9 @@ describe('sando-textarea', () => {
         <sando-textarea label="Test" required></sando-textarea>
       `);
 
-      const requiredIndicator = el.shadowRoot!.querySelector('.required-indicator');
-      expect(requiredIndicator).toBeDefined();
-      expect(requiredIndicator!.textContent).toBe('*');
+      const label = el.shadowRoot!.querySelector('.textarea-label');
+      expect(label).toBeDefined();
+      expect(label!.hasAttribute('data-required')).toBe(true);
     });
 
     it('should NOT render required indicator when required=false', async () => {
@@ -175,8 +175,8 @@ describe('sando-textarea', () => {
         <sando-textarea label="Test"></sando-textarea>
       `);
 
-      const requiredIndicator = el.shadowRoot!.querySelector('.required-indicator');
-      expect(requiredIndicator).toBeNull();
+      const label = el.shadowRoot!.querySelector('.textarea-label');
+      expect(label!.hasAttribute('data-required')).toBe(false);
     });
 
     it('should be accessible', async () => {

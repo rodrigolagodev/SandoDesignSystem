@@ -346,10 +346,8 @@ export class SandoRadio extends FlavorableMixin(LitElement) {
           <!-- Label text -->
           ${hasLabel
             ? html`
-                <span class="radio-label">
-                  ${this.label || ''}<slot></slot>${this.required
-                    ? html`<span class="required-indicator" aria-hidden="true">*</span>`
-                    : nothing}
+                <span class="radio-label" ?data-required=${this.required}>
+                  ${this.label || ''}<slot></slot>
                 </span>
               `
             : nothing}

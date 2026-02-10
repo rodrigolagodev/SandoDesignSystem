@@ -97,9 +97,8 @@ describe('sando-label Accessibility', () => {
         const label = labelEl.shadowRoot?.querySelector('.label');
         expect(label?.getAttribute('for')).toBe('required-input');
 
-        // Label should have required indicator
-        const required = labelEl.shadowRoot?.querySelector('.label__required');
-        expect(required).not.toBeNull();
+        // Label should have data-required attribute for required indicator
+        expect(label?.hasAttribute('data-required')).toBe(true);
 
         const results = await axe(labelEl);
         expect(results).toHaveNoViolations();
@@ -349,8 +348,9 @@ describe('sando-label Accessibility', () => {
       `);
       await element.updateComplete;
 
-      const required = element.shadowRoot?.querySelector('.label__required');
-      expect(required?.getAttribute('aria-hidden')).toBe('true');
+      // Required indicator is now via CSS ::after, so we just verify the attribute exists
+      const label = element.shadowRoot?.querySelector('.label');
+      expect(label?.hasAttribute('data-required')).toBe(true);
     });
 
     it('should not announce asterisk to screen readers', async () => {
@@ -359,10 +359,10 @@ describe('sando-label Accessibility', () => {
       `);
       await element.updateComplete;
 
-      // The asterisk is purely decorative
-      const required = element.shadowRoot?.querySelector('.label__required');
-      expect(required).not.toBeNull();
-      expect(required?.getAttribute('aria-hidden')).toBe('true');
+      // The asterisk is purely decorative (rendered via CSS ::after)
+      // We verify data-required attribute exists but it's not part of accessible name
+      const label = element.shadowRoot?.querySelector('.label');
+      expect(label?.hasAttribute('data-required')).toBe(true);
 
       // The accessible name should be just the label text
       const accessibleName = element.textContent?.trim();
@@ -581,7 +581,6 @@ describe('sando-label Accessibility', () => {
       element = await fixture<SandoLabel>(html`
         <sando-label required>
           <strong>Important</strong> Field
-          <span slot="required-indicator">(Required)</span>
           <span slot="helper-text">Please fill this out</span>
         </sando-label>
       `);

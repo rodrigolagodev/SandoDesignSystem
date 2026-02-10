@@ -29,6 +29,14 @@ export const baseStyles = css`
     display: block;
     color: var(--sando-label-textColor-default);
     font-weight: var(--sando-label-fontWeight-medium);
+    text-wrap: balance; /* Prevents orphan wrapping of required indicator */
+  }
+
+  /* Required indicator via ::after pseudo-element */
+  .radio-group-label[data-required]::after {
+    content: '*';
+    color: var(--sando-label-required-textColor);
+    margin-inline-start: var(--sando-label-required-marginInlineStart);
   }
 
   /* Small size label */
@@ -48,12 +56,6 @@ export const baseStyles = css`
   :host([size='lg']) .radio-group-label {
     font-size: var(--sando-label-size-lg-fontSize);
     line-height: var(--sando-label-size-lg-lineHeight);
-  }
-
-  /* Required indicator - using shared sando-label tokens */
-  .required-indicator {
-    color: var(--sando-label-required-textColor);
-    margin-inline-start: var(--sando-label-required-marginInlineStart);
   }
 
   /* Options container - default vertical */

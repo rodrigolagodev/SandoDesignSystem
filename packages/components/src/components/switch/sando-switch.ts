@@ -283,10 +283,8 @@ export class SandoSwitch extends FlavorableMixin(LitElement) {
             <span class="switch-thumb"></span>
           </span>
 
-          <span class="switch-label">
-            ${this.label || ''}<slot></slot>${this.required
-              ? html`<span class="required-indicator" aria-hidden="true">*</span>`
-              : nothing}
+          <span class="switch-label" ?data-required=${this.required}>
+            ${this.label || ''}<slot></slot>
           </span>
         </label>
 
