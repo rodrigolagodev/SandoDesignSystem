@@ -2,27 +2,27 @@
   "spinner": {
     "size": {
       "xs": {
-        "value": "{sizing.spinner.xs.value}",
+        "value": "{sizing.indicator.xs.value}",
         "type": "dimension",
         "description": "Extra small spinner (12px) - inline use, badges"
       },
       "sm": {
-        "value": "{sizing.spinner.sm.value}",
+        "value": "{sizing.indicator.sm.value}",
         "type": "dimension",
         "description": "Small spinner (16px) - small buttons"
       },
       "md": {
-        "value": "{sizing.spinner.md.value}",
+        "value": "{sizing.indicator.md.value}",
         "type": "dimension",
         "description": "Medium spinner (24px) - default size"
       },
       "lg": {
-        "value": "{sizing.spinner.lg.value}",
+        "value": "{sizing.indicator.lg.value}",
         "type": "dimension",
         "description": "Large spinner (32px) - section loading"
       },
       "xl": {
-        "value": "{sizing.spinner.xl.value}",
+        "value": "{sizing.indicator.xl.value}",
         "type": "dimension",
         "description": "Extra large spinner (48px) - page loading"
       }

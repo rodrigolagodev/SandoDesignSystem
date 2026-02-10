@@ -258,54 +258,94 @@
       "lg": { "value": "{font.size.600.value}", "type": "dimension" },
       "xl": { "value": "{font.size.700.value}", "type": "dimension" }
     },
-    "spinner": {
+    "indicator": {
       "xs": {
         "value": "{font.size.100.value}",
         "type": "dimension",
-        "description": "12px - inline, badges"
+        "description": "Circular indicators 12px (inline, badges)"
       },
       "sm": {
         "value": "{font.size.300.value}",
         "type": "dimension",
-        "description": "16px - small buttons"
+        "description": "Circular indicators 16px (small buttons)"
       },
       "md": {
         "value": "{font.size.600.value}",
         "type": "dimension",
-        "description": "24px - default"
+        "description": "Circular indicators 24px (default)"
       },
       "lg": {
         "value": "{font.size.700.value}",
         "type": "dimension",
-        "description": "32px - sections"
+        "description": "Circular indicators 32px (sections)"
       },
       "xl": {
         "value": "{font.size.900.value}",
         "type": "dimension",
-        "description": "48px - page loading"
+        "description": "Circular indicators 48px (page loading)"
       }
     },
-    "switch": {
+    "toggle": {
       "track": {
         "sm": {
-          "width": { "value": "{space.8.value}", "type": "dimension" },
-          "height": { "value": "{space.5.value}", "type": "dimension" }
+          "width": {
+            "value": "{space.8.value}",
+            "type": "dimension",
+            "description": "Toggle track width sm (32px)"
+          },
+          "height": {
+            "value": "{space.5.value}",
+            "type": "dimension",
+            "description": "Toggle track height sm (20px)"
+          }
         },
         "md": {
-          "width": { "value": "{space.10.value}", "type": "dimension" },
-          "height": { "value": "{space.6.value}", "type": "dimension" }
+          "width": {
+            "value": "{space.10.value}",
+            "type": "dimension",
+            "description": "Toggle track width md (40px)"
+          },
+          "height": {
+            "value": "{space.6.value}",
+            "type": "dimension",
+            "description": "Toggle track height md (24px)"
+          }
         },
         "lg": {
-          "width": { "value": "{space.12.value}", "type": "dimension" },
-          "height": { "value": "{space.7.value}", "type": "dimension" }
+          "width": {
+            "value": "{space.12.value}",
+            "type": "dimension",
+            "description": "Toggle track width lg (48px)"
+          },
+          "height": {
+            "value": "{space.7.value}",
+            "type": "dimension",
+            "description": "Toggle track height lg (28px)"
+          }
         }
       },
       "thumb": {
-        "sm": { "value": "{space.3.value}", "type": "dimension" },
-        "md": { "value": "{space.4.value}", "type": "dimension" },
-        "lg": { "value": "{space.5.value}", "type": "dimension" }
+        "sm": {
+          "value": "{space.3.value}",
+          "type": "dimension",
+          "description": "Toggle thumb size sm (12px)"
+        },
+        "md": {
+          "value": "{space.4.value}",
+          "type": "dimension",
+          "description": "Toggle thumb size md (16px)"
+        },
+        "lg": {
+          "value": "{space.5.value}",
+          "type": "dimension",
+          "description": "Toggle thumb size lg (20px)"
+        }
       },
-      "offset": { "value": "{space.1.value}", "type": "dimension" }
+      "offset": {
+        "value": "{space.1.value}",
+        "type": "dimension",
+        "description": "Toggle thumb offset from track edge (4px)"
+      }
     }
   },
   "elevation": {
