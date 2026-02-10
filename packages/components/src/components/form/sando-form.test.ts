@@ -1,6 +1,9 @@
 import { fixture, expect, oneEvent } from '@open-wc/testing';
 import { html } from 'lit';
 import './sando-form.js';
+import '../input/sando-input.js';
+import '../checkbox/sando-checkbox.js';
+import '../switch/sando-switch.js';
 import type { SandoForm } from './sando-form.js';
 import type { FormSubmitEventDetail, FormInvalidEventDetail } from './sando-form.types.js';
 
@@ -317,6 +320,184 @@ describe('sando-form', () => {
       const event = await oneEvent(el, 'sando-reset');
 
       expect(event).to.exist;
+    });
+  });
+
+  describe('sando component integration', () => {
+    it('should collect values from sando-input', async () => {
+      const el = await fixture<SandoForm>(html`
+        <sando-form>
+          <sando-input name="email" value="test@example.com"></sando-input>
+        </sando-form>
+      `);
+
+      const json = el.getJson();
+      expect(json.email).to.equal('test@example.com');
+    });
+
+    it('should validate required sando-input', async () => {
+      const el = await fixture<SandoForm>(html`
+        <sando-form>
+          <sando-input name="email" required></sando-input>
+        </sando-form>
+      `);
+
+      expect(el.validate()).to.be.false;
+
+      // Check that error state was set
+      const input = el.querySelector('sando-input');
+      expect((input as any).error).to.be.true;
+    });
+
+    it('should validate required sando-checkbox', async () => {
+      const el = await fixture<SandoForm>(html`
+        <sando-form>
+          <sando-checkbox name="terms" required></sando-checkbox>
+        </sando-form>
+      `);
+
+      expect(el.validate()).to.be.false;
+
+      const checkbox = el.querySelector('sando-checkbox');
+      expect((checkbox as any).error).to.be.true;
+    });
+
+    it('should pass validation when sando-checkbox is checked', async () => {
+      const el = await fixture<SandoForm>(html`
+        <sando-form>
+          <sando-checkbox name="terms" required checked></sando-checkbox>
+        </sando-form>
+      `);
+
+      expect(el.validate()).to.be.true;
+    });
+
+    it('should validate required sando-switch', async () => {
+      const el = await fixture<SandoForm>(html`
+        <sando-form>
+          <sando-switch name="notifications" required></sando-switch>
+        </sando-form>
+      `);
+
+      expect(el.validate()).to.be.false;
+    });
+
+    it('should pass validation when sando-switch is checked', async () => {
+      const el = await fixture<SandoForm>(html`
+        <sando-form>
+          <sando-switch name="notifications" required checked></sando-switch>
+        </sando-form>
+      `);
+
+      expect(el.validate()).to.be.true;
+    });
+
+    it('should collect checkbox value only when checked', async () => {
+      const el = await fixture<SandoForm>(html`
+        <sando-form>
+          <sando-checkbox name="accept" value="yes" checked></sando-checkbox>
+          <sando-checkbox name="newsletter" value="yes"></sando-checkbox>
+        </sando-form>
+      `);
+
+      const json = el.getJson();
+      expect(json.accept).to.equal('yes');
+      expect(json.newsletter).to.be.undefined;
+    });
+
+    it('should focus first invalid sando-input on validation failure', async () => {
+      const el = await fixture<SandoForm>(html`
+        <sando-form>
+          <sando-input name="name" value="John"></sando-input>
+          <sando-input name="email" required></sando-input>
+          <sando-input name="phone" required></sando-input>
+        </sando-form>
+      `);
+
+      el.validate();
+
+      // The email input should be focused (first invalid)
+      const emailInput = el.querySelector('sando-input[name="email"]');
+      expect(document.activeElement).to.equal(emailInput);
+    });
+
+    it('should reset sando components to initial values', async () => {
+      const el = await fixture<SandoForm>(html`
+        <sando-form>
+          <sando-input name="email" value="initial@example.com"></sando-input>
+          <sando-checkbox name="terms" checked></sando-checkbox>
+        </sando-form>
+      `);
+
+      // Wait for firstUpdated to capture initial values
+      await el.updateComplete;
+
+      // Modify values
+      const input = el.querySelector('sando-input') as any;
+      const checkbox = el.querySelector('sando-checkbox') as any;
+
+      input.value = 'modified@example.com';
+      checkbox.checked = false;
+
+      // Reset
+      el.reset();
+      await el.updateComplete;
+
+      // Should restore to initial values
+      expect(input.value).to.equal('initial@example.com');
+      expect(checkbox.checked).to.be.true;
+    });
+
+    it('should track dirty state', async () => {
+      const el = await fixture<SandoForm>(html`
+        <sando-form>
+          <sando-input name="email"></sando-input>
+        </sando-form>
+      `);
+
+      expect(el.dirty).to.be.false;
+      expect(el.pristine).to.be.true;
+
+      // Simulate input event
+      const input = el.querySelector('sando-input') as HTMLElement;
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+
+      expect(el.dirty).to.be.true;
+      expect(el.pristine).to.be.false;
+    });
+
+    it('should reset dirty state on reset()', async () => {
+      const el = await fixture<SandoForm>(html`
+        <sando-form>
+          <sando-input name="email"></sando-input>
+        </sando-form>
+      `);
+
+      // Make dirty
+      const input = el.querySelector('sando-input') as HTMLElement;
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      expect(el.dirty).to.be.true;
+
+      // Reset
+      el.reset();
+      expect(el.dirty).to.be.false;
+    });
+
+    it('should emit sando-change on input', async () => {
+      const el = await fixture<SandoForm>(html`
+        <sando-form>
+          <sando-input name="email"></sando-input>
+        </sando-form>
+      `);
+
+      const input = el.querySelector('sando-input') as HTMLElement;
+
+      setTimeout(() => {
+        input.dispatchEvent(new Event('input', { bubbles: true }));
+      });
+
+      const event = await oneEvent(el, 'sando-change');
+      expect(event.detail.field).to.equal('email');
     });
   });
 });

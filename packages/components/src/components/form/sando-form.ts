@@ -1,12 +1,14 @@
 import { LitElement, html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { customElement, property, state } from 'lit/decorators.js';
 import type {
   SandoFormProps,
   FormMethod,
   FormSubmitEventDetail,
   FormInvalidEventDetail,
   FormResetEventDetail,
-  FormValidationError
+  FormValidationError,
+  FormChangeEventDetail,
+  FormValidateEventDetail
 } from './sando-form.types.js';
 import { FlavorableMixin } from '../../mixins/index.js';
 import { resetStyles } from '../../styles/reset.css.js';
@@ -114,12 +116,48 @@ export class SandoForm extends FlavorableMixin(LitElement) implements SandoFormP
   method: FormMethod = 'post';
 
   /**
+   * Form encoding type (for file uploads)
+   * @default undefined
+   */
+  @property({ type: String })
+  enctype?: 'application/x-www-form-urlencoded' | 'multipart/form-data' | 'text/plain';
+
+  /**
+   * Stores initial values for proper reset functionality
+   * @private
+   */
+  private _initialValues: Map<string, unknown> = new Map();
+
+  /**
+   * Tracks if any form field has been modified
+   * @private
+   */
+  @state()
+  private _dirty = false;
+
+  /**
+   * Whether any form field has been modified from its initial value
+   */
+  get dirty(): boolean {
+    return this._dirty;
+  }
+
+  /**
+   * Whether the form is in its initial state (no modifications)
+   */
+  get pristine(): boolean {
+    return !this._dirty;
+  }
+
+  /**
    * Lifecycle: Called when component is added to the DOM
    * Sets up click event listener for sando-button submit/reset delegation
    */
   override connectedCallback(): void {
     super.connectedCallback();
     this.addEventListener('click', this._handleButtonClick);
+    this.addEventListener('input', this._handleFormChange);
+    this.addEventListener('change', this._handleFormChange);
   }
 
   /**
@@ -129,6 +167,16 @@ export class SandoForm extends FlavorableMixin(LitElement) implements SandoFormP
   override disconnectedCallback(): void {
     super.disconnectedCallback();
     this.removeEventListener('click', this._handleButtonClick);
+    this.removeEventListener('input', this._handleFormChange);
+    this.removeEventListener('change', this._handleFormChange);
+  }
+
+  /**
+   * Lifecycle: Called after first render
+   * Captures initial values for reset functionality
+   */
+  override firstUpdated(): void {
+    this._captureInitialValues();
   }
 
   /**
@@ -149,6 +197,40 @@ export class SandoForm extends FlavorableMixin(LitElement) implements SandoFormP
    */
   submit(): void {
     const isValid = this.validate();
+
+    // Emit sando-validate event for custom validation
+    const validateDetail: FormValidateEventDetail = {
+      json: this.getJson(),
+      isValid,
+      errors: isValid ? [] : this._collectValidationErrors(),
+      addError: (name: string, message: string) => {
+        this._addCustomError(name, message);
+      }
+    };
+
+    const validateEvent = new CustomEvent('sando-validate', {
+      detail: validateDetail,
+      bubbles: true,
+      composed: true,
+      cancelable: true
+    });
+
+    this.dispatchEvent(validateEvent);
+
+    // If event was prevented or custom errors were added, treat as invalid
+    if (validateEvent.defaultPrevented) {
+      const errors = this._collectValidationErrors();
+      const detail: FormInvalidEventDetail = { errors };
+
+      this.dispatchEvent(
+        new CustomEvent('sando-invalid', {
+          detail,
+          bubbles: true,
+          composed: true
+        })
+      );
+      return;
+    }
 
     if (isValid) {
       const detail: FormSubmitEventDetail = {
@@ -188,31 +270,46 @@ export class SandoForm extends FlavorableMixin(LitElement) implements SandoFormP
     const controls = this._getFormControls();
 
     controls.forEach((control) => {
-      // Reset Sando components
-      if (control.tagName.toLowerCase().startsWith('sando-')) {
-        // Reset value
-        if ('value' in control) {
-          (control as HTMLInputElement).value = '';
-        }
-        // Reset checked state for checkboxes/switches
-        if ('checked' in control) {
-          (control as HTMLInputElement).checked = false;
+      const name = control.getAttribute('name');
+      const tagName = control.tagName.toLowerCase();
+
+      // Restore to initial value if captured, otherwise default behavior
+      if (name && this._initialValues.has(name)) {
+        const initialValue = this._initialValues.get(name);
+
+        if (tagName === 'sando-checkbox' || tagName === 'sando-switch') {
+          (control as unknown as { checked: boolean }).checked = initialValue as boolean;
+        } else if ('value' in control) {
+          (control as unknown as { value: unknown }).value = initialValue;
         }
       } else {
-        // Reset native form controls
-        if (control instanceof HTMLInputElement) {
-          if (control.type === 'checkbox' || control.type === 'radio') {
-            control.checked = control.defaultChecked;
-          } else {
+        // Fallback for controls not captured
+        if (tagName.startsWith('sando-')) {
+          if ('value' in control) {
+            (control as HTMLInputElement).value = '';
+          }
+          if ('checked' in control) {
+            (control as HTMLInputElement).checked = false;
+          }
+        } else {
+          // Native controls
+          if (control instanceof HTMLInputElement) {
+            if (control.type === 'checkbox' || control.type === 'radio') {
+              control.checked = control.defaultChecked;
+            } else {
+              control.value = control.defaultValue;
+            }
+          } else if (control instanceof HTMLSelectElement) {
+            control.selectedIndex = 0;
+          } else if (control instanceof HTMLTextAreaElement) {
             control.value = control.defaultValue;
           }
-        } else if (control instanceof HTMLSelectElement) {
-          control.selectedIndex = 0;
-        } else if (control instanceof HTMLTextAreaElement) {
-          control.value = control.defaultValue;
         }
       }
     });
+
+    // Reset dirty state
+    this._dirty = false;
 
     const detail: FormResetEventDetail = {};
     this.dispatchEvent(
@@ -266,6 +363,20 @@ export class SandoForm extends FlavorableMixin(LitElement) implements SandoFormP
         isValid = false;
       }
     });
+
+    // Focus first invalid control for better UX
+    if (!isValid) {
+      const firstInvalid = controls.find((control) => {
+        if (control.tagName.toLowerCase().startsWith('sando-')) {
+          return 'error' in control && (control as unknown as { error: boolean }).error === true;
+        }
+        return false;
+      });
+
+      if (firstInvalid && 'focus' in firstInvalid) {
+        (firstInvalid as HTMLElement).focus();
+      }
+    }
 
     return isValid;
   }
@@ -519,6 +630,76 @@ export class SandoForm extends FlavorableMixin(LitElement) implements SandoFormP
     // Note: Native buttons inside the shadow form already work via _handleSubmit/_handleReset
   };
 
+  /**
+   * Capture initial values of all form controls
+   * @private
+   */
+  private _captureInitialValues(): void {
+    const controls = this._getFormControls();
+
+    controls.forEach((control) => {
+      const name = control.getAttribute('name');
+      if (!name) return;
+
+      const tagName = control.tagName.toLowerCase();
+
+      // Store checked state for checkboxes/switches
+      if (tagName === 'sando-checkbox' || tagName === 'sando-switch') {
+        this._initialValues.set(
+          name,
+          (control as unknown as { checked?: boolean }).checked ?? false
+        );
+      } else if ('value' in control) {
+        this._initialValues.set(name, (control as unknown as { value?: unknown }).value ?? '');
+      }
+    });
+  }
+
+  /**
+   * Handle input/change events to track dirty state and emit sando-change
+   * @private
+   */
+  private _handleFormChange = (event: Event): void => {
+    const target = event.target as HTMLElement;
+
+    // Only handle form controls
+    if (!target.matches(FORM_CONTROL_SELECTORS)) return;
+
+    // Mark as dirty
+    if (!this._dirty) {
+      this._dirty = true;
+    }
+
+    // Emit sando-change event
+    const detail: FormChangeEventDetail = {
+      field: target.getAttribute('name'),
+      value: this._getControlValue(target),
+      json: this.getJson()
+    };
+
+    this.dispatchEvent(
+      new CustomEvent('sando-change', {
+        detail,
+        bubbles: true,
+        composed: true
+      })
+    );
+  };
+
+  /**
+   * Add a custom validation error to a field
+   * @private
+   */
+  private _addCustomError(name: string, message: string): void {
+    const control = this.querySelector(`[name="${name}"]`) as HTMLElement;
+    if (control && 'error' in control) {
+      (control as unknown as { error: boolean }).error = true;
+      if ('errorText' in control) {
+        (control as unknown as { errorText: string }).errorText = message;
+      }
+    }
+  }
+
   render() {
     return html`
       <form
@@ -526,6 +707,7 @@ export class SandoForm extends FlavorableMixin(LitElement) implements SandoFormP
         name=${this.name || ''}
         action=${this.action || ''}
         method=${this.method}
+        enctype=${this.enctype || ''}
         ?novalidate=${this.novalidate}
         @submit=${this._handleSubmit}
         @reset=${this._handleReset}

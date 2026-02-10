@@ -59,9 +59,13 @@ export type {
   FormSubmitEventDetail,
   FormInvalidEventDetail,
   FormResetEventDetail,
+  FormChangeEventDetail,
+  FormValidateEventDetail,
   FormSubmitEvent,
   FormInvalidEvent,
-  FormResetEvent
+  FormResetEvent,
+  FormChangeEvent,
+  FormValidateEvent
 } from './components/form/index.js';
 
 export { SandoCheckbox } from './components/checkbox/index.js';

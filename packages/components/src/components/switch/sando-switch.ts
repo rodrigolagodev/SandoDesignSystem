@@ -329,18 +329,26 @@ export class SandoSwitch extends FlavorableMixin(LitElement) {
 
   /**
    * Public API: Check validity of switch
-   * Delegates to native input validation API
+   * Validates required constraint and delegates to native input
    */
   checkValidity(): boolean {
+    // Check required constraint manually (native input is not in a form context)
+    if (this.required && !this.checked) {
+      return false;
+    }
     return this._inputElement?.checkValidity() ?? true;
   }
 
   /**
-   * Public API: Report validity with browser UI
-   * Delegates to native input validation API
+   * Public API: Report validity with visual feedback
+   * Sets error state if invalid
    */
   reportValidity(): boolean {
-    return this._inputElement?.reportValidity() ?? true;
+    const isValid = this.checkValidity();
+    if (!isValid) {
+      this.error = true;
+    }
+    return isValid;
   }
 
   /**

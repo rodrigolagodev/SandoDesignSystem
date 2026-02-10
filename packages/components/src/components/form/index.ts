@@ -12,7 +12,11 @@ export type {
   FormSubmitEventDetail,
   FormInvalidEventDetail,
   FormResetEventDetail,
+  FormChangeEventDetail,
+  FormValidateEventDetail,
   FormSubmitEvent,
   FormInvalidEvent,
-  FormResetEvent
+  FormResetEvent,
+  FormChangeEvent,
+  FormValidateEvent
 } from './sando-form.types.js';

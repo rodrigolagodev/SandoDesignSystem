@@ -623,6 +623,40 @@ export class SandoRadioGroup extends FlavorableMixin(LitElement) implements Sand
     });
     this._updateRovingTabindex();
   }
+
+  /**
+   * Public API: Check validity of radio group
+   * Validates required constraint - at least one option must be selected
+   */
+  checkValidity(): boolean {
+    // Check required constraint - must have a selected value
+    if (this.required && !this.value) {
+      return false;
+    }
+    return true;
+  }
+
+  /**
+   * Public API: Report validity with visual feedback
+   * Sets error state if invalid
+   */
+  reportValidity(): boolean {
+    const isValid = this.checkValidity();
+    if (!isValid) {
+      this.error = true;
+    }
+    return isValid;
+  }
+
+  /**
+   * Public API: Get validation message
+   */
+  get validationMessage(): string {
+    if (this.required && !this.value) {
+      return 'Please select an option';
+    }
+    return '';
+  }
 }
 
 declare global {

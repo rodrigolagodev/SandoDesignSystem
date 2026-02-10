@@ -8,6 +8,8 @@ import '../button/sando-button.js';
 import '../checkbox/sando-checkbox.js';
 import '../select/sando-select.js';
 import '../textarea/sando-textarea.js';
+import '../radio-group/sando-radio-group.js';
+import '../radio/sando-radio.js';
 import type { SandoForm } from './sando-form.js';
 import type { FormSubmitEventDetail, FormInvalidEventDetail } from './sando-form.types.js';
 
@@ -100,6 +102,18 @@ const meta: Meta = {
         category: 'Attributes',
         type: { summary: "'get' | 'post'" },
         defaultValue: { summary: "'post'" }
+      }
+    },
+    enctype: {
+      control: 'select',
+      options: ['application/x-www-form-urlencoded', 'multipart/form-data', 'text/plain'],
+      description: 'Form encoding type for file uploads',
+      table: {
+        category: 'Attributes',
+        type: {
+          summary: "'application/x-www-form-urlencoded' | 'multipart/form-data' | 'text/plain'"
+        },
+        defaultValue: { summary: 'undefined' }
       }
     },
     // 3. State
@@ -488,4 +502,207 @@ Interact with the form to see events...</pre
     `;
   },
   parameters: { controls: { disable: true } }
+};
+
+/**
+ * Demonstrates dirty/pristine state tracking
+ */
+export const DirtyStateTracking: Story = {
+  render: () => {
+    const updateStatus = () => {
+      const form = document.querySelector<SandoForm>('#dirty-form');
+      const status = document.querySelector('#dirty-status');
+      if (form && status) {
+        status.textContent = form.dirty ? '⚠️ Form has unsaved changes' : '✅ Form is pristine';
+        (status as HTMLElement).style.color = form.dirty ? '#d97706' : '#059669';
+      }
+    };
+
+    const handleSave = (e: CustomEvent) => {
+      // Show success message
+      const status = document.querySelector('#dirty-status');
+      if (status) {
+        status.textContent = '✅ Changes saved successfully!';
+        (status as HTMLElement).style.color = '#059669';
+      }
+
+      // Reset dirty state by re-capturing initial values
+      const form = document.querySelector<SandoForm>('#dirty-form');
+      if (form) {
+        // The form is now "pristine" with the new values as initial
+        setTimeout(() => {
+          updateStatus();
+        }, 2000); // Show "saved" message for 2 seconds, then update status
+      }
+
+      // Log to actions panel
+      onSandoSubmit(e);
+    };
+
+    return html`
+      <div style="display: flex; flex-direction: column; gap: 16px; max-width: 400px;">
+        <div
+          id="dirty-status"
+          style="padding: 8px; border-radius: 4px; background: #f5f5f5; font-weight: 500;"
+        >
+          ✅ Form is pristine
+        </div>
+
+        <sando-form
+          id="dirty-form"
+          @sando-submit=${handleSave}
+          @sando-change=${updateStatus}
+          @sando-reset=${updateStatus}
+        >
+          <div style="display: flex; flex-direction: column; gap: 16px;">
+            <sando-input name="name" label="Name" value="John Doe"></sando-input>
+            <sando-input name="email" label="Email" value="john@example.com"></sando-input>
+            <div style="display: flex; gap: 8px;">
+              <sando-button type="submit">Save Changes</sando-button>
+              <sando-button type="reset" variant="outline">Discard</sando-button>
+            </div>
+          </div>
+        </sando-form>
+      </div>
+    `;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'The form tracks whether any field has been modified. Use `dirty` and `pristine` properties to show unsaved changes warnings.'
+      }
+    }
+  }
+};
+
+/**
+ * Custom validation with password confirmation
+ */
+export const CustomValidation: Story = {
+  render: () => {
+    const handleValidate = (e: CustomEvent) => {
+      const { json, addError } = e.detail;
+
+      // Custom validation: passwords must match
+      if (json.password !== json.confirmPassword) {
+        addError('confirmPassword', 'Passwords do not match');
+        e.preventDefault();
+      }
+
+      // Custom validation: password strength
+      if (json.password && (json.password as string).length < 8) {
+        addError('password', 'Password must be at least 8 characters');
+        e.preventDefault();
+      }
+    };
+
+    return html`
+      <sando-form
+        @sando-submit="${onSandoSubmit}"
+        @sando-invalid="${onSandoInvalid}"
+        @sando-validate="${handleValidate}"
+      >
+        <div style="display: flex; flex-direction: column; gap: 16px; max-width: 400px;">
+          <sando-input
+            name="email"
+            label="Email"
+            type="email"
+            required
+            error-text="Please enter a valid email"
+          ></sando-input>
+          <sando-input
+            name="password"
+            label="Password"
+            type="password"
+            required
+            helper-text="Must be at least 8 characters"
+            error-text="Password is required"
+          ></sando-input>
+          <sando-input
+            name="confirmPassword"
+            label="Confirm Password"
+            type="password"
+            required
+            error-text="Please confirm your password"
+          ></sando-input>
+          <sando-button type="submit">Create Account</sando-button>
+        </div>
+      </sando-form>
+    `;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use the `sando-validate` event to add custom validation logic like password confirmation. Call `addError(fieldName, message)` and `e.preventDefault()` to block submission.'
+      }
+    }
+  }
+};
+
+/**
+ * Form with required checkbox (terms acceptance)
+ */
+export const RequiredCheckbox: Story = {
+  render: () => html`
+    <sando-form @sando-submit="${onSandoSubmit}" @sando-invalid="${onSandoInvalid}">
+      <div style="display: flex; flex-direction: column; gap: 16px; max-width: 400px;">
+        <sando-input
+          name="email"
+          label="Email"
+          type="email"
+          required
+          error-text="Email is required"
+        ></sando-input>
+        <sando-checkbox name="terms" required error-text="You must accept the terms">
+          I agree to the Terms of Service and Privacy Policy
+        </sando-checkbox>
+        <sando-checkbox name="newsletter"> Subscribe to newsletter (optional) </sando-checkbox>
+        <sando-button type="submit">Sign Up</sando-button>
+      </div>
+    </sando-form>
+  `,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Required checkboxes are properly validated. The form will not submit until the required checkbox is checked.'
+      }
+    }
+  }
+};
+
+/**
+ * Form with required radio group
+ */
+export const RadioGroupValidation: Story = {
+  render: () => html`
+    <sando-form @sando-submit="${onSandoSubmit}" @sando-invalid="${onSandoInvalid}">
+      <div style="display: flex; flex-direction: column; gap: 16px; max-width: 400px;">
+        <sando-input name="name" label="Name" required error-text="Name is required"></sando-input>
+
+        <sando-radio-group
+          name="plan"
+          label="Select a plan"
+          required
+          error-text="Please select a plan"
+        >
+          <sando-radio value="free" label="Free - $0/month"></sando-radio>
+          <sando-radio value="pro" label="Pro - $9/month"></sando-radio>
+          <sando-radio value="enterprise" label="Enterprise - $29/month"></sando-radio>
+        </sando-radio-group>
+
+        <sando-button type="submit">Continue</sando-button>
+      </div>
+    </sando-form>
+  `,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Radio groups with `required` attribute are validated - at least one option must be selected.'
+      }
+    }
+  }
 };
