@@ -41,7 +41,7 @@ import type { FormSubmitEventDetail, FormInvalidEventDetail } from './sando-form
 const meta: Meta = {
   title: 'Components/Form',
   component: 'sando-form',
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   render: (args) => html`
     <sando-form
       flavor="${args.flavor || 'original'}"
@@ -534,20 +534,22 @@ export const DirtyStateTracking: Story = {
     };
 
     const handleSave = (e: CustomEvent) => {
-      // Show success message
       const badge = document.querySelector('#dirty-status');
+      const form = document.querySelector<SandoForm>('#dirty-form');
+
       if (badge) {
         badge.textContent = 'Saved!';
         badge.setAttribute('color', 'success');
       }
 
-      // Reset dirty state by re-capturing initial values
-      const form = document.querySelector<SandoForm>('#dirty-form');
+      // Mark form as pristine with current values as new initial values
       if (form) {
-        // The form is now "pristine" with the new values as initial
+        form.markAsPristine();
+
+        // Show "saved" message for 2 seconds, then update status
         setTimeout(() => {
           updateStatus();
-        }, 2000); // Show "saved" message for 2 seconds, then update status
+        }, 2000);
       }
 
       // Log to actions panel

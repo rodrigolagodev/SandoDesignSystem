@@ -150,6 +150,25 @@ export class SandoForm extends FlavorableMixin(LitElement) implements SandoFormP
   }
 
   /**
+   * Marks the form as pristine by capturing current values as the new initial values.
+   * Useful after a successful save operation when you want to reset the dirty state
+   * but keep the current values as the new baseline.
+   *
+   * @example After successful save
+   * ```js
+   * const form = document.querySelector('sando-form');
+   * form.addEventListener('sando-submit', async (e) => {
+   *   await saveToServer(e.detail.json);
+   *   form.markAsPristine(); // Current values become new initial values
+   * });
+   * ```
+   */
+  markAsPristine(): void {
+    this._captureInitialValues();
+    this._dirty = false;
+  }
+
+  /**
    * Lifecycle: Called when component is added to the DOM
    * Sets up click event listener for sando-button submit/reset delegation
    */
