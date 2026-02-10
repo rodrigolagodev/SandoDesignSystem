@@ -1,0 +1,177 @@
+{
+  "skeleton": {
+    "color": {
+      "background": {
+        "value": "{color.background.emphasis.value}",
+        "type": "color",
+        "description": "Base background color of skeleton placeholder"
+      },
+      "shimmer": {
+        "value": "{color.background.raised.value}",
+        "type": "color",
+        "description": "Shimmer highlight color (lighter than background)"
+      }
+    },
+    "animation": {
+      "duration": {
+        "value": "{animation.duration.slow.value}",
+        "type": "duration",
+        "description": "Duration of shimmer/pulse animation cycle"
+      },
+      "easing": {
+        "value": "{animation.easing.default.value}",
+        "type": "cubicBezier",
+        "description": "Easing for shimmer movement"
+      }
+    },
+    "borderRadius": {
+      "text": {
+        "value": "{border.radius.muted.value}",
+        "type": "dimension",
+        "description": "Subtle radius for text-line skeletons"
+      },
+      "circular": {
+        "value": "{border.radius.circular.value}",
+        "type": "dimension",
+        "description": "Full circle for avatar skeletons"
+      },
+      "rectangular": {
+        "value": "0",
+        "type": "dimension",
+        "description": "No radius for sharp-edge containers"
+      },
+      "rounded": {
+        "value": "{border.radius.default.value}",
+        "type": "dimension",
+        "description": "Default radius for card-like skeletons"
+      }
+    },
+    "spacing": {
+      "gap": {
+        "xs": {
+          "value": "{space.stack.tight.value}",
+          "type": "dimension",
+          "description": "Tight spacing between skeleton lines"
+        },
+        "sm": {
+          "value": "{space.stack.muted.value}",
+          "type": "dimension",
+          "description": "Small gap between skeleton elements"
+        },
+        "md": {
+          "value": "{space.stack.default.value}",
+          "type": "dimension",
+          "description": "Medium gap between skeleton sections"
+        },
+        "lg": {
+          "value": "{space.stack.emphasis.value}",
+          "type": "dimension",
+          "description": "Large gap for skeleton groups"
+        }
+      }
+    },
+    "size": {
+      "text": {
+        "height": {
+          "sm": {
+            "value": "{font.size.caption.value}",
+            "type": "dimension",
+            "description": "Small text skeleton height (caption size)"
+          },
+          "md": {
+            "value": "{font.size.body.value}",
+            "type": "dimension",
+            "description": "Medium text skeleton height (body size)"
+          },
+          "lg": {
+            "value": "{font.size.heading-200.value}",
+            "type": "dimension",
+            "description": "Large text skeleton height (heading size)"
+          }
+        }
+      },
+      "avatar": {
+        "xs": {
+          "value": "{sizing.control.xs.value}",
+          "type": "dimension",
+          "description": "Extra small avatar skeleton (24px)"
+        },
+        "sm": {
+          "value": "{sizing.control.sm.value}",
+          "type": "dimension",
+          "description": "Small avatar skeleton (32px)"
+        },
+        "md": {
+          "value": "{sizing.control.md.value}",
+          "type": "dimension",
+          "description": "Medium avatar skeleton (36px)"
+        },
+        "lg": {
+          "value": "{sizing.control.lg.value}",
+          "type": "dimension",
+          "description": "Large avatar skeleton (44px)"
+        },
+        "xl": {
+          "value": "{sizing.icon.xl.value}",
+          "type": "dimension",
+          "description": "Extra large avatar skeleton (64px via icon sizing)"
+        }
+      },
+      "button": {
+        "height": {
+          "sm": {
+            "value": "{sizing.control.sm.value}",
+            "type": "dimension",
+            "description": "Small button skeleton height"
+          },
+          "md": {
+            "value": "{sizing.control.md.value}",
+            "type": "dimension",
+            "description": "Medium button skeleton height"
+          },
+          "lg": {
+            "value": "{sizing.control.lg.value}",
+            "type": "dimension",
+            "description": "Large button skeleton height"
+          }
+        },
+        "width": {
+          "sm": {
+            "value": "4rem",
+            "type": "dimension",
+            "description": "Small button skeleton width (64px)"
+          },
+          "md": {
+            "value": "6rem",
+            "type": "dimension",
+            "description": "Medium button skeleton width (96px)"
+          },
+          "lg": {
+            "value": "8rem",
+            "type": "dimension",
+            "description": "Large button skeleton width (128px)"
+          }
+        }
+      }
+    },
+    "paragraph": {
+      "lineSpacing": {
+        "sm": {
+          "value": "{space.stack.tight.value}",
+          "type": "dimension",
+          "description": "Tight line spacing for compact text"
+        },
+        "md": {
+          "value": "{space.stack.muted.value}",
+          "type": "dimension",
+          "description": "Default line spacing between text lines"
+        },
+        "lg": {
+          "value": "{space.inset.muted.value}",
+          "type": "dimension",
+          "description": "Generous line spacing for larger text"
+        }
+      }
+    }
+  }
+}

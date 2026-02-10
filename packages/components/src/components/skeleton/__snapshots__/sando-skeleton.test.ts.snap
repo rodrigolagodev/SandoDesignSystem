@@ -1,0 +1,1705 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`sando-skeleton > snapshots > matches snapshot for circular shape 1`] = `
+"<!---->
+      <div class="skeleton" part="skeleton" role="presentation" aria-hidden="true" style="--skeleton-width:40px;--skeleton-height:40px;">
+        <!--?lit$455247152$--><div class="skeleton__shimmer" part="shimmer"></div>
+      </div>
+    <style>
+  /* ============================================
+     1. BOX MODEL RESET
+     Ensures padding/border are included in size
+     ============================================ */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  /* ============================================
+     2. HOST DEFAULTS
+     Common :host defaults for all components
+     ============================================ */
+  :host {
+    /* Font inheritance from light DOM */
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
+  }
+
+  :host([hidden]) {
+    display: none !important;
+  }
+
+  /* ============================================
+     3. FORM ELEMENTS RESET
+     
+     All form elements receive a consistent baseline:
+     - padding: 0 (components apply their own via tokens)
+     - background: transparent (prevents browser backgrounds)
+     - border: none (prevents browser borders)
+     
+     This ensures all components (Input, Select, Textarea, etc.)
+     start from the same visual foundation.
+     
+     For complete element reset (all: unset), use:
+     import { interactiveReset } from 'styles/shared/base.styles.ts'
+     ============================================ */
+  button,
+  input,
+  select,
+  textarea {
+    /* Inherit font from parent */
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
+
+    /* Remove default margin */
+    margin: 0;
+
+    /* Remove default padding for consistent sizing */
+    padding: 0;
+
+    /* Remove default background and border */
+    background: transparent;
+    border: none;
+
+    /* Box sizing */
+    box-sizing: border-box;
+  }
+
+  button {
+    /* Button-specific behavior */
+    cursor: pointer;
+    text-align: inherit;
+  }
+
+  /* ============================================
+     4. TYPOGRAPHY RESET
+     ============================================ */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    margin: 0;
+  }
+
+  /* ============================================
+     5. MEDIA RESET
+     ============================================ */
+  img,
+  svg,
+  video,
+  canvas {
+    display: block;
+    max-width: 100%;
+  }
+
+  /* ============================================
+     6. ACCESSIBILITY
+     ============================================ */
+  /* Respect user preferences for reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+</style><style>
+  /* ========================================
+     INGREDIENTS LAYER - Primitives
+     Base values that never change by flavor
+     ======================================== */
+  
+  
+  
+  
+  
+  
+  
+  
+
+  /* ========================================
+     RECIPES LAYER - Component Tokens
+     Reference Flavor tokens from Light DOM
+     ======================================== */
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</style><style>
+  /* ============================================
+     KEYFRAMES
+     ============================================ */
+
+  @keyframes sando-shimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  @keyframes sando-pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.4;
+    }
+  }
+
+  /* ============================================
+     HOST
+     ============================================ */
+
+  :host {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 0;
+  }
+
+  /* ============================================
+     SKELETON CONTAINER
+     ============================================ */
+
+  .skeleton {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    background-color: var(--sando-skeleton-color-background);
+    width: var(--skeleton-width, 100%);
+    height: var(--skeleton-height, 1em);
+  }
+
+  /* ============================================
+     SHIMMER INDICATOR
+     ============================================ */
+
+  .skeleton__shimmer {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--sando-skeleton-color-shimmer),
+      transparent
+    );
+    animation: sando-shimmer var(--sando-skeleton-animation-duration) infinite;
+    animation-timing-function: var(--sando-skeleton-animation-easing);
+  }
+
+  /* ============================================
+     PULSE ANIMATION
+     ============================================ */
+
+  :host([effect='pulse']) .skeleton {
+    animation: sando-pulse var(--sando-skeleton-animation-duration) infinite;
+    animation-timing-function: var(--sando-skeleton-animation-easing);
+  }
+
+  /* ============================================
+     NO ANIMATION
+     ============================================ */
+
+  :host([effect='none']) .skeleton__shimmer {
+    display: none;
+  }
+
+  :host([effect='none']) .skeleton {
+    animation: none;
+  }
+
+  /* ============================================
+     REDUCED MOTION
+     Automatically switch to static/none effect
+     ============================================ */
+
+  @media (prefers-reduced-motion: reduce) {
+    .skeleton__shimmer {
+      display: none;
+    }
+
+    .skeleton {
+      animation: none;
+    }
+  }
+</style><style>
+  /* ============================================
+     SHAPE: TEXT
+     Small border-radius for text line placeholders
+     ============================================ */
+
+  :host([shape='text']) .skeleton {
+    border-radius: var(--sando-skeleton-borderRadius-text);
+  }
+
+  /* ============================================
+     SHAPE: CIRCULAR
+     50% border-radius for avatar placeholders
+     ============================================ */
+
+  :host([shape='circular']) .skeleton {
+    border-radius: var(--sando-skeleton-borderRadius-circular);
+  }
+
+  /* ============================================
+     SHAPE: RECTANGULAR
+     No border-radius for sharp-edge containers
+     ============================================ */
+
+  :host([shape='rectangular']) .skeleton {
+    border-radius: var(--sando-skeleton-borderRadius-rectangular);
+  }
+
+  /* ============================================
+     SHAPE: ROUNDED
+     Medium border-radius for card-like placeholders
+     ============================================ */
+
+  :host([shape='rounded']) .skeleton {
+    border-radius: var(--sando-skeleton-borderRadius-rounded);
+  }
+</style>"
+`;
+
+exports[`sando-skeleton > snapshots > matches snapshot for none effect 1`] = `
+"<!---->
+      <div class="skeleton" part="skeleton" role="presentation" aria-hidden="true" style="--skeleton-width:100%;--skeleton-height:1em;">
+        <!--?lit$455247152$-->
+      </div>
+    <style>
+  /* ============================================
+     1. BOX MODEL RESET
+     Ensures padding/border are included in size
+     ============================================ */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  /* ============================================
+     2. HOST DEFAULTS
+     Common :host defaults for all components
+     ============================================ */
+  :host {
+    /* Font inheritance from light DOM */
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
+  }
+
+  :host([hidden]) {
+    display: none !important;
+  }
+
+  /* ============================================
+     3. FORM ELEMENTS RESET
+     
+     All form elements receive a consistent baseline:
+     - padding: 0 (components apply their own via tokens)
+     - background: transparent (prevents browser backgrounds)
+     - border: none (prevents browser borders)
+     
+     This ensures all components (Input, Select, Textarea, etc.)
+     start from the same visual foundation.
+     
+     For complete element reset (all: unset), use:
+     import { interactiveReset } from 'styles/shared/base.styles.ts'
+     ============================================ */
+  button,
+  input,
+  select,
+  textarea {
+    /* Inherit font from parent */
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
+
+    /* Remove default margin */
+    margin: 0;
+
+    /* Remove default padding for consistent sizing */
+    padding: 0;
+
+    /* Remove default background and border */
+    background: transparent;
+    border: none;
+
+    /* Box sizing */
+    box-sizing: border-box;
+  }
+
+  button {
+    /* Button-specific behavior */
+    cursor: pointer;
+    text-align: inherit;
+  }
+
+  /* ============================================
+     4. TYPOGRAPHY RESET
+     ============================================ */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    margin: 0;
+  }
+
+  /* ============================================
+     5. MEDIA RESET
+     ============================================ */
+  img,
+  svg,
+  video,
+  canvas {
+    display: block;
+    max-width: 100%;
+  }
+
+  /* ============================================
+     6. ACCESSIBILITY
+     ============================================ */
+  /* Respect user preferences for reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+</style><style>
+  /* ========================================
+     INGREDIENTS LAYER - Primitives
+     Base values that never change by flavor
+     ======================================== */
+  
+  
+  
+  
+  
+  
+  
+  
+
+  /* ========================================
+     RECIPES LAYER - Component Tokens
+     Reference Flavor tokens from Light DOM
+     ======================================== */
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</style><style>
+  /* ============================================
+     KEYFRAMES
+     ============================================ */
+
+  @keyframes sando-shimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  @keyframes sando-pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.4;
+    }
+  }
+
+  /* ============================================
+     HOST
+     ============================================ */
+
+  :host {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 0;
+  }
+
+  /* ============================================
+     SKELETON CONTAINER
+     ============================================ */
+
+  .skeleton {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    background-color: var(--sando-skeleton-color-background);
+    width: var(--skeleton-width, 100%);
+    height: var(--skeleton-height, 1em);
+  }
+
+  /* ============================================
+     SHIMMER INDICATOR
+     ============================================ */
+
+  .skeleton__shimmer {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--sando-skeleton-color-shimmer),
+      transparent
+    );
+    animation: sando-shimmer var(--sando-skeleton-animation-duration) infinite;
+    animation-timing-function: var(--sando-skeleton-animation-easing);
+  }
+
+  /* ============================================
+     PULSE ANIMATION
+     ============================================ */
+
+  :host([effect='pulse']) .skeleton {
+    animation: sando-pulse var(--sando-skeleton-animation-duration) infinite;
+    animation-timing-function: var(--sando-skeleton-animation-easing);
+  }
+
+  /* ============================================
+     NO ANIMATION
+     ============================================ */
+
+  :host([effect='none']) .skeleton__shimmer {
+    display: none;
+  }
+
+  :host([effect='none']) .skeleton {
+    animation: none;
+  }
+
+  /* ============================================
+     REDUCED MOTION
+     Automatically switch to static/none effect
+     ============================================ */
+
+  @media (prefers-reduced-motion: reduce) {
+    .skeleton__shimmer {
+      display: none;
+    }
+
+    .skeleton {
+      animation: none;
+    }
+  }
+</style><style>
+  /* ============================================
+     SHAPE: TEXT
+     Small border-radius for text line placeholders
+     ============================================ */
+
+  :host([shape='text']) .skeleton {
+    border-radius: var(--sando-skeleton-borderRadius-text);
+  }
+
+  /* ============================================
+     SHAPE: CIRCULAR
+     50% border-radius for avatar placeholders
+     ============================================ */
+
+  :host([shape='circular']) .skeleton {
+    border-radius: var(--sando-skeleton-borderRadius-circular);
+  }
+
+  /* ============================================
+     SHAPE: RECTANGULAR
+     No border-radius for sharp-edge containers
+     ============================================ */
+
+  :host([shape='rectangular']) .skeleton {
+    border-radius: var(--sando-skeleton-borderRadius-rectangular);
+  }
+
+  /* ============================================
+     SHAPE: ROUNDED
+     Medium border-radius for card-like placeholders
+     ============================================ */
+
+  :host([shape='rounded']) .skeleton {
+    border-radius: var(--sando-skeleton-borderRadius-rounded);
+  }
+</style>"
+`;
+
+exports[`sando-skeleton > snapshots > matches snapshot for pulse effect 1`] = `
+"<!---->
+      <div class="skeleton" part="skeleton" role="presentation" aria-hidden="true" style="--skeleton-width:100%;--skeleton-height:1em;">
+        <!--?lit$455247152$-->
+      </div>
+    <style>
+  /* ============================================
+     1. BOX MODEL RESET
+     Ensures padding/border are included in size
+     ============================================ */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  /* ============================================
+     2. HOST DEFAULTS
+     Common :host defaults for all components
+     ============================================ */
+  :host {
+    /* Font inheritance from light DOM */
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
+  }
+
+  :host([hidden]) {
+    display: none !important;
+  }
+
+  /* ============================================
+     3. FORM ELEMENTS RESET
+     
+     All form elements receive a consistent baseline:
+     - padding: 0 (components apply their own via tokens)
+     - background: transparent (prevents browser backgrounds)
+     - border: none (prevents browser borders)
+     
+     This ensures all components (Input, Select, Textarea, etc.)
+     start from the same visual foundation.
+     
+     For complete element reset (all: unset), use:
+     import { interactiveReset } from 'styles/shared/base.styles.ts'
+     ============================================ */
+  button,
+  input,
+  select,
+  textarea {
+    /* Inherit font from parent */
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
+
+    /* Remove default margin */
+    margin: 0;
+
+    /* Remove default padding for consistent sizing */
+    padding: 0;
+
+    /* Remove default background and border */
+    background: transparent;
+    border: none;
+
+    /* Box sizing */
+    box-sizing: border-box;
+  }
+
+  button {
+    /* Button-specific behavior */
+    cursor: pointer;
+    text-align: inherit;
+  }
+
+  /* ============================================
+     4. TYPOGRAPHY RESET
+     ============================================ */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    margin: 0;
+  }
+
+  /* ============================================
+     5. MEDIA RESET
+     ============================================ */
+  img,
+  svg,
+  video,
+  canvas {
+    display: block;
+    max-width: 100%;
+  }
+
+  /* ============================================
+     6. ACCESSIBILITY
+     ============================================ */
+  /* Respect user preferences for reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+</style><style>
+  /* ========================================
+     INGREDIENTS LAYER - Primitives
+     Base values that never change by flavor
+     ======================================== */
+  
+  
+  
+  
+  
+  
+  
+  
+
+  /* ========================================
+     RECIPES LAYER - Component Tokens
+     Reference Flavor tokens from Light DOM
+     ======================================== */
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</style><style>
+  /* ============================================
+     KEYFRAMES
+     ============================================ */
+
+  @keyframes sando-shimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  @keyframes sando-pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.4;
+    }
+  }
+
+  /* ============================================
+     HOST
+     ============================================ */
+
+  :host {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 0;
+  }
+
+  /* ============================================
+     SKELETON CONTAINER
+     ============================================ */
+
+  .skeleton {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    background-color: var(--sando-skeleton-color-background);
+    width: var(--skeleton-width, 100%);
+    height: var(--skeleton-height, 1em);
+  }
+
+  /* ============================================
+     SHIMMER INDICATOR
+     ============================================ */
+
+  .skeleton__shimmer {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--sando-skeleton-color-shimmer),
+      transparent
+    );
+    animation: sando-shimmer var(--sando-skeleton-animation-duration) infinite;
+    animation-timing-function: var(--sando-skeleton-animation-easing);
+  }
+
+  /* ============================================
+     PULSE ANIMATION
+     ============================================ */
+
+  :host([effect='pulse']) .skeleton {
+    animation: sando-pulse var(--sando-skeleton-animation-duration) infinite;
+    animation-timing-function: var(--sando-skeleton-animation-easing);
+  }
+
+  /* ============================================
+     NO ANIMATION
+     ============================================ */
+
+  :host([effect='none']) .skeleton__shimmer {
+    display: none;
+  }
+
+  :host([effect='none']) .skeleton {
+    animation: none;
+  }
+
+  /* ============================================
+     REDUCED MOTION
+     Automatically switch to static/none effect
+     ============================================ */
+
+  @media (prefers-reduced-motion: reduce) {
+    .skeleton__shimmer {
+      display: none;
+    }
+
+    .skeleton {
+      animation: none;
+    }
+  }
+</style><style>
+  /* ============================================
+     SHAPE: TEXT
+     Small border-radius for text line placeholders
+     ============================================ */
+
+  :host([shape='text']) .skeleton {
+    border-radius: var(--sando-skeleton-borderRadius-text);
+  }
+
+  /* ============================================
+     SHAPE: CIRCULAR
+     50% border-radius for avatar placeholders
+     ============================================ */
+
+  :host([shape='circular']) .skeleton {
+    border-radius: var(--sando-skeleton-borderRadius-circular);
+  }
+
+  /* ============================================
+     SHAPE: RECTANGULAR
+     No border-radius for sharp-edge containers
+     ============================================ */
+
+  :host([shape='rectangular']) .skeleton {
+    border-radius: var(--sando-skeleton-borderRadius-rectangular);
+  }
+
+  /* ============================================
+     SHAPE: ROUNDED
+     Medium border-radius for card-like placeholders
+     ============================================ */
+
+  :host([shape='rounded']) .skeleton {
+    border-radius: var(--sando-skeleton-borderRadius-rounded);
+  }
+</style>"
+`;
+
+exports[`sando-skeleton > snapshots > matches snapshot for rectangular shape 1`] = `
+"<!---->
+      <div class="skeleton" part="skeleton" role="presentation" aria-hidden="true" style="--skeleton-width:200px;--skeleton-height:100px;">
+        <!--?lit$455247152$--><div class="skeleton__shimmer" part="shimmer"></div>
+      </div>
+    <style>
+  /* ============================================
+     1. BOX MODEL RESET
+     Ensures padding/border are included in size
+     ============================================ */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  /* ============================================
+     2. HOST DEFAULTS
+     Common :host defaults for all components
+     ============================================ */
+  :host {
+    /* Font inheritance from light DOM */
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
+  }
+
+  :host([hidden]) {
+    display: none !important;
+  }
+
+  /* ============================================
+     3. FORM ELEMENTS RESET
+     
+     All form elements receive a consistent baseline:
+     - padding: 0 (components apply their own via tokens)
+     - background: transparent (prevents browser backgrounds)
+     - border: none (prevents browser borders)
+     
+     This ensures all components (Input, Select, Textarea, etc.)
+     start from the same visual foundation.
+     
+     For complete element reset (all: unset), use:
+     import { interactiveReset } from 'styles/shared/base.styles.ts'
+     ============================================ */
+  button,
+  input,
+  select,
+  textarea {
+    /* Inherit font from parent */
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
+
+    /* Remove default margin */
+    margin: 0;
+
+    /* Remove default padding for consistent sizing */
+    padding: 0;
+
+    /* Remove default background and border */
+    background: transparent;
+    border: none;
+
+    /* Box sizing */
+    box-sizing: border-box;
+  }
+
+  button {
+    /* Button-specific behavior */
+    cursor: pointer;
+    text-align: inherit;
+  }
+
+  /* ============================================
+     4. TYPOGRAPHY RESET
+     ============================================ */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    margin: 0;
+  }
+
+  /* ============================================
+     5. MEDIA RESET
+     ============================================ */
+  img,
+  svg,
+  video,
+  canvas {
+    display: block;
+    max-width: 100%;
+  }
+
+  /* ============================================
+     6. ACCESSIBILITY
+     ============================================ */
+  /* Respect user preferences for reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+</style><style>
+  /* ========================================
+     INGREDIENTS LAYER - Primitives
+     Base values that never change by flavor
+     ======================================== */
+  
+  
+  
+  
+  
+  
+  
+  
+
+  /* ========================================
+     RECIPES LAYER - Component Tokens
+     Reference Flavor tokens from Light DOM
+     ======================================== */
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</style><style>
+  /* ============================================
+     KEYFRAMES
+     ============================================ */
+
+  @keyframes sando-shimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  @keyframes sando-pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.4;
+    }
+  }
+
+  /* ============================================
+     HOST
+     ============================================ */
+
+  :host {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 0;
+  }
+
+  /* ============================================
+     SKELETON CONTAINER
+     ============================================ */
+
+  .skeleton {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    background-color: var(--sando-skeleton-color-background);
+    width: var(--skeleton-width, 100%);
+    height: var(--skeleton-height, 1em);
+  }
+
+  /* ============================================
+     SHIMMER INDICATOR
+     ============================================ */
+
+  .skeleton__shimmer {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--sando-skeleton-color-shimmer),
+      transparent
+    );
+    animation: sando-shimmer var(--sando-skeleton-animation-duration) infinite;
+    animation-timing-function: var(--sando-skeleton-animation-easing);
+  }
+
+  /* ============================================
+     PULSE ANIMATION
+     ============================================ */
+
+  :host([effect='pulse']) .skeleton {
+    animation: sando-pulse var(--sando-skeleton-animation-duration) infinite;
+    animation-timing-function: var(--sando-skeleton-animation-easing);
+  }
+
+  /* ============================================
+     NO ANIMATION
+     ============================================ */
+
+  :host([effect='none']) .skeleton__shimmer {
+    display: none;
+  }
+
+  :host([effect='none']) .skeleton {
+    animation: none;
+  }
+
+  /* ============================================
+     REDUCED MOTION
+     Automatically switch to static/none effect
+     ============================================ */
+
+  @media (prefers-reduced-motion: reduce) {
+    .skeleton__shimmer {
+      display: none;
+    }
+
+    .skeleton {
+      animation: none;
+    }
+  }
+</style><style>
+  /* ============================================
+     SHAPE: TEXT
+     Small border-radius for text line placeholders
+     ============================================ */
+
+  :host([shape='text']) .skeleton {
+    border-radius: var(--sando-skeleton-borderRadius-text);
+  }
+
+  /* ============================================
+     SHAPE: CIRCULAR
+     50% border-radius for avatar placeholders
+     ============================================ */
+
+  :host([shape='circular']) .skeleton {
+    border-radius: var(--sando-skeleton-borderRadius-circular);
+  }
+
+  /* ============================================
+     SHAPE: RECTANGULAR
+     No border-radius for sharp-edge containers
+     ============================================ */
+
+  :host([shape='rectangular']) .skeleton {
+    border-radius: var(--sando-skeleton-borderRadius-rectangular);
+  }
+
+  /* ============================================
+     SHAPE: ROUNDED
+     Medium border-radius for card-like placeholders
+     ============================================ */
+
+  :host([shape='rounded']) .skeleton {
+    border-radius: var(--sando-skeleton-borderRadius-rounded);
+  }
+</style>"
+`;
+
+exports[`sando-skeleton > snapshots > matches snapshot for rounded shape 1`] = `
+"<!---->
+      <div class="skeleton" part="skeleton" role="presentation" aria-hidden="true" style="--skeleton-width:100%;--skeleton-height:80px;">
+        <!--?lit$455247152$--><div class="skeleton__shimmer" part="shimmer"></div>
+      </div>
+    <style>
+  /* ============================================
+     1. BOX MODEL RESET
+     Ensures padding/border are included in size
+     ============================================ */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  /* ============================================
+     2. HOST DEFAULTS
+     Common :host defaults for all components
+     ============================================ */
+  :host {
+    /* Font inheritance from light DOM */
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
+  }
+
+  :host([hidden]) {
+    display: none !important;
+  }
+
+  /* ============================================
+     3. FORM ELEMENTS RESET
+     
+     All form elements receive a consistent baseline:
+     - padding: 0 (components apply their own via tokens)
+     - background: transparent (prevents browser backgrounds)
+     - border: none (prevents browser borders)
+     
+     This ensures all components (Input, Select, Textarea, etc.)
+     start from the same visual foundation.
+     
+     For complete element reset (all: unset), use:
+     import { interactiveReset } from 'styles/shared/base.styles.ts'
+     ============================================ */
+  button,
+  input,
+  select,
+  textarea {
+    /* Inherit font from parent */
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
+
+    /* Remove default margin */
+    margin: 0;
+
+    /* Remove default padding for consistent sizing */
+    padding: 0;
+
+    /* Remove default background and border */
+    background: transparent;
+    border: none;
+
+    /* Box sizing */
+    box-sizing: border-box;
+  }
+
+  button {
+    /* Button-specific behavior */
+    cursor: pointer;
+    text-align: inherit;
+  }
+
+  /* ============================================
+     4. TYPOGRAPHY RESET
+     ============================================ */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    margin: 0;
+  }
+
+  /* ============================================
+     5. MEDIA RESET
+     ============================================ */
+  img,
+  svg,
+  video,
+  canvas {
+    display: block;
+    max-width: 100%;
+  }
+
+  /* ============================================
+     6. ACCESSIBILITY
+     ============================================ */
+  /* Respect user preferences for reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+</style><style>
+  /* ========================================
+     INGREDIENTS LAYER - Primitives
+     Base values that never change by flavor
+     ======================================== */
+  
+  
+  
+  
+  
+  
+  
+  
+
+  /* ========================================
+     RECIPES LAYER - Component Tokens
+     Reference Flavor tokens from Light DOM
+     ======================================== */
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</style><style>
+  /* ============================================
+     KEYFRAMES
+     ============================================ */
+
+  @keyframes sando-shimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  @keyframes sando-pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.4;
+    }
+  }
+
+  /* ============================================
+     HOST
+     ============================================ */
+
+  :host {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 0;
+  }
+
+  /* ============================================
+     SKELETON CONTAINER
+     ============================================ */
+
+  .skeleton {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    background-color: var(--sando-skeleton-color-background);
+    width: var(--skeleton-width, 100%);
+    height: var(--skeleton-height, 1em);
+  }
+
+  /* ============================================
+     SHIMMER INDICATOR
+     ============================================ */
+
+  .skeleton__shimmer {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--sando-skeleton-color-shimmer),
+      transparent
+    );
+    animation: sando-shimmer var(--sando-skeleton-animation-duration) infinite;
+    animation-timing-function: var(--sando-skeleton-animation-easing);
+  }
+
+  /* ============================================
+     PULSE ANIMATION
+     ============================================ */
+
+  :host([effect='pulse']) .skeleton {
+    animation: sando-pulse var(--sando-skeleton-animation-duration) infinite;
+    animation-timing-function: var(--sando-skeleton-animation-easing);
+  }
+
+  /* ============================================
+     NO ANIMATION
+     ============================================ */
+
+  :host([effect='none']) .skeleton__shimmer {
+    display: none;
+  }
+
+  :host([effect='none']) .skeleton {
+    animation: none;
+  }
+
+  /* ============================================
+     REDUCED MOTION
+     Automatically switch to static/none effect
+     ============================================ */
+
+  @media (prefers-reduced-motion: reduce) {
+    .skeleton__shimmer {
+      display: none;
+    }
+
+    .skeleton {
+      animation: none;
+    }
+  }
+</style><style>
+  /* ============================================
+     SHAPE: TEXT
+     Small border-radius for text line placeholders
+     ============================================ */
+
+  :host([shape='text']) .skeleton {
+    border-radius: var(--sando-skeleton-borderRadius-text);
+  }
+
+  /* ============================================
+     SHAPE: CIRCULAR
+     50% border-radius for avatar placeholders
+     ============================================ */
+
+  :host([shape='circular']) .skeleton {
+    border-radius: var(--sando-skeleton-borderRadius-circular);
+  }
+
+  /* ============================================
+     SHAPE: RECTANGULAR
+     No border-radius for sharp-edge containers
+     ============================================ */
+
+  :host([shape='rectangular']) .skeleton {
+    border-radius: var(--sando-skeleton-borderRadius-rectangular);
+  }
+
+  /* ============================================
+     SHAPE: ROUNDED
+     Medium border-radius for card-like placeholders
+     ============================================ */
+
+  :host([shape='rounded']) .skeleton {
+    border-radius: var(--sando-skeleton-borderRadius-rounded);
+  }
+</style>"
+`;
+
+exports[`sando-skeleton > snapshots > matches snapshot for text shape 1`] = `
+"<!---->
+      <div class="skeleton" part="skeleton" role="presentation" aria-hidden="true" style="--skeleton-width:100%;--skeleton-height:1em;">
+        <!--?lit$455247152$--><div class="skeleton__shimmer" part="shimmer"></div>
+      </div>
+    <style>
+  /* ============================================
+     1. BOX MODEL RESET
+     Ensures padding/border are included in size
+     ============================================ */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  /* ============================================
+     2. HOST DEFAULTS
+     Common :host defaults for all components
+     ============================================ */
+  :host {
+    /* Font inheritance from light DOM */
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
+  }
+
+  :host([hidden]) {
+    display: none !important;
+  }
+
+  /* ============================================
+     3. FORM ELEMENTS RESET
+     
+     All form elements receive a consistent baseline:
+     - padding: 0 (components apply their own via tokens)
+     - background: transparent (prevents browser backgrounds)
+     - border: none (prevents browser borders)
+     
+     This ensures all components (Input, Select, Textarea, etc.)
+     start from the same visual foundation.
+     
+     For complete element reset (all: unset), use:
+     import { interactiveReset } from 'styles/shared/base.styles.ts'
+     ============================================ */
+  button,
+  input,
+  select,
+  textarea {
+    /* Inherit font from parent */
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
+
+    /* Remove default margin */
+    margin: 0;
+
+    /* Remove default padding for consistent sizing */
+    padding: 0;
+
+    /* Remove default background and border */
+    background: transparent;
+    border: none;
+
+    /* Box sizing */
+    box-sizing: border-box;
+  }
+
+  button {
+    /* Button-specific behavior */
+    cursor: pointer;
+    text-align: inherit;
+  }
+
+  /* ============================================
+     4. TYPOGRAPHY RESET
+     ============================================ */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    margin: 0;
+  }
+
+  /* ============================================
+     5. MEDIA RESET
+     ============================================ */
+  img,
+  svg,
+  video,
+  canvas {
+    display: block;
+    max-width: 100%;
+  }
+
+  /* ============================================
+     6. ACCESSIBILITY
+     ============================================ */
+  /* Respect user preferences for reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+</style><style>
+  /* ========================================
+     INGREDIENTS LAYER - Primitives
+     Base values that never change by flavor
+     ======================================== */
+  
+  
+  
+  
+  
+  
+  
+  
+
+  /* ========================================
+     RECIPES LAYER - Component Tokens
+     Reference Flavor tokens from Light DOM
+     ======================================== */
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</style><style>
+  /* ============================================
+     KEYFRAMES
+     ============================================ */
+
+  @keyframes sando-shimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  @keyframes sando-pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.4;
+    }
+  }
+
+  /* ============================================
+     HOST
+     ============================================ */
+
+  :host {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 0;
+  }
+
+  /* ============================================
+     SKELETON CONTAINER
+     ============================================ */
+
+  .skeleton {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    background-color: var(--sando-skeleton-color-background);
+    width: var(--skeleton-width, 100%);
+    height: var(--skeleton-height, 1em);
+  }
+
+  /* ============================================
+     SHIMMER INDICATOR
+     ============================================ */
+
+  .skeleton__shimmer {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--sando-skeleton-color-shimmer),
+      transparent
+    );
+    animation: sando-shimmer var(--sando-skeleton-animation-duration) infinite;
+    animation-timing-function: var(--sando-skeleton-animation-easing);
+  }
+
+  /* ============================================
+     PULSE ANIMATION
+     ============================================ */
+
+  :host([effect='pulse']) .skeleton {
+    animation: sando-pulse var(--sando-skeleton-animation-duration) infinite;
+    animation-timing-function: var(--sando-skeleton-animation-easing);
+  }
+
+  /* ============================================
+     NO ANIMATION
+     ============================================ */
+
+  :host([effect='none']) .skeleton__shimmer {
+    display: none;
+  }
+
+  :host([effect='none']) .skeleton {
+    animation: none;
+  }
+
+  /* ============================================
+     REDUCED MOTION
+     Automatically switch to static/none effect
+     ============================================ */
+
+  @media (prefers-reduced-motion: reduce) {
+    .skeleton__shimmer {
+      display: none;
+    }
+
+    .skeleton {
+      animation: none;
+    }
+  }
+</style><style>
+  /* ============================================
+     SHAPE: TEXT
+     Small border-radius for text line placeholders
+     ============================================ */
+
+  :host([shape='text']) .skeleton {
+    border-radius: var(--sando-skeleton-borderRadius-text);
+  }
+
+  /* ============================================
+     SHAPE: CIRCULAR
+     50% border-radius for avatar placeholders
+     ============================================ */
+
+  :host([shape='circular']) .skeleton {
+    border-radius: var(--sando-skeleton-borderRadius-circular);
+  }
+
+  /* ============================================
+     SHAPE: RECTANGULAR
+     No border-radius for sharp-edge containers
+     ============================================ */
+
+  :host([shape='rectangular']) .skeleton {
+    border-radius: var(--sando-skeleton-borderRadius-rectangular);
+  }
+
+  /* ============================================
+     SHAPE: ROUNDED
+     Medium border-radius for card-like placeholders
+     ============================================ */
+
+  :host([shape='rounded']) .skeleton {
+    border-radius: var(--sando-skeleton-borderRadius-rounded);
+  }
+</style>"
+`;
