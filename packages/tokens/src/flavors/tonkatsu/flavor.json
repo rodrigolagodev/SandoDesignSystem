@@ -251,7 +251,8 @@
       "xs": { "value": "{space.5.value}", "type": "dimension" },
       "sm": { "value": "{space.7.value}", "type": "dimension" },
       "md": { "value": "{space.8.value}", "type": "dimension" },
-      "lg": { "value": "{space.10.value}", "type": "dimension" }
+      "lg": { "value": "{space.10.value}", "type": "dimension" },
+      "xl": { "value": "{space.13.value}", "type": "dimension" }
     },
     "icon": {
       "xs": { "value": "{font.size.50.value}", "type": "dimension" },
