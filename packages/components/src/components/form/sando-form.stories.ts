@@ -10,6 +10,7 @@ import '../select/sando-select.js';
 import '../textarea/sando-textarea.js';
 import '../radio-group/sando-radio-group.js';
 import '../radio/sando-radio.js';
+import '../badge/sando-badge.js';
 import type { SandoForm } from './sando-form.js';
 import type { FormSubmitEventDetail, FormInvalidEventDetail } from './sando-form.types.js';
 
@@ -525,19 +526,19 @@ export const DirtyStateTracking: Story = {
   render: (args) => {
     const updateStatus = () => {
       const form = document.querySelector<SandoForm>('#dirty-form');
-      const status = document.querySelector('#dirty-status');
-      if (form && status) {
-        status.textContent = form.dirty ? '⚠️ Form has unsaved changes' : '✅ Form is pristine';
-        (status as HTMLElement).style.color = form.dirty ? '#d97706' : '#059669';
+      const badge = document.querySelector('#dirty-status');
+      if (form && badge) {
+        badge.textContent = form.dirty ? 'Unsaved changes' : 'Pristine';
+        badge.setAttribute('color', form.dirty ? 'warning' : 'success');
       }
     };
 
     const handleSave = (e: CustomEvent) => {
       // Show success message
-      const status = document.querySelector('#dirty-status');
-      if (status) {
-        status.textContent = '✅ Changes saved successfully!';
-        (status as HTMLElement).style.color = '#059669';
+      const badge = document.querySelector('#dirty-status');
+      if (badge) {
+        badge.textContent = 'Saved!';
+        badge.setAttribute('color', 'success');
       }
 
       // Reset dirty state by re-capturing initial values
@@ -555,12 +556,15 @@ export const DirtyStateTracking: Story = {
 
     return html`
       <div style="display: flex; flex-direction: column; gap: 16px; max-width: 400px;">
-        <div
+        <sando-badge
           id="dirty-status"
-          style="padding: 8px; border-radius: 4px; background: #f5f5f5; font-weight: 500;"
+          color="success"
+          variant="soft"
+          size="md"
+          flavor="${args.flavor || 'original'}"
         >
-          ✅ Form is pristine
-        </div>
+          Pristine
+        </sando-badge>
 
         <sando-form
           id="dirty-form"
