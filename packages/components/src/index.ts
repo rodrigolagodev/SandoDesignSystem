@@ -51,6 +51,19 @@ export type {
   FormGroupValidationChangeDetail
 } from './components/form-group/index.js';
 
+export { SandoForm } from './components/form/index.js';
+export type {
+  SandoFormProps,
+  FormMethod,
+  FormValidationError,
+  FormSubmitEventDetail,
+  FormInvalidEventDetail,
+  FormResetEventDetail,
+  FormSubmitEvent,
+  FormInvalidEvent,
+  FormResetEvent
+} from './components/form/index.js';
+
 export { SandoCheckbox } from './components/checkbox/index.js';
 export type {
   CheckboxVariant,
