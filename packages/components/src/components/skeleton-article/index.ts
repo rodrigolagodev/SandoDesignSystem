@@ -3,4 +3,7 @@
  */
 
 export { SandoSkeletonArticle } from './sando-skeleton-article.js';
-export type { SandoSkeletonArticleProps } from './sando-skeleton-article.types.js';
+export type {
+  SkeletonArticleSize,
+  SandoSkeletonArticleProps
+} from './sando-skeleton-article.types.js';
