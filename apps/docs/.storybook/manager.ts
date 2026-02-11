@@ -24,8 +24,8 @@ addons.setConfig({
         fgColor: "#166534", // green-800
       },
       display: {
-        sidebar: ["component"],
-        toolbar: undefined,
+        sidebar: ["component", "docs", "group"],
+        toolbar: true,
       },
     },
     // Beta - Components in testing phase
@@ -37,8 +37,8 @@ addons.setConfig({
         fgColor: "#92400e", // amber-800
       },
       display: {
-        sidebar: ["component"],
-        toolbar: undefined,
+        sidebar: ["component", "docs", "group"],
+        toolbar: true,
       },
     },
     // New - Recently added components
@@ -50,8 +50,8 @@ addons.setConfig({
         fgColor: "#1e40af", // blue-800
       },
       display: {
-        sidebar: ["component"],
-        toolbar: undefined,
+        sidebar: ["component", "docs", "group"],
+        toolbar: true,
       },
     },
     // Deprecated - Components scheduled for removal
@@ -63,8 +63,8 @@ addons.setConfig({
         fgColor: "#991b1b", // red-800
       },
       display: {
-        sidebar: ["component"],
-        toolbar: undefined,
+        sidebar: ["component", "docs", "group"],
+        toolbar: true,
       },
     },
     // Updated - Recently modified components
@@ -76,8 +76,8 @@ addons.setConfig({
         fgColor: "#6b21a8", // purple-800
       },
       display: {
-        sidebar: ["component"],
-        toolbar: undefined,
+        sidebar: ["component", "docs", "group"],
+        toolbar: true,
       },
     },
     // Include default config for other tags

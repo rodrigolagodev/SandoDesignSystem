@@ -158,6 +158,95 @@ export type {
 export { SandoSpinner } from './components/spinner/index.js';
 export type { SpinnerSize, SpinnerVariant, SandoSpinnerProps } from './components/spinner/index.js';
 
+export { SandoSkeleton, SandoSkeletonText } from './components/skeleton/index.js';
+export type {
+  SkeletonShape,
+  SkeletonEffect,
+  SandoSkeletonProps,
+  SkeletonTextSize,
+  SandoSkeletonTextProps
+} from './components/skeleton/index.js';
+
+export { SandoSkeletonParagraph } from './components/skeleton-paragraph/index.js';
+export type {
+  SkeletonParagraphSpacing,
+  SandoSkeletonParagraphProps
+} from './components/skeleton-paragraph/index.js';
+
+export { SandoSkeletonAvatar } from './components/skeleton-avatar/index.js';
+export type {
+  SkeletonAvatarSize,
+  SkeletonAvatarEffect,
+  SandoSkeletonAvatarProps
+} from './components/skeleton-avatar/index.js';
+
+export { SandoSkeletonImage } from './components/skeleton-image/index.js';
+export type {
+  SkeletonImageRatio,
+  SkeletonImageEffect,
+  SandoSkeletonImageProps
+} from './components/skeleton-image/index.js';
+
+export { SandoSkeletonButton } from './components/skeleton-button/index.js';
+export type {
+  SkeletonButtonSize,
+  SkeletonButtonWidth,
+  SandoSkeletonButtonProps
+} from './components/skeleton-button/index.js';
+
+export { SandoSkeletonRow } from './components/skeleton-row/index.js';
+export type {
+  SkeletonRowGap,
+  SkeletonRowAlign,
+  SandoSkeletonRowProps
+} from './components/skeleton-row/index.js';
+
+export { SandoSkeletonStack } from './components/skeleton-stack/index.js';
+export type {
+  SkeletonStackGap,
+  SkeletonStackAlign,
+  SandoSkeletonStackProps
+} from './components/skeleton-stack/index.js';
+
+export { SandoSkeletonComposer } from './components/skeleton-composer/index.js';
+export type { SandoSkeletonComposerProps } from './components/skeleton-composer/index.js';
+
+export { SandoSkeletonListItem } from './components/skeleton-list-item/index.js';
+export type {
+  SkeletonListItemAvatarSize,
+  SandoSkeletonListItemProps
+} from './components/skeleton-list-item/index.js';
+
+export { SandoSkeletonTableRow } from './components/skeleton-table-row/index.js';
+export type { SandoSkeletonTableRowProps } from './components/skeleton-table-row/index.js';
+
+export { SandoSkeletonCard } from './components/skeleton-card/index.js';
+export type {
+  SkeletonCardImageRatio,
+  SandoSkeletonCardProps
+} from './components/skeleton-card/index.js';
+
+export { SandoSkeletonArticle } from './components/skeleton-article/index.js';
+export type { SandoSkeletonArticleProps } from './components/skeleton-article/index.js';
+
+export { SandoSkeletonProfile } from './components/skeleton-profile/index.js';
+export type {
+  SkeletonProfileAvatarSize,
+  SandoSkeletonProfileProps
+} from './components/skeleton-profile/index.js';
+
+export { SandoSkeletonComment } from './components/skeleton-comment/index.js';
+export type {
+  SkeletonCommentAvatarSize,
+  SandoSkeletonCommentProps
+} from './components/skeleton-comment/index.js';
+
+export { SandoSkeletonMediaCard } from './components/skeleton-media-card/index.js';
+export type {
+  SkeletonMediaCardImageRatio,
+  SandoSkeletonMediaCardProps
+} from './components/skeleton-media-card/index.js';
+
 export { SandoLabel } from './components/label/index.js';
 export type { LabelSize, LabelWeight, SandoLabelProps } from './components/label/index.js';
 

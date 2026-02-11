@@ -163,19 +163,19 @@
     "size": {
       "sm": {
         "trackWidth": {
-          "value": "{sizing.switch.track.sm.width.value}",
+          "value": "{sizing.toggle.track.sm.width.value}",
           "type": "dimension"
         },
         "trackHeight": {
-          "value": "{sizing.switch.track.sm.height.value}",
+          "value": "{sizing.toggle.track.sm.height.value}",
           "type": "dimension"
         },
         "thumbSize": {
-          "value": "{sizing.switch.thumb.sm.value}",
+          "value": "{sizing.toggle.thumb.sm.value}",
           "type": "dimension"
         },
         "thumbOffset": {
-          "value": "{sizing.switch.offset.value}",
+          "value": "{sizing.toggle.offset.value}",
           "type": "dimension"
         },
         "labelFontSize": {
@@ -189,19 +189,19 @@
       },
       "md": {
         "trackWidth": {
-          "value": "{sizing.switch.track.md.width.value}",
+          "value": "{sizing.toggle.track.md.width.value}",
           "type": "dimension"
         },
         "trackHeight": {
-          "value": "{sizing.switch.track.md.height.value}",
+          "value": "{sizing.toggle.track.md.height.value}",
           "type": "dimension"
         },
         "thumbSize": {
-          "value": "{sizing.switch.thumb.md.value}",
+          "value": "{sizing.toggle.thumb.md.value}",
           "type": "dimension"
         },
         "thumbOffset": {
-          "value": "{sizing.switch.offset.value}",
+          "value": "{sizing.toggle.offset.value}",
           "type": "dimension"
         },
         "labelFontSize": {
@@ -215,19 +215,19 @@
       },
       "lg": {
         "trackWidth": {
-          "value": "{sizing.switch.track.lg.width.value}",
+          "value": "{sizing.toggle.track.lg.width.value}",
           "type": "dimension"
         },
         "trackHeight": {
-          "value": "{sizing.switch.track.lg.height.value}",
+          "value": "{sizing.toggle.track.lg.height.value}",
           "type": "dimension"
         },
         "thumbSize": {
-          "value": "{sizing.switch.thumb.lg.value}",
+          "value": "{sizing.toggle.thumb.lg.value}",
           "type": "dimension"
         },
         "thumbOffset": {
-          "value": "{sizing.switch.offset.value}",
+          "value": "{sizing.toggle.offset.value}",
           "type": "dimension"
         },
         "labelFontSize": {

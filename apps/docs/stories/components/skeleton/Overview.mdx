@@ -1,0 +1,440 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Components/Skeleton/Overview" />
+
+<style>
+  {`
+    .skeleton-container {
+      max-width: 900px;
+      margin: 0 auto;
+      font-family: var(--sando-font-family-body, 'Inter', sans-serif);
+    }
+
+    .skeleton-header {
+      margin-bottom: 2rem;
+    }
+
+    .skeleton-header h1 {
+      font-size: 2rem;
+      margin: 0 0 0.5rem 0;
+      color: #1c1917;
+    }
+
+    .skeleton-header p {
+      color: #78716c;
+      margin: 0;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .skeleton-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 2rem;
+    }
+
+    .skeleton-table th,
+    .skeleton-table td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid #e7e5e4;
+    }
+
+    .skeleton-table th {
+      background: #fafaf9;
+      font-weight: 600;
+      color: #1c1917;
+      font-size: 0.875rem;
+    }
+
+    .skeleton-table td {
+      font-size: 0.875rem;
+      color: #57534e;
+    }
+
+    .skeleton-table tr:hover td {
+      background: #fafaf9;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    .status-stable {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .status-beta {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .legend {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+      padding: 1rem;
+      background: #fafaf9;
+      border-radius: 8px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      color: #57534e;
+    }
+
+    .quick-start {
+      margin-top: 2.5rem;
+    }
+
+    .quick-start h2 {
+      font-size: 1.5rem;
+      margin: 0 0 1rem 0;
+      color: #1c1917;
+    }
+
+    .quick-start h3 {
+      font-size: 1rem;
+      margin: 1.5rem 0 0.5rem 0;
+      color: #1c1917;
+    }
+
+    .quick-start p {
+      color: #57534e;
+      margin: 0 0 1rem 0;
+      font-size: 0.875rem;
+    }
+
+    .code-block {
+      background: #1c1917;
+      border-radius: 8px;
+      padding: 1rem;
+      overflow-x: auto;
+      margin: 0.5rem 0 1rem 0;
+    }
+
+    .code-block code {
+      color: #fafaf9;
+      font-family: 'Fira Code', 'Monaco', monospace;
+      font-size: 0.8125rem;
+      line-height: 1.6;
+    }
+
+
+  `}
+</style>
+
+<div className="skeleton-container">
+
+<div className="skeleton-header">
+  <h1>Skeleton Components</h1>
+  <p>
+    Skeleton components provide visual placeholders that indicate content is
+    loading. They improve perceived performance by showing users where content
+    will appear, reducing frustration and creating a smoother loading
+    experience.
+  </p>
+</div>
+
+## Component Status
+
+<table className="skeleton-table">
+  <thead>
+    <tr>
+      <th>Component</th>
+      <th>Status</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <strong>
+          <a href="?path=/docs/components-skeleton-skeleton--docs">Skeleton</a>
+        </strong>
+      </td>
+      <td>
+        <span className="status-badge status-stable">Stable</span>
+      </td>
+      <td>Base building block with shape, effect, and dimensions</td>
+    </tr>
+    <tr>
+      <td>
+        <strong>
+          <a href="?path=/docs/components-skeleton-skeletontext--docs">
+            SkeletonText
+          </a>
+        </strong>
+      </td>
+      <td>
+        <span className="status-badge status-stable">Stable</span>
+      </td>
+      <td>Text line placeholder with token-based sizing</td>
+    </tr>
+    <tr>
+      <td>
+        <strong>
+          <a href="?path=/docs/components-skeleton-skeletonavatar--docs">
+            SkeletonAvatar
+          </a>
+        </strong>
+      </td>
+      <td>
+        <span className="status-badge status-stable">Stable</span>
+      </td>
+      <td>Circular avatar placeholder</td>
+    </tr>
+    <tr>
+      <td>
+        <strong>
+          <a href="?path=/docs/components-skeleton-skeletonbutton--docs">
+            SkeletonButton
+          </a>
+        </strong>
+      </td>
+      <td>
+        <span className="status-badge status-stable">Stable</span>
+      </td>
+      <td>Button placeholder with size variants</td>
+    </tr>
+    <tr>
+      <td>
+        <strong>
+          <a href="?path=/docs/components-skeleton-skeletoncard--docs">
+            SkeletonCard
+          </a>
+        </strong>
+      </td>
+      <td>
+        <span className="status-badge status-stable">Stable</span>
+      </td>
+      <td>Pre-composed card loading state</td>
+    </tr>
+    <tr>
+      <td>
+        <strong>
+          <a href="?path=/docs/components-skeleton-skeletonarticle--docs">
+            SkeletonArticle
+          </a>
+        </strong>
+      </td>
+      <td>
+        <span className="status-badge status-stable">Stable</span>
+      </td>
+      <td>Article with optional image</td>
+    </tr>
+    <tr>
+      <td>
+        <strong>
+          <a href="?path=/docs/components-skeleton-skeletonparagraph--docs">
+            SkeletonParagraph
+          </a>
+        </strong>
+      </td>
+      <td>
+        <span className="status-badge status-stable">Stable</span>
+      </td>
+      <td>Multiple text lines</td>
+    </tr>
+    <tr>
+      <td>
+        <strong>
+          <a href="?path=/docs/components-skeleton-skeletoncomment--docs">
+            SkeletonComment
+          </a>
+        </strong>
+      </td>
+      <td>
+        <span className="status-badge status-stable">Stable</span>
+      </td>
+      <td>Comment with avatar and text</td>
+    </tr>
+    <tr>
+      <td>
+        <strong>
+          <a href="?path=/docs/components-skeleton-skeletonstack--docs">
+            SkeletonStack
+          </a>
+        </strong>
+      </td>
+      <td>
+        <span className="status-badge status-beta">Beta</span>
+      </td>
+      <td>Vertical stacking with gap</td>
+    </tr>
+    <tr>
+      <td>
+        <strong>
+          <a href="?path=/docs/components-skeleton-skeletonrow--docs">
+            SkeletonRow
+          </a>
+        </strong>
+      </td>
+      <td>
+        <span className="status-badge status-beta">Beta</span>
+      </td>
+      <td>Horizontal layout with gap</td>
+    </tr>
+    <tr>
+      <td>
+        <strong>
+          <a href="?path=/docs/components-skeleton-skeletoncomposer--docs">
+            SkeletonComposer
+          </a>
+        </strong>
+      </td>
+      <td>
+        <span className="status-badge status-beta">Beta</span>
+      </td>
+      <td>Animation synchronization container</td>
+    </tr>
+    <tr>
+      <td>
+        <strong>
+          <a href="?path=/docs/components-skeleton-skeletonimage--docs">
+            SkeletonImage
+          </a>
+        </strong>
+      </td>
+      <td>
+        <span className="status-badge status-beta">Beta</span>
+      </td>
+      <td>Image placeholder with aspect ratio</td>
+    </tr>
+    <tr>
+      <td>
+        <strong>
+          <a href="?path=/docs/components-skeleton-skeletonprofile--docs">
+            SkeletonProfile
+          </a>
+        </strong>
+      </td>
+      <td>
+        <span className="status-badge status-beta">Beta</span>
+      </td>
+      <td>User profile loading state</td>
+    </tr>
+    <tr>
+      <td>
+        <strong>
+          <a href="?path=/docs/components-skeleton-skeletonmediacard--docs">
+            SkeletonMediaCard
+          </a>
+        </strong>
+      </td>
+      <td>
+        <span className="status-badge status-beta">Beta</span>
+      </td>
+      <td>Media card with image and text</td>
+    </tr>
+    <tr>
+      <td>
+        <strong>
+          <a href="?path=/docs/components-skeleton-skeletonlistitem--docs">
+            SkeletonListItem
+          </a>
+        </strong>
+      </td>
+      <td>
+        <span className="status-badge status-beta">Beta</span>
+      </td>
+      <td>List item with icon/avatar</td>
+    </tr>
+    <tr>
+      <td>
+        <strong>
+          <a href="?path=/docs/components-skeleton-skeletontablerow--docs">
+            SkeletonTableRow
+          </a>
+        </strong>
+      </td>
+      <td>
+        <span className="status-badge status-beta">Beta</span>
+      </td>
+      <td>Table row placeholder</td>
+    </tr>
+  </tbody>
+</table>
+
+<div className="legend">
+  <div className="legend-item">
+    <span className="status-badge status-stable">Stable</span> Production-ready
+  </div>
+  <div className="legend-item">
+    <span className="status-badge status-beta">Beta</span> In testing, API may
+    change
+  </div>
+</div>
+
+<div className="quick-start">
+  <h2>Quick Start</h2>
+
+<h3>1. Simple Primitive</h3>
+<p>Use the base Skeleton component with shape and dimensions:</p>
+
+```html
+<!-- Rectangle skeleton -->
+<sando-skeleton width="200px" height="20px"></sando-skeleton>
+
+<!-- Circle skeleton (avatar) -->
+<sando-skeleton shape="circle" width="48px" height="48px"></sando-skeleton>
+
+<!-- With animation effect -->
+<sando-skeleton effect="shimmer" width="100%" height="16px"></sando-skeleton>
+```
+
+<h3>2. Pre-composed Preset</h3>
+<p>Drop in a preset for common patterns:</p>
+
+```html
+<!-- Card skeleton with image, title, and description -->
+<sando-skeleton-card></sando-skeleton-card>
+
+<!-- Comment skeleton with avatar and text lines -->
+<sando-skeleton-comment></sando-skeleton-comment>
+
+<!-- Paragraph with multiple lines -->
+<sando-skeleton-paragraph lines="4"></sando-skeleton-paragraph>
+```
+
+<h3>3. Custom Composition with Layout</h3>
+<p>Build custom layouts using layout helpers:</p>
+
+```html
+<sando-skeleton-composer>
+  <sando-skeleton-row gap="md">
+    <sando-skeleton-avatar size="lg"></sando-skeleton-avatar>
+    <sando-skeleton-stack gap="sm" style="flex: 1;">
+      <sando-skeleton-text size="lg" width="60%"></sando-skeleton-text>
+      <sando-skeleton-text size="sm" width="40%"></sando-skeleton-text>
+    </sando-skeleton-stack>
+  </sando-skeleton-row>
+</sando-skeleton-composer>
+```
+
+</div>
+
+## Best Practices
+
+- **Match the content** — Skeleton shapes should approximate the actual content dimensions
+- **Consistent animation** — Wrap multiple skeletons in `SkeletonComposer` for synchronized effects
+- **Accessibility** — Skeletons include `aria-busy="true"` and `role="progressbar"` by default
+- **Reduce layout shift** — Use the same dimensions as your actual content to prevent CLS
+
+## Related
+
+- [Skeleton (Primitive)](?path=/docs/components-skeleton-skeleton--docs) — Base skeleton element
+- [SkeletonCard (Preset)](?path=/docs/components-skeleton-skeletoncard--docs) — Card loading state
+- [Components Overview](?path=/docs/components-overview--docs) — All Sando components
+
+</div>
