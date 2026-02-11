@@ -36,6 +36,57 @@
       "slab": {
         "value": "'Roboto Slab', Rockwell, Georgia, serif",
         "type": "fontFamily"
+      },
+      "inter": {
+        "value": "'Inter', system-ui, -apple-system, sans-serif",
+        "type": "fontFamily",
+        "description": "Premium UI sans - for Original flavor"
+      },
+      "plus-jakarta": {
+        "value": "'Plus Jakarta Sans', system-ui, sans-serif",
+        "type": "fontFamily",
+        "description": "Modern geometric - warm but professional"
+      },
+      "dm-sans": {
+        "value": "'DM Sans', system-ui, sans-serif",
+        "type": "fontFamily",
+        "description": "Clean geometric - contemporary"
+      },
+      "space-grotesk": {
+        "value": "'Space Grotesk', system-ui, sans-serif",
+        "type": "fontFamily",
+        "description": "Distinctive tech - craft/artisanal"
+      },
+      "cormorant": {
+        "value": "'Cormorant Garamond', Didot, Georgia, serif",
+        "type": "fontFamily",
+        "description": "Elegant display serif - luxury"
+      },
+      "literata": {
+        "value": "'Literata', Georgia, serif",
+        "type": "fontFamily",
+        "description": "Humanist serif - readable, warm"
+      },
+      "newsreader": {
+        "value": "'Newsreader', Georgia, serif",
+        "type": "fontFamily",
+        "description": "Transitional serif - calm, editorial"
+      },
+      "merriweather": {
+        "value": "'Merriweather', Georgia, serif",
+        "type": "fontFamily",
+        "description": "Robust slab-serif - craft feel"
+      },
+
+      "jetbrains-mono": {
+        "value": "'JetBrains Mono', Consolas, monospace",
+        "type": "fontFamily",
+        "description": "Coding-optimized mono with ligatures"
+      },
+      "fira-code": {
+        "value": "'Fira Code', Consolas, monospace",
+        "type": "fontFamily",
+        "description": "Mozilla heritage, warm mono"
       }
     },
     "size": {

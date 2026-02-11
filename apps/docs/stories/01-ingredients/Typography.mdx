@@ -30,12 +30,30 @@ The Sando Design System typography foundation provides a comprehensive type scal
 
 ### Loading Google Fonts (Recommended)
 
-To use the full range of expressive fonts, add this snippet to your HTML `<head>`:
+To use the full range of expressive fonts and flavor-specific typography, add this snippet to your HTML `<head>`:
 
 <div className="demo-code-dark">
   <pre>{`<link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Bebas+Neue&family=Caveat:wght@400;500;600;700&family=Nunito:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Roboto+Slab:wght@300;400;500;700&display=swap" rel="stylesheet" />`}</pre>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Bebas+Neue&family=Caveat:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=DM+Sans:wght@400;500;600;700&family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Literata:wght@400;500;600;700&family=Merriweather:wght@400;700&family=Newsreader:wght@400;500;600;700&family=Nunito:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Roboto+Slab:wght@300;400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />`}</pre>
+</div>
+
+<div
+  style={{
+    padding: "12px",
+    backgroundColor: "#dbeafe",
+    borderRadius: "8px",
+    fontSize: "14px",
+    marginTop: "16px",
+    border: "1px solid #3b82f6",
+  }}
+>
+  <strong style={{ color: "#1e40af" }}>💡 Font Stack:</strong>{" "}
+  <span style={{ color: "#1e3a8a" }}>
+    All fonts include system fallbacks that work without loading external fonts.
+    The <strong>Original</strong> flavor uses Inter and JetBrains Mono, both
+    available on Google Fonts and included in the snippet above.
+  </span>
 </div>
 
 <div
