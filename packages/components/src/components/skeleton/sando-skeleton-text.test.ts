@@ -28,7 +28,7 @@ describe('sando-skeleton-text', () => {
 
       expect(element).toBeDefined();
       expect(element.size).toBe('md');
-      expect(element.width).toBe('100%');
+      expect(element.width).toBe('auto');
       expect(element.effect).toBe('shimmer');
     });
 
@@ -54,7 +54,7 @@ describe('sando-skeleton-text', () => {
   // ============================================
 
   describe('sizes', () => {
-    it('renders size="sm" with correct height', async () => {
+    it('renders size="sm" with token-based height', async () => {
       element = await fixture<SandoSkeletonText>(
         html`<sando-skeleton-text size="sm"></sando-skeleton-text>`
       );
@@ -64,10 +64,10 @@ describe('sando-skeleton-text', () => {
       expect(element.getAttribute('size')).toBe('sm');
 
       const skeleton = getInnerSkeleton();
-      expect(skeleton?.height).toBe('0.875em');
+      expect(skeleton?.height).toBe('var(--sando-skeleton-size-text-height-sm)');
     });
 
-    it('renders size="md" with correct height', async () => {
+    it('renders size="md" with token-based height', async () => {
       element = await fixture<SandoSkeletonText>(
         html`<sando-skeleton-text size="md"></sando-skeleton-text>`
       );
@@ -77,10 +77,10 @@ describe('sando-skeleton-text', () => {
       expect(element.getAttribute('size')).toBe('md');
 
       const skeleton = getInnerSkeleton();
-      expect(skeleton?.height).toBe('1em');
+      expect(skeleton?.height).toBe('var(--sando-skeleton-size-text-height-md)');
     });
 
-    it('renders size="lg" with correct height', async () => {
+    it('renders size="lg" with token-based height', async () => {
       element = await fixture<SandoSkeletonText>(
         html`<sando-skeleton-text size="lg"></sando-skeleton-text>`
       );
@@ -90,7 +90,7 @@ describe('sando-skeleton-text', () => {
       expect(element.getAttribute('size')).toBe('lg');
 
       const skeleton = getInnerSkeleton();
-      expect(skeleton?.height).toBe('1.25em');
+      expect(skeleton?.height).toBe('var(--sando-skeleton-size-text-height-lg)');
     });
 
     it('reflects size property to attribute', async () => {
@@ -109,51 +109,100 @@ describe('sando-skeleton-text', () => {
   // ============================================
 
   describe('width', () => {
-    it('respects width prop with percentage', async () => {
+    it('width="auto" sets host to 100% and inner skeleton to 100%', async () => {
+      element = await fixture<SandoSkeletonText>(
+        html`<sando-skeleton-text width="auto"></sando-skeleton-text>`
+      );
+      await element.updateComplete;
+
+      expect(element.width).toBe('auto');
+      // 'auto' now sets host width to 100% via inline style
+      expect(element.style.width).toBe('100%');
+
+      // Inner skeleton always fills the host
+      const skeleton = getInnerSkeleton();
+      expect(skeleton?.width).toBe('100%');
+    });
+
+    it('width="full" sets host to 100% and inner skeleton to 100%', async () => {
+      element = await fixture<SandoSkeletonText>(
+        html`<sando-skeleton-text width="full"></sando-skeleton-text>`
+      );
+      await element.updateComplete;
+
+      expect(element.width).toBe('full');
+      // 'full' also sets host width to 100% via inline style
+      expect(element.style.width).toBe('100%');
+
+      // Inner skeleton always fills the host
+      const skeleton = getInnerSkeleton();
+      expect(skeleton?.width).toBe('100%');
+    });
+
+    it('custom width percentage applies to host, inner skeleton fills host', async () => {
       element = await fixture<SandoSkeletonText>(
         html`<sando-skeleton-text width="80%"></sando-skeleton-text>`
       );
       await element.updateComplete;
 
       expect(element.width).toBe('80%');
+      expect(element.style.width).toBe('80%');
 
+      // Inner skeleton always fills the host (100%)
       const skeleton = getInnerSkeleton();
-      expect(skeleton?.width).toBe('80%');
+      expect(skeleton?.width).toBe('100%');
     });
 
-    it('respects width prop with pixels', async () => {
+    it('custom width pixels applies to host, inner skeleton fills host', async () => {
       element = await fixture<SandoSkeletonText>(
         html`<sando-skeleton-text width="200px"></sando-skeleton-text>`
       );
       await element.updateComplete;
 
       expect(element.width).toBe('200px');
+      expect(element.style.width).toBe('200px');
 
+      // Inner skeleton always fills the host (100%)
       const skeleton = getInnerSkeleton();
-      expect(skeleton?.width).toBe('200px');
+      expect(skeleton?.width).toBe('100%');
     });
 
-    it('respects width prop with em units', async () => {
+    it('custom width em units applies to host, inner skeleton fills host', async () => {
       element = await fixture<SandoSkeletonText>(
         html`<sando-skeleton-text width="15em"></sando-skeleton-text>`
       );
       await element.updateComplete;
 
       expect(element.width).toBe('15em');
+      expect(element.style.width).toBe('15em');
 
+      // Inner skeleton always fills the host (100%)
       const skeleton = getInnerSkeleton();
-      expect(skeleton?.width).toBe('15em');
+      expect(skeleton?.width).toBe('100%');
     });
 
-    it('updates width dynamically', async () => {
+    it('updates width dynamically from auto to custom', async () => {
       element = await fixture<SandoSkeletonText>(html`<sando-skeleton-text></sando-skeleton-text>`);
       await element.updateComplete;
 
       element.width = '50%';
       await element.updateComplete;
 
+      expect(element.style.width).toBe('50%');
+
+      // Inner skeleton always fills the host (100%)
       const skeleton = getInnerSkeleton();
-      expect(skeleton?.width).toBe('50%');
+      expect(skeleton?.width).toBe('100%');
+    });
+
+    it('reflects width property to attribute', async () => {
+      element = await fixture<SandoSkeletonText>(html`<sando-skeleton-text></sando-skeleton-text>`);
+      await element.updateComplete;
+
+      element.width = 'full';
+      await element.updateComplete;
+
+      expect(element.getAttribute('width')).toBe('full');
     });
   });
 
@@ -251,11 +300,12 @@ describe('sando-skeleton-text', () => {
       expect(element.size).toBe('lg');
       expect(element.width).toBe('75%');
       expect(element.effect).toBe('pulse');
+      expect(element.style.width).toBe('75%');
 
       const skeleton = getInnerSkeleton();
       expect(skeleton?.shape).toBe('text');
-      expect(skeleton?.height).toBe('1.25em');
-      expect(skeleton?.width).toBe('75%');
+      expect(skeleton?.height).toBe('var(--sando-skeleton-size-text-height-lg)');
+      expect(skeleton?.width).toBe('100%'); // Inner skeleton always fills host
       expect(skeleton?.effect).toBe('pulse');
     });
 
@@ -268,9 +318,11 @@ describe('sando-skeleton-text', () => {
       element.effect = 'none';
       await element.updateComplete;
 
+      expect(element.style.width).toBe('60%');
+
       const skeleton = getInnerSkeleton();
-      expect(skeleton?.height).toBe('0.875em');
-      expect(skeleton?.width).toBe('60%');
+      expect(skeleton?.height).toBe('var(--sando-skeleton-size-text-height-sm)');
+      expect(skeleton?.width).toBe('100%'); // Inner skeleton always fills host
       expect(skeleton?.effect).toBe('none');
     });
   });
@@ -340,7 +392,7 @@ describe('sando-skeleton-text', () => {
       expect(element.size).toBe('md');
 
       const skeleton = getInnerSkeleton();
-      expect(skeleton?.height).toBe('1em');
+      expect(skeleton?.height).toBe('var(--sando-skeleton-size-text-height-md)');
     });
 
     it('handles rapid effect changes', async () => {

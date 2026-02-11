@@ -13,8 +13,11 @@ const meta: Meta = {
   component: 'sando-skeleton-comment',
   tags: ['autodocs', 'stable'],
   render: (args) => html`
-    <div style="max-width: 500px;">
+    <div style="max-width: ${args.width === 'auto' ? '500px' : 'none'};">
       <sando-skeleton-comment
+        flavor="${args.flavor || 'original'}"
+        size="${args.size || 'md'}"
+        width="${args.width || 'auto'}"
         avatar-size="${args.avatarSize || 'sm'}"
         lines="${args.lines || 2}"
         ?show-timestamp="${args.showTimestamp}"
@@ -22,6 +25,35 @@ const meta: Meta = {
     </div>
   `,
   argTypes: {
+    flavor: {
+      control: 'select',
+      options: ['original', 'strawberry', 'tonkatsu', 'kiwi', 'egg-salad'],
+      description: 'Visual flavor/theme of the component',
+      table: {
+        category: 'Appearance',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'original' }
+      }
+    },
+    size: {
+      control: 'select',
+      options: ['sm', 'md', 'lg'],
+      description: 'Size of text skeletons (controls line height)',
+      table: {
+        category: 'Appearance',
+        type: { summary: "'sm' | 'md' | 'lg'" },
+        defaultValue: { summary: 'md' }
+      }
+    },
+    width: {
+      control: 'text',
+      description: 'Width of the comment: auto, full, or custom CSS value',
+      table: {
+        category: 'Dimensions',
+        type: { summary: "'auto' | 'full' | string" },
+        defaultValue: { summary: 'auto' }
+      }
+    },
     avatarSize: {
       control: 'select',
       options: ['xs', 'sm', 'md'],
@@ -52,6 +84,9 @@ const meta: Meta = {
     }
   },
   args: {
+    flavor: 'original',
+    size: 'md',
+    width: 'auto',
     avatarSize: 'sm',
     lines: 2,
     showTimestamp: true

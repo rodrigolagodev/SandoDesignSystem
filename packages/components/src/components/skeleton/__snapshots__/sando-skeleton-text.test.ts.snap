@@ -2,50 +2,775 @@
 
 exports[`sando-skeleton-text > snapshots > matches snapshot for custom width 1`] = `
 "<!---->
-      <sando-skeleton shape="text" effect="shimmer" width="80%" height="1em" flavor="original"></sando-skeleton>
+      <sando-skeleton shape="text" width="100%" effect="shimmer" height="var(--sando-skeleton-size-text-height-md)" flavor="original"></sando-skeleton>
     <style>
-    :host {
-      display: block;
+  /* ============================================
+     1. BOX MODEL RESET
+     Ensures padding/border are included in size
+     ============================================ */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  /* ============================================
+     2. HOST DEFAULTS
+     Common :host defaults for all components
+     ============================================ */
+  :host {
+    /* Font inheritance from light DOM */
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
+  }
+
+  :host([hidden]) {
+    display: none !important;
+  }
+
+  /* ============================================
+     3. FORM ELEMENTS RESET
+     
+     All form elements receive a consistent baseline:
+     - padding: 0 (components apply their own via tokens)
+     - background: transparent (prevents browser backgrounds)
+     - border: none (prevents browser borders)
+     
+     This ensures all components (Input, Select, Textarea, etc.)
+     start from the same visual foundation.
+     
+     For complete element reset (all: unset), use:
+     import { interactiveReset } from 'styles/shared/base.styles.ts'
+     ============================================ */
+  button,
+  input,
+  select,
+  textarea {
+    /* Inherit font from parent */
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
+
+    /* Remove default margin */
+    margin: 0;
+
+    /* Remove default padding for consistent sizing */
+    padding: 0;
+
+    /* Remove default background and border */
+    background: transparent;
+    border: none;
+
+    /* Box sizing */
+    box-sizing: border-box;
+  }
+
+  button {
+    /* Button-specific behavior */
+    cursor: pointer;
+    text-align: inherit;
+  }
+
+  /* ============================================
+     4. TYPOGRAPHY RESET
+     ============================================ */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    margin: 0;
+  }
+
+  /* ============================================
+     5. MEDIA RESET
+     ============================================ */
+  img,
+  svg,
+  video,
+  canvas {
+    display: block;
+    max-width: 100%;
+  }
+
+  /* ============================================
+     6. ACCESSIBILITY
+     ============================================ */
+  /* Respect user preferences for reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
     }
-  </style>"
+  }
+</style><style>
+  /* ========================================
+     INGREDIENTS LAYER - Primitives
+     Base values that never change by flavor
+     ======================================== */
+  
+  
+  
+  
+  
+  
+  
+  
+
+  /* ========================================
+     RECIPES LAYER - Component Tokens
+     Reference Flavor tokens from Light DOM
+     ======================================== */
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</style><style>
+      :host {
+        display: inline-block;
+      }
+
+      :host([width='full']) {
+        display: block;
+      }
+    </style>"
 `;
 
 exports[`sando-skeleton-text > snapshots > matches snapshot for default state 1`] = `
 "<!---->
-      <sando-skeleton shape="text" effect="shimmer" width="100%" height="1em" flavor="original"></sando-skeleton>
+      <sando-skeleton shape="text" width="100%" effect="shimmer" height="var(--sando-skeleton-size-text-height-md)" flavor="original"></sando-skeleton>
     <style>
-    :host {
-      display: block;
+  /* ============================================
+     1. BOX MODEL RESET
+     Ensures padding/border are included in size
+     ============================================ */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  /* ============================================
+     2. HOST DEFAULTS
+     Common :host defaults for all components
+     ============================================ */
+  :host {
+    /* Font inheritance from light DOM */
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
+  }
+
+  :host([hidden]) {
+    display: none !important;
+  }
+
+  /* ============================================
+     3. FORM ELEMENTS RESET
+     
+     All form elements receive a consistent baseline:
+     - padding: 0 (components apply their own via tokens)
+     - background: transparent (prevents browser backgrounds)
+     - border: none (prevents browser borders)
+     
+     This ensures all components (Input, Select, Textarea, etc.)
+     start from the same visual foundation.
+     
+     For complete element reset (all: unset), use:
+     import { interactiveReset } from 'styles/shared/base.styles.ts'
+     ============================================ */
+  button,
+  input,
+  select,
+  textarea {
+    /* Inherit font from parent */
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
+
+    /* Remove default margin */
+    margin: 0;
+
+    /* Remove default padding for consistent sizing */
+    padding: 0;
+
+    /* Remove default background and border */
+    background: transparent;
+    border: none;
+
+    /* Box sizing */
+    box-sizing: border-box;
+  }
+
+  button {
+    /* Button-specific behavior */
+    cursor: pointer;
+    text-align: inherit;
+  }
+
+  /* ============================================
+     4. TYPOGRAPHY RESET
+     ============================================ */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    margin: 0;
+  }
+
+  /* ============================================
+     5. MEDIA RESET
+     ============================================ */
+  img,
+  svg,
+  video,
+  canvas {
+    display: block;
+    max-width: 100%;
+  }
+
+  /* ============================================
+     6. ACCESSIBILITY
+     ============================================ */
+  /* Respect user preferences for reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
     }
-  </style>"
+  }
+</style><style>
+  /* ========================================
+     INGREDIENTS LAYER - Primitives
+     Base values that never change by flavor
+     ======================================== */
+  
+  
+  
+  
+  
+  
+  
+  
+
+  /* ========================================
+     RECIPES LAYER - Component Tokens
+     Reference Flavor tokens from Light DOM
+     ======================================== */
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</style><style>
+      :host {
+        display: inline-block;
+      }
+
+      :host([width='full']) {
+        display: block;
+      }
+    </style>"
 `;
 
 exports[`sando-skeleton-text > snapshots > matches snapshot for pulse effect 1`] = `
 "<!---->
-      <sando-skeleton shape="text" effect="pulse" width="100%" height="1em" flavor="original"></sando-skeleton>
+      <sando-skeleton shape="text" width="100%" effect="pulse" height="var(--sando-skeleton-size-text-height-md)" flavor="original"></sando-skeleton>
     <style>
-    :host {
-      display: block;
+  /* ============================================
+     1. BOX MODEL RESET
+     Ensures padding/border are included in size
+     ============================================ */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  /* ============================================
+     2. HOST DEFAULTS
+     Common :host defaults for all components
+     ============================================ */
+  :host {
+    /* Font inheritance from light DOM */
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
+  }
+
+  :host([hidden]) {
+    display: none !important;
+  }
+
+  /* ============================================
+     3. FORM ELEMENTS RESET
+     
+     All form elements receive a consistent baseline:
+     - padding: 0 (components apply their own via tokens)
+     - background: transparent (prevents browser backgrounds)
+     - border: none (prevents browser borders)
+     
+     This ensures all components (Input, Select, Textarea, etc.)
+     start from the same visual foundation.
+     
+     For complete element reset (all: unset), use:
+     import { interactiveReset } from 'styles/shared/base.styles.ts'
+     ============================================ */
+  button,
+  input,
+  select,
+  textarea {
+    /* Inherit font from parent */
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
+
+    /* Remove default margin */
+    margin: 0;
+
+    /* Remove default padding for consistent sizing */
+    padding: 0;
+
+    /* Remove default background and border */
+    background: transparent;
+    border: none;
+
+    /* Box sizing */
+    box-sizing: border-box;
+  }
+
+  button {
+    /* Button-specific behavior */
+    cursor: pointer;
+    text-align: inherit;
+  }
+
+  /* ============================================
+     4. TYPOGRAPHY RESET
+     ============================================ */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    margin: 0;
+  }
+
+  /* ============================================
+     5. MEDIA RESET
+     ============================================ */
+  img,
+  svg,
+  video,
+  canvas {
+    display: block;
+    max-width: 100%;
+  }
+
+  /* ============================================
+     6. ACCESSIBILITY
+     ============================================ */
+  /* Respect user preferences for reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
     }
-  </style>"
+  }
+</style><style>
+  /* ========================================
+     INGREDIENTS LAYER - Primitives
+     Base values that never change by flavor
+     ======================================== */
+  
+  
+  
+  
+  
+  
+  
+  
+
+  /* ========================================
+     RECIPES LAYER - Component Tokens
+     Reference Flavor tokens from Light DOM
+     ======================================== */
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</style><style>
+      :host {
+        display: inline-block;
+      }
+
+      :host([width='full']) {
+        display: block;
+      }
+    </style>"
 `;
 
 exports[`sando-skeleton-text > snapshots > matches snapshot for size="lg" 1`] = `
 "<!---->
-      <sando-skeleton shape="text" effect="shimmer" width="100%" height="1.25em" flavor="original"></sando-skeleton>
+      <sando-skeleton shape="text" width="100%" effect="shimmer" height="var(--sando-skeleton-size-text-height-lg)" flavor="original"></sando-skeleton>
     <style>
-    :host {
-      display: block;
+  /* ============================================
+     1. BOX MODEL RESET
+     Ensures padding/border are included in size
+     ============================================ */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  /* ============================================
+     2. HOST DEFAULTS
+     Common :host defaults for all components
+     ============================================ */
+  :host {
+    /* Font inheritance from light DOM */
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
+  }
+
+  :host([hidden]) {
+    display: none !important;
+  }
+
+  /* ============================================
+     3. FORM ELEMENTS RESET
+     
+     All form elements receive a consistent baseline:
+     - padding: 0 (components apply their own via tokens)
+     - background: transparent (prevents browser backgrounds)
+     - border: none (prevents browser borders)
+     
+     This ensures all components (Input, Select, Textarea, etc.)
+     start from the same visual foundation.
+     
+     For complete element reset (all: unset), use:
+     import { interactiveReset } from 'styles/shared/base.styles.ts'
+     ============================================ */
+  button,
+  input,
+  select,
+  textarea {
+    /* Inherit font from parent */
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
+
+    /* Remove default margin */
+    margin: 0;
+
+    /* Remove default padding for consistent sizing */
+    padding: 0;
+
+    /* Remove default background and border */
+    background: transparent;
+    border: none;
+
+    /* Box sizing */
+    box-sizing: border-box;
+  }
+
+  button {
+    /* Button-specific behavior */
+    cursor: pointer;
+    text-align: inherit;
+  }
+
+  /* ============================================
+     4. TYPOGRAPHY RESET
+     ============================================ */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    margin: 0;
+  }
+
+  /* ============================================
+     5. MEDIA RESET
+     ============================================ */
+  img,
+  svg,
+  video,
+  canvas {
+    display: block;
+    max-width: 100%;
+  }
+
+  /* ============================================
+     6. ACCESSIBILITY
+     ============================================ */
+  /* Respect user preferences for reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
     }
-  </style>"
+  }
+</style><style>
+  /* ========================================
+     INGREDIENTS LAYER - Primitives
+     Base values that never change by flavor
+     ======================================== */
+  
+  
+  
+  
+  
+  
+  
+  
+
+  /* ========================================
+     RECIPES LAYER - Component Tokens
+     Reference Flavor tokens from Light DOM
+     ======================================== */
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</style><style>
+      :host {
+        display: inline-block;
+      }
+
+      :host([width='full']) {
+        display: block;
+      }
+    </style>"
 `;
 
 exports[`sando-skeleton-text > snapshots > matches snapshot for size="sm" 1`] = `
 "<!---->
-      <sando-skeleton shape="text" effect="shimmer" width="100%" height="0.875em" flavor="original"></sando-skeleton>
+      <sando-skeleton shape="text" width="100%" effect="shimmer" height="var(--sando-skeleton-size-text-height-sm)" flavor="original"></sando-skeleton>
     <style>
-    :host {
-      display: block;
+  /* ============================================
+     1. BOX MODEL RESET
+     Ensures padding/border are included in size
+     ============================================ */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  /* ============================================
+     2. HOST DEFAULTS
+     Common :host defaults for all components
+     ============================================ */
+  :host {
+    /* Font inheritance from light DOM */
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
+  }
+
+  :host([hidden]) {
+    display: none !important;
+  }
+
+  /* ============================================
+     3. FORM ELEMENTS RESET
+     
+     All form elements receive a consistent baseline:
+     - padding: 0 (components apply their own via tokens)
+     - background: transparent (prevents browser backgrounds)
+     - border: none (prevents browser borders)
+     
+     This ensures all components (Input, Select, Textarea, etc.)
+     start from the same visual foundation.
+     
+     For complete element reset (all: unset), use:
+     import { interactiveReset } from 'styles/shared/base.styles.ts'
+     ============================================ */
+  button,
+  input,
+  select,
+  textarea {
+    /* Inherit font from parent */
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
+
+    /* Remove default margin */
+    margin: 0;
+
+    /* Remove default padding for consistent sizing */
+    padding: 0;
+
+    /* Remove default background and border */
+    background: transparent;
+    border: none;
+
+    /* Box sizing */
+    box-sizing: border-box;
+  }
+
+  button {
+    /* Button-specific behavior */
+    cursor: pointer;
+    text-align: inherit;
+  }
+
+  /* ============================================
+     4. TYPOGRAPHY RESET
+     ============================================ */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    margin: 0;
+  }
+
+  /* ============================================
+     5. MEDIA RESET
+     ============================================ */
+  img,
+  svg,
+  video,
+  canvas {
+    display: block;
+    max-width: 100%;
+  }
+
+  /* ============================================
+     6. ACCESSIBILITY
+     ============================================ */
+  /* Respect user preferences for reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
     }
-  </style>"
+  }
+</style><style>
+  /* ========================================
+     INGREDIENTS LAYER - Primitives
+     Base values that never change by flavor
+     ======================================== */
+  
+  
+  
+  
+  
+  
+  
+  
+
+  /* ========================================
+     RECIPES LAYER - Component Tokens
+     Reference Flavor tokens from Light DOM
+     ======================================== */
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</style><style>
+      :host {
+        display: inline-block;
+      }
+
+      :host([width='full']) {
+        display: block;
+      }
+    </style>"
 `;

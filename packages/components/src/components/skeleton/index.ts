@@ -8,4 +8,8 @@ export type { SkeletonShape, SkeletonEffect, SandoSkeletonProps } from './sando-
 
 // Skeleton text
 export { SandoSkeletonText } from './sando-skeleton-text.js';
-export type { SkeletonTextSize, SandoSkeletonTextProps } from './sando-skeleton-text.types.js';
+export type {
+  SkeletonTextSize,
+  SkeletonTextWidth,
+  SandoSkeletonTextProps
+} from './sando-skeleton-text.types.js';

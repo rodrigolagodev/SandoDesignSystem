@@ -19,11 +19,11 @@ const DOCS_ONLY = ['!dev', '!autodocs'];
  * - Combine multiple instances for multi-line text blocks
  *
  * ## Size Reference
- * | Size | Height | Use Case |
- * |------|--------|----------|
- * | sm | 0.875em | Small text, captions |
- * | md | 1em | Body text (default) |
- * | lg | 1.25em | Headings, titles |
+ * | Size | Token | Use Case |
+ * |------|-------|----------|
+ * | sm | --sando-skeleton-size-text-height-sm | Small text, captions |
+ * | md | --sando-skeleton-size-text-height-md | Body text (default) |
+ * | lg | --sando-skeleton-size-text-height-lg | Headings, titles |
  */
 const meta: Meta = {
   title: 'Components/Skeleton/SkeletonText',
@@ -31,12 +31,23 @@ const meta: Meta = {
   tags: ['autodocs', 'stable'],
   render: (args) => html`
     <sando-skeleton-text
+      flavor="${args.flavor || 'original'}"
       size="${args.size || 'md'}"
-      width="${args.width || '100%'}"
+      width="${args.width || 'auto'}"
       effect="${args.effect || 'shimmer'}"
     ></sando-skeleton-text>
   `,
   argTypes: {
+    flavor: {
+      control: 'select',
+      options: ['original', 'strawberry', 'tonkatsu', 'kiwi', 'egg-salad'],
+      description: 'Visual flavor/theme of the component',
+      table: {
+        category: 'Appearance',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'original' }
+      }
+    },
     size: {
       control: 'select',
       options: ['sm', 'md', 'lg'],
@@ -48,12 +59,13 @@ const meta: Meta = {
       }
     },
     width: {
-      control: 'text',
-      description: 'CSS width value',
+      control: 'select',
+      options: ['auto', 'full', '50%', '80%', '200px'],
+      description: 'Width of the skeleton: auto, full, or custom CSS value',
       table: {
         category: 'Dimensions',
-        type: { summary: 'string' },
-        defaultValue: { summary: '100%' }
+        type: { summary: "'auto' | 'full' | string" },
+        defaultValue: { summary: 'auto' }
       }
     },
     effect: {
@@ -68,8 +80,9 @@ const meta: Meta = {
     }
   },
   args: {
+    flavor: 'original',
     size: 'md',
-    width: '100%',
+    width: 'auto',
     effect: 'shimmer'
   }
 };

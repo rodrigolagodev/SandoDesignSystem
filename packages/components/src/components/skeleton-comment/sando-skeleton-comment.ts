@@ -17,6 +17,15 @@
  *
  * @example Small avatar for compact comments
  * <sando-skeleton-comment avatar-size="xs"></sando-skeleton-comment>
+ *
+ * @example Size variants (controls text line height)
+ * <sando-skeleton-comment size="sm"></sando-skeleton-comment>
+ * <sando-skeleton-comment size="md"></sando-skeleton-comment>
+ * <sando-skeleton-comment size="lg"></sando-skeleton-comment>
+ *
+ * @example Width options
+ * <sando-skeleton-comment width="full"></sando-skeleton-comment>
+ * <sando-skeleton-comment width="400px"></sando-skeleton-comment>
  */
 
 import { LitElement, html, css, nothing } from 'lit';
@@ -32,7 +41,11 @@ import '../skeleton-row/sando-skeleton-row.js';
 import '../skeleton-avatar/sando-skeleton-avatar.js';
 import '../skeleton/sando-skeleton-text.js';
 
-import type { SkeletonCommentAvatarSize } from './sando-skeleton-comment.types.js';
+import type {
+  SkeletonCommentAvatarSize,
+  SkeletonCommentSize,
+  SkeletonCommentWidth
+} from './sando-skeleton-comment.types.js';
 
 /**
  * Default values for skeleton comment properties
@@ -40,6 +53,20 @@ import type { SkeletonCommentAvatarSize } from './sando-skeleton-comment.types.j
 const DEFAULT_AVATAR_SIZE: SkeletonCommentAvatarSize = 'sm';
 const DEFAULT_LINES = 2;
 const DEFAULT_SHOW_TIMESTAMP = true;
+const DEFAULT_SIZE: SkeletonCommentSize = 'md';
+const DEFAULT_WIDTH: SkeletonCommentWidth = 'auto';
+
+/**
+ * Author name width as percentage of content area.
+ * Scales proportionally with container width.
+ */
+const AUTHOR_WIDTH = '25%';
+
+/**
+ * Timestamp width as percentage of content area.
+ * Scales proportionally with container width.
+ */
+const TIMESTAMP_WIDTH = '15%';
 
 @customElement('sando-skeleton-comment')
 export class SandoSkeletonComment extends FlavorableMixin(LitElement) {
@@ -65,6 +92,23 @@ export class SandoSkeletonComment extends FlavorableMixin(LitElement) {
   showTimestamp: boolean = DEFAULT_SHOW_TIMESTAMP;
 
   /**
+   * Size of the text skeletons (controls line height)
+   * @default 'md'
+   */
+  @property({ reflect: true })
+  size: SkeletonCommentSize = DEFAULT_SIZE;
+
+  /**
+   * Width of the comment container
+   * - 'auto': Natural width based on container
+   * - 'full': 100% of container width
+   * - Custom string: Any valid CSS width
+   * @default 'auto'
+   */
+  @property({ reflect: true })
+  width: SkeletonCommentWidth = DEFAULT_WIDTH;
+
+  /**
    * Component styles
    */
   static styles = [
@@ -73,6 +117,10 @@ export class SandoSkeletonComment extends FlavorableMixin(LitElement) {
     css`
       :host {
         display: block;
+      }
+
+      :host([width='full']) {
+        width: 100%;
       }
 
       .comment-content {
@@ -88,9 +136,9 @@ export class SandoSkeletonComment extends FlavorableMixin(LitElement) {
   private _renderHeader() {
     return html`
       <sando-skeleton-row gap="sm" align="center">
-        <sando-skeleton-text width="100px"></sando-skeleton-text>
+        <sando-skeleton-text size="${this.size}" width="${AUTHOR_WIDTH}"></sando-skeleton-text>
         ${this.showTimestamp
-          ? html`<sando-skeleton-text size="sm" width="60px"></sando-skeleton-text>`
+          ? html`<sando-skeleton-text size="sm" width="${TIMESTAMP_WIDTH}"></sando-skeleton-text>`
           : nothing}
       </sando-skeleton-row>
     `;
@@ -103,18 +151,22 @@ export class SandoSkeletonComment extends FlavorableMixin(LitElement) {
     const commentLines = [];
     for (let i = 0; i < this.lines; i++) {
       // Last line is shorter for natural look
-      const width = i === this.lines - 1 ? '70%' : '100%';
-      commentLines.push(html` <sando-skeleton-text width=${width}></sando-skeleton-text> `);
+      const width = i === this.lines - 1 ? '70%' : 'full';
+      commentLines.push(
+        html`<sando-skeleton-text size="${this.size}" width="${width}"></sando-skeleton-text>`
+      );
     }
-    return html` <sando-skeleton-stack gap="xs"> ${commentLines} </sando-skeleton-stack> `;
+    return html`<sando-skeleton-stack gap="xs">${commentLines}</sando-skeleton-stack>`;
   }
 
   /**
    * Render the skeleton comment
    */
   render() {
+    const customWidth = this.width !== 'auto' && this.width !== 'full' ? this.width : null;
+
     return html`
-      <sando-skeleton-composer>
+      <sando-skeleton-composer style=${customWidth ? `width: ${customWidth}` : nothing}>
         <sando-skeleton-row gap="md" align="start">
           <sando-skeleton-avatar size=${this.avatarSize}></sando-skeleton-avatar>
           <div class="comment-content">
