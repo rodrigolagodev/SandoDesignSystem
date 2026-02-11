@@ -24,7 +24,7 @@ const DOCS_ONLY = ['!dev', '!autodocs'];
 const meta: Meta = {
   title: 'Components/Skeleton/SkeletonStack',
   component: 'sando-skeleton-stack',
-  tags: ['autodocs', 'stable'],
+  tags: ['autodocs', 'beta'],
   render: (args) => html`
     <div style="max-width: 300px;">
       <sando-skeleton-stack gap="${args.gap || 'md'}" align="${args.align || 'stretch'}">

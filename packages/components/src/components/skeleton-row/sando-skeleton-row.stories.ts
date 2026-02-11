@@ -26,7 +26,7 @@ const DOCS_ONLY = ['!dev', '!autodocs'];
 const meta: Meta = {
   title: 'Components/Skeleton/SkeletonRow',
   component: 'sando-skeleton-row',
-  tags: ['autodocs', 'stable'],
+  tags: ['autodocs', 'beta'],
   render: (args) => html`
     <sando-skeleton-row gap="${args.gap || 'md'}" align="${args.align || 'center'}">
       <sando-skeleton shape="circular" width="40px" height="40px"></sando-skeleton>

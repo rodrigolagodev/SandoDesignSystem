@@ -24,7 +24,7 @@ const DOCS_ONLY = ['!dev', '!autodocs'];
 const meta: Meta = {
   title: 'Components/Skeleton/SkeletonTableRow',
   component: 'sando-skeleton-table-row',
-  tags: ['autodocs', 'stable'],
+  tags: ['autodocs', 'beta'],
   render: (args) => html`
     <sando-skeleton-table-row
       columns="${args.columns || 4}"

@@ -28,7 +28,7 @@ const DOCS_ONLY = ['!dev', '!autodocs'];
 const meta: Meta = {
   title: 'Components/Skeleton/SkeletonComposer',
   component: 'sando-skeleton-composer',
-  tags: ['autodocs', 'stable'],
+  tags: ['autodocs', 'beta'],
   render: (args) => html`
     <sando-skeleton-composer ?sync="${args.sync}" stagger="${args.stagger || ''}">
       <sando-skeleton-stack gap="sm">

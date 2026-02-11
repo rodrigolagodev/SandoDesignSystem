@@ -11,7 +11,7 @@ const DOCS_ONLY = ['!dev', '!autodocs'];
 const meta: Meta = {
   title: 'Components/Skeleton/SkeletonProfile',
   component: 'sando-skeleton-profile',
-  tags: ['autodocs', 'stable'],
+  tags: ['autodocs', 'beta'],
   render: (args) => html`
     <div style="max-width: 300px;">
       <sando-skeleton-profile
