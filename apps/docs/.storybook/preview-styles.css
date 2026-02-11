@@ -266,15 +266,18 @@ body {
    These MUST follow the color mode since they show actual components.
    Uses dynamic --sando-color-* tokens so components render correctly
    in light/dark/high-contrast modes.
+   
+   IMPORTANT: Background is TRANSPARENT to allow measure/outline grid
+   addons to show through. The html background provides the base color.
    ---------------------------------------- */
 .sbdocs-preview,
 .docs-story {
-  background: var(--sando-color-background-base) !important;
+  background: transparent !important;
 }
 
-/* Canvas wrapper */
+/* Canvas wrapper - transparent for grid visibility */
 .sb-story {
-  background: var(--sando-color-background-base);
+  background: transparent;
   padding: 2rem;
 }
 
@@ -593,4 +596,41 @@ body {
 
 .demo-dropdown-item:hover {
   background-color: var(--sb-docs-bg-emphasis);
+}
+
+/* ========================================
+   Preview Background Color Overrides
+   
+   The flavor tokens use warm neutrals which can appear too pink (light)
+   or too brown (dark). For the Storybook preview, we want cleaner
+   backgrounds that let components stand out better.
+   
+   These overrides provide:
+   - Light mode: Pure white (#ffffff)
+   - Dark mode: True near-black (#0a0a0a)
+   
+   This only affects the preview iframe background, not the
+   actual component token values.
+   ======================================== */
+
+/* Light mode - clean white background */
+html {
+  background-color: #ffffff;
+}
+
+/* Dark mode - true dark background (not brown) */
+html[data-color-mode="dark"] {
+  background-color: #0a0a0a;
+}
+
+/* High contrast mode - pure black for maximum contrast */
+html[data-color-mode="high-contrast"] {
+  background-color: #000000;
+}
+
+/* Auto mode with system dark preference */
+@media (prefers-color-scheme: dark) {
+  html:not([data-color-mode]) {
+    background-color: #0a0a0a;
+  }
 }

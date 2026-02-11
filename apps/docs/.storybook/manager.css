@@ -4,8 +4,12 @@
  * Custom CSS for the Storybook manager UI with theme support.
  * Uses CSS custom properties for light/dark mode switching.
  *
- * Theme is applied via data-theme="light|dark" on documentElement
- * which is set by manager.ts based on system preference.
+ * Theme is applied via:
+ * - data-sb-theme="light|dark" (new, preferred)
+ * - data-theme="light|dark" (legacy, for backwards compatibility)
+ *
+ * Theme preference is stored in localStorage under "sando-storybook-ui-theme"
+ * and can be toggled with Ctrl+Shift+T keyboard shortcut.
  */
 
 /* ============================================================================
@@ -72,9 +76,12 @@
 
 /* ============================================================================
    CSS Custom Properties - Dark Mode
+   
+   Supports both data-theme and data-sb-theme for compatibility
    ============================================================================ */
 
-[data-theme="dark"] {
+[data-theme="dark"],
+[data-sb-theme="dark"] {
   /* Primary colors */
   --sando-sb-primary: #fb923c;
   --sando-sb-primary-hover: #f97316;
@@ -122,9 +129,9 @@
   --sando-sb-badge-updated-text: #d8b4fe;
 }
 
-/* System preference fallback (when data-theme not set) */
+/* System preference fallback (when no explicit theme is set) */
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) {
+  :root:not([data-theme]):not([data-sb-theme]) {
     /* Primary colors */
     --sando-sb-primary: #fb923c;
     --sando-sb-primary-hover: #f97316;
