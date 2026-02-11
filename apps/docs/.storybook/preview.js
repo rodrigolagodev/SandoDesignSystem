@@ -168,7 +168,7 @@ const preview = {
       name: "Flavor",
       description: "Design system flavor/theme",
       toolbar: {
-        icon: "paintbrush",
+        // No icon - emoji in title is sufficient
         title: "Flavor",
         items: [
           { value: "original", title: "🍞 Original", right: "Default" },
