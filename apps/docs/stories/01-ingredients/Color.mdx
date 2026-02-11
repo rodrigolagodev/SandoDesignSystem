@@ -4,23 +4,30 @@ import { Meta } from "@storybook/blocks";
 
 # Color
 
-The Sando Design System provides **8 brand color palettes** + **3 neutral variants**, all scientifically generated using **OKLCH color space** for perceptual uniformity, then compiled to **HSL** for maximum browser compatibility.
+The Sando Design System provides **8 refined color palettes** + **3 neutral variants**, all carefully crafted using **OKLCH color space** for perceptual uniformity. Inspired by the Japanese Sando aesthetic—minimalist, sophisticated, and artisanal—our colors are intentionally **less saturated** than typical design systems, creating a calm, premium feel.
 
-## Color Philosophy
+## Color Philosophy: The Sando Aesthetic
 
-Sando's color system is **opinionated and curated**:
+Sando's color system is inspired by the Japanese sandwich (サンド):
 
-- **8 Brand Palettes**: Orange, Yellow, Brown, Red, Pink, Purple, Blue, Green
-- **3 Neutral Variants**: Neutral (gray), Neutral Cool (blue-gray), Neutral Warm (tan)
-- **OKLCH-Generated**: Perceptually uniform scales, compiled to HSL
+- **Soft, Not Loud**: Lower chroma values (~40-50% less than typical) for sophistication
+- **Warm & Natural**: Hues shifted toward earthy, organic tones
+- **Refined Minimalism**: Colors that whisper, not shout
 - **WCAG AA Guaranteed**: All palettes pass accessibility standards
-- **11 Shades**: From 50 (lightest) to 950 (darkest)
+- **11 Shades**: From 50 (near-white) to 950 (near-black)
+
+| Element                | Color Inspiration      |
+| ---------------------- | ---------------------- |
+| Shokupan (white bread) | Creamy, warm whites    |
+| Panko (breadcrumbs)    | Golden amber tones     |
+| Fresh ingredients      | Muted, organic greens  |
+| Artisanal presentation | Sophisticated neutrals |
 
 **Three-layer architecture:**
 
-1. **Ingredients** (this page) - 8 brand palettes + 3 neutral variants
-2. **Flavors** - Map palettes to semantic roles (e.g., `action.solid.background`)
-3. **Recipes** - Component-specific tokens (e.g., `button.solid.backgroundColor`)
+1. **Ingredients** (this page) - 8 refined palettes + 3 neutral variants
+2. **Flavors** - Map palettes to semantic roles
+3. **Recipes** - Component-specific tokens
 
 ---
 
@@ -28,11 +35,11 @@ Sando's color system is **opinionated and curated**:
 
 Choose the palette that matches your brand personality. All palettes include 11 shades (50-950).
 
-### Orange (Energetic, Friendly, Approachable)
+### Orange → Sando Amber (Warm, Golden, Artisanal)
 
-**Default brand color** - Sando's signature palette.
+**Sando's signature color** - Inspired by golden panko and toasted bread. Hue shifted to 38° for a more sophisticated, less "neon" feel.
 
-**Use case:** Startups, creative agencies, food & beverage, e-commerce
+**Use case:** Premium food brands, artisanal products, warm & inviting experiences
 
 <div
   style={{
@@ -70,11 +77,11 @@ Choose the palette that matches your brand personality. All palettes include 11 
   ))}
 </div>
 
-### Yellow (Warm, Optimistic, Friendly)
+### Yellow → Sando Custard (Soft, Buttery, Gentle)
 
-**Egg Salad Sando** - Warm and inviting palette.
+**Egg Salad Sando** - A soft, buttery yellow inspired by Japanese tamago (egg). Less intense than typical yellows.
 
-**Use case:** Food & beverage, lifestyle, friendly brands, optimistic messaging
+**Use case:** Friendly messaging, food & lifestyle, approachable brands
 
 <div
   style={{
@@ -112,11 +119,11 @@ Choose the palette that matches your brand personality. All palettes include 11 
   ))}
 </div>
 
-### Brown (Warm, Artisanal, Premium)
+### Brown → Sando Toast (Rich, Earthy, Premium)
 
-**Tonkatsu Sando** - Rich and earthy palette.
+**Tonkatsu Sando** - Deep, warm brown inspired by perfectly fried katsu. Hue at 50° for maximum warmth.
 
-**Use case:** Artisanal products, craft brands, premium goods, coffee & bakery
+**Use case:** Craft brands, premium goods, coffee & bakery, artisanal feel
 
 <div
   style={{
@@ -154,11 +161,11 @@ Choose the palette that matches your brand personality. All palettes include 11 
   ))}
 </div>
 
-### Red (Urgent, Important, Bold)
+### Red → Sando Terracotta (Warm, Grounded, Confident)
 
-**Strawberry Sando** - High-impact and attention-grabbing palette.
+**Strawberry Sando** - A warmer, more grounded red (hue 15°). Less aggressive than typical reds while maintaining impact.
 
-**Use case:** News, alerts, e-commerce deals, errors, gaming
+**Use case:** Alerts with warmth, premium urgency, confident CTAs
 
 <div
   style={{
@@ -196,11 +203,11 @@ Choose the palette that matches your brand personality. All palettes include 11 
   ))}
 </div>
 
-### Pink (Playful, Modern, Vibrant)
+### Pink → Sando Sakura (Soft, Romantic, Refined)
 
-**Available now** - Vibrant and youthful palette.
+**Cherry blossom inspired** - Shifted to hue 350° for a more coral, natural pink. Refined and elegant.
 
-**Use case:** Fashion, beauty, lifestyle, social apps
+**Use case:** Fashion, beauty, lifestyle, elegant feminine brands
 
 <div
   style={{
@@ -238,11 +245,11 @@ Choose the palette that matches your brand personality. All palettes include 11 
   ))}
 </div>
 
-### Purple (Creative, Premium, Sophisticated)
+### Purple → Sando Plum (Sophisticated, Creative, Calm)
 
-**Available now** - Luxury and creative palette.
+**Umeboshi inspired** - Hue 290° creates a plum-like purple that feels organic and sophisticated.
 
-**Use case:** Luxury brands, creative tools, entertainment, fashion
+**Use case:** Creative tools, premium experiences, calm luxury
 
 <div
   style={{
@@ -280,11 +287,11 @@ Choose the palette that matches your brand personality. All palettes include 11 
   ))}
 </div>
 
-### Blue (Trust, Professional, Calm)
+### Blue → Sando Indigo (Deep, Trustworthy, Japanese)
 
-**Available now** - Professional and trustworthy palette.
+**Traditional indigo inspired** - Hue 230° references Japanese indigo dyeing (藍染). Professional yet distinctive.
 
-**Use case:** SaaS, finance, healthcare, corporate, tech
+**Use case:** Professional tools, trustworthy brands, sophisticated tech
 
 <div
   style={{
@@ -322,11 +329,11 @@ Choose the palette that matches your brand personality. All palettes include 11 
   ))}
 </div>
 
-### Green (Growth, Success, Natural)
+### Green → Sando Matcha (Natural, Calm, Organic)
 
-**Kiwi Sando** - Fresh and sustainable palette.
+**Kiwi Sando** - Hue 145° creates a matcha-like green. Calm, natural, and wellness-oriented.
 
-**Use case:** Sustainability, health & wellness, finance, education
+**Use case:** Sustainability, health & wellness, organic brands
 
 <div
   style={{
@@ -372,60 +379,88 @@ Choose the neutral that complements your brand palette. Each variant includes 11
 
 ### Neutral (Pure Gray - Balanced)
 
-**Coming soon** - True neutral palette.
+**Available now** - True neutral palette.
 
 **Use case:** Pairs well with any brand color, true neutral feel
 
 <div
   style={{
-    padding: "40px",
-    background: "#f5f5f5",
-    borderRadius: "8px",
-    textAlign: "center",
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))",
+    gap: "16px",
     marginTop: "24px",
-    border: "2px dashed #d4d4d4",
   }}
 >
-  <p
-    style={{
-      fontSize: "14px",
-      color: "#525252",
-      margin: 0,
-    }}
-  >
-    Neutral palette is being generated using OKLCH color space
-    <br />
-    11 steps (50-950) | No warmth or coolness | ETA: Q2 2025
-  </p>
+  {[50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950].map((shade) => (
+    <div
+      key={shade}
+      style={{ display: "flex", flexDirection: "column", gap: "8px" }}
+    >
+      <div
+        style={{
+          backgroundColor: `var(--sando-color-neutral-${shade})`,
+          height: "80px",
+          borderRadius: "8px",
+          border: "1px solid rgba(0,0,0,0.1)",
+          boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
+        }}
+      />
+      <div style={{ fontSize: "12px", fontWeight: "600" }}>neutral-{shade}</div>
+      <div
+        style={{
+          fontSize: "11px",
+          color: "#44403c",
+          fontFamily: "monospace",
+        }}
+      >
+        --sando-color-neutral-{shade}
+      </div>
+    </div>
+  ))}
 </div>
 
 ### Neutral Cool (Slight Blue Tint - Clean)
 
-**Coming soon** - Cool, sophisticated neutral.
+**Available now** - Cool, sophisticated neutral.
 
 **Use case:** Pairs with blue, purple, teal brands for sophistication
 
 <div
   style={{
-    padding: "40px",
-    background: "#f1f5f9",
-    borderRadius: "8px",
-    textAlign: "center",
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))",
+    gap: "16px",
     marginTop: "24px",
-    border: "2px dashed #cbd5e1",
   }}
 >
-  <p
-    style={{
-      fontSize: "14px",
-      color: "#475569",
-      margin: 0,
-    }}
-  >
-    Neutral Cool palette is being generated using OKLCH color space
-    <br />
-    11 steps (50-950) | Slight blue tint | ETA: Q2 2025
-  </p>
+  {[50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950].map((shade) => (
+    <div
+      key={shade}
+      style={{ display: "flex", flexDirection: "column", gap: "8px" }}
+    >
+      <div
+        style={{
+          backgroundColor: `var(--sando-color-neutralCool-${shade})`,
+          height: "80px",
+          borderRadius: "8px",
+          border: "1px solid rgba(0,0,0,0.1)",
+          boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
+        }}
+      />
+      <div style={{ fontSize: "12px", fontWeight: "600" }}>
+        neutralCool-{shade}
+      </div>
+      <div
+        style={{
+          fontSize: "11px",
+          color: "#44403c",
+          fontFamily: "monospace",
+        }}
+      >
+        --sando-color-neutralCool-{shade}
+      </div>
+    </div>
+  ))}
 </div>
 
 ### Neutral Warm (Slight Brown Tint - Cozy)
@@ -655,6 +690,24 @@ For informational messages and tips.
 - Don't mix color systems (stay within the design system)
 - Don't use hardcoded color values in your code
 - Don't use state colors for decorative purposes
+
+---
+
+## Technical Details: OKLCH Values
+
+Our refined palette uses intentionally lower chroma values:
+
+| Profile              | Typical DS | Sando DS   | Reduction |
+| -------------------- | ---------- | ---------- | --------- |
+| Peak Chroma          | 0.17-0.22  | 0.10-0.14  | ~40%      |
+| Light tints (50-100) | 0.06-0.09  | 0.015-0.03 | ~75%      |
+
+**Why lower saturation?**
+
+- Creates visual calm and reduces eye strain
+- Feels more premium and sophisticated
+- Better harmony between colors
+- Still maintains WCAG AA contrast
 
 ---
 

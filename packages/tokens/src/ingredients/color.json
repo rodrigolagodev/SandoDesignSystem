@@ -3,118 +3,118 @@
     "state": {
       "error": {
         "100": {
-          "value": "oklch(0.90 0.08 10)",
+          "value": "oklch(0.92 0.04 15)",
           "type": "color",
           "description": "error 100"
         },
         "300": {
-          "value": "oklch(0.75 0.18 15)",
+          "value": "oklch(0.78 0.12 15)",
           "type": "color",
           "description": "error 300"
         },
         "400": {
-          "value": "oklch(0.68 0.20 15)",
+          "value": "oklch(0.70 0.15 15)",
           "type": "color",
           "description": "error 400"
         },
         "500": {
-          "value": "oklch(0.64 0.22 15)",
+          "value": "oklch(0.62 0.18 15)",
           "type": "color",
           "description": "error 500"
         },
         "600": {
-          "value": "oklch(0.56 0.20 10)",
+          "value": "oklch(0.54 0.16 15)",
           "type": "color",
           "description": "error 600"
         },
         "700": {
-          "value": "oklch(0.47 0.16 10)",
+          "value": "oklch(0.46 0.14 15)",
           "type": "color",
           "description": "error 700"
         },
         "900": {
-          "value": "oklch(0.38 0.12 10)",
+          "value": "oklch(0.36 0.10 15)",
           "type": "color",
           "description": "error 900"
         }
       },
       "warning": {
         "100": {
-          "value": "oklch(0.92 0.10 85)",
+          "value": "oklch(0.94 0.06 85)",
           "type": "color",
           "description": "warning 100"
         },
         "400": {
-          "value": "oklch(0.80 0.16 85)",
+          "value": "oklch(0.82 0.12 85)",
           "type": "color",
           "description": "warning 400"
         },
         "500": {
-          "value": "oklch(0.85 0.18 95)",
+          "value": "oklch(0.82 0.14 90)",
           "type": "color",
           "description": "warning 500"
         },
         "700": {
-          "value": "oklch(0.70 0.18 60)",
+          "value": "oklch(0.68 0.14 60)",
           "type": "color",
           "description": "warning 700"
         }
       },
       "success": {
         "100": {
-          "value": "oklch(0.88 0.06 145)",
+          "value": "oklch(0.92 0.03 145)",
           "type": "color",
           "description": "success 100"
         },
         "300": {
-          "value": "oklch(0.75 0.12 145)",
+          "value": "oklch(0.78 0.08 145)",
           "type": "color",
           "description": "success 300"
         },
         "400": {
-          "value": "oklch(0.65 0.14 145)",
+          "value": "oklch(0.68 0.10 145)",
           "type": "color",
           "description": "success 400"
         },
         "500": {
-          "value": "oklch(0.58 0.14 145)",
+          "value": "oklch(0.60 0.11 145)",
           "type": "color",
           "description": "success 500"
         },
         "600": {
-          "value": "oklch(0.50 0.12 145)",
+          "value": "oklch(0.52 0.10 145)",
           "type": "color",
           "description": "success 600"
         },
         "700": {
-          "value": "oklch(0.42 0.10 145)",
+          "value": "oklch(0.44 0.08 145)",
           "type": "color",
           "description": "success 700"
         },
         "900": {
-          "value": "oklch(0.32 0.08 145)",
+          "value": "oklch(0.34 0.06 145)",
           "type": "color",
           "description": "success 900"
         }
       },
       "info": {
         "100": {
-          "value": "oklch(0.94 0.04 250)",
+          "value": "oklch(0.96 0.02 250)",
           "type": "color",
           "description": "info 100"
         },
         "400": {
-          "value": "oklch(0.72 0.14 250)",
+          "value": "oklch(0.74 0.10 250)",
           "type": "color",
           "description": "info 400"
         },
         "500": {
-          "value": "oklch(0.62 0.18 250)",
+          "value": "oklch(0.60 0.13 250)",
           "type": "color",
           "description": "info 500"
         },
         "700": {
-          "value": "oklch(0.47 0.12 250)",
+          "value": "oklch(0.48 0.10 250)",
           "type": "color",
           "description": "info 700"
         }
@@ -139,342 +139,342 @@
     },
     "orange": {
       "50": {
-        "value": "oklch(0.98 0.08 25)",
+        "value": "oklch(0.985 0.02 38)",
         "type": "color",
         "description": "orange 50"
       },
       "100": {
-        "value": "oklch(0.95 0.08 25)",
+        "value": "oklch(0.96 0.03 38)",
         "type": "color",
         "description": "orange 100"
       },
       "200": {
-        "value": "oklch(0.9 0.14 25)",
+        "value": "oklch(0.92 0.05 38)",
         "type": "color",
         "description": "orange 200"
       },
       "300": {
-        "value": "oklch(0.82 0.2 25)",
+        "value": "oklch(0.84 0.08 38)",
         "type": "color",
         "description": "orange 300"
       },
       "400": {
-        "value": "oklch(0.73 0.2 25)",
+        "value": "oklch(0.74 0.10 38)",
         "type": "color",
         "description": "orange 400"
       },
       "500": {
-        "value": "oklch(0.64 0.2 25)",
+        "value": "oklch(0.65 0.12 38)",
         "type": "color",
         "description": "orange 500"
       },
       "600": {
-        "value": "oklch(0.56 0.2 25)",
+        "value": "oklch(0.56 0.12 38)",
         "type": "color",
         "description": "orange 600"
       },
       "700": {
-        "value": "oklch(0.47 0.2 25)",
+        "value": "oklch(0.47 0.11 38)",
         "type": "color",
         "description": "orange 700"
       },
       "800": {
-        "value": "oklch(0.38 0.16 25)",
+        "value": "oklch(0.38 0.09 38)",
         "type": "color",
         "description": "orange 800"
       },
       "900": {
-        "value": "oklch(0.3 0.16 25)",
+        "value": "oklch(0.30 0.07 38)",
         "type": "color",
         "description": "orange 900"
       },
       "950": {
-        "value": "oklch(0.22 0.12 25)",
+        "value": "oklch(0.22 0.06 38)",
         "type": "color",
         "description": "orange 950"
       }
     },
     "blue": {
       "50": {
-        "value": "oklch(0.98 0.072 220)",
+        "value": "oklch(0.985 0.015 230)",
         "type": "color",
         "description": "blue 50"
       },
       "100": {
-        "value": "oklch(0.95 0.072 220)",
+        "value": "oklch(0.96 0.025 230)",
         "type": "color",
         "description": "blue 100"
       },
       "200": {
-        "value": "oklch(0.9 0.126 220)",
+        "value": "oklch(0.92 0.045 230)",
         "type": "color",
         "description": "blue 200"
       },
       "300": {
-        "value": "oklch(0.82 0.18 220)",
+        "value": "oklch(0.84 0.08 230)",
         "type": "color",
         "description": "blue 300"
       },
       "400": {
-        "value": "oklch(0.73 0.18 220)",
+        "value": "oklch(0.74 0.10 230)",
         "type": "color",
         "description": "blue 400"
       },
       "500": {
-        "value": "oklch(0.64 0.18 220)",
+        "value": "oklch(0.65 0.11 230)",
         "type": "color",
         "description": "blue 500"
       },
       "600": {
-        "value": "oklch(0.56 0.18 220)",
+        "value": "oklch(0.56 0.11 230)",
         "type": "color",
         "description": "blue 600"
       },
       "700": {
-        "value": "oklch(0.47 0.18 220)",
+        "value": "oklch(0.47 0.10 230)",
         "type": "color",
         "description": "blue 700"
       },
       "800": {
-        "value": "oklch(0.38 0.144 220)",
+        "value": "oklch(0.38 0.08 230)",
         "type": "color",
         "description": "blue 800"
       },
       "900": {
-        "value": "oklch(0.3 0.144 220)",
+        "value": "oklch(0.30 0.07 230)",
         "type": "color",
         "description": "blue 900"
       },
       "950": {
-        "value": "oklch(0.22 0.108 220)",
+        "value": "oklch(0.22 0.05 230)",
         "type": "color",
         "description": "blue 950"
       }
     },
     "green": {
       "50": {
-        "value": "oklch(0.98 0.068 140)",
+        "value": "oklch(0.985 0.015 145)",
         "type": "color",
         "description": "green 50"
       },
       "100": {
-        "value": "oklch(0.95 0.068 140)",
+        "value": "oklch(0.96 0.025 145)",
         "type": "color",
         "description": "green 100"
       },
       "200": {
-        "value": "oklch(0.9 0.119 140)",
+        "value": "oklch(0.92 0.04 145)",
         "type": "color",
         "description": "green 200"
       },
       "300": {
-        "value": "oklch(0.82 0.17 140)",
+        "value": "oklch(0.84 0.07 145)",
         "type": "color",
         "description": "green 300"
       },
       "400": {
-        "value": "oklch(0.73 0.17 140)",
+        "value": "oklch(0.74 0.09 145)",
         "type": "color",
         "description": "green 400"
       },
       "500": {
-        "value": "oklch(0.64 0.17 140)",
+        "value": "oklch(0.65 0.10 145)",
         "type": "color",
         "description": "green 500"
       },
       "600": {
-        "value": "oklch(0.56 0.17 140)",
+        "value": "oklch(0.56 0.10 145)",
         "type": "color",
         "description": "green 600"
       },
       "700": {
-        "value": "oklch(0.47 0.17 140)",
+        "value": "oklch(0.47 0.09 145)",
         "type": "color",
         "description": "green 700"
       },
       "800": {
-        "value": "oklch(0.38 0.136 140)",
+        "value": "oklch(0.38 0.07 145)",
         "type": "color",
         "description": "green 800"
       },
       "900": {
-        "value": "oklch(0.3 0.136 140)",
+        "value": "oklch(0.30 0.06 145)",
         "type": "color",
         "description": "green 900"
       },
       "950": {
-        "value": "oklch(0.22 0.102 140)",
+        "value": "oklch(0.22 0.05 145)",
         "type": "color",
         "description": "green 950"
       }
     },
     "red": {
       "50": {
-        "value": "oklch(0.98 0.088 10)",
+        "value": "oklch(0.985 0.02 15)",
         "type": "color",
         "description": "red 50"
       },
       "100": {
-        "value": "oklch(0.95 0.088 10)",
+        "value": "oklch(0.96 0.03 15)",
         "type": "color",
         "description": "red 100"
       },
       "200": {
-        "value": "oklch(0.9 0.154 10)",
+        "value": "oklch(0.92 0.06 15)",
         "type": "color",
         "description": "red 200"
       },
       "300": {
-        "value": "oklch(0.82 0.22 10)",
+        "value": "oklch(0.84 0.10 15)",
         "type": "color",
         "description": "red 300"
       },
       "400": {
-        "value": "oklch(0.73 0.22 10)",
+        "value": "oklch(0.74 0.12 15)",
         "type": "color",
         "description": "red 400"
       },
       "500": {
-        "value": "oklch(0.64 0.22 10)",
+        "value": "oklch(0.65 0.14 15)",
         "type": "color",
         "description": "red 500"
       },
       "600": {
-        "value": "oklch(0.56 0.22 10)",
+        "value": "oklch(0.56 0.14 15)",
         "type": "color",
         "description": "red 600"
       },
       "700": {
-        "value": "oklch(0.47 0.22 10)",
+        "value": "oklch(0.47 0.12 15)",
         "type": "color",
         "description": "red 700"
       },
       "800": {
-        "value": "oklch(0.38 0.176 10)",
+        "value": "oklch(0.38 0.10 15)",
         "type": "color",
         "description": "red 800"
       },
       "900": {
-        "value": "oklch(0.3 0.176 10)",
+        "value": "oklch(0.30 0.08 15)",
         "type": "color",
         "description": "red 900"
       },
       "950": {
-        "value": "oklch(0.22 0.132 10)",
+        "value": "oklch(0.22 0.06 15)",
         "type": "color",
         "description": "red 950"
       }
     },
     "purple": {
       "50": {
-        "value": "oklch(0.98 0.076 280)",
+        "value": "oklch(0.985 0.015 290)",
         "type": "color",
         "description": "purple 50"
       },
       "100": {
-        "value": "oklch(0.95 0.076 280)",
+        "value": "oklch(0.96 0.025 290)",
         "type": "color",
         "description": "purple 100"
       },
       "200": {
-        "value": "oklch(0.9 0.133 280)",
+        "value": "oklch(0.92 0.045 290)",
         "type": "color",
         "description": "purple 200"
       },
       "300": {
-        "value": "oklch(0.82 0.19 280)",
+        "value": "oklch(0.84 0.07 290)",
         "type": "color",
         "description": "purple 300"
       },
       "400": {
-        "value": "oklch(0.73 0.19 280)",
+        "value": "oklch(0.74 0.09 290)",
         "type": "color",
         "description": "purple 400"
       },
       "500": {
-        "value": "oklch(0.64 0.19 280)",
+        "value": "oklch(0.65 0.10 290)",
         "type": "color",
         "description": "purple 500"
       },
       "600": {
-        "value": "oklch(0.56 0.19 280)",
+        "value": "oklch(0.56 0.10 290)",
         "type": "color",
         "description": "purple 600"
       },
       "700": {
-        "value": "oklch(0.47 0.19 280)",
+        "value": "oklch(0.47 0.09 290)",
         "type": "color",
         "description": "purple 700"
       },
       "800": {
-        "value": "oklch(0.38 0.152 280)",
+        "value": "oklch(0.38 0.07 290)",
         "type": "color",
         "description": "purple 800"
       },
       "900": {
-        "value": "oklch(0.3 0.152 280)",
+        "value": "oklch(0.30 0.06 290)",
         "type": "color",
         "description": "purple 900"
       },
       "950": {
-        "value": "oklch(0.22 0.114 280)",
+        "value": "oklch(0.22 0.05 290)",
         "type": "color",
         "description": "purple 950"
       }
     },
     "pink": {
       "50": {
-        "value": "oklch(0.98 0.084 340)",
+        "value": "oklch(0.985 0.02 350)",
         "type": "color",
         "description": "pink 50"
       },
       "100": {
-        "value": "oklch(0.95 0.084 340)",
+        "value": "oklch(0.96 0.03 350)",
         "type": "color",
         "description": "pink 100"
       },
       "200": {
-        "value": "oklch(0.9 0.147 340)",
+        "value": "oklch(0.92 0.05 350)",
         "type": "color",
         "description": "pink 200"
       },
       "300": {
-        "value": "oklch(0.82 0.21 340)",
+        "value": "oklch(0.84 0.08 350)",
         "type": "color",
         "description": "pink 300"
       },
       "400": {
-        "value": "oklch(0.73 0.21 340)",
+        "value": "oklch(0.74 0.10 350)",
         "type": "color",
         "description": "pink 400"
       },
       "500": {
-        "value": "oklch(0.64 0.21 340)",
+        "value": "oklch(0.65 0.11 350)",
         "type": "color",
         "description": "pink 500"
       },
       "600": {
-        "value": "oklch(0.56 0.21 340)",
+        "value": "oklch(0.56 0.11 350)",
         "type": "color",
         "description": "pink 600"
       },
       "700": {
-        "value": "oklch(0.47 0.21 340)",
+        "value": "oklch(0.47 0.10 350)",
         "type": "color",
         "description": "pink 700"
       },
       "800": {
-        "value": "oklch(0.38 0.168 340)",
+        "value": "oklch(0.38 0.08 350)",
         "type": "color",
         "description": "pink 800"
       },
       "900": {
-        "value": "oklch(0.3 0.168 340)",
+        "value": "oklch(0.30 0.06 350)",
         "type": "color",
         "description": "pink 900"
       },
       "950": {
-        "value": "oklch(0.22 0.126 340)",
+        "value": "oklch(0.22 0.05 350)",
         "type": "color",
         "description": "pink 950"
       }
@@ -652,114 +652,114 @@
     },
     "yellow": {
       "50": {
-        "value": "oklch(0.98 0.06 95)",
+        "value": "oklch(0.985 0.02 90)",
         "type": "color",
         "description": "yellow 50"
       },
       "100": {
-        "value": "oklch(0.95 0.08 95)",
+        "value": "oklch(0.96 0.04 90)",
         "type": "color",
         "description": "yellow 100"
       },
       "200": {
-        "value": "oklch(0.90 0.14 95)",
+        "value": "oklch(0.92 0.06 90)",
         "type": "color",
         "description": "yellow 200"
       },
       "300": {
-        "value": "oklch(0.82 0.18 95)",
+        "value": "oklch(0.84 0.09 90)",
         "type": "color",
         "description": "yellow 300"
       },
       "400": {
-        "value": "oklch(0.73 0.18 95)",
+        "value": "oklch(0.78 0.10 90)",
         "type": "color",
         "description": "yellow 400"
       },
       "500": {
-        "value": "oklch(0.64 0.18 95)",
+        "value": "oklch(0.75 0.10 90)",
         "type": "color",
         "description": "yellow 500"
       },
       "600": {
-        "value": "oklch(0.56 0.16 95)",
+        "value": "oklch(0.60 0.09 90)",
         "type": "color",
         "description": "yellow 600"
       },
       "700": {
-        "value": "oklch(0.47 0.14 95)",
+        "value": "oklch(0.50 0.08 90)",
         "type": "color",
         "description": "yellow 700"
       },
       "800": {
-        "value": "oklch(0.38 0.12 95)",
+        "value": "oklch(0.40 0.07 90)",
         "type": "color",
         "description": "yellow 800"
       },
       "900": {
-        "value": "oklch(0.30 0.10 95)",
+        "value": "oklch(0.32 0.05 90)",
         "type": "color",
         "description": "yellow 900"
       },
       "950": {
-        "value": "oklch(0.22 0.08 95)",
+        "value": "oklch(0.24 0.04 90)",
         "type": "color",
         "description": "yellow 950"
       }
     },
     "brown": {
       "50": {
-        "value": "oklch(0.98 0.02 60)",
+        "value": "oklch(0.985 0.015 50)",
         "type": "color",
         "description": "brown 50"
       },
       "100": {
-        "value": "oklch(0.95 0.03 60)",
+        "value": "oklch(0.96 0.02 50)",
         "type": "color",
         "description": "brown 100"
       },
       "200": {
-        "value": "oklch(0.90 0.06 60)",
+        "value": "oklch(0.92 0.035 50)",
         "type": "color",
         "description": "brown 200"
       },
       "300": {
-        "value": "oklch(0.82 0.08 60)",
+        "value": "oklch(0.84 0.05 50)",
         "type": "color",
         "description": "brown 300"
       },
       "400": {
-        "value": "oklch(0.73 0.10 60)",
+        "value": "oklch(0.74 0.07 50)",
         "type": "color",
         "description": "brown 400"
       },
       "500": {
-        "value": "oklch(0.64 0.10 60)",
+        "value": "oklch(0.65 0.08 50)",
         "type": "color",
         "description": "brown 500"
       },
       "600": {
-        "value": "oklch(0.56 0.10 60)",
+        "value": "oklch(0.55 0.08 50)",
         "type": "color",
         "description": "brown 600"
       },
       "700": {
-        "value": "oklch(0.47 0.09 60)",
+        "value": "oklch(0.46 0.07 50)",
         "type": "color",
         "description": "brown 700"
       },
       "800": {
-        "value": "oklch(0.38 0.07 60)",
+        "value": "oklch(0.37 0.06 50)",
         "type": "color",
         "description": "brown 800"
       },
       "900": {
-        "value": "oklch(0.30 0.06 60)",
+        "value": "oklch(0.29 0.05 50)",
         "type": "color",
         "description": "brown 900"
       },
       "950": {
-        "value": "oklch(0.22 0.04 60)",
+        "value": "oklch(0.21 0.04 50)",
         "type": "color",
         "description": "brown 950"
       }
