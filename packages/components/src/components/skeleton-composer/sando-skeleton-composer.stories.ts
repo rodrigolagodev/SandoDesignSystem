@@ -26,7 +26,7 @@ const DOCS_ONLY = ['!dev', '!autodocs'];
  * | **Independent** | `sync="false"` - each skeleton animates on its own timing |
  */
 const meta: Meta = {
-  title: 'Components/Skeleton/Layout/SkeletonComposer',
+  title: 'Components/Skeleton/SkeletonComposer',
   component: 'sando-skeleton-composer',
   tags: ['autodocs', 'beta'],
   render: (args) => html`

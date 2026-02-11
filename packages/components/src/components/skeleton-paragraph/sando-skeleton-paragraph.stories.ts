@@ -22,7 +22,7 @@ const DOCS_ONLY = ['!dev', '!autodocs'];
  * - Inherits animation effects from base skeleton
  */
 const meta: Meta = {
-  title: 'Components/Skeleton/Presets/SkeletonParagraph',
+  title: 'Components/Skeleton/SkeletonParagraph',
   component: 'sando-skeleton-paragraph',
   tags: ['autodocs', 'stable'],
   render: (args) => html`

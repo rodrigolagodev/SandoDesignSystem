@@ -30,7 +30,7 @@ const DOCS_ONLY = ['!dev', '!autodocs'];
  * ```
  */
 const meta: Meta = {
-  title: 'Components/Skeleton/Presets/SkeletonArticle',
+  title: 'Components/Skeleton/SkeletonArticle',
   component: 'sando-skeleton-article',
   tags: ['autodocs', 'stable'],
   render: (args) => html`

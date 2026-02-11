@@ -9,7 +9,7 @@ import './sando-skeleton-comment.js';
 const DOCS_ONLY = ['!dev', '!autodocs'];
 
 const meta: Meta = {
-  title: 'Components/Skeleton/Presets/SkeletonComment',
+  title: 'Components/Skeleton/SkeletonComment',
   component: 'sando-skeleton-comment',
   tags: ['autodocs', 'stable'],
   render: (args) => html`

@@ -24,7 +24,7 @@ addons.setConfig({
         fgColor: "#166534", // green-800
       },
       display: {
-        sidebar: ["component", "docs"],
+        sidebar: ["component", "docs", "group"],
         toolbar: true,
       },
     },
@@ -37,7 +37,7 @@ addons.setConfig({
         fgColor: "#92400e", // amber-800
       },
       display: {
-        sidebar: ["component", "docs"],
+        sidebar: ["component", "docs", "group"],
         toolbar: true,
       },
     },
@@ -50,7 +50,7 @@ addons.setConfig({
         fgColor: "#1e40af", // blue-800
       },
       display: {
-        sidebar: ["component", "docs"],
+        sidebar: ["component", "docs", "group"],
         toolbar: true,
       },
     },
@@ -63,7 +63,7 @@ addons.setConfig({
         fgColor: "#991b1b", // red-800
       },
       display: {
-        sidebar: ["component", "docs"],
+        sidebar: ["component", "docs", "group"],
         toolbar: true,
       },
     },
@@ -76,7 +76,7 @@ addons.setConfig({
         fgColor: "#6b21a8", // purple-800
       },
       display: {
-        sidebar: ["component", "docs"],
+        sidebar: ["component", "docs", "group"],
         toolbar: true,
       },
     },

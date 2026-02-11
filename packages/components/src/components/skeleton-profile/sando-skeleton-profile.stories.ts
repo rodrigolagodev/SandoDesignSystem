@@ -9,7 +9,7 @@ import './sando-skeleton-profile.js';
 const DOCS_ONLY = ['!dev', '!autodocs'];
 
 const meta: Meta = {
-  title: 'Components/Skeleton/Templates/SkeletonProfile',
+  title: 'Components/Skeleton/SkeletonProfile',
   component: 'sando-skeleton-profile',
   tags: ['autodocs', 'beta'],
   render: (args) => html`

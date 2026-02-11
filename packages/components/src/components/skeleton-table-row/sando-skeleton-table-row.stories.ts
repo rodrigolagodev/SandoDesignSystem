@@ -22,7 +22,7 @@ const DOCS_ONLY = ['!dev', '!autodocs'];
  * - Varied text widths for visual interest
  */
 const meta: Meta = {
-  title: 'Components/Skeleton/Templates/SkeletonTableRow',
+  title: 'Components/Skeleton/SkeletonTableRow',
   component: 'sando-skeleton-table-row',
   tags: ['autodocs', 'beta'],
   render: (args) => html`

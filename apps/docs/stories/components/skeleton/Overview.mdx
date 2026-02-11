@@ -75,55 +75,6 @@ import { Meta } from "@storybook/blocks";
       color: #92400e;
     }
 
-    .category-badge {
-      display: inline-flex;
-      align-items: center;
-      padding: 0.25rem 0.5rem;
-      border-radius: 4px;
-      font-size: 0.75rem;
-      font-weight: 500;
-    }
-
-    .category-primitive {
-      background: #e0e7ff;
-      color: #3730a3;
-    }
-
-    .category-preset {
-      background: #fce7f3;
-      color: #9d174d;
-    }
-
-    .category-layout {
-      background: #d1fae5;
-      color: #065f46;
-    }
-
-    .category-template {
-      background: #fef3c7;
-      color: #92400e;
-    }
-
-    .category-section {
-      margin-top: 2.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .category-section h3 {
-      margin: 0 0 0.5rem 0;
-      font-size: 1.125rem;
-      color: #1c1917;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .category-section p {
-      margin: 0 0 1rem 0;
-      color: #78716c;
-      font-size: 0.875rem;
-    }
-
     .legend {
       display: flex;
       gap: 1.5rem;
@@ -179,31 +130,7 @@ import { Meta } from "@storybook/blocks";
       line-height: 1.6;
     }
 
-    .when-to-use {
-      margin-top: 2.5rem;
-    }
 
-    .when-to-use h2 {
-      font-size: 1.5rem;
-      margin: 0 0 1rem 0;
-      color: #1c1917;
-    }
-
-    .use-case {
-      margin-bottom: 1rem;
-      padding-left: 1rem;
-      border-left: 3px solid #e7e5e4;
-    }
-
-    .use-case strong {
-      color: #1c1917;
-    }
-
-    .use-case p {
-      color: #57534e;
-      margin: 0.25rem 0 0 0;
-      font-size: 0.875rem;
-    }
   `}
 </style>
 
@@ -221,22 +148,10 @@ import { Meta } from "@storybook/blocks";
 
 ## Component Status
 
-<div className="category-section">
-  <h3>
-    <span className="category-badge category-primitive">Primitives</span>
-    Base building blocks
-  </h3>
-  <p>
-    Low-level skeleton elements with direct control over shape, dimensions, and
-    animation effects.
-  </p>
-</div>
-
 <table className="skeleton-table">
   <thead>
     <tr>
       <th>Component</th>
-      <th>Category</th>
       <th>Status</th>
       <th>Description</th>
     </tr>
@@ -245,13 +160,8 @@ import { Meta } from "@storybook/blocks";
     <tr>
       <td>
         <strong>
-          <a href="?path=/docs/components-skeleton-primitives-skeleton--docs">
-            Skeleton
-          </a>
+          <a href="?path=/docs/components-skeleton-skeleton--docs">Skeleton</a>
         </strong>
-      </td>
-      <td>
-        <span className="category-badge category-primitive">Primitive</span>
       </td>
       <td>
         <span className="status-badge status-stable">Stable</span>
@@ -261,13 +171,10 @@ import { Meta } from "@storybook/blocks";
     <tr>
       <td>
         <strong>
-          <a href="?path=/docs/components-skeleton-primitives-skeletontext--docs">
+          <a href="?path=/docs/components-skeleton-skeletontext--docs">
             SkeletonText
           </a>
         </strong>
-      </td>
-      <td>
-        <span className="category-badge category-primitive">Primitive</span>
       </td>
       <td>
         <span className="status-badge status-stable">Stable</span>
@@ -277,13 +184,10 @@ import { Meta } from "@storybook/blocks";
     <tr>
       <td>
         <strong>
-          <a href="?path=/docs/components-skeleton-primitives-skeletonavatar--docs">
+          <a href="?path=/docs/components-skeleton-skeletonavatar--docs">
             SkeletonAvatar
           </a>
         </strong>
-      </td>
-      <td>
-        <span className="category-badge category-primitive">Primitive</span>
       </td>
       <td>
         <span className="status-badge status-stable">Stable</span>
@@ -293,53 +197,23 @@ import { Meta } from "@storybook/blocks";
     <tr>
       <td>
         <strong>
-          <a href="?path=/docs/components-skeleton-primitives-skeletonbutton--docs">
+          <a href="?path=/docs/components-skeleton-skeletonbutton--docs">
             SkeletonButton
           </a>
         </strong>
-      </td>
-      <td>
-        <span className="category-badge category-primitive">Primitive</span>
       </td>
       <td>
         <span className="status-badge status-stable">Stable</span>
       </td>
       <td>Button placeholder with size variants</td>
     </tr>
-  </tbody>
-</table>
-
-<div className="category-section">
-  <h3>
-    <span className="category-badge category-preset">Presets</span>
-    Ready-to-use compositions
-  </h3>
-  <p>
-    Pre-composed skeleton patterns for common UI elements. Drop-in replacements
-    for loading states.
-  </p>
-</div>
-
-<table className="skeleton-table">
-  <thead>
-    <tr>
-      <th>Component</th>
-      <th>Category</th>
-      <th>Status</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
     <tr>
       <td>
         <strong>
-          <a href="?path=/docs/components-skeleton-presets-skeletoncard--docs">
+          <a href="?path=/docs/components-skeleton-skeletoncard--docs">
             SkeletonCard
           </a>
         </strong>
-      </td>
-      <td>
-        <span className="category-badge category-preset">Preset</span>
       </td>
       <td>
         <span className="status-badge status-stable">Stable</span>
@@ -349,13 +223,10 @@ import { Meta } from "@storybook/blocks";
     <tr>
       <td>
         <strong>
-          <a href="?path=/docs/components-skeleton-presets-skeletonarticle--docs">
+          <a href="?path=/docs/components-skeleton-skeletonarticle--docs">
             SkeletonArticle
           </a>
         </strong>
-      </td>
-      <td>
-        <span className="category-badge category-preset">Preset</span>
       </td>
       <td>
         <span className="status-badge status-stable">Stable</span>
@@ -365,13 +236,10 @@ import { Meta } from "@storybook/blocks";
     <tr>
       <td>
         <strong>
-          <a href="?path=/docs/components-skeleton-presets-skeletonparagraph--docs">
+          <a href="?path=/docs/components-skeleton-skeletonparagraph--docs">
             SkeletonParagraph
           </a>
         </strong>
-      </td>
-      <td>
-        <span className="category-badge category-preset">Preset</span>
       </td>
       <td>
         <span className="status-badge status-stable">Stable</span>
@@ -381,53 +249,23 @@ import { Meta } from "@storybook/blocks";
     <tr>
       <td>
         <strong>
-          <a href="?path=/docs/components-skeleton-presets-skeletoncomment--docs">
+          <a href="?path=/docs/components-skeleton-skeletoncomment--docs">
             SkeletonComment
           </a>
         </strong>
-      </td>
-      <td>
-        <span className="category-badge category-preset">Preset</span>
       </td>
       <td>
         <span className="status-badge status-stable">Stable</span>
       </td>
       <td>Comment with avatar and text</td>
     </tr>
-  </tbody>
-</table>
-
-<div className="category-section">
-  <h3>
-    <span className="category-badge category-layout">Layout</span>
-    Composition helpers
-  </h3>
-  <p>
-    Layout utilities for arranging skeleton elements and synchronizing
-    animations.
-  </p>
-</div>
-
-<table className="skeleton-table">
-  <thead>
-    <tr>
-      <th>Component</th>
-      <th>Category</th>
-      <th>Status</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
     <tr>
       <td>
         <strong>
-          <a href="?path=/docs/components-skeleton-layout-skeletonstack--docs">
+          <a href="?path=/docs/components-skeleton-skeletonstack--docs">
             SkeletonStack
           </a>
         </strong>
-      </td>
-      <td>
-        <span className="category-badge category-layout">Layout</span>
       </td>
       <td>
         <span className="status-badge status-beta">Beta</span>
@@ -437,13 +275,10 @@ import { Meta } from "@storybook/blocks";
     <tr>
       <td>
         <strong>
-          <a href="?path=/docs/components-skeleton-layout-skeletonrow--docs">
+          <a href="?path=/docs/components-skeleton-skeletonrow--docs">
             SkeletonRow
           </a>
         </strong>
-      </td>
-      <td>
-        <span className="category-badge category-layout">Layout</span>
       </td>
       <td>
         <span className="status-badge status-beta">Beta</span>
@@ -453,53 +288,23 @@ import { Meta } from "@storybook/blocks";
     <tr>
       <td>
         <strong>
-          <a href="?path=/docs/components-skeleton-layout-skeletoncomposer--docs">
+          <a href="?path=/docs/components-skeleton-skeletoncomposer--docs">
             SkeletonComposer
           </a>
         </strong>
-      </td>
-      <td>
-        <span className="category-badge category-layout">Layout</span>
       </td>
       <td>
         <span className="status-badge status-beta">Beta</span>
       </td>
       <td>Animation synchronization container</td>
     </tr>
-  </tbody>
-</table>
-
-<div className="category-section">
-  <h3>
-    <span className="category-badge category-template">Templates</span>
-    Complex patterns
-  </h3>
-  <p>
-    Higher-level skeleton patterns for specific UI contexts like profiles, media
-    cards, and tables.
-  </p>
-</div>
-
-<table className="skeleton-table">
-  <thead>
-    <tr>
-      <th>Component</th>
-      <th>Category</th>
-      <th>Status</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
     <tr>
       <td>
         <strong>
-          <a href="?path=/docs/components-skeleton-templates-skeletonimage--docs">
+          <a href="?path=/docs/components-skeleton-skeletonimage--docs">
             SkeletonImage
           </a>
         </strong>
-      </td>
-      <td>
-        <span className="category-badge category-template">Template</span>
       </td>
       <td>
         <span className="status-badge status-beta">Beta</span>
@@ -509,13 +314,10 @@ import { Meta } from "@storybook/blocks";
     <tr>
       <td>
         <strong>
-          <a href="?path=/docs/components-skeleton-templates-skeletonprofile--docs">
+          <a href="?path=/docs/components-skeleton-skeletonprofile--docs">
             SkeletonProfile
           </a>
         </strong>
-      </td>
-      <td>
-        <span className="category-badge category-template">Template</span>
       </td>
       <td>
         <span className="status-badge status-beta">Beta</span>
@@ -525,13 +327,10 @@ import { Meta } from "@storybook/blocks";
     <tr>
       <td>
         <strong>
-          <a href="?path=/docs/components-skeleton-templates-skeletonmediacard--docs">
+          <a href="?path=/docs/components-skeleton-skeletonmediacard--docs">
             SkeletonMediaCard
           </a>
         </strong>
-      </td>
-      <td>
-        <span className="category-badge category-template">Template</span>
       </td>
       <td>
         <span className="status-badge status-beta">Beta</span>
@@ -541,13 +340,10 @@ import { Meta } from "@storybook/blocks";
     <tr>
       <td>
         <strong>
-          <a href="?path=/docs/components-skeleton-templates-skeletonlistitem--docs">
+          <a href="?path=/docs/components-skeleton-skeletonlistitem--docs">
             SkeletonListItem
           </a>
         </strong>
-      </td>
-      <td>
-        <span className="category-badge category-template">Template</span>
       </td>
       <td>
         <span className="status-badge status-beta">Beta</span>
@@ -557,13 +353,10 @@ import { Meta } from "@storybook/blocks";
     <tr>
       <td>
         <strong>
-          <a href="?path=/docs/components-skeleton-templates-skeletontablerow--docs">
+          <a href="?path=/docs/components-skeleton-skeletontablerow--docs">
             SkeletonTableRow
           </a>
         </strong>
-      </td>
-      <td>
-        <span className="category-badge category-template">Template</span>
       </td>
       <td>
         <span className="status-badge status-beta">Beta</span>
@@ -580,42 +373,6 @@ import { Meta } from "@storybook/blocks";
   <div className="legend-item">
     <span className="status-badge status-beta">Beta</span> In testing, API may
     change
-  </div>
-</div>
-
-<div className="when-to-use">
-  <h2>When to Use Each Category</h2>
-
-  <div className="use-case">
-    <strong>Primitives</strong>
-    <p>
-      Use when you need full control over individual skeleton elements, or when
-      building custom compositions not covered by presets.
-    </p>
-  </div>
-
-  <div className="use-case">
-    <strong>Presets</strong>
-    <p>
-      Use for common UI patterns like cards, articles, and comments. These are
-      drop-in replacements that match typical content layouts.
-    </p>
-  </div>
-
-  <div className="use-case">
-    <strong>Layout</strong>
-    <p>
-      Use when composing multiple skeleton elements together. Stack and Row
-      provide consistent spacing, while Composer synchronizes animations.
-    </p>
-  </div>
-
-  <div className="use-case">
-    <strong>Templates</strong>
-    <p>
-      Use for specific UI contexts like user profiles, media galleries, or data
-      tables. These provide the most realistic loading previews.
-    </p>
   </div>
 </div>
 
@@ -676,8 +433,8 @@ import { Meta } from "@storybook/blocks";
 
 ## Related
 
-- [Skeleton (Primitive)](?path=/docs/components-skeleton-primitives-skeleton--docs) — Base skeleton element
-- [SkeletonCard (Preset)](?path=/docs/components-skeleton-presets-skeletoncard--docs) — Card loading state
+- [Skeleton (Primitive)](?path=/docs/components-skeleton-skeleton--docs) — Base skeleton element
+- [SkeletonCard (Preset)](?path=/docs/components-skeleton-skeletoncard--docs) — Card loading state
 - [Components Overview](?path=/docs/components-overview--docs) — All Sando components
 
 </div>
