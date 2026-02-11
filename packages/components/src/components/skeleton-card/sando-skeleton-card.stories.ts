@@ -34,7 +34,7 @@ const DOCS_ONLY = ['!dev', '!autodocs'];
  * ```
  */
 const meta: Meta = {
-  title: 'Components/Skeleton/SkeletonCard',
+  title: 'Components/Skeleton/Presets/SkeletonCard',
   component: 'sando-skeleton-card',
   tags: ['autodocs', 'stable'],
   render: (args) => html`

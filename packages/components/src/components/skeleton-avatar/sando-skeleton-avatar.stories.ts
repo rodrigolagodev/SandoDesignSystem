@@ -23,7 +23,7 @@ const DOCS_ONLY = ['!dev', '!autodocs'];
  * | xl | 64px | Profile pages |
  */
 const meta: Meta = {
-  title: 'Components/Skeleton/SkeletonAvatar',
+  title: 'Components/Skeleton/Primitives/SkeletonAvatar',
   component: 'sando-skeleton-avatar',
   tags: ['autodocs', 'stable'],
   render: (args) => html`

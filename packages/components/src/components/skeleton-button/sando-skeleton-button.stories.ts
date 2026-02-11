@@ -21,7 +21,7 @@ const DOCS_ONLY = ['!dev', '!autodocs'];
  * - Inherited animation effects from base skeleton
  */
 const meta: Meta = {
-  title: 'Components/Skeleton/SkeletonButton',
+  title: 'Components/Skeleton/Primitives/SkeletonButton',
   component: 'sando-skeleton-button',
   tags: ['autodocs', 'stable'],
   render: (args) => html`

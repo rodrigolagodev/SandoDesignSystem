@@ -24,7 +24,7 @@ const DOCS_ONLY = ['!dev', '!autodocs'];
  * - Flavor support: Inherits theme from FlavorableMixin
  */
 const meta: Meta = {
-  title: 'Components/Skeleton/SkeletonRow',
+  title: 'Components/Skeleton/Layout/SkeletonRow',
   component: 'sando-skeleton-row',
   tags: ['autodocs', 'beta'],
   render: (args) => html`

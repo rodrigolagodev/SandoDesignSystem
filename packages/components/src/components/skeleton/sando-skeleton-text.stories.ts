@@ -26,7 +26,7 @@ const DOCS_ONLY = ['!dev', '!autodocs'];
  * | lg | --sando-skeleton-size-text-height-lg | Headings, titles |
  */
 const meta: Meta = {
-  title: 'Components/Skeleton/SkeletonText',
+  title: 'Components/Skeleton/Primitives/SkeletonText',
   component: 'sando-skeleton-text',
   tags: ['autodocs', 'stable'],
   render: (args) => html`

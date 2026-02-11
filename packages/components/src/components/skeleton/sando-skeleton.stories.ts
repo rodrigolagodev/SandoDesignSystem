@@ -21,7 +21,7 @@ import './sando-skeleton.js';
  * - **Spinner**: User-initiated actions (button clicks, form submits)
  */
 const meta: Meta = {
-  title: 'Components/Skeleton',
+  title: 'Components/Skeleton/Primitives/Skeleton',
   component: 'sando-skeleton',
   tags: ['autodocs', 'stable'],
   render: (args) => html`

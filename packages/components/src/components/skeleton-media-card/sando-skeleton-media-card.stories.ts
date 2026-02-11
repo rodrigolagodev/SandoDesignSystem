@@ -9,7 +9,7 @@ import './sando-skeleton-media-card.js';
 const DOCS_ONLY = ['!dev', '!autodocs'];
 
 const meta: Meta = {
-  title: 'Components/Skeleton/SkeletonMediaCard',
+  title: 'Components/Skeleton/Templates/SkeletonMediaCard',
   component: 'sando-skeleton-media-card',
   tags: ['autodocs', 'beta'],
   render: (args) => html`

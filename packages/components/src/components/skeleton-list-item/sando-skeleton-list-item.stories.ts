@@ -23,7 +23,7 @@ const DOCS_ONLY = ['!dev', '!autodocs'];
  * ```
  */
 const meta: Meta = {
-  title: 'Components/Skeleton/SkeletonListItem',
+  title: 'Components/Skeleton/Templates/SkeletonListItem',
   component: 'sando-skeleton-list-item',
   tags: ['autodocs', 'beta'],
   render: (args) => html`

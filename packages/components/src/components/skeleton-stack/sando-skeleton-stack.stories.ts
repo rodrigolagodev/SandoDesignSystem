@@ -22,7 +22,7 @@ const DOCS_ONLY = ['!dev', '!autodocs'];
  * - Composable: Works with any skeleton component
  */
 const meta: Meta = {
-  title: 'Components/Skeleton/SkeletonStack',
+  title: 'Components/Skeleton/Layout/SkeletonStack',
   component: 'sando-skeleton-stack',
   tags: ['autodocs', 'beta'],
   render: (args) => html`

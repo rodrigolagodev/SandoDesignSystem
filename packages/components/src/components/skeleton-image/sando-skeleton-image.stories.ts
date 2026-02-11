@@ -20,7 +20,7 @@ const DOCS_ONLY = ['!dev', '!autodocs'];
  * - Inherited animation effects from base skeleton
  */
 const meta: Meta = {
-  title: 'Components/Skeleton/SkeletonImage',
+  title: 'Components/Skeleton/Templates/SkeletonImage',
   component: 'sando-skeleton-image',
   tags: ['autodocs', 'beta'],
   render: (args) => html`
