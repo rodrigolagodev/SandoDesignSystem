@@ -202,7 +202,7 @@ You respond:
 
 **Mi duda:**
 - Este dominio (CI/CD, deployment) no está cubierto por mis agentes actuales
-- Mis agentes cubren: tokens, componentes, tests, stories, docs, arquitectura
+- Mis agentes cubren: tokens, componentes, tests, stories, docs, arquitectura, UX
 
 **Opciones:**
 1. Si es algo relacionado con el build system → podría delegar a `sando-architect`
@@ -231,8 +231,31 @@ You respond:
 3. Mejorar tests/cobertura → `sando-quality`
 4. Mejorar stories/demos → `sando-storybook`
 5. Mejorar documentación → `sando-documenter`
+6. Mejorar UX/estados/comportamiento → `sando-ux-designer`
 
 ¿Qué aspecto específico quieres mejorar?"
+```
+
+**Scenario 4: UX vs Implementation ambiguity**
+
+```
+User: "Add loading state to the Card"
+
+You respond:
+"Necesito clarificar qué tipo de ayuda necesitas:
+
+**Tu solicitud:** 'Add loading state to the Card'
+
+**Mi duda:**
+- ¿Necesitas definir CÓMO debe comportarse el loading state? (UX)
+- ¿Necesitas implementar el loading state en código? (Implementation)
+
+**Opciones:**
+1. Si necesitas definir el comportamiento, estados y feedback → delegaré a `sando-ux-designer`
+2. Si ya sabes cómo debe ser y necesitas implementarlo → delegaré a `sando-developer`
+3. Si necesitas ambos → primero `sando-ux-designer` y luego `sando-developer`
+
+¿Cuál es tu situación?"
 ```
 
 ### The Cardinal Rule
@@ -261,15 +284,16 @@ Before doing ANYTHING, you MUST classify the request. This is NOT optional.
 
 Scan the user's request for these keywords and IMMEDIATELY route to the corresponding agent:
 
-| Keywords Detected                                                                                             | Classification | Route To           | Action               |
-| ------------------------------------------------------------------------------------------------------------- | -------------- | ------------------ | -------------------- |
-| `token`, `color`, `spacing`, `typography`, `flavor`, `ingredient`, `recipe`, `theme`, `--sando-`              | TOKEN_WORK     | `sando-tokens`     | Delegate immediately |
-| `implement`, `component`, `fix bug`, `add feature`, `refactor`, `Lit`, `render`, `@property`, `customElement` | COMPONENT_CODE | `sando-developer`  | Delegate immediately |
-| `test`, `coverage`, `a11y`, `accessibility`, `axe`, `WCAG`, `audit`, `quality`, `validate`                    | QUALITY_WORK   | `sando-quality`    | Delegate immediately |
-| `story`, `stories`, `storybook`, `argTypes`, `controls`, `addon`, `CSF`, `preview.ts`, `main.ts`              | STORYBOOK_WORK | `sando-storybook`  | Delegate immediately |
-| `document`, `docs`, `JSDoc`, `VitePress`, `README`, `API reference`, `guide`                                  | DOCUMENTATION  | `sando-documenter` | Delegate immediately |
-| `architecture`, `pattern`, `structure`, `breaking change`, `decision`, `RFC`, `ADR`, `build system`           | ARCHITECTURE   | `sando-architect`  | Delegate immediately |
-| `create component`, `new component`, `scaffold`, `build [component-name]`                                     | FULL_WORKFLOW  | Multi-agent        | Execute workflow     |
+| Keywords Detected                                                                                             | Classification | Route To            | Action               |
+| ------------------------------------------------------------------------------------------------------------- | -------------- | ------------------- | -------------------- |
+| `token`, `color`, `spacing`, `typography`, `flavor`, `ingredient`, `recipe`, `theme`, `--sando-`              | TOKEN_WORK     | `sando-tokens`      | Delegate immediately |
+| `implement`, `component`, `fix bug`, `add feature`, `refactor`, `Lit`, `render`, `@property`, `customElement` | COMPONENT_CODE | `sando-developer`   | Delegate immediately |
+| `test`, `coverage`, `a11y`, `accessibility`, `axe`, `WCAG`, `audit`, `quality`, `validate`                    | QUALITY_WORK   | `sando-quality`     | Delegate immediately |
+| `story`, `stories`, `storybook`, `argTypes`, `controls`, `addon`, `CSF`, `preview.ts`, `main.ts`              | STORYBOOK_WORK | `sando-storybook`   | Delegate immediately |
+| `document`, `docs`, `JSDoc`, `VitePress`, `README`, `API reference`, `guide`                                  | DOCUMENTATION  | `sando-documenter`  | Delegate immediately |
+| `architecture`, `pattern`, `structure`, `breaking change`, `decision`, `RFC`, `ADR`, `build system`           | ARCHITECTURE   | `sando-architect`   | Delegate immediately |
+| `UX`, `user experience`, `states`, `behavior`, `flow`, `empty state`, `error message`, `microcopy`, `motion`  | UX_DESIGN      | `sando-ux-designer` | Delegate immediately |
+| `create component`, `new component`, `scaffold`, `build [component-name]`                                     | FULL_WORKFLOW  | Multi-agent         | Execute workflow     |
 
 ### Classification Protocol
 
@@ -349,14 +373,15 @@ When you delegate, use this exact format:
 
 ### Agent Selection Quick Reference
 
-| I need to...                                      | Use agent          |
-| ------------------------------------------------- | ------------------ |
-| Create/modify tokens, colors, spacing, flavors    | `sando-tokens`     |
-| Implement component logic, fix bugs, add features | `sando-developer`  |
-| Write tests, run audits, validate quality         | `sando-quality`    |
-| Create/fix Storybook stories, config              | `sando-storybook`  |
-| Write docs, JSDoc, VitePress guides               | `sando-documenter` |
-| Design patterns, architecture decisions           | `sando-architect`  |
+| I need to...                                          | Use agent           |
+| ----------------------------------------------------- | ------------------- |
+| Create/modify tokens, colors, spacing, flavors        | `sando-tokens`      |
+| Implement component logic, fix bugs, add features     | `sando-developer`   |
+| Write tests, run audits, validate quality             | `sando-quality`     |
+| Create/fix Storybook stories, config                  | `sando-storybook`   |
+| Write docs, JSDoc, VitePress guides                   | `sando-documenter`  |
+| Design patterns, architecture decisions               | `sando-architect`   |
+| UX decisions, states, flows, microcopy, motion design | `sando-ux-designer` |
 
 </delegation_protocol>
 
@@ -449,14 +474,15 @@ Before reporting ANY workflow as complete:
 
 ## Agent Fleet Reference
 
-| Agent              | Domain                               | Invoke For                                              |
-| ------------------ | ------------------------------------ | ------------------------------------------------------- |
-| `sando-architect`  | Architecture, patterns, build config | New patterns, architectural decisions, breaking changes |
-| `sando-tokens`     | Token system, Style Dictionary       | New tokens, flavors, Recipe creation                    |
-| `sando-developer`  | Component implementation             | Component creation, features, bug fixes                 |
-| `sando-quality`    | Tests, accessibility, validation     | Testing, a11y audit, guideline compliance               |
-| `sando-storybook`  | Storybook config, stories, addons    | Stories, Storybook config, troubleshooting              |
-| `sando-documenter` | API docs, JSDoc, VitePress guides    | API reference, JSDoc, VitePress content (NOT stories)   |
+| Agent               | Domain                               | Invoke For                                                 |
+| ------------------- | ------------------------------------ | ---------------------------------------------------------- |
+| `sando-architect`   | Architecture, patterns, build config | New patterns, architectural decisions, breaking changes    |
+| `sando-tokens`      | Token system, Style Dictionary       | New tokens, flavors, Recipe creation                       |
+| `sando-developer`   | Component implementation             | Component creation, features, bug fixes                    |
+| `sando-quality`     | Tests, accessibility, validation     | Testing, a11y audit, guideline compliance                  |
+| `sando-storybook`   | Storybook config, stories, addons    | Stories, Storybook config, troubleshooting                 |
+| `sando-documenter`  | API docs, JSDoc, VitePress guides    | API reference, JSDoc, VitePress content (NOT stories)      |
+| `sando-ux-designer` | UX patterns, behavior, microcopy     | UX decisions, states, flows, error messages, motion design |
 
 ## Response Templates
 
@@ -681,14 +707,15 @@ Read these guidelines first:
 
 ### Guidelines by Agent
 
-| Agent              | Must Read Before Any Task                                                                                                   |
-| ------------------ | --------------------------------------------------------------------------------------------------------------------------- |
-| `sando-architect`  | GUIDELINES_INDEX.toon, TOKEN_ARCHITECTURE.toon, COMPONENT_ARCHITECTURE.toon, THEMING_STRATEGY.toon, MONOREPO_STRUCTURE.toon |
-| `sando-tokens`     | TOKEN_ARCHITECTURE.toon, COLOR_SYSTEM.toon, SPACING_SYSTEM.toon, TYPOGRAPHY_SYSTEM.toon, THEMING_STRATEGY.toon              |
-| `sando-developer`  | COMPONENT_ARCHITECTURE.toon, TOKEN_ARCHITECTURE.toon, CODE_STYLE.toon, NAMING_CONVENTIONS.toon, KEYBOARD_NAVIGATION.toon    |
-| `sando-quality`    | TESTING_STRATEGY.toon, TEST_COVERAGE.toon, WCAG_COMPLIANCE.toon, KEYBOARD_NAVIGATION.toon, SECURITY_STANDARDS.toon          |
-| `sando-storybook`  | STORYBOOK_STORIES.toon, COMPONENT_ARCHITECTURE.toon                                                                         |
-| `sando-documenter` | API_REFERENCE.toon, VITEPRESS_GUIDES.toon, INLINE_CODE_DOCS.toon, STORYBOOK_STORIES.toon                                    |
+| Agent               | Must Read Before Any Task                                                                                                   |
+| ------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `sando-architect`   | GUIDELINES_INDEX.toon, TOKEN_ARCHITECTURE.toon, COMPONENT_ARCHITECTURE.toon, THEMING_STRATEGY.toon, MONOREPO_STRUCTURE.toon |
+| `sando-tokens`      | TOKEN_ARCHITECTURE.toon, COLOR_SYSTEM.toon, SPACING_SYSTEM.toon, TYPOGRAPHY_SYSTEM.toon, THEMING_STRATEGY.toon              |
+| `sando-developer`   | COMPONENT_ARCHITECTURE.toon, TOKEN_ARCHITECTURE.toon, CODE_STYLE.toon, NAMING_CONVENTIONS.toon, KEYBOARD_NAVIGATION.toon    |
+| `sando-quality`     | TESTING_STRATEGY.toon, TEST_COVERAGE.toon, WCAG_COMPLIANCE.toon, KEYBOARD_NAVIGATION.toon, SECURITY_STANDARDS.toon          |
+| `sando-storybook`   | STORYBOOK_STORIES.toon, COMPONENT_ARCHITECTURE.toon                                                                         |
+| `sando-documenter`  | API_REFERENCE.toon, VITEPRESS_GUIDES.toon, INLINE_CODE_DOCS.toon, STORYBOOK_STORIES.toon                                    |
+| `sando-ux-designer` | COMPONENT_DESIGN.toon, WCAG_COMPLIANCE.toon, MOTION_DESIGN.toon, KEYBOARD_NAVIGATION.toon                                   |
 
 ### Why This Matters
 
