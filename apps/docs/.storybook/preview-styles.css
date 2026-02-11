@@ -267,12 +267,13 @@ body {
    Uses dynamic --sando-color-* tokens so components render correctly
    in light/dark/high-contrast modes.
    
-   IMPORTANT: Background is TRANSPARENT to allow measure/outline grid
-   addons to show through. The html background provides the base color.
+   Story backgrounds follow the color mode token system.
+   The .sb-story wrapper stays transparent for grid addons visibility.
    ---------------------------------------- */
+/* Story preview in docs - follows color mode */
 .sbdocs-preview,
 .docs-story {
-  background: transparent !important;
+  background: var(--sando-color-background-base) !important;
 }
 
 /* Canvas wrapper - transparent for grid visibility */
