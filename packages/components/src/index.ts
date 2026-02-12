@@ -250,6 +250,9 @@ export type {
 export { SandoLabel } from './components/label/index.js';
 export type { LabelSize, LabelWeight, SandoLabelProps } from './components/label/index.js';
 
+export { SandoHelpText } from './components/help-text/index.js';
+export type { HelpTextVariant, SandoHelpTextProps } from './components/help-text/index.js';
+
 // ========================================
 // Common Types
 // ========================================

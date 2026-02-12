@@ -53,9 +53,9 @@ describe('sando-switch', () => {
         <sando-switch label="Test" helper-text="This is helper text"></sando-switch>
       `);
 
-      const helperText = el.shadowRoot!.querySelector('.helper-text');
-      expect(helperText).toBeDefined();
-      expect(helperText!.textContent).toContain('This is helper text');
+      const helpText = el.shadowRoot!.querySelector('sando-help-text');
+      expect(helpText).toBeDefined();
+      expect(helpText!.textContent).toContain('This is helper text');
     });
 
     it('should render errorText when error=true', async () => {
@@ -63,9 +63,10 @@ describe('sando-switch', () => {
         <sando-switch label="Test" error error-text="This field is required"></sando-switch>
       `);
 
-      const errorText = el.shadowRoot!.querySelector('.error-text');
-      expect(errorText).toBeDefined();
-      expect(errorText!.textContent).toContain('This field is required');
+      const helpText = el.shadowRoot!.querySelector('sando-help-text');
+      expect(helpText).toBeDefined();
+      expect(helpText!.getAttribute('variant')).toBe('error');
+      expect(helpText!.textContent).toContain('This field is required');
     });
 
     it('should NOT render errorText when error=false', async () => {
@@ -73,8 +74,9 @@ describe('sando-switch', () => {
         <sando-switch label="Test" error-text="This field is required"></sando-switch>
       `);
 
-      const errorText = el.shadowRoot!.querySelector('.error-text');
-      expect(errorText).toBeNull();
+      const helpText = el.shadowRoot!.querySelector('sando-help-text');
+      // Help text component exists but should not have error variant
+      expect(helpText!.getAttribute('variant')).toBe('default');
     });
 
     it('should prioritize errorText over helperText when error=true', async () => {
@@ -87,12 +89,11 @@ describe('sando-switch', () => {
         ></sando-switch>
       `);
 
-      const helperText = el.shadowRoot!.querySelector('.helper-text');
-      const errorText = el.shadowRoot!.querySelector('.error-text');
-
-      expect(helperText).toBeNull();
-      expect(errorText).toBeDefined();
-      expect(errorText!.textContent).toContain('Error message');
+      const helpText = el.shadowRoot!.querySelector('sando-help-text');
+      expect(helpText).toBeDefined();
+      expect(helpText!.getAttribute('variant')).toBe('error');
+      expect(helpText!.textContent).toContain('Error message');
+      expect(helpText!.textContent).not.toContain('Helper');
     });
 
     it('should render with role="switch"', async () => {

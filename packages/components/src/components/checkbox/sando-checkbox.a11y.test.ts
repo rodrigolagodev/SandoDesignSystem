@@ -332,9 +332,13 @@ describe('sando-checkbox Accessibility', () => {
         <sando-checkbox label="Accept" error error-text="This field is required"></sando-checkbox>
       `);
 
-      const errorText = el.shadowRoot!.querySelector('.error-text');
-      expect(errorText).toBeDefined();
-      expect(errorText!.getAttribute('role')).toBe('alert');
+      const helpText = el.shadowRoot!.querySelector('sando-help-text');
+      expect(helpText).toBeDefined();
+      expect(helpText!.getAttribute('variant')).toBe('error');
+      // Note: role="alert" is applied internally by sando-help-text when variant="error"
+      // The inner div.help-text has the role, not the sando-help-text element itself
+      const innerDiv = helpText!.shadowRoot!.querySelector('.help-text');
+      expect(innerDiv!.getAttribute('role')).toBe('alert');
     });
 
     it('should announce helper text via aria-describedby', async () => {

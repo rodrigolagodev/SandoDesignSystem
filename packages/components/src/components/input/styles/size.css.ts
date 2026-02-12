@@ -5,6 +5,8 @@
  * - sm: Small size
  * - md: Medium size (default)
  * - lg: Large size
+ *
+ * Note: Helper/error text sizing is now handled by sando-help-text component
  */
 
 import { css } from 'lit';

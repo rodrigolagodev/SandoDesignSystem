@@ -93,6 +93,13 @@ export interface SandoSwitchProps {
   errorText?: string;
 
   /**
+   * Whether to reserve space for error messages to prevent layout shift.
+   * When true, a minimum height is maintained even when no message is shown.
+   * @default true
+   */
+  reserveErrorSpace?: boolean;
+
+  /**
    * Design system flavor/theme
    * @default 'original'
    */

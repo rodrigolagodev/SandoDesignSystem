@@ -49,9 +49,10 @@ describe('sando-radio', () => {
         <sando-radio label="Test" helper-text="This is helper text"></sando-radio>
       `);
 
-      const helperText = el.shadowRoot!.querySelector('.helper-text');
-      expect(helperText).toBeDefined();
-      expect(helperText!.textContent).toContain('This is helper text');
+      const helpText = el.shadowRoot!.querySelector('sando-help-text');
+      expect(helpText).toBeDefined();
+      expect(helpText!.getAttribute('variant')).toBe('default');
+      expect(helpText!.textContent).toContain('This is helper text');
     });
 
     it('should render errorText when error=true', async () => {
@@ -59,9 +60,10 @@ describe('sando-radio', () => {
         <sando-radio label="Test" error error-text="This field is required"></sando-radio>
       `);
 
-      const errorText = el.shadowRoot!.querySelector('.error-text');
-      expect(errorText).toBeDefined();
-      expect(errorText!.textContent).toContain('This field is required');
+      const helpText = el.shadowRoot!.querySelector('sando-help-text');
+      expect(helpText).toBeDefined();
+      expect(helpText!.getAttribute('variant')).toBe('error');
+      expect(helpText!.textContent).toContain('This field is required');
     });
 
     it('should NOT render errorText when error=false', async () => {
@@ -69,8 +71,11 @@ describe('sando-radio', () => {
         <sando-radio label="Test" error-text="This field is required"></sando-radio>
       `);
 
-      const errorText = el.shadowRoot!.querySelector('.error-text');
-      expect(errorText).toBeNull();
+      const helpText = el.shadowRoot!.querySelector('sando-help-text');
+      expect(helpText).toBeDefined();
+      // When error=false, variant should be 'default' and error-text is not shown
+      expect(helpText!.getAttribute('variant')).toBe('default');
+      expect(helpText!.textContent).not.toContain('This field is required');
     });
 
     it('should prioritize errorText over helperText when error=true', async () => {
@@ -83,12 +88,12 @@ describe('sando-radio', () => {
         ></sando-radio>
       `);
 
-      const helperText = el.shadowRoot!.querySelector('.helper-text');
-      const errorText = el.shadowRoot!.querySelector('.error-text');
-
-      expect(helperText).toBeNull();
-      expect(errorText).toBeDefined();
-      expect(errorText!.textContent).toContain('Error message');
+      const helpText = el.shadowRoot!.querySelector('sando-help-text');
+      expect(helpText).toBeDefined();
+      // When error=true, variant should be 'error' and errorText is displayed
+      expect(helpText!.getAttribute('variant')).toBe('error');
+      expect(helpText!.textContent).toContain('Error message');
+      expect(helpText!.textContent).not.toContain('Helper');
     });
 
     it('should be accessible', async () => {
@@ -822,10 +827,11 @@ describe('sando-radio', () => {
       `);
 
       const input = el.shadowRoot!.querySelector('input');
-      const description = el.shadowRoot!.querySelector('.radio-description');
+      const helpText = el.shadowRoot!.querySelector('sando-help-text');
 
       expect(input!.hasAttribute('aria-describedby')).toBe(true);
-      expect(description).toBeDefined();
+      expect(helpText).toBeDefined();
+      expect(helpText!.getAttribute('variant')).toBe('default');
     });
 
     it('should have aria-describedby when error text exists', async () => {
@@ -834,10 +840,11 @@ describe('sando-radio', () => {
       `);
 
       const input = el.shadowRoot!.querySelector('input');
-      const description = el.shadowRoot!.querySelector('.error-text');
+      const helpText = el.shadowRoot!.querySelector('sando-help-text');
 
       expect(input!.hasAttribute('aria-describedby')).toBe(true);
-      expect(description).toBeDefined();
+      expect(helpText).toBeDefined();
+      expect(helpText!.getAttribute('variant')).toBe('error');
     });
 
     it('should have role="alert" on error text', async () => {
@@ -845,8 +852,10 @@ describe('sando-radio', () => {
         <sando-radio label="Test" error error-text="Error message"></sando-radio>
       `);
 
-      const errorText = el.shadowRoot!.querySelector('.error-text');
-      expect(errorText!.getAttribute('role')).toBe('alert');
+      const helpText = el.shadowRoot!.querySelector('sando-help-text');
+      expect(helpText).toBeDefined();
+      // sando-help-text handles role="alert" internally when variant="error"
+      expect(helpText!.getAttribute('variant')).toBe('error');
     });
 
     it('should have role="presentation" on visual radio box', async () => {

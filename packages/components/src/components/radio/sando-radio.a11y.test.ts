@@ -191,9 +191,10 @@ describe('sando-radio Accessibility', () => {
       const describedBy = input!.getAttribute('aria-describedby');
       expect(describedBy).toBeTruthy();
 
-      const helperTextElement = el.shadowRoot!.querySelector(`#${describedBy}`);
-      expect(helperTextElement).toBeDefined();
-      expect(helperTextElement!.textContent).toContain('Helper text');
+      const helpText = el.shadowRoot!.querySelector(`sando-help-text#${describedBy}`);
+      expect(helpText).toBeDefined();
+      expect(helpText!.getAttribute('variant')).toBe('default');
+      expect(helpText!.textContent).toContain('Helper text');
     });
 
     it('should have aria-describedby linked to error text', async () => {
@@ -211,9 +212,10 @@ describe('sando-radio Accessibility', () => {
       const describedBy = input!.getAttribute('aria-describedby');
       expect(describedBy).toBeTruthy();
 
-      const errorTextElement = el.shadowRoot!.querySelector(`#${describedBy}`);
-      expect(errorTextElement).toBeDefined();
-      expect(errorTextElement!.textContent).toContain('Error message');
+      const helpText = el.shadowRoot!.querySelector(`sando-help-text#${describedBy}`);
+      expect(helpText).toBeDefined();
+      expect(helpText!.getAttribute('variant')).toBe('error');
+      expect(helpText!.textContent).toContain('Error message');
     });
 
     it('should have required attribute on input when required', async () => {
@@ -419,9 +421,11 @@ describe('sando-radio Accessibility', () => {
         ></sando-radio>
       `);
 
-      const errorText = el.shadowRoot!.querySelector('.error-text');
-      expect(errorText).toBeDefined();
-      expect(errorText!.getAttribute('role')).toBe('alert');
+      const helpText = el.shadowRoot!.querySelector('sando-help-text');
+      expect(helpText).toBeDefined();
+      // sando-help-text handles role="alert" internally when variant="error"
+      expect(helpText!.getAttribute('variant')).toBe('error');
+      expect(helpText!.textContent).toContain('This field is required');
     });
 
     it('should announce helper text via aria-describedby', async () => {
@@ -438,8 +442,9 @@ describe('sando-radio Accessibility', () => {
       const describedBy = input!.getAttribute('aria-describedby');
       expect(describedBy).toBeTruthy();
 
-      const description = el.shadowRoot!.querySelector(`#${describedBy}`);
-      expect(description!.textContent).toContain('Receive updates weekly');
+      const helpText = el.shadowRoot!.querySelector(`sando-help-text#${describedBy}`);
+      expect(helpText).toBeDefined();
+      expect(helpText!.textContent).toContain('Receive updates weekly');
     });
 
     it('should have visual radio box marked as presentation', async () => {

@@ -1,4 +1,4 @@
-import { LitElement, html } from 'lit';
+import { LitElement, html, nothing } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 
 import type {
@@ -13,6 +13,9 @@ import { FlavorableMixin } from '../../mixins/index.js';
 import { resetStyles } from '../../styles/reset.css.js';
 import { tokenStyles } from '../../styles/tokens.css.js';
 import { baseStyles, variantStyles, sizeStyles, stateStyles } from './styles/index.js';
+
+// Import sando-help-text for helper/error text rendering
+import '../help-text/sando-help-text.js';
 
 /**
  * Sando Input Component
@@ -224,6 +227,14 @@ export class SandoInput extends FlavorableMixin(LitElement) implements SandoInpu
   error = false;
 
   /**
+   * Whether to reserve space for error messages to prevent layout shift.
+   * When true, a minimum height is maintained even when no message is shown.
+   * @default true
+   */
+  @property({ type: Boolean, attribute: 'reserve-error-space' })
+  reserveErrorSpace = true;
+
+  /**
    * Name of the input (for form submission)
    */
   @property({ reflect: true })
@@ -408,9 +419,12 @@ export class SandoInput extends FlavorableMixin(LitElement) implements SandoInpu
   }
 
   render() {
-    const hasHelperText = this.helperText && !this.error;
-    const hasErrorText = this.errorText && this.error;
-    const describedBy = hasHelperText || hasErrorText ? `${this._inputId}-description` : undefined;
+    // Determine text content and whether we have any message to show
+    const hasHelperText = Boolean(this.helperText && !this.error);
+    const hasErrorText = Boolean(this.errorText && this.error);
+    const hasMessage = hasHelperText || hasErrorText;
+    const messageText = hasErrorText ? this.errorText : this.helperText;
+    const describedBy = hasMessage ? `${this._inputId}-description` : undefined;
 
     return html`
       ${this.label
@@ -419,7 +433,7 @@ export class SandoInput extends FlavorableMixin(LitElement) implements SandoInpu
               ${this.label}
             </label>
           `
-        : ''}
+        : nothing}
 
       <div class="${this._getWrapperClasses()}">
         <slot name="prefix"></slot>
@@ -445,14 +459,14 @@ export class SandoInput extends FlavorableMixin(LitElement) implements SandoInpu
         <slot name="suffix"></slot>
       </div>
 
-      ${hasHelperText
-        ? html`<div id="${this._inputId}-description" class="helper-text">${this.helperText}</div>`
-        : ''}
-      ${hasErrorText
-        ? html`<div id="${this._inputId}-description" class="error-text" role="alert">
-            ${this.errorText}
-          </div>`
-        : ''}
+      <sando-help-text
+        id="${this._inputId}-description"
+        variant=${this.error ? 'error' : 'default'}
+        ?show-icon=${this.error}
+        reserve-space=${this.reserveErrorSpace ? 'true' : 'false'}
+      >
+        ${messageText || nothing}
+      </sando-help-text>
     `;
   }
 

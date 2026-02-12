@@ -73,6 +73,9 @@ import { baseStyles, variantStyles, sizeStyles, stateStyles } from './styles/ind
 // Import sando-icon for checkmark and indeterminate icons
 import '../icon/sando-icon.js';
 
+// Import sando-help-text for helper/error text rendering
+import '../help-text/sando-help-text.js';
+
 @customElement('sando-checkbox')
 export class SandoCheckbox extends FlavorableMixin(LitElement) {
   /**
@@ -187,6 +190,14 @@ export class SandoCheckbox extends FlavorableMixin(LitElement) {
   errorText?: string;
 
   /**
+   * Whether to reserve space for error messages to prevent layout shift.
+   * When true, a minimum height is maintained even when no message is shown.
+   * @default true
+   */
+  @property({ type: Boolean, attribute: 'reserve-error-space' })
+  reserveErrorSpace = true;
+
+  /**
    * Lifecycle: Called when component is added to DOM
    */
   connectedCallback(): void {
@@ -293,9 +304,12 @@ export class SandoCheckbox extends FlavorableMixin(LitElement) {
   }
 
   render() {
-    const hasHelperText = this.helperText && !this.error;
-    const hasErrorText = this.errorText && this.error;
-    const describedBy = hasHelperText || hasErrorText ? `${this._inputId}-description` : undefined;
+    // Determine text content and whether we have any message to show
+    const hasHelperText = Boolean(this.helperText && !this.error);
+    const hasErrorText = Boolean(this.errorText && this.error);
+    const hasMessage = hasHelperText || hasErrorText;
+    const messageText = hasErrorText ? this.errorText : this.helperText;
+    const describedBy = hasMessage ? `${this._inputId}-description` : undefined;
     const ariaChecked = this.indeterminate ? 'mixed' : this.checked ? 'true' : 'false';
 
     const boxClasses = classMap({
@@ -333,15 +347,14 @@ export class SandoCheckbox extends FlavorableMixin(LitElement) {
           </span>
         </label>
 
-        ${hasHelperText || hasErrorText
-          ? html`
-              <div id="${this._inputId}-description" class="checkbox-description">
-                ${hasErrorText
-                  ? html`<span class="error-text" role="alert">${this.errorText}</span>`
-                  : html`<span class="helper-text">${this.helperText}</span>`}
-              </div>
-            `
-          : nothing}
+        <sando-help-text
+          id="${this._inputId}-description"
+          variant=${this.error ? 'error' : 'default'}
+          ?show-icon=${this.error}
+          reserve-space=${this.reserveErrorSpace ? 'true' : 'false'}
+        >
+          ${messageText || nothing}
+        </sando-help-text>
       </div>
     `;
   }

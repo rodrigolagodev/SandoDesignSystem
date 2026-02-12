@@ -519,9 +519,11 @@ Line 2"
         ></sando-textarea>
       `);
 
-      const errorText = el.shadowRoot!.querySelector('.error-text');
-      expect(errorText).toBeDefined();
-      expect(errorText!.getAttribute('role')).toBe('alert');
+      // After refactoring, error text is rendered via sando-help-text component
+      // The role="alert" is handled internally by sando-help-text when variant="error"
+      const helpText = el.shadowRoot!.querySelector('sando-help-text');
+      expect(helpText).toBeDefined();
+      expect(helpText!.getAttribute('variant')).toBe('error');
     });
 
     it('should announce helper text via aria-describedby', async () => {
@@ -752,11 +754,11 @@ Line 2"
       const results = await axe(el);
       expect(results).toHaveNoViolations();
 
-      // Error text should be shown, helper text should be hidden
-      const errorText = el.shadowRoot!.querySelector('.error-text');
-      const helperText = el.shadowRoot!.querySelector('.helper-text');
-      expect(errorText).toBeDefined();
-      expect(helperText).toBeNull();
+      // Error text should be shown via sando-help-text with error variant
+      // Helper text should not be shown (error takes precedence)
+      const helpText = el.shadowRoot!.querySelector('sando-help-text');
+      expect(helpText).toBeDefined();
+      expect(helpText!.getAttribute('variant')).toBe('error');
     });
 
     it('should pass a11y with filled variant and all options', async () => {

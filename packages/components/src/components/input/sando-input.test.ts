@@ -120,9 +120,10 @@ describe('sando-input', () => {
       const input = el.shadowRoot!.querySelector('input');
       expect(input!.getAttribute('aria-invalid')).to.equal('true');
 
-      const errorText = el.shadowRoot!.querySelector('.error-text');
-      expect(errorText).to.exist;
-      expect(errorText!.textContent).to.include('This field is required');
+      const helpText = el.shadowRoot!.querySelector('sando-help-text');
+      expect(helpText).to.exist;
+      expect(helpText!.getAttribute('variant')).to.equal('error');
+      expect(helpText!.textContent).to.include('This field is required');
     });
 
     it('should show helper text', async () => {
@@ -131,9 +132,10 @@ describe('sando-input', () => {
       `);
       await el.updateComplete;
 
-      const helperText = el.shadowRoot!.querySelector('.helper-text');
-      expect(helperText).to.exist;
-      expect(helperText!.textContent).to.include('Enter your email address');
+      const helpText = el.shadowRoot!.querySelector('sando-help-text');
+      expect(helpText).to.exist;
+      expect(helpText!.getAttribute('variant')).to.equal('default');
+      expect(helpText!.textContent).to.include('Enter your email address');
     });
 
     it('should prioritize error text over helper text', async () => {
@@ -142,12 +144,11 @@ describe('sando-input', () => {
       `);
       await el.updateComplete;
 
-      const helperText = el.shadowRoot!.querySelector('.helper-text');
-      const errorText = el.shadowRoot!.querySelector('.error-text');
-
-      expect(helperText).to.not.exist;
-      expect(errorText).to.exist;
-      expect(errorText!.textContent).to.include('Error message');
+      const helpText = el.shadowRoot!.querySelector('sando-help-text');
+      expect(helpText).to.exist;
+      expect(helpText!.getAttribute('variant')).to.equal('error');
+      expect(helpText!.textContent).to.include('Error message');
+      expect(helpText!.textContent).to.not.include('Helper');
     });
   });
 

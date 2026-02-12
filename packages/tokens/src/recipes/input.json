@@ -188,8 +188,49 @@
         }
       },
       "fontSize": {
-        "value": "{font.size.caption.value}",
-        "type": "dimension"
+        "sm": {
+          "value": "{font.size.caption.value}",
+          "type": "dimension"
+        },
+        "md": {
+          "value": "{font.size.caption.value}",
+          "type": "dimension"
+        },
+        "lg": {
+          "value": "{font.size.label.value}",
+          "type": "dimension"
+        }
+      },
+      "lineHeight": {
+        "sm": {
+          "value": "{font.lineHeight.caption.value}",
+          "type": "number"
+        },
+        "md": {
+          "value": "{font.lineHeight.caption.value}",
+          "type": "number"
+        },
+        "lg": {
+          "value": "{font.lineHeight.body.value}",
+          "type": "number"
+        }
+      },
+      "minHeight": {
+        "sm": {
+          "value": "1.05rem",
+          "type": "dimension",
+          "description": "Reserved space for helper/error text (sm) - prevents layout shift"
+        },
+        "md": {
+          "value": "1.05rem",
+          "type": "dimension",
+          "description": "Reserved space for helper/error text (md) - prevents layout shift"
+        },
+        "lg": {
+          "value": "1.3125rem",
+          "type": "dimension",
+          "description": "Reserved space for helper/error text (lg) - prevents layout shift"
+        }
       },
       "marginTop": {
         "value": "{space.stack.tight.value}",
@@ -202,8 +243,49 @@
         "type": "color"
       },
       "fontSize": {
-        "value": "{font.size.caption.value}",
-        "type": "dimension"
+        "sm": {
+          "value": "{font.size.caption.value}",
+          "type": "dimension"
+        },
+        "md": {
+          "value": "{font.size.caption.value}",
+          "type": "dimension"
+        },
+        "lg": {
+          "value": "{font.size.label.value}",
+          "type": "dimension"
+        }
+      },
+      "lineHeight": {
+        "sm": {
+          "value": "{font.lineHeight.caption.value}",
+          "type": "number"
+        },
+        "md": {
+          "value": "{font.lineHeight.caption.value}",
+          "type": "number"
+        },
+        "lg": {
+          "value": "{font.lineHeight.body.value}",
+          "type": "number"
+        }
+      },
+      "minHeight": {
+        "sm": {
+          "value": "1.05rem",
+          "type": "dimension",
+          "description": "Reserved space for error text (sm) - prevents layout shift"
+        },
+        "md": {
+          "value": "1.05rem",
+          "type": "dimension",
+          "description": "Reserved space for error text (md) - prevents layout shift"
+        },
+        "lg": {
+          "value": "1.3125rem",
+          "type": "dimension",
+          "description": "Reserved space for error text (lg) - prevents layout shift"
+        }
       },
       "marginTop": {
         "value": "{space.stack.tight.value}",
