@@ -166,20 +166,6 @@ export const baseStyles = css`
     --icon-size: 100%;
   }
 
-  /* Helper text */
-  .helper-text {
-    margin-top: var(--sando-select-helperText-marginTop);
-    color: var(--sando-select-helperText-textColor-default);
-    font-size: var(--sando-select-helperText-fontSize);
-  }
-
-  /* Error text */
-  .error-text {
-    margin-top: var(--sando-select-errorText-marginTop);
-    color: var(--sando-select-errorText-textColor);
-    font-size: var(--sando-select-errorText-fontSize);
-  }
-
   /* High contrast mode support */
   @media (prefers-contrast: high) {
     .select-trigger:focus-visible {

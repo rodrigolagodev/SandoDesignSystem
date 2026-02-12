@@ -61,6 +61,9 @@ import { resetStyles } from '../../styles/reset.css.js';
 import { tokenStyles } from '../../styles/tokens.css.js';
 import { baseStyles, variantStyles, sizeStyles, stateStyles } from './styles/index.js';
 
+// Import sando-help-text for helper/error text rendering
+import '../help-text/sando-help-text.js';
+
 @customElement('sando-radio')
 export class SandoRadio extends FlavorableMixin(LitElement) {
   /**
@@ -180,6 +183,14 @@ export class SandoRadio extends FlavorableMixin(LitElement) {
    */
   @property({ reflect: true, attribute: 'error-text' })
   errorText?: string;
+
+  /**
+   * Whether to reserve space for error messages to prevent layout shift.
+   * When true, a minimum height is maintained even when no message is shown.
+   * @default true
+   */
+  @property({ type: Boolean, attribute: 'reserve-error-space' })
+  reserveErrorSpace = true;
 
   /**
    * Tabindex for roving tabindex pattern in radio groups.
@@ -312,9 +323,12 @@ export class SandoRadio extends FlavorableMixin(LitElement) {
 
   render() {
     const hasLabel = this.label || this.querySelector('[slot=""]') !== null;
-    const hasHelperText = this.helperText && !this.error;
-    const hasErrorText = this.errorText && this.error;
-    const describedBy = hasHelperText || hasErrorText ? `${this._inputId}-description` : undefined;
+    // Determine text content for sando-help-text
+    const hasHelperText = Boolean(this.helperText && !this.error);
+    const hasErrorText = Boolean(this.errorText && this.error);
+    const hasMessage = hasHelperText || hasErrorText;
+    const messageText = hasErrorText ? this.errorText : this.helperText;
+    const describedBy = hasMessage ? `${this._inputId}-description` : undefined;
 
     return html`
       <div class="radio-wrapper">
@@ -353,21 +367,16 @@ export class SandoRadio extends FlavorableMixin(LitElement) {
             : nothing}
         </label>
 
-        <!-- Helper/Error text -->
-        ${hasHelperText
-          ? html`
-              <div id="${this._inputId}-description" class="radio-description">
-                <span class="helper-text">${this.helperText}</span>
-              </div>
-            `
-          : nothing}
-        ${hasErrorText
-          ? html`
-              <div id="${this._inputId}-description" class="radio-description">
-                <span class="error-text" role="alert">${this.errorText}</span>
-              </div>
-            `
-          : nothing}
+        <!-- Helper/Error text using sando-help-text -->
+        <sando-help-text
+          id="${this._inputId}-description"
+          variant=${this.error ? 'error' : 'default'}
+          size=${this.size}
+          ?show-icon=${this.error}
+          reserve-space=${this.reserveErrorSpace ? 'true' : 'false'}
+        >
+          ${messageText || nothing}
+        </sando-help-text>
       </div>
     `;
   }

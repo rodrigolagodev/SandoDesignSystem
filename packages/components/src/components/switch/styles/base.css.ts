@@ -125,19 +125,8 @@ export const baseStyles = css`
     margin-inline-start: var(--sando-switch-requiredIndicator-marginInlineStart);
   }
 
-  /* Helper and error text container */
+  /* Helper/error text container - positions sando-help-text */
   .switch-description {
-    margin-top: var(--sando-switch-helperText-marginTop);
     margin-left: calc(var(--sando-switch-size-md-trackWidth) + var(--sando-switch-size-md-gap));
-  }
-
-  .helper-text {
-    font-size: var(--sando-switch-helperText-fontSize);
-    color: var(--sando-switch-helperText-textColor-default);
-  }
-
-  .error-text {
-    font-size: var(--sando-switch-helperText-fontSize);
-    color: var(--sando-switch-helperText-textColor-error);
   }
 `;

@@ -99,6 +99,9 @@ import '../icon/sando-icon.js';
 // Import sando-spinner for loading state
 import '../spinner/sando-spinner.js';
 
+// Import sando-help-text for helper/error text rendering
+import '../help-text/sando-help-text.js';
+
 import { FlavorableMixin } from '../../mixins/index.js';
 import { resetStyles } from '../../styles/reset.css.js';
 import { tokenStyles } from '../../styles/tokens.css.js';
@@ -366,6 +369,14 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
    */
   @property({ type: Boolean, reflect: true })
   loading = false;
+
+  /**
+   * Whether to reserve space for error messages to prevent layout shift.
+   * When true, a minimum height is maintained even when no message is shown.
+   * @default true
+   */
+  @property({ type: Boolean, attribute: 'reserve-error-space' })
+  reserveErrorSpace = true;
 
   /**
    * Lifecycle: Called when component is added to DOM
@@ -1208,9 +1219,12 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
   }
 
   render() {
-    const hasHelperText = this.helperText && !this.error;
-    const hasErrorText = this.errorText && this.error;
-    const describedBy = hasHelperText || hasErrorText ? `${this._inputId}-description` : undefined;
+    // Determine text content and whether we have any message to show
+    const hasHelperText = Boolean(this.helperText && !this.error);
+    const hasErrorText = Boolean(this.errorText && this.error);
+    const hasMessage = hasHelperText || hasErrorText;
+    const messageText = hasErrorText ? this.errorText : this.helperText;
+    const describedBy = hasMessage ? `${this._inputId}-description` : undefined;
 
     // Get aria-activedescendant for highlighted option
     const highlightedOption =
@@ -1309,18 +1323,15 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
           <div class="scroll-sentinel" aria-hidden="true"></div>
         </div>
 
-        ${hasHelperText
-          ? html`
-              <div id="${this._inputId}-description" class="helper-text">${this.helperText}</div>
-            `
-          : nothing}
-        ${hasErrorText
-          ? html`
-              <div id="${this._inputId}-description" class="error-text" role="alert">
-                ${this.errorText}
-              </div>
-            `
-          : nothing}
+        <sando-help-text
+          id="${this._inputId}-description"
+          variant=${this.error ? 'error' : 'default'}
+          size=${this.size}
+          ?show-icon=${this.error}
+          reserve-space=${this.reserveErrorSpace ? 'true' : 'false'}
+        >
+          ${messageText || nothing}
+        </sando-help-text>
       </div>
     `;
   }

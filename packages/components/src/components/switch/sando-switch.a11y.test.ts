@@ -352,9 +352,10 @@ describe('sando-switch Accessibility', () => {
         <sando-switch label="Enable" error error-text="This setting is required"></sando-switch>
       `);
 
-      const errorText = el.shadowRoot!.querySelector('.error-text');
-      expect(errorText).toBeDefined();
-      expect(errorText!.getAttribute('role')).toBe('alert');
+      // sando-help-text handles the alert role internally
+      const helpText = el.shadowRoot!.querySelector('sando-help-text');
+      expect(helpText).toBeDefined();
+      expect(helpText!.getAttribute('variant')).toBe('error');
     });
 
     it('should announce helper text via aria-describedby', async () => {

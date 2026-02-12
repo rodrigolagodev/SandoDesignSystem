@@ -99,6 +99,13 @@ export interface SandoInputProps {
   error?: boolean;
 
   /**
+   * Whether to reserve space for error messages to prevent layout shift.
+   * When true, a minimum height is maintained even when no message is shown.
+   * @default true
+   */
+  reserveErrorSpace?: boolean;
+
+  /**
    * Name of the input (for form submission)
    */
   name?: string;

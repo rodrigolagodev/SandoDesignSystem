@@ -85,8 +85,9 @@ describe('sando-select', () => {
       element.errorText = 'Error message';
       await element.updateComplete;
       expect(element.hasAttribute('error')).toBe(true);
-      const errorText = element.shadowRoot?.querySelector('.error-text');
-      expect(errorText?.textContent).toContain('Error message');
+      const helpText = element.shadowRoot?.querySelector('sando-help-text');
+      expect(helpText?.getAttribute('variant')).toBe('error');
+      expect(helpText?.textContent).toContain('Error message');
     });
   });
 

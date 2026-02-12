@@ -143,8 +143,11 @@ describe('sando-select accessibility', () => {
       element.error = true;
       element.errorText = 'Error message';
       await element.updateComplete;
-      const errorText = element.shadowRoot?.querySelector('.error-text');
-      expect(errorText?.getAttribute('role')).toBe('alert');
+      const helpText = element.shadowRoot?.querySelector('sando-help-text');
+      // sando-help-text renders a div with role="alert" when variant="error"
+      expect(helpText?.getAttribute('variant')).toBe('error');
+      const innerDiv = helpText?.shadowRoot?.querySelector('.help-text');
+      expect(innerDiv?.getAttribute('role')).toBe('alert');
     });
 
     it('should have aria-describedby pointing to error message', async () => {
@@ -152,9 +155,9 @@ describe('sando-select accessibility', () => {
       element.errorText = 'Error message';
       await element.updateComplete;
       const trigger = element.shadowRoot?.querySelector('.select-trigger');
-      const errorText = element.shadowRoot?.querySelector('.error-text');
+      const helpText = element.shadowRoot?.querySelector('sando-help-text');
       const describedBy = trigger?.getAttribute('aria-describedby');
-      expect(errorText?.id).toBe(describedBy);
+      expect(helpText?.id).toBe(describedBy);
     });
   });
 

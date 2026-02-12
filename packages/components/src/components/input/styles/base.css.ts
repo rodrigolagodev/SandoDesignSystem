@@ -6,8 +6,8 @@
  * - Input wrapper layout (flexbox, alignment)
  * - Label styles
  * - Native input reset and appearance
- * - Helper/error text containers
  *
+ * Note: Helper/error text is now handled by sando-help-text component
  * Note: CSS reset is handled by resetStyles (imported separately)
  */
 
@@ -61,17 +61,8 @@ export const baseStyles = css`
     outline: none;
   }
 
-  /* Helper text */
-  .helper-text {
+  /* Help text spacing - component handles its own styling */
+  sando-help-text {
     margin-top: var(--sando-input-helperText-marginTop);
-    color: var(--sando-input-helperText-textColor-default);
-    font-size: var(--sando-input-helperText-fontSize);
-  }
-
-  /* Error text */
-  .error-text {
-    margin-top: var(--sando-input-errorText-marginTop);
-    color: var(--sando-input-errorText-textColor);
-    font-size: var(--sando-input-errorText-fontSize);
   }
 `;

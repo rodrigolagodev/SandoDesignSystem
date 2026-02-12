@@ -140,6 +140,13 @@ export interface SandoSelectProps {
    * @default false
    */
   loading?: boolean;
+
+  /**
+   * Whether to reserve space for error messages to prevent layout shift.
+   * When true, a minimum height is maintained even when no message is shown.
+   * @default true
+   */
+  reserveErrorSpace?: boolean;
 }
 
 /**

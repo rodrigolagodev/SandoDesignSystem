@@ -210,8 +210,8 @@ describe('sando-input Accessibility', () => {
       const describedBy = input!.getAttribute('aria-describedby');
       expect(describedBy).toBeTruthy();
 
-      const helperText = el.shadowRoot!.querySelector('.helper-text');
-      expect(helperText!.id).toBe(describedBy);
+      const helpText = el.shadowRoot!.querySelector('sando-help-text');
+      expect(helpText!.id).toBe(describedBy);
     });
 
     it('should have aria-describedby for error text', async () => {
@@ -223,9 +223,9 @@ describe('sando-input Accessibility', () => {
       const describedBy = input!.getAttribute('aria-describedby');
       expect(describedBy).toBeTruthy();
 
-      const errorText = el.shadowRoot!.querySelector('.error-text');
-      expect(errorText!.id).toBe(describedBy);
-      expect(errorText!.getAttribute('role')).toBe('alert');
+      const helpText = el.shadowRoot!.querySelector('sando-help-text');
+      expect(helpText!.id).toBe(describedBy);
+      expect(helpText!.getAttribute('variant')).toBe('error');
     });
 
     it('should associate label with input', async () => {

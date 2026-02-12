@@ -1,0 +1,135 @@
+{
+  "help-text": {
+    "$description": "Recipe tokens for sando-help-text component. Displays helper, error, success, and warning messages below form inputs.",
+    "variant": {
+      "default": {
+        "textColor": {
+          "value": "{color.text.caption.value}",
+          "type": "color",
+          "description": "Default helper text color - subtle caption style"
+        },
+        "iconColor": {
+          "value": "{color.icon.muted.value}",
+          "type": "color",
+          "description": "Default icon color - muted to not distract"
+        }
+      },
+      "error": {
+        "textColor": {
+          "value": "{color.state.destructive.text.value}",
+          "type": "color",
+          "description": "Error state text color - high visibility for form errors"
+        },
+        "iconColor": {
+          "value": "{color.state.destructive.text.value}",
+          "type": "color",
+          "description": "Error state icon color - matches text for consistency"
+        }
+      },
+      "success": {
+        "textColor": {
+          "value": "{color.state.success.text.value}",
+          "type": "color",
+          "description": "Success state text color - positive feedback"
+        },
+        "iconColor": {
+          "value": "{color.state.success.text.value}",
+          "type": "color",
+          "description": "Success state icon color - matches text for consistency"
+        }
+      },
+      "warning": {
+        "textColor": {
+          "value": "{color.state.warning.text.value}",
+          "type": "color",
+          "description": "Warning state text color - caution indicator"
+        },
+        "iconColor": {
+          "value": "{color.state.warning.text.value}",
+          "type": "color",
+          "description": "Warning state icon color - matches text for consistency"
+        }
+      }
+    },
+    "size": {
+      "sm": {
+        "fontSize": {
+          "value": "{font.size.caption.value}",
+          "type": "dimension",
+          "description": "Small size font - matches input sm helper text"
+        },
+        "lineHeight": {
+          "value": "{font.lineHeight.caption.value}",
+          "type": "number",
+          "description": "Small size line height"
+        },
+        "minHeight": {
+          "value": "1.05rem",
+          "type": "dimension",
+          "description": "Reserved space for sm help text - CRITICAL: prevents layout shift when text appears/disappears"
+        }
+      },
+      "md": {
+        "fontSize": {
+          "value": "{font.size.caption.value}",
+          "type": "dimension",
+          "description": "Medium size font - default helper text size"
+        },
+        "lineHeight": {
+          "value": "{font.lineHeight.caption.value}",
+          "type": "number",
+          "description": "Medium size line height"
+        },
+        "minHeight": {
+          "value": "1.05rem",
+          "type": "dimension",
+          "description": "Reserved space for md help text - CRITICAL: prevents layout shift when text appears/disappears"
+        }
+      },
+      "lg": {
+        "fontSize": {
+          "value": "{font.size.label.value}",
+          "type": "dimension",
+          "description": "Large size font - for larger inputs"
+        },
+        "lineHeight": {
+          "value": "{font.lineHeight.body.value}",
+          "type": "number",
+          "description": "Large size line height"
+        },
+        "minHeight": {
+          "value": "1.3125rem",
+          "type": "dimension",
+          "description": "Reserved space for lg help text - CRITICAL: prevents layout shift when text appears/disappears"
+        }
+      }
+    },
+    "fontFamily": {
+      "value": "{font.family.body.value}",
+      "type": "fontFamily",
+      "description": "Font family for help text - matches body text"
+    },
+    "marginTop": {
+      "value": "{space.stack.tight.value}",
+      "type": "dimension",
+      "description": "Spacing between input and help text (4px)"
+    },
+    "gap": {
+      "value": "{space.stack.tight.value}",
+      "type": "dimension",
+      "description": "Gap between icon and text content (4px)"
+    },
+    "animation": {
+      "duration": {
+        "value": "{animation.duration.fast.value}",
+        "type": "duration",
+        "description": "Animation duration for state transitions"
+      },
+      "timing": {
+        "value": "{animation.easing.default.value}",
+        "type": "cubicBezier",
+        "description": "Animation easing for smooth transitions"
+      }
+    }
+  }
+}

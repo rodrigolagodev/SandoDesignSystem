@@ -65,6 +65,7 @@ import recipeSelect from '@sando/tokens/css/recipes/select.css?inline';
 import recipeSkeleton from '@sando/tokens/css/recipes/skeleton.css?inline';
 import recipeSpinner from '@sando/tokens/css/recipes/spinner.css?inline';
 import recipeTag from '@sando/tokens/css/recipes/tag.css?inline';
+import recipeHelpText from '@sando/tokens/css/recipes/help-text.css?inline';
 
 /**
  * Combined token styles for Web Components Shadow DOM
@@ -108,4 +109,5 @@ export const tokenStyles = css`
   ${unsafeCSS(recipeSkeleton)}
   ${unsafeCSS(recipeSpinner)}
   ${unsafeCSS(recipeTag)}
+  ${unsafeCSS(recipeHelpText)}
 `;

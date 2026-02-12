@@ -89,18 +89,8 @@ export const baseStyles = css`
     }
   }
 
-  /* Helper and error text container */
-  .textarea-description {
+  /* sando-help-text styling */
+  sando-help-text {
     margin-top: var(--sando-textarea-helperText-marginTop);
-  }
-
-  .helper-text {
-    font-size: var(--sando-textarea-helperText-fontSize);
-    color: var(--sando-textarea-helperText-textColor-default);
-  }
-
-  .error-text {
-    font-size: var(--sando-textarea-helperText-fontSize);
-    color: var(--sando-textarea-helperText-textColor-error);
   }
 `;
