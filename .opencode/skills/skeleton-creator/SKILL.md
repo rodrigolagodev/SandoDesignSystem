@@ -1,71 +1,28 @@
 ---
 name: skeleton-creator
 description: >-
-  Adds skeleton loading states to Content/Media components by composing sando-skeleton primitives.
-  IMPORTANT: First validates if the component is appropriate for skeleton (vs spinner).
-  Modifies component file to add loading prop and _renderSkeleton() method.
+  Adds skeleton loading states to components by composing sando-skeleton primitives.
+  Creates _renderSkeleton() method that mirrors the component's visual structure.
+  Assumes the calling agent has already determined skeleton is the appropriate loading pattern.
 
   <example>
   User: "Add skeleton loading state to Card component"
-  Assistant: "Card is a Content component, so skeleton is appropriate. I'll add _renderSkeleton() to sando-card.ts."
+  Assistant: "I'll analyze the Card's layout and create _renderSkeleton() using skeleton primitives."
   </example>
 
   <example>
-  User: "Add skeleton to Button component"
-  Assistant: "Button is an Action component. Per LOADING_STATES.toon, it should use Spinner, not Skeleton. Button already has a loading prop that shows a spinner."
-  </example>
-
-  <example>
-  User: "Add loading state to the Profile component"
-  Assistant: "Profile is a Content component. I'll add skeleton state composing avatar and text primitives."
+  User: "Add skeleton to the Profile component"
+  Assistant: "I'll compose avatar and text skeleton primitives to match the Profile layout."
   </example>
 license: MIT
 metadata:
   category: development
-  version: "1.1.0"
+  version: "2.0.0"
 ---
 
 # Skeleton Creator Skill
 
-Adds skeleton loading states to **Content and Media** components by composing `sando-skeleton-*` primitives. The skeleton is an internal render method within the component file, NOT a separate file.
-
-## ⚠️ First: Validate Component Type
-
-**Not all components should use skeletons.** Per `.opencode/guidelines/01-design-system/LOADING_STATES.toon` (LS-CR-R1):
-
-| Category     | Components                 | Loading Pattern     | This Skill? |
-| ------------ | -------------------------- | ------------------- | ----------- |
-| **Content**  | Card, Table, List, Article | Skeleton            | ✅ YES      |
-| **Media**    | Avatar, Image, Thumbnail   | Skeleton            | ✅ YES      |
-| **Action**   | Button, IconButton, Link   | Spinner             | ❌ NO       |
-| **Input**    | Input, Textarea, Checkbox  | None (validation)   | ❌ NO       |
-| **Selector** | Select, Combobox           | Spinner in dropdown | ❌ NO       |
-
-### Decision Flowchart
-
-```
-User asks for skeleton on component X:
-
-1. Is X an Action component (Button, IconButton)?
-   → NO skeleton. Use spinner. Button already has `loading` prop.
-
-2. Is X an Input component (Input, Checkbox, Radio)?
-   → NO loading state. Use validation states instead.
-
-3. Is X a Selector component (Select, Combobox)?
-   → NO skeleton. Use spinner in dropdown (already implemented).
-
-4. Is X a Content/Media component?
-   → ✅ YES, proceed with skeleton.
-```
-
-### If Component is NOT Appropriate
-
-Respond to user:
-
-> "The component `{name}` is a [Action/Input/Selector] component. Per LOADING_STATES.toon, it should use [Spinner/validation states], not Skeleton. [Component already has loading prop / This component doesn't need loading state]."
-
----
+Adds skeleton loading states to components by composing `sando-skeleton-*` primitives. The skeleton is an internal render method within the component file, NOT a separate file.
 
 ## What It Does
 
@@ -150,7 +107,7 @@ export class SandoExample extends LitElement {
 
 ### Step 1: Analyze Component Layout
 
-Identify the visual elements in the component:
+Read the component's `render()` method and identify visual elements:
 
 - Text content -> `sando-skeleton-text` or `sando-skeleton-paragraph`
 - Avatar/image -> `sando-skeleton-avatar` or `sando-skeleton-image`
@@ -275,5 +232,5 @@ render() {
 
 ---
 
-**Version:** 1.0.0  
+**Version:** 2.0.0  
 **License:** MIT
