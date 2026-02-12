@@ -419,7 +419,6 @@ export class SandoTextarea extends FlavorableMixin(LitElement) {
         <sando-help-text
           id="${this._textareaId}-description"
           variant=${this.error ? 'error' : 'default'}
-          size=${this.size}
           ?show-icon=${this.error}
           reserve-space=${this.reserveErrorSpace ? 'true' : 'false'}
         >

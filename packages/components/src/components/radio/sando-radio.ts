@@ -371,7 +371,6 @@ export class SandoRadio extends FlavorableMixin(LitElement) {
         <sando-help-text
           id="${this._inputId}-description"
           variant=${this.error ? 'error' : 'default'}
-          size=${this.size}
           ?show-icon=${this.error}
           reserve-space=${this.reserveErrorSpace ? 'true' : 'false'}
         >

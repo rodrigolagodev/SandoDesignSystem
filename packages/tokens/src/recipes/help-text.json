@@ -1,6 +1,6 @@
 {
   "help-text": {
-    "$description": "Recipe tokens for sando-help-text component. Displays helper, error, success, and warning messages below form inputs.",
+    "$description": "Recipe tokens for sando-help-text component. Displays helper, error, success, and warning messages below form inputs. Uses fixed caption typography (industry standard).",
     "variant": {
       "default": {
         "textColor": {
@@ -51,58 +51,20 @@
         }
       }
     },
-    "size": {
-      "sm": {
-        "fontSize": {
-          "value": "{font.size.caption.value}",
-          "type": "dimension",
-          "description": "Small size font - matches input sm helper text"
-        },
-        "lineHeight": {
-          "value": "{font.lineHeight.caption.value}",
-          "type": "number",
-          "description": "Small size line height"
-        },
-        "minHeight": {
-          "value": "1.05rem",
-          "type": "dimension",
-          "description": "Reserved space for sm help text - CRITICAL: prevents layout shift when text appears/disappears"
-        }
-      },
-      "md": {
-        "fontSize": {
-          "value": "{font.size.caption.value}",
-          "type": "dimension",
-          "description": "Medium size font - default helper text size"
-        },
-        "lineHeight": {
-          "value": "{font.lineHeight.caption.value}",
-          "type": "number",
-          "description": "Medium size line height"
-        },
-        "minHeight": {
-          "value": "1.05rem",
-          "type": "dimension",
-          "description": "Reserved space for md help text - CRITICAL: prevents layout shift when text appears/disappears"
-        }
-      },
-      "lg": {
-        "fontSize": {
-          "value": "{font.size.label.value}",
-          "type": "dimension",
-          "description": "Large size font - for larger inputs"
-        },
-        "lineHeight": {
-          "value": "{font.lineHeight.body.value}",
-          "type": "number",
-          "description": "Large size line height"
-        },
-        "minHeight": {
-          "value": "1.3125rem",
-          "type": "dimension",
-          "description": "Reserved space for lg help text - CRITICAL: prevents layout shift when text appears/disappears"
-        }
-      }
+    "fontSize": {
+      "value": "{font.size.caption.value}",
+      "type": "dimension",
+      "description": "Fixed caption font size (industry standard: helper text size is independent of input size)"
+    },
+    "lineHeight": {
+      "value": "{font.lineHeight.caption.value}",
+      "type": "number",
+      "description": "Fixed caption line height"
+    },
+    "minHeight": {
+      "value": "1.05rem",
+      "type": "dimension",
+      "description": "Reserved space for help text - CRITICAL: prevents layout shift when text appears/disappears"
     },
     "fontFamily": {
       "value": "{font.family.body.value}",

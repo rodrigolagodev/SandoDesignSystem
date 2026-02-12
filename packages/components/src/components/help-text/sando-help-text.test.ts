@@ -3,7 +3,7 @@
  *
  * Tests cover:
  * - Basic rendering
- * - Prop behavior (variant, size, showIcon, reserveSpace)
+ * - Prop behavior (variant, showIcon, reserveSpace)
  * - Slot content handling
  * - ARIA attributes
  */
@@ -23,7 +23,6 @@ describe('sando-help-text', () => {
     expect(el).to.exist;
     expect(el).to.be.instanceOf(SandoHelpText);
     expect(el.variant).to.equal('default');
-    expect(el.size).to.equal('md');
     expect(el.showIcon).to.equal(false);
     expect(el.reserveSpace).to.equal('true');
   });
@@ -64,25 +63,6 @@ describe('sando-help-text', () => {
 
       expect(el.variant).to.equal('error');
       expect(el.getAttribute('variant')).to.equal('error');
-    });
-  });
-
-  // ==================================================
-  // Size Prop
-  // ==================================================
-
-  describe('size', () => {
-    const sizes = ['sm', 'md', 'lg'] as const;
-
-    sizes.forEach((size) => {
-      it(`should reflect size="${size}" attribute`, async () => {
-        const el = await fixture<SandoHelpText>(
-          html`<sando-help-text size=${size}>Message</sando-help-text>`
-        );
-
-        expect(el.size).to.equal(size);
-        expect(el.getAttribute('size')).to.equal(size);
-      });
     });
   });
 

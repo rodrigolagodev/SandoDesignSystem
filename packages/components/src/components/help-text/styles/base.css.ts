@@ -3,7 +3,7 @@
  *
  * Contains:
  * - Host display and layout
- * - Typography (font family, line height)
+ * - Typography (fixed caption size - industry standard)
  * - Animation for smooth appearance
  * - Reduced motion support
  */
@@ -15,12 +15,14 @@ export const baseStyles = css`
     display: block;
     margin-top: var(--sando-help-text-marginTop);
     font-family: var(--sando-help-text-fontFamily);
+    font-size: var(--sando-help-text-fontSize);
+    line-height: var(--sando-help-text-lineHeight);
   }
 
   /* Reserve space by default to prevent layout shift */
   :host([reserve-space='true']),
   :host(:not([reserve-space])) {
-    min-height: var(--sando-help-text-size-md-minHeight);
+    min-height: var(--sando-help-text-minHeight);
   }
 
   :host([reserve-space='false']) {

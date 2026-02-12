@@ -9,4 +9,3 @@
 
 export { baseStyles } from './base.css.js';
 export { variantStyles } from './variants.css.js';
-export { sizeStyles } from './sizes.css.js';

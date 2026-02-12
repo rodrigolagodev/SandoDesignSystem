@@ -306,7 +306,6 @@ export class SandoSwitch extends FlavorableMixin(LitElement) {
           id="${this._inputId}-description"
           class="switch-description"
           variant=${this.error ? 'error' : 'default'}
-          size=${this.size}
           ?show-icon=${this.error}
           reserve-space=${this.reserveErrorSpace ? 'true' : 'false'}
         >

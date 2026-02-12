@@ -13,6 +13,12 @@ import './sando-help-text.js';
  * Prevent layout shift when messages appear by reserving vertical space even when
  * no message is displayed. This ensures a stable UI during form validation.
  *
+ * ## Typography
+ *
+ * Uses fixed caption size regardless of parent form component size (industry standard
+ * per Carbon, MUI, Chakra, etc.). Helper text should maintain consistent readability
+ * and not scale with input size.
+ *
  * ## Usage
  *
  * While primarily used internally by form components, it can be used directly for:
@@ -33,7 +39,6 @@ const meta: Meta = {
   render: (args) => html`
     <sando-help-text
       variant="${args.variant}"
-      size="${args.size}"
       ?show-icon="${args.showIcon}"
       reserve-space="${args.reserveSpace}"
     >
@@ -50,16 +55,6 @@ const meta: Meta = {
         category: 'Appearance',
         type: { summary: "'default' | 'error' | 'success' | 'warning'" },
         defaultValue: { summary: 'default' }
-      }
-    },
-    size: {
-      control: 'select',
-      options: ['sm', 'md', 'lg'],
-      description: 'Size of the help text - should match parent form component',
-      table: {
-        category: 'Appearance',
-        type: { summary: "'sm' | 'md' | 'lg'" },
-        defaultValue: { summary: 'md' }
       }
     },
     showIcon: {
@@ -94,7 +89,6 @@ const meta: Meta = {
   },
   args: {
     variant: 'default',
-    size: 'md',
     showIcon: false,
     reserveSpace: 'true',
     content: 'Enter your email address'
@@ -187,40 +181,6 @@ export const Variants: Story = {
           >warning</span
         >
         <sando-help-text variant="warning">This action cannot be undone</sando-help-text>
-      </div>
-    </div>
-  `,
-  parameters: { controls: { disable: true } }
-};
-
-/**
- * All size options comparison.
- * Sizes should match the parent form component for visual consistency.
- */
-export const Sizes: Story = {
-  tags: DOCS_ONLY,
-  render: () => html`
-    <div style="display: flex; flex-direction: column; gap: 1rem;">
-      <div>
-        <span
-          style="font-size: 0.75rem; color: var(--sando-color-text-muted); display: block; margin-bottom: 0.25rem;"
-          >sm (small)</span
-        >
-        <sando-help-text size="sm">Small helper text</sando-help-text>
-      </div>
-      <div>
-        <span
-          style="font-size: 0.75rem; color: var(--sando-color-text-muted); display: block; margin-bottom: 0.25rem;"
-          >md (medium - default)</span
-        >
-        <sando-help-text size="md">Medium helper text</sando-help-text>
-      </div>
-      <div>
-        <span
-          style="font-size: 0.75rem; color: var(--sando-color-text-muted); display: block; margin-bottom: 0.25rem;"
-          >lg (large)</span
-        >
-        <sando-help-text size="lg">Large helper text</sando-help-text>
       </div>
     </div>
   `,
@@ -429,26 +389,10 @@ export const InFormContext: Story = {
 };
 
 /**
- * All sizes with icons comparison.
- * Shows how icons scale with different text sizes.
- */
-export const SizesWithIcon: Story = {
-  tags: DOCS_ONLY,
-  render: () => html`
-    <div style="display: flex; flex-direction: column; gap: 1rem;">
-      <sando-help-text size="sm" variant="error" show-icon>Small error with icon</sando-help-text>
-      <sando-help-text size="md" variant="error" show-icon>Medium error with icon</sando-help-text>
-      <sando-help-text size="lg" variant="error" show-icon>Large error with icon</sando-help-text>
-    </div>
-  `,
-  parameters: { controls: { disable: true } }
-};
-
-/**
- * All variant and size combinations in a grid.
+ * All variants with icons in a grid.
  * Complete visual reference for all configurations.
  */
-export const AllCombinations: Story = {
+export const AllVariantsWithIcons: Story = {
   tags: DOCS_ONLY,
   render: () => html`
     <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;">
@@ -458,18 +402,9 @@ export const AllCombinations: Story = {
             <strong style="display: block; margin-bottom: 8px; text-transform: capitalize;"
               >${variant}</strong
             >
-            ${(['sm', 'md', 'lg'] as const).map(
-              (size) => html`
-                <div style="margin-bottom: 12px;">
-                  <span style="font-size: 12px; color: var(--sando-color-text-muted);"
-                    >${size}</span
-                  >
-                  <sando-help-text variant=${variant} size=${size} show-icon>
-                    ${variant} message at ${size} size
-                  </sando-help-text>
-                </div>
-              `
-            )}
+            <sando-help-text variant=${variant} show-icon>
+              ${variant} message with icon
+            </sando-help-text>
           </div>
         `
       )}

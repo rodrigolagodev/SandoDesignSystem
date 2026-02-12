@@ -7,4 +7,4 @@
 export { SandoHelpText } from './sando-help-text.js';
 
 // Type definitions
-export type { HelpTextVariant, HelpTextSize, SandoHelpTextProps } from './sando-help-text.types.js';
+export type { HelpTextVariant, SandoHelpTextProps } from './sando-help-text.types.js';

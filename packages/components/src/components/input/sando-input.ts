@@ -462,7 +462,6 @@ export class SandoInput extends FlavorableMixin(LitElement) implements SandoInpu
       <sando-help-text
         id="${this._inputId}-description"
         variant=${this.error ? 'error' : 'default'}
-        size=${this.size}
         ?show-icon=${this.error}
         reserve-space=${this.reserveErrorSpace ? 'true' : 'false'}
       >

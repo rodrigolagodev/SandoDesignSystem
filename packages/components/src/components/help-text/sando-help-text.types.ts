@@ -13,14 +13,6 @@
 export type HelpTextVariant = 'default' | 'error' | 'success' | 'warning';
 
 /**
- * Size variants for the help text - should match parent form component size
- * - sm: Small size for compact form inputs
- * - md: Medium size (default)
- * - lg: Large size for larger form inputs
- */
-export type HelpTextSize = 'sm' | 'md' | 'lg';
-
-/**
  * Props for the SandoHelpText component
  */
 export interface SandoHelpTextProps {
@@ -29,12 +21,6 @@ export interface SandoHelpTextProps {
    * @default 'default'
    */
   variant?: HelpTextVariant;
-
-  /**
-   * Size of the help text - should match parent form component
-   * @default 'md'
-   */
-  size?: HelpTextSize;
 
   /**
    * Whether to show an icon based on variant

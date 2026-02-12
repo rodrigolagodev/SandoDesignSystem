@@ -7,6 +7,9 @@
  * PRIMARY PURPOSE: Prevent layout shift when error messages appear by reserving
  * vertical space even when no message is displayed.
  *
+ * Typography: Uses fixed caption size regardless of parent component size
+ * (industry standard per Carbon, MUI, Chakra, etc.)
+ *
  * @element sando-help-text
  * @internal This component is primarily used internally by other form components
  *
@@ -16,7 +19,7 @@
  * @cssprop --sando-help-text-variant-error-textColor - Error text color
  * @cssprop --sando-help-text-variant-success-textColor - Success text color
  * @cssprop --sando-help-text-variant-warning-textColor - Warning text color
- * @cssprop --sando-help-text-size-md-minHeight - Reserved space height
+ * @cssprop --sando-help-text-minHeight - Reserved space height
  * @cssprop --sando-help-text-animation-duration - Transition duration
  *
  * @example Basic usage
@@ -42,13 +45,13 @@ import { LitElement, html, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 
-import type { HelpTextVariant, HelpTextSize } from './sando-help-text.types.js';
+import type { HelpTextVariant } from './sando-help-text.types.js';
 import type { IconName } from '../icon/icon-manifest.js';
 
 import { FlavorableMixin } from '../../mixins/index.js';
 import { resetStyles } from '../../styles/reset.css.js';
 import { tokenStyles } from '../../styles/tokens.css.js';
-import { baseStyles, variantStyles, sizeStyles } from './styles/index.js';
+import { baseStyles, variantStyles } from './styles/index.js';
 
 // Import sando-icon component
 import '../icon/sando-icon.js';
@@ -72,13 +75,6 @@ export class SandoHelpText extends FlavorableMixin(LitElement) {
    */
   @property({ reflect: true })
   variant: HelpTextVariant = 'default';
-
-  /**
-   * Size of the help text - should match parent form component
-   * @default 'md'
-   */
-  @property({ reflect: true })
-  size: HelpTextSize = 'md';
 
   /**
    * Whether to show an icon based on variant
@@ -109,8 +105,7 @@ export class SandoHelpText extends FlavorableMixin(LitElement) {
     resetStyles, // Universal CSS reset (box-sizing, font inheritance)
     tokenStyles, // Design tokens (Ingredients, Flavors, Recipes)
     baseStyles, // Layout, typography, animation
-    variantStyles, // Default, error, success, warning colors
-    sizeStyles // Small, medium, large typography
+    variantStyles // Default, error, success, warning colors
   ];
 
   /**
