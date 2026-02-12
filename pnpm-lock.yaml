@@ -171,6 +171,9 @@ importers:
       storybook:
         specifier: 8.6.14
         version: 8.6.14(prettier@3.6.2)
+      storybook-addon-pseudo-states:
+        specifier: 10.2.8
+        version: 10.2.8(storybook@8.6.14)
       storybook-addon-tag-badges:
         specifier: ^1.3.0
         version: 1.4.0(react-dom@18.2.0)(react@18.2.0)(storybook@8.6.14)
@@ -8874,6 +8877,14 @@ packages:
 
   /std-env@3.9.0:
     resolution: {integrity: sha512-UGvjygr6F6tpH7o2qyqR6QYpwraIjKSdtzyBdyytFOHmPZY917kwdwLG0RbOjWOnKmnm3PeHjaoLLMie7kPLQw==}
+    dev: true
+
+  /storybook-addon-pseudo-states@10.2.8(storybook@8.6.14):
+    resolution: {integrity: sha512-NPrNyENJ2X0SEc4oVuISrPkDYPXUHIrF4MWVaSabqI6FESksjwAlFTl4wCQxXqcHljUoMIN+ITQep8fJzfzZrA==}
+    peerDependencies:
+      storybook: ^10.2.8
+    dependencies:
+      storybook: 8.6.14(prettier@3.6.2)
     dev: true
 
   /storybook-addon-tag-badges@1.4.0(react-dom@18.2.0)(react@18.2.0)(storybook@8.6.14):

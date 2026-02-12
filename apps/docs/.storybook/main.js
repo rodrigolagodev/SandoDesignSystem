@@ -24,6 +24,8 @@ const config = {
     // Uses withThemeByDataAttribute to set data-color-mode on html element
     // This prevents flickering by applying themes at the right lifecycle point
     "@storybook/addon-themes",
+    // TODO: storybook-addon-pseudo-states has compatibility issues with Storybook 8.6.14
+    // Re-add when fixed: "storybook-addon-pseudo-states",
     "storybook-addon-tag-badges",
     {
       name: "@storybook/addon-essentials",

@@ -1,59 +1,59 @@
 {
-  "$description": "Strawberry flavor - light mode base tokens. Romantic and elegant red color palette inspired by fresh strawberries, perfect for boutique, premium, and feminine themes.",
+  "$description": "Strawberry flavor - Parisian Patisserie elegance. Warm neutral foundation with deep rose/wine accents. Romantic, premium, sophisticated.",
   "color": {
     "background": {
-      "base": { "value": "{color.neutralWarm.100.value}", "type": "color" },
-      "surface": { "value": "{color.neutralWarm.200.value}", "type": "color" },
+      "base": { "value": "{color.neutralWarm.50.value}", "type": "color" },
+      "surface": { "value": "{color.neutralWarm.100.value}", "type": "color" },
       "raised": { "value": "{color.utility.white.value}", "type": "color" },
       "overlay": { "value": "{color.neutralWarm.900.value}", "type": "color" },
-      "emphasis": { "value": "{color.neutralWarm.300.value}", "type": "color" },
-      "hover": { "value": "{color.red.100.value}", "type": "color" },
+      "emphasis": { "value": "{color.neutralWarm.200.value}", "type": "color" },
+      "hover": { "value": "{color.neutralWarm.100.value}", "type": "color" },
       "transparent": {
         "value": "{color.utility.transparent.value}",
         "type": "color"
       }
     },
     "focus": {
-      "ring": { "value": "{color.red.500.value}", "type": "color" },
+      "ring": { "value": "{color.red.600.value}", "type": "color" },
       "ring-offset": {
-        "value": "{color.neutralWarm.100.value}",
+        "value": "{color.neutralWarm.50.value}",
         "type": "color"
       },
       "background": { "value": "{color.red.50.value}", "type": "color" },
-      "text": { "value": "{color.red.800.value}", "type": "color" }
+      "text": { "value": "{color.red.900.value}", "type": "color" }
     },
     "text": {
       "heading": { "value": "{color.neutralWarm.950.value}", "type": "color" },
       "body": { "value": "{color.neutralWarm.800.value}", "type": "color" },
-      "caption": { "value": "{color.neutralWarm.700.value}", "type": "color" },
+      "caption": { "value": "{color.neutralWarm.600.value}", "type": "color" },
       "link": {
-        "default": { "value": "{color.red.600.value}", "type": "color" },
-        "hover": { "value": "{color.red.700.value}", "type": "color" },
-        "active": { "value": "{color.red.800.value}", "type": "color" },
-        "visited": { "value": "{color.red.900.value}", "type": "color" },
-        "focus": { "value": "{color.red.600.value}", "type": "color" }
+        "default": { "value": "{color.red.700.value}", "type": "color" },
+        "hover": { "value": "{color.red.800.value}", "type": "color" },
+        "active": { "value": "{color.red.900.value}", "type": "color" },
+        "visited": { "value": "{color.red.800.value}", "type": "color" },
+        "focus": { "value": "{color.red.700.value}", "type": "color" }
       },
-      "muted": { "value": "{color.neutralWarm.700.value}", "type": "color" },
+      "muted": { "value": "{color.neutralWarm.600.value}", "type": "color" },
       "on-solid": { "value": "{color.utility.white.value}", "type": "color" }
     },
     "icon": {
-      "default": { "value": "{color.neutralWarm.700.value}", "type": "color" },
-      "muted": { "value": "{color.neutralWarm.700.value}", "type": "color" },
+      "default": { "value": "{color.neutralWarm.600.value}", "type": "color" },
+      "muted": { "value": "{color.neutralWarm.500.value}", "type": "color" },
       "emphasis": { "value": "{color.neutralWarm.900.value}", "type": "color" },
       "interactive": { "value": "{color.red.600.value}", "type": "color" },
       "on-solid": { "value": "{color.utility.white.value}", "type": "color" }
     },
     "border": {
-      "muted": { "value": "{color.neutralWarm.300.value}", "type": "color" },
-      "default": { "value": "{color.neutralWarm.400.value}", "type": "color" },
-      "emphasis": { "value": "{color.red.500.value}", "type": "color" },
-      "on-solid": { "value": "{color.red.400.value}", "type": "color" }
+      "muted": { "value": "{color.neutralWarm.200.value}", "type": "color" },
+      "default": { "value": "{color.neutralWarm.300.value}", "type": "color" },
+      "emphasis": { "value": "{color.red.600.value}", "type": "color" },
+      "on-solid": { "value": "{color.red.500.value}", "type": "color" }
     },
     "action": {
       "solid": {
         "background": {
-          "default": { "value": "{color.red.600.value}", "type": "color" },
-          "hover": { "value": "{color.red.700.value}", "type": "color" }
+          "default": { "value": "{color.red.700.value}", "type": "color" },
+          "hover": { "value": "{color.red.800.value}", "type": "color" }
         },
         "text": {
           "default": {
@@ -65,10 +65,10 @@
       "outline": {
         "border": {
           "default": {
-            "value": "{color.neutralWarm.400.value}",
+            "value": "{color.neutralWarm.300.value}",
             "type": "color"
           },
-          "hover": { "value": "{color.red.500.value}", "type": "color" }
+          "hover": { "value": "{color.neutralWarm.400.value}", "type": "color" }
         },
         "text": {
           "default": {
@@ -79,7 +79,7 @@
       },
       "ghost": {
         "background": {
-          "hover": { "value": "{color.neutralWarm.300.value}", "type": "color" }
+          "hover": { "value": "{color.neutralWarm.100.value}", "type": "color" }
         },
         "text": {
           "default": {
@@ -90,12 +90,12 @@
       },
       "disabled": {
         "background": {
-          "value": "{color.neutralWarm.200.value}",
+          "value": "{color.neutralWarm.100.value}",
           "type": "color"
         },
-        "text": { "value": "{color.neutralWarm.500.value}", "type": "color" },
-        "border": { "value": "{color.neutralWarm.300.value}", "type": "color" },
-        "opacity": { "value": "{opacity.500.value}", "type": "number" }
+        "text": { "value": "{color.neutralWarm.400.value}", "type": "color" },
+        "border": { "value": "{color.neutralWarm.200.value}", "type": "color" },
+        "opacity": { "value": "{opacity.600.value}", "type": "number" }
       }
     },
     "state": {
@@ -142,7 +142,7 @@
       }
     },
     "selection": {
-      "background": { "value": "{color.red.200.value}", "type": "color" },
+      "background": { "value": "{color.red.100.value}", "type": "color" },
       "text": { "value": "{color.neutralWarm.950.value}", "type": "color" }
     },
     "control": {
@@ -153,7 +153,7 @@
           "description": "Toggle control thumb - always high contrast"
         },
         "trackInactive": {
-          "value": "{color.neutralWarm.500.value}",
+          "value": "{color.neutralWarm.400.value}",
           "type": "color",
           "description": "Toggle track when OFF"
         },
@@ -163,12 +163,12 @@
           "description": "Toggle track when ON"
         },
         "trackDisabled": {
-          "value": "{color.neutralWarm.300.value}",
+          "value": "{color.neutralWarm.200.value}",
           "type": "color",
           "description": "Toggle track when disabled"
         },
         "thumbDisabled": {
-          "value": "{color.neutralWarm.400.value}",
+          "value": "{color.neutralWarm.300.value}",
           "type": "color",
           "description": "Toggle thumb when disabled"
         }
@@ -177,9 +177,13 @@
   },
   "font": {
     "family": {
-      "body": { "value": "{font.family.serif.value}", "type": "fontFamily" },
       "heading": {
-        "value": "{font.family.display-serif.value}",
+        "value": "{font.family.cormorant.value}",
+        "type": "fontFamily"
+      },
+      "body": { "value": "{font.family.dm-sans.value}", "type": "fontFamily" },
+      "mono": {
+        "value": "{font.family.jetbrains-mono.value}",
         "type": "fontFamily"
       }
     },

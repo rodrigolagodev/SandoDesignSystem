@@ -1,51 +1,52 @@
 {
+  "$description": "Tonkatsu flavor - Craft Kitchen. Artisanal, bold aesthetic with warm neutral foundation and burnt amber accents. Perfect for craft, artisan, and handmade themes.",
   "color": {
     "background": {
-      "base": { "value": "{color.brown.50.value}", "type": "color" },
-      "surface": { "value": "{color.brown.100.value}", "type": "color" },
+      "base": { "value": "{color.neutralWarm.50.value}", "type": "color" },
+      "surface": { "value": "{color.neutralWarm.100.value}", "type": "color" },
       "raised": { "value": "{color.utility.white.value}", "type": "color" },
-      "overlay": { "value": "{color.brown.950.value}", "type": "color" },
-      "emphasis": { "value": "{color.brown.200.value}", "type": "color" },
-      "hover": { "value": "{color.brown.200.value}", "type": "color" },
+      "overlay": { "value": "{color.neutralWarm.900.value}", "type": "color" },
+      "emphasis": { "value": "{color.neutralWarm.200.value}", "type": "color" },
+      "hover": { "value": "{color.neutralWarm.100.value}", "type": "color" },
       "transparent": {
         "value": "{color.utility.transparent.value}",
         "type": "color"
       }
     },
     "focus": {
-      "ring": { "value": "{color.brown.600.value}", "type": "color" },
+      "ring": { "value": "{color.brown.500.value}", "type": "color" },
       "ring-offset": {
-        "value": "{color.brown.50.value}",
+        "value": "{color.neutralWarm.50.value}",
         "type": "color"
       },
-      "background": { "value": "{color.brown.100.value}", "type": "color" },
+      "background": { "value": "{color.brown.50.value}", "type": "color" },
       "text": { "value": "{color.brown.900.value}", "type": "color" }
     },
     "text": {
-      "heading": { "value": "{color.brown.950.value}", "type": "color" },
-      "body": { "value": "{color.brown.900.value}", "type": "color" },
-      "caption": { "value": "{color.brown.800.value}", "type": "color" },
+      "heading": { "value": "{color.neutralWarm.950.value}", "type": "color" },
+      "body": { "value": "{color.neutralWarm.800.value}", "type": "color" },
+      "caption": { "value": "{color.neutralWarm.600.value}", "type": "color" },
       "link": {
-        "default": { "value": "{color.brown.700.value}", "type": "color" },
-        "hover": { "value": "{color.brown.800.value}", "type": "color" },
-        "active": { "value": "{color.brown.900.value}", "type": "color" },
-        "visited": { "value": "{color.brown.950.value}", "type": "color" },
-        "focus": { "value": "{color.brown.700.value}", "type": "color" }
+        "default": { "value": "{color.brown.600.value}", "type": "color" },
+        "hover": { "value": "{color.brown.700.value}", "type": "color" },
+        "active": { "value": "{color.brown.800.value}", "type": "color" },
+        "visited": { "value": "{color.brown.700.value}", "type": "color" },
+        "focus": { "value": "{color.brown.600.value}", "type": "color" }
       },
-      "muted": { "value": "{color.brown.700.value}", "type": "color" },
-      "on-solid": { "value": "{color.brown.50.value}", "type": "color" }
+      "muted": { "value": "{color.neutralWarm.500.value}", "type": "color" },
+      "on-solid": { "value": "{color.utility.white.value}", "type": "color" }
     },
     "icon": {
-      "default": { "value": "{color.brown.700.value}", "type": "color" },
-      "muted": { "value": "{color.brown.700.value}", "type": "color" },
-      "emphasis": { "value": "{color.brown.900.value}", "type": "color" },
-      "interactive": { "value": "{color.brown.700.value}", "type": "color" },
-      "on-solid": { "value": "{color.brown.50.value}", "type": "color" }
+      "default": { "value": "{color.neutralWarm.600.value}", "type": "color" },
+      "muted": { "value": "{color.neutralWarm.500.value}", "type": "color" },
+      "emphasis": { "value": "{color.neutralWarm.900.value}", "type": "color" },
+      "interactive": { "value": "{color.brown.600.value}", "type": "color" },
+      "on-solid": { "value": "{color.utility.white.value}", "type": "color" }
     },
     "border": {
-      "muted": { "value": "{color.brown.200.value}", "type": "color" },
-      "default": { "value": "{color.brown.300.value}", "type": "color" },
-      "emphasis": { "value": "{color.brown.600.value}", "type": "color" },
+      "muted": { "value": "{color.neutralWarm.200.value}", "type": "color" },
+      "default": { "value": "{color.neutralWarm.300.value}", "type": "color" },
+      "emphasis": { "value": "{color.brown.500.value}", "type": "color" },
       "on-solid": { "value": "{color.brown.400.value}", "type": "color" }
     },
     "action": {
@@ -56,7 +57,7 @@
         },
         "text": {
           "default": {
-            "value": "{color.brown.50.value}",
+            "value": "{color.utility.white.value}",
             "type": "color"
           }
         }
@@ -64,36 +65,36 @@
       "outline": {
         "border": {
           "default": {
-            "value": "{color.brown.400.value}",
+            "value": "{color.neutralWarm.300.value}",
             "type": "color"
           },
-          "hover": { "value": "{color.brown.600.value}", "type": "color" }
+          "hover": { "value": "{color.neutralWarm.400.value}", "type": "color" }
         },
         "text": {
           "default": {
-            "value": "{color.brown.800.value}",
+            "value": "{color.neutralWarm.800.value}",
             "type": "color"
           }
         }
       },
       "ghost": {
         "background": {
-          "hover": { "value": "{color.brown.200.value}", "type": "color" }
+          "hover": { "value": "{color.neutralWarm.100.value}", "type": "color" }
         },
         "text": {
           "default": {
-            "value": "{color.brown.800.value}",
+            "value": "{color.neutralWarm.800.value}",
             "type": "color"
           }
         }
       },
       "disabled": {
         "background": {
-          "value": "{color.brown.100.value}",
+          "value": "{color.neutralWarm.100.value}",
           "type": "color"
         },
-        "text": { "value": "{color.brown.400.value}", "type": "color" },
-        "border": { "value": "{color.brown.200.value}", "type": "color" },
+        "text": { "value": "{color.neutralWarm.400.value}", "type": "color" },
+        "border": { "value": "{color.neutralWarm.200.value}", "type": "color" },
         "opacity": { "value": "{opacity.600.value}", "type": "number" }
       }
     },
@@ -141,8 +142,8 @@
       }
     },
     "selection": {
-      "background": { "value": "{color.brown.300.value}", "type": "color" },
-      "text": { "value": "{color.brown.950.value}", "type": "color" }
+      "background": { "value": "{color.brown.100.value}", "type": "color" },
+      "text": { "value": "{color.neutralWarm.950.value}", "type": "color" }
     },
     "control": {
       "surface": {
@@ -152,22 +153,22 @@
           "description": "Toggle control thumb - always high contrast"
         },
         "trackInactive": {
-          "value": "{color.brown.500.value}",
+          "value": "{color.neutralWarm.400.value}",
           "type": "color",
           "description": "Toggle track when OFF"
         },
         "trackActive": {
-          "value": "{color.brown.700.value}",
+          "value": "{color.brown.600.value}",
           "type": "color",
           "description": "Toggle track when ON"
         },
         "trackDisabled": {
-          "value": "{color.brown.300.value}",
+          "value": "{color.neutralWarm.200.value}",
           "type": "color",
           "description": "Toggle track when disabled"
         },
         "thumbDisabled": {
-          "value": "{color.brown.400.value}",
+          "value": "{color.neutralWarm.300.value}",
           "type": "color",
           "description": "Toggle thumb when disabled"
         }
@@ -176,11 +177,15 @@
   },
   "font": {
     "family": {
-      "body": { "value": "{font.family.slab.value}", "type": "fontFamily" },
       "heading": {
-        "value": "{font.family.condensed.value}",
+        "value": "{font.family.space-grotesk.value}",
         "type": "fontFamily"
-      }
+      },
+      "body": {
+        "value": "{font.family.merriweather.value}",
+        "type": "fontFamily"
+      },
+      "mono": { "value": "{font.family.fira-code.value}", "type": "fontFamily" }
     },
     "size": {
       "body": { "value": "{font.size.200.value}", "type": "dimension" },

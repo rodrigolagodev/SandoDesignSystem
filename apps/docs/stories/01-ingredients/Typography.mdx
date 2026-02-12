@@ -19,7 +19,7 @@ The Sando Design System typography foundation provides a comprehensive type scal
     marginBottom: "24px",
   }}
 >
-  <strong style={{ color: "#92400e" }}>⚠️ Important:</strong>{" "}
+  <strong style={{ color: "#92400e" }}>Important:</strong>{" "}
   <span style={{ color: "#78350f" }}>
     The Sando Design System does <strong>not</strong> include web fonts. This is
     intentional and follows industry standards (IBM Carbon, Material Design,
@@ -30,26 +30,633 @@ The Sando Design System typography foundation provides a comprehensive type scal
 
 ### Loading Google Fonts (Recommended)
 
-To use the full range of expressive fonts, add this snippet to your HTML `<head>`:
+To use the full range of flavor-specific typography, add this snippet to your HTML `<head>`:
 
 <div className="demo-code-dark">
   <pre>{`<link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Bebas+Neue&family=Caveat:wght@400;500;600;700&family=Nunito:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Roboto+Slab:wght@300;400;500;700&display=swap" rel="stylesheet" />`}</pre>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Literata:wght@400;500;600;700&family=Merriweather:wght@400;700&family=Newsreader:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />`}</pre>
 </div>
 
 <div
   style={{
+    padding: "12px",
+    backgroundColor: "#dbeafe",
+    borderRadius: "8px",
+    fontSize: "14px",
+    marginTop: "16px",
+    border: "1px solid #3b82f6",
+  }}
+>
+  <strong style={{ color: "#1e40af" }}>Font Stack:</strong>{" "}
+  <span style={{ color: "#1e3a8a" }}>
+    All fonts include system fallbacks that work without loading external fonts.
+    The <strong>Original</strong> flavor uses Inter and JetBrains Mono.
+  </span>
+</div>
+
+---
+
+## Typography by Flavor
+
+Each flavor uses a carefully curated set of fonts for headings, body text, and code.
+
+<table style={{ width: "100%", borderCollapse: "collapse", marginTop: "16px" }}>
+  <thead>
+    <tr style={{ borderBottom: "2px solid #e7e5e4", textAlign: "left" }}>
+      <th style={{ padding: "12px 16px", fontWeight: "600" }}>Flavor</th>
+      <th style={{ padding: "12px 16px", fontWeight: "600" }}>Heading</th>
+      <th style={{ padding: "12px 16px", fontWeight: "600" }}>Body</th>
+      <th style={{ padding: "12px 16px", fontWeight: "600" }}>Mono</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style={{ borderBottom: "1px solid #e7e5e4" }}>
+      <td style={{ padding: "12px 16px", fontWeight: "500" }}>Original</td>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontFamily: "var(--sando-font-family-inter)",
+        }}
+      >
+        Inter
+      </td>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontFamily: "var(--sando-font-family-inter)",
+        }}
+      >
+        Inter
+      </td>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontFamily: "var(--sando-font-family-jetbrains-mono)",
+        }}
+      >
+        JetBrains Mono
+      </td>
+    </tr>
+    <tr
+      style={{ borderBottom: "1px solid #e7e5e4", backgroundColor: "#fafaf9" }}
+    >
+      <td style={{ padding: "12px 16px", fontWeight: "500" }}>Egg-salad</td>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontFamily: "var(--sando-font-family-dm-sans)",
+        }}
+      >
+        DM Sans
+      </td>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontFamily: "var(--sando-font-family-literata)",
+        }}
+      >
+        Literata
+      </td>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontFamily: "var(--sando-font-family-fira-code)",
+        }}
+      >
+        Fira Code
+      </td>
+    </tr>
+    <tr style={{ borderBottom: "1px solid #e7e5e4" }}>
+      <td style={{ padding: "12px 16px", fontWeight: "500" }}>Strawberry</td>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontFamily: "var(--sando-font-family-cormorant)",
+        }}
+      >
+        Cormorant Garamond
+      </td>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontFamily: "var(--sando-font-family-dm-sans)",
+        }}
+      >
+        DM Sans
+      </td>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontFamily: "var(--sando-font-family-jetbrains-mono)",
+        }}
+      >
+        JetBrains Mono
+      </td>
+    </tr>
+    <tr
+      style={{ borderBottom: "1px solid #e7e5e4", backgroundColor: "#fafaf9" }}
+    >
+      <td style={{ padding: "12px 16px", fontWeight: "500" }}>Kiwi</td>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontFamily: "var(--sando-font-family-plus-jakarta)",
+        }}
+      >
+        Plus Jakarta Sans
+      </td>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontFamily: "var(--sando-font-family-newsreader)",
+        }}
+      >
+        Newsreader
+      </td>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontFamily: "var(--sando-font-family-fira-code)",
+        }}
+      >
+        Fira Code
+      </td>
+    </tr>
+    <tr style={{ borderBottom: "1px solid #e7e5e4" }}>
+      <td style={{ padding: "12px 16px", fontWeight: "500" }}>Tonkatsu</td>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontFamily: "var(--sando-font-family-space-grotesk)",
+        }}
+      >
+        Space Grotesk
+      </td>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontFamily: "var(--sando-font-family-merriweather)",
+        }}
+      >
+        Merriweather
+      </td>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontFamily: "var(--sando-font-family-fira-code)",
+        }}
+      >
+        Fira Code
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+## Font Families
+
+### Flavor Fonts
+
+These are the primary fonts used by the different flavors. Each has been selected to provide a distinct personality while maintaining excellent readability.
+
+<table style={{ width: "100%", borderCollapse: "collapse", marginTop: "16px" }}>
+  <thead>
+    <tr style={{ borderBottom: "2px solid #e7e5e4", textAlign: "left" }}>
+      <th style={{ padding: "12px 16px", fontWeight: "600" }}>Token</th>
+      <th style={{ padding: "12px 16px", fontWeight: "600" }}>Font</th>
+      <th style={{ padding: "12px 16px", fontWeight: "600" }}>Used In</th>
+      <th style={{ padding: "12px 16px", fontWeight: "600" }}>Preview</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style={{ borderBottom: "1px solid #e7e5e4" }}>
+      <td style={{ padding: "12px 16px" }}>
+        <code>inter</code>
+      </td>
+      <td style={{ padding: "12px 16px" }}>Inter</td>
+      <td style={{ padding: "12px 16px", fontSize: "14px", color: "#57534e" }}>
+        Original (heading, body)
+      </td>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontFamily: "var(--sando-font-family-inter)",
+          fontSize: "18px",
+        }}
+      >
+        The quick brown fox jumps
+      </td>
+    </tr>
+    <tr
+      style={{ borderBottom: "1px solid #e7e5e4", backgroundColor: "#fafaf9" }}
+    >
+      <td style={{ padding: "12px 16px" }}>
+        <code>dm-sans</code>
+      </td>
+      <td style={{ padding: "12px 16px" }}>DM Sans</td>
+      <td style={{ padding: "12px 16px", fontSize: "14px", color: "#57534e" }}>
+        Egg-salad, Strawberry
+      </td>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontFamily: "var(--sando-font-family-dm-sans)",
+          fontSize: "18px",
+        }}
+      >
+        The quick brown fox jumps
+      </td>
+    </tr>
+    <tr style={{ borderBottom: "1px solid #e7e5e4" }}>
+      <td style={{ padding: "12px 16px" }}>
+        <code>plus-jakarta</code>
+      </td>
+      <td style={{ padding: "12px 16px" }}>Plus Jakarta Sans</td>
+      <td style={{ padding: "12px 16px", fontSize: "14px", color: "#57534e" }}>
+        Kiwi (heading)
+      </td>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontFamily: "var(--sando-font-family-plus-jakarta)",
+          fontSize: "18px",
+        }}
+      >
+        The quick brown fox jumps
+      </td>
+    </tr>
+    <tr
+      style={{ borderBottom: "1px solid #e7e5e4", backgroundColor: "#fafaf9" }}
+    >
+      <td style={{ padding: "12px 16px" }}>
+        <code>space-grotesk</code>
+      </td>
+      <td style={{ padding: "12px 16px" }}>Space Grotesk</td>
+      <td style={{ padding: "12px 16px", fontSize: "14px", color: "#57534e" }}>
+        Tonkatsu (heading)
+      </td>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontFamily: "var(--sando-font-family-space-grotesk)",
+          fontSize: "18px",
+        }}
+      >
+        The quick brown fox jumps
+      </td>
+    </tr>
+    <tr style={{ borderBottom: "1px solid #e7e5e4" }}>
+      <td style={{ padding: "12px 16px" }}>
+        <code>cormorant</code>
+      </td>
+      <td style={{ padding: "12px 16px" }}>Cormorant Garamond</td>
+      <td style={{ padding: "12px 16px", fontSize: "14px", color: "#57534e" }}>
+        Strawberry (heading)
+      </td>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontFamily: "var(--sando-font-family-cormorant)",
+          fontSize: "18px",
+        }}
+      >
+        The quick brown fox jumps
+      </td>
+    </tr>
+    <tr
+      style={{ borderBottom: "1px solid #e7e5e4", backgroundColor: "#fafaf9" }}
+    >
+      <td style={{ padding: "12px 16px" }}>
+        <code>literata</code>
+      </td>
+      <td style={{ padding: "12px 16px" }}>Literata</td>
+      <td style={{ padding: "12px 16px", fontSize: "14px", color: "#57534e" }}>
+        Egg-salad (body)
+      </td>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontFamily: "var(--sando-font-family-literata)",
+          fontSize: "18px",
+        }}
+      >
+        The quick brown fox jumps
+      </td>
+    </tr>
+    <tr style={{ borderBottom: "1px solid #e7e5e4" }}>
+      <td style={{ padding: "12px 16px" }}>
+        <code>newsreader</code>
+      </td>
+      <td style={{ padding: "12px 16px" }}>Newsreader</td>
+      <td style={{ padding: "12px 16px", fontSize: "14px", color: "#57534e" }}>
+        Kiwi (body)
+      </td>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontFamily: "var(--sando-font-family-newsreader)",
+          fontSize: "18px",
+        }}
+      >
+        The quick brown fox jumps
+      </td>
+    </tr>
+    <tr
+      style={{ borderBottom: "1px solid #e7e5e4", backgroundColor: "#fafaf9" }}
+    >
+      <td style={{ padding: "12px 16px" }}>
+        <code>merriweather</code>
+      </td>
+      <td style={{ padding: "12px 16px" }}>Merriweather</td>
+      <td style={{ padding: "12px 16px", fontSize: "14px", color: "#57534e" }}>
+        Tonkatsu (body)
+      </td>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontFamily: "var(--sando-font-family-merriweather)",
+          fontSize: "18px",
+        }}
+      >
+        The quick brown fox jumps
+      </td>
+    </tr>
+    <tr style={{ borderBottom: "1px solid #e7e5e4" }}>
+      <td style={{ padding: "12px 16px" }}>
+        <code>jetbrains-mono</code>
+      </td>
+      <td style={{ padding: "12px 16px" }}>JetBrains Mono</td>
+      <td style={{ padding: "12px 16px", fontSize: "14px", color: "#57534e" }}>
+        Original, Strawberry (mono)
+      </td>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontFamily: "var(--sando-font-family-jetbrains-mono)",
+          fontSize: "18px",
+        }}
+      >
+        const code = true;
+      </td>
+    </tr>
+    <tr
+      style={{ borderBottom: "1px solid #e7e5e4", backgroundColor: "#fafaf9" }}
+    >
+      <td style={{ padding: "12px 16px" }}>
+        <code>fira-code</code>
+      </td>
+      <td style={{ padding: "12px 16px" }}>Fira Code</td>
+      <td style={{ padding: "12px 16px", fontSize: "14px", color: "#57534e" }}>
+        Egg-salad, Kiwi, Tonkatsu (mono)
+      </td>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontFamily: "var(--sando-font-family-fira-code)",
+          fontSize: "18px",
+        }}
+      >
+        const code = true;
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div
+  style={{
+    marginTop: "16px",
     padding: "12px",
     backgroundColor: "#f5f5f4",
     borderRadius: "8px",
     fontSize: "14px",
   }}
 >
-  <strong>Note:</strong> If fonts don't load, the system fallbacks ensure your
-  UI remains functional and readable. Core fonts (sans, serif, mono) use system
-  fonts by default.
+  <strong>Usage:</strong>{" "}
+  <code style={{ fontFamily: "monospace", fontSize: "13px" }}>
+    var(--sando-font-family-inter)
+  </code>
 </div>
+
+### Core System Fonts
+
+System font stacks optimized for performance and cross-platform consistency. These fonts are **always available** without loading external fonts.
+
+<table style={{ width: "100%", borderCollapse: "collapse", marginTop: "16px" }}>
+  <thead>
+    <tr style={{ borderBottom: "2px solid #e7e5e4", textAlign: "left" }}>
+      <th style={{ padding: "12px 16px", fontWeight: "600" }}>Token</th>
+      <th style={{ padding: "12px 16px", fontWeight: "600" }}>Use Case</th>
+      <th style={{ padding: "12px 16px", fontWeight: "600" }}>Font Stack</th>
+      <th style={{ padding: "12px 16px", fontWeight: "600" }}>Preview</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style={{ borderBottom: "1px solid #e7e5e4" }}>
+      <td style={{ padding: "12px 16px" }}>
+        <code>sans</code>
+      </td>
+      <td style={{ padding: "12px 16px" }}>Default UI text</td>
+      <td style={{ padding: "12px 16px", fontSize: "12px", color: "#57534e" }}>
+        system-ui, -apple-system, Segoe UI, Roboto...
+      </td>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontFamily: "var(--sando-font-family-sans)",
+          fontSize: "18px",
+        }}
+      >
+        The quick brown fox
+      </td>
+    </tr>
+    <tr
+      style={{ borderBottom: "1px solid #e7e5e4", backgroundColor: "#fafaf9" }}
+    >
+      <td style={{ padding: "12px 16px" }}>
+        <code>serif</code>
+      </td>
+      <td style={{ padding: "12px 16px" }}>Editorial content</td>
+      <td style={{ padding: "12px 16px", fontSize: "12px", color: "#57534e" }}>
+        Georgia, Cambria, Times New Roman...
+      </td>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontFamily: "var(--sando-font-family-serif)",
+          fontSize: "18px",
+        }}
+      >
+        The quick brown fox
+      </td>
+    </tr>
+    <tr style={{ borderBottom: "1px solid #e7e5e4" }}>
+      <td style={{ padding: "12px 16px" }}>
+        <code>mono</code>
+      </td>
+      <td style={{ padding: "12px 16px" }}>Code and data</td>
+      <td style={{ padding: "12px 16px", fontSize: "12px", color: "#57534e" }}>
+        SFMono-Regular, Consolas, Menlo...
+      </td>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontFamily: "var(--sando-font-family-mono)",
+          fontSize: "18px",
+        }}
+      >
+        const x = 42;
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### Legacy Display Fonts
+
+<div
+  style={{
+    padding: "12px",
+    backgroundColor: "#fef3c7",
+    borderRadius: "8px",
+    fontSize: "14px",
+    marginBottom: "16px",
+    border: "1px solid #f59e0b",
+  }}
+>
+  <strong style={{ color: "#92400e" }}>Note:</strong>{" "}
+  <span style={{ color: "#78350f" }}>
+    These fonts are available in the Ingredients layer but are not used by the
+    default flavors. They remain available for custom implementations.
+  </span>
+</div>
+
+<table style={{ width: "100%", borderCollapse: "collapse", marginTop: "16px" }}>
+  <thead>
+    <tr style={{ borderBottom: "2px solid #e7e5e4", textAlign: "left" }}>
+      <th style={{ padding: "12px 16px", fontWeight: "600" }}>Token</th>
+      <th style={{ padding: "12px 16px", fontWeight: "600" }}>Font</th>
+      <th style={{ padding: "12px 16px", fontWeight: "600" }}>Character</th>
+      <th style={{ padding: "12px 16px", fontWeight: "600" }}>Preview</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style={{ borderBottom: "1px solid #e7e5e4" }}>
+      <td style={{ padding: "12px 16px" }}>
+        <code>display</code>
+      </td>
+      <td style={{ padding: "12px 16px" }}>Bebas Neue</td>
+      <td style={{ padding: "12px 16px", fontSize: "14px", color: "#57534e" }}>
+        Bold headlines
+      </td>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontFamily: "var(--sando-font-family-display)",
+          fontSize: "18px",
+        }}
+      >
+        IMPACT HEADLINES
+      </td>
+    </tr>
+    <tr
+      style={{ borderBottom: "1px solid #e7e5e4", backgroundColor: "#fafaf9" }}
+    >
+      <td style={{ padding: "12px 16px" }}>
+        <code>display-serif</code>
+      </td>
+      <td style={{ padding: "12px 16px" }}>Playfair Display</td>
+      <td style={{ padding: "12px 16px", fontSize: "14px", color: "#57534e" }}>
+        Elegant editorial
+      </td>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontFamily: "var(--sando-font-family-display-serif)",
+          fontSize: "18px",
+        }}
+      >
+        Elegant Headlines
+      </td>
+    </tr>
+    <tr style={{ borderBottom: "1px solid #e7e5e4" }}>
+      <td style={{ padding: "12px 16px" }}>
+        <code>rounded</code>
+      </td>
+      <td style={{ padding: "12px 16px" }}>Nunito</td>
+      <td style={{ padding: "12px 16px", fontSize: "14px", color: "#57534e" }}>
+        Friendly, approachable
+      </td>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontFamily: "var(--sando-font-family-rounded)",
+          fontSize: "18px",
+        }}
+      >
+        Friendly Interface
+      </td>
+    </tr>
+    <tr
+      style={{ borderBottom: "1px solid #e7e5e4", backgroundColor: "#fafaf9" }}
+    >
+      <td style={{ padding: "12px 16px" }}>
+        <code>condensed</code>
+      </td>
+      <td style={{ padding: "12px 16px" }}>Barlow Condensed</td>
+      <td style={{ padding: "12px 16px", fontSize: "14px", color: "#57534e" }}>
+        Space-efficient
+      </td>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontFamily: "var(--sando-font-family-condensed)",
+          fontSize: "18px",
+        }}
+      >
+        Compact Layout Text
+      </td>
+    </tr>
+    <tr style={{ borderBottom: "1px solid #e7e5e4" }}>
+      <td style={{ padding: "12px 16px" }}>
+        <code>handwritten</code>
+      </td>
+      <td style={{ padding: "12px 16px" }}>Caveat</td>
+      <td style={{ padding: "12px 16px", fontSize: "14px", color: "#57534e" }}>
+        Personal, artistic
+      </td>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontFamily: "var(--sando-font-family-handwritten)",
+          fontSize: "18px",
+        }}
+      >
+        Personal Touch
+      </td>
+    </tr>
+    <tr
+      style={{ borderBottom: "1px solid #e7e5e4", backgroundColor: "#fafaf9" }}
+    >
+      <td style={{ padding: "12px 16px" }}>
+        <code>slab</code>
+      </td>
+      <td style={{ padding: "12px 16px" }}>Roboto Slab</td>
+      <td style={{ padding: "12px 16px", fontSize: "14px", color: "#57534e" }}>
+        Bold, reliable
+      </td>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontFamily: "var(--sando-font-family-slab)",
+          fontSize: "18px",
+        }}
+      >
+        Strong Headlines
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ---
 
@@ -57,62 +664,71 @@ To use the full range of expressive fonts, add this snippet to your HTML `<head>
 
 Our type scale follows a modular progression from 10px (0.625rem) to 48px (3rem), providing flexibility for all interface needs.
 
-<div style={{ marginTop: "32px" }}>
-  {[
-    { token: "50", value: "0.625rem", px: "10px" },
-    { token: "100", value: "0.75rem", px: "12px" },
-    { token: "200", value: "0.875rem", px: "14px" },
-    { token: "300", value: "1rem", px: "16px" },
-    { token: "400", value: "1.125rem", px: "18px" },
-    { token: "500", value: "1.25rem", px: "20px" },
-    { token: "600", value: "1.5rem", px: "24px" },
-    { token: "700", value: "2rem", px: "32px" },
-    { token: "800", value: "2.5rem", px: "40px" },
-    { token: "900", value: "3rem", px: "48px" },
-  ].map(({ token, value, px }) => (
-    <div
-      key={token}
-      style={{
-        display: "flex",
-        alignItems: "baseline",
-        gap: "24px",
-        padding: "16px",
-        borderBottom: "1px solid #e7e5e4",
-      }}
-    >
-      <div
+<table style={{ width: "100%", borderCollapse: "collapse", marginTop: "16px" }}>
+  <thead>
+    <tr style={{ borderBottom: "2px solid #e7e5e4", textAlign: "left" }}>
+      <th style={{ padding: "12px 16px", fontWeight: "600", width: "120px" }}>
+        Token
+      </th>
+      <th style={{ padding: "12px 16px", fontWeight: "600" }}>Preview</th>
+      <th
         style={{
-          fontFamily: "monospace",
-          fontSize: "12px",
-          color: "#44403c",
-          minWidth: "80px",
-        }}
-      >
-        size-{token}
-      </div>
-      <div
-        style={{
-          fontSize: `var(--sando-font-size-${token})`,
-          fontWeight: "400",
-          flex: 1,
-        }}
-      >
-        The quick brown fox jumps
-      </div>
-      <div
-        style={{
-          fontFamily: "monospace",
-          fontSize: "11px",
-          color: "#57534e",
-          minWidth: "120px",
+          padding: "12px 16px",
+          fontWeight: "600",
+          width: "140px",
           textAlign: "right",
         }}
       >
-        {value} / {px}
-      </div>
-    </div>
-  ))}
-</div>
+        Value
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    {[
+      { token: "50", value: "0.625rem", px: "10px" },
+      { token: "100", value: "0.75rem", px: "12px" },
+      { token: "200", value: "0.875rem", px: "14px" },
+      { token: "300", value: "1rem", px: "16px" },
+      { token: "400", value: "1.125rem", px: "18px" },
+      { token: "500", value: "1.25rem", px: "20px" },
+      { token: "600", value: "1.5rem", px: "24px" },
+      { token: "700", value: "2rem", px: "32px" },
+      { token: "800", value: "2.5rem", px: "40px" },
+      { token: "900", value: "3rem", px: "48px" },
+    ].map(({ token, value, px }, index) => (
+      <tr
+        key={token}
+        style={{
+          borderBottom: "1px solid #e7e5e4",
+          backgroundColor: index % 2 === 1 ? "#fafaf9" : "transparent",
+        }}
+      >
+        <td style={{ padding: "12px 16px" }}>
+          <code>size-{token}</code>
+        </td>
+        <td
+          style={{
+            padding: "12px 16px",
+            fontSize: `var(--sando-font-size-${token})`,
+          }}
+        >
+          The quick brown fox
+        </td>
+        <td
+          style={{
+            padding: "12px 16px",
+            fontFamily: "monospace",
+            fontSize: "12px",
+            color: "#57534e",
+            textAlign: "right",
+          }}
+        >
+          {value} / {px}
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>
 
 <div
   style={{
@@ -131,347 +747,75 @@ Our type scale follows a modular progression from 10px (0.625rem) to 48px (3rem)
 
 ---
 
-## Font Families
-
-The Sando Design System provides 9 font family categories organized into three groups: **Core** (system fonts, always available), **Display** (for headlines), and **Expressive** (for personality and special use cases).
-
-### Core Fonts
-
-System font stacks optimized for performance and cross-platform consistency. These fonts are **always available** without loading external fonts.
-
-#### Sans Serif (Default)
-
-The primary font family for all interface text.
-
-<div className="demo-box">
-  <div
-    style={{
-      fontFamily: "var(--sando-font-family-sans)",
-      fontSize: "24px",
-      fontWeight: "600",
-      marginBottom: "8px",
-    }}
-  >
-    System UI Sans Serif
-  </div>
-  <div
-    style={{
-      fontFamily: "var(--sando-font-family-sans)",
-      fontSize: "16px",
-      lineHeight: "1.5",
-      marginBottom: "16px",
-    }}
-  >
-    The quick brown fox jumps over the lazy dog. ABCDEFGHIJKLMNOPQRSTUVWXYZ
-    0123456789
-  </div>
-  <code className="demo-code">
-    system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif
-  </code>
-</div>
-
-#### Serif
-
-For editorial content and emphasis.
-
-<div className="demo-box">
-  <div
-    style={{
-      fontFamily: "var(--sando-font-family-serif)",
-      fontSize: "24px",
-      fontWeight: "600",
-      marginBottom: "8px",
-    }}
-  >
-    Classic Serif
-  </div>
-  <div
-    style={{
-      fontFamily: "var(--sando-font-family-serif)",
-      fontSize: "16px",
-      lineHeight: "1.5",
-      marginBottom: "16px",
-    }}
-  >
-    The quick brown fox jumps over the lazy dog. ABCDEFGHIJKLMNOPQRSTUVWXYZ
-    0123456789
-  </div>
-  <code className="demo-code">
-    Georgia, Cambria, 'Times New Roman', Times, serif
-  </code>
-</div>
-
-#### Monospace
-
-For code, data, and technical content.
-
-<div className="demo-box">
-  <div
-    style={{
-      fontFamily: "var(--sando-font-family-mono)",
-      fontSize: "24px",
-      fontWeight: "600",
-      marginBottom: "8px",
-    }}
-  >
-    Monospace Code
-  </div>
-  <div
-    style={{
-      fontFamily: "var(--sando-font-family-mono)",
-      fontSize: "16px",
-      lineHeight: "1.5",
-      marginBottom: "16px",
-    }}
-  >
-    The quick brown fox jumps over the lazy dog. ABCDEFGHIJKLMNOPQRSTUVWXYZ
-    0123456789
-  </div>
-  <code className="demo-code">
-    'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace
-  </code>
-</div>
-
----
-
-### Display Fonts
-
-Bold, impactful fonts designed for headlines and hero sections. **Requires loading Google Fonts**.
-
-#### Display
-
-For bold, impactful headlines that demand attention.
-
-<div className="demo-box">
-  <div
-    style={{
-      fontFamily: "var(--sando-font-family-display)",
-      fontSize: "36px",
-      fontWeight: "400",
-      marginBottom: "8px",
-      letterSpacing: "0.02em",
-    }}
-  >
-    BEBAS NEUE DISPLAY
-  </div>
-  <div
-    style={{
-      fontFamily: "var(--sando-font-family-display)",
-      fontSize: "24px",
-      lineHeight: "1.2",
-      marginBottom: "16px",
-    }}
-  >
-    THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG
-  </div>
-  <code className="demo-code">
-    'Bebas Neue', Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
-  </code>
-</div>
-
-#### Display Serif
-
-For elegant, editorial headlines with a sophisticated feel.
-
-<div className="demo-box">
-  <div
-    style={{
-      fontFamily: "var(--sando-font-family-display-serif)",
-      fontSize: "36px",
-      fontWeight: "600",
-      marginBottom: "8px",
-    }}
-  >
-    Playfair Display
-  </div>
-  <div
-    style={{
-      fontFamily: "var(--sando-font-family-display-serif)",
-      fontSize: "24px",
-      lineHeight: "1.3",
-      marginBottom: "16px",
-      fontStyle: "italic",
-    }}
-  >
-    The quick brown fox jumps over the lazy dog. Elegant & Editorial.
-  </div>
-  <code className="demo-code">'Playfair Display', Didot, Georgia, serif</code>
-</div>
-
----
-
-### Expressive Fonts
-
-Fonts with distinct personality for special use cases. **Requires loading Google Fonts**.
-
-#### Rounded
-
-Friendly and approachable, perfect for welcoming interfaces.
-
-<div className="demo-box">
-  <div
-    style={{
-      fontFamily: "var(--sando-font-family-rounded)",
-      fontSize: "28px",
-      fontWeight: "700",
-      marginBottom: "8px",
-    }}
-  >
-    Nunito Rounded
-  </div>
-  <div
-    style={{
-      fontFamily: "var(--sando-font-family-rounded)",
-      fontSize: "16px",
-      lineHeight: "1.5",
-      marginBottom: "16px",
-    }}
-  >
-    The quick brown fox jumps over the lazy dog. ABCDEFGHIJKLMNOPQRSTUVWXYZ
-    0123456789
-  </div>
-  <code className="demo-code">'Nunito', Verdana, sans-serif</code>
-</div>
-
-#### Condensed
-
-Compact and efficient, ideal for space-constrained layouts.
-
-<div className="demo-box">
-  <div
-    style={{
-      fontFamily: "var(--sando-font-family-condensed)",
-      fontSize: "28px",
-      fontWeight: "600",
-      marginBottom: "8px",
-    }}
-  >
-    Barlow Condensed
-  </div>
-  <div
-    style={{
-      fontFamily: "var(--sando-font-family-condensed)",
-      fontSize: "16px",
-      lineHeight: "1.5",
-      marginBottom: "16px",
-    }}
-  >
-    The quick brown fox jumps over the lazy dog. ABCDEFGHIJKLMNOPQRSTUVWXYZ
-    0123456789
-  </div>
-  <code className="demo-code">
-    'Barlow Condensed', 'Arial Narrow', sans-serif
-  </code>
-</div>
-
-#### Handwritten
-
-Personal and artistic, for creative and informal contexts.
-
-<div className="demo-box">
-  <div
-    style={{
-      fontFamily: "var(--sando-font-family-handwritten)",
-      fontSize: "32px",
-      fontWeight: "500",
-      marginBottom: "8px",
-    }}
-  >
-    Caveat Handwritten
-  </div>
-  <div
-    style={{
-      fontFamily: "var(--sando-font-family-handwritten)",
-      fontSize: "20px",
-      lineHeight: "1.4",
-      marginBottom: "16px",
-    }}
-  >
-    The quick brown fox jumps over the lazy dog. A personal touch for your
-    designs.
-  </div>
-  <code className="demo-code">'Caveat', 'Brush Script MT', cursive</code>
-</div>
-
-#### Slab
-
-Bold and reliable, conveying trust and authority.
-
-<div className="demo-box">
-  <div
-    style={{
-      fontFamily: "var(--sando-font-family-slab)",
-      fontSize: "28px",
-      fontWeight: "700",
-      marginBottom: "8px",
-    }}
-  >
-    Roboto Slab
-  </div>
-  <div
-    style={{
-      fontFamily: "var(--sando-font-family-slab)",
-      fontSize: "16px",
-      lineHeight: "1.5",
-      marginBottom: "16px",
-    }}
-  >
-    The quick brown fox jumps over the lazy dog. ABCDEFGHIJKLMNOPQRSTUVWXYZ
-    0123456789
-  </div>
-  <code className="demo-code">'Roboto Slab', Rockwell, Georgia, serif</code>
-</div>
-
----
-
 ## Font Weights
 
 A full range of weights from thin to black.
 
-<div style={{ marginTop: "24px" }}>
-  {[
-    { token: "100", name: "Thin" },
-    { token: "200", name: "Extra Light" },
-    { token: "300", name: "Light" },
-    { token: "400", name: "Regular" },
-    { token: "500", name: "Medium" },
-    { token: "600", name: "Semi Bold" },
-    { token: "700", name: "Bold" },
-    { token: "800", name: "Extra Bold" },
-    { token: "900", name: "Black" },
-  ].map(({ token, name }) => (
-    <div
-      key={token}
-      style={{
-        display: "flex",
-        alignItems: "center",
-        gap: "24px",
-        padding: "16px",
-        borderBottom: "1px solid #e7e5e4",
-      }}
-    >
-      <div
+<table style={{ width: "100%", borderCollapse: "collapse", marginTop: "16px" }}>
+  <thead>
+    <tr style={{ borderBottom: "2px solid #e7e5e4", textAlign: "left" }}>
+      <th style={{ padding: "12px 16px", fontWeight: "600", width: "120px" }}>
+        Token
+      </th>
+      <th style={{ padding: "12px 16px", fontWeight: "600" }}>Preview</th>
+      <th
         style={{
-          fontFamily: "monospace",
-          fontSize: "12px",
-          color: "#44403c",
-          minWidth: "80px",
+          padding: "12px 16px",
+          fontWeight: "600",
+          width: "100px",
+          textAlign: "right",
         }}
       >
-        weight-{token}
-      </div>
-      <div
+        Value
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    {[
+      { token: "100", name: "Thin" },
+      { token: "200", name: "Extra Light" },
+      { token: "300", name: "Light" },
+      { token: "400", name: "Regular" },
+      { token: "500", name: "Medium" },
+      { token: "600", name: "Semi Bold" },
+      { token: "700", name: "Bold" },
+      { token: "800", name: "Extra Bold" },
+      { token: "900", name: "Black" },
+    ].map(({ token, name }, index) => (
+      <tr
+        key={token}
         style={{
-          fontSize: "18px",
-          fontWeight: `var(--sando-font-weight-${token})`,
-          flex: 1,
+          borderBottom: "1px solid #e7e5e4",
+          backgroundColor: index % 2 === 1 ? "#fafaf9" : "transparent",
         }}
       >
-        {name} - The quick brown fox
-      </div>
-    </div>
-  ))}
-</div>
+        <td style={{ padding: "12px 16px" }}>
+          <code>weight-{token}</code>
+        </td>
+        <td
+          style={{
+            padding: "12px 16px",
+            fontSize: "18px",
+            fontWeight: `var(--sando-font-weight-${token})`,
+          }}
+        >
+          {name} - The quick brown fox
+        </td>
+        <td
+          style={{
+            padding: "12px 16px",
+            fontFamily: "monospace",
+            fontSize: "12px",
+            color: "#57534e",
+            textAlign: "right",
+          }}
+        >
+          {token}
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>
 
 ---
 
@@ -479,57 +823,75 @@ A full range of weights from thin to black.
 
 Optimized line heights for different content types.
 
-<div style={{ marginTop: "24px" }}>
-  {[
-    { token: "100", value: "1", name: "Tight" },
-    { token: "120", value: "1.2", name: "Headings" },
-    { token: "140", value: "1.4", name: "Captions" },
-    { token: "150", value: "1.5", name: "Body" },
-    { token: "160", value: "1.6", name: "Comfortable" },
-    { token: "180", value: "1.8", name: "Relaxed" },
-    { token: "200", value: "2", name: "Loose" },
-  ].map(({ token, value, name }) => (
-    <div
-      key={token}
-      style={{
-        padding: "16px",
-        borderBottom: "1px solid #e7e5e4",
-      }}
-    >
-      <div
+<table style={{ width: "100%", borderCollapse: "collapse", marginTop: "16px" }}>
+  <thead>
+    <tr style={{ borderBottom: "2px solid #e7e5e4", textAlign: "left" }}>
+      <th style={{ padding: "12px 16px", fontWeight: "600", width: "140px" }}>
+        Token
+      </th>
+      <th style={{ padding: "12px 16px", fontWeight: "600", width: "120px" }}>
+        Name
+      </th>
+      <th style={{ padding: "12px 16px", fontWeight: "600" }}>Preview</th>
+      <th
         style={{
-          marginBottom: "8px",
-          display: "flex",
-          gap: "12px",
-          alignItems: "center",
+          padding: "12px 16px",
+          fontWeight: "600",
+          width: "80px",
+          textAlign: "right",
         }}
       >
-        <code
+        Value
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    {[
+      { token: "100", value: "1", name: "Tight" },
+      { token: "120", value: "1.2", name: "Headings" },
+      { token: "140", value: "1.4", name: "Captions" },
+      { token: "150", value: "1.5", name: "Body" },
+      { token: "160", value: "1.6", name: "Comfortable" },
+      { token: "180", value: "1.8", name: "Relaxed" },
+      { token: "200", value: "2", name: "Loose" },
+    ].map(({ token, value, name }, index) => (
+      <tr
+        key={token}
+        style={{
+          borderBottom: "1px solid #e7e5e4",
+          backgroundColor: index % 2 === 1 ? "#fafaf9" : "transparent",
+        }}
+      >
+        <td style={{ padding: "12px 16px" }}>
+          <code>lineHeight-{token}</code>
+        </td>
+        <td style={{ padding: "12px 16px", color: "#57534e" }}>{name}</td>
+        <td
           style={{
-            fontFamily: "monospace",
-            fontSize: "12px",
-            color: "#44403c",
+            padding: "12px 16px",
+            fontSize: "14px",
+            lineHeight: `var(--sando-font-lineHeight-${token})`,
+            maxWidth: "400px",
           }}
         >
-          lineHeight-{token}
-        </code>
-        <span style={{ fontSize: "12px", color: "#57534e" }}>
-          {name} ({value})
-        </span>
-      </div>
-      <div
-        style={{
-          fontSize: "16px",
-          lineHeight: `var(--sando-font-lineHeight-${token})`,
-          maxWidth: "600px",
-        }}
-      >
-        The quick brown fox jumps over the lazy dog. This line demonstrates the
-        line height token applied to multiline text.
-      </div>
-    </div>
-  ))}
-</div>
+          The quick brown fox jumps over the lazy dog. This demonstrates line
+          height.
+        </td>
+        <td
+          style={{
+            padding: "12px 16px",
+            fontFamily: "monospace",
+            fontSize: "12px",
+            color: "#57534e",
+            textAlign: "right",
+          }}
+        >
+          {value}
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>
 
 ---
 
@@ -537,52 +899,70 @@ Optimized line heights for different content types.
 
 Fine-tuned letter spacing for different contexts.
 
-<div style={{ marginTop: "24px" }}>
-  {[
-    { token: "0", value: "0em", name: "Default" },
-    { token: "25", value: "0.025em", name: "Tight" },
-    { token: "50", value: "0.05em", name: "Normal" },
-    { token: "100", value: "0.1em", name: "Wide" },
-  ].map(({ token, value, name }) => (
-    <div
-      key={token}
-      style={{
-        padding: "16px",
-        borderBottom: "1px solid #e7e5e4",
-      }}
-    >
-      <div
+<table style={{ width: "100%", borderCollapse: "collapse", marginTop: "16px" }}>
+  <thead>
+    <tr style={{ borderBottom: "2px solid #e7e5e4", textAlign: "left" }}>
+      <th style={{ padding: "12px 16px", fontWeight: "600", width: "160px" }}>
+        Token
+      </th>
+      <th style={{ padding: "12px 16px", fontWeight: "600", width: "100px" }}>
+        Name
+      </th>
+      <th style={{ padding: "12px 16px", fontWeight: "600" }}>Preview</th>
+      <th
         style={{
-          marginBottom: "8px",
-          display: "flex",
-          gap: "12px",
-          alignItems: "center",
+          padding: "12px 16px",
+          fontWeight: "600",
+          width: "100px",
+          textAlign: "right",
         }}
       >
-        <code
+        Value
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    {[
+      { token: "0", value: "0em", name: "Default" },
+      { token: "25", value: "0.025em", name: "Tight" },
+      { token: "50", value: "0.05em", name: "Normal" },
+      { token: "100", value: "0.1em", name: "Wide" },
+    ].map(({ token, value, name }, index) => (
+      <tr
+        key={token}
+        style={{
+          borderBottom: "1px solid #e7e5e4",
+          backgroundColor: index % 2 === 1 ? "#fafaf9" : "transparent",
+        }}
+      >
+        <td style={{ padding: "12px 16px" }}>
+          <code>letterSpacing-{token}</code>
+        </td>
+        <td style={{ padding: "12px 16px", color: "#57534e" }}>{name}</td>
+        <td
           style={{
-            fontFamily: "monospace",
-            fontSize: "12px",
-            color: "#44403c",
+            padding: "12px 16px",
+            fontSize: "16px",
+            letterSpacing: `var(--sando-font-letterSpacing-${token})`,
           }}
         >
-          letterSpacing-{token}
-        </code>
-        <span style={{ fontSize: "12px", color: "#57534e" }}>
-          {name} ({value})
-        </span>
-      </div>
-      <div
-        style={{
-          fontSize: "16px",
-          letterSpacing: `var(--sando-font-letterSpacing-${token})`,
-        }}
-      >
-        THE QUICK BROWN FOX JUMPS
-      </div>
-    </div>
-  ))}
-</div>
+          THE QUICK BROWN FOX JUMPS
+        </td>
+        <td
+          style={{
+            padding: "12px 16px",
+            fontFamily: "monospace",
+            fontSize: "12px",
+            color: "#57534e",
+            textAlign: "right",
+          }}
+        >
+          {value}
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>
 
 ---
 
@@ -590,17 +970,17 @@ Fine-tuned letter spacing for different contexts.
 
 ### Do's
 
-- ✅ Use the type scale consistently across all components
-- ✅ Use sans-serif for UI text, monospace for code
-- ✅ Apply appropriate line heights for content type
-- ✅ Use font weights to create hierarchy
+- Use the type scale consistently across all components
+- Use sans-serif for UI text, monospace for code
+- Apply appropriate line heights for content type
+- Use font weights to create hierarchy
 
 ### Don'ts
 
-- ❌ Don't use arbitrary font sizes outside the scale
-- ❌ Don't mix too many weights in a single interface
-- ❌ Don't use tight line heights for body text
-- ❌ Don't use excessive letter spacing on body text
+- Don't use arbitrary font sizes outside the scale
+- Don't mix too many weights in a single interface
+- Don't use tight line heights for body text
+- Don't use excessive letter spacing on body text
 
 ---
 
