@@ -123,10 +123,12 @@ export const darkPalette = {
 // ============================================================================
 
 export const typography = {
-  // font.family.body → Inter
+  // Headings: Barlow Condensed (brutalist)
+  fontHeading: '"Barlow Condensed", "Arial Narrow", sans-serif',
+  // Body: Inter
   fontBase:
     '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-  // font.family.mono → JetBrains Mono
+  // Code: JetBrains Mono
   fontCode: '"JetBrains Mono", "Fira Code", Consolas, monospace',
 } as const;
 

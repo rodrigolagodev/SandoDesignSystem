@@ -26,7 +26,7 @@
 
 import { html } from "lit";
 import { addons } from "@storybook/preview-api";
-import { DOCS_RENDERED } from "@storybook/core-events";
+import { DOCS_RENDERED, GLOBALS_UPDATED } from "@storybook/core-events";
 import { DARK_MODE_EVENT_NAME } from "storybook-dark-mode";
 import mermaid from "mermaid";
 
@@ -274,6 +274,41 @@ const setupDarkModeListener = () => {
 
 // Set up listener immediately
 setupDarkModeListener();
+
+/**
+ * Apply default flavor immediately on load
+ * This ensures brutalist tokens are applied even before any story renders,
+ * which is important for MDX docs pages that don't trigger decorators.
+ */
+const DEFAULT_FLAVOR = "brutalist";
+if (typeof document !== "undefined") {
+  document.documentElement.setAttribute("data-flavor", DEFAULT_FLAVOR);
+}
+
+/**
+ * Listen for flavor changes from toolbar
+ * When user changes the flavor via toolbar dropdown, update the document attribute.
+ * This complements the decorator (which only runs for stories, not MDX docs).
+ */
+let flavorListenerSetup = false;
+const setupFlavorListener = () => {
+  if (flavorListenerSetup) return;
+  flavorListenerSetup = true;
+
+  channel.on(GLOBALS_UPDATED, ({ globals }) => {
+    if (globals?.flavor !== undefined) {
+      const flavor = globals.flavor;
+      if (flavor === "original") {
+        document.documentElement.removeAttribute("data-flavor");
+      } else {
+        document.documentElement.setAttribute("data-flavor", flavor);
+      }
+    }
+  });
+};
+
+// Set up flavor listener immediately
+setupFlavorListener();
 
 /**
  * Render Mermaid diagrams in the page
@@ -649,31 +684,25 @@ const preview = {
    * Now handled by storybook-dark-mode addon via DARK_MODE_EVENT_NAME
    * The listener sets data-color-mode attribute on html element
    *
-   * Dark Mode + Flavor Architecture:
-   * The CSS selectors for dark mode expect data-flavor on a DESCENDANT of :root:
-   *   :root[data-color-mode="dark"] [data-flavor="strawberry"] { ... }
-   *
-   * So we wrap stories in a div with data-flavor instead of putting it on :root.
-   * This ensures the CSS selector hierarchy works correctly in both light and dark modes.
+   * Flavor Architecture:
+   * The decorator applies data-flavor directly to document.documentElement (html)
+   * so flavor tokens override :root defaults throughout the entire document.
+   * - "original" flavor: no data-flavor attribute (uses :root defaults)
+   * - Other flavors: data-flavor="<flavor>" on html element
    */
   decorators: [
-    // Flavor switcher - wraps story in a div with data-flavor attribute
+    // Flavor switcher - applies data-flavor to document root
     (storyFn, context) => {
-      const flavor = context.globals.flavor || "original";
+      const flavor = context.globals.flavor || "brutalist";
 
-      // Original flavor uses :root styles (no wrapper needed)
+      // Apply flavor to document root so it affects everything
       if (flavor === "original") {
-        return storyFn();
+        document.documentElement.removeAttribute("data-flavor");
+      } else {
+        document.documentElement.setAttribute("data-flavor", flavor);
       }
 
-      // For other flavors, wrap in a div with data-flavor
-      // This ensures the CSS selector :root[data-color-mode] [data-flavor] works
-      // display: contents prevents the wrapper from affecting layout
-      return html`
-        <div data-flavor="${flavor}" style="display: contents;">
-          ${storyFn()}
-        </div>
-      `;
+      return storyFn();
     },
   ],
 
