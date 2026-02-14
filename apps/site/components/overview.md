@@ -44,12 +44,16 @@ Multi-line text input with configurable resize behavior and wrap modes.
 **Variants:** outlined, filled
 **Sizes:** sm, md, lg
 
+[View Textarea Documentation →](/components/textarea)
+
 ### Select
 
 Dropdown selector with option and option-group support for organized selections. Supports single and multiple selection, clearable values, and async loading.
 
 **Variants:** filled, outlined
 **Sizes:** sm, md, lg
+
+[View Select Documentation →](/components/select)
 
 ### Checkbox
 
@@ -58,9 +62,13 @@ Selection control with checked, unchecked, and indeterminate states.
 **Variants:** solid, outline
 **Sizes:** sm, md, lg
 
+[View Checkbox Documentation →](/components/checkbox)
+
 ### Radio
 
 Single selection control, designed to work within radio groups.
+
+[View Radio Documentation →](/components/radio)
 
 ### Radio Group
 
@@ -72,6 +80,8 @@ Toggle control for binary on/off states with smooth transitions.
 
 **Variants:** solid, outline
 **Sizes:** sm, md, lg
+
+[View Switch Documentation →](/components/switch)
 
 ### Option
 
@@ -85,6 +95,8 @@ Grouped container for organizing related options within a select.
 
 Accessible label component that associates with form controls.
 
+[View Label Documentation →](/components/label)
+
 ### Form Group
 
 Layout container that groups a label, form control, and help text together.
@@ -95,9 +107,13 @@ Layout container that groups a label, form control, and help text together.
 
 Form wrapper that manages validation and submission.
 
+[View Form Documentation →](/components/form)
+
 ### Help Text
 
 Descriptive or error text that provides context for form controls.
+
+[View Help Text Documentation →](/components/help-text)
 
 ## Feedback & Status
 
@@ -120,12 +136,16 @@ Status indicator with semantic color variants and multiple visual styles. Non-in
 **Variants:** solid, soft, outline, surface
 **Sizes:** sm, md, lg
 
+[View Badge Documentation →](/components/badge)
+
 ### Tag
 
 Interactive label for categorization and filtering. Features a mandatory icon area that serves as the interactive target for clickable and removable behaviors.
 
 **Variants:** solid, outline, soft
 **Sizes:** sm, md, lg
+
+[View Tag Documentation →](/components/tag)
 
 ## Media
 
@@ -135,6 +155,8 @@ Flexible icon component powered by Lucide icons, with multiple sizes and color v
 
 **Sizes:** xs, sm, md, lg, xl
 **Colors:** default, muted, emphasis, brand, onSolid
+
+[View Icon Documentation →](/components/icon)
 
 ## Skeleton / Loading
 

@@ -16,7 +16,7 @@ export default defineConfig({
       { text: "Components", link: "/components/overview" },
       {
         text: "Storybook",
-        link: "https://rodrigolagodev.github.io/SandoDesignSystem/storybook/?path=/docs/introduction--docs",
+        link: "https://rodrigolagodev.github.io/SandoDesignSystem/storybook/",
         target: "_blank",
       },
     ],
@@ -53,7 +53,22 @@ export default defineConfig({
           text: "Components",
           items: [
             { text: "Overview", link: "/components/overview" },
+            { text: "Badge", link: "/components/badge" },
             { text: "Button", link: "/components/button" },
+            { text: "Checkbox", link: "/components/checkbox" },
+            { text: "Form", link: "/components/form" },
+            { text: "Form Group", link: "/components/form-group" },
+            { text: "Help Text", link: "/components/help-text" },
+            { text: "Icon", link: "/components/icon" },
+            { text: "Input", link: "/components/input" },
+            { text: "Label", link: "/components/label" },
+            { text: "Radio", link: "/components/radio" },
+            { text: "Select", link: "/components/select" },
+            { text: "Skeleton", link: "/components/skeleton" },
+            { text: "Spinner", link: "/components/spinner" },
+            { text: "Switch", link: "/components/switch" },
+            { text: "Tag", link: "/components/tag" },
+            { text: "Textarea", link: "/components/textarea" },
           ],
         },
       ],
@@ -74,6 +89,18 @@ export default defineConfig({
             { text: "Contributing", link: "/guides/contributing" },
             { text: "Accessibility", link: "/guides/accessibility" },
             { text: "Browser Support", link: "/guides/browser-support" },
+          ],
+        },
+      ],
+
+      "/docs/design-system/flavors/": [
+        {
+          text: "Flavor Profiles",
+          items: [
+            {
+              text: "Brutalist",
+              link: "/docs/design-system/flavors/brutalist",
+            },
           ],
         },
       ],
