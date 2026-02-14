@@ -1,143 +1,150 @@
+---
+title: Introduction to Sando Design System
+description: Learn why Sando exists, how its three-layer architecture works, and what makes it different from other design systems.
+---
+
 # Introduction
 
 **The perfect recipe for building delicious UIs.**
 
-Welcome to **Sando Design System**! Just like a perfectly crafted Japanese katsu sando combines quality **Ingredients**, balanced **Flavors**, and a proven **Recipe** to create something extraordinary, Sando brings these three layers together to help you craft consistent, accessible, and beautiful user interfaces.
+Welcome to **Sando Design System** — a framework-agnostic, accessible-by-default component library with a three-layer token architecture inspired by the art of the Japanese Katsu Sando.
 
-## What is Sando?
+## Why "Sando"?
 
-We believe that great design systems, like great food, start with quality basics. Our three-layer token architecture gives you the foundation to build once and theme infinitely—whether you're serving light mode, dark mode, or your own custom flavor.
+_Sando_ (サンド) is the Japanese word for sandwich. But calling a Katsu Sando "just a sandwich" is like calling a design system "just some components."
 
-Think of it like making the perfect sandwich: you don't just throw everything together. You start with quality ingredients, add your signature flavor, and follow a trusted recipe.
+A proper Katsu Sando is deceptively simple — soft milk bread, a crispy tonkatsu cutlet, and balanced sauce. Behind that simplicity lies the Japanese philosophy of **Shokunin** (職人気質): the craftsman's dedication to mastering each layer individually before assembling the whole.
+
+That's exactly how this design system works. We obsess over each layer so you can assemble beautiful, accessible interfaces in minutes.
+
+## The Three-Layer Architecture
+
+Think of building a UI like making a sandwich. You don't just throw everything together — you start with quality ingredients, add your signature flavor, and follow a trusted recipe.
 
 ```
-┌─────────────────────────────────┐
-│   🍞 Recipes (Components)       │  Component-specific tokens
-├─────────────────────────────────┤
-│   🥬 Flavors (Semantic)         │  Theme-specific meanings
-├─────────────────────────────────┤
-│   🥓 Ingredients (Primitives)   │  Raw, atomic values
-└─────────────────────────────────┘
+┌─────────────────────────────────────┐
+│  🍞 Recipes (Component Tokens)      │  The finished dish — ready to serve
+├─────────────────────────────────────┤
+│  🥬 Flavors (Semantic Tokens)       │  The chef's signature — your brand
+├─────────────────────────────────────┤
+│  🥓 Ingredients (Primitive Tokens)  │  Pantry staples — raw, no opinion
+└─────────────────────────────────────┘
 ```
 
-### Start with quality Ingredients
+### 🥓 Ingredients — Your Pantry Staples
 
-Define your primitives—colors, spacing, typography—as the raw materials of your design language. These are absolute values with no opinion, like `color-orange-700: hsl(25, 95%, 53%)` or `space-4: 1rem`.
+Raw, atomic values with no opinion. Like having flour, eggs, and salt in your pantry — they don't decide what you're cooking.
 
-### Season with distinctive Flavors
+```css
+--sando-color-orange-500: oklch(0.65 0.12 38);
+--sando-space-4: 1rem;
+--sando-font-size-300: 1rem;
+```
 
-Transform primitives into semantic tokens that give your interface its unique character and enable effortless theming. Examples: `color-background-base`, `color-action-solid-background-default`, `color-text-body`.
+These are concrete values in OKLCH color space — perceptually uniform so that `orange-500` and `blue-500` actually _look_ equally vibrant.
 
-### Follow proven Recipes
+### 🥬 Flavors — The Chef's Signature
 
-Use component-specific tokens that ensure every button, card, and input tastes just right, every time. Like `button-solid-backgroundColor-default` or `button-outline-textColor-default`.
+Flavors give meaning to ingredients and define your brand personality. Same ingredients, different flavor — entirely different experience.
+
+```css
+/* Original flavor → warm orange tones */
+--sando-color-action-solid-background-default: var(--sando-color-orange-700);
+
+/* Strawberry flavor → pink tones */
+--sando-color-action-solid-background-default: var(--sando-color-pink-600);
+```
+
+Change `flavor="original"` to `flavor="strawberry"` and the entire UI transforms — no component changes needed.
+
+### 🍞 Recipes — The Finished Dish
+
+Component-specific tokens that reference flavors. Recipes are what components actually consume.
+
+```css
+--sando-button-solid-backgroundColor-default: var(
+  --sando-color-action-solid-background-default
+);
+```
+
+Components never hardcode colors or spacing — they always reference recipes, which reference flavors, which reference ingredients. That's what makes the system infinitely themeable.
 
 [Learn more about token architecture →](/tokens/architecture)
 
 ## Key Features
 
-### 🎨 Three-Layer Token Architecture
+### 🎨 6 Handcrafted Flavors
 
-Our layered token system ensures consistency and enables powerful theming:
+Each flavor is a complete brand identity, hand-tuned for harmony across light, dark, and high-contrast modes:
 
-- **Ingredients**: Primitives like `color-orange-700`, `space-4`, `font-size-400`
-- **Flavors**: Semantic tokens like `color-background-base`, `color-action-solid-background-default`, `color-text-body`
-- **Recipes**: Component tokens like `button-solid-backgroundColor-default`, `button-outline-textColor-default`
-
-The result? A design system that's accessible by default (WCAG 2.1 AA), framework-agnostic, fully typed with TypeScript, and ready to serve across your entire product ecosystem.
+| Flavor       | Inspired By            | Primary Vibe |
+| ------------ | ---------------------- | ------------ |
+| `original`   | Classic Sando          | Warm orange  |
+| `sando`      | The Katsu Sando itself | Golden amber |
+| `tonkatsu`   | Craft kitchen          | Rich brown   |
+| `strawberry` | Fresh fruit            | Pink/red     |
+| `egg-salad`  | Sunny tamago           | Yellow       |
+| `kiwi`       | Fresh fruit            | Green        |
 
 ### 🌐 Framework-Agnostic Web Components
 
-Built with [Lit](https://lit.dev), Sando components work everywhere:
-
-- **Works with any framework**: React, Vue, Angular, Svelte, or vanilla JavaScript
-- **Standards-based**: Uses native Web Components APIs
-- **Future-proof**: Built on web standards, not framework trends
-- **TypeScript-first**: Full type safety and autocomplete
+Built with [Lit](https://lit.dev), Sando components work everywhere — React, Vue, Angular, Svelte, or plain HTML. No wrappers, no adapters. They're native Web Components that work with any stack.
 
 ### ♿ Accessible by Default
 
-Accessibility isn't an afterthought—it's baked into every component:
+Accessibility isn't an afterthought — it's baked into every ingredient:
 
-- WCAG 2.1 AA compliant out of the box
-- Comprehensive contrast testing (4.5:1 text, 3:1 UI)
-- Keyboard navigation and screen reader support
-- Focus management and ARIA patterns
-- High contrast mode support
+- **WCAG 2.1 AA** compliant out of the box
+- **4.5:1** text contrast and **3:1** UI contrast validated
+- **Keyboard navigation** and **screen reader** support in every component
+- **Automatic dark mode**, **high contrast**, and **reduced motion** via CSS media queries
+- **OKLCH color space** — lightness-based contrast, not just hue differences
 
-### 🎭 Multi-Theme Support
+### 🧩 19+ Production Components
 
-Theme your entire application with a single attribute:
+From buttons to complex form elements, everything you need to build real applications:
 
-- **Light mode** - Clean and bright (default)
-- **Dark mode** - Easy on the eyes
-- **High contrast** - Maximum accessibility
-- **Custom flavors** - Your brand, your way
+`sando-button` · `sando-input` · `sando-checkbox` · `sando-switch` · `sando-select` · `sando-textarea` · `sando-radio` · `sando-radio-group` · `sando-badge` · `sando-tag` · `sando-spinner` · `sando-icon` · `sando-label` · `sando-help-text` · `sando-form-group` · `sando-option` · `sando-option-group` · plus **14 skeleton loading patterns** for polished loading states.
 
-### 🧪 Battle-Tested Quality
+### 🎯 8 OKLCH Color Palettes
 
-Over **2,200+ tests** ensure everything works perfectly:
+Every color is defined in [OKLCH](https://oklch.com/) — a perceptually uniform color space where `L=0.5` actually _looks_ 50% bright:
 
-- Token structure and reference integrity
-- Accessibility contrast validation
-- Build output verification
-- Component unit and E2E tests
-- Coverage tracking across the system
+- **orange** · **blue** · **green** · **red** · **purple** · **pink** · **yellow** · **brown**
+- **3 neutral scales** — neutral, neutral-warm, neutral-cool
+- **4 semantic state colors** — error, warning, success, info
+
+### 🔒 TypeScript-First
+
+Full type definitions, autocomplete, and compile-time safety for every component, property, and event.
 
 ### 📦 Monorepo Power
 
-Powered by [Turborepo](https://turbo.build) for lightning-fast development:
-
-- ⚡ Incremental builds - Only rebuild what changed
-- 🔄 Smart caching - Local and remote
-- ⏱️ Parallel execution - Maximum speed
-- 📊 Build visualization - Understand your build graph
-
-### 🤖 AI-Powered Development
-
-Built for modern workflows with **7 specialized AI agents** organized in an orchestrated architecture:
-
-| Agent                  | Role                                                              |
-| ---------------------- | ----------------------------------------------------------------- |
-| **sando-orchestrator** | Central coordinator that routes requests and manages workflows    |
-| **sando-architect**    | Architecture decisions, token system design, breaking changes     |
-| **sando-tokens**       | Creates and manages design tokens (Ingredients, Flavors, Recipes) |
-| **sando-developer**    | Implements Web Components with Lit 3+ and TypeScript              |
-| **sando-quality**      | Testing, accessibility audits, WCAG compliance                    |
-| **sando-storybook**    | Storybook configuration, stories, troubleshooting                 |
-| **sando-documenter**   | API docs, JSDoc, VitePress guides                                 |
-
-**Skills available:**
-
-- `component-creator` - Scaffold new components with 7-file pattern
-- `prompt-engineer` - Optimize prompts for LLM interactions
-- `skill-creator` / `agent-creator` - Extend the agent system
-
-**Commands:**
-
-- `/project-status` - Comprehensive project health check
-
-> Use these tools via [Claude Code](https://claude.com/code) to supercharge your workflow.
+Powered by [Turborepo](https://turbo.build) with incremental builds, smart caching, and parallel execution.
 
 ## Design Philosophy
 
-Sando follows these core principles:
+Sando is built on seven principles:
 
-1. **Start with the basics** - Quality ingredients make quality products
-2. **Season with meaning** - Semantic tokens enable effortless theming
-3. **Serve with style** - Components that work everywhere, look great everywhere
-4. **Accessible by default** - Everyone deserves a great experience
-5. **Build once, theme infinitely** - The three-layer system gives you flexibility without chaos
+1. **Craftsmanship** — We spend months perfecting each component so you can use them in minutes
+2. **Accessibility** — Every user, every context, always
+3. **Intentionality** — Nothing arbitrary, everything has a documented reason
+4. **Flexibility** — Build once, theme infinitely
+5. **Simplicity** — Complex problems, elegant solutions
+6. **Transparency** — Open source, open process, open mind
+7. **Balance** — Strong conventions with escape hatches when you need them
 
-## Who is Sando for?
+::: tip The Sando Way
+_"Start with the basics, season with meaning, and serve with style."_
+:::
 
-Sando is perfect for:
+## Who is Sando For?
 
-- **Product teams** building web applications across multiple frameworks
+- **Product teams** building web apps across multiple frameworks
 - **Design teams** who need a flexible, token-based system
 - **Open source projects** that want framework-agnostic components
 - **Enterprise applications** requiring accessibility compliance
-- **Developers** who value great DX and comprehensive documentation
+- **Developers** who value great DX and thorough documentation
 
 ## Next Steps
 
@@ -149,22 +156,25 @@ Sando is perfect for:
 **Ready to build?**
 [Quick Start →](/getting-started/quick-start)
 
-**Understand tokens?**
+**Understand the token system?**
 [Token Architecture →](/tokens/architecture)
 
 **Explore components?**
 [Component Overview →](/components/overview)
 
+**See it in action?**
+[Storybook →](https://rodrigolagodev.github.io/SandoDesignSystem/storybook/)
+
 </div>
 
 ---
 
-**Start with the basics, season with meaning, and serve with style.**
+**Start with the basics, season with meaning, and serve with style.** 🍱
 
 <style>
 .next-steps {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1rem;
   margin-top: 2rem;
 }
