@@ -135,9 +135,6 @@ importers:
       '@storybook/addon-a11y':
         specifier: 8.6.14
         version: 8.6.14(storybook@8.6.14)
-      '@storybook/addon-docs':
-        specifier: 10.2.8
-        version: 10.2.8(@types/react@19.2.14)(esbuild@0.25.10)(storybook@8.6.14)(vite@5.0.8)
       '@storybook/addon-essentials':
         specifier: 8.6.14
         version: 8.6.14(@types/react@19.2.14)(storybook@8.6.14)
@@ -186,9 +183,6 @@ importers:
       storybook:
         specifier: 8.6.14
         version: 8.6.14(prettier@3.6.2)
-      storybook-addon-pseudo-states:
-        specifier: 10.2.8
-        version: 10.2.8(storybook@8.6.14)
       storybook-addon-tag-badges:
         specifier: ^1.3.0
         version: 1.4.0(react-dom@18.2.0)(react@18.2.0)(storybook@8.6.14)
@@ -2146,13 +2140,6 @@ packages:
       '@jridgewell/trace-mapping': 0.3.31
     dev: true
 
-  /@jridgewell/remapping@2.3.5:
-    resolution: {integrity: sha512-LI9u/+laYG4Ds1TDKSJW2YPrIlcVYOwi2fUC6xB43lueCjgxV4lffOCZCtYFiH6TNOX+tQKXx97T4IKHbhyHEQ==}
-    dependencies:
-      '@jridgewell/gen-mapping': 0.3.13
-      '@jridgewell/trace-mapping': 0.3.31
-    dev: true
-
   /@jridgewell/resolve-uri@3.1.2:
     resolution: {integrity: sha512-bRISgCIjP20/tbWSPWMEi54QVPRZExkuD9lJL+UIxUKtwVJA8wW1Trb1jMs1RFXo1CBTNZ/5hpC9QvmKWdopKw==}
     engines: {node: '>=6.0.0'}
@@ -2906,27 +2893,6 @@ packages:
       ts-dedent: 2.2.0
     dev: true
 
-  /@storybook/addon-docs@10.2.8(@types/react@19.2.14)(esbuild@0.25.10)(storybook@8.6.14)(vite@5.0.8):
-    resolution: {integrity: sha512-cEoWqQrLzrxOwZFee5zrD4cYrdEWKV80POb7jUZO0r5vfl2DuslIr3n/+RfLT52runCV4aZcFEfOfP/IWHNPxg==}
-    peerDependencies:
-      storybook: ^10.2.8
-    dependencies:
-      '@mdx-js/react': 3.1.1(@types/react@19.2.14)(react@18.2.0)
-      '@storybook/csf-plugin': 10.2.8(esbuild@0.25.10)(storybook@8.6.14)(vite@5.0.8)
-      '@storybook/icons': 2.0.1(react-dom@18.2.0)(react@18.2.0)
-      '@storybook/react-dom-shim': 10.2.8(react-dom@18.2.0)(react@18.2.0)(storybook@8.6.14)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-      storybook: 8.6.14(prettier@3.6.2)
-      ts-dedent: 2.2.0
-    transitivePeerDependencies:
-      - '@types/react'
-      - esbuild
-      - rollup
-      - vite
-      - webpack
-    dev: true
-
   /@storybook/addon-docs@8.6.14(@types/react@19.2.14)(storybook@8.6.14):
     resolution: {integrity: sha512-Obpd0OhAF99JyU5pp5ci17YmpcQtMNgqW2pTXV8jAiiipWpwO++hNDeQmLmlSXB399XjtRDOcDVkoc7rc6JzdQ==}
     peerDependencies:
@@ -3113,30 +3079,6 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@storybook/csf-plugin@10.2.8(esbuild@0.25.10)(storybook@8.6.14)(vite@5.0.8):
-    resolution: {integrity: sha512-kKkLYhRXb33YtIPdavD2DU25sb14sqPYdcQFpyqu4TaD9truPPqW8P5PLTUgERydt/eRvRlnhauPHavU1kjsnA==}
-    peerDependencies:
-      esbuild: '*'
-      rollup: '*'
-      storybook: ^10.2.8
-      vite: '*'
-      webpack: '*'
-    peerDependenciesMeta:
-      esbuild:
-        optional: true
-      rollup:
-        optional: true
-      vite:
-        optional: true
-      webpack:
-        optional: true
-    dependencies:
-      esbuild: 0.25.10
-      storybook: 8.6.14(prettier@3.6.2)
-      unplugin: 2.3.11
-      vite: 5.0.8(@types/node@25.1.0)
-    dev: true
-
   /@storybook/csf-plugin@8.6.14(storybook@8.6.14):
     resolution: {integrity: sha512-dErtc9teAuN+eelN8FojzFE635xlq9cNGGGEu0WEmMUQ4iJ8pingvBO1N8X3scz4Ry7KnxX++NNf3J3gpxS8qQ==}
     peerDependencies:
@@ -3156,16 +3098,6 @@ packages:
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta
-    dependencies:
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-    dev: true
-
-  /@storybook/icons@2.0.1(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-/smVjw88yK3CKsiuR71vNgWQ9+NuY2L+e8X7IMrFjexjm6ZR8ULrV2DRkTA61aV6ryefslzHEGDInGpnNeIocg==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
-      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
     dependencies:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
@@ -3194,18 +3126,6 @@ packages:
     peerDependencies:
       storybook: ^8.2.0 || ^8.3.0-0 || ^8.4.0-0 || ^8.5.0-0 || ^8.6.0-0
     dependencies:
-      storybook: 8.6.14(prettier@3.6.2)
-    dev: true
-
-  /@storybook/react-dom-shim@10.2.8(react-dom@18.2.0)(react@18.2.0)(storybook@8.6.14):
-    resolution: {integrity: sha512-Xde9X3VszFV1pTXfc2ZFM89XOCGRxJD8MUIzDwkcT9xaki5a+8srs/fsXj75fMY6gMYfcL5lNRZvCqg37HOmcQ==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
-      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
-      storybook: ^10.2.8
-    dependencies:
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
       storybook: 8.6.14(prettier@3.6.2)
     dev: true
 
@@ -4113,7 +4033,7 @@ packages:
       std-env: 3.9.0
       test-exclude: 7.0.1
       tinyrainbow: 2.0.0
-      vitest: 3.2.4(@types/node@25.1.0)(@vitest/ui@3.2.4)(jsdom@23.0.0)
+      vitest: 3.2.4(@types/node@20.10.0)(@vitest/ui@3.2.4)(jsdom@23.0.0)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -4187,7 +4107,7 @@ packages:
       '@vitest/spy': 3.2.4
       estree-walker: 3.0.3
       magic-string: 0.30.21
-      vite: 6.4.1(@types/node@25.1.0)
+      vite: 6.4.1(@types/node@20.10.0)
     dev: true
 
   /@vitest/mocker@4.0.4(vite@7.3.1):
@@ -9829,14 +9749,6 @@ packages:
     resolution: {integrity: sha512-UGvjygr6F6tpH7o2qyqR6QYpwraIjKSdtzyBdyytFOHmPZY917kwdwLG0RbOjWOnKmnm3PeHjaoLLMie7kPLQw==}
     dev: true
 
-  /storybook-addon-pseudo-states@10.2.8(storybook@8.6.14):
-    resolution: {integrity: sha512-NPrNyENJ2X0SEc4oVuISrPkDYPXUHIrF4MWVaSabqI6FESksjwAlFTl4wCQxXqcHljUoMIN+ITQep8fJzfzZrA==}
-    peerDependencies:
-      storybook: ^10.2.8
-    dependencies:
-      storybook: 8.6.14(prettier@3.6.2)
-    dev: true
-
   /storybook-addon-tag-badges@1.4.0(react-dom@18.2.0)(react@18.2.0)(storybook@8.6.14):
     resolution: {integrity: sha512-ecVwNVT4zIpnB14ltXCTHsWqykW2lgiHrDJW1VeblI3+aU9uMaSZG0zuey+r3vehMeODADnRNrcdk6sN9MAmBA==}
     engines: {node: '>=20'}
@@ -10493,16 +10405,6 @@ packages:
     engines: {node: '>=14.0.0'}
     dependencies:
       acorn: 8.15.0
-      webpack-virtual-modules: 0.6.2
-    dev: true
-
-  /unplugin@2.3.11:
-    resolution: {integrity: sha512-5uKD0nqiYVzlmCRs01Fhs2BdkEgBS3SAVP6ndrBsuK42iC2+JHyxM05Rm9G8+5mkmRtzMZGY8Ct5+mliZxU/Ww==}
-    engines: {node: '>=18.12.0'}
-    dependencies:
-      '@jridgewell/remapping': 2.3.5
-      acorn: 8.15.0
-      picomatch: 4.0.3
       webpack-virtual-modules: 0.6.2
     dev: true
 
