@@ -224,6 +224,12 @@ import "../../../packages/tokens/dist/sando-tokens/css/flavors/sando/flavor-dark
 import "../../../packages/tokens/dist/sando-tokens/css/flavors/sando/flavor-high-contrast.css";
 import "../../../packages/tokens/dist/sando-tokens/css/flavors/sando/flavor-motion-reduce.css";
 
+// Brutalist (Japanese brutalist - pure neutrals with electric vermillion)
+import "../../../packages/tokens/dist/sando-tokens/css/flavors/brutalist/flavor.css";
+import "../../../packages/tokens/dist/sando-tokens/css/flavors/brutalist/flavor-dark.css";
+import "../../../packages/tokens/dist/sando-tokens/css/flavors/brutalist/flavor-high-contrast.css";
+import "../../../packages/tokens/dist/sando-tokens/css/flavors/brutalist/flavor-motion-reduce.css";
+
 // Import Storybook preview global styles LAST
 // All token overrides come from generated CSS, this file only contains
 // Storybook-specific layout and MDX documentation styles
@@ -614,7 +620,8 @@ const preview = {
         // No icon - emoji in title is sufficient
         title: "Flavor:",
         items: [
-          { value: "sando", title: "Sando", right: "Brand Identity" },
+          { value: "brutalist", title: "Brutalist", right: "Modern Identity" },
+          { value: "sando", title: "Sando", right: "Warm Identity" },
           { value: "original", title: "Original", right: "Neutral" },
           { value: "strawberry", title: "Strawberry", right: "Red tones" },
           { value: "tonkatsu", title: "Tonkatsu", right: "Brown tones" },
@@ -630,7 +637,8 @@ const preview = {
    * Decorators - Flavor switcher only
    *
    * Flavor Switcher:
-   * - "sando": Brand identity (data-flavor="sando") - DEFAULT
+   * - "brutalist": Modern identity (data-flavor="brutalist") - DEFAULT
+   * - "sando": Warm identity (data-flavor="sando")
    * - "original": Neutral tones (no data-flavor attribute, uses :root styles)
    * - "strawberry": Red tones (data-flavor="strawberry")
    * - "tonkatsu": Brown tones (data-flavor="tonkatsu")
@@ -673,8 +681,8 @@ const preview = {
    * Initial global values
    */
   initialGlobals: {
-    // Flavor switcher default - Sando brand identity
-    flavor: "sando",
+    // Flavor switcher default - Brutalist modern identity
+    flavor: "brutalist",
   },
 };
 

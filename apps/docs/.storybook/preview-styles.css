@@ -367,79 +367,79 @@ body {
    Using variables instead of hardcoded hex values makes the
    theme maintainable and easy to update.
    
-   All colors are based on the Sando neutralWarm palette
+   All colors are based on the Sando ink + vermillion (brutalist) palette
    but defined statically for consistent docs appearance.
    ======================================== */
 :root {
   /* Docs Background colors */
-  --sb-docs-bg-base: #fafaf9; /* neutralWarm-100 */
-  --sb-docs-bg-surface: #f5f5f4; /* neutralWarm-200 */
+  --sb-docs-bg-base: #fafafa; /* ink.50 */
+  --sb-docs-bg-surface: #f5f5f5; /* ink.100 */
   --sb-docs-bg-raised: #ffffff; /* white */
-  --sb-docs-bg-emphasis: #f5f5f4; /* neutralWarm-200 - softer, WCAG approved */
-  --sb-docs-bg-code: #fafaf9; /* neutralWarm-100 - matches base per user request */
+  --sb-docs-bg-emphasis: #e5e5e5; /* ink.200 - softer, WCAG approved */
+  --sb-docs-bg-code: #fafafa; /* ink.50 - matches base per user request */
 
   /* Docs Text colors */
-  --sb-docs-text-heading: #1c1917; /* neutralWarm-950 - darkest for headings */
-  --sb-docs-text-body: #292524; /* neutralWarm-800 */
-  --sb-docs-text-caption: #44403c; /* neutralWarm-700 - WCAG AAA 8.5:1 */
-  --sb-docs-text-muted: #57534e; /* neutralWarm-600 - WCAG AA 6.0:1 */
+  --sb-docs-text-heading: #171717; /* ink.950 - darkest for headings */
+  --sb-docs-text-body: #262626; /* ink.800 */
+  --sb-docs-text-caption: #404040; /* ink.700 - WCAG AAA 8.5:1 */
+  --sb-docs-text-muted: #525252; /* ink.600 - WCAG AA 6.0:1 */
 
   /* Docs Border colors */
-  --sb-docs-border: #d6d3d1; /* neutralWarm-300 */
-  --sb-docs-border-emphasis: #a8a29e; /* neutralWarm-400 */
+  --sb-docs-border: #d4d4d4; /* ink.300 */
+  --sb-docs-border-emphasis: #a3a3a3; /* ink.400 */
 
   /* Docs Link colors */
-  --sb-docs-link: #845529; /* brown-700 */
-  --sb-docs-link-hover: #6d4724; /* brown-800 */
+  --sb-docs-link: #c13b1e; /* vermillion.600 */
+  --sb-docs-link-hover: #9e2f18; /* vermillion.700 */
 
   /* Docs Link active color */
-  --sb-docs-link-active: #5a3c1e; /* brown-900 */
+  --sb-docs-link-active: #7a2515; /* vermillion.800 */
 
-  /* Docs Status colors - warm-tinted for Sando palette */
-  --sb-docs-success-bg: #ecfdf5; /* warm green background */
-  --sb-docs-success-text: #047857; /* warm green text */
-  --sb-docs-success-border: #a7f3d0; /* warm green border */
+  /* Docs Status colors - using brutalist palette */
+  --sb-docs-success-bg: #ecfdf5; /* green background */
+  --sb-docs-success-text: #047857; /* green text */
+  --sb-docs-success-border: #a7f3d0; /* green border */
   --sb-docs-warning-bg: #fffbeb; /* amber background */
   --sb-docs-warning-text: #b45309; /* amber text */
   --sb-docs-warning-border: #fcd34d; /* amber border */
-  --sb-docs-error-bg: #fef2f2; /* warm red background */
-  --sb-docs-error-text: #b91c1c; /* warm red text */
-  --sb-docs-error-border: #fecaca; /* warm red border */
-  --sb-docs-info-bg: #f0fdfa; /* warm teal background */
-  --sb-docs-info-text: #0f766e; /* warm teal text */
-  --sb-docs-info-border: #99f6e4; /* warm teal border */
-  --sb-docs-neutral-bg: var(--sb-docs-bg-emphasis); /* neutralWarm */
-  --sb-docs-neutral-text: var(--sb-docs-text-body); /* neutralWarm */
-  --sb-docs-neutral-border: var(--sb-docs-border); /* neutralWarm */
+  --sb-docs-error-bg: #fef2f2; /* red background */
+  --sb-docs-error-text: #b91c1c; /* red text */
+  --sb-docs-error-border: #fecaca; /* red border */
+  --sb-docs-info-bg: #f0fdfa; /* teal background */
+  --sb-docs-info-text: #0f766e; /* teal text */
+  --sb-docs-info-border: #99f6e4; /* teal border */
+  --sb-docs-neutral-bg: var(--sb-docs-bg-emphasis); /* ink */
+  --sb-docs-neutral-text: var(--sb-docs-text-body); /* ink */
+  --sb-docs-neutral-border: var(--sb-docs-border); /* ink */
 
-  /* Docs Table colors - using neutralWarm palette */
-  --sb-docs-table-bg: #e7e5e4; /* neutralWarm-200 - table body background */
-  --sb-docs-table-header-bg: #d6d3d1; /* neutralWarm-300 - table header background */
-  --sb-docs-table-hover-bg: #d6d3d1; /* neutralWarm-300 - row hover background */
+  /* Docs Table colors - using ink palette */
+  --sb-docs-table-bg: #e5e5e5; /* ink.200 - table body background */
+  --sb-docs-table-header-bg: #d4d4d4; /* ink.300 - table header background */
+  --sb-docs-table-hover-bg: #d4d4d4; /* ink.300 - row hover background */
 
   /* Docs Code colors - subtle, non-distracting */
-  --sb-docs-code-bg: #fafaf9; /* neutralWarm-50 - very subtle, nearly matches base */
-  --sb-docs-code-text: #57534e; /* neutralWarm-600 - slightly muted from body text */
-  --sb-docs-code-border: #e7e5e4; /* neutralWarm-200 - subtle border for definition */
+  --sb-docs-code-bg: #fafafa; /* ink.50 - very subtle, nearly matches base */
+  --sb-docs-code-text: #525252; /* ink.600 - slightly muted from body text */
+  --sb-docs-code-border: #e5e5e5; /* ink.200 - subtle border for definition */
 
-  /* Code syntax highlighting - Light Mode (Sando palette) */
-  --sb-docs-code-comment: #78716c; /* neutralWarm-500 - muted */
-  --sb-docs-code-punctuation: #57534e; /* neutralWarm-600 */
-  --sb-docs-code-property: #6d4724; /* brown-800 - softer than before */
-  --sb-docs-code-selector: #845529; /* brown-700 */
-  --sb-docs-code-operator: #57534e; /* neutralWarm-600 */
-  --sb-docs-code-atrule: #845529; /* brown-700 */
-  --sb-docs-code-keyword: #5a3c1e; /* brown-900 */
-  --sb-docs-code-function: #44403c; /* neutralWarm-700 */
-  --sb-docs-code-regex: #6d4724; /* brown-800 */
+  /* Code syntax highlighting - Light Mode (brutalist palette) */
+  --sb-docs-code-comment: #737373; /* ink.500 - muted */
+  --sb-docs-code-punctuation: #525252; /* ink.600 */
+  --sb-docs-code-property: #9e2f18; /* vermillion.700 - softer than before */
+  --sb-docs-code-selector: #c13b1e; /* vermillion.600 */
+  --sb-docs-code-operator: #525252; /* ink.600 */
+  --sb-docs-code-atrule: #c13b1e; /* vermillion.600 */
+  --sb-docs-code-keyword: #7a2515; /* vermillion.800 */
+  --sb-docs-code-function: #404040; /* ink.700 */
+  --sb-docs-code-regex: #9e2f18; /* vermillion.700 */
   --sb-docs-code-string: #365314; /* olive/green - for contrast */
-  --sb-docs-code-number: #6d4724; /* brown-800 */
-  --sb-docs-code-boolean: #5a3c1e; /* brown-900 */
-  --sb-docs-code-class: #44403c; /* neutralWarm-700 */
-  --sb-docs-code-constant: #5a3c1e; /* brown-900 */
-  --sb-docs-code-variable: #57534e; /* neutralWarm-600 */
-  --sb-docs-code-tag: #845529; /* brown-700 */
-  --sb-docs-code-attr-name: #6d4724; /* brown-800 */
+  --sb-docs-code-number: #9e2f18; /* vermillion.700 */
+  --sb-docs-code-boolean: #7a2515; /* vermillion.800 */
+  --sb-docs-code-class: #404040; /* ink.700 */
+  --sb-docs-code-constant: #7a2515; /* vermillion.800 */
+  --sb-docs-code-variable: #525252; /* ink.600 */
+  --sb-docs-code-tag: #c13b1e; /* vermillion.600 */
+  --sb-docs-code-attr-name: #9e2f18; /* vermillion.700 */
   --sb-docs-code-attr-value: #365314; /* olive/green */
   --sb-docs-code-inserted: #365314; /* olive/green */
   --sb-docs-code-deleted: #7f1d1d; /* red-900 */
@@ -453,72 +453,72 @@ body {
    ======================================== */
 :root[data-color-mode="dark"] {
   /* Docs Background colors - Dark */
-  --sb-docs-bg-base: #1c1917; /* neutralWarm-900 */
-  --sb-docs-bg-surface: #292524; /* neutralWarm-800 */
+  --sb-docs-bg-base: #171717; /* ink.950 */
+  --sb-docs-bg-surface: #262626; /* ink.900 */
   --sb-docs-bg-raised: #000000; /* pure black */
-  --sb-docs-bg-emphasis: #44403c; /* neutralWarm-700 - better contrast for headers */
-  --sb-docs-bg-code: #1c1917; /* neutralWarm-900 */
+  --sb-docs-bg-emphasis: #404040; /* ink.700 - better contrast for headers */
+  --sb-docs-bg-code: #171717; /* ink.950 */
 
   /* Docs Text colors - Dark */
-  --sb-docs-text-heading: #fafaf9; /* neutralWarm-50 */
-  --sb-docs-text-body: #e7e5e4; /* neutralWarm-200 */
-  --sb-docs-text-caption: #d6d3d1; /* neutralWarm-300 */
-  --sb-docs-text-muted: #a8a29e; /* neutralWarm-400 */
+  --sb-docs-text-heading: #fafafa; /* ink.50 */
+  --sb-docs-text-body: #e5e5e5; /* ink.200 */
+  --sb-docs-text-caption: #d4d4d4; /* ink.300 */
+  --sb-docs-text-muted: #a3a3a3; /* ink.400 */
 
   /* Docs Border colors - Dark */
-  --sb-docs-border: #44403c; /* neutralWarm-700 */
-  --sb-docs-border-emphasis: #57534e; /* neutralWarm-600 */
+  --sb-docs-border: #404040; /* ink.700 */
+  --sb-docs-border-emphasis: #525252; /* ink.600 */
 
-  /* Docs Link colors - Dark (lighter browns for visibility) */
-  --sb-docs-link: #c08545; /* brown-500 */
-  --sb-docs-link-hover: #d4a96e; /* brown-400 */
-  --sb-docs-link-active: #e8c9a0; /* brown-300 - lighter for dark mode */
+  /* Docs Link colors - Dark (lighter vermillion for visibility) */
+  --sb-docs-link: #e86040; /* vermillion.400 */
+  --sb-docs-link-hover: #f08060; /* vermillion.300 */
+  --sb-docs-link-active: #f8a080; /* vermillion.200 - lighter for dark mode */
 
-  /* Docs Status colors - Dark (warm-tinted, darker backgrounds, lighter text) */
-  --sb-docs-success-bg: #064e3b; /* warm green dark */
-  --sb-docs-success-text: #6ee7b7; /* warm green light */
-  --sb-docs-success-border: #065f46; /* warm green dark border */
+  /* Docs Status colors - Dark (darker backgrounds, lighter text) */
+  --sb-docs-success-bg: #064e3b; /* green dark */
+  --sb-docs-success-text: #6ee7b7; /* green light */
+  --sb-docs-success-border: #065f46; /* green dark border */
   --sb-docs-warning-bg: #78350f; /* amber dark */
   --sb-docs-warning-text: #fcd34d; /* amber light */
   --sb-docs-warning-border: #92400e; /* amber dark border */
-  --sb-docs-error-bg: #7f1d1d; /* warm red dark */
-  --sb-docs-error-text: #fca5a5; /* warm red light */
-  --sb-docs-error-border: #991b1b; /* warm red dark border */
-  --sb-docs-info-bg: #134e4a; /* warm teal dark */
-  --sb-docs-info-text: #5eead4; /* warm teal light */
-  --sb-docs-info-border: #115e59; /* warm teal dark border */
-  --sb-docs-neutral-bg: var(--sb-docs-bg-emphasis); /* neutralWarm dark */
-  --sb-docs-neutral-text: var(--sb-docs-text-body); /* neutralWarm dark */
-  --sb-docs-neutral-border: var(--sb-docs-border); /* neutralWarm dark */
+  --sb-docs-error-bg: #7f1d1d; /* red dark */
+  --sb-docs-error-text: #fca5a5; /* red light */
+  --sb-docs-error-border: #991b1b; /* red dark border */
+  --sb-docs-info-bg: #134e4a; /* teal dark */
+  --sb-docs-info-text: #5eead4; /* teal light */
+  --sb-docs-info-border: #115e59; /* teal dark border */
+  --sb-docs-neutral-bg: var(--sb-docs-bg-emphasis); /* ink dark */
+  --sb-docs-neutral-text: var(--sb-docs-text-body); /* ink dark */
+  --sb-docs-neutral-border: var(--sb-docs-border); /* ink dark */
 
-  /* Docs Table colors - Dark - using neutralWarm palette */
-  --sb-docs-table-bg: #3a3735; /* neutralWarm-900 - ~#333 as requested */
-  --sb-docs-table-header-bg: #44403c; /* neutralWarm-700 - darker header */
-  --sb-docs-table-hover-bg: #44403c; /* neutralWarm-700 - row hover background */
+  /* Docs Table colors - Dark - using ink palette */
+  --sb-docs-table-bg: #333333; /* ~ink.850 - as requested */
+  --sb-docs-table-header-bg: #404040; /* ink.700 - darker header */
+  --sb-docs-table-hover-bg: #404040; /* ink.700 - row hover background */
 
   /* Docs Code colors - Dark - subtle, non-distracting */
-  --sb-docs-code-bg: #1c1917; /* neutralWarm-900 - very subtle, nearly matches base */
-  --sb-docs-code-text: #a8a29e; /* neutralWarm-400 - slightly muted from body text */
-  --sb-docs-code-border: #44403c; /* neutralWarm-700 - subtle border for definition */
+  --sb-docs-code-bg: #171717; /* ink.950 - very subtle, nearly matches base */
+  --sb-docs-code-text: #a3a3a3; /* ink.400 - slightly muted from body text */
+  --sb-docs-code-border: #404040; /* ink.700 - subtle border for definition */
 
-  /* Code syntax highlighting - Dark Mode (Sando palette) */
-  --sb-docs-code-comment: #a8a29e; /* neutralWarm-400 - visible but muted */
-  --sb-docs-code-punctuation: #d6d3d1; /* neutralWarm-300 */
-  --sb-docs-code-property: #d4a96e; /* brown-400 - visible on dark */
-  --sb-docs-code-selector: #c08545; /* brown-500 */
-  --sb-docs-code-operator: #d6d3d1; /* neutralWarm-300 */
-  --sb-docs-code-atrule: #c08545; /* brown-500 */
-  --sb-docs-code-keyword: #e8c9a0; /* brown-300 */
-  --sb-docs-code-function: #e7e5e4; /* neutralWarm-200 */
-  --sb-docs-code-regex: #d4a96e; /* brown-400 */
+  /* Code syntax highlighting - Dark Mode (brutalist palette) */
+  --sb-docs-code-comment: #a3a3a3; /* ink.400 - visible but muted */
+  --sb-docs-code-punctuation: #d4d4d4; /* ink.300 */
+  --sb-docs-code-property: #f08060; /* vermillion.300 - visible on dark */
+  --sb-docs-code-selector: #e86040; /* vermillion.400 */
+  --sb-docs-code-operator: #d4d4d4; /* ink.300 */
+  --sb-docs-code-atrule: #e86040; /* vermillion.400 */
+  --sb-docs-code-keyword: #f8a080; /* vermillion.200 */
+  --sb-docs-code-function: #e5e5e5; /* ink.200 */
+  --sb-docs-code-regex: #f08060; /* vermillion.300 */
   --sb-docs-code-string: #a3e635; /* lime-400 - for contrast on dark */
-  --sb-docs-code-number: #d4a96e; /* brown-400 */
-  --sb-docs-code-boolean: #e8c9a0; /* brown-300 */
-  --sb-docs-code-class: #e7e5e4; /* neutralWarm-200 */
-  --sb-docs-code-constant: #e8c9a0; /* brown-300 */
-  --sb-docs-code-variable: #d6d3d1; /* neutralWarm-300 */
-  --sb-docs-code-tag: #c08545; /* brown-500 */
-  --sb-docs-code-attr-name: #d4a96e; /* brown-400 */
+  --sb-docs-code-number: #f08060; /* vermillion.300 */
+  --sb-docs-code-boolean: #f8a080; /* vermillion.200 */
+  --sb-docs-code-class: #e5e5e5; /* ink.200 */
+  --sb-docs-code-constant: #f8a080; /* vermillion.200 */
+  --sb-docs-code-variable: #d4d4d4; /* ink.300 */
+  --sb-docs-code-tag: #e86040; /* vermillion.400 */
+  --sb-docs-code-attr-name: #f08060; /* vermillion.300 */
   --sb-docs-code-attr-value: #a3e635; /* lime-400 */
   --sb-docs-code-inserted: #a3e635; /* lime-400 */
   --sb-docs-code-deleted: #fca5a5; /* red-300 */
@@ -607,7 +607,7 @@ body {
 
 /* Dark code block - for terminal/CLI snippets */
 .demo-code-dark {
-  background-color: #1c1917 !important;
+  background-color: #171717 !important;
   border-radius: 8px;
   padding: 16px;
   overflow: auto;
@@ -618,7 +618,7 @@ body {
 .demo-code-dark pre,
 .demo-code-dark code {
   background-color: transparent !important;
-  color: #fafaf9 !important;
+  color: #fafafa !important;
   margin: 0;
   padding: 0;
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
@@ -673,7 +673,7 @@ body {
 /* Tooltip demo */
 .demo-tooltip {
   padding: 8px 12px;
-  background-color: #1c1917;
+  background-color: #171717;
   color: white;
   border-radius: 6px;
   font-size: 12px;
@@ -798,7 +798,7 @@ body {
    Prism.js Syntax Highlighting Overrides
    
    These styles override Storybook's default Prism theme
-   to use the Sando neutralWarm and brown palette.
+   to use the Sando ink + vermillion (brutalist) palette.
    The colors are intentionally muted to not distract
    from the code content itself.
    ======================================== */
@@ -963,17 +963,17 @@ pre[data-line] {
 
 /* Dark mode container background */
 [data-color-mode="dark"] .mermaid-diagram {
-  background: #1c1917;
+  background: #171717;
 }
 
 /* Ensure SVG text is readable - Light mode */
 .mermaid-diagram svg text {
-  fill: #1c1917 !important;
+  fill: #171717 !important;
 }
 
 /* Dark mode text override */
 [data-color-mode="dark"] .mermaid-diagram svg text {
-  fill: #fafaf9 !important;
+  fill: #fafafa !important;
 }
 
 /* Edge labels in flowcharts */
@@ -1007,27 +1007,27 @@ pre[data-line] {
 /* Layer 1: Ingredients - Orange tones */
 .mermaid-diagram [id*="Layer1"] rect,
 .mermaid-diagram [id*="Ingredient"] rect {
-  fill: #fef3e2 !important;  /* orange-50 */
+  fill: #fef3e2 !important; /* orange-50 */
   stroke: #ea580c !important; /* orange-600 */
 }
 
 /* Layer 2: Flavors - Green tones */
 .mermaid-diagram [id*="Layer2"] rect,
 .mermaid-diagram [id*="Flavor"] rect {
-  fill: #dcfce7 !important;  /* green-100 */
+  fill: #dcfce7 !important; /* green-100 */
   stroke: #16a34a !important; /* green-600 */
 }
 
 /* Layer 3: Recipes - Yellow tones */
 .mermaid-diagram [id*="Layer3"] rect,
 .mermaid-diagram [id*="Recipe"] rect {
-  fill: #fef9c3 !important;  /* yellow-100 */
+  fill: #fef9c3 !important; /* yellow-100 */
   stroke: #ca8a04 !important; /* yellow-600 */
 }
 
 /* Component - Indigo tones */
 .mermaid-diagram [id*="Component"] rect {
-  fill: #e0e7ff !important;  /* indigo-100 */
+  fill: #e0e7ff !important; /* indigo-100 */
   stroke: #4f46e5 !important; /* indigo-600 */
 }
 
@@ -1040,8 +1040,8 @@ pre[data-line] {
 .mermaid-diagram [id*="Flavor"] text,
 .mermaid-diagram [id*="Recipe"] text,
 .mermaid-diagram [id*="Component"] text {
-  fill: #1c1917 !important;  /* neutralWarm-950 */
-  color: #1c1917 !important;
+  fill: #171717 !important; /* ink.950 */
+  color: #171717 !important;
 }
 
 /* ----- Dark Mode ----- */
@@ -1049,27 +1049,27 @@ pre[data-line] {
 /* Layer 1: Ingredients - Dark orange tones */
 [data-color-mode="dark"] .mermaid-diagram [id*="Layer1"] rect,
 [data-color-mode="dark"] .mermaid-diagram [id*="Ingredient"] rect {
-  fill: #7c2d12 !important;  /* orange-900 */
+  fill: #7c2d12 !important; /* orange-900 */
   stroke: #f97316 !important; /* orange-500 */
 }
 
 /* Layer 2: Flavors - Dark green tones */
 [data-color-mode="dark"] .mermaid-diagram [id*="Layer2"] rect,
 [data-color-mode="dark"] .mermaid-diagram [id*="Flavor"] rect {
-  fill: #14532d !important;  /* green-900 */
+  fill: #14532d !important; /* green-900 */
   stroke: #22c55e !important; /* green-500 */
 }
 
 /* Layer 3: Recipes - Dark yellow tones */
 [data-color-mode="dark"] .mermaid-diagram [id*="Layer3"] rect,
 [data-color-mode="dark"] .mermaid-diagram [id*="Recipe"] rect {
-  fill: #713f12 !important;  /* yellow-900 */
+  fill: #713f12 !important; /* yellow-900 */
   stroke: #eab308 !important; /* yellow-500 */
 }
 
 /* Component - Dark indigo tones */
 [data-color-mode="dark"] .mermaid-diagram [id*="Component"] rect {
-  fill: #312e81 !important;  /* indigo-900 */
+  fill: #312e81 !important; /* indigo-900 */
   stroke: #818cf8 !important; /* indigo-400 */
 }
 
@@ -1082,17 +1082,17 @@ pre[data-line] {
 [data-color-mode="dark"] .mermaid-diagram [id*="Flavor"] text,
 [data-color-mode="dark"] .mermaid-diagram [id*="Recipe"] text,
 [data-color-mode="dark"] .mermaid-diagram [id*="Component"] text {
-  fill: #fafaf9 !important;  /* neutralWarm-50 */
-  color: #fafaf9 !important;
+  fill: #fafafa !important; /* ink.50 */
+  color: #fafafa !important;
 }
 
 /* Node labels inside subgraphs */
 .mermaid-diagram .node .label,
 .mermaid-diagram .node foreignObject div {
-  color: #1c1917 !important;
+  color: #171717 !important;
 }
 
 [data-color-mode="dark"] .mermaid-diagram .node .label,
 [data-color-mode="dark"] .mermaid-diagram .node foreignObject div {
-  color: #fafaf9 !important;
+  color: #fafafa !important;
 }

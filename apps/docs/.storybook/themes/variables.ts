@@ -1,14 +1,11 @@
 /**
  * Sando Design System - Storybook Theme Variables
  *
- * Centralized color palettes, typography, and layout values
- * for Storybook manager theming. Aligned with Sando flavor tokens.
+ * Brutalist Design Language:
+ * - Primary: Vermillion palette (hue 25°) - Electric red-orange accent
+ * - Neutral: Ink palette (zero chroma) - Pure neutrals
  *
- * Colors extracted from flavor "sando":
- * - Primary: brown palette (Tonkatsu Amber) - hue 50°
- * - Neutral: neutralWarm palette (Shokupan) - hue 30°
- *
- * OKLCH to HEX conversions for Storybook compatibility.
+ * @see packages/tokens/src/flavors/brutalist/
  */
 
 // ============================================================================
@@ -17,132 +14,98 @@
 
 /**
  * Light mode color palette
- * Matches sando/flavor.json semantic tokens
+ * Brutalist design language with Vermillion accent and Ink neutrals
  *
  * Key mappings:
- * - primary → color.action.solid.background.default → brown.600
- * - primaryHover → color.action.solid.background.hover → brown.700
- * - appBg → color.background.base → neutralWarm.50
+ * - primary → vermillion.600
+ * - primaryHover → vermillion.700
+ * - appBg → ink.50
  * - contentBg → WHITE (per requirement: previews should be white)
- * - textPrimary → color.text.heading → neutralWarm.950
- * - border → color.border.default → neutralWarm.300
+ * - textPrimary → ink.950
+ * - border → ink.300
  */
 export const lightPalette = {
-  // Primary colors (brown - Tonkatsu Amber, hue 50°)
-  // action.solid.background.default → brown.600 oklch(0.55 0.08 50)
-  primary: "#8b5a2b",
-  // action.solid.background.hover → brown.700 oklch(0.46 0.07 50)
-  primaryHover: "#704a24",
-  // brown.100 oklch(0.96 0.02 50)
-  primaryLight: "#f7f0e8",
-  // brown.800 oklch(0.37 0.06 50)
-  primaryDark: "#5a3c1e",
+  // Primary colors (vermillion - Brutalist accent, hue 25°)
+  primary: "#C13B1E", // vermillion.600
+  primaryHover: "#9E2F18", // vermillion.700
+  primaryLight: "#FEE2E2", // vermillion.100 approx
+  primaryDark: "#7A2515", // vermillion.800
 
-  // Background colors
-  // background.base → neutralWarm.50 oklch(0.98 0.018 30)
-  appBg: "#faf8f6",
-  // OVERRIDE: Preview backgrounds should be pure white
-  contentBg: "#ffffff",
-  // background.base → neutralWarm.50
-  sidebarBg: "#faf8f6",
+  // Background colors (ink - pure neutrals)
+  appBg: "#FAFAFA", // ink.50
+  contentBg: "#FFFFFF", // pure white
+  sidebarBg: "#FAFAFA", // ink.50
 
-  // Text colors
-  // text.heading → neutralWarm.950 oklch(0.22 0.018 30)
-  textPrimary: "#2d2926",
-  // text.body → neutralWarm.800 oklch(0.38 0.018 30)
-  textSecondary: "#524b45",
-  // text.muted → neutralWarm.500 oklch(0.64 0.018 30)
-  textMuted: "#9c938a",
-  // text.on-solid → white
-  textInverse: "#ffffff",
+  // Text colors (ink)
+  textPrimary: "#171717", // ink.950
+  textSecondary: "#525252", // ink.700
+  textMuted: "#A3A3A3", // ink.500
+  textInverse: "#FFFFFF",
 
-  // Border colors
-  // border.default → neutralWarm.300 oklch(0.82 0.018 30)
-  border: "#ccc5be",
-  // border.muted → neutralWarm.200 oklch(0.9 0.018 30)
-  borderLight: "#e5dfda",
+  // Border colors (ink)
+  border: "#D4D4D4", // ink.300
+  borderLight: "#E5E5E5", // ink.200
 
-  // Interactive states
-  // selection.background → brown.100
-  selected: "#f7f0e8",
-  // brown.700
-  selectedText: "#704a24",
-  // background.hover → neutralWarm.100 oklch(0.95 0.018 30)
-  hover: "#f2eeea",
-  // focus.ring → brown.500 oklch(0.65 0.08 50)
-  focus: "#a06b35",
+  // Interactive states (vermillion accent)
+  selected: "#FEE2E2", // vermillion.100 approx
+  selectedText: "#7A2515", // vermillion.800
+  hover: "#F5F5F5", // ink.100
+  focus: "#C13B1E", // vermillion.600
 
-  // Status colors (for badges) - from state tokens
-  success: "#e6f4ea",
-  successText: "#1e7e34",
-  warning: "#fff8e6",
-  warningText: "#b8860b",
-  error: "#fce8e8",
-  errorText: "#c62828",
-  info: "#e8f4fc",
-  infoText: "#1565c0",
+  // Status colors (keep same)
+  success: "#dcfce7",
+  successText: "#166534",
+  warning: "#fef3c7",
+  warningText: "#92400e",
+  error: "#fee2e2",
+  errorText: "#991b1b",
+  info: "#dbeafe",
+  infoText: "#1e40af",
   purple: "#f3e8ff",
   purpleText: "#6b21a8",
 } as const;
 
 /**
  * Dark mode color palette
- * Matches sando/flavor-dark.json semantic tokens
+ * Brutalist design language with Vermillion accent and Ink neutrals
  *
  * Key mappings:
- * - primary → color.action.solid.background.default → brown.500
- * - primaryHover → color.action.solid.background.hover → brown.400
- * - appBg → color.background.base → neutralWarm.950
- * - contentBg → BLACK (per requirement: previews should be black in dark mode)
- * - textPrimary → color.text.heading → neutralWarm.50
- * - border → color.border.default → neutralWarm.600
+ * - primary → vermillion.500
+ * - primaryHover → vermillion.400
+ * - appBg → ink.950
+ * - contentBg → near black (per requirement: previews should be black in dark mode)
+ * - textPrimary → ink.50
+ * - border → ink.800
  */
 export const darkPalette = {
-  // Primary colors (brown - adjusted for dark mode)
-  // action.solid.background.default (dark) → brown.500 oklch(0.65 0.08 50)
-  primary: "#a06b35",
-  // action.solid.background.hover (dark) → brown.400 oklch(0.74 0.07 50)
-  primaryHover: "#ba8a52",
-  // brown.950 oklch(0.21 0.04 50)
-  primaryLight: "#2a1f14",
-  // brown.300 oklch(0.84 0.05 50)
-  primaryDark: "#d4b896",
+  // Primary colors (vermillion - adjusted for dark mode)
+  primary: "#D4553B", // vermillion.500
+  primaryHover: "#E07159", // vermillion.400
+  primaryLight: "#450A0A", // vermillion.950 approx
+  primaryDark: "#C13B1E", // vermillion.600
 
-  // Background colors
-  // background.base (dark) → neutralWarm.950 oklch(0.22 0.018 30)
-  appBg: "#2d2926",
-  // OVERRIDE: Preview backgrounds should be pure black in dark mode
-  contentBg: "#000000",
-  // neutralWarm.950
-  sidebarBg: "#2d2926",
+  // Background colors (ink - inverted)
+  appBg: "#171717", // ink.950
+  contentBg: "#0A0A0A", // near black
+  sidebarBg: "#171717", // ink.950
 
-  // Text colors
-  // text.heading (dark) → neutralWarm.50 oklch(0.98 0.018 30)
-  textPrimary: "#faf8f6",
-  // text.body (dark) → neutralWarm.200 oklch(0.9 0.018 30)
-  textSecondary: "#e5dfda",
-  // text.muted (dark) → neutralWarm.400 oklch(0.73 0.018 30)
-  textMuted: "#b3aaa1",
-  // text.on-solid → white
-  textInverse: "#2d2926",
+  // Text colors (ink - inverted)
+  textPrimary: "#FAFAFA", // ink.50
+  textSecondary: "#D4D4D4", // ink.300
+  textMuted: "#A3A3A3", // ink.500
+  textInverse: "#171717",
 
-  // Border colors
-  // border.default (dark) → neutralWarm.600 oklch(0.56 0.018 30)
-  border: "#6e655c",
-  // border.muted (dark) → neutralWarm.700 oklch(0.47 0.018 30)
-  borderLight: "#5a524a",
+  // Border colors (ink - inverted)
+  border: "#404040", // ink.800
+  borderLight: "#262626", // ink.900
 
   // Interactive states
-  // selection.background (dark) → brown.800 oklch(0.37 0.06 50)
-  selected: "#5a3c1e",
-  // brown.400
-  selectedText: "#ba8a52",
-  // background.hover (dark) → neutralWarm.800 oklch(0.38 0.018 30)
-  hover: "#524b45",
-  // focus.ring (dark) → brown.400
-  focus: "#ba8a52",
+  selected: "#450A0A", // vermillion.950 approx
+  selectedText: "#D4553B", // vermillion.500
+  hover: "#262626", // ink.900
+  focus: "#D4553B", // vermillion.500
 
-  // Status colors (for badges - dark mode variants)
+  // Status colors (dark mode - keep same)
   success: "#14532d",
   successText: "#86efac",
   warning: "#78350f",
@@ -172,10 +135,10 @@ export const typography = {
 // ============================================================================
 
 export const layout = {
-  // border.radius.emphasis → 8px (border.radius.200)
-  appBorderRadius: 8,
-  // border.radius.muted → 2px (border.radius.50)
-  inputBorderRadius: 4,
+  // border.radius.emphasis → 4px (brutalist - sharper)
+  appBorderRadius: 4,
+  // border.radius.muted → 2px
+  inputBorderRadius: 2,
 } as const;
 
 // ============================================================================
