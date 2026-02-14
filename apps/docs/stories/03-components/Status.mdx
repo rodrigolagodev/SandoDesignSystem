@@ -17,11 +17,11 @@ import { Meta } from "@storybook/blocks";
     .status-header h1 {
       font-size: 2rem;
       margin: 0 0 0.5rem 0;
-      color: #1c1917;
+      color: var(--sb-docs-text-heading);
     }
 
     .status-header p {
-      color: #78716c;
+      color: var(--sb-docs-text-muted);
       margin: 0;
     }
 
@@ -35,23 +35,23 @@ import { Meta } from "@storybook/blocks";
     .status-table td {
       padding: 0.75rem 1rem;
       text-align: left;
-      border-bottom: 1px solid #e7e5e4;
+      border-bottom: 1px solid var(--sb-docs-border);
     }
 
     .status-table th {
-      background: #fafaf9;
+      background: var(--sb-docs-bg-base);
       font-weight: 600;
-      color: #1c1917;
+      color: var(--sb-docs-text-heading);
       font-size: 0.875rem;
     }
 
     .status-table td {
       font-size: 0.875rem;
-      color: #57534e;
+      color: var(--sb-docs-text-muted);
     }
 
     .status-table tr:hover td {
-      background: #fafaf9;
+      background: var(--sb-docs-bg-base);
     }
 
     .status-badge {
@@ -64,32 +64,32 @@ import { Meta } from "@storybook/blocks";
     }
 
     .status-stable {
-      background: #dcfce7;
-      color: #166534;
+      background: var(--sb-docs-success-bg);
+      color: var(--sb-docs-success-text);
     }
 
     .status-beta {
-      background: #fef3c7;
-      color: #92400e;
+      background: var(--sb-docs-warning-bg);
+      color: var(--sb-docs-warning-text);
     }
 
     .status-planned {
-      background: #f3f4f6;
-      color: #6b7280;
+      background: var(--sb-docs-neutral-bg);
+      color: var(--sb-docs-neutral-text);
     }
 
     .status-check {
-      color: #22c55e;
+      color: var(--sb-docs-success-text);
       font-weight: 600;
     }
 
     .status-partial {
-      color: #f59e0b;
+      color: var(--sb-docs-warning-text);
       font-weight: 600;
     }
 
     .status-missing {
-      color: #d1d5db;
+      color: var(--sb-docs-border);
     }
 
     .status-legend {
@@ -98,7 +98,7 @@ import { Meta } from "@storybook/blocks";
       flex-wrap: wrap;
       margin-top: 1rem;
       padding: 1rem;
-      background: #fafaf9;
+      background: var(--sb-docs-bg-base);
       border-radius: 8px;
     }
 
@@ -107,7 +107,7 @@ import { Meta } from "@storybook/blocks";
       align-items: center;
       gap: 0.5rem;
       font-size: 0.75rem;
-      color: #57534e;
+      color: var(--sb-docs-text-muted);
     }
   `}
 </style>
