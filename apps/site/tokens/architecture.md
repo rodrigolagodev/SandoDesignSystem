@@ -1,192 +1,197 @@
+---
+title: Token Architecture
+description: Understand Sando's three-layer token system — Ingredients, Flavors, and Recipes — and how they work together to create themeable, consistent UIs.
+---
+
 # Token Architecture
 
-Sando's token system is built on a three-layer architecture inspired by the layers of a sandwich.
+Every great dish starts with understanding your ingredients, your flavor profile, and your recipe. Sando's token system works the same way — three distinct layers that build on each other to give you consistency, flexibility, and infinite themeability.
 
-## The Sandwich Analogy
+This matters because tokens are the single source of truth for every visual decision in the system. Change one token, and it ripples through every component that uses it — automatically.
 
-Just like a well-crafted sandwich has distinct layers that work together, Sando has three token layers:
+## The Three Layers
 
 ```
 ┌─────────────────────────────────────────────────┐
-│  🍞 Recipes Layer (Component Tokens)            │
-│  • button-solid-backgroundColor-default         │
-│  • button-size-medium-paddingBlock              │
-│  • button-borderRadius                          │
-│  ↓ References Flavors                           │
+│  🍞 Recipes (Component Tokens)                   │
+│  button-solid-backgroundColor-default            │
+│  checkbox-solid-backgroundColor-checked          │
+│  ↓ References Flavors                            │
 ├─────────────────────────────────────────────────┤
-│  🥬 Flavors Layer (Semantic Tokens)             │
-│  • color-action-solid-background-default        │
-│  • color-text-body                              │
-│  • color-background-base                        │
-│  ↓ References Ingredients                       │
+│  🥬 Flavors (Semantic Tokens)                    │
+│  color-action-solid-background-default           │
+│  color-text-body                                 │
+│  ↓ References Ingredients                        │
 ├─────────────────────────────────────────────────┤
-│  🥓 Ingredients Layer (Primitive Tokens)        │
-│  • color-brand-700: hsl(17, 88%, 40%)          │
-│  • space-4: 1rem                                │
-│  • font-size-300: 1rem                          │
+│  🥓 Ingredients (Primitive Tokens)               │
+│  color-orange-700: oklch(0.47 0.11 38)           │
+│  space-4: 1rem                                   │
+│  font-size-300: 1rem                             │
 └─────────────────────────────────────────────────┘
 ```
 
 ## Layer 1: Ingredients (Primitives)
 
-**Raw, atomic values with no opinion or context.**
+**Your pantry staples — raw, absolute values with no opinion.**
 
-Ingredients are the most fundamental tokens in the system. They have no semantic meaning and never reference other tokens.
+Ingredients are the foundation. Like having salt, flour, and eggs in your pantry, these tokens don't decide what you're building. They're just the raw materials, ready for anything.
 
 ### Characteristics
 
-- ✅ **Concrete values** (`hsl(17, 88%, 40%)`, `0.25rem`, `400`)
-- ✅ **No references** (primitives only)
-- ✅ **Numeric scale naming** (`color-brand-500`, `space-4`, `font-weight-400`)
-- ❌ **No semantic meaning** (not "primary" or "interactive")
+- ✅ **Concrete values** — `oklch(0.65 0.12 38)`, `1rem`, `400`
+- ✅ **No references** — they never point to other tokens
+- ✅ **Numeric scale naming** — `color-orange-500`, `space-4`, `font-size-300`
+- ❌ **No semantic meaning** — never "primary" or "interactive"
 
-### Example: Color Ingredients
+### Real Color Ingredients
+
+All colors use [OKLCH](https://oklch.com/) — a perceptually uniform color space where lightness values are predictable and consistent across hues:
 
 ```json
 {
   "color": {
-    "brand": {
-      "500": {
-        "value": "hsl(17, 88%, 40%)",
-        "type": "color"
-      },
-      "600": {
-        "value": "hsl(17, 88%, 35%)",
-        "type": "color"
-      },
-      "700": {
-        "value": "hsl(17, 88%, 30%)",
-        "type": "color"
-      }
+    "orange": {
+      "500": { "value": "oklch(0.65 0.12 38)", "type": "color" },
+      "600": { "value": "oklch(0.56 0.12 38)", "type": "color" },
+      "700": { "value": "oklch(0.47 0.11 38)", "type": "color" }
     },
-    "neutral": {
-      "50": {
-        "value": "hsl(0, 0%, 98%)",
-        "type": "color"
-      },
-      "100": {
-        "value": "hsl(0, 0%, 95%)",
-        "type": "color"
-      }
+    "blue": {
+      "500": { "value": "oklch(0.65 0.11 230)", "type": "color" },
+      "600": { "value": "oklch(0.56 0.11 230)", "type": "color" },
+      "700": { "value": "oklch(0.47 0.10 230)", "type": "color" }
+    },
+    "neutralWarm": {
+      "50": { "value": "oklch(0.98 0.018 30)", "type": "color" },
+      "800": { "value": "oklch(0.38 0.018 30)", "type": "color" },
+      "950": { "value": "oklch(0.22 0.018 30)", "type": "color" }
     }
   }
 }
 ```
 
-### Categories
+::: tip Why OKLCH?
+Notice how `orange-500` and `blue-500` both have `L=0.65`? That means they appear equally bright to the human eye. This is perceptual uniformity — and it's why Sando's color system feels balanced across palettes. HSL can't do this: `hsl(30, 100%, 50%)` and `hsl(230, 100%, 50%)` look wildly different in brightness.
+:::
 
-| Category          | Example Tokens                                | Values       |
-| ----------------- | --------------------------------------------- | ------------ |
-| **Color**         | `color-brand-500`                             | HSL colors   |
-| **Space**         | `space-base`, `space-2x`                      | rem units    |
-| **Font Size**     | `font-size-100`, `font-size-600`              | rem/px units |
-| **Font Weight**   | `font-weight-regular`, `font-weight-bold`     | 100-900      |
-| **Border Radius** | `border-radius-small`, `border-radius-circle` | px/rem/%     |
-| **Opacity**       | `opacity-subtle`, `opacity-emphasis`          | 0-1          |
-| **Duration**      | `animation-duration-fast`                     | ms           |
-| **Easing**        | `animation-easing-smooth`                     | cubic-bezier |
-| **Z-Index**       | `zIndex-base`, `zIndex-modal`                 | integers     |
+### Spacing and Typography Ingredients
+
+```json
+{
+  "space": {
+    "0": { "value": "0rem", "type": "dimension" },
+    "1": { "value": "0.25rem", "type": "dimension" },
+    "2": { "value": "0.5rem", "type": "dimension" },
+    "4": { "value": "1rem", "type": "dimension" },
+    "8": { "value": "2rem", "type": "dimension" }
+  }
+}
+```
+
+### All Ingredient Categories
+
+| Category          | Example Tokens            | Values       |
+| ----------------- | ------------------------- | ------------ |
+| **Color**         | `color-orange-500`        | OKLCH values |
+| **Space**         | `space-4`                 | rem units    |
+| **Font Size**     | `font-size-300`           | rem units    |
+| **Font Weight**   | `font-weight-700`         | 100–900      |
+| **Border Radius** | `border-radius-md`        | px/rem units |
+| **Opacity**       | `opacity-50`              | 0–1          |
+| **Duration**      | `animation-duration-fast` | ms           |
+| **Easing**        | `animation-easing-smooth` | cubic-bezier |
+| **Z-Index**       | `zIndex-modal`            | integers     |
+| **Elevation**     | `elevation-md`            | box-shadow   |
 
 ## Layer 2: Flavors (Semantic Tokens)
 
-**Context and meaning applied to ingredients.**
+**The chef's signature — where raw materials become meaningful.**
 
-Flavors give semantic meaning to ingredients and enable theming. They reference ingredients only.
+Flavors take ingredients and assign intent. Instead of "orange-700", you now have "action-solid-background-default". This is where theming happens.
 
 ### Characteristics
 
-- ✅ **Semantic names** (`color-background-interactive`, `spacing-comfortable`)
-- ✅ **Reference ingredients only** (`{color.brand.500.value}`)
-- ✅ **Enable theming** (different flavors = different themes)
-- ❌ **Not component-specific** (generic concepts)
+- ✅ **Semantic names** — `color-background-base`, `color-text-body`
+- ✅ **Reference ingredients only** — `{color.neutralWarm.50.value}`
+- ✅ **Enable theming** — different flavors = different themes
+- ❌ **Not component-specific** — generic concepts only
 
-### Example: Color Flavors
+### Real Flavor Tokens (Tonkatsu)
+
+Here's what the Tonkatsu flavor looks like — rich, warm browns inspired by a craft kitchen:
 
 ```json
 {
   "color": {
     "background": {
-      "base": {
-        "value": "{color.neutral.50.value}",
-        "type": "color"
-      },
-      "interactive": {
-        "value": "{color.brand.500.value}",
-        "type": "color"
-      }
+      "base": { "value": "{color.neutralWarm.50.value}", "type": "color" },
+      "surface": { "value": "{color.neutralWarm.100.value}", "type": "color" },
+      "raised": { "value": "{color.utility.white.value}", "type": "color" }
     },
     "text": {
-      "body": {
-        "value": "{color.neutral.900.value}",
-        "type": "color"
-      },
-      "heading": {
-        "value": "{color.neutral.950.value}",
-        "type": "color"
-      }
+      "heading": { "value": "{color.neutralWarm.950.value}", "type": "color" },
+      "body": { "value": "{color.neutralWarm.800.value}", "type": "color" },
+      "muted": { "value": "{color.neutralWarm.500.value}", "type": "color" },
+      "on-solid": { "value": "{color.utility.white.value}", "type": "color" }
     },
     "action": {
       "solid": {
         "background": {
-          "default": {
-            "value": "{color.brand.700.value}",
-            "type": "color"
-          },
-          "hover": {
-            "value": "{color.brand.800.value}",
-            "type": "color"
-          }
+          "default": { "value": "{color.brown.600.value}", "type": "color" },
+          "hover": { "value": "{color.brown.700.value}", "type": "color" }
         }
       }
+    },
+    "focus": {
+      "ring": { "value": "{color.brown.500.value}", "type": "color" }
     }
   }
 }
 ```
 
-### Theming with Flavors
+### How Different Flavors Work
 
-Different flavors reference different ingredients:
+Same semantic tokens, different ingredient references — that's the magic:
 
-```json
-// flavors/original.json
-{
-  "color": {
-    "background": {
-      "base": {
-        "value": "{color.neutral.50.value}",  // Light background
-        "type": "color"
-      }
-    }
-  }
-}
-
-// flavors/dark.json
-{
-  "color": {
-    "background": {
-      "base": {
-        "value": "{color.neutral.900.value}",  // Dark background
-        "type": "color"
-      }
-    }
-  }
-}
 ```
+Tonkatsu flavor:
+  color-action-solid-background-default → brown-600  → oklch(0.55 0.08 50)
+
+Strawberry flavor:
+  color-action-solid-background-default → pink-600   → oklch(0.56 0.11 350)
+
+Kiwi flavor:
+  color-action-solid-background-default → green-600  → oklch(0.56 0.10 145)
+```
+
+Same component. Same recipe. Different flavor. Entirely different look.
+
+### 6 Available Flavors
+
+| Flavor       | Description                   | Neutral Base | Accent |
+| ------------ | ----------------------------- | ------------ | ------ |
+| `original`   | Default — warm orange tones   | neutral-warm | orange |
+| `sando`      | Brand identity — golden amber | neutral-warm | brown  |
+| `tonkatsu`   | Craft kitchen — artisanal     | neutral-warm | brown  |
+| `strawberry` | Fresh and vibrant             | neutral      | pink   |
+| `egg-salad`  | Sunny and cheerful            | neutral-warm | yellow |
+| `kiwi`       | Natural and fresh             | neutral      | green  |
+
+Each flavor also includes **dark**, **high-contrast**, **forced-colors**, and **motion-reduce** mode variants — applied automatically via CSS media queries.
 
 ## Layer 3: Recipes (Component Tokens)
 
-**Component-specific tokens that reference flavors.**
+**The finished dish — plated and ready to serve.**
 
-Recipes are consumed directly by components. They reference flavors only, never ingredients.
+Recipes are what components actually consume. Every button, input, and checkbox reads from recipe tokens, never from ingredients or flavors directly.
 
 ### Characteristics
 
-- ✅ **Component-specific** (`button-background-color`, `card-padding`)
-- ✅ **Reference flavors only** (`{color.action.solid.background.default.value}`)
-- ✅ **Consumed by components** (direct usage in CSS)
-- ❌ **Never reference ingredients** (must go through flavors)
+- ✅ **Component-specific** — `button-solid-backgroundColor-default`
+- ✅ **Reference flavors only** — `{color.action.solid.background.default.value}`
+- ✅ **Consumed by components** — used directly in CSS
+- ❌ **Never reference ingredients** — must go through flavors
 
-### Example: Button Recipe
+### Real Button Recipe
 
 ```json
 {
@@ -200,20 +205,20 @@ Recipes are consumed directly by components. They reference flavors only, never 
         "hover": {
           "value": "{color.action.solid.background.hover.value}",
           "type": "color"
+        },
+        "disabled": {
+          "value": "{color.action.disabled.background.value}",
+          "type": "color"
         }
       },
       "textColor": {
         "default": {
           "value": "{color.action.solid.text.default.value}",
           "type": "color"
-        }
-      }
-    },
-    "size": {
-      "medium": {
-        "paddingBlock": {
-          "value": "{spacing.comfortable.value}",
-          "type": "dimension"
+        },
+        "disabled": {
+          "value": "{color.action.disabled.text.value}",
+          "type": "color"
         }
       }
     }
@@ -221,182 +226,232 @@ Recipes are consumed directly by components. They reference flavors only, never 
 }
 ```
 
-## Reference Chain
+### Available Recipe Files
 
-The power of this architecture is the reference chain:
+| Recipe              | Component            |
+| ------------------- | -------------------- |
+| `button.json`       | `sando-button`       |
+| `input.json`        | `sando-input`        |
+| `checkbox.json`     | `sando-checkbox`     |
+| `switch.json`       | `sando-switch`       |
+| `select.json`       | `sando-select`       |
+| `textarea.json`     | `sando-textarea`     |
+| `radio.json`        | `sando-radio`        |
+| `radio-group.json`  | `sando-radio-group`  |
+| `badge.json`        | `sando-badge`        |
+| `tag.json`          | `sando-tag`          |
+| `spinner.json`      | `sando-spinner`      |
+| `icon.json`         | `sando-icon`         |
+| `label.json`        | `sando-label`        |
+| `help-text.json`    | `sando-help-text`    |
+| `form-group.json`   | `sando-form-group`   |
+| `option.json`       | `sando-option`       |
+| `option-group.json` | `sando-option-group` |
+| `skeleton.json`     | `sando-skeleton-*`   |
+
+## The Reference Chain
+
+Here's how a single CSS property flows through all three layers:
 
 ```
 Component CSS
-    ↓ uses
-Recipe Token (button-background-color)
+    ↓ reads
+Recipe Token (--sando-button-solid-backgroundColor-default)
     ↓ references
-Flavor Token (color-action-solid-background-default)
+Flavor Token (--sando-color-action-solid-background-default)
     ↓ references
-Ingredient Token (color-brand-700)
+Ingredient Token (--sando-color-orange-700)
     ↓ resolves to
-Actual Value (hsl(17, 88%, 30%))
+Concrete Value (oklch(0.47 0.11 38))
 ```
 
-### Example Flow
+### In CSS
 
 ```css
-/* Component uses recipe */
-.sando-button {
+/* The component reads the recipe */
+:host {
   background: var(--sando-button-solid-backgroundColor-default);
 }
 
-/* Recipe references flavor */
+/* The recipe references the flavor */
 :root {
   --sando-button-solid-backgroundColor-default: var(
     --sando-color-action-solid-background-default
   );
 }
 
-/* Flavor references ingredient */
+/* The flavor references the ingredient */
 :root {
-  --sando-color-action-solid-background-default: var(--sando-color-brand-700);
+  --sando-color-action-solid-background-default: var(--sando-color-orange-700);
 }
 
-/* Ingredient has concrete value */
+/* The ingredient holds the concrete value */
 :root {
-  --sando-color-brand-700: hsl(17, 88%, 30%);
+  --sando-color-orange-700: oklch(0.47 0.11 38);
 }
 ```
+
+This matters because you can override at any level. Need to change every primary action across the system? Change the flavor. Need to change just one button? Override its recipe token.
 
 ## Why Three Layers?
 
 ### Single Source of Truth
 
-Ingredients define all raw values once. Changes propagate automatically.
+Change one ingredient, and it propagates everywhere:
 
-```json
-// Change ONE ingredient
-"color-brand-500": "hsl(17, 88%, 40%)" → "hsl(220, 88%, 50%)"
+```
+/* Before: orange brand */
+--sando-color-orange-700: oklch(0.47 0.11 38)
 
-// ALL buttons, cards, inputs update automatically!
+/* After: blue brand — every component updates */
+--sando-color-orange-700: oklch(0.47 0.10 230)
 ```
 
 ### Powerful Theming
 
-Change flavors to retheme entire system without touching components:
-
-```
-Same Components + Same Ingredients + Different Flavors = New Theme
-```
+Same components + same ingredients + different flavors = entirely new theme. No component changes needed.
 
 ### Component Independence
 
-Components don't care about the underlying values:
+Components don't know or care about the underlying color values. They read their recipe tokens. The flavor layer handles the translation.
+
+### Override Flexibility
 
 ```css
-/* Component never changes */
-.button {
-  background: var(--sando-button-background-color);
+/* Level 1: Change one component's token */
+sando-button.danger {
+  --sando-button-solid-backgroundColor-default: var(--sando-color-red-600);
 }
 
-/* Theming happens at flavor level */
+/* Level 2: Change all action colors via flavor */
+:root {
+  --sando-color-action-solid-background-default: oklch(0.56 0.14 15);
+}
+
+/* Level 3: Change the raw ingredient */
+:root {
+  --sando-color-orange-700: oklch(0.5 0.12 45);
+}
 ```
 
 ## Token Naming Convention
 
-All tokens follow this pattern:
+All CSS custom properties follow this pattern:
 
 ```
---sando-{layer}-{category}-{variant}-{property}-{state}
+--sando-{category}-{subcategory}-{property}-{state}
 ```
 
-### Examples
+### Examples by Layer
 
 ```css
-/* Ingredient */
---sando-color-brand-700
+/* Ingredient — raw value, numeric scale */
+--sando-color-orange-700
+--sando-space-4
+--sando-font-size-300
 
-/* Flavor */
+/* Flavor — semantic meaning, no component name */
 --sando-color-action-solid-background-default
+--sando-color-text-body
+--sando-color-background-base
 
-/* Recipe */
+/* Recipe — component name, variant, property, state */
 --sando-button-solid-backgroundColor-default
+--sando-checkbox-solid-backgroundColor-checked
+--sando-input-outlined-borderColor-focus
 ```
 
 ## File Structure
 
-Tokens are organized by layer:
-
 ```
 packages/tokens/src/
-├── ingredients/
-│   ├── color.json
-│   ├── space.json
-│   ├── font.json
-│   ├── border.json
-│   ├── animation.json
-│   ├── opacity.json
-│   ├── z-index.json
-│   └── elevation.json
-├── flavors/
-│   ├── original.json     # Default theme
-│   ├── dark.json         # Dark theme
-│   └── strawberry.json   # Custom theme
-└── recipes/
+├── ingredients/           # Layer 1: Raw values
+│   ├── color.json         # 8 OKLCH palettes + neutrals + states
+│   ├── space.json         # Spacing scale (0–16+)
+│   ├── font.json          # Typography scale
+│   ├── border.json        # Border radii
+│   ├── animation.json     # Durations, easings
+│   ├── opacity.json       # Opacity scale
+│   ├── z-index.json       # Stacking order
+│   └── elevation.json     # Box shadows
+├── flavors/               # Layer 2: Semantic themes
+│   ├── original/          # Default flavor
+│   │   ├── flavor.json
+│   │   ├── flavor-dark.json
+│   │   ├── flavor-high-contrast.json
+│   │   ├── flavor-forced-colors.json
+│   │   └── flavor-motion-reduce.json
+│   ├── sando/             # Brand identity flavor
+│   ├── tonkatsu/          # Craft kitchen flavor
+│   ├── strawberry/        # Fresh vibrant flavor
+│   ├── egg-salad/         # Sunny cheerful flavor
+│   └── kiwi/              # Natural fresh flavor
+└── recipes/               # Layer 3: Component tokens
     ├── button.json
-    ├── card.json
-    └── input.json
+    ├── input.json
+    ├── checkbox.json
+    ├── switch.json
+    └── ... (18 recipe files total)
 ```
 
 ## Build Process
 
-Tokens are built with Style Dictionary:
+Tokens are built with [Style Dictionary](https://amzn.github.io/style-dictionary/):
 
 ```bash
+# Build all token layers
 pnpm build
 ```
 
-**Input:** JSON token files
-**Output:** CSS custom properties
+**Input:** JSON token files with references
+**Output:** CSS custom properties with resolved values
 
 ```
-src/ingredients/color.json
-    ↓ Style Dictionary
-dist/css/ingredients/color.css
+src/ingredients/color.json  →  dist/css/ingredients/color.css
+src/flavors/tonkatsu/       →  dist/css/flavors/tonkatsu/flavor.css
+src/recipes/button.json     →  dist/css/recipes/button.css
 ```
+
+::: details How the build works
+Style Dictionary reads the JSON token files, resolves all `{reference.paths}`, and outputs platform-specific formats. For Sando, the primary output is CSS custom properties scoped to `:root` (ingredients and flavors) or component selectors (recipes). Each flavor's mode variants use CSS `@media` queries for automatic activation.
+:::
 
 ## Validation
 
 All tokens are validated through comprehensive tests:
 
-- ✅ **Structure**: JSON validity, DTCG compliance
-- ✅ **References**: No broken references, proper layering
-- ✅ **Values**: Correct formats, valid ranges
-- ✅ **Accessibility**: WCAG contrast ratios
-- ✅ **Build**: Correct CSS output
+- ✅ **Structure** — JSON validity, naming conventions
+- ✅ **References** — no broken references, proper layering (recipes → flavors → ingredients)
+- ✅ **Values** — correct formats, valid OKLCH ranges
+- ✅ **Accessibility** — WCAG contrast ratios for all flavor/mode combinations
+- ✅ **Build** — correct CSS output, no missing variables
 
 ```bash
 pnpm test
 ```
-
-[Learn more about testing →](/tokens/testing)
 
 ## Best Practices
 
 ### ✅ DO
 
 - Add new primitive values to **Ingredients**
-- Add semantic meaning at **Flavors** layer
+- Add semantic meaning at the **Flavors** layer
 - Create component tokens in **Recipes**
-- Keep reference chain: Recipes → Flavors → Ingredients
+- Keep the chain: Recipes → Flavors → Ingredients
 - Test accessibility of all color combinations
+- Use OKLCH for any new color values
 
 ### ❌ DON'T
 
-- Skip layers (Recipes → Ingredients)
+- Skip layers (Recipes referencing Ingredients directly)
 - Create circular references
-- Use magic numbers in components
-- Put semantic names in Ingredients
+- Use hardcoded colors in components
+- Put semantic names in Ingredients (no "primary" at this layer)
 - Put concrete values in Flavors or Recipes
 
 ## Next Steps
 
-- **[Ingredients Reference](/tokens/ingredients)** - All available primitive tokens
-- **[Flavors Reference](/tokens/flavors)** - Semantic token catalog
-- **[Recipes Reference](/tokens/recipes)** - Component token reference
-- **[Token Testing](/tokens/testing)** - Comprehensive test suite
+- **[Ingredients Reference →](/tokens/ingredients)** — All available primitive tokens
+- **[Flavors Reference →](/tokens/flavors)** — Semantic token catalog and flavor comparison
+- **[Recipes Reference →](/tokens/recipes)** — Component token reference
+- **[Theming Guide →](/getting-started/theming)** — How to use flavors in practice
