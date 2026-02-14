@@ -1,109 +1,228 @@
+---
+title: Components Overview
+description: The complete catalog of Sando Web Components — accessible, themeable, framework-agnostic building blocks ready to serve
+---
+
 # Components Overview
 
-::: info Button Component Available
-The Sando Button component is now available! Other components are under active development. Check back soon or [watch the repo](https://github.com/rodrigolagodev/SandoDesignSystem) for updates.
-:::
+A full kitchen of accessible, themeable Web Components built with [Lit 3](https://lit.dev/) and TypeScript. Framework-agnostic by nature — they work anywhere HTML does.
 
-## Planned Features
+- ⚡ **Framework-agnostic** — Works with React, Vue, Angular, Svelte, or vanilla JS
+- ♿ **Accessible** — WCAG 2.1 AA compliant with keyboard navigation and screen reader support
+- 🎨 **Themeable** — Token-driven styling with 6 flavors and full customization
+- 📦 **Tree-shakeable** — Import only the components you need
+- 🔒 **TypeScript** — Full type safety for properties, events, and slots
+- 🧪 **Tested** — Comprehensive unit and accessibility tests
 
-When complete, Sando will provide a collection of accessible Web Components built with Lit:
+## Form Controls
 
-- ⚡ **Framework-agnostic**: Works with React, Vue, Angular, Svelte, or vanilla JS
-- ♿ **Accessible**: WCAG 2.1 AA compliant
-- 🎨 **Themeable**: Token-driven styling with flavor support
-- 📦 **Tree-shakeable**: Import only what you need
-- 🔒 **TypeScript**: Full type safety
-- 🧪 **Tested**: Comprehensive unit and E2E tests
+Interactive components for building forms and capturing user input. Think of these as the heart of any recipe — the ingredients that make your forms work.
 
-## Available Components
+### Button
 
-### ✅ Button
-
-Versatile, accessible button component with multiple variants, sizes, and advanced features including toggle support, icon-only mode, and link functionality.
+Versatile action button with multiple variants, sizes, and advanced features including toggle support, icon-only mode, and link functionality.
 
 **Variants:** solid, outline, ghost, text
-**Sizes:** xs, small, medium, large (all WCAG AA compliant 44x44px touch targets)
-**States:** default, hover, active, focus, disabled, loading
-**Status:** default, success, destructive
-**Border Radius:** none, default, full
-**Features:** icon-only, toggle buttons, render as link (href), icon props (start-icon/end-icon)
-
-**NEW in latest version:**
-
-- ✨ Extra small (xs) size for compact UIs
-- ✨ Text variant for minimal inline links
-- ✨ Icon-only mode with circular option (radius="full")
-- ✨ Toggle button support with aria-pressed
-- ✨ Render as `<a>` tag with href attribute
-- ✨ Icon props (start-icon/end-icon) as alternative to slots
-- ✨ Enhanced accessibility (WCAG 2.1 Level AA)
+**Sizes:** sm, md, lg
+**Features:** icon-only, toggle buttons, render as link (href), icon props (start-icon/end-icon), compact mode
 
 [View Button Documentation →](/components/button)
 
-### 🔜 Coming Soon
+### Input
 
-- **Card** - Container for content
-- **Input** - Text input field
-- **Select** - Dropdown selector
-- **Modal** - Dialog overlay
-- **Tooltip** - Contextual help
-- **Badge** - Status indicators
-- **Avatar** - User representation
-- **Checkbox** - Selection control
-- **Radio** - Single selection from group
-- **Switch** - Toggle control
-- **Tabs** - Content navigation
-- **Alert** - Notification messages
+Text input field with built-in validation states, placeholder support, and prefix/suffix slots.
 
-## Installation (When Available)
+**Variants:** filled, outlined
+**Sizes:** sm, md, lg
+
+[View Input Documentation →](/components/input)
+
+### Textarea
+
+Multi-line text input with configurable resize behavior and wrap modes.
+
+**Variants:** outlined, filled
+**Sizes:** sm, md, lg
+
+### Select
+
+Dropdown selector with option and option-group support for organized selections. Supports single and multiple selection, clearable values, and async loading.
+
+**Variants:** filled, outlined
+**Sizes:** sm, md, lg
+
+### Checkbox
+
+Selection control with checked, unchecked, and indeterminate states.
+
+**Variants:** solid, outline
+**Sizes:** sm, md, lg
+
+### Radio
+
+Single selection control, designed to work within radio groups.
+
+### Radio Group
+
+Container for radio buttons that manages single-selection behavior and keyboard navigation.
+
+### Switch
+
+Toggle control for binary on/off states with smooth transitions.
+
+**Variants:** solid, outline
+**Sizes:** sm, md, lg
+
+### Option
+
+Individual option item for use inside select components.
+
+### Option Group
+
+Grouped container for organizing related options within a select.
+
+### Label
+
+Accessible label component that associates with form controls.
+
+### Form Group
+
+Layout container that groups a label, form control, and help text together.
+
+[View Form Group Documentation →](/components/form-group)
+
+### Form
+
+Form wrapper that manages validation and submission.
+
+### Help Text
+
+Descriptive or error text that provides context for form controls.
+
+## Feedback & Status
+
+Components for communicating state and information to users.
+
+### Spinner
+
+Loading indicator with multiple sizes and accessible labeling.
+
+**Sizes:** xs, sm, md, lg, xl
+**Variants:** default, inverted
+
+[View Spinner Documentation →](/components/spinner)
+
+### Badge
+
+Status indicator with semantic color variants and multiple visual styles. Non-interactive — purely informative.
+
+**Colors:** neutral, primary, success, warning, danger, info
+**Variants:** solid, soft, outline, surface
+**Sizes:** sm, md, lg
+
+### Tag
+
+Interactive label for categorization and filtering. Features a mandatory icon area that serves as the interactive target for clickable and removable behaviors.
+
+**Variants:** solid, outline, soft
+**Sizes:** sm, md, lg
+
+## Media
+
+### Icon
+
+Flexible icon component powered by Lucide icons, with multiple sizes and color variants. Supports rotation, flipping, and custom color overrides.
+
+**Sizes:** xs, sm, md, lg, xl
+**Colors:** default, muted, emphasis, brand, onSolid
+
+## Skeleton / Loading
+
+Pre-built skeleton patterns for common UI layouts. Compose them to match your content structure while data loads — like plating a dish before the main course is ready.
+
+### Primitives
+
+| Component         | Description                                                     |
+| ----------------- | --------------------------------------------------------------- |
+| **Skeleton**      | Base skeleton element — rectangular, circular, or custom shapes |
+| **Skeleton Text** | Text-line placeholder with variable widths                      |
+
+### Composed Patterns
+
+| Component               | Description                                                 |
+| ----------------------- | ----------------------------------------------------------- |
+| **Skeleton Article**    | Article layout with heading, paragraphs, and optional image |
+| **Skeleton Avatar**     | Circular avatar placeholder                                 |
+| **Skeleton Button**     | Button-shaped placeholder                                   |
+| **Skeleton Card**       | Card layout with image area and text lines                  |
+| **Skeleton Comment**    | Comment layout with avatar and text block                   |
+| **Skeleton Composer**   | Text composer / editor placeholder                          |
+| **Skeleton Image**      | Image area placeholder                                      |
+| **Skeleton List Item**  | Single list item with icon and text                         |
+| **Skeleton Media Card** | Card with prominent media area                              |
+| **Skeleton Paragraph**  | Multiple text lines simulating a paragraph                  |
+| **Skeleton Profile**    | Profile layout with avatar, name, and details               |
+| **Skeleton Row**        | Horizontal row placeholder for tables or lists              |
+| **Skeleton Stack**      | Vertical stack of skeleton elements                         |
+| **Skeleton Table Row**  | Table row with multiple cell placeholders                   |
+
+[View Skeleton Documentation →](/components/skeleton)
+
+## Installation
 
 ```bash
-# Coming soon to npm
 pnpm add @sando/components @sando/tokens
 ```
 
-::: info Current Status
-The Button component is fully functional with comprehensive tests. Additional components are in development. You can:
-
-- Explore the [token system](/tokens/architecture) which is fully functional
-- Use the [Button component](/components/button) in your projects
-- Contribute to development on [GitHub](https://github.com/rodrigolagodev/SandoDesignSystem)
-  :::
-
-## Planned Usage
-
-Once available, components will be used like this:
+## Usage
 
 ### Import
 
 ```js
+// Import tokens (CSS custom properties)
 import "@sando/tokens/css";
+
+// Import all components via the main entry point
+import "@sando/components";
+
+// Or import only the button (the only component with an individual export path)
 import "@sando/components/button";
 ```
 
-### Use
+::: tip Selective Imports
+Currently, only `@sando/components/button` has a dedicated export path. All other components are available through the main `@sando/components` entry point, which auto-registers every component.
+:::
+
+### Use in HTML
 
 ```html
-<sando-button variant="solid" size="medium" flavor="original">
-  Button Text
+<sando-button variant="solid" size="md" flavor="original">
+  Save Changes
 </sando-button>
+
+<sando-input placeholder="Enter your email" type="email"></sando-input>
+
+<sando-checkbox>Accept terms and conditions</sando-checkbox>
 ```
 
 ### With TypeScript
 
 ```ts
-/// <reference types="@sando/components" />
+import "@sando/components/button";
 
 const button = document.querySelector("sando-button");
-button.variant = "solid"; // Will be type-safe
+button.variant = "solid"; // Type-safe property access
+button.addEventListener("sando-click", (e) => {
+  console.log("Clicked!", e.detail);
+});
 ```
 
-## Framework Integration (Planned)
+## Framework Integration
 
-### React
+::: code-group
 
-```tsx
-import "@sando/components/button";
+```tsx [React]
+import "@sando/components";
 
 function App() {
   return (
@@ -114,83 +233,72 @@ function App() {
 }
 ```
 
-### Vue
-
-```vue
+```vue [Vue]
 <template>
   <sando-button variant="solid" @click="handleClick"> Click me </sando-button>
 </template>
 
 <script setup>
-import "@sando/components/button";
+import "@sando/components";
 
 const handleClick = () => console.log("Clicked!");
 </script>
 ```
 
-### Angular
-
-```ts
+```ts [Angular]
 // app.module.ts
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
+import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 
 @NgModule({
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
+export class AppModule {}
 ```
 
-```html
+```html [Angular Template]
 <!-- component.html -->
 <sando-button variant="solid" (click)="handleClick()"> Click me </sando-button>
 ```
 
-## Planned Customization
+:::
 
-Override design tokens:
+## Customization
+
+Override recipe tokens to customize any component:
 
 ```css
 sando-button {
-  --sando-button-solid-backgroundColor-default: #ff6b6b;
-  --sando-button-solid-textColor-default: white;
+  --sando-button-solid-backgroundColor-default: oklch(0.65 0.12 38);
+  --sando-button-solid-textColor-default: oklch(1 0 0);
 }
 ```
 
-Or apply flavors:
+Or apply a flavor for system-wide theming:
 
 ```html
-<sando-button variant="solid" flavor="original"> Themed Button </sando-button>
+<sando-button variant="solid" flavor="strawberry"> Themed Button </sando-button>
 ```
 
-## Planned Accessibility
+## Accessibility
 
-All components will be built with accessibility in mind:
+Every component is built with accessibility as a core requirement — not as an afterthought, but as the foundation:
 
-- ✅ Keyboard navigation
-- ✅ Screen reader support
-- ✅ ARIA attributes
-- ✅ Focus management
-- ✅ Color contrast (WCAG AA)
+- Keyboard navigation with visible focus indicators
+- Screen reader support with proper ARIA attributes
+- Focus management for complex interactions
+- Color contrast meeting WCAG AA standards
+- Automatic dark mode and reduced-motion support via CSS media queries
 
-## Browser Support (Target)
+## Browser Support
 
-- ✅ Chrome/Edge 90+
-- ✅ Firefox 88+
-- ✅ Safari 14+
-- ✅ Opera 76+
+- Chrome/Edge 90+
+- Firefox 88+
+- Safari 14+
+- Opera 76+
 
-## Contributing
+## Explore More
 
-Want to help build these components? Check out:
-
-- [Contributing Guide](/guides/contributing)
-- [GitHub Issues](https://github.com/yourusername/sando-design-system/issues)
-- [Design System Architecture](/tokens/architecture)
-
-## Next Steps
-
-While components are under development, you can:
-
-- **[Explore Tokens](/tokens/architecture)** - Fully functional token system
-- **[Read Architecture Guide](/tokens/architecture)** - Understand the three-layer system
-- **[Review Testing Strategy](/tokens/testing)** - 2,200+ tests for tokens
-- **[Learn About Theming](/getting-started/theming)** - How the flavor system works
+- **[Storybook](https://rodrigolagodev.github.io/SandoDesignSystem/storybook/)** — Interactive component playground
+- **[Token Architecture](/tokens/architecture)** — Understand the three-layer system
+- **[Theming Guide](/getting-started/theming)** — How the flavor system works
+- **[GitHub](https://github.com/rodrigolagodev/SandoDesignSystem)** — Source code and contributions
