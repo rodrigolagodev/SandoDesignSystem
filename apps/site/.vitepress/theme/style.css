@@ -386,3 +386,19 @@
     background-position: center;
   }
 }
+
+/* ==========================================================================
+   Washi Texture Application
+   ========================================================================== */
+
+/* Apply washi texture to the main content area */
+.VPDoc,
+.VPHome {
+  position: relative;
+}
+
+/* Ensure the Layout has proper positioning for texture */
+.Layout {
+  position: relative;
+  min-height: 100vh;
+}

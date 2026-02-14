@@ -1,0 +1,231 @@
+/**
+ * Washi Paper Texture (和紙テクスチャ)
+ * 
+ * Simulates Japanese washi paper grain for the "Flat Brutal + Washi" design.
+ * Uses SVG feTurbulence filter for organic, performant noise generation.
+ * 
+ * @usage
+ * 1. Apply .washi-texture class to any container element
+ * 2. Or use data-flavor="sando" for automatic application
+ * 
+ * @customization
+ * --washi-opacity: Controls texture visibility (default: 0.03 light, 0.05 dark)
+ * --washi-blend-mode: Controls how texture blends (default: multiply/overlay)
+ * --washi-z-index: Controls stacking order (default: 0)
+ * 
+ * @note
+ * - Only apply to page/section backgrounds, NOT to interactive components
+ * - Uses pointer-events: none to not interfere with clicks
+ * - The texture is purely decorative and doesn't affect accessibility
+ */
+
+/* ==========================================================================
+   CSS Custom Properties
+   ========================================================================== */
+
+:root {
+  /* Light mode defaults */
+  --washi-opacity: 0.03;
+  --washi-blend-mode: multiply;
+  --washi-z-index: 0;
+}
+
+/* Dark mode adjustments - more visible, softer blend */
+[data-color-mode="dark"],
+[data-theme="dark"],
+.dark {
+  --washi-opacity: 0.05;
+  --washi-blend-mode: overlay;
+}
+
+/* ==========================================================================
+   SVG Noise Pattern (Data URI)
+   
+   feTurbulence settings:
+   - type="fractalNoise": Creates organic, natural-looking noise
+   - baseFrequency="0.7": Controls grain size (higher = finer grain)
+   - numOctaves="4": Adds detail layers for paper-like complexity
+   - seed="15": Consistent pattern across page loads
+   - stitchTiles="stitch": Seamless tiling for large surfaces
+   
+   feColorMatrix saturate="0": Converts to grayscale for neutral texture
+   ========================================================================== */
+
+/* 
+ * Base64-encoded SVG for maximum compatibility.
+ * Decoded SVG:
+ * <svg xmlns="http://www.w3.org/2000/svg" width="300" height="300">
+ *   <filter id="washi" x="0" y="0" width="100%" height="100%">
+ *     <feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="4" seed="15" stitchTiles="stitch" result="noise"/>
+ *     <feColorMatrix type="saturate" values="0"/>
+ *   </filter>
+ *   <rect width="100%" height="100%" filter="url(#washi)" fill="transparent"/>
+ * </svg>
+ */
+
+/* ==========================================================================
+   Washi Texture Class
+   ========================================================================== */
+
+.washi-texture,
+[data-flavor="sando"] {
+  position: relative;
+}
+
+.washi-texture::before,
+[data-flavor="sando"]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: var(--washi-z-index);
+  opacity: var(--washi-opacity);
+  mix-blend-mode: var(--washi-blend-mode);
+
+  /* 
+   * Inline SVG data URI - fractal noise pattern
+   * Using URL-encoded SVG for broad browser support
+   */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='washi' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' seed='15' stitchTiles='stitch' result='noise'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23washi)' fill='transparent'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 300px 300px;
+
+  /* Prevent texture from affecting layout */
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+/* ==========================================================================
+   Utility Modifiers
+   ========================================================================== */
+
+/* Subtle variant - barely perceptible, for minimal designs */
+.washi-texture--subtle::before,
+[data-flavor="sando"].washi-texture--subtle::before {
+  --washi-opacity: 0.015;
+}
+
+/* Pronounced variant - more visible paper grain */
+.washi-texture--pronounced::before,
+[data-flavor="sando"].washi-texture--pronounced::before {
+  --washi-opacity: 0.06;
+}
+
+/* Warm variant - slight sepia tint for warmer paper feel */
+.washi-texture--warm::before,
+[data-flavor="sando"].washi-texture--warm::before {
+  filter: sepia(0.1);
+}
+
+/* ==========================================================================
+   Dark Mode Specific Selectors
+   
+   Ensures proper texture appearance across different dark mode implementations
+   ========================================================================== */
+
+[data-color-mode="dark"] .washi-texture::before,
+[data-color-mode="dark"][data-flavor="sando"]::before,
+[data-theme="dark"] .washi-texture::before,
+[data-theme="dark"][data-flavor="sando"]::before,
+.dark .washi-texture::before,
+.dark[data-flavor="sando"]::before {
+  opacity: var(--washi-opacity, 0.05);
+  mix-blend-mode: var(--washi-blend-mode, overlay);
+}
+
+/* ==========================================================================
+   Reduced Motion Support
+   
+   Some users may find animated or complex textures distracting.
+   This provides an opt-out while maintaining the design intent.
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .washi-texture::before,
+  [data-flavor="sando"]::before {
+    /* Texture is static, so no changes needed for motion */
+    /* But we slightly reduce opacity to minimize visual noise */
+    opacity: calc(var(--washi-opacity) * 0.7);
+  }
+}
+
+/* ==========================================================================
+   High Contrast Mode Support
+   
+   In high contrast mode, textures can interfere with readability.
+   We disable the texture entirely for accessibility.
+   ========================================================================== */
+
+@media (prefers-contrast: more) {
+  .washi-texture::before,
+  [data-flavor="sando"]::before {
+    display: none;
+  }
+}
+
+/* Forced colors mode (Windows High Contrast) */
+@media (forced-colors: active) {
+  .washi-texture::before,
+  [data-flavor="sando"]::before {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   Print Styles
+   
+   Remove texture for print to save ink and ensure clean output
+   ========================================================================== */
+
+@media print {
+  .washi-texture::before,
+  [data-flavor="sando"]::before {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   Container Utilities
+   
+   Helper classes for common use cases
+   ========================================================================== */
+
+/* Full viewport background with texture */
+.washi-texture-page {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh; /* Dynamic viewport height for mobile */
+}
+
+.washi-texture-page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  opacity: var(--washi-opacity, 0.03);
+  mix-blend-mode: var(--washi-blend-mode, multiply);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='washi' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' seed='15' stitchTiles='stitch' result='noise'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23washi)' fill='transparent'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 300px 300px;
+}
+
+/* Section-level texture (for cards, panels, etc.) */
+.washi-texture-section {
+  position: relative;
+  isolation: isolate; /* Create stacking context */
+}
+
+.washi-texture-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  opacity: var(--washi-opacity, 0.03);
+  mix-blend-mode: var(--washi-blend-mode, multiply);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='washi' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' seed='15' stitchTiles='stitch' result='noise'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23washi)' fill='transparent'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 300px 300px;
+  border-radius: inherit;
+}

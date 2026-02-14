@@ -230,6 +230,9 @@ import "../../../packages/tokens/dist/sando-tokens/css/flavors/brutalist/flavor-
 import "../../../packages/tokens/dist/sando-tokens/css/flavors/brutalist/flavor-high-contrast.css";
 import "../../../packages/tokens/dist/sando-tokens/css/flavors/brutalist/flavor-motion-reduce.css";
 
+// Import Washi paper texture for Sando flavor
+import "../../../packages/tokens/src/css/washi-texture.css";
+
 // Import Storybook preview global styles LAST
 // All token overrides come from generated CSS, this file only contains
 // Storybook-specific layout and MDX documentation styles
@@ -277,10 +280,10 @@ setupDarkModeListener();
 
 /**
  * Apply default flavor immediately on load
- * This ensures brutalist tokens are applied even before any story renders,
+ * This ensures sando tokens are applied even before any story renders,
  * which is important for MDX docs pages that don't trigger decorators.
  */
-const DEFAULT_FLAVOR = "brutalist";
+const DEFAULT_FLAVOR = "sando";
 if (typeof document !== "undefined") {
   document.documentElement.setAttribute("data-flavor", DEFAULT_FLAVOR);
 }
@@ -655,8 +658,8 @@ const preview = {
         // No icon - emoji in title is sufficient
         title: "Flavor:",
         items: [
-          { value: "brutalist", title: "Brutalist", right: "Modern Identity" },
-          { value: "sando", title: "Sando", right: "Warm Identity" },
+          { value: "sando", title: "Sando", right: "Flat Brutal + Washi" },
+          { value: "brutalist", title: "Brutalist", right: "Japanese Minimal" },
           { value: "original", title: "Original", right: "Neutral" },
           { value: "strawberry", title: "Strawberry", right: "Red tones" },
           { value: "tonkatsu", title: "Tonkatsu", right: "Brown tones" },
@@ -672,8 +675,8 @@ const preview = {
    * Decorators - Flavor switcher only
    *
    * Flavor Switcher:
-   * - "brutalist": Modern identity (data-flavor="brutalist") - DEFAULT
-   * - "sando": Warm identity (data-flavor="sando")
+   * - "sando": Flat Brutal + Washi (data-flavor="sando") - DEFAULT
+   * - "brutalist": Japanese Minimal (data-flavor="brutalist")
    * - "original": Neutral tones (no data-flavor attribute, uses :root styles)
    * - "strawberry": Red tones (data-flavor="strawberry")
    * - "tonkatsu": Brown tones (data-flavor="tonkatsu")
@@ -693,7 +696,7 @@ const preview = {
   decorators: [
     // Flavor switcher - applies data-flavor to document root
     (storyFn, context) => {
-      const flavor = context.globals.flavor || "brutalist";
+      const flavor = context.globals.flavor || "sando";
 
       // Apply flavor to document root so it affects everything
       if (flavor === "original") {
@@ -710,8 +713,8 @@ const preview = {
    * Initial global values
    */
   initialGlobals: {
-    // Flavor switcher default - Brutalist modern identity
-    flavor: "brutalist",
+    // Flavor switcher default - Sando (Flat Brutal + Washi)
+    flavor: "sando",
   },
 };
 

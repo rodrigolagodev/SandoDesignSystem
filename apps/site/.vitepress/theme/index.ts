@@ -25,6 +25,9 @@ import "../../../../packages/tokens/dist/sando-tokens/css/ingredients/animation.
 import "../../../../packages/tokens/dist/sando-tokens/css/ingredients/z-index.css";
 import "../../../../packages/tokens/dist/sando-tokens/css/ingredients/scale.css";
 
+// Import Washi paper texture for Sando brand identity
+import "../../../../packages/tokens/src/css/washi-texture.css";
+
 // VitePress theme styles with Sando token mappings
 import "./style.css";
 
@@ -36,6 +39,9 @@ export default {
     });
   },
   enhanceApp({ app, router, siteData }) {
-    // ...
+    // Set default flavor to "sando" for washi texture application
+    if (typeof document !== "undefined") {
+      document.documentElement.setAttribute("data-flavor", "sando");
+    }
   },
 } satisfies Theme;
