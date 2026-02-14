@@ -20,17 +20,11 @@ const config = {
   addons: [
     "@storybook/addon-links",
     "@storybook/addon-a11y",
-    // @storybook/addon-themes - Official addon for color mode switching
-    // Uses withThemeByDataAttribute to set data-color-mode on html element
-    // This prevents flickering by applying themes at the right lifecycle point
-    "@storybook/addon-themes",
-    // TODO: storybook-addon-pseudo-states has compatibility issues with Storybook 8.6.14
-    // Re-add when fixed: "storybook-addon-pseudo-states",
+    "storybook-dark-mode",
     "storybook-addon-tag-badges",
     {
       name: "@storybook/addon-essentials",
       options: {
-        // Configure docs addon with remark-gfm for MDX tables
         docs: {
           mdxPluginOptions: {
             mdxCompileOptions: {
@@ -81,7 +75,6 @@ const config = {
       resolve: {
         ...config.resolve,
         alias: [
-          // Order matters: more specific paths first
           { find: "@sando/tokens/dist", replacement: tokensDistPath },
           { find: "@sando/tokens", replacement: tokensPath },
           { find: "@sando/components", replacement: componentsPath },
@@ -94,7 +87,6 @@ const config = {
           allow: [join(dirname(dirname(dirname(__dirname))))],
         },
       },
-      // Optimize Lit dependencies for better HMR
       optimizeDeps: {
         ...config.optimizeDeps,
         include: [

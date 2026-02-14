@@ -2,129 +2,191 @@
  * Sando Design System - Storybook Theme Variables
  *
  * Centralized color palettes, typography, and layout values
- * for Storybook manager theming. Based on Sando design tokens.
+ * for Storybook manager theming. Aligned with Sando flavor tokens.
+ *
+ * Colors extracted from flavor "sando":
+ * - Primary: brown palette (Tonkatsu Amber) - hue 50°
+ * - Neutral: neutralWarm palette (Shokupan) - hue 30°
+ *
+ * OKLCH to HEX conversions for Storybook compatibility.
  */
 
 // ============================================================================
-// Color Palettes
+// Color Palettes - Aligned with Sando Flavor Tokens
 // ============================================================================
 
 /**
  * Light mode color palette
- * Uses warm neutral tones with orange primary
+ * Matches sando/flavor.json semantic tokens
+ *
+ * Key mappings:
+ * - primary → color.action.solid.background.default → brown.600
+ * - primaryHover → color.action.solid.background.hover → brown.700
+ * - appBg → color.background.base → neutralWarm.50
+ * - contentBg → WHITE (per requirement: previews should be white)
+ * - textPrimary → color.text.heading → neutralWarm.950
+ * - border → color.border.default → neutralWarm.300
  */
 export const lightPalette = {
-  // Primary colors (orange)
-  primary: "#f97316", // orange-500
-  primaryHover: "#ea580c", // orange-600
-  primaryLight: "#ffedd5", // orange-100
-  primaryDark: "#c2410c", // orange-700
+  // Primary colors (brown - Tonkatsu Amber, hue 50°)
+  // action.solid.background.default → brown.600 oklch(0.55 0.08 50)
+  primary: "#8b5a2b",
+  // action.solid.background.hover → brown.700 oklch(0.46 0.07 50)
+  primaryHover: "#704a24",
+  // brown.100 oklch(0.96 0.02 50)
+  primaryLight: "#f7f0e8",
+  // brown.800 oklch(0.37 0.06 50)
+  primaryDark: "#5a3c1e",
 
   // Background colors
-  appBg: "#fafaf9", // neutralWarm-50
+  // background.base → neutralWarm.50 oklch(0.98 0.018 30)
+  appBg: "#faf8f6",
+  // OVERRIDE: Preview backgrounds should be pure white
   contentBg: "#ffffff",
-  sidebarBg: "#fafaf9", // neutralWarm-50
+  // background.base → neutralWarm.50
+  sidebarBg: "#faf8f6",
 
   // Text colors
-  textPrimary: "#0c0a09", // neutralWarm-950
-  textSecondary: "#44403c", // neutralWarm-700
-  textMuted: "#78716c", // neutralWarm-500
-  textInverse: "#fafaf9", // neutralWarm-50
+  // text.heading → neutralWarm.950 oklch(0.22 0.018 30)
+  textPrimary: "#2d2926",
+  // text.body → neutralWarm.800 oklch(0.38 0.018 30)
+  textSecondary: "#524b45",
+  // text.muted → neutralWarm.500 oklch(0.64 0.018 30)
+  textMuted: "#9c938a",
+  // text.on-solid → white
+  textInverse: "#ffffff",
 
   // Border colors
-  border: "#e7e5e4", // neutralWarm-200
-  borderLight: "#f5f5f4", // neutralWarm-100
+  // border.default → neutralWarm.300 oklch(0.82 0.018 30)
+  border: "#ccc5be",
+  // border.muted → neutralWarm.200 oklch(0.9 0.018 30)
+  borderLight: "#e5dfda",
 
   // Interactive states
-  selected: "#ffedd5", // orange-100
-  selectedText: "#c2410c", // orange-700
-  hover: "#f5f5f4", // neutralWarm-100
-  focus: "#f97316", // orange-500
+  // selection.background → brown.100
+  selected: "#f7f0e8",
+  // brown.700
+  selectedText: "#704a24",
+  // background.hover → neutralWarm.100 oklch(0.95 0.018 30)
+  hover: "#f2eeea",
+  // focus.ring → brown.500 oklch(0.65 0.08 50)
+  focus: "#a06b35",
 
-  // Status colors (for badges)
-  success: "#dcfce7", // green-100
-  successText: "#166534", // green-800
-  warning: "#fef3c7", // amber-100
-  warningText: "#92400e", // amber-800
-  error: "#fee2e2", // red-100
-  errorText: "#991b1b", // red-800
-  info: "#dbeafe", // blue-100
-  infoText: "#1e40af", // blue-800
-  purple: "#f3e8ff", // purple-100
-  purpleText: "#6b21a8", // purple-800
+  // Status colors (for badges) - from state tokens
+  success: "#e6f4ea",
+  successText: "#1e7e34",
+  warning: "#fff8e6",
+  warningText: "#b8860b",
+  error: "#fce8e8",
+  errorText: "#c62828",
+  info: "#e8f4fc",
+  infoText: "#1565c0",
+  purple: "#f3e8ff",
+  purpleText: "#6b21a8",
 } as const;
 
 /**
  * Dark mode color palette
- * Inverted warm neutrals with adjusted orange for dark backgrounds
+ * Matches sando/flavor-dark.json semantic tokens
+ *
+ * Key mappings:
+ * - primary → color.action.solid.background.default → brown.500
+ * - primaryHover → color.action.solid.background.hover → brown.400
+ * - appBg → color.background.base → neutralWarm.950
+ * - contentBg → BLACK (per requirement: previews should be black in dark mode)
+ * - textPrimary → color.text.heading → neutralWarm.50
+ * - border → color.border.default → neutralWarm.600
  */
 export const darkPalette = {
-  // Primary colors (orange - adjusted for dark mode)
-  primary: "#fb923c", // orange-400
-  primaryHover: "#f97316", // orange-500
-  primaryLight: "#431407", // orange-950
-  primaryDark: "#fdba74", // orange-300
+  // Primary colors (brown - adjusted for dark mode)
+  // action.solid.background.default (dark) → brown.500 oklch(0.65 0.08 50)
+  primary: "#a06b35",
+  // action.solid.background.hover (dark) → brown.400 oklch(0.74 0.07 50)
+  primaryHover: "#ba8a52",
+  // brown.950 oklch(0.21 0.04 50)
+  primaryLight: "#2a1f14",
+  // brown.300 oklch(0.84 0.05 50)
+  primaryDark: "#d4b896",
 
   // Background colors
-  appBg: "#0c0a09", // neutralWarm-950
-  contentBg: "#1c1917", // neutralWarm-900
-  sidebarBg: "#0c0a09", // neutralWarm-950
+  // background.base (dark) → neutralWarm.950 oklch(0.22 0.018 30)
+  appBg: "#2d2926",
+  // OVERRIDE: Preview backgrounds should be pure black in dark mode
+  contentBg: "#000000",
+  // neutralWarm.950
+  sidebarBg: "#2d2926",
 
   // Text colors
-  textPrimary: "#fafaf9", // neutralWarm-50
-  textSecondary: "#d6d3d1", // neutralWarm-300
-  textMuted: "#a8a29e", // neutralWarm-400
-  textInverse: "#0c0a09", // neutralWarm-950
+  // text.heading (dark) → neutralWarm.50 oklch(0.98 0.018 30)
+  textPrimary: "#faf8f6",
+  // text.body (dark) → neutralWarm.200 oklch(0.9 0.018 30)
+  textSecondary: "#e5dfda",
+  // text.muted (dark) → neutralWarm.400 oklch(0.73 0.018 30)
+  textMuted: "#b3aaa1",
+  // text.on-solid → white
+  textInverse: "#2d2926",
 
   // Border colors
-  border: "#292524", // neutralWarm-800
-  borderLight: "#1c1917", // neutralWarm-900
+  // border.default (dark) → neutralWarm.600 oklch(0.56 0.018 30)
+  border: "#6e655c",
+  // border.muted (dark) → neutralWarm.700 oklch(0.47 0.018 30)
+  borderLight: "#5a524a",
 
   // Interactive states
-  selected: "#431407", // orange-950
-  selectedText: "#fb923c", // orange-400
-  hover: "#1c1917", // neutralWarm-900
-  focus: "#fb923c", // orange-400
+  // selection.background (dark) → brown.800 oklch(0.37 0.06 50)
+  selected: "#5a3c1e",
+  // brown.400
+  selectedText: "#ba8a52",
+  // background.hover (dark) → neutralWarm.800 oklch(0.38 0.018 30)
+  hover: "#524b45",
+  // focus.ring (dark) → brown.400
+  focus: "#ba8a52",
 
   // Status colors (for badges - dark mode variants)
-  success: "#14532d", // green-900
-  successText: "#86efac", // green-300
-  warning: "#78350f", // amber-900
-  warningText: "#fcd34d", // amber-300
-  error: "#7f1d1d", // red-900
-  errorText: "#fca5a5", // red-300
-  info: "#1e3a8a", // blue-900
-  infoText: "#93c5fd", // blue-300
-  purple: "#581c87", // purple-900
-  purpleText: "#d8b4fe", // purple-300
+  success: "#14532d",
+  successText: "#86efac",
+  warning: "#78350f",
+  warningText: "#fcd34d",
+  error: "#7f1d1d",
+  errorText: "#fca5a5",
+  info: "#1e3a8a",
+  infoText: "#93c5fd",
+  purple: "#581c87",
+  purpleText: "#d8b4fe",
 } as const;
 
 // ============================================================================
-// Typography
+// Typography - Aligned with Sando Flavor font.family tokens
 // ============================================================================
 
 export const typography = {
+  // font.family.body → Inter
   fontBase:
     '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-  fontCode: '"Fira Code", "JetBrains Mono", Consolas, monospace',
+  // font.family.mono → JetBrains Mono
+  fontCode: '"JetBrains Mono", "Fira Code", Consolas, monospace',
 } as const;
 
 // ============================================================================
-// Layout
+// Layout - Aligned with Sando Flavor border.radius tokens
 // ============================================================================
 
 export const layout = {
+  // border.radius.emphasis → 8px (border.radius.200)
   appBorderRadius: 8,
+  // border.radius.muted → 2px (border.radius.50)
   inputBorderRadius: 4,
 } as const;
 
 // ============================================================================
-// Timing
+// Timing - Aligned with Sando Flavor animation.duration tokens
 // ============================================================================
 
 export const timing = {
-  fast: "200ms",
-  normal: "300ms",
+  // animation.duration.fast → 100ms
+  fast: "100ms",
+  // animation.duration.normal → 200ms
+  normal: "200ms",
 } as const;
 
 // Type exports

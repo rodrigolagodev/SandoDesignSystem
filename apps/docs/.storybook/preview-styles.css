@@ -109,7 +109,7 @@ body {
 
 /* MDX Container - Force light, neutral background for readability */
 .sbdocs-wrapper {
-  background: var(--sb-docs-bg-base) !important;
+  background: var(--sando-color-background-surface) !important;
   color: var(--sb-docs-text-body) !important;
 }
 
@@ -143,7 +143,7 @@ body {
 }
 
 .sbdocs a:active {
-  color: #7c2d12; /* orange-900 */
+  color: var(--sb-docs-link-active);
 }
 
 /* ----------------------------------------
@@ -157,7 +157,7 @@ body {
   border-collapse: collapse;
   margin: 1.5rem 0;
   font-size: 0.875rem;
-  background-color: var(--sb-docs-bg-raised);
+  background-color: var(--sb-docs-table-bg);
   border: 1px solid var(--sb-docs-border);
   border-radius: 4px;
   overflow: hidden;
@@ -166,7 +166,7 @@ body {
 .sbdocs table th,
 .docs-story table th,
 .sb-unstyled table th {
-  background: var(--sb-docs-bg-emphasis);
+  background: var(--sb-docs-table-header-bg);
   font-weight: 600;
   color: var(--sb-docs-text-heading);
   padding: 0.75rem 1rem;
@@ -181,22 +181,23 @@ body {
   text-align: left;
   border-bottom: 1px solid var(--sb-docs-border);
   color: var(--sb-docs-text-body);
-  background-color: var(--sb-docs-bg-raised);
+  background-color: var(--sb-docs-table-bg);
 }
 
 .sbdocs table tr:hover td,
 .docs-story table tr:hover td,
 .sb-unstyled table tr:hover td {
-  background: var(--sb-docs-bg-emphasis);
+  background: var(--sb-docs-table-hover-bg);
 }
 
 .sbdocs table code,
 .docs-story table code,
 .sb-unstyled table code {
   background: var(--sb-docs-code-bg);
-  padding: 0.125rem 0.375rem;
-  border-radius: 4px;
-  font-size: 0.8125rem;
+  padding: 0.1rem 0.25rem;
+  border-radius: 3px;
+  border: 1px solid var(--sb-docs-code-border);
+  font-size: 0.8em;
   font-family: var(--sando-font-family-code, "Fira Code", monospace);
   color: var(--sb-docs-code-text);
 }
@@ -285,12 +286,12 @@ body {
 /* ----------------------------------------
    Code Blocks - Force light mode for MDX
    ---------------------------------------- */
+
 .sbdocs pre {
-  background: var(--sb-docs-bg-code) !important;
-  border: 1px solid var(--sb-docs-border);
+  background: var(--sando-color-background-base) !important;
+  border: 1px solid var(--sando-color-border-muted);
   border-radius: 8px;
   padding: 1rem;
-  overflow-x: auto;
 }
 
 .sbdocs pre code {
@@ -300,13 +301,14 @@ body {
   font-family: var(--sando-font-family-code, "Fira Code", monospace);
 }
 
-/* Inline code in paragraphs */
+/* Inline code in paragraphs - subtle, integrated appearance */
 .sbdocs p code,
 .sbdocs li code {
   background: var(--sb-docs-code-bg);
-  padding: 0.125rem 0.375rem;
-  border-radius: 4px;
-  font-size: 0.875em;
+  padding: 0.1rem 0.25rem;
+  border-radius: 3px;
+  border: 1px solid var(--sb-docs-code-border);
+  font-size: 0.85em;
   font-family: var(--sando-font-family-code, "Fira Code", monospace);
   color: var(--sb-docs-code-text);
 }
@@ -333,8 +335,9 @@ body {
    Storybook Source Code Block
    ---------------------------------------- */
 .docblock-source {
-  background: var(--sb-docs-bg-emphasis) !important;
+  background: transparent !important;
   border-color: var(--sb-docs-border) !important;
+  border: none !important;
 }
 
 /* ----------------------------------------
@@ -376,7 +379,7 @@ body {
   --sb-docs-bg-code: #fafaf9; /* neutralWarm-100 - matches base per user request */
 
   /* Docs Text colors */
-  --sb-docs-text-heading: #0c0a09; /* neutralWarm-950 */
+  --sb-docs-text-heading: #1c1917; /* neutralWarm-950 - darkest for headings */
   --sb-docs-text-body: #292524; /* neutralWarm-800 */
   --sb-docs-text-caption: #44403c; /* neutralWarm-700 - WCAG AAA 8.5:1 */
   --sb-docs-text-muted: #57534e; /* neutralWarm-600 - WCAG AA 6.0:1 */
@@ -386,22 +389,139 @@ body {
   --sb-docs-border-emphasis: #a8a29e; /* neutralWarm-400 */
 
   /* Docs Link colors */
-  --sb-docs-link: #c2410c; /* orange-700 */
-  --sb-docs-link-hover: #9a3412; /* orange-800 */
+  --sb-docs-link: #845529; /* brown-700 */
+  --sb-docs-link-hover: #6d4724; /* brown-800 */
 
-  /* Docs Status colors */
-  --sb-docs-success-bg: #dcfce7; /* green-100 */
-  --sb-docs-success-text: #15803d; /* green-700 */
-  --sb-docs-warning-bg: #fef3c7; /* amber-100 */
-  --sb-docs-warning-text: #b45309; /* amber-700 */
-  --sb-docs-error-bg: #fee2e2; /* red-100 */
-  --sb-docs-error-text: #b91c1c; /* red-700 */
-  --sb-docs-info-bg: #dbeafe; /* blue-100 */
-  --sb-docs-info-text: #1d4ed8; /* blue-700 */
+  /* Docs Link active color */
+  --sb-docs-link-active: #5a3c1e; /* brown-900 */
 
-  /* Docs Code colors */
-  --sb-docs-code-bg: #f0efee; /* subtle distinction from base - WCAG approved */
-  --sb-docs-code-text: #292524; /* neutralWarm-800 */
+  /* Docs Status colors - warm-tinted for Sando palette */
+  --sb-docs-success-bg: #ecfdf5; /* warm green background */
+  --sb-docs-success-text: #047857; /* warm green text */
+  --sb-docs-success-border: #a7f3d0; /* warm green border */
+  --sb-docs-warning-bg: #fffbeb; /* amber background */
+  --sb-docs-warning-text: #b45309; /* amber text */
+  --sb-docs-warning-border: #fcd34d; /* amber border */
+  --sb-docs-error-bg: #fef2f2; /* warm red background */
+  --sb-docs-error-text: #b91c1c; /* warm red text */
+  --sb-docs-error-border: #fecaca; /* warm red border */
+  --sb-docs-info-bg: #f0fdfa; /* warm teal background */
+  --sb-docs-info-text: #0f766e; /* warm teal text */
+  --sb-docs-info-border: #99f6e4; /* warm teal border */
+  --sb-docs-neutral-bg: var(--sb-docs-bg-emphasis); /* neutralWarm */
+  --sb-docs-neutral-text: var(--sb-docs-text-body); /* neutralWarm */
+  --sb-docs-neutral-border: var(--sb-docs-border); /* neutralWarm */
+
+  /* Docs Table colors - using neutralWarm palette */
+  --sb-docs-table-bg: #e7e5e4; /* neutralWarm-200 - table body background */
+  --sb-docs-table-header-bg: #d6d3d1; /* neutralWarm-300 - table header background */
+  --sb-docs-table-hover-bg: #d6d3d1; /* neutralWarm-300 - row hover background */
+
+  /* Docs Code colors - subtle, non-distracting */
+  --sb-docs-code-bg: #fafaf9; /* neutralWarm-50 - very subtle, nearly matches base */
+  --sb-docs-code-text: #57534e; /* neutralWarm-600 - slightly muted from body text */
+  --sb-docs-code-border: #e7e5e4; /* neutralWarm-200 - subtle border for definition */
+
+  /* Code syntax highlighting - Light Mode (Sando palette) */
+  --sb-docs-code-comment: #78716c; /* neutralWarm-500 - muted */
+  --sb-docs-code-punctuation: #57534e; /* neutralWarm-600 */
+  --sb-docs-code-property: #6d4724; /* brown-800 - softer than before */
+  --sb-docs-code-selector: #845529; /* brown-700 */
+  --sb-docs-code-operator: #57534e; /* neutralWarm-600 */
+  --sb-docs-code-atrule: #845529; /* brown-700 */
+  --sb-docs-code-keyword: #5a3c1e; /* brown-900 */
+  --sb-docs-code-function: #44403c; /* neutralWarm-700 */
+  --sb-docs-code-regex: #6d4724; /* brown-800 */
+  --sb-docs-code-string: #365314; /* olive/green - for contrast */
+  --sb-docs-code-number: #6d4724; /* brown-800 */
+  --sb-docs-code-boolean: #5a3c1e; /* brown-900 */
+  --sb-docs-code-class: #44403c; /* neutralWarm-700 */
+  --sb-docs-code-constant: #5a3c1e; /* brown-900 */
+  --sb-docs-code-variable: #57534e; /* neutralWarm-600 */
+  --sb-docs-code-tag: #845529; /* brown-700 */
+  --sb-docs-code-attr-name: #6d4724; /* brown-800 */
+  --sb-docs-code-attr-value: #365314; /* olive/green */
+  --sb-docs-code-inserted: #365314; /* olive/green */
+  --sb-docs-code-deleted: #7f1d1d; /* red-900 */
+}
+
+/* ========================================
+   Docs Variables - Dark Mode
+   
+   Override docs variables when dark mode is active.
+   Uses data-color-mode attribute set by preview.js
+   ======================================== */
+:root[data-color-mode="dark"] {
+  /* Docs Background colors - Dark */
+  --sb-docs-bg-base: #1c1917; /* neutralWarm-900 */
+  --sb-docs-bg-surface: #292524; /* neutralWarm-800 */
+  --sb-docs-bg-raised: #000000; /* pure black */
+  --sb-docs-bg-emphasis: #44403c; /* neutralWarm-700 - better contrast for headers */
+  --sb-docs-bg-code: #1c1917; /* neutralWarm-900 */
+
+  /* Docs Text colors - Dark */
+  --sb-docs-text-heading: #fafaf9; /* neutralWarm-50 */
+  --sb-docs-text-body: #e7e5e4; /* neutralWarm-200 */
+  --sb-docs-text-caption: #d6d3d1; /* neutralWarm-300 */
+  --sb-docs-text-muted: #a8a29e; /* neutralWarm-400 */
+
+  /* Docs Border colors - Dark */
+  --sb-docs-border: #44403c; /* neutralWarm-700 */
+  --sb-docs-border-emphasis: #57534e; /* neutralWarm-600 */
+
+  /* Docs Link colors - Dark (lighter browns for visibility) */
+  --sb-docs-link: #c08545; /* brown-500 */
+  --sb-docs-link-hover: #d4a96e; /* brown-400 */
+  --sb-docs-link-active: #e8c9a0; /* brown-300 - lighter for dark mode */
+
+  /* Docs Status colors - Dark (warm-tinted, darker backgrounds, lighter text) */
+  --sb-docs-success-bg: #064e3b; /* warm green dark */
+  --sb-docs-success-text: #6ee7b7; /* warm green light */
+  --sb-docs-success-border: #065f46; /* warm green dark border */
+  --sb-docs-warning-bg: #78350f; /* amber dark */
+  --sb-docs-warning-text: #fcd34d; /* amber light */
+  --sb-docs-warning-border: #92400e; /* amber dark border */
+  --sb-docs-error-bg: #7f1d1d; /* warm red dark */
+  --sb-docs-error-text: #fca5a5; /* warm red light */
+  --sb-docs-error-border: #991b1b; /* warm red dark border */
+  --sb-docs-info-bg: #134e4a; /* warm teal dark */
+  --sb-docs-info-text: #5eead4; /* warm teal light */
+  --sb-docs-info-border: #115e59; /* warm teal dark border */
+  --sb-docs-neutral-bg: var(--sb-docs-bg-emphasis); /* neutralWarm dark */
+  --sb-docs-neutral-text: var(--sb-docs-text-body); /* neutralWarm dark */
+  --sb-docs-neutral-border: var(--sb-docs-border); /* neutralWarm dark */
+
+  /* Docs Table colors - Dark - using neutralWarm palette */
+  --sb-docs-table-bg: #3a3735; /* neutralWarm-900 - ~#333 as requested */
+  --sb-docs-table-header-bg: #44403c; /* neutralWarm-700 - darker header */
+  --sb-docs-table-hover-bg: #44403c; /* neutralWarm-700 - row hover background */
+
+  /* Docs Code colors - Dark - subtle, non-distracting */
+  --sb-docs-code-bg: #1c1917; /* neutralWarm-900 - very subtle, nearly matches base */
+  --sb-docs-code-text: #a8a29e; /* neutralWarm-400 - slightly muted from body text */
+  --sb-docs-code-border: #44403c; /* neutralWarm-700 - subtle border for definition */
+
+  /* Code syntax highlighting - Dark Mode (Sando palette) */
+  --sb-docs-code-comment: #a8a29e; /* neutralWarm-400 - visible but muted */
+  --sb-docs-code-punctuation: #d6d3d1; /* neutralWarm-300 */
+  --sb-docs-code-property: #d4a96e; /* brown-400 - visible on dark */
+  --sb-docs-code-selector: #c08545; /* brown-500 */
+  --sb-docs-code-operator: #d6d3d1; /* neutralWarm-300 */
+  --sb-docs-code-atrule: #c08545; /* brown-500 */
+  --sb-docs-code-keyword: #e8c9a0; /* brown-300 */
+  --sb-docs-code-function: #e7e5e4; /* neutralWarm-200 */
+  --sb-docs-code-regex: #d4a96e; /* brown-400 */
+  --sb-docs-code-string: #a3e635; /* lime-400 - for contrast on dark */
+  --sb-docs-code-number: #d4a96e; /* brown-400 */
+  --sb-docs-code-boolean: #e8c9a0; /* brown-300 */
+  --sb-docs-code-class: #e7e5e4; /* neutralWarm-200 */
+  --sb-docs-code-constant: #e8c9a0; /* brown-300 */
+  --sb-docs-code-variable: #d6d3d1; /* neutralWarm-300 */
+  --sb-docs-code-tag: #c08545; /* brown-500 */
+  --sb-docs-code-attr-name: #d4a96e; /* brown-400 */
+  --sb-docs-code-attr-value: #a3e635; /* lime-400 */
+  --sb-docs-code-inserted: #a3e635; /* lime-400 */
+  --sb-docs-code-deleted: #fca5a5; /* red-300 */
 }
 
 /* ========================================
@@ -478,9 +598,10 @@ body {
 .demo-code {
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
   font-size: 12px;
-  padding: 2px 6px;
+  padding: 1px 4px;
   background-color: var(--sb-docs-code-bg);
-  border-radius: 4px;
+  border: 1px solid var(--sb-docs-code-border);
+  border-radius: 3px;
   color: var(--sb-docs-code-text);
 }
 
@@ -538,11 +659,11 @@ body {
   border-radius: 8px;
 }
 
-/* Toast/notification demo */
+/* Toast/notification demo - uses brown primary */
 .demo-toast {
   padding: 16px 24px;
-  background-color: #c2410c;
-  color: white;
+  background-color: var(--sb-docs-link); /* brown */
+  color: #ffffff;
   border-radius: 8px;
   font-size: 14px;
   font-weight: 600;
@@ -559,11 +680,11 @@ body {
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
-/* Button demo */
+/* Button demo - uses brown primary */
 .demo-button {
   padding: 12px 24px;
-  background-color: #c2410c;
-  color: white;
+  background-color: var(--sb-docs-link); /* brown */
+  color: #ffffff;
   border: none;
   border-radius: 8px;
   font-size: 14px;
@@ -572,7 +693,7 @@ body {
 }
 
 .demo-button:hover {
-  background-color: #9a3412;
+  background-color: var(--sb-docs-link-hover); /* brown darker */
 }
 
 /* Dropdown menu demo */
@@ -597,4 +718,381 @@ body {
 
 .demo-dropdown-item:hover {
   background-color: var(--sb-docs-bg-emphasis);
+}
+
+/* ----------------------------------------
+   Storybook Controls Panel - Dark Mode
+   ---------------------------------------- */
+[data-color-mode="dark"] .docblock-argstable,
+[data-color-mode="dark"] .docblock-argstable-body {
+  background: var(--sb-docs-bg-surface) !important;
+}
+
+[data-color-mode="dark"] .docblock-argstable th {
+  background: var(--sb-docs-bg-emphasis) !important;
+  color: var(--sb-docs-text-heading) !important;
+  border-color: var(--sb-docs-border) !important;
+}
+
+[data-color-mode="dark"] .docblock-argstable td {
+  background: var(--sb-docs-bg-surface) !important;
+  color: var(--sb-docs-text-body) !important;
+  border-color: var(--sb-docs-border) !important;
+}
+
+[data-color-mode="dark"] .docblock-argstable input,
+[data-color-mode="dark"] .docblock-argstable select,
+[data-color-mode="dark"] .docblock-argstable textarea {
+  background: var(--sb-docs-bg-base) !important;
+  color: var(--sb-docs-text-body) !important;
+  border-color: var(--sb-docs-border) !important;
+}
+
+/* ----------------------------------------
+   MDX Tables - Dark Mode Override
+   
+   Storybook generates dynamic class names (like .css-qa4clq)
+   that can override our styles. We need high-specificity
+   selectors to ensure our dark mode colors are applied.
+   ---------------------------------------- */
+[data-color-mode="dark"] .sbdocs-wrapper table th,
+[data-color-mode="dark"] .sbdocs-wrapper table td,
+[data-color-mode="dark"] .sbdocs table th,
+[data-color-mode="dark"] .sbdocs table td,
+[data-color-mode="dark"] table:not(.sb-anchor) th,
+[data-color-mode="dark"] table:not(.sb-anchor) td {
+  color: var(--sb-docs-text-body) !important;
+}
+
+[data-color-mode="dark"] .sbdocs-wrapper table th,
+[data-color-mode="dark"] .sbdocs table th,
+[data-color-mode="dark"] table:not(.sb-anchor) th {
+  background: var(--sb-docs-table-header-bg) !important;
+  color: var(--sb-docs-text-heading) !important;
+  border-color: var(--sb-docs-border) !important;
+}
+
+[data-color-mode="dark"] .sbdocs-wrapper table td,
+[data-color-mode="dark"] .sbdocs table td,
+[data-color-mode="dark"] table:not(.sb-anchor) td {
+  background: var(--sb-docs-table-bg) !important;
+  border-color: var(--sb-docs-border) !important;
+}
+
+/* Table row hover in dark mode */
+[data-color-mode="dark"] .sbdocs-wrapper table tr:hover td,
+[data-color-mode="dark"] .sbdocs table tr:hover td,
+[data-color-mode="dark"] table:not(.sb-anchor) tr:hover td {
+  background: var(--sb-docs-table-hover-bg) !important;
+}
+
+/* Inline code in table cells - dark mode */
+[data-color-mode="dark"] table code,
+[data-color-mode="dark"] .sbdocs table code {
+  background: var(--sb-docs-code-bg) !important;
+  color: var(--sb-docs-code-text) !important;
+  border-color: var(--sb-docs-code-border) !important;
+}
+
+/* ========================================
+   Prism.js Syntax Highlighting Overrides
+   
+   These styles override Storybook's default Prism theme
+   to use the Sando neutralWarm and brown palette.
+   The colors are intentionally muted to not distract
+   from the code content itself.
+   ======================================== */
+
+/* Base code styling in pre blocks */
+.sbdocs pre[class*="language-"],
+.sbdocs code[class*="language-"],
+pre[class*="language-"],
+code[class*="language-"] {
+  color: var(--sb-docs-code-text);
+  background: none;
+  font-family: var(
+    --sando-font-family-code,
+    "Fira Code",
+    Consolas,
+    Monaco,
+    "Andale Mono",
+    "Ubuntu Mono",
+    monospace
+  );
+  font-size: 0.875em;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.6;
+  tab-size: 2;
+  hyphens: none;
+}
+
+/* Comments */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: var(--sb-docs-code-comment) !important;
+  font-style: italic;
+}
+
+/* Punctuation */
+.token.punctuation {
+  color: var(--sb-docs-code-punctuation) !important;
+}
+
+/* Namespace */
+.token.namespace {
+  opacity: 0.7;
+}
+
+/* Properties, Tags, Selectors */
+.token.property,
+.token.tag,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: var(--sb-docs-code-property) !important;
+}
+
+/* Booleans, Numbers */
+.token.boolean,
+.token.number {
+  color: var(--sb-docs-code-number) !important;
+}
+
+/* Selectors, Attr names, Strings, Chars, Builtins, Inserted */
+.token.selector,
+.token.attr-name,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: var(--sb-docs-code-selector) !important;
+}
+
+/* Strings */
+.token.string,
+.token.attr-value {
+  color: var(--sb-docs-code-string) !important;
+}
+
+/* Operators, Entity, URL */
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  color: var(--sb-docs-code-operator) !important;
+}
+
+/* At-rules, Keywords */
+.token.atrule,
+.token.keyword {
+  color: var(--sb-docs-code-keyword) !important;
+}
+
+/* Functions, Class names */
+.token.function,
+.token.class-name {
+  color: var(--sb-docs-code-function) !important;
+}
+
+/* Regex, Important, Variables */
+.token.regex,
+.token.important,
+.token.variable {
+  color: var(--sb-docs-code-variable) !important;
+}
+
+/* Important, Bold */
+.token.important,
+.token.bold {
+  font-weight: bold;
+}
+
+/* Italic */
+.token.italic {
+  font-style: italic;
+}
+
+/* Entity - cursor help */
+.token.entity {
+  cursor: help;
+}
+
+/* ----------------------------------------
+   Line highlighting (if used)
+   ---------------------------------------- */
+pre[data-line] {
+  position: relative;
+}
+
+.line-highlight {
+  background: var(--sb-docs-bg-emphasis);
+  left: 0;
+  right: 0;
+  margin-top: 1em;
+  pointer-events: none;
+  line-height: inherit;
+  white-space: pre;
+}
+
+/* ========================================
+   Mermaid Diagram Styles
+   
+   Mermaid diagrams are re-rendered via JS when dark mode changes,
+   but these CSS styles provide fallback styling and ensure smooth
+   transitions for the container backgrounds.
+   ======================================== */
+
+/* Mermaid diagram container */
+.mermaid-diagram {
+  border-radius: 0.5rem;
+  margin: 1rem 0;
+  overflow: auto;
+  transition: background-color 0.2s ease;
+}
+
+/* Light mode container background */
+.mermaid-diagram {
+  background: #fafafa;
+}
+
+/* Dark mode container background */
+[data-color-mode="dark"] .mermaid-diagram {
+  background: #1c1917;
+}
+
+/* Ensure SVG text is readable - Light mode */
+.mermaid-diagram svg text {
+  fill: #1c1917 !important;
+}
+
+/* Dark mode text override */
+[data-color-mode="dark"] .mermaid-diagram svg text {
+  fill: #fafaf9 !important;
+}
+
+/* Edge labels in flowcharts */
+.mermaid-diagram .edgeLabel {
+  background-color: transparent !important;
+}
+
+[data-color-mode="dark"] .mermaid-diagram .edgeLabel {
+  background-color: transparent !important;
+}
+
+/* Actor boxes in sequence diagrams - ensure text visibility */
+.mermaid-diagram .actor {
+  stroke-width: 2px;
+}
+
+/* Note boxes */
+.mermaid-diagram .note {
+  stroke-width: 1px;
+}
+
+/* ========================================
+   Mermaid Subgraph Styles with Dark Mode Support
+   
+   These styles override the inline Mermaid styles
+   to support dark mode. Uses Sando Design System colors.
+   ======================================== */
+
+/* ----- Light Mode (default) ----- */
+
+/* Layer 1: Ingredients - Orange tones */
+.mermaid-diagram [id*="Layer1"] rect,
+.mermaid-diagram [id*="Ingredient"] rect {
+  fill: #fef3e2 !important;  /* orange-50 */
+  stroke: #ea580c !important; /* orange-600 */
+}
+
+/* Layer 2: Flavors - Green tones */
+.mermaid-diagram [id*="Layer2"] rect,
+.mermaid-diagram [id*="Flavor"] rect {
+  fill: #dcfce7 !important;  /* green-100 */
+  stroke: #16a34a !important; /* green-600 */
+}
+
+/* Layer 3: Recipes - Yellow tones */
+.mermaid-diagram [id*="Layer3"] rect,
+.mermaid-diagram [id*="Recipe"] rect {
+  fill: #fef9c3 !important;  /* yellow-100 */
+  stroke: #ca8a04 !important; /* yellow-600 */
+}
+
+/* Component - Indigo tones */
+.mermaid-diagram [id*="Component"] rect {
+  fill: #e0e7ff !important;  /* indigo-100 */
+  stroke: #4f46e5 !important; /* indigo-600 */
+}
+
+/* All subgraph text - dark for light backgrounds */
+.mermaid-diagram .cluster text,
+.mermaid-diagram .cluster span,
+.mermaid-diagram .cluster .nodeLabel,
+.mermaid-diagram [id*="Layer"] text,
+.mermaid-diagram [id*="Ingredient"] text,
+.mermaid-diagram [id*="Flavor"] text,
+.mermaid-diagram [id*="Recipe"] text,
+.mermaid-diagram [id*="Component"] text {
+  fill: #1c1917 !important;  /* neutralWarm-950 */
+  color: #1c1917 !important;
+}
+
+/* ----- Dark Mode ----- */
+
+/* Layer 1: Ingredients - Dark orange tones */
+[data-color-mode="dark"] .mermaid-diagram [id*="Layer1"] rect,
+[data-color-mode="dark"] .mermaid-diagram [id*="Ingredient"] rect {
+  fill: #7c2d12 !important;  /* orange-900 */
+  stroke: #f97316 !important; /* orange-500 */
+}
+
+/* Layer 2: Flavors - Dark green tones */
+[data-color-mode="dark"] .mermaid-diagram [id*="Layer2"] rect,
+[data-color-mode="dark"] .mermaid-diagram [id*="Flavor"] rect {
+  fill: #14532d !important;  /* green-900 */
+  stroke: #22c55e !important; /* green-500 */
+}
+
+/* Layer 3: Recipes - Dark yellow tones */
+[data-color-mode="dark"] .mermaid-diagram [id*="Layer3"] rect,
+[data-color-mode="dark"] .mermaid-diagram [id*="Recipe"] rect {
+  fill: #713f12 !important;  /* yellow-900 */
+  stroke: #eab308 !important; /* yellow-500 */
+}
+
+/* Component - Dark indigo tones */
+[data-color-mode="dark"] .mermaid-diagram [id*="Component"] rect {
+  fill: #312e81 !important;  /* indigo-900 */
+  stroke: #818cf8 !important; /* indigo-400 */
+}
+
+/* All subgraph text - light for dark backgrounds */
+[data-color-mode="dark"] .mermaid-diagram .cluster text,
+[data-color-mode="dark"] .mermaid-diagram .cluster span,
+[data-color-mode="dark"] .mermaid-diagram .cluster .nodeLabel,
+[data-color-mode="dark"] .mermaid-diagram [id*="Layer"] text,
+[data-color-mode="dark"] .mermaid-diagram [id*="Ingredient"] text,
+[data-color-mode="dark"] .mermaid-diagram [id*="Flavor"] text,
+[data-color-mode="dark"] .mermaid-diagram [id*="Recipe"] text,
+[data-color-mode="dark"] .mermaid-diagram [id*="Component"] text {
+  fill: #fafaf9 !important;  /* neutralWarm-50 */
+  color: #fafaf9 !important;
+}
+
+/* Node labels inside subgraphs */
+.mermaid-diagram .node .label,
+.mermaid-diagram .node foreignObject div {
+  color: #1c1917 !important;
+}
+
+[data-color-mode="dark"] .mermaid-diagram .node .label,
+[data-color-mode="dark"] .mermaid-diagram .node foreignObject div {
+  color: #fafaf9 !important;
 }

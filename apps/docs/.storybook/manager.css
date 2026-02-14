@@ -23,11 +23,11 @@
    ============================================================================ */
 
 :root {
-  /* Primary colors */
-  --sando-sb-primary: #f97316;
-  --sando-sb-primary-hover: #ea580c;
-  --sando-sb-primary-light: #ffedd5;
-  --sando-sb-primary-dark: #c2410c;
+  /* Primary colors - Tonkatsu Amber (brown) */
+  --sando-sb-primary: #a06b35;
+  --sando-sb-primary-hover: #845529;
+  --sando-sb-primary-light: #f5ebe4;
+  --sando-sb-primary-dark: #6d4724;
 
   /* Background colors */
   --sando-sb-app-bg: #fafaf9;
@@ -43,11 +43,11 @@
   --sando-sb-border: #e7e5e4;
   --sando-sb-border-light: #f5f5f4;
 
-  /* Interactive states */
-  --sando-sb-selected-bg: #ffedd5;
-  --sando-sb-selected-text: #c2410c;
+  /* Interactive states - Tonkatsu Amber (brown) */
+  --sando-sb-selected-bg: #f5ebe4;
+  --sando-sb-selected-text: #6d4724;
   --sando-sb-hover-bg: #f5f5f4;
-  --sando-sb-focus-color: #f97316;
+  --sando-sb-focus-color: #a06b35;
 
   /* Badge colors - Stable (green) */
   --sando-sb-badge-stable-bg: #dcfce7;
@@ -77,16 +77,16 @@
 /* ============================================================================
    CSS Custom Properties - Dark Mode
    
-   Supports both data-theme and data-sb-theme for compatibility
+   Uses data-sb-theme exclusively for Manager UI theming.
+   Preview canvas uses separate data-color-mode attribute.
    ============================================================================ */
 
-[data-theme="dark"],
 [data-sb-theme="dark"] {
-  /* Primary colors */
-  --sando-sb-primary: #fb923c;
-  --sando-sb-primary-hover: #f97316;
-  --sando-sb-primary-light: #431407;
-  --sando-sb-primary-dark: #fdba74;
+  /* Primary colors - Tonkatsu Amber (brown) */
+  --sando-sb-primary: #c08545;
+  --sando-sb-primary-hover: #d4a96e;
+  --sando-sb-primary-light: #321e0f;
+  --sando-sb-primary-dark: #eddcc9;
 
   /* Background colors */
   --sando-sb-app-bg: #0c0a09;
@@ -102,11 +102,11 @@
   --sando-sb-border: #292524;
   --sando-sb-border-light: #1c1917;
 
-  /* Interactive states */
-  --sando-sb-selected-bg: #431407;
-  --sando-sb-selected-text: #fb923c;
+  /* Interactive states - Tonkatsu Amber (brown) */
+  --sando-sb-selected-bg: #321e0f;
+  --sando-sb-selected-text: #c08545;
   --sando-sb-hover-bg: #1c1917;
-  --sando-sb-focus-color: #fb923c;
+  --sando-sb-focus-color: #c08545;
 
   /* Badge colors - Stable (green) - dark mode */
   --sando-sb-badge-stable-bg: #14532d;
@@ -131,12 +131,12 @@
 
 /* System preference fallback (when no explicit theme is set) */
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme]):not([data-sb-theme]) {
-    /* Primary colors */
-    --sando-sb-primary: #fb923c;
-    --sando-sb-primary-hover: #f97316;
-    --sando-sb-primary-light: #431407;
-    --sando-sb-primary-dark: #fdba74;
+  :root:not([data-sb-theme]) {
+    /* Primary colors - Tonkatsu Amber (brown) */
+    --sando-sb-primary: #c08545;
+    --sando-sb-primary-hover: #d4a96e;
+    --sando-sb-primary-light: #321e0f;
+    --sando-sb-primary-dark: #eddcc9;
 
     /* Background colors */
     --sando-sb-app-bg: #0c0a09;
@@ -152,11 +152,11 @@
     --sando-sb-border: #292524;
     --sando-sb-border-light: #1c1917;
 
-    /* Interactive states */
-    --sando-sb-selected-bg: #431407;
-    --sando-sb-selected-text: #fb923c;
+    /* Interactive states - Tonkatsu Amber (brown) */
+    --sando-sb-selected-bg: #321e0f;
+    --sando-sb-selected-text: #c08545;
     --sando-sb-hover-bg: #1c1917;
-    --sando-sb-focus-color: #fb923c;
+    --sando-sb-focus-color: #c08545;
 
     /* Badge colors - dark mode */
     --sando-sb-badge-stable-bg: #14532d;
@@ -240,6 +240,19 @@ button[data-active="true"] {
 /* Toolbar separator */
 .toolbar-separator {
   background: var(--sando-sb-border) !important;
+}
+
+/* Flavor selector - prefix "Flavor: " before dynamic title */
+button[title="Design system flavor/theme"] span {
+  display: inline-flex;
+  align-items: center;
+}
+
+button[title="Design system flavor/theme"] span::before {
+  content: "Flavor: ";
+  color: var(--sando-sb-text-muted);
+  font-weight: 400;
+  margin-right: 0;
 }
 
 /* ============================================================================
