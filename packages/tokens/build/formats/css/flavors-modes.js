@@ -165,9 +165,9 @@ function generateModeVariant(flavorName, grouped, modeConfig) {
     // For original flavor: :root:not([data-color-mode])
     output += `  :root:not([data-color-mode]) {\n`;
   } else {
-    // For named flavors: :root:not([data-color-mode]) [data-flavor="name"]
-    // The :not() must be on :root because apps/Storybook set data-color-mode on <html>
-    output += `  :root:not([data-color-mode]) [data-flavor="${flavorName}"] {\n`;
+    // For named flavors: :root:not([data-color-mode])[data-flavor="name"]
+    // Both attributes are on :root (<html> element) - no space = same element selector
+    output += `  :root:not([data-color-mode])[data-flavor="${flavorName}"] {\n`;
   }
 
   output += indentTokens(generateTokens(grouped), 2);
@@ -184,9 +184,9 @@ function generateModeVariant(flavorName, grouped, modeConfig) {
     // For original flavor: :root[data-color-mode="mode"]
     output += `:root[data-color-mode="${dataAttr}"] {\n`;
   } else {
-    // For named flavors: :root[data-color-mode="mode"] [data-flavor="name"]
-    // The data-color-mode is on :root, flavor is on component
-    output += `:root[data-color-mode="${dataAttr}"] [data-flavor="${flavorName}"] {\n`;
+    // For named flavors: :root[data-color-mode="mode"][data-flavor="name"]
+    // Both attributes are on :root (<html> element) - no space = same element selector
+    output += `:root[data-color-mode="${dataAttr}"][data-flavor="${flavorName}"] {\n`;
   }
 
   output += generateTokens(grouped);

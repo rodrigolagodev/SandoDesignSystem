@@ -1,89 +1,86 @@
+---
+title: Installation
+description: Install Sando Design System packages and start building accessible, themeable UIs in minutes.
+---
+
 # Installation
 
-Get started with Sando Design System tokens in your project.
+You're just a few commands away from adding Sando to your project. Let's get your kitchen set up.
 
-::: warning Components Not Yet Available
-The `@sando/components` package is under development. Currently, only `@sando/tokens` is available for use. Component installation instructions below are for future reference.
+## Prerequisites
+
+Before you start, make sure you have:
+
+- **Node.js** ≥ 20.0.0
+- **A modern browser** — Chrome/Edge 90+, Firefox 88+, Safari 14+, Opera 76+
+- **A package manager** — pnpm (recommended), npm, or yarn
+
+::: tip Why pnpm?
+We recommend [pnpm](https://pnpm.io/) for faster installs and efficient disk usage. Sando itself is built with pnpm. But npm and yarn work perfectly fine too.
 :::
 
-## Package Manager
+## Install Packages
 
-Install the Sando tokens package:
+Sando has two packages — **tokens** (the design language) and **components** (the UI elements). Install both:
 
 ::: code-group
 
 ```bash [pnpm]
-pnpm add @sando/tokens
+pnpm add @sando/tokens @sando/components
 ```
 
 ```bash [npm]
-npm install @sando/tokens
+npm install @sando/tokens @sando/components
 ```
 
 ```bash [yarn]
-yarn add @sando/tokens
+yarn add @sando/tokens @sando/components
 ```
 
 :::
 
-### Future: Components (Coming Soon)
+::: details Only need tokens?
+If you're building your own components and just want the design tokens:
 
 ```bash
-# Will be available soon
-pnpm add @sando/components @sando/tokens
+pnpm add @sando/tokens
 ```
 
-## What's Included
-
-### `@sando/tokens` ✅ Available Now
-
-Design tokens in multiple formats:
-
-- CSS custom properties (fully functional)
-- JSON token files
-- Three-layer architecture (Ingredients → Flavors → Recipes)
-- SCSS variables (coming soon)
-- JavaScript/TypeScript exports (coming soon)
-
-### `@sando/components` 🚧 Under Development
-
-Web Components built with Lit (coming soon):
-
-- Framework-agnostic UI components
-- TypeScript definitions included
-- Tree-shakeable ES modules
-
-## CDN Usage
-
-For quick prototyping or static sites, you can use a CDN:
-
-```html
-<!-- Load from unpkg -->
-<script type="module">
-  import { SandoButton } from "https://unpkg.com/@sando/components";
-</script>
-
-<!-- Load CSS tokens -->
-<link rel="stylesheet" href="https://unpkg.com/@sando/tokens/css/index.css" />
-```
-
-::: warning Production Usage
-For production applications, we recommend installing via npm for better performance and caching.
 :::
 
-## CSS Import
+## What's in the Box
 
-Import the design tokens CSS in your application:
+### `@sando/tokens`
+
+The design language — your pantry of raw ingredients, flavor profiles, and component recipes:
+
+- **CSS custom properties** — ready to use in any framework
+- **Three-layer architecture** — Ingredients → Flavors → Recipes
+- **6 curated flavors** — original, sando, tonkatsu, strawberry, egg-salad, kiwi
+- **8 OKLCH color palettes** — perceptually uniform, accessible by default
+- **Automatic accessibility modes** — dark, high contrast, reduced motion, forced colors
+
+### `@sando/components`
+
+Framework-agnostic Web Components built with [Lit](https://lit.dev):
+
+- **19+ production components** — button, input, checkbox, switch, select, textarea, and more
+- **14 skeleton loading patterns** — for polished loading states
+- **TypeScript definitions** included
+- **Tree-shakeable** ES modules — import only what you need
+
+## Import Tokens
+
+Load the design tokens CSS in your application entry point:
 
 ::: code-group
 
-```js [Vite/Webpack]
-// main.js or App.tsx
+```ts [Vite / Webpack]
+// main.ts or App.tsx
 import "@sando/tokens/css";
 ```
 
 ```html [HTML]
-<!-- index.html -->
 <link
   rel="stylesheet"
   href="node_modules/@sando/tokens/dist/sando-tokens/css/index.css"
@@ -95,6 +92,35 @@ import "@sando/tokens/css";
 @import "@sando/tokens/css";
 ```
 
+:::
+
+## Import Components
+
+Import components individually — they self-register as custom elements:
+
+```ts
+// Import the components you need
+import "@sando/components/button";
+
+// That's it! Use them in your HTML
+// <sando-button variant="solid">Click me</sando-button>
+```
+
+## Load a Flavor
+
+Flavors are loaded globally so they can cascade into component Shadow DOMs. Import a flavor CSS file to activate a theme:
+
+```ts
+// Load a flavor (global, Light DOM)
+import "@sando/tokens/css/flavors/original/flavor.css";
+
+// Or try a different one
+import "@sando/tokens/css/flavors/tonkatsu/flavor.css";
+import "@sando/tokens/css/flavors/strawberry/flavor.css";
+```
+
+::: tip Flavors inherit automatically
+CSS custom properties from flavors naturally inherit from the Light DOM into Shadow DOM. No extra configuration needed — just import the flavor CSS globally.
 :::
 
 ## Framework-Specific Setup
@@ -130,12 +156,12 @@ import "@sando/components/button";
 </script>
 
 <template>
-  <sando-button variant="solid"> Click me </sando-button>
+  <sando-button variant="solid">Click me</sando-button>
 </template>
 ```
 
 ::: tip Vue Config
-Tell Vue to ignore custom elements in `vite.config.ts`:
+Tell Vue to treat `sando-*` as custom elements in `vite.config.ts`:
 
 ```ts
 export default defineConfig({
@@ -173,29 +199,30 @@ import "@sando/components/button";
 
 ```html
 <!-- component.html -->
-<sando-button variant="solid"> Click me </sando-button>
+<sando-button variant="solid">Click me</sando-button>
 ```
 
 ### Svelte
 
 ```svelte
 <script>
-  import '@sando/tokens/css'
-  import '@sando/components/button'
+  import '@sando/tokens/css';
+  import '@sando/components/button';
 </script>
 
-<sando-button variant="solid">
-  Click me
-</sando-button>
+<sando-button variant="solid">Click me</sando-button>
 ```
 
 ### Vanilla JavaScript
 
 ```html
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
   <head>
-    <link rel="stylesheet" href="node_modules/@sando/tokens/css/index.css" />
+    <link
+      rel="stylesheet"
+      href="node_modules/@sando/tokens/dist/sando-tokens/css/index.css"
+    />
     <script type="module">
       import "@sando/components/button";
     </script>
@@ -208,13 +235,13 @@ import "@sando/components/button";
 
 ## Selective Imports
 
-Import only what you need for smaller bundle sizes:
+Import only what you need for smaller bundles:
 
-```js
+```ts
 // Import specific components
-import "@sando/components/button";
-import "@sando/components/input";
-import "@sando/components/card";
+import "@sando/components/button"; // <sando-button>
+// import '@sando/components/input';   // <sando-input> — not yet exported individually
+// import '@sando/components/checkbox'; // <sando-checkbox> — not yet exported individually
 
 // Import specific token layers
 import "@sando/tokens/css/ingredients"; // Primitives only
@@ -222,40 +249,53 @@ import "@sando/tokens/css/flavors"; // Semantic tokens
 import "@sando/tokens/css/recipes"; // Component tokens
 ```
 
-## Browser Support
+## CDN Usage
 
-Sando supports all modern browsers with native Web Components support:
+For quick prototyping or static sites:
 
-- ✅ Chrome/Edge 90+
-- ✅ Firefox 88+
-- ✅ Safari 14+
-- ✅ Opera 76+
+```html
+<!-- Load CSS tokens -->
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/@sando/tokens/dist/sando-tokens/css/index.css"
+/>
 
-::: warning Legacy Browsers
-For older browsers (IE11, legacy Edge), you'll need [polyfills](https://github.com/webcomponents/polyfills).
+<!-- Load components -->
+<script type="module">
+  import "@sando/components/button";
+</script>
+```
+
+::: warning Production Usage
+For production applications, install via a package manager for better performance, caching, and version control.
 :::
 
-## Verification
+## Verify Your Installation
 
-Verify your installation:
+Paste this into your HTML to confirm everything is wired up:
 
 ```html
 <script type="module">
   import "@sando/components/button";
-
-  const button = document.createElement("sando-button");
-  button.textContent = "It works!";
-  document.body.appendChild(button);
 </script>
+
+<sando-button variant="solid">It works! 🍱</sando-button>
 ```
+
+If you see a styled button, your Sando kitchen is ready.
+
+## Browser Support
+
+| Browser     | Minimum Version |
+| ----------- | --------------- |
+| Chrome/Edge | 90+             |
+| Firefox     | 88+             |
+| Safari      | 14+             |
+| Opera       | 76+             |
 
 ## Next Steps
 
-✅ **Installation complete!**
-
-Continue to:
-
-- [Quick Start Guide →](/getting-started/quick-start)
-- [Theming Guide →](/getting-started/theming)
-- [Component Overview →](/components/overview)
-- [Dependencies Reference →](/getting-started/dependencies)
+- **[Quick Start →](/getting-started/quick-start)** — Build your first component in 5 minutes
+- **[Theming Guide →](/getting-started/theming)** — Learn flavors, dark mode, and customization
+- **[Token Architecture →](/tokens/architecture)** — Understand the three-layer system
+- **[Storybook →](https://rodrigolagodev.github.io/SandoDesignSystem/storybook/)** — Interactive component playground

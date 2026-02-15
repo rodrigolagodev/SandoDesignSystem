@@ -1,130 +1,157 @@
 /**
  * Sando Design System - Storybook Theme Variables
  *
- * Centralized color palettes, typography, and layout values
- * for Storybook manager theming. Based on Sando design tokens.
+ * Brutalist Design Language:
+ * - Primary: Vermillion palette (hue 25°) - Electric red-orange accent
+ * - Neutral: Ink palette (zero chroma) - Pure neutrals
+ *
+ * @see packages/tokens/src/flavors/brutalist/
  */
 
 // ============================================================================
-// Color Palettes
+// Color Palettes - Aligned with Sando Flavor Tokens
 // ============================================================================
 
 /**
  * Light mode color palette
- * Uses warm neutral tones with orange primary
+ * Brutalist design language with Vermillion accent and Ink neutrals
+ *
+ * Key mappings:
+ * - primary → vermillion.600
+ * - primaryHover → vermillion.700
+ * - appBg → ink.50
+ * - contentBg → WHITE (per requirement: previews should be white)
+ * - textPrimary → ink.950
+ * - border → ink.300
  */
 export const lightPalette = {
-  // Primary colors (orange)
-  primary: "#f97316", // orange-500
-  primaryHover: "#ea580c", // orange-600
-  primaryLight: "#ffedd5", // orange-100
-  primaryDark: "#c2410c", // orange-700
+  // Primary colors (vermillion - Brutalist accent, hue 25°)
+  primary: "#C13B1E", // vermillion.600
+  primaryHover: "#9E2F18", // vermillion.700
+  primaryLight: "#FEE2E2", // vermillion.100 approx
+  primaryDark: "#7A2515", // vermillion.800
 
-  // Background colors
-  appBg: "#fafaf9", // neutralWarm-50
-  contentBg: "#ffffff",
-  sidebarBg: "#fafaf9", // neutralWarm-50
+  // Background colors (ink - pure neutrals)
+  appBg: "#FAFAFA", // ink.50
+  contentBg: "#FFFFFF", // pure white
+  sidebarBg: "#FAFAFA", // ink.50
 
-  // Text colors
-  textPrimary: "#0c0a09", // neutralWarm-950
-  textSecondary: "#44403c", // neutralWarm-700
-  textMuted: "#78716c", // neutralWarm-500
-  textInverse: "#fafaf9", // neutralWarm-50
+  // Text colors (ink)
+  textPrimary: "#171717", // ink.950
+  textSecondary: "#525252", // ink.700
+  textMuted: "#A3A3A3", // ink.500
+  textInverse: "#FFFFFF",
 
-  // Border colors
-  border: "#e7e5e4", // neutralWarm-200
-  borderLight: "#f5f5f4", // neutralWarm-100
+  // Border colors (ink)
+  border: "#D4D4D4", // ink.300
+  borderLight: "#E5E5E5", // ink.200
 
-  // Interactive states
-  selected: "#ffedd5", // orange-100
-  selectedText: "#c2410c", // orange-700
-  hover: "#f5f5f4", // neutralWarm-100
-  focus: "#f97316", // orange-500
+  // Interactive states (vermillion accent)
+  selected: "#FEE2E2", // vermillion.100 approx
+  selectedText: "#7A2515", // vermillion.800
+  hover: "#F5F5F5", // ink.100
+  focus: "#C13B1E", // vermillion.600
 
-  // Status colors (for badges)
-  success: "#dcfce7", // green-100
-  successText: "#166534", // green-800
-  warning: "#fef3c7", // amber-100
-  warningText: "#92400e", // amber-800
-  error: "#fee2e2", // red-100
-  errorText: "#991b1b", // red-800
-  info: "#dbeafe", // blue-100
-  infoText: "#1e40af", // blue-800
-  purple: "#f3e8ff", // purple-100
-  purpleText: "#6b21a8", // purple-800
+  // Status colors (keep same)
+  success: "#dcfce7",
+  successText: "#166534",
+  warning: "#fef3c7",
+  warningText: "#92400e",
+  error: "#fee2e2",
+  errorText: "#991b1b",
+  info: "#dbeafe",
+  infoText: "#1e40af",
+  purple: "#f3e8ff",
+  purpleText: "#6b21a8",
 } as const;
 
 /**
  * Dark mode color palette
- * Inverted warm neutrals with adjusted orange for dark backgrounds
+ * Brutalist design language with Vermillion accent and Ink neutrals
+ *
+ * Key mappings:
+ * - primary → vermillion.500
+ * - primaryHover → vermillion.400
+ * - appBg → ink.950
+ * - contentBg → near black (per requirement: previews should be black in dark mode)
+ * - textPrimary → ink.50
+ * - border → ink.800
  */
 export const darkPalette = {
-  // Primary colors (orange - adjusted for dark mode)
-  primary: "#fb923c", // orange-400
-  primaryHover: "#f97316", // orange-500
-  primaryLight: "#431407", // orange-950
-  primaryDark: "#fdba74", // orange-300
+  // Primary colors (vermillion - adjusted for dark mode)
+  primary: "#D4553B", // vermillion.500
+  primaryHover: "#E07159", // vermillion.400
+  primaryLight: "#450A0A", // vermillion.950 approx
+  primaryDark: "#C13B1E", // vermillion.600
 
-  // Background colors
-  appBg: "#0c0a09", // neutralWarm-950
-  contentBg: "#1c1917", // neutralWarm-900
-  sidebarBg: "#0c0a09", // neutralWarm-950
+  // Background colors (ink - inverted)
+  appBg: "#171717", // ink.950
+  contentBg: "#0A0A0A", // near black
+  sidebarBg: "#171717", // ink.950
 
-  // Text colors
-  textPrimary: "#fafaf9", // neutralWarm-50
-  textSecondary: "#d6d3d1", // neutralWarm-300
-  textMuted: "#a8a29e", // neutralWarm-400
-  textInverse: "#0c0a09", // neutralWarm-950
+  // Text colors (ink - inverted)
+  textPrimary: "#FAFAFA", // ink.50
+  textSecondary: "#D4D4D4", // ink.300
+  textMuted: "#A3A3A3", // ink.500
+  textInverse: "#171717",
 
-  // Border colors
-  border: "#292524", // neutralWarm-800
-  borderLight: "#1c1917", // neutralWarm-900
+  // Border colors (ink - inverted)
+  border: "#404040", // ink.800
+  borderLight: "#262626", // ink.900
 
   // Interactive states
-  selected: "#431407", // orange-950
-  selectedText: "#fb923c", // orange-400
-  hover: "#1c1917", // neutralWarm-900
-  focus: "#fb923c", // orange-400
+  selected: "#450A0A", // vermillion.950 approx
+  selectedText: "#D4553B", // vermillion.500
+  hover: "#262626", // ink.900
+  focus: "#D4553B", // vermillion.500
 
-  // Status colors (for badges - dark mode variants)
-  success: "#14532d", // green-900
-  successText: "#86efac", // green-300
-  warning: "#78350f", // amber-900
-  warningText: "#fcd34d", // amber-300
-  error: "#7f1d1d", // red-900
-  errorText: "#fca5a5", // red-300
-  info: "#1e3a8a", // blue-900
-  infoText: "#93c5fd", // blue-300
-  purple: "#581c87", // purple-900
-  purpleText: "#d8b4fe", // purple-300
+  // Status colors (dark mode - keep same)
+  success: "#14532d",
+  successText: "#86efac",
+  warning: "#78350f",
+  warningText: "#fcd34d",
+  error: "#7f1d1d",
+  errorText: "#fca5a5",
+  info: "#1e3a8a",
+  infoText: "#93c5fd",
+  purple: "#581c87",
+  purpleText: "#d8b4fe",
 } as const;
 
 // ============================================================================
-// Typography
+// Typography - Aligned with Sando Flavor font.family tokens
 // ============================================================================
 
 export const typography = {
+  // Headings: Barlow Condensed (brutalist)
+  fontHeading: '"Barlow Condensed", "Arial Narrow", sans-serif',
+  // Body: Inter
   fontBase:
     '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-  fontCode: '"Fira Code", "JetBrains Mono", Consolas, monospace',
+  // Code: JetBrains Mono
+  fontCode: '"JetBrains Mono", "Fira Code", Consolas, monospace',
 } as const;
 
 // ============================================================================
-// Layout
+// Layout - Aligned with Sando Flavor border.radius tokens
 // ============================================================================
 
 export const layout = {
-  appBorderRadius: 8,
-  inputBorderRadius: 4,
+  // border.radius.emphasis → 4px (brutalist - sharper)
+  appBorderRadius: 4,
+  // border.radius.muted → 2px
+  inputBorderRadius: 2,
 } as const;
 
 // ============================================================================
-// Timing
+// Timing - Aligned with Sando Flavor animation.duration tokens
 // ============================================================================
 
 export const timing = {
-  fast: "200ms",
-  normal: "300ms",
+  // animation.duration.fast → 100ms
+  fast: "100ms",
+  // animation.duration.normal → 200ms
+  normal: "200ms",
 } as const;
 
 // Type exports

@@ -61,41 +61,50 @@ Choose the palette that matches your brand personality. All palettes include 11 
 
 **Use case:** Premium food brands, artisanal products, warm & inviting experiences
 
-<div
-  style={{
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))",
-    gap: "16px",
-    marginTop: "24px",
-  }}
->
-  {[50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950].map((shade) => (
-    <div
-      key={shade}
-      style={{ display: "flex", flexDirection: "column", gap: "8px" }}
-    >
-      <div
-        style={{
-          backgroundColor: `var(--sando-color-orange-${shade})`,
-          height: "80px",
-          borderRadius: "8px",
-          border: "1px solid rgba(0,0,0,0.1)",
-          boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
-        }}
-      />
-      <div style={{ fontSize: "12px", fontWeight: "600" }}>orange-{shade}</div>
-      <div
-        style={{
-          fontSize: "11px",
-          color: "#44403c",
-          fontFamily: "monospace",
-        }}
-      >
-        --sando-color-orange-{shade}
-      </div>
-    </div>
-  ))}
-</div>
+<table style={{ width: "100%", marginTop: "24px" }}>
+  <thead>
+    <tr>
+      <th style={{ width: "60px" }}>Swatch</th>
+      <th style={{ width: "100px" }}>Name</th>
+      <th>Token</th>
+      <th style={{ width: "180px" }}>OKLCH</th>
+    </tr>
+  </thead>
+  <tbody>
+    {[
+      { shade: 50, oklch: "oklch(0.985 0.02 38)" },
+      { shade: 100, oklch: "oklch(0.96 0.03 38)" },
+      { shade: 200, oklch: "oklch(0.92 0.05 38)" },
+      { shade: 300, oklch: "oklch(0.84 0.08 38)" },
+      { shade: 400, oklch: "oklch(0.74 0.10 38)" },
+      { shade: 500, oklch: "oklch(0.65 0.12 38)" },
+      { shade: 600, oklch: "oklch(0.56 0.12 38)" },
+      { shade: 700, oklch: "oklch(0.47 0.11 38)" },
+      { shade: 800, oklch: "oklch(0.38 0.09 38)" },
+      { shade: 900, oklch: "oklch(0.30 0.07 38)" },
+      { shade: 950, oklch: "oklch(0.22 0.06 38)" },
+    ].map(({ shade, oklch }) => (
+      <tr key={shade}>
+        <td>
+          <div
+            style={{
+              backgroundColor: `var(--sando-color-orange-${shade})`,
+              width: "40px",
+              height: "28px",
+              borderRadius: "4px",
+              border: "1px solid var(--sb-docs-border)",
+            }}
+          />
+        </td>
+        <td style={{ fontWeight: 500 }}>orange-{shade}</td>
+        <td>
+          <code>--sando-color-orange-{shade}</code>
+        </td>
+        <td style={{ fontFamily: "monospace", fontSize: "12px" }}>{oklch}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>
 
 ### Yellow → Sando Custard (Soft, Buttery, Gentle)
 
@@ -103,41 +112,50 @@ Choose the palette that matches your brand personality. All palettes include 11 
 
 **Use case:** Friendly messaging, food & lifestyle, approachable brands
 
-<div
-  style={{
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))",
-    gap: "16px",
-    marginTop: "24px",
-  }}
->
-  {[50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950].map((shade) => (
-    <div
-      key={shade}
-      style={{ display: "flex", flexDirection: "column", gap: "8px" }}
-    >
-      <div
-        style={{
-          backgroundColor: `var(--sando-color-yellow-${shade})`,
-          height: "80px",
-          borderRadius: "8px",
-          border: "1px solid rgba(0,0,0,0.1)",
-          boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
-        }}
-      />
-      <div style={{ fontSize: "12px", fontWeight: "600" }}>yellow-{shade}</div>
-      <div
-        style={{
-          fontSize: "11px",
-          color: "#44403c",
-          fontFamily: "monospace",
-        }}
-      >
-        --sando-color-yellow-{shade}
-      </div>
-    </div>
-  ))}
-</div>
+<table style={{ width: "100%", marginTop: "24px" }}>
+  <thead>
+    <tr>
+      <th style={{ width: "60px" }}>Swatch</th>
+      <th style={{ width: "100px" }}>Name</th>
+      <th>Token</th>
+      <th style={{ width: "180px" }}>OKLCH</th>
+    </tr>
+  </thead>
+  <tbody>
+    {[
+      { shade: 50, oklch: "oklch(0.985 0.02 90)" },
+      { shade: 100, oklch: "oklch(0.96 0.04 90)" },
+      { shade: 200, oklch: "oklch(0.92 0.06 90)" },
+      { shade: 300, oklch: "oklch(0.84 0.09 90)" },
+      { shade: 400, oklch: "oklch(0.78 0.10 90)" },
+      { shade: 500, oklch: "oklch(0.75 0.10 90)" },
+      { shade: 600, oklch: "oklch(0.60 0.09 90)" },
+      { shade: 700, oklch: "oklch(0.50 0.08 90)" },
+      { shade: 800, oklch: "oklch(0.40 0.07 90)" },
+      { shade: 900, oklch: "oklch(0.32 0.05 90)" },
+      { shade: 950, oklch: "oklch(0.24 0.04 90)" },
+    ].map(({ shade, oklch }) => (
+      <tr key={shade}>
+        <td>
+          <div
+            style={{
+              backgroundColor: `var(--sando-color-yellow-${shade})`,
+              width: "40px",
+              height: "28px",
+              borderRadius: "4px",
+              border: "1px solid var(--sb-docs-border)",
+            }}
+          />
+        </td>
+        <td style={{ fontWeight: 500 }}>yellow-{shade}</td>
+        <td>
+          <code>--sando-color-yellow-{shade}</code>
+        </td>
+        <td style={{ fontFamily: "monospace", fontSize: "12px" }}>{oklch}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>
 
 ### Brown → Sando Toast (Rich, Earthy, Premium)
 
@@ -145,41 +163,50 @@ Choose the palette that matches your brand personality. All palettes include 11 
 
 **Use case:** Craft brands, premium goods, coffee & bakery, artisanal feel
 
-<div
-  style={{
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))",
-    gap: "16px",
-    marginTop: "24px",
-  }}
->
-  {[50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950].map((shade) => (
-    <div
-      key={shade}
-      style={{ display: "flex", flexDirection: "column", gap: "8px" }}
-    >
-      <div
-        style={{
-          backgroundColor: `var(--sando-color-brown-${shade})`,
-          height: "80px",
-          borderRadius: "8px",
-          border: "1px solid rgba(0,0,0,0.1)",
-          boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
-        }}
-      />
-      <div style={{ fontSize: "12px", fontWeight: "600" }}>brown-{shade}</div>
-      <div
-        style={{
-          fontSize: "11px",
-          color: "#44403c",
-          fontFamily: "monospace",
-        }}
-      >
-        --sando-color-brown-{shade}
-      </div>
-    </div>
-  ))}
-</div>
+<table style={{ width: "100%", marginTop: "24px" }}>
+  <thead>
+    <tr>
+      <th style={{ width: "60px" }}>Swatch</th>
+      <th style={{ width: "100px" }}>Name</th>
+      <th>Token</th>
+      <th style={{ width: "180px" }}>OKLCH</th>
+    </tr>
+  </thead>
+  <tbody>
+    {[
+      { shade: 50, oklch: "oklch(0.985 0.015 50)" },
+      { shade: 100, oklch: "oklch(0.96 0.02 50)" },
+      { shade: 200, oklch: "oklch(0.92 0.035 50)" },
+      { shade: 300, oklch: "oklch(0.84 0.05 50)" },
+      { shade: 400, oklch: "oklch(0.74 0.07 50)" },
+      { shade: 500, oklch: "oklch(0.65 0.08 50)" },
+      { shade: 600, oklch: "oklch(0.55 0.08 50)" },
+      { shade: 700, oklch: "oklch(0.46 0.07 50)" },
+      { shade: 800, oklch: "oklch(0.37 0.06 50)" },
+      { shade: 900, oklch: "oklch(0.29 0.05 50)" },
+      { shade: 950, oklch: "oklch(0.21 0.04 50)" },
+    ].map(({ shade, oklch }) => (
+      <tr key={shade}>
+        <td>
+          <div
+            style={{
+              backgroundColor: `var(--sando-color-brown-${shade})`,
+              width: "40px",
+              height: "28px",
+              borderRadius: "4px",
+              border: "1px solid var(--sb-docs-border)",
+            }}
+          />
+        </td>
+        <td style={{ fontWeight: 500 }}>brown-{shade}</td>
+        <td>
+          <code>--sando-color-brown-{shade}</code>
+        </td>
+        <td style={{ fontFamily: "monospace", fontSize: "12px" }}>{oklch}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>
 
 ### Red → Sando Terracotta (Warm, Grounded, Confident)
 
@@ -187,41 +214,50 @@ Choose the palette that matches your brand personality. All palettes include 11 
 
 **Use case:** Alerts with warmth, premium urgency, confident CTAs
 
-<div
-  style={{
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))",
-    gap: "16px",
-    marginTop: "24px",
-  }}
->
-  {[50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950].map((shade) => (
-    <div
-      key={shade}
-      style={{ display: "flex", flexDirection: "column", gap: "8px" }}
-    >
-      <div
-        style={{
-          backgroundColor: `var(--sando-color-red-${shade})`,
-          height: "80px",
-          borderRadius: "8px",
-          border: "1px solid rgba(0,0,0,0.1)",
-          boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
-        }}
-      />
-      <div style={{ fontSize: "12px", fontWeight: "600" }}>red-{shade}</div>
-      <div
-        style={{
-          fontSize: "11px",
-          color: "#44403c",
-          fontFamily: "monospace",
-        }}
-      >
-        --sando-color-red-{shade}
-      </div>
-    </div>
-  ))}
-</div>
+<table style={{ width: "100%", marginTop: "24px" }}>
+  <thead>
+    <tr>
+      <th style={{ width: "60px" }}>Swatch</th>
+      <th style={{ width: "100px" }}>Name</th>
+      <th>Token</th>
+      <th style={{ width: "180px" }}>OKLCH</th>
+    </tr>
+  </thead>
+  <tbody>
+    {[
+      { shade: 50, oklch: "oklch(0.985 0.02 15)" },
+      { shade: 100, oklch: "oklch(0.96 0.03 15)" },
+      { shade: 200, oklch: "oklch(0.92 0.06 15)" },
+      { shade: 300, oklch: "oklch(0.84 0.10 15)" },
+      { shade: 400, oklch: "oklch(0.74 0.12 15)" },
+      { shade: 500, oklch: "oklch(0.65 0.14 15)" },
+      { shade: 600, oklch: "oklch(0.56 0.14 15)" },
+      { shade: 700, oklch: "oklch(0.47 0.12 15)" },
+      { shade: 800, oklch: "oklch(0.38 0.10 15)" },
+      { shade: 900, oklch: "oklch(0.30 0.08 15)" },
+      { shade: 950, oklch: "oklch(0.22 0.06 15)" },
+    ].map(({ shade, oklch }) => (
+      <tr key={shade}>
+        <td>
+          <div
+            style={{
+              backgroundColor: `var(--sando-color-red-${shade})`,
+              width: "40px",
+              height: "28px",
+              borderRadius: "4px",
+              border: "1px solid var(--sb-docs-border)",
+            }}
+          />
+        </td>
+        <td style={{ fontWeight: 500 }}>red-{shade}</td>
+        <td>
+          <code>--sando-color-red-{shade}</code>
+        </td>
+        <td style={{ fontFamily: "monospace", fontSize: "12px" }}>{oklch}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>
 
 ### Pink → Sando Sakura (Soft, Romantic, Refined)
 
@@ -229,41 +265,50 @@ Choose the palette that matches your brand personality. All palettes include 11 
 
 **Use case:** Fashion, beauty, lifestyle, elegant feminine brands
 
-<div
-  style={{
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))",
-    gap: "16px",
-    marginTop: "24px",
-  }}
->
-  {[50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950].map((shade) => (
-    <div
-      key={shade}
-      style={{ display: "flex", flexDirection: "column", gap: "8px" }}
-    >
-      <div
-        style={{
-          backgroundColor: `var(--sando-color-pink-${shade})`,
-          height: "80px",
-          borderRadius: "8px",
-          border: "1px solid rgba(0,0,0,0.1)",
-          boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
-        }}
-      />
-      <div style={{ fontSize: "12px", fontWeight: "600" }}>pink-{shade}</div>
-      <div
-        style={{
-          fontSize: "11px",
-          color: "#44403c",
-          fontFamily: "monospace",
-        }}
-      >
-        --sando-color-pink-{shade}
-      </div>
-    </div>
-  ))}
-</div>
+<table style={{ width: "100%", marginTop: "24px" }}>
+  <thead>
+    <tr>
+      <th style={{ width: "60px" }}>Swatch</th>
+      <th style={{ width: "100px" }}>Name</th>
+      <th>Token</th>
+      <th style={{ width: "180px" }}>OKLCH</th>
+    </tr>
+  </thead>
+  <tbody>
+    {[
+      { shade: 50, oklch: "oklch(0.985 0.02 350)" },
+      { shade: 100, oklch: "oklch(0.96 0.03 350)" },
+      { shade: 200, oklch: "oklch(0.92 0.05 350)" },
+      { shade: 300, oklch: "oklch(0.84 0.08 350)" },
+      { shade: 400, oklch: "oklch(0.74 0.10 350)" },
+      { shade: 500, oklch: "oklch(0.65 0.11 350)" },
+      { shade: 600, oklch: "oklch(0.56 0.11 350)" },
+      { shade: 700, oklch: "oklch(0.47 0.10 350)" },
+      { shade: 800, oklch: "oklch(0.38 0.08 350)" },
+      { shade: 900, oklch: "oklch(0.30 0.06 350)" },
+      { shade: 950, oklch: "oklch(0.22 0.05 350)" },
+    ].map(({ shade, oklch }) => (
+      <tr key={shade}>
+        <td>
+          <div
+            style={{
+              backgroundColor: `var(--sando-color-pink-${shade})`,
+              width: "40px",
+              height: "28px",
+              borderRadius: "4px",
+              border: "1px solid var(--sb-docs-border)",
+            }}
+          />
+        </td>
+        <td style={{ fontWeight: 500 }}>pink-{shade}</td>
+        <td>
+          <code>--sando-color-pink-{shade}</code>
+        </td>
+        <td style={{ fontFamily: "monospace", fontSize: "12px" }}>{oklch}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>
 
 ### Purple → Sando Plum (Sophisticated, Creative, Calm)
 
@@ -271,41 +316,50 @@ Choose the palette that matches your brand personality. All palettes include 11 
 
 **Use case:** Creative tools, premium experiences, calm luxury
 
-<div
-  style={{
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))",
-    gap: "16px",
-    marginTop: "24px",
-  }}
->
-  {[50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950].map((shade) => (
-    <div
-      key={shade}
-      style={{ display: "flex", flexDirection: "column", gap: "8px" }}
-    >
-      <div
-        style={{
-          backgroundColor: `var(--sando-color-purple-${shade})`,
-          height: "80px",
-          borderRadius: "8px",
-          border: "1px solid rgba(0,0,0,0.1)",
-          boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
-        }}
-      />
-      <div style={{ fontSize: "12px", fontWeight: "600" }}>purple-{shade}</div>
-      <div
-        style={{
-          fontSize: "11px",
-          color: "#44403c",
-          fontFamily: "monospace",
-        }}
-      >
-        --sando-color-purple-{shade}
-      </div>
-    </div>
-  ))}
-</div>
+<table style={{ width: "100%", marginTop: "24px" }}>
+  <thead>
+    <tr>
+      <th style={{ width: "60px" }}>Swatch</th>
+      <th style={{ width: "100px" }}>Name</th>
+      <th>Token</th>
+      <th style={{ width: "180px" }}>OKLCH</th>
+    </tr>
+  </thead>
+  <tbody>
+    {[
+      { shade: 50, oklch: "oklch(0.985 0.015 290)" },
+      { shade: 100, oklch: "oklch(0.96 0.025 290)" },
+      { shade: 200, oklch: "oklch(0.92 0.045 290)" },
+      { shade: 300, oklch: "oklch(0.84 0.07 290)" },
+      { shade: 400, oklch: "oklch(0.74 0.09 290)" },
+      { shade: 500, oklch: "oklch(0.65 0.10 290)" },
+      { shade: 600, oklch: "oklch(0.56 0.10 290)" },
+      { shade: 700, oklch: "oklch(0.47 0.09 290)" },
+      { shade: 800, oklch: "oklch(0.38 0.07 290)" },
+      { shade: 900, oklch: "oklch(0.30 0.06 290)" },
+      { shade: 950, oklch: "oklch(0.22 0.05 290)" },
+    ].map(({ shade, oklch }) => (
+      <tr key={shade}>
+        <td>
+          <div
+            style={{
+              backgroundColor: `var(--sando-color-purple-${shade})`,
+              width: "40px",
+              height: "28px",
+              borderRadius: "4px",
+              border: "1px solid var(--sb-docs-border)",
+            }}
+          />
+        </td>
+        <td style={{ fontWeight: 500 }}>purple-{shade}</td>
+        <td>
+          <code>--sando-color-purple-{shade}</code>
+        </td>
+        <td style={{ fontFamily: "monospace", fontSize: "12px" }}>{oklch}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>
 
 ### Blue → Sando Indigo (Deep, Trustworthy, Japanese)
 
@@ -313,41 +367,50 @@ Choose the palette that matches your brand personality. All palettes include 11 
 
 **Use case:** Professional tools, trustworthy brands, sophisticated tech
 
-<div
-  style={{
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))",
-    gap: "16px",
-    marginTop: "24px",
-  }}
->
-  {[50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950].map((shade) => (
-    <div
-      key={shade}
-      style={{ display: "flex", flexDirection: "column", gap: "8px" }}
-    >
-      <div
-        style={{
-          backgroundColor: `var(--sando-color-blue-${shade})`,
-          height: "80px",
-          borderRadius: "8px",
-          border: "1px solid rgba(0,0,0,0.1)",
-          boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
-        }}
-      />
-      <div style={{ fontSize: "12px", fontWeight: "600" }}>blue-{shade}</div>
-      <div
-        style={{
-          fontSize: "11px",
-          color: "#44403c",
-          fontFamily: "monospace",
-        }}
-      >
-        --sando-color-blue-{shade}
-      </div>
-    </div>
-  ))}
-</div>
+<table style={{ width: "100%", marginTop: "24px" }}>
+  <thead>
+    <tr>
+      <th style={{ width: "60px" }}>Swatch</th>
+      <th style={{ width: "100px" }}>Name</th>
+      <th>Token</th>
+      <th style={{ width: "180px" }}>OKLCH</th>
+    </tr>
+  </thead>
+  <tbody>
+    {[
+      { shade: 50, oklch: "oklch(0.985 0.015 230)" },
+      { shade: 100, oklch: "oklch(0.96 0.025 230)" },
+      { shade: 200, oklch: "oklch(0.92 0.045 230)" },
+      { shade: 300, oklch: "oklch(0.84 0.08 230)" },
+      { shade: 400, oklch: "oklch(0.74 0.10 230)" },
+      { shade: 500, oklch: "oklch(0.65 0.11 230)" },
+      { shade: 600, oklch: "oklch(0.56 0.11 230)" },
+      { shade: 700, oklch: "oklch(0.47 0.10 230)" },
+      { shade: 800, oklch: "oklch(0.38 0.08 230)" },
+      { shade: 900, oklch: "oklch(0.30 0.07 230)" },
+      { shade: 950, oklch: "oklch(0.22 0.05 230)" },
+    ].map(({ shade, oklch }) => (
+      <tr key={shade}>
+        <td>
+          <div
+            style={{
+              backgroundColor: `var(--sando-color-blue-${shade})`,
+              width: "40px",
+              height: "28px",
+              borderRadius: "4px",
+              border: "1px solid var(--sb-docs-border)",
+            }}
+          />
+        </td>
+        <td style={{ fontWeight: 500 }}>blue-{shade}</td>
+        <td>
+          <code>--sando-color-blue-{shade}</code>
+        </td>
+        <td style={{ fontFamily: "monospace", fontSize: "12px" }}>{oklch}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>
 
 ### Green → Sando Matcha (Natural, Calm, Organic)
 
@@ -355,41 +418,50 @@ Choose the palette that matches your brand personality. All palettes include 11 
 
 **Use case:** Sustainability, health & wellness, organic brands
 
-<div
-  style={{
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))",
-    gap: "16px",
-    marginTop: "24px",
-  }}
->
-  {[50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950].map((shade) => (
-    <div
-      key={shade}
-      style={{ display: "flex", flexDirection: "column", gap: "8px" }}
-    >
-      <div
-        style={{
-          backgroundColor: `var(--sando-color-green-${shade})`,
-          height: "80px",
-          borderRadius: "8px",
-          border: "1px solid rgba(0,0,0,0.1)",
-          boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
-        }}
-      />
-      <div style={{ fontSize: "12px", fontWeight: "600" }}>green-{shade}</div>
-      <div
-        style={{
-          fontSize: "11px",
-          color: "#44403c",
-          fontFamily: "monospace",
-        }}
-      >
-        --sando-color-green-{shade}
-      </div>
-    </div>
-  ))}
-</div>
+<table style={{ width: "100%", marginTop: "24px" }}>
+  <thead>
+    <tr>
+      <th style={{ width: "60px" }}>Swatch</th>
+      <th style={{ width: "100px" }}>Name</th>
+      <th>Token</th>
+      <th style={{ width: "180px" }}>OKLCH</th>
+    </tr>
+  </thead>
+  <tbody>
+    {[
+      { shade: 50, oklch: "oklch(0.985 0.015 145)" },
+      { shade: 100, oklch: "oklch(0.96 0.025 145)" },
+      { shade: 200, oklch: "oklch(0.92 0.04 145)" },
+      { shade: 300, oklch: "oklch(0.84 0.07 145)" },
+      { shade: 400, oklch: "oklch(0.74 0.09 145)" },
+      { shade: 500, oklch: "oklch(0.65 0.10 145)" },
+      { shade: 600, oklch: "oklch(0.56 0.10 145)" },
+      { shade: 700, oklch: "oklch(0.47 0.09 145)" },
+      { shade: 800, oklch: "oklch(0.38 0.07 145)" },
+      { shade: 900, oklch: "oklch(0.30 0.06 145)" },
+      { shade: 950, oklch: "oklch(0.22 0.05 145)" },
+    ].map(({ shade, oklch }) => (
+      <tr key={shade}>
+        <td>
+          <div
+            style={{
+              backgroundColor: `var(--sando-color-green-${shade})`,
+              width: "40px",
+              height: "28px",
+              borderRadius: "4px",
+              border: "1px solid var(--sb-docs-border)",
+            }}
+          />
+        </td>
+        <td style={{ fontWeight: 500 }}>green-{shade}</td>
+        <td>
+          <code>--sando-color-green-{shade}</code>
+        </td>
+        <td style={{ fontFamily: "monospace", fontSize: "12px" }}>{oklch}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>
 
 ---
 
@@ -403,41 +475,50 @@ Choose the neutral that complements your brand palette. Each variant includes 11
 
 **Use case:** Pairs well with any brand color, true neutral feel
 
-<div
-  style={{
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))",
-    gap: "16px",
-    marginTop: "24px",
-  }}
->
-  {[50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950].map((shade) => (
-    <div
-      key={shade}
-      style={{ display: "flex", flexDirection: "column", gap: "8px" }}
-    >
-      <div
-        style={{
-          backgroundColor: `var(--sando-color-neutral-${shade})`,
-          height: "80px",
-          borderRadius: "8px",
-          border: "1px solid rgba(0,0,0,0.1)",
-          boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
-        }}
-      />
-      <div style={{ fontSize: "12px", fontWeight: "600" }}>neutral-{shade}</div>
-      <div
-        style={{
-          fontSize: "11px",
-          color: "#44403c",
-          fontFamily: "monospace",
-        }}
-      >
-        --sando-color-neutral-{shade}
-      </div>
-    </div>
-  ))}
-</div>
+<table style={{ width: "100%", marginTop: "24px" }}>
+  <thead>
+    <tr>
+      <th style={{ width: "60px" }}>Swatch</th>
+      <th style={{ width: "100px" }}>Name</th>
+      <th>Token</th>
+      <th style={{ width: "180px" }}>OKLCH</th>
+    </tr>
+  </thead>
+  <tbody>
+    {[
+      { shade: 50, oklch: "oklch(0.98 0.005 0)" },
+      { shade: 100, oklch: "oklch(0.95 0.005 0)" },
+      { shade: 200, oklch: "oklch(0.9 0.005 0)" },
+      { shade: 300, oklch: "oklch(0.82 0.005 0)" },
+      { shade: 400, oklch: "oklch(0.73 0.005 0)" },
+      { shade: 500, oklch: "oklch(0.64 0.005 0)" },
+      { shade: 600, oklch: "oklch(0.56 0.005 0)" },
+      { shade: 700, oklch: "oklch(0.47 0.005 0)" },
+      { shade: 800, oklch: "oklch(0.38 0.005 0)" },
+      { shade: 900, oklch: "oklch(0.3 0.005 0)" },
+      { shade: 950, oklch: "oklch(0.22 0.005 0)" },
+    ].map(({ shade, oklch }) => (
+      <tr key={shade}>
+        <td>
+          <div
+            style={{
+              backgroundColor: `var(--sando-color-neutral-${shade})`,
+              width: "40px",
+              height: "28px",
+              borderRadius: "4px",
+              border: "1px solid var(--sb-docs-border)",
+            }}
+          />
+        </td>
+        <td style={{ fontWeight: 500 }}>neutral-{shade}</td>
+        <td>
+          <code>--sando-color-neutral-{shade}</code>
+        </td>
+        <td style={{ fontFamily: "monospace", fontSize: "12px" }}>{oklch}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>
 
 ### Neutral Cool (Slight Blue Tint - Clean)
 
@@ -445,43 +526,50 @@ Choose the neutral that complements your brand palette. Each variant includes 11
 
 **Use case:** Pairs with blue, purple, teal brands for sophistication
 
-<div
-  style={{
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))",
-    gap: "16px",
-    marginTop: "24px",
-  }}
->
-  {[50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950].map((shade) => (
-    <div
-      key={shade}
-      style={{ display: "flex", flexDirection: "column", gap: "8px" }}
-    >
-      <div
-        style={{
-          backgroundColor: `var(--sando-color-neutralCool-${shade})`,
-          height: "80px",
-          borderRadius: "8px",
-          border: "1px solid rgba(0,0,0,0.1)",
-          boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
-        }}
-      />
-      <div style={{ fontSize: "12px", fontWeight: "600" }}>
-        neutralCool-{shade}
-      </div>
-      <div
-        style={{
-          fontSize: "11px",
-          color: "#44403c",
-          fontFamily: "monospace",
-        }}
-      >
-        --sando-color-neutralCool-{shade}
-      </div>
-    </div>
-  ))}
-</div>
+<table style={{ width: "100%", marginTop: "24px" }}>
+  <thead>
+    <tr>
+      <th style={{ width: "60px" }}>Swatch</th>
+      <th style={{ width: "100px" }}>Name</th>
+      <th>Token</th>
+      <th style={{ width: "180px" }}>OKLCH</th>
+    </tr>
+  </thead>
+  <tbody>
+    {[
+      { shade: 50, oklch: "oklch(0.98 0.018 220)" },
+      { shade: 100, oklch: "oklch(0.95 0.018 220)" },
+      { shade: 200, oklch: "oklch(0.9 0.018 220)" },
+      { shade: 300, oklch: "oklch(0.82 0.018 220)" },
+      { shade: 400, oklch: "oklch(0.73 0.018 220)" },
+      { shade: 500, oklch: "oklch(0.64 0.018 220)" },
+      { shade: 600, oklch: "oklch(0.56 0.018 220)" },
+      { shade: 700, oklch: "oklch(0.47 0.018 220)" },
+      { shade: 800, oklch: "oklch(0.38 0.018 220)" },
+      { shade: 900, oklch: "oklch(0.3 0.018 220)" },
+      { shade: 950, oklch: "oklch(0.22 0.018 220)" },
+    ].map(({ shade, oklch }) => (
+      <tr key={shade}>
+        <td>
+          <div
+            style={{
+              backgroundColor: `var(--sando-color-neutralCool-${shade})`,
+              width: "40px",
+              height: "28px",
+              borderRadius: "4px",
+              border: "1px solid var(--sb-docs-border)",
+            }}
+          />
+        </td>
+        <td style={{ fontWeight: 500 }}>neutralCool-{shade}</td>
+        <td>
+          <code>--sando-color-neutralCool-{shade}</code>
+        </td>
+        <td style={{ fontFamily: "monospace", fontSize: "12px" }}>{oklch}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>
 
 ### Neutral Warm (Slight Brown Tint - Cozy)
 
@@ -489,43 +577,50 @@ Choose the neutral that complements your brand palette. Each variant includes 11
 
 **Use case:** Pairs with orange, red, yellow brands for warmth
 
-<div
-  style={{
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))",
-    gap: "16px",
-    marginTop: "24px",
-  }}
->
-  {[50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950].map((shade) => (
-    <div
-      key={shade}
-      style={{ display: "flex", flexDirection: "column", gap: "8px" }}
-    >
-      <div
-        style={{
-          backgroundColor: `var(--sando-color-neutralWarm-${shade})`,
-          height: "80px",
-          borderRadius: "8px",
-          border: "1px solid rgba(0,0,0,0.1)",
-          boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
-        }}
-      />
-      <div style={{ fontSize: "12px", fontWeight: "600" }}>
-        neutralWarm-{shade}
-      </div>
-      <div
-        style={{
-          fontSize: "11px",
-          color: "#44403c",
-          fontFamily: "monospace",
-        }}
-      >
-        --sando-color-neutralWarm-{shade}
-      </div>
-    </div>
-  ))}
-</div>
+<table style={{ width: "100%", marginTop: "24px" }}>
+  <thead>
+    <tr>
+      <th style={{ width: "60px" }}>Swatch</th>
+      <th style={{ width: "100px" }}>Name</th>
+      <th>Token</th>
+      <th style={{ width: "180px" }}>OKLCH</th>
+    </tr>
+  </thead>
+  <tbody>
+    {[
+      { shade: 50, oklch: "oklch(0.98 0.018 30)" },
+      { shade: 100, oklch: "oklch(0.95 0.018 30)" },
+      { shade: 200, oklch: "oklch(0.9 0.018 30)" },
+      { shade: 300, oklch: "oklch(0.82 0.018 30)" },
+      { shade: 400, oklch: "oklch(0.73 0.018 30)" },
+      { shade: 500, oklch: "oklch(0.64 0.018 30)" },
+      { shade: 600, oklch: "oklch(0.56 0.018 30)" },
+      { shade: 700, oklch: "oklch(0.47 0.018 30)" },
+      { shade: 800, oklch: "oklch(0.38 0.018 30)" },
+      { shade: 900, oklch: "oklch(0.3 0.018 30)" },
+      { shade: 950, oklch: "oklch(0.22 0.018 30)" },
+    ].map(({ shade, oklch }) => (
+      <tr key={shade}>
+        <td>
+          <div
+            style={{
+              backgroundColor: `var(--sando-color-neutralWarm-${shade})`,
+              width: "40px",
+              height: "28px",
+              borderRadius: "4px",
+              border: "1px solid var(--sb-docs-border)",
+            }}
+          />
+        </td>
+        <td style={{ fontWeight: 500 }}>neutralWarm-{shade}</td>
+        <td>
+          <code>--sando-color-neutralWarm-{shade}</code>
+        </td>
+        <td style={{ fontFamily: "monospace", fontSize: "12px" }}>{oklch}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>
 
 ---
 
@@ -537,161 +632,175 @@ Semantic colors for communicating status, feedback, and actions.
 
 For destructive actions, errors, and critical warnings.
 
-<div
-  style={{
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))",
-    gap: "16px",
-    marginTop: "24px",
-  }}
->
-  {[100, 300, 400, 500, 600, 700, 900].map((shade) => (
-    <div
-      key={shade}
-      style={{ display: "flex", flexDirection: "column", gap: "8px" }}
-    >
-      <div
-        style={{
-          backgroundColor: `var(--sando-color-state-error-${shade})`,
-          height: "80px",
-          borderRadius: "8px",
-          border: "1px solid rgba(0,0,0,0.1)",
-          boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
-        }}
-      />
-      <div style={{ fontSize: "12px", fontWeight: "600" }}>error-{shade}</div>
-      <div
-        style={{
-          fontSize: "11px",
-          color: "#44403c",
-          fontFamily: "monospace",
-        }}
-      >
-        --sando-color-state-error-{shade}
-      </div>
-    </div>
-  ))}
-</div>
+<table style={{ width: "100%", marginTop: "24px" }}>
+  <thead>
+    <tr>
+      <th style={{ width: "60px" }}>Swatch</th>
+      <th style={{ width: "100px" }}>Name</th>
+      <th>Token</th>
+      <th style={{ width: "180px" }}>OKLCH</th>
+    </tr>
+  </thead>
+  <tbody>
+    {[
+      { shade: 100, oklch: "oklch(0.92 0.04 15)" },
+      { shade: 300, oklch: "oklch(0.78 0.12 15)" },
+      { shade: 400, oklch: "oklch(0.70 0.15 15)" },
+      { shade: 500, oklch: "oklch(0.62 0.18 15)" },
+      { shade: 600, oklch: "oklch(0.54 0.16 15)" },
+      { shade: 700, oklch: "oklch(0.46 0.14 15)" },
+      { shade: 900, oklch: "oklch(0.36 0.10 15)" },
+    ].map(({ shade, oklch }) => (
+      <tr key={shade}>
+        <td>
+          <div
+            style={{
+              backgroundColor: `var(--sando-color-state-error-${shade})`,
+              width: "40px",
+              height: "28px",
+              borderRadius: "4px",
+              border: "1px solid var(--sb-docs-border)",
+            }}
+          />
+        </td>
+        <td style={{ fontWeight: 500 }}>error-{shade}</td>
+        <td>
+          <code>--sando-color-state-error-{shade}</code>
+        </td>
+        <td style={{ fontFamily: "monospace", fontSize: "12px" }}>{oklch}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>
 
 ### Success
 
 For positive feedback, confirmations, and successful operations.
 
-<div
-  style={{
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))",
-    gap: "16px",
-    marginTop: "24px",
-  }}
->
-  {[100, 300, 400, 500, 600, 700, 900].map((shade) => (
-    <div
-      key={shade}
-      style={{ display: "flex", flexDirection: "column", gap: "8px" }}
-    >
-      <div
-        style={{
-          backgroundColor: `var(--sando-color-state-success-${shade})`,
-          height: "80px",
-          borderRadius: "8px",
-          border: "1px solid rgba(0,0,0,0.1)",
-          boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
-        }}
-      />
-      <div style={{ fontSize: "12px", fontWeight: "600" }}>success-{shade}</div>
-      <div
-        style={{
-          fontSize: "11px",
-          color: "#44403c",
-          fontFamily: "monospace",
-        }}
-      >
-        --sando-color-state-success-{shade}
-      </div>
-    </div>
-  ))}
-</div>
+<table style={{ width: "100%", marginTop: "24px" }}>
+  <thead>
+    <tr>
+      <th style={{ width: "60px" }}>Swatch</th>
+      <th style={{ width: "100px" }}>Name</th>
+      <th>Token</th>
+      <th style={{ width: "180px" }}>OKLCH</th>
+    </tr>
+  </thead>
+  <tbody>
+    {[
+      { shade: 100, oklch: "oklch(0.92 0.03 145)" },
+      { shade: 300, oklch: "oklch(0.78 0.08 145)" },
+      { shade: 400, oklch: "oklch(0.68 0.10 145)" },
+      { shade: 500, oklch: "oklch(0.60 0.11 145)" },
+      { shade: 600, oklch: "oklch(0.52 0.10 145)" },
+      { shade: 700, oklch: "oklch(0.44 0.08 145)" },
+      { shade: 900, oklch: "oklch(0.34 0.06 145)" },
+    ].map(({ shade, oklch }) => (
+      <tr key={shade}>
+        <td>
+          <div
+            style={{
+              backgroundColor: `var(--sando-color-state-success-${shade})`,
+              width: "40px",
+              height: "28px",
+              borderRadius: "4px",
+              border: "1px solid var(--sb-docs-border)",
+            }}
+          />
+        </td>
+        <td style={{ fontWeight: 500 }}>success-{shade}</td>
+        <td>
+          <code>--sando-color-state-success-{shade}</code>
+        </td>
+        <td style={{ fontFamily: "monospace", fontSize: "12px" }}>{oklch}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>
 
 ### Warning
 
 For cautionary messages and alerts.
 
-<div
-  style={{
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))",
-    gap: "16px",
-    marginTop: "24px",
-  }}
->
-  {[100, 500, 700].map((shade) => (
-    <div
-      key={shade}
-      style={{ display: "flex", flexDirection: "column", gap: "8px" }}
-    >
-      <div
-        style={{
-          backgroundColor: `var(--sando-color-state-warning-${shade})`,
-          height: "80px",
-          borderRadius: "8px",
-          border: "1px solid rgba(0,0,0,0.1)",
-          boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
-        }}
-      />
-      <div style={{ fontSize: "12px", fontWeight: "600" }}>warning-{shade}</div>
-      <div
-        style={{
-          fontSize: "11px",
-          color: "#44403c",
-          fontFamily: "monospace",
-        }}
-      >
-        --sando-color-state-warning-{shade}
-      </div>
-    </div>
-  ))}
-</div>
+<table style={{ width: "100%", marginTop: "24px" }}>
+  <thead>
+    <tr>
+      <th style={{ width: "60px" }}>Swatch</th>
+      <th style={{ width: "100px" }}>Name</th>
+      <th>Token</th>
+      <th style={{ width: "180px" }}>OKLCH</th>
+    </tr>
+  </thead>
+  <tbody>
+    {[
+      { shade: 100, oklch: "oklch(0.94 0.06 85)" },
+      { shade: 400, oklch: "oklch(0.82 0.12 85)" },
+      { shade: 500, oklch: "oklch(0.82 0.14 90)" },
+      { shade: 700, oklch: "oklch(0.68 0.14 60)" },
+    ].map(({ shade, oklch }) => (
+      <tr key={shade}>
+        <td>
+          <div
+            style={{
+              backgroundColor: `var(--sando-color-state-warning-${shade})`,
+              width: "40px",
+              height: "28px",
+              borderRadius: "4px",
+              border: "1px solid var(--sb-docs-border)",
+            }}
+          />
+        </td>
+        <td style={{ fontWeight: 500 }}>warning-{shade}</td>
+        <td>
+          <code>--sando-color-state-warning-{shade}</code>
+        </td>
+        <td style={{ fontFamily: "monospace", fontSize: "12px" }}>{oklch}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>
 
 ### Info
 
 For informational messages and tips.
 
-<div
-  style={{
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))",
-    gap: "16px",
-    marginTop: "24px",
-  }}
->
-  {[100, 500, 700].map((shade) => (
-    <div
-      key={shade}
-      style={{ display: "flex", flexDirection: "column", gap: "8px" }}
-    >
-      <div
-        style={{
-          backgroundColor: `var(--sando-color-state-info-${shade})`,
-          height: "80px",
-          borderRadius: "8px",
-          border: "1px solid rgba(0,0,0,0.1)",
-          boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
-        }}
-      />
-      <div style={{ fontSize: "12px", fontWeight: "600" }}>info-{shade}</div>
-      <div
-        style={{
-          fontSize: "11px",
-          color: "#44403c",
-          fontFamily: "monospace",
-        }}
-      >
-        --sando-color-state-info-{shade}
-      </div>
-    </div>
-  ))}
-</div>
+<table style={{ width: "100%", marginTop: "24px" }}>
+  <thead>
+    <tr>
+      <th style={{ width: "60px" }}>Swatch</th>
+      <th style={{ width: "100px" }}>Name</th>
+      <th>Token</th>
+      <th style={{ width: "180px" }}>OKLCH</th>
+    </tr>
+  </thead>
+  <tbody>
+    {[
+      { shade: 100, oklch: "oklch(0.96 0.02 250)" },
+      { shade: 400, oklch: "oklch(0.74 0.10 250)" },
+      { shade: 500, oklch: "oklch(0.60 0.13 250)" },
+      { shade: 700, oklch: "oklch(0.48 0.10 250)" },
+    ].map(({ shade, oklch }) => (
+      <tr key={shade}>
+        <td>
+          <div
+            style={{
+              backgroundColor: `var(--sando-color-state-info-${shade})`,
+              width: "40px",
+              height: "28px",
+              borderRadius: "4px",
+              border: "1px solid var(--sb-docs-border)",
+            }}
+          />
+        </td>
+        <td style={{ fontWeight: 500 }}>info-{shade}</td>
+        <td>
+          <code>--sando-color-state-info-{shade}</code>
+        </td>
+        <td style={{ fontFamily: "monospace", fontSize: "12px" }}>{oklch}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>
 
 ---
 
@@ -768,23 +877,23 @@ The color system is designed to work seamlessly in both light and dark modes.
 <div
   style={{
     padding: "24px",
-    background: "#FFF4E6",
+    background: "var(--sb-docs-warning-bg)",
     borderRadius: "8px",
-    border: "2px solid #FFB020",
+    border: "2px solid var(--sb-docs-warning-border)",
     marginTop: "32px",
   }}
 >
-  <h3 style={{ marginTop: 0, color: "#C77700" }}>
+  <h3 style={{ marginTop: 0, color: "var(--sb-docs-warning-text)" }}>
     Flavor Generator - Coming Soon
   </h3>
-  <p style={{ marginBottom: "16px" }}>
+  <p style={{ marginBottom: "16px", color: "var(--sb-docs-text-body)" }}>
     If none of our 8 palettes match your exact brand color, we're building a
     flavor generator:
   </p>
   <pre
     style={{
-      background: "#2D2D2D",
-      color: "#E6E6E6",
+      background: "var(--sb-docs-code-bg)",
+      color: "var(--sb-docs-code-text)",
       padding: "16px",
       borderRadius: "6px",
       overflow: "auto",
@@ -792,17 +901,27 @@ The color system is designed to work seamlessly in both light and dark modes.
   >
     <code>npx @sando/flavor-generator create --color "#FF6B00"</code>
   </pre>
-  <p style={{ fontSize: "14px", marginBottom: 0 }}>
+  <p
+    style={{
+      fontSize: "14px",
+      marginBottom: 0,
+      color: "var(--sb-docs-text-body)",
+    }}
+  >
     <strong>What it does:</strong>
-    <br />
     - Generates a scientifically designed 11-step palette using OKLCH
-    <br />
     - Validates WCAG AA accessibility automatically
-    <br />
     - Creates light + dark mode flavor variants
-    <br />- Outputs ready-to-use token files
+    - Outputs ready-to-use token files
   </p>
-  <p style={{ fontSize: "14px", marginTop: "16px", marginBottom: 0 }}>
+  <p
+    style={{
+      fontSize: "14px",
+      marginTop: "16px",
+      marginBottom: 0,
+      color: "var(--sb-docs-text-body)",
+    }}
+  >
     <strong>Status:</strong> Under development | <strong>Timeline:</strong> Q2
     2025 | <strong>Priority:</strong> High
   </p>

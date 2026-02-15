@@ -10,70 +10,76 @@ Elevation creates visual hierarchy and depth through carefully crafted shadows. 
 
 Our elevation system uses layered shadows to simulate depth and focus, helping users understand element hierarchy and interactive states.
 
-<div
-  style={{
-    marginTop: "48px",
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-    gap: "32px",
-  }}
->
-  {[
-    { token: "0", name: "None", description: "Flat, no depth" },
-    { token: "100", name: "Subtle", description: "Slight lift, hover states" },
-    { token: "200", name: "Low", description: "Cards, buttons" },
-    { token: "300", name: "Medium", description: "Dropdowns, popovers" },
-    { token: "400", name: "High", description: "Modals, dialogs" },
-    {
-      token: "500",
-      name: "Highest",
-      description: "Tooltips, top-level overlays",
-    },
-  ].map(({ token, name, description }) => (
-    <div
-      key={token}
-      style={{ display: "flex", flexDirection: "column", gap: "12px" }}
+<table style={{ width: "100%", borderCollapse: "collapse", marginTop: "16px" }}>
+  <thead>
+    <tr
+      style={{
+        borderBottom: "2px solid var(--sb-docs-border)",
+        textAlign: "left",
+      }}
     >
-      <div
+      <th style={{ padding: "12px 16px", fontWeight: "600" }}>Token</th>
+      <th style={{ padding: "12px 16px", fontWeight: "600" }}>Preview</th>
+      <th style={{ padding: "12px 16px", fontWeight: "600" }}>Name</th>
+      <th style={{ padding: "12px 16px", fontWeight: "600" }}>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    {[
+      { token: "0", name: "None", description: "Flat, no depth" },
+      {
+        token: "100",
+        name: "Subtle",
+        description: "Slight lift, hover states",
+      },
+      { token: "200", name: "Low", description: "Cards, buttons" },
+      { token: "300", name: "Medium", description: "Dropdowns, popovers" },
+      { token: "400", name: "High", description: "Modals, dialogs" },
+      {
+        token: "500",
+        name: "Highest",
+        description: "Tooltips, top-level overlays",
+      },
+    ].map((item, index) => (
+      <tr
+        key={item.token}
         style={{
-          backgroundColor: "#ffffff",
-          padding: "32px",
-          borderRadius: "12px",
-          boxShadow: `var(--sando-elevation-${token})`,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          minHeight: "120px",
-          transition: "transform 0.2s ease",
+          borderBottom: "1px solid var(--sb-docs-border)",
+          backgroundColor:
+            index % 2 === 1 ? "var(--sb-docs-bg-emphasis)" : "transparent",
         }}
       >
-        <div style={{ textAlign: "center" }}>
+        <td style={{ padding: "12px 16px" }}>
+          <code>elevation-{item.token}</code>
+        </td>
+        <td style={{ padding: "12px 16px" }}>
           <div
             style={{
-              fontSize: "24px",
-              fontWeight: "600",
-              marginBottom: "4px",
-              color: "#0c0a09",
+              width: "100px",
+              height: "60px",
+              backgroundColor: "var(--sb-docs-bg-raised)",
+              borderRadius: "8px",
+              boxShadow: `var(--sando-elevation-${item.token})`,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: "12px",
+              color: "var(--sb-docs-text-caption)",
             }}
           >
-            {name}
+            {item.name}
           </div>
-          <div style={{ fontSize: "12px", color: "#44403c" }}>
-            elevation-{token}
-          </div>
-        </div>
-      </div>
-      <div style={{ fontSize: "14px", color: "#292524", lineHeight: "1.4" }}>
-        {description}
-      </div>
-      <code
-        style={{ fontFamily: "monospace", fontSize: "11px", color: "#44403c" }}
-      >
-        --sando-elevation-{token}
-      </code>
-    </div>
-  ))}
-</div>
+        </td>
+        <td style={{ padding: "12px 16px", fontWeight: "600" }}>{item.name}</td>
+        <td
+          style={{ padding: "12px 16px", color: "var(--sb-docs-text-muted)" }}
+        >
+          {item.description}
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>
 
 ---
 
@@ -86,7 +92,7 @@ Elevation creates a visual z-axis, with higher elevations appearing "closer" to 
     marginTop: "32px",
     position: "relative",
     height: "400px",
-    backgroundColor: "#fafaf9",
+    backgroundColor: "var(--sb-docs-bg-surface)",
     borderRadius: "12px",
     padding: "40px",
     overflow: "hidden",
@@ -97,17 +103,17 @@ Elevation creates a visual z-axis, with higher elevations appearing "closer" to 
       position: "absolute",
       bottom: "40px",
       left: "40px",
-      backgroundColor: "#ffffff",
+      backgroundColor: "var(--sb-docs-bg-raised)",
       padding: "24px",
       borderRadius: "8px",
       boxShadow: "var(--sando-elevation-100)",
       zIndex: 1,
     }}
   >
-    <div style={{ fontSize: "14px", fontWeight: "600", color: "#0c0a09" }}>
+    <div style={{ fontSize: "14px", fontWeight: "600", color: "var(--sb-docs-text-heading)" }}>
       elevation-100
     </div>
-    <div style={{ fontSize: "12px", color: "#44403c" }}>Base layer</div>
+    <div style={{ fontSize: "12px", color: "var(--sb-docs-text-caption)" }}>Base layer</div>
   </div>
 
 <div
@@ -115,17 +121,25 @@ Elevation creates a visual z-axis, with higher elevations appearing "closer" to 
     position: "absolute",
     bottom: "80px",
     left: "120px",
-    backgroundColor: "#ffffff",
+    backgroundColor: "var(--sb-docs-bg-raised)",
     padding: "24px",
     borderRadius: "8px",
     boxShadow: "var(--sando-elevation-200)",
     zIndex: 2,
   }}
 >
-  <div style={{ fontSize: "14px", fontWeight: "600", color: "#0c0a09" }}>
+  <div
+    style={{
+      fontSize: "14px",
+      fontWeight: "600",
+      color: "var(--sb-docs-text-heading)",
+    }}
+  >
     elevation-200
   </div>
-  <div style={{ fontSize: "12px", color: "#44403c" }}>Raised cards</div>
+  <div style={{ fontSize: "12px", color: "var(--sb-docs-text-caption)" }}>
+    Raised cards
+  </div>
 </div>
 
 <div
@@ -133,17 +147,25 @@ Elevation creates a visual z-axis, with higher elevations appearing "closer" to 
     position: "absolute",
     bottom: "120px",
     left: "200px",
-    backgroundColor: "#ffffff",
+    backgroundColor: "var(--sb-docs-bg-raised)",
     padding: "24px",
     borderRadius: "8px",
     boxShadow: "var(--sando-elevation-300)",
     zIndex: 3,
   }}
 >
-  <div style={{ fontSize: "14px", fontWeight: "600", color: "#0c0a09" }}>
+  <div
+    style={{
+      fontSize: "14px",
+      fontWeight: "600",
+      color: "var(--sb-docs-text-heading)",
+    }}
+  >
     elevation-300
   </div>
-  <div style={{ fontSize: "12px", color: "#44403c" }}>Dropdowns</div>
+  <div style={{ fontSize: "12px", color: "var(--sb-docs-text-caption)" }}>
+    Dropdowns
+  </div>
 </div>
 
 <div
@@ -151,17 +173,25 @@ Elevation creates a visual z-axis, with higher elevations appearing "closer" to 
     position: "absolute",
     bottom: "160px",
     left: "280px",
-    backgroundColor: "#ffffff",
+    backgroundColor: "var(--sb-docs-bg-raised)",
     padding: "24px",
     borderRadius: "8px",
     boxShadow: "var(--sando-elevation-400)",
     zIndex: 4,
   }}
 >
-  <div style={{ fontSize: "14px", fontWeight: "600", color: "#0c0a09" }}>
+  <div
+    style={{
+      fontSize: "14px",
+      fontWeight: "600",
+      color: "var(--sb-docs-text-heading)",
+    }}
+  >
     elevation-400
   </div>
-  <div style={{ fontSize: "12px", color: "#44403c" }}>Modals</div>
+  <div style={{ fontSize: "12px", color: "var(--sb-docs-text-caption)" }}>
+    Modals
+  </div>
 </div>
 
   <div
@@ -169,17 +199,17 @@ Elevation creates a visual z-axis, with higher elevations appearing "closer" to 
       position: "absolute",
       bottom: "200px",
       left: "360px",
-      backgroundColor: "#ffffff",
+      backgroundColor: "var(--sb-docs-bg-raised)",
       padding: "24px",
       borderRadius: "8px",
       boxShadow: "var(--sando-elevation-500)",
       zIndex: 5,
     }}
   >
-    <div style={{ fontSize: "14px", fontWeight: "600", color: "#0c0a09" }}>
+    <div style={{ fontSize: "14px", fontWeight: "600", color: "var(--sb-docs-text-heading)" }}>
       elevation-500
     </div>
-    <div style={{ fontSize: "12px", color: "#44403c" }}>Tooltips</div>
+    <div style={{ fontSize: "12px", color: "var(--sb-docs-text-caption)" }}>Tooltips</div>
   </div>
 </div>
 
@@ -195,7 +225,7 @@ Elevation creates a visual z-axis, with higher elevations appearing "closer" to 
   <div
     style={{
       flex: "1 1 250px",
-      backgroundColor: "#ffffff",
+      backgroundColor: "var(--sb-docs-bg-raised)",
       padding: "24px",
       borderRadius: "12px",
       boxShadow: "var(--sando-elevation-0)",
@@ -206,12 +236,12 @@ Elevation creates a visual z-axis, with higher elevations appearing "closer" to 
         fontSize: "16px",
         fontWeight: "600",
         marginBottom: "8px",
-        color: "#0c0a09",
+        color: "var(--sb-docs-text-heading)",
       }}
     >
       Flat Card
     </div>
-    <div style={{ fontSize: "14px", color: "#292524" }}>
+    <div style={{ fontSize: "14px", color: "var(--sb-docs-text-body)" }}>
       No elevation, sits flush with background
     </div>
   </div>
@@ -219,7 +249,7 @@ Elevation creates a visual z-axis, with higher elevations appearing "closer" to 
 <div
   style={{
     flex: "1 1 250px",
-    backgroundColor: "#ffffff",
+    backgroundColor: "var(--sb-docs-bg-raised)",
     padding: "24px",
     borderRadius: "12px",
     boxShadow: "var(--sando-elevation-100)",
@@ -230,12 +260,12 @@ Elevation creates a visual z-axis, with higher elevations appearing "closer" to 
       fontSize: "16px",
       fontWeight: "600",
       marginBottom: "8px",
-      color: "#0c0a09",
+      color: "var(--sb-docs-text-heading)",
     }}
   >
     Subtle Card
   </div>
-  <div style={{ fontSize: "14px", color: "#292524" }}>
+  <div style={{ fontSize: "14px", color: "var(--sb-docs-text-body)" }}>
     Minimal shadow for subtle separation
   </div>
 </div>
@@ -243,7 +273,7 @@ Elevation creates a visual z-axis, with higher elevations appearing "closer" to 
   <div
     style={{
       flex: "1 1 250px",
-      backgroundColor: "#ffffff",
+      backgroundColor: "var(--sb-docs-bg-raised)",
       padding: "24px",
       borderRadius: "12px",
       boxShadow: "var(--sando-elevation-200)",
@@ -254,12 +284,12 @@ Elevation creates a visual z-axis, with higher elevations appearing "closer" to 
         fontSize: "16px",
         fontWeight: "600",
         marginBottom: "8px",
-        color: "#0c0a09",
+        color: "var(--sb-docs-text-heading)",
       }}
     >
       Raised Card
     </div>
-    <div style={{ fontSize: "14px", color: "#292524" }}>
+    <div style={{ fontSize: "14px", color: "var(--sb-docs-text-body)" }}>
       Clear depth, draws attention
     </div>
   </div>
@@ -275,7 +305,7 @@ Elevation can change on interaction to provide feedback.
   <div
     style={{
       flex: "1 1 250px",
-      backgroundColor: "#c2410c",
+      backgroundColor: "var(--sb-docs-link)",
       color: "white",
       padding: "16px 32px",
       borderRadius: "8px",
@@ -301,14 +331,14 @@ Elevation can change on interaction to provide feedback.
   <div
     style={{
       flex: "1 1 250px",
-      backgroundColor: "#ffffff",
+      backgroundColor: "var(--sb-docs-bg-raised)",
       padding: "24px",
       borderRadius: "12px",
       boxShadow: "var(--sando-elevation-200)",
       textAlign: "center",
       fontSize: "14px",
       fontWeight: "600",
-      color: "#0c0a09",
+      color: "var(--sb-docs-text-heading)",
       cursor: "pointer",
       transition: "box-shadow 0.2s ease, transform 0.2s ease",
     }}
@@ -366,10 +396,10 @@ Elevation shadows work differently in dark mode:
   style={{
     marginTop: "24px",
     padding: "16px",
-    backgroundColor: "#f5f5f4",
+    backgroundColor: "var(--sb-docs-bg-surface)",
     borderRadius: "8px",
     fontSize: "14px",
-    color: "#292524",
+    color: "var(--sb-docs-text-body)",
   }}
 >
   <strong>Note:</strong> Current elevation tokens use the same shadow values in

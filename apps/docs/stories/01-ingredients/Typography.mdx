@@ -13,14 +13,14 @@ The Sando Design System typography foundation provides a comprehensive type scal
 <div
   style={{
     padding: "16px",
-    backgroundColor: "#fef3c7",
+    backgroundColor: "var(--sb-docs-warning-bg)",
     borderRadius: "8px",
-    border: "1px solid #f59e0b",
+    border: "1px solid var(--sb-docs-warning-border)",
     marginBottom: "24px",
   }}
 >
-  <strong style={{ color: "#92400e" }}>Important:</strong>{" "}
-  <span style={{ color: "#78350f" }}>
+  <strong style={{ color: "var(--sb-docs-warning-text)" }}>Important:</strong>{" "}
+  <span style={{ color: "var(--sb-docs-warning-text)" }}>
     The Sando Design System does <strong>not</strong> include web fonts. This is
     intentional and follows industry standards (IBM Carbon, Material Design,
     etc.). Tokens define <code>font-family</code> stacks with system fallbacks
@@ -41,15 +41,15 @@ To use the full range of flavor-specific typography, add this snippet to your HT
 <div
   style={{
     padding: "12px",
-    backgroundColor: "#dbeafe",
+    backgroundColor: "var(--sb-docs-info-bg)",
     borderRadius: "8px",
     fontSize: "14px",
     marginTop: "16px",
-    border: "1px solid #3b82f6",
+    border: "1px solid var(--sb-docs-info-border)",
   }}
 >
-  <strong style={{ color: "#1e40af" }}>Font Stack:</strong>{" "}
-  <span style={{ color: "#1e3a8a" }}>
+  <strong style={{ color: "var(--sb-docs-info-text)" }}>Font Stack:</strong>{" "}
+  <span style={{ color: "var(--sb-docs-info-text)" }}>
     All fonts include system fallbacks that work without loading external fonts.
     The <strong>Original</strong> flavor uses Inter and JetBrains Mono.
   </span>
@@ -63,7 +63,12 @@ Each flavor uses a carefully curated set of fonts for headings, body text, and c
 
 <table style={{ width: "100%", borderCollapse: "collapse", marginTop: "16px" }}>
   <thead>
-    <tr style={{ borderBottom: "2px solid #e7e5e4", textAlign: "left" }}>
+    <tr
+      style={{
+        borderBottom: "2px solid var(--sb-docs-border)",
+        textAlign: "left",
+      }}
+    >
       <th style={{ padding: "12px 16px", fontWeight: "600" }}>Flavor</th>
       <th style={{ padding: "12px 16px", fontWeight: "600" }}>Heading</th>
       <th style={{ padding: "12px 16px", fontWeight: "600" }}>Body</th>
@@ -71,7 +76,7 @@ Each flavor uses a carefully curated set of fonts for headings, body text, and c
     </tr>
   </thead>
   <tbody>
-    <tr style={{ borderBottom: "1px solid #e7e5e4" }}>
+    <tr style={{ borderBottom: "1px solid var(--sb-docs-border)" }}>
       <td style={{ padding: "12px 16px", fontWeight: "500" }}>Original</td>
       <td
         style={{
@@ -99,7 +104,10 @@ Each flavor uses a carefully curated set of fonts for headings, body text, and c
       </td>
     </tr>
     <tr
-      style={{ borderBottom: "1px solid #e7e5e4", backgroundColor: "#fafaf9" }}
+      style={{
+        borderBottom: "1px solid var(--sb-docs-border)",
+        backgroundColor: "var(--sb-docs-bg-emphasis)",
+      }}
     >
       <td style={{ padding: "12px 16px", fontWeight: "500" }}>Egg-salad</td>
       <td
@@ -127,7 +135,7 @@ Each flavor uses a carefully curated set of fonts for headings, body text, and c
         Fira Code
       </td>
     </tr>
-    <tr style={{ borderBottom: "1px solid #e7e5e4" }}>
+    <tr style={{ borderBottom: "1px solid var(--sb-docs-border)" }}>
       <td style={{ padding: "12px 16px", fontWeight: "500" }}>Strawberry</td>
       <td
         style={{
@@ -155,7 +163,10 @@ Each flavor uses a carefully curated set of fonts for headings, body text, and c
       </td>
     </tr>
     <tr
-      style={{ borderBottom: "1px solid #e7e5e4", backgroundColor: "#fafaf9" }}
+      style={{
+        borderBottom: "1px solid var(--sb-docs-border)",
+        backgroundColor: "var(--sb-docs-bg-emphasis)",
+      }}
     >
       <td style={{ padding: "12px 16px", fontWeight: "500" }}>Kiwi</td>
       <td
@@ -183,7 +194,7 @@ Each flavor uses a carefully curated set of fonts for headings, body text, and c
         Fira Code
       </td>
     </tr>
-    <tr style={{ borderBottom: "1px solid #e7e5e4" }}>
+    <tr style={{ borderBottom: "1px solid var(--sb-docs-border)" }}>
       <td style={{ padding: "12px 16px", fontWeight: "500" }}>Tonkatsu</td>
       <td
         style={{
@@ -223,7 +234,12 @@ These are the primary fonts used by the different flavors. Each has been selecte
 
 <table style={{ width: "100%", borderCollapse: "collapse", marginTop: "16px" }}>
   <thead>
-    <tr style={{ borderBottom: "2px solid #e7e5e4", textAlign: "left" }}>
+    <tr
+      style={{
+        borderBottom: "2px solid var(--sb-docs-border)",
+        textAlign: "left",
+      }}
+    >
       <th style={{ padding: "12px 16px", fontWeight: "600" }}>Token</th>
       <th style={{ padding: "12px 16px", fontWeight: "600" }}>Font</th>
       <th style={{ padding: "12px 16px", fontWeight: "600" }}>Used In</th>
@@ -231,12 +247,18 @@ These are the primary fonts used by the different flavors. Each has been selecte
     </tr>
   </thead>
   <tbody>
-    <tr style={{ borderBottom: "1px solid #e7e5e4" }}>
+    <tr style={{ borderBottom: "1px solid var(--sb-docs-border)" }}>
       <td style={{ padding: "12px 16px" }}>
         <code>inter</code>
       </td>
       <td style={{ padding: "12px 16px" }}>Inter</td>
-      <td style={{ padding: "12px 16px", fontSize: "14px", color: "#57534e" }}>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontSize: "14px",
+          color: "var(--sb-docs-text-muted)",
+        }}
+      >
         Original (heading, body)
       </td>
       <td
@@ -250,13 +272,22 @@ These are the primary fonts used by the different flavors. Each has been selecte
       </td>
     </tr>
     <tr
-      style={{ borderBottom: "1px solid #e7e5e4", backgroundColor: "#fafaf9" }}
+      style={{
+        borderBottom: "1px solid var(--sb-docs-border)",
+        backgroundColor: "var(--sb-docs-bg-emphasis)",
+      }}
     >
       <td style={{ padding: "12px 16px" }}>
         <code>dm-sans</code>
       </td>
       <td style={{ padding: "12px 16px" }}>DM Sans</td>
-      <td style={{ padding: "12px 16px", fontSize: "14px", color: "#57534e" }}>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontSize: "14px",
+          color: "var(--sb-docs-text-muted)",
+        }}
+      >
         Egg-salad, Strawberry
       </td>
       <td
@@ -269,12 +300,18 @@ These are the primary fonts used by the different flavors. Each has been selecte
         The quick brown fox jumps
       </td>
     </tr>
-    <tr style={{ borderBottom: "1px solid #e7e5e4" }}>
+    <tr style={{ borderBottom: "1px solid var(--sb-docs-border)" }}>
       <td style={{ padding: "12px 16px" }}>
         <code>plus-jakarta</code>
       </td>
       <td style={{ padding: "12px 16px" }}>Plus Jakarta Sans</td>
-      <td style={{ padding: "12px 16px", fontSize: "14px", color: "#57534e" }}>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontSize: "14px",
+          color: "var(--sb-docs-text-muted)",
+        }}
+      >
         Kiwi (heading)
       </td>
       <td
@@ -288,13 +325,22 @@ These are the primary fonts used by the different flavors. Each has been selecte
       </td>
     </tr>
     <tr
-      style={{ borderBottom: "1px solid #e7e5e4", backgroundColor: "#fafaf9" }}
+      style={{
+        borderBottom: "1px solid var(--sb-docs-border)",
+        backgroundColor: "var(--sb-docs-bg-emphasis)",
+      }}
     >
       <td style={{ padding: "12px 16px" }}>
         <code>space-grotesk</code>
       </td>
       <td style={{ padding: "12px 16px" }}>Space Grotesk</td>
-      <td style={{ padding: "12px 16px", fontSize: "14px", color: "#57534e" }}>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontSize: "14px",
+          color: "var(--sb-docs-text-muted)",
+        }}
+      >
         Tonkatsu (heading)
       </td>
       <td
@@ -307,12 +353,18 @@ These are the primary fonts used by the different flavors. Each has been selecte
         The quick brown fox jumps
       </td>
     </tr>
-    <tr style={{ borderBottom: "1px solid #e7e5e4" }}>
+    <tr style={{ borderBottom: "1px solid var(--sb-docs-border)" }}>
       <td style={{ padding: "12px 16px" }}>
         <code>cormorant</code>
       </td>
       <td style={{ padding: "12px 16px" }}>Cormorant Garamond</td>
-      <td style={{ padding: "12px 16px", fontSize: "14px", color: "#57534e" }}>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontSize: "14px",
+          color: "var(--sb-docs-text-muted)",
+        }}
+      >
         Strawberry (heading)
       </td>
       <td
@@ -326,13 +378,22 @@ These are the primary fonts used by the different flavors. Each has been selecte
       </td>
     </tr>
     <tr
-      style={{ borderBottom: "1px solid #e7e5e4", backgroundColor: "#fafaf9" }}
+      style={{
+        borderBottom: "1px solid var(--sb-docs-border)",
+        backgroundColor: "var(--sb-docs-bg-emphasis)",
+      }}
     >
       <td style={{ padding: "12px 16px" }}>
         <code>literata</code>
       </td>
       <td style={{ padding: "12px 16px" }}>Literata</td>
-      <td style={{ padding: "12px 16px", fontSize: "14px", color: "#57534e" }}>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontSize: "14px",
+          color: "var(--sb-docs-text-muted)",
+        }}
+      >
         Egg-salad (body)
       </td>
       <td
@@ -345,12 +406,18 @@ These are the primary fonts used by the different flavors. Each has been selecte
         The quick brown fox jumps
       </td>
     </tr>
-    <tr style={{ borderBottom: "1px solid #e7e5e4" }}>
+    <tr style={{ borderBottom: "1px solid var(--sb-docs-border)" }}>
       <td style={{ padding: "12px 16px" }}>
         <code>newsreader</code>
       </td>
       <td style={{ padding: "12px 16px" }}>Newsreader</td>
-      <td style={{ padding: "12px 16px", fontSize: "14px", color: "#57534e" }}>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontSize: "14px",
+          color: "var(--sb-docs-text-muted)",
+        }}
+      >
         Kiwi (body)
       </td>
       <td
@@ -364,13 +431,22 @@ These are the primary fonts used by the different flavors. Each has been selecte
       </td>
     </tr>
     <tr
-      style={{ borderBottom: "1px solid #e7e5e4", backgroundColor: "#fafaf9" }}
+      style={{
+        borderBottom: "1px solid var(--sb-docs-border)",
+        backgroundColor: "var(--sb-docs-bg-emphasis)",
+      }}
     >
       <td style={{ padding: "12px 16px" }}>
         <code>merriweather</code>
       </td>
       <td style={{ padding: "12px 16px" }}>Merriweather</td>
-      <td style={{ padding: "12px 16px", fontSize: "14px", color: "#57534e" }}>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontSize: "14px",
+          color: "var(--sb-docs-text-muted)",
+        }}
+      >
         Tonkatsu (body)
       </td>
       <td
@@ -383,12 +459,18 @@ These are the primary fonts used by the different flavors. Each has been selecte
         The quick brown fox jumps
       </td>
     </tr>
-    <tr style={{ borderBottom: "1px solid #e7e5e4" }}>
+    <tr style={{ borderBottom: "1px solid var(--sb-docs-border)" }}>
       <td style={{ padding: "12px 16px" }}>
         <code>jetbrains-mono</code>
       </td>
       <td style={{ padding: "12px 16px" }}>JetBrains Mono</td>
-      <td style={{ padding: "12px 16px", fontSize: "14px", color: "#57534e" }}>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontSize: "14px",
+          color: "var(--sb-docs-text-muted)",
+        }}
+      >
         Original, Strawberry (mono)
       </td>
       <td
@@ -402,13 +484,22 @@ These are the primary fonts used by the different flavors. Each has been selecte
       </td>
     </tr>
     <tr
-      style={{ borderBottom: "1px solid #e7e5e4", backgroundColor: "#fafaf9" }}
+      style={{
+        borderBottom: "1px solid var(--sb-docs-border)",
+        backgroundColor: "var(--sb-docs-bg-emphasis)",
+      }}
     >
       <td style={{ padding: "12px 16px" }}>
         <code>fira-code</code>
       </td>
       <td style={{ padding: "12px 16px" }}>Fira Code</td>
-      <td style={{ padding: "12px 16px", fontSize: "14px", color: "#57534e" }}>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontSize: "14px",
+          color: "var(--sb-docs-text-muted)",
+        }}
+      >
         Egg-salad, Kiwi, Tonkatsu (mono)
       </td>
       <td
@@ -428,7 +519,7 @@ These are the primary fonts used by the different flavors. Each has been selecte
   style={{
     marginTop: "16px",
     padding: "12px",
-    backgroundColor: "#f5f5f4",
+    backgroundColor: "var(--sb-docs-bg-surface)",
     borderRadius: "8px",
     fontSize: "14px",
   }}
@@ -445,7 +536,12 @@ System font stacks optimized for performance and cross-platform consistency. The
 
 <table style={{ width: "100%", borderCollapse: "collapse", marginTop: "16px" }}>
   <thead>
-    <tr style={{ borderBottom: "2px solid #e7e5e4", textAlign: "left" }}>
+    <tr
+      style={{
+        borderBottom: "2px solid var(--sb-docs-border)",
+        textAlign: "left",
+      }}
+    >
       <th style={{ padding: "12px 16px", fontWeight: "600" }}>Token</th>
       <th style={{ padding: "12px 16px", fontWeight: "600" }}>Use Case</th>
       <th style={{ padding: "12px 16px", fontWeight: "600" }}>Font Stack</th>
@@ -453,12 +549,18 @@ System font stacks optimized for performance and cross-platform consistency. The
     </tr>
   </thead>
   <tbody>
-    <tr style={{ borderBottom: "1px solid #e7e5e4" }}>
+    <tr style={{ borderBottom: "1px solid var(--sb-docs-border)" }}>
       <td style={{ padding: "12px 16px" }}>
         <code>sans</code>
       </td>
       <td style={{ padding: "12px 16px" }}>Default UI text</td>
-      <td style={{ padding: "12px 16px", fontSize: "12px", color: "#57534e" }}>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontSize: "12px",
+          color: "var(--sb-docs-text-muted)",
+        }}
+      >
         system-ui, -apple-system, Segoe UI, Roboto...
       </td>
       <td
@@ -472,13 +574,22 @@ System font stacks optimized for performance and cross-platform consistency. The
       </td>
     </tr>
     <tr
-      style={{ borderBottom: "1px solid #e7e5e4", backgroundColor: "#fafaf9" }}
+      style={{
+        borderBottom: "1px solid var(--sb-docs-border)",
+        backgroundColor: "var(--sb-docs-bg-emphasis)",
+      }}
     >
       <td style={{ padding: "12px 16px" }}>
         <code>serif</code>
       </td>
       <td style={{ padding: "12px 16px" }}>Editorial content</td>
-      <td style={{ padding: "12px 16px", fontSize: "12px", color: "#57534e" }}>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontSize: "12px",
+          color: "var(--sb-docs-text-muted)",
+        }}
+      >
         Georgia, Cambria, Times New Roman...
       </td>
       <td
@@ -491,12 +602,18 @@ System font stacks optimized for performance and cross-platform consistency. The
         The quick brown fox
       </td>
     </tr>
-    <tr style={{ borderBottom: "1px solid #e7e5e4" }}>
+    <tr style={{ borderBottom: "1px solid var(--sb-docs-border)" }}>
       <td style={{ padding: "12px 16px" }}>
         <code>mono</code>
       </td>
       <td style={{ padding: "12px 16px" }}>Code and data</td>
-      <td style={{ padding: "12px 16px", fontSize: "12px", color: "#57534e" }}>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontSize: "12px",
+          color: "var(--sb-docs-text-muted)",
+        }}
+      >
         SFMono-Regular, Consolas, Menlo...
       </td>
       <td
@@ -517,15 +634,15 @@ System font stacks optimized for performance and cross-platform consistency. The
 <div
   style={{
     padding: "12px",
-    backgroundColor: "#fef3c7",
+    backgroundColor: "var(--sb-docs-warning-bg)",
     borderRadius: "8px",
     fontSize: "14px",
     marginBottom: "16px",
-    border: "1px solid #f59e0b",
+    border: "1px solid var(--sb-docs-warning-border)",
   }}
 >
-  <strong style={{ color: "#92400e" }}>Note:</strong>{" "}
-  <span style={{ color: "#78350f" }}>
+  <strong style={{ color: "var(--sb-docs-warning-text)" }}>Note:</strong>{" "}
+  <span style={{ color: "var(--sb-docs-warning-text)" }}>
     These fonts are available in the Ingredients layer but are not used by the
     default flavors. They remain available for custom implementations.
   </span>
@@ -533,7 +650,12 @@ System font stacks optimized for performance and cross-platform consistency. The
 
 <table style={{ width: "100%", borderCollapse: "collapse", marginTop: "16px" }}>
   <thead>
-    <tr style={{ borderBottom: "2px solid #e7e5e4", textAlign: "left" }}>
+    <tr
+      style={{
+        borderBottom: "2px solid var(--sb-docs-border)",
+        textAlign: "left",
+      }}
+    >
       <th style={{ padding: "12px 16px", fontWeight: "600" }}>Token</th>
       <th style={{ padding: "12px 16px", fontWeight: "600" }}>Font</th>
       <th style={{ padding: "12px 16px", fontWeight: "600" }}>Character</th>
@@ -541,12 +663,18 @@ System font stacks optimized for performance and cross-platform consistency. The
     </tr>
   </thead>
   <tbody>
-    <tr style={{ borderBottom: "1px solid #e7e5e4" }}>
+    <tr style={{ borderBottom: "1px solid var(--sb-docs-border)" }}>
       <td style={{ padding: "12px 16px" }}>
         <code>display</code>
       </td>
       <td style={{ padding: "12px 16px" }}>Bebas Neue</td>
-      <td style={{ padding: "12px 16px", fontSize: "14px", color: "#57534e" }}>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontSize: "14px",
+          color: "var(--sb-docs-text-muted)",
+        }}
+      >
         Bold headlines
       </td>
       <td
@@ -560,13 +688,22 @@ System font stacks optimized for performance and cross-platform consistency. The
       </td>
     </tr>
     <tr
-      style={{ borderBottom: "1px solid #e7e5e4", backgroundColor: "#fafaf9" }}
+      style={{
+        borderBottom: "1px solid var(--sb-docs-border)",
+        backgroundColor: "var(--sb-docs-bg-emphasis)",
+      }}
     >
       <td style={{ padding: "12px 16px" }}>
         <code>display-serif</code>
       </td>
       <td style={{ padding: "12px 16px" }}>Playfair Display</td>
-      <td style={{ padding: "12px 16px", fontSize: "14px", color: "#57534e" }}>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontSize: "14px",
+          color: "var(--sb-docs-text-muted)",
+        }}
+      >
         Elegant editorial
       </td>
       <td
@@ -579,12 +716,18 @@ System font stacks optimized for performance and cross-platform consistency. The
         Elegant Headlines
       </td>
     </tr>
-    <tr style={{ borderBottom: "1px solid #e7e5e4" }}>
+    <tr style={{ borderBottom: "1px solid var(--sb-docs-border)" }}>
       <td style={{ padding: "12px 16px" }}>
         <code>rounded</code>
       </td>
       <td style={{ padding: "12px 16px" }}>Nunito</td>
-      <td style={{ padding: "12px 16px", fontSize: "14px", color: "#57534e" }}>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontSize: "14px",
+          color: "var(--sb-docs-text-muted)",
+        }}
+      >
         Friendly, approachable
       </td>
       <td
@@ -598,13 +741,22 @@ System font stacks optimized for performance and cross-platform consistency. The
       </td>
     </tr>
     <tr
-      style={{ borderBottom: "1px solid #e7e5e4", backgroundColor: "#fafaf9" }}
+      style={{
+        borderBottom: "1px solid var(--sb-docs-border)",
+        backgroundColor: "var(--sb-docs-bg-emphasis)",
+      }}
     >
       <td style={{ padding: "12px 16px" }}>
         <code>condensed</code>
       </td>
       <td style={{ padding: "12px 16px" }}>Barlow Condensed</td>
-      <td style={{ padding: "12px 16px", fontSize: "14px", color: "#57534e" }}>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontSize: "14px",
+          color: "var(--sb-docs-text-muted)",
+        }}
+      >
         Space-efficient
       </td>
       <td
@@ -617,12 +769,18 @@ System font stacks optimized for performance and cross-platform consistency. The
         Compact Layout Text
       </td>
     </tr>
-    <tr style={{ borderBottom: "1px solid #e7e5e4" }}>
+    <tr style={{ borderBottom: "1px solid var(--sb-docs-border)" }}>
       <td style={{ padding: "12px 16px" }}>
         <code>handwritten</code>
       </td>
       <td style={{ padding: "12px 16px" }}>Caveat</td>
-      <td style={{ padding: "12px 16px", fontSize: "14px", color: "#57534e" }}>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontSize: "14px",
+          color: "var(--sb-docs-text-muted)",
+        }}
+      >
         Personal, artistic
       </td>
       <td
@@ -636,13 +794,22 @@ System font stacks optimized for performance and cross-platform consistency. The
       </td>
     </tr>
     <tr
-      style={{ borderBottom: "1px solid #e7e5e4", backgroundColor: "#fafaf9" }}
+      style={{
+        borderBottom: "1px solid var(--sb-docs-border)",
+        backgroundColor: "var(--sb-docs-bg-emphasis)",
+      }}
     >
       <td style={{ padding: "12px 16px" }}>
         <code>slab</code>
       </td>
       <td style={{ padding: "12px 16px" }}>Roboto Slab</td>
-      <td style={{ padding: "12px 16px", fontSize: "14px", color: "#57534e" }}>
+      <td
+        style={{
+          padding: "12px 16px",
+          fontSize: "14px",
+          color: "var(--sb-docs-text-muted)",
+        }}
+      >
         Bold, reliable
       </td>
       <td
@@ -666,7 +833,12 @@ Our type scale follows a modular progression from 10px (0.625rem) to 48px (3rem)
 
 <table style={{ width: "100%", borderCollapse: "collapse", marginTop: "16px" }}>
   <thead>
-    <tr style={{ borderBottom: "2px solid #e7e5e4", textAlign: "left" }}>
+    <tr
+      style={{
+        borderBottom: "2px solid var(--sb-docs-border)",
+        textAlign: "left",
+      }}
+    >
       <th style={{ padding: "12px 16px", fontWeight: "600", width: "120px" }}>
         Token
       </th>
@@ -699,8 +871,9 @@ Our type scale follows a modular progression from 10px (0.625rem) to 48px (3rem)
       <tr
         key={token}
         style={{
-          borderBottom: "1px solid #e7e5e4",
-          backgroundColor: index % 2 === 1 ? "#fafaf9" : "transparent",
+          borderBottom: "1px solid var(--sb-docs-border)",
+          backgroundColor:
+            index % 2 === 1 ? "var(--sb-docs-bg-emphasis)" : "transparent",
         }}
       >
         <td style={{ padding: "12px 16px" }}>
@@ -719,7 +892,7 @@ Our type scale follows a modular progression from 10px (0.625rem) to 48px (3rem)
             padding: "12px 16px",
             fontFamily: "monospace",
             fontSize: "12px",
-            color: "#57534e",
+            color: "var(--sb-docs-text-muted)",
             textAlign: "right",
           }}
         >
@@ -734,7 +907,7 @@ Our type scale follows a modular progression from 10px (0.625rem) to 48px (3rem)
   style={{
     marginTop: "16px",
     padding: "12px",
-    backgroundColor: "#f5f5f4",
+    backgroundColor: "var(--sb-docs-bg-surface)",
     borderRadius: "8px",
     fontSize: "14px",
   }}
@@ -753,7 +926,12 @@ A full range of weights from thin to black.
 
 <table style={{ width: "100%", borderCollapse: "collapse", marginTop: "16px" }}>
   <thead>
-    <tr style={{ borderBottom: "2px solid #e7e5e4", textAlign: "left" }}>
+    <tr
+      style={{
+        borderBottom: "2px solid var(--sb-docs-border)",
+        textAlign: "left",
+      }}
+    >
       <th style={{ padding: "12px 16px", fontWeight: "600", width: "120px" }}>
         Token
       </th>
@@ -785,8 +963,9 @@ A full range of weights from thin to black.
       <tr
         key={token}
         style={{
-          borderBottom: "1px solid #e7e5e4",
-          backgroundColor: index % 2 === 1 ? "#fafaf9" : "transparent",
+          borderBottom: "1px solid var(--sb-docs-border)",
+          backgroundColor:
+            index % 2 === 1 ? "var(--sb-docs-bg-emphasis)" : "transparent",
         }}
       >
         <td style={{ padding: "12px 16px" }}>
@@ -806,7 +985,7 @@ A full range of weights from thin to black.
             padding: "12px 16px",
             fontFamily: "monospace",
             fontSize: "12px",
-            color: "#57534e",
+            color: "var(--sb-docs-text-muted)",
             textAlign: "right",
           }}
         >
@@ -825,7 +1004,12 @@ Optimized line heights for different content types.
 
 <table style={{ width: "100%", borderCollapse: "collapse", marginTop: "16px" }}>
   <thead>
-    <tr style={{ borderBottom: "2px solid #e7e5e4", textAlign: "left" }}>
+    <tr
+      style={{
+        borderBottom: "2px solid var(--sb-docs-border)",
+        textAlign: "left",
+      }}
+    >
       <th style={{ padding: "12px 16px", fontWeight: "600", width: "140px" }}>
         Token
       </th>
@@ -858,14 +1042,19 @@ Optimized line heights for different content types.
       <tr
         key={token}
         style={{
-          borderBottom: "1px solid #e7e5e4",
-          backgroundColor: index % 2 === 1 ? "#fafaf9" : "transparent",
+          borderBottom: "1px solid var(--sb-docs-border)",
+          backgroundColor:
+            index % 2 === 1 ? "var(--sb-docs-bg-emphasis)" : "transparent",
         }}
       >
         <td style={{ padding: "12px 16px" }}>
           <code>lineHeight-{token}</code>
         </td>
-        <td style={{ padding: "12px 16px", color: "#57534e" }}>{name}</td>
+        <td
+          style={{ padding: "12px 16px", color: "var(--sb-docs-text-muted)" }}
+        >
+          {name}
+        </td>
         <td
           style={{
             padding: "12px 16px",
@@ -882,7 +1071,7 @@ Optimized line heights for different content types.
             padding: "12px 16px",
             fontFamily: "monospace",
             fontSize: "12px",
-            color: "#57534e",
+            color: "var(--sb-docs-text-muted)",
             textAlign: "right",
           }}
         >
@@ -901,7 +1090,12 @@ Fine-tuned letter spacing for different contexts.
 
 <table style={{ width: "100%", borderCollapse: "collapse", marginTop: "16px" }}>
   <thead>
-    <tr style={{ borderBottom: "2px solid #e7e5e4", textAlign: "left" }}>
+    <tr
+      style={{
+        borderBottom: "2px solid var(--sb-docs-border)",
+        textAlign: "left",
+      }}
+    >
       <th style={{ padding: "12px 16px", fontWeight: "600", width: "160px" }}>
         Token
       </th>
@@ -931,14 +1125,19 @@ Fine-tuned letter spacing for different contexts.
       <tr
         key={token}
         style={{
-          borderBottom: "1px solid #e7e5e4",
-          backgroundColor: index % 2 === 1 ? "#fafaf9" : "transparent",
+          borderBottom: "1px solid var(--sb-docs-border)",
+          backgroundColor:
+            index % 2 === 1 ? "var(--sb-docs-bg-emphasis)" : "transparent",
         }}
       >
         <td style={{ padding: "12px 16px" }}>
           <code>letterSpacing-{token}</code>
         </td>
-        <td style={{ padding: "12px 16px", color: "#57534e" }}>{name}</td>
+        <td
+          style={{ padding: "12px 16px", color: "var(--sb-docs-text-muted)" }}
+        >
+          {name}
+        </td>
         <td
           style={{
             padding: "12px 16px",
@@ -953,7 +1152,7 @@ Fine-tuned letter spacing for different contexts.
             padding: "12px 16px",
             fontFamily: "monospace",
             fontSize: "12px",
-            color: "#57534e",
+            color: "var(--sb-docs-text-muted)",
             textAlign: "right",
           }}
         >

@@ -16,38 +16,38 @@
    Typography - Import Inter font (must be first)
    ============================================================================ */
 
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap");
 
 /* ============================================================================
    CSS Custom Properties - Light Mode (Default)
    ============================================================================ */
 
 :root {
-  /* Primary colors */
-  --sando-sb-primary: #f97316;
-  --sando-sb-primary-hover: #ea580c;
-  --sando-sb-primary-light: #ffedd5;
-  --sando-sb-primary-dark: #c2410c;
+  /* Primary colors - Brutalist Vermillion (hue 25°) */
+  --sando-sb-primary: #c13b1e;
+  --sando-sb-primary-hover: #9e2f18;
+  --sando-sb-primary-light: #fee2e2;
+  --sando-sb-primary-dark: #7a2515;
 
-  /* Background colors */
-  --sando-sb-app-bg: #fafaf9;
+  /* Background colors - Ink (zero chroma) */
+  --sando-sb-app-bg: #fafafa;
   --sando-sb-content-bg: #ffffff;
-  --sando-sb-sidebar-bg: #fafaf9;
+  --sando-sb-sidebar-bg: #fafafa;
 
-  /* Text colors */
-  --sando-sb-text-primary: #0c0a09;
-  --sando-sb-text-secondary: #44403c;
-  --sando-sb-text-muted: #78716c;
+  /* Text colors - Ink */
+  --sando-sb-text-primary: #171717;
+  --sando-sb-text-secondary: #525252;
+  --sando-sb-text-muted: #a3a3a3;
 
-  /* Border colors */
-  --sando-sb-border: #e7e5e4;
-  --sando-sb-border-light: #f5f5f4;
+  /* Border colors - Ink */
+  --sando-sb-border: #d4d4d4;
+  --sando-sb-border-light: #e5e5e5;
 
-  /* Interactive states */
-  --sando-sb-selected-bg: #ffedd5;
-  --sando-sb-selected-text: #c2410c;
-  --sando-sb-hover-bg: #f5f5f4;
-  --sando-sb-focus-color: #f97316;
+  /* Interactive states - Vermillion accent */
+  --sando-sb-selected-bg: #fee2e2;
+  --sando-sb-selected-text: #7a2515;
+  --sando-sb-hover-bg: #f5f5f5;
+  --sando-sb-focus-color: #c13b1e;
 
   /* Badge colors - Stable (green) */
   --sando-sb-badge-stable-bg: #dcfce7;
@@ -77,36 +77,36 @@
 /* ============================================================================
    CSS Custom Properties - Dark Mode
    
-   Supports both data-theme and data-sb-theme for compatibility
+   Uses data-sb-theme exclusively for Manager UI theming.
+   Preview canvas uses separate data-color-mode attribute.
    ============================================================================ */
 
-[data-theme="dark"],
 [data-sb-theme="dark"] {
-  /* Primary colors */
-  --sando-sb-primary: #fb923c;
-  --sando-sb-primary-hover: #f97316;
-  --sando-sb-primary-light: #431407;
-  --sando-sb-primary-dark: #fdba74;
+  /* Primary colors - Brutalist Vermillion (hue 25°) */
+  --sando-sb-primary: #d4553b;
+  --sando-sb-primary-hover: #e07159;
+  --sando-sb-primary-light: #450a0a;
+  --sando-sb-primary-dark: #c13b1e;
 
-  /* Background colors */
-  --sando-sb-app-bg: #0c0a09;
-  --sando-sb-content-bg: #1c1917;
-  --sando-sb-sidebar-bg: #0c0a09;
+  /* Background colors - Ink (inverted) */
+  --sando-sb-app-bg: #171717;
+  --sando-sb-content-bg: #0a0a0a;
+  --sando-sb-sidebar-bg: #171717;
 
-  /* Text colors */
-  --sando-sb-text-primary: #fafaf9;
-  --sando-sb-text-secondary: #d6d3d1;
-  --sando-sb-text-muted: #a8a29e;
+  /* Text colors - Ink (inverted) */
+  --sando-sb-text-primary: #fafafa;
+  --sando-sb-text-secondary: #d4d4d4;
+  --sando-sb-text-muted: #a3a3a3;
 
-  /* Border colors */
-  --sando-sb-border: #292524;
-  --sando-sb-border-light: #1c1917;
+  /* Border colors - Ink (inverted) */
+  --sando-sb-border: #404040;
+  --sando-sb-border-light: #262626;
 
-  /* Interactive states */
-  --sando-sb-selected-bg: #431407;
-  --sando-sb-selected-text: #fb923c;
-  --sando-sb-hover-bg: #1c1917;
-  --sando-sb-focus-color: #fb923c;
+  /* Interactive states - Vermillion accent */
+  --sando-sb-selected-bg: #450a0a;
+  --sando-sb-selected-text: #d4553b;
+  --sando-sb-hover-bg: #262626;
+  --sando-sb-focus-color: #d4553b;
 
   /* Badge colors - Stable (green) - dark mode */
   --sando-sb-badge-stable-bg: #14532d;
@@ -131,32 +131,32 @@
 
 /* System preference fallback (when no explicit theme is set) */
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme]):not([data-sb-theme]) {
-    /* Primary colors */
-    --sando-sb-primary: #fb923c;
-    --sando-sb-primary-hover: #f97316;
-    --sando-sb-primary-light: #431407;
-    --sando-sb-primary-dark: #fdba74;
+  :root:not([data-sb-theme]) {
+    /* Primary colors - Brutalist Vermillion (hue 25°) */
+    --sando-sb-primary: #d4553b;
+    --sando-sb-primary-hover: #e07159;
+    --sando-sb-primary-light: #450a0a;
+    --sando-sb-primary-dark: #c13b1e;
 
-    /* Background colors */
-    --sando-sb-app-bg: #0c0a09;
-    --sando-sb-content-bg: #1c1917;
-    --sando-sb-sidebar-bg: #0c0a09;
+    /* Background colors - Ink (inverted) */
+    --sando-sb-app-bg: #171717;
+    --sando-sb-content-bg: #0a0a0a;
+    --sando-sb-sidebar-bg: #171717;
 
-    /* Text colors */
-    --sando-sb-text-primary: #fafaf9;
-    --sando-sb-text-secondary: #d6d3d1;
-    --sando-sb-text-muted: #a8a29e;
+    /* Text colors - Ink (inverted) */
+    --sando-sb-text-primary: #fafafa;
+    --sando-sb-text-secondary: #d4d4d4;
+    --sando-sb-text-muted: #a3a3a3;
 
-    /* Border colors */
-    --sando-sb-border: #292524;
-    --sando-sb-border-light: #1c1917;
+    /* Border colors - Ink (inverted) */
+    --sando-sb-border: #404040;
+    --sando-sb-border-light: #262626;
 
-    /* Interactive states */
-    --sando-sb-selected-bg: #431407;
-    --sando-sb-selected-text: #fb923c;
-    --sando-sb-hover-bg: #1c1917;
-    --sando-sb-focus-color: #fb923c;
+    /* Interactive states - Vermillion accent */
+    --sando-sb-selected-bg: #450a0a;
+    --sando-sb-selected-text: #d4553b;
+    --sando-sb-hover-bg: #262626;
+    --sando-sb-focus-color: #d4553b;
 
     /* Badge colors - dark mode */
     --sando-sb-badge-stable-bg: #14532d;
@@ -240,6 +240,19 @@ button[data-active="true"] {
 /* Toolbar separator */
 .toolbar-separator {
   background: var(--sando-sb-border) !important;
+}
+
+/* Flavor selector - prefix "Flavor: " before dynamic title */
+button[title="Design system flavor/theme"] span {
+  display: inline-flex;
+  align-items: center;
+}
+
+button[title="Design system flavor/theme"] span::before {
+  content: "Flavor: ";
+  color: var(--sando-sb-text-muted);
+  font-weight: 400;
+  margin-right: 0;
 }
 
 /* ============================================================================

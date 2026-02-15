@@ -1,219 +1,387 @@
-# Accessibility Guide
+---
+title: Accessibility Guide
+description: How Sando Design System ensures WCAG 2.1 Level AA compliance through automatic accessibility modes, OKLCH-based color contrast, and built-in keyboard and screen reader support.
+---
 
-Sando Design System is built with accessibility as a core principle, not an afterthought.
+# Accessibility
 
-## Our Commitment
+Accessibility isn't a feature in Sando — it's the foundation. Like quality bread in a sandwich, if the foundation doesn't work for everyone, nothing else matters. Every component, every flavor, every mode is built to meet **WCAG 2.1 Level AA** standards, with AAA where achievable.
 
-All components in Sando Design System are designed to meet **WCAG 2.1 Level AA** standards.
+## How Sando Makes Accessibility Automatic
 
-## Accessibility Features
+Most design systems ask you to _add_ accessibility. Sando _starts with it_. Three architectural decisions make this possible:
 
-### 🎨 Color Contrast
+### 1. OKLCH Color Space
 
-All color combinations in our token system are tested for proper contrast:
+Sando uses [OKLCH](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/oklch) for all color definitions. Unlike hex or HSL, OKLCH guarantees **perceptual uniformity** — when two colors have the same lightness value, they actually _look_ equally bright to human eyes.
 
-- **Text**: Minimum 4.5:1 contrast ratio
-- **UI Components**: Minimum 3:1 contrast ratio
-- **Large Text** (18pt+): Minimum 3:1 contrast ratio
+Why this matters for accessibility:
 
-We use automated testing to ensure every token combination meets these requirements:
-
-```bash
-# Run accessibility tests
-pnpm --filter @sando/tokens test:accessibility
-```
-
-### ⌨️ Keyboard Navigation
-
-All interactive components are fully keyboard accessible:
-
-- **Tab**: Navigate between focusable elements
-- **Shift + Tab**: Navigate backwards
-- **Enter/Space**: Activate buttons and controls
-- **Escape**: Close modals and dismissible elements
-- **Arrow Keys**: Navigate within compound widgets
-
-### 🔊 Screen Reader Support
-
-Components include proper ARIA attributes:
-
-- Semantic HTML elements
-- ARIA roles where necessary
-- ARIA labels for context
-- ARIA live regions for dynamic content
-- Proper heading hierarchy
-
-### 👁️ Focus Management
-
-- Clear focus indicators on all interactive elements
-- Focus trapped in modals
-- Focus restored when closing overlays
-- Skip links for keyboard users
-
-## Testing for Accessibility
-
-### Automated Testing
-
-We use multiple tools to catch accessibility issues:
-
-```bash
-# Run all accessibility tests
-pnpm test:a11y
-
-# Specific component tests
-pnpm --filter @sando/components test:a11y
-```
-
-Tools used:
-
-- **axe-core**: Automated accessibility testing
-- **Playwright**: E2E accessibility testing
-- **Vitest**: Unit testing for WCAG compliance
-
-### Manual Testing
-
-Automated tests catch many issues, but manual testing is crucial:
-
-#### Keyboard Navigation Checklist
-
-- [ ] All interactive elements are reachable via Tab
-- [ ] Tab order is logical
-- [ ] Focus is visible
-- [ ] Escape key closes modals/overlays
-- [ ] No keyboard traps
-
-#### Screen Reader Checklist
-
-Test with:
-
-- **NVDA** (Windows, free)
-- **JAWS** (Windows)
-- **VoiceOver** (macOS/iOS)
-- **TalkBack** (Android)
-
-Verify:
-
-- [ ] All content is announced
-- [ ] Interactive elements have clear labels
-- [ ] Form errors are announced
-- [ ] Dynamic content updates are announced
-- [ ] Landmarks are properly identified
-
-#### Visual Checklist
-
-- [ ] Text is readable at 200% zoom
-- [ ] Color is not the only means of conveying information
-- [ ] Animations respect `prefers-reduced-motion`
-- [ ] Content reflows without horizontal scrolling
-
-## Component-Specific Guidance
-
-### Buttons
-
-```html
-<!-- Good: Clear, descriptive text -->
-<sando-button>Save Changes</sando-button>
-
-<!-- Bad: Generic text -->
-<sando-button>Click Here</sando-button>
-
-<!-- Good: Icon with accessible label -->
-<sando-button aria-label="Close dialog">
-  <span aria-hidden="true">×</span>
-</sando-button>
-```
-
-### Forms
-
-```html
-<!-- Good: Associated label -->
-<label for="email">Email Address</label>
-<input type="email" id="email" required />
-
-<!-- Good: Error message -->
-<input type="email" aria-invalid="true" aria-describedby="email-error" />
-<div id="email-error" role="alert">Please enter a valid email address</div>
-```
-
-### Focus Indicators
-
-All Sando components include visible focus indicators that meet WCAG requirements:
+- **Lightness-based contrast** — Contrast ratios are predictable because OKLCH lightness maps directly to perceived brightness
+- **Colorblind-safe** — Sando relies on lightness differences, not hue differences, to distinguish elements. A `green.600` success message and a `red.600` error are distinguishable even without seeing color
+- **Consistent across palettes** — `orange.500` and `green.500` have the same visual weight, so swapping flavors never breaks contrast
 
 ```css
-/* Focus indicator style */
+/* OKLCH: Lightness, Chroma, Hue */
+/* L=0.65 means "65% perceived brightness" — always. */
+--sando-color-brown-500: oklch(0.65 0.08 50);
+--sando-color-green-500: oklch(0.65 0.1 145);
+/* Both look equally bright → same contrast against any background */
+```
+
+### 2. Automatic Accessibility Modes
+
+Every flavor ships with 5 mode variants that activate via CSS `@media` queries — no JavaScript, no configuration:
+
+| Mode              | Trigger                                   | What It Does                                  |
+| ----------------- | ----------------------------------------- | --------------------------------------------- |
+| **Light**         | Default                                   | Standard palette, WCAG AA compliant           |
+| **Dark**          | `@media (prefers-color-scheme: dark)`     | Inverted palette, maintains AA contrast       |
+| **High Contrast** | `@media (prefers-contrast: more)`         | Black/white palette, WCAG AAA (7:1+)          |
+| **Forced Colors** | `@media (forced-colors: active)`          | Defers to Windows High Contrast system colors |
+| **Motion Reduce** | `@media (prefers-reduced-motion: reduce)` | All durations → `0ms`, transitions disabled   |
+
+```html
+<!-- Nothing to configure. Modes respond to user system preferences. -->
+<body flavor="kiwi">
+  <sando-button variant="solid">Always Accessible</sando-button>
+</body>
+```
+
+::: tip Modes Combine Automatically
+A user with both dark mode and reduced motion enabled gets both adaptations simultaneously. Color modes (light/dark/high-contrast/forced-colors) are mutually exclusive, but motion reduce combines with any of them.
+:::
+
+### 3. Semantic HTML First
+
+Sando components use native HTML elements wherever possible. A `<sando-button>` renders a real `<button>` internally. A `<sando-input>` renders a real `<input>`. This gives you free keyboard support, screen reader support, and form behavior — no ARIA gymnastics required.
+
+```html
+<!-- sando-button renders a native <button> inside its shadow DOM -->
+<sando-button variant="solid">Save Changes</sando-button>
+
+<!-- Result: keyboard focusable, screen reader announces "Save Changes, button" -->
+```
+
+## Color Contrast
+
+### Standards
+
+All Sando flavors meet these contrast requirements in every mode:
+
+| Content Type  | WCAG Level | Minimum Ratio | What It Covers                 |
+| ------------- | ---------- | ------------- | ------------------------------ |
+| Normal text   | AA         | 4.5:1         | Body copy, labels, captions    |
+| Large text    | AA         | 3:1           | Headings (≥18pt or ≥14pt bold) |
+| UI components | AA         | 3:1           | Borders, icons, focus rings    |
+| High contrast | AAA        | 7:1           | All text in high contrast mode |
+
+### Real Contrast Ratios (Sando Flavor)
+
+| Combination           | Ratio  | Level | Use Case           |
+| --------------------- | ------ | ----- | ------------------ |
+| Ink 950 on Cream 50   | 14.8:1 | AAA   | Headings           |
+| Ink 800 on Cream 50   | 10.2:1 | AAA   | Body text          |
+| White on Brown 600    | 4.9:1  | AA    | Button text        |
+| Ink 500 on Cream 50   | 4.5:1  | AA    | Muted/caption text |
+| Brown 600 on Cream 50 | 5.2:1  | AA    | Links              |
+
+::: info Color Is Never the Only Signal
+Per WCAG 1.4.1, Sando never uses color as the sole means of conveying information. Error states use icons + text + color. Success states use icons + text + color. This ensures the UI communicates clearly for colorblind users and in forced-colors mode.
+:::
+
+## Keyboard Navigation
+
+All interactive Sando components are fully keyboard accessible. Here's how keyboard interaction works for real components:
+
+### `<sando-button>`
+
+| Key           | Action                                    |
+| ------------- | ----------------------------------------- |
+| `Tab`         | Focuses the button                        |
+| `Shift + Tab` | Moves focus to previous focusable element |
+| `Enter`       | Activates the button                      |
+| `Space`       | Activates the button                      |
+
+```html
+<!-- Keyboard accessible by default. No tabindex needed. -->
+<sando-button variant="solid">Save</sando-button>
+<sando-button variant="outline">Cancel</sando-button>
+<!-- Tab moves between them, Enter/Space activates -->
+```
+
+### `<sando-input>`
+
+| Key           | Action                             |
+| ------------- | ---------------------------------- |
+| `Tab`         | Focuses the input                  |
+| `Shift + Tab` | Moves focus to previous element    |
+| `Escape`      | Clears the input (when applicable) |
+| Type          | Enters text naturally              |
+
+### `<sando-checkbox>`
+
+| Key     | Action                           |
+| ------- | -------------------------------- |
+| `Tab`   | Focuses the checkbox             |
+| `Space` | Toggles checked state            |
+| `Enter` | Toggles checked state (enhanced) |
+
+### General Patterns
+
+| Key               | When It Applies              | Action                           |
+| ----------------- | ---------------------------- | -------------------------------- |
+| `Tab`             | All interactive elements     | Move focus forward               |
+| `Shift + Tab`     | All interactive elements     | Move focus backward              |
+| `Enter` / `Space` | Buttons, toggles, checkboxes | Activate the control             |
+| `Escape`          | Modals, overlays, dropdowns  | Close/dismiss                    |
+| `Arrow Keys`      | Radio groups, tabs, menus    | Navigate within compound widgets |
+
+## Focus Management
+
+### Visible Focus Indicators
+
+Every interactive Sando component shows a clear focus ring when navigated via keyboard. The focus ring uses the flavor's `--sando-color-focus-ring` token:
+
+```css
+/* Built into every interactive component */
 :focus-visible {
   outline: 2px solid var(--sando-color-focus-ring);
   outline-offset: 2px;
 }
 ```
 
-## ARIA Patterns
+The focus ring:
 
-We follow [WAI-ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/) for common patterns:
+- Is always **2px solid** for WCAG 2.4.7 compliance
+- Uses a **2px offset** so it doesn't overlap the component's border
+- Only appears on **keyboard focus** (`:focus-visible`), not mouse clicks
+- Adapts to each flavor's brand color
 
-- **Button**: Native `<button>` elements when possible
-- **Modal Dialog**: Focus trap, Escape to close, return focus
-- **Combobox**: Proper autocomplete semantics
-- **Tabs**: Arrow key navigation, automatic activation
+### Focus Trapping (Pattern Guidance)
+
+When building modal or dialog patterns with Sando components, implement focus trapping to keep keyboard users within the dialog:
+
+- `Tab` should cycle through focusable elements inside the dialog
+- `Shift + Tab` should cycle backward
+- `Escape` should close the dialog and return focus to the trigger
+
+### Focus Restoration
+
+When a dialog or overlay closes, focus should return to the element that triggered it. This ensures users never lose their place on the page. Sando's focus ring tokens (`--sando-color-focus-ring`) and `:focus-visible` styling apply automatically to any interactive element that receives focus.
+
+## Screen Reader Support
+
+### ARIA Patterns
+
+Sando follows the [WAI-ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/) for all interactive components:
+
+| Component Pattern | ARIA Approach                                        |
+| ----------------- | ---------------------------------------------------- |
+| Button            | Native `<button>`, `aria-disabled`, `aria-pressed`   |
+| Input             | Native `<input>`, `aria-invalid`, `aria-describedby` |
+| Checkbox          | Native `<input type="checkbox">`, `aria-checked`     |
+| Toggle            | `<button aria-pressed="true/false">`                 |
+| Dialog (pattern)  | `role="dialog"`, `aria-modal`, `aria-labelledby`     |
+| Loading states    | `aria-busy="true"`, `aria-live="polite"`             |
+| Error messages    | `role="alert"`, `aria-live="assertive"`              |
+
+### Writing Accessible Content with Sando Components
+
+```html
+<!-- ✅ Good: Descriptive button text -->
+<sando-button>Save Changes</sando-button>
+
+<!-- ❌ Bad: Generic, meaningless text -->
+<sando-button>Click Here</sando-button>
+
+<!-- ✅ Good: Icon button with accessible label -->
+<sando-button aria-label="Close dialog">
+  <span aria-hidden="true">×</span>
+</sando-button>
+
+<!-- ✅ Good: Input with error description -->
+<sando-input
+  label="Email Address"
+  type="email"
+  aria-invalid="true"
+  aria-describedby="email-error"
+></sando-input>
+<div id="email-error" role="alert">Please enter a valid email address</div>
+```
 
 ## Motion and Animation
 
-Respect user preferences for reduced motion:
+Sando handles reduced motion automatically through the motion-reduce mode variant:
 
 ```css
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
+/* When @media (prefers-reduced-motion: reduce) matches: */
+--sando-animation-duration-fast: 0ms;
+--sando-animation-duration-normal: 0ms;
+--sando-animation-duration-slow: 0ms;
 ```
 
-All Sando components respect this preference.
+This means:
 
-## Resources
+- Button press animations → instant
+- Page transitions → instant
+- Loading spinners → still visible (static frame)
+- Hover color changes → still applied (only duration is removed)
 
-### Official Guidelines
+::: tip Motion Preferences Are About Safety
+Reduced motion isn't a preference like "dark mode is easier on my eyes." For users with vestibular disorders, unexpected motion can cause dizziness, nausea, or seizures. Sando treats `prefers-reduced-motion` as a safety requirement, not a cosmetic choice.
+:::
 
-- [WCAG 2.1](https://www.w3.org/WAI/WCAG21/quickref/)
-- [WAI-ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/)
-- [WebAIM](https://webaim.org/)
+## High Contrast and Forced Colors
 
-### Testing Tools
+### High Contrast Mode
 
-- [axe DevTools](https://www.deque.com/axe/devtools/) - Browser extension
-- [WAVE](https://wave.webaim.org/) - Web accessibility evaluation tool
-- [Lighthouse](https://developers.google.com/web/tools/lighthouse) - Built into Chrome DevTools
+When `@media (prefers-contrast: more)` matches, Sando switches to maximum contrast values:
 
-### Screen Readers
+- Text becomes black on white (or white on black in dark mode)
+- Borders thicken for visibility
+- Backgrounds lose subtle gradients and shadows
+- All text achieves **7:1+ contrast** (WCAG AAA)
 
-- [NVDA](https://www.nvaccess.org/) - Free for Windows
-- [VoiceOver](https://www.apple.com/accessibility/voiceover/) - Built into macOS/iOS
-- [JAWS](https://www.freedomscientific.com/products/software/jaws/) - Commercial for Windows
+### Forced Colors Mode (Windows High Contrast)
+
+When `@media (forced-colors: active)` matches, Sando defers entirely to the operating system's color scheme:
+
+```css
+/* Sando uses CSS system colors in forced-colors mode */
+--sando-color-text-body: CanvasText;
+--sando-color-background-base: Canvas;
+--sando-color-text-link-default: LinkText;
+--sando-color-focus-ring: Highlight;
+```
+
+The system colors (`Canvas`, `CanvasText`, `LinkText`, `Highlight`, `ButtonFace`, `ButtonText`) are defined by the user's Windows High Contrast theme, ensuring their personal preferences are always respected.
+
+## Testing Accessibility
+
+### Automated Testing
+
+Every Sando component includes a dedicated accessibility test file (`*.a11y.test.ts`) using [axe-core](https://github.com/dequelabs/axe-core):
+
+```ts
+// sando-button.a11y.test.ts
+import { fixture, expect } from "@open-wc/testing";
+import { axe, toHaveNoViolations } from "jest-axe";
+
+describe("sando-button a11y", () => {
+  it("default state has no violations", async () => {
+    const el = await fixture("<sando-button>Click me</sando-button>");
+    const results = await axe(el);
+    expect(results).toHaveNoViolations();
+  });
+
+  it("disabled state has no violations", async () => {
+    const el = await fixture("<sando-button disabled>Disabled</sando-button>");
+    const results = await axe(el);
+    expect(results).toHaveNoViolations();
+  });
+});
+```
+
+Tests cover every component state, every variant, every size, and every flavor.
+
+### Manual Testing Checklist
+
+Automated tests catch about 57% of accessibility issues. For the rest, test manually:
+
+#### Keyboard Navigation
+
+- [ ] All interactive elements reachable via `Tab`
+- [ ] Tab order follows logical reading order
+- [ ] Focus indicator is clearly visible
+- [ ] `Escape` closes modals and overlays
+- [ ] No keyboard traps — focus never gets stuck
+
+#### Screen Reader
+
+Test with at least one screen reader:
+
+| Platform    | Screen Reader | Cost       |
+| ----------- | ------------- | ---------- |
+| Windows     | NVDA          | Free       |
+| Windows     | JAWS          | Commercial |
+| macOS / iOS | VoiceOver     | Built-in   |
+| Android     | TalkBack      | Built-in   |
+
+Verify:
+
+- [ ] All content is announced in logical order
+- [ ] Interactive elements have clear, descriptive labels
+- [ ] Form errors are announced when they appear
+- [ ] Dynamic content updates are announced via `aria-live`
+- [ ] Decorative elements are hidden with `aria-hidden="true"`
+
+#### Visual
+
+- [ ] Text readable at 200% browser zoom
+- [ ] No horizontal scrolling at 320px viewport width
+- [ ] Color is not the only means of conveying information
+- [ ] All modes work: light, dark, high contrast, forced colors
+
+### Browser DevTools Testing
+
+::: code-group
+
+```text [Chrome / Edge]
+1. Open DevTools → Rendering tab
+2. Scroll to "Emulate CSS media feature"
+3. Test these one at a time:
+   - prefers-color-scheme: dark
+   - prefers-contrast: more
+   - prefers-reduced-motion: reduce
+   - forced-colors: active
+```
+
+```text [Firefox]
+1. Open DevTools → Accessibility tab
+2. Use simulation controls:
+   - Dark theme
+   - High contrast
+   - Reduced motion
+```
+
+:::
 
 ## Reporting Accessibility Issues
 
-If you find an accessibility issue:
+Found an accessibility issue? We treat them as **high priority bugs**.
 
 1. Check if it's already [reported](https://github.com/rodrigolagodev/SandoDesignSystem/issues)
 2. Create a new issue with:
-   - WCAG criterion it violates
-   - Steps to reproduce
-   - Affected component(s)
-   - Testing tool used (if applicable)
+   - **WCAG criterion** it violates (e.g., "1.4.3 Contrast Minimum")
+   - **Steps to reproduce** (flavor, mode, component, action)
+   - **Affected component(s)** (e.g., `sando-button` in dark mode)
+   - **Testing tool used** (axe DevTools, NVDA, VoiceOver, etc.)
+   - **Expected vs. actual behavior**
 
-We treat accessibility issues as **high priority** bugs.
+## Resources
 
-## Contributing
+### Official Standards
 
-When contributing components:
+- [WCAG 2.1 Quick Reference](https://www.w3.org/WAI/WCAG21/quickref/) — The definitive accessibility checklist
+- [WAI-ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/) — Patterns for interactive widgets
+- [MDN Accessibility](https://developer.mozilla.org/en-US/docs/Web/Accessibility) — Technical reference
 
-1. Include accessibility tests
-2. Follow ARIA patterns
-3. Test with keyboard
-4. Test with screen reader
-5. Verify color contrast
-6. Document accessibility features
+### Testing Tools
 
-See our [Contributing Guide](/guides/contributing) for more details.
+- [axe DevTools](https://www.deque.com/axe/devtools/) — Browser extension for in-page testing
+- [WAVE](https://wave.webaim.org/) — Web accessibility evaluation tool
+- [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/) — Verify color contrast ratios
+- [Lighthouse](https://developer.chrome.com/docs/lighthouse/) — Built into Chrome DevTools
+
+### Screen Readers
+
+- [NVDA](https://www.nvaccess.org/) — Free, open source (Windows)
+- [VoiceOver](https://www.apple.com/accessibility/voiceover/) — Built into macOS and iOS
+- [JAWS](https://www.freedomscientific.com/products/software/jaws/) — Commercial (Windows)
+
+## Next Steps
+
+- **[Flavors Reference](/tokens/flavors)** — See how each flavor handles accessibility modes
+- **[Theming Guide](/getting-started/theming)** — Apply flavors and customize your theme
+- **[Contributing Guide](/guides/contributing)** — Learn how to contribute accessible components

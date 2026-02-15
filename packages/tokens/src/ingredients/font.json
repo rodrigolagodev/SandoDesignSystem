@@ -200,6 +200,16 @@
       }
     },
     "letterSpacing": {
+      "negative-100": {
+        "value": "-0.05em",
+        "type": "dimension",
+        "description": "Very tight tracking for display type"
+      },
+      "negative-50": {
+        "value": "-0.025em",
+        "type": "dimension",
+        "description": "Tight tracking for large headlines"
+      },
       "0": {
         "value": "0em",
         "type": "dimension"

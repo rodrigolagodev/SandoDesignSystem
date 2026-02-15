@@ -1,6 +1,11 @@
-# Button Component
+---
+title: Button Component
+description: A fully accessible button component with multiple variants, sizes, states, icon support, toggle behavior, and link rendering.
+---
 
-The `sando-button` component is a versatile, accessible button with multiple variants, sizes, states, and can render as either a button or link.
+# Button
+
+The `sando-button` component is a versatile, accessible button with multiple variants, sizes, states, and can render as either a button or link. It's the workhorse of any UI — like the bread that holds your Sando together.
 
 ## Features
 
@@ -63,13 +68,12 @@ Minimal text-only button (useful for inline links).
 
 ## Sizes
 
-Four WCAG-compliant size options for different contexts:
+Three WCAG-compliant size options for different contexts:
 
 ```html
-<sando-button size="xs">Extra Small</sando-button>
-<sando-button size="small">Small</sando-button>
-<sando-button size="medium">Medium (Default)</sando-button>
-<sando-button size="large">Large</sando-button>
+<sando-button size="sm">Small</sando-button>
+<sando-button size="md">Medium (Default)</sando-button>
+<sando-button size="lg">Large</sando-button>
 ```
 
 ::: tip Touch Target Compliance
@@ -96,7 +100,7 @@ Convey different semantic meanings:
 
 ### Loading
 
-Shows a loading indicator and prevents interaction.
+Shows a loading spinner and prevents interaction.
 
 ```html
 <sando-button loading>Loading...</sando-button>
@@ -110,11 +114,20 @@ Make the button span the full container width:
 <sando-button full-width>Full Width Button</sando-button>
 ```
 
+## Compact Mode
+
+Reduces horizontal padding for toolbars, button groups, or space-constrained layouts:
+
+```html
+<sando-button compact>Compact</sando-button>
+<sando-button compact size="sm">Compact Small</sando-button>
+```
+
 ## With Icons
 
 ### Method 1: Using Properties (Recommended)
 
-The simplest way to add icons using the new `start-icon` and `end-icon` properties:
+The simplest way to add icons using the `start-icon` and `end-icon` properties:
 
 ```html
 <sando-button start-icon="⭐">Favorite</sando-button>
@@ -147,7 +160,7 @@ For buttons with only an icon and no text (must provide `aria-label` for accessi
   <span slot="icon-start">⚙️</span>
 </sando-button>
 
-<!-- With border radius -->
+<!-- Circular icon button -->
 <sando-button icon-only radius="full" aria-label="Add item">
   <span slot="icon-start">➕</span>
 </sando-button>
@@ -159,7 +172,7 @@ Control the button's corner rounding:
 
 ```html
 <sando-button radius="none">No Radius</sando-button>
-<sando-button radius="default">Default (Medium)</sando-button>
+<sando-button radius="default">Default</sando-button>
 <sando-button radius="full">Fully Rounded (Pill)</sando-button>
 ```
 
@@ -232,8 +245,8 @@ Override CSS custom properties for fine-grained control:
 ```html
 <sando-button
   style="
-    --sando-button-solid-backgroundColor-default: #ff6b6b;
-    --sando-button-solid-textColor-default: white;
+    --sando-button-solid-backgroundColor-default: oklch(0.56 0.11 230);
+    --sando-button-solid-textColor-default: oklch(1 0 0);
   "
 >
   Custom Colors
@@ -244,27 +257,28 @@ Override CSS custom properties for fine-grained control:
 
 ### Properties
 
-| Property    | Type                                         | Default      | Description                                    |
-| ----------- | -------------------------------------------- | ------------ | ---------------------------------------------- |
-| `variant`   | `'solid' \| 'outline' \| 'ghost' \| 'text'`  | `'solid'`    | Visual style variant                           |
-| `size`      | `'xs' \| 'small' \| 'medium' \| 'large'`     | `'medium'`   | Button size (all WCAG compliant)               |
-| `status`    | `'default' \| 'success' \| 'destructive'`    | `'default'`  | Status variant for semantic meaning            |
-| `radius`    | `'none' \| 'default' \| 'full'`              | `'default'`  | Border radius variant                          |
-| `disabled`  | `boolean`                                    | `false`      | Whether the button is disabled                 |
-| `loading`   | `boolean`                                    | `false`      | Whether the button is in loading state         |
-| `type`      | `'button' \| 'submit' \| 'reset'`            | `'button'`   | Button type for forms                          |
-| `fullWidth` | `boolean`                                    | `false`      | Whether button takes full width                |
-| `iconOnly`  | `boolean`                                    | `false`      | Square shape for icon-only buttons             |
-| `toggle`    | `boolean`                                    | `false`      | Enable toggle button behavior                  |
-| `active`    | `boolean`                                    | `false`      | Active/pressed state (for toggles)             |
-| `flavor`    | `string`                                     | `'original'` | Design system theme flavor                     |
-| `href`      | `string`                                     | `undefined`  | URL (renders as `<a>` instead of `<button>`)   |
-| `target`    | `'_self' \| '_blank' \| '_parent' \| '_top'` | `'_self'`    | Where to open linked document                  |
-| `rel`       | `string`                                     | `undefined`  | Relationship to linked document                |
-| `download`  | `string \| boolean`                          | `undefined`  | Download linked resource                       |
-| `startIcon` | `string`                                     | `undefined`  | Icon to display at start (alternative to slot) |
-| `endIcon`   | `string`                                     | `undefined`  | Icon to display at end (alternative to slot)   |
-| `ariaLabel` | `string`                                     | `null`       | Accessible label (overrides visible text)      |
+| Property    | Attribute    | Type                                         | Default      | Description                                    |
+| ----------- | ------------ | -------------------------------------------- | ------------ | ---------------------------------------------- |
+| `variant`   | `variant`    | `'solid' \| 'outline' \| 'ghost' \| 'text'`  | `'solid'`    | Visual style variant                           |
+| `size`      | `size`       | `'sm' \| 'md' \| 'lg'`                       | `'md'`       | Button size (all WCAG compliant)               |
+| `status`    | `status`     | `'default' \| 'success' \| 'destructive'`    | `'default'`  | Status variant for semantic meaning            |
+| `radius`    | `radius`     | `'none' \| 'default' \| 'full'`              | `'default'`  | Border radius variant                          |
+| `disabled`  | `disabled`   | `boolean`                                    | `false`      | Whether the button is disabled                 |
+| `loading`   | `loading`    | `boolean`                                    | `false`      | Whether the button is in loading state         |
+| `type`      | `type`       | `'button' \| 'submit' \| 'reset'`            | `'button'`   | Button type for forms                          |
+| `fullWidth` | `full-width` | `boolean`                                    | `false`      | Whether button takes full width                |
+| `compact`   | `compact`    | `boolean`                                    | `false`      | Reduces padding for compact layouts            |
+| `iconOnly`  | `icon-only`  | `boolean`                                    | `false`      | Square shape for icon-only buttons             |
+| `toggle`    | `toggle`     | `boolean`                                    | `false`      | Enable toggle button behavior                  |
+| `active`    | `active`     | `boolean`                                    | `false`      | Active/pressed state (for toggles)             |
+| `flavor`    | `flavor`     | `string`                                     | `'original'` | Design system theme flavor                     |
+| `href`      | `href`       | `string`                                     | `undefined`  | URL (renders as `<a>` instead of `<button>`)   |
+| `target`    | `target`     | `'_self' \| '_blank' \| '_parent' \| '_top'` | `'_self'`    | Where to open linked document                  |
+| `rel`       | `rel`        | `string`                                     | `undefined`  | Relationship to linked document                |
+| `download`  | `download`   | `string \| boolean`                          | `undefined`  | Download linked resource                       |
+| `startIcon` | `start-icon` | `string`                                     | `undefined`  | Icon to display at start (alternative to slot) |
+| `endIcon`   | `end-icon`   | `string`                                     | `undefined`  | Icon to display at end (alternative to slot)   |
+| `ariaLabel` | `aria-label` | `string \| null`                             | `null`       | Accessible label (overrides visible text)      |
 
 ### Slots
 
@@ -298,15 +312,14 @@ Key CSS variables you can override:
 --sando-button-solid-textColor-default
 
 /* Size-specific */
---sando-button-size-medium-paddingBlock
---sando-button-size-medium-paddingInline
---sando-button-size-medium-fontSize
---sando-button-size-medium-lineHeight
---sando-button-size-medium-gap
+--sando-button-size-md-paddingBlock
+--sando-button-size-md-paddingInline
+--sando-button-size-md-fontSize
+--sando-button-size-md-minHeight
 
 /* Status-specific */
---sando-button-solid-backgroundColor-success
---sando-button-solid-backgroundColor-destructive
+--sando-button-status-success-backgroundColor
+--sando-button-status-destructive-backgroundColor
 ```
 
 ::: tip Complete Token Reference
@@ -327,7 +340,7 @@ function App() {
   };
 
   return (
-    <sando-button variant="solid" size="medium" onClick={handleClick}>
+    <sando-button variant="solid" size="md" onClick={handleClick}>
       Click me
     </sando-button>
   );
@@ -338,7 +351,7 @@ function App() {
 
 ```vue
 <template>
-  <sando-button variant="solid" size="medium" @click="handleClick">
+  <sando-button variant="solid" size="md" @click="handleClick">
     Click me
   </sando-button>
 </template>
@@ -367,7 +380,7 @@ export class AppModule {}
 
 ```html
 <!-- component.html -->
-<sando-button variant="solid" size="medium" (click)="handleClick($event)">
+<sando-button variant="solid" size="md" (click)="handleClick($event)">
   Click me
 </sando-button>
 ```
@@ -420,6 +433,7 @@ The component automatically manages these ARIA attributes:
 - Use `toggle` prop for on/off states (filters, settings)
 - Use `href` instead of `onClick` navigation when possible (better for SEO and accessibility)
 - Combine `radius="full"` with `icon-only` for circular buttons
+- Use `compact` for toolbars and button groups where space is limited
 
 ### Don't ❌
 
@@ -429,7 +443,6 @@ The component automatically manages these ARIA attributes:
 - Don't use generic labels like "Click here" or "Submit"
 - Don't nest interactive elements inside buttons
 - Don't forget `aria-label` on icon-only buttons
-- Don't use `size="xs"` for primary actions (use for compact UIs only)
 
 ## Examples
 
@@ -490,15 +503,15 @@ The component automatically manages these ARIA attributes:
 
 ```html
 <!-- Floating action button -->
-<sando-button icon-only radius="full" size="large" aria-label="Add new item">
+<sando-button icon-only radius="full" size="lg" aria-label="Add new item">
   <span slot="icon-start">➕</span>
 </sando-button>
 
 <!-- Small icon buttons for toolbar -->
-<sando-button icon-only radius="full" size="xs" aria-label="Edit">
+<sando-button icon-only radius="full" size="sm" aria-label="Edit">
   <span slot="icon-start">✏️</span>
 </sando-button>
-<sando-button icon-only radius="full" size="xs" aria-label="Delete">
+<sando-button icon-only radius="full" size="sm" aria-label="Delete">
   <span slot="icon-start">🗑️</span>
 </sando-button>
 ```

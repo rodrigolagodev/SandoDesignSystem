@@ -17,11 +17,11 @@ import { Meta } from "@storybook/blocks";
     .skeleton-header h1 {
       font-size: 2rem;
       margin: 0 0 0.5rem 0;
-      color: #1c1917;
+      color: var(--sb-docs-text-heading);
     }
 
     .skeleton-header p {
-      color: #78716c;
+      color: var(--sb-docs-text-muted);
       margin: 0;
       font-size: 1rem;
       line-height: 1.6;
@@ -37,23 +37,23 @@ import { Meta } from "@storybook/blocks";
     .skeleton-table td {
       padding: 0.75rem 1rem;
       text-align: left;
-      border-bottom: 1px solid #e7e5e4;
+      border-bottom: 1px solid var(--sb-docs-border);
     }
 
     .skeleton-table th {
-      background: #fafaf9;
+      background: var(--sb-docs-bg-emphasis);
       font-weight: 600;
-      color: #1c1917;
+      color: var(--sb-docs-text-heading);
       font-size: 0.875rem;
     }
 
     .skeleton-table td {
       font-size: 0.875rem;
-      color: #57534e;
+      color: var(--sb-docs-text-muted);
     }
 
     .skeleton-table tr:hover td {
-      background: #fafaf9;
+      background: var(--sb-docs-bg-emphasis);
     }
 
     .status-badge {
@@ -66,13 +66,13 @@ import { Meta } from "@storybook/blocks";
     }
 
     .status-stable {
-      background: #dcfce7;
-      color: #166534;
+      background: var(--sb-docs-success-bg);
+      color: var(--sb-docs-success-text);
     }
 
     .status-beta {
-      background: #fef3c7;
-      color: #92400e;
+      background: var(--sb-docs-warning-bg);
+      color: var(--sb-docs-warning-text);
     }
 
     .legend {
@@ -81,7 +81,7 @@ import { Meta } from "@storybook/blocks";
       flex-wrap: wrap;
       margin-top: 1.5rem;
       padding: 1rem;
-      background: #fafaf9;
+      background: var(--sb-docs-bg-emphasis);
       border-radius: 8px;
     }
 
@@ -90,7 +90,7 @@ import { Meta } from "@storybook/blocks";
       align-items: center;
       gap: 0.5rem;
       font-size: 0.75rem;
-      color: #57534e;
+      color: var(--sb-docs-text-muted);
     }
 
     .quick-start {
@@ -100,23 +100,23 @@ import { Meta } from "@storybook/blocks";
     .quick-start h2 {
       font-size: 1.5rem;
       margin: 0 0 1rem 0;
-      color: #1c1917;
+      color: var(--sb-docs-text-heading);
     }
 
     .quick-start h3 {
       font-size: 1rem;
       margin: 1.5rem 0 0.5rem 0;
-      color: #1c1917;
+      color: var(--sb-docs-text-heading);
     }
 
     .quick-start p {
-      color: #57534e;
+      color: var(--sb-docs-text-muted);
       margin: 0 0 1rem 0;
       font-size: 0.875rem;
     }
 
     .code-block {
-      background: #1c1917;
+      background: var(--sb-docs-code-bg);
       border-radius: 8px;
       padding: 1rem;
       overflow-x: auto;
@@ -124,7 +124,7 @@ import { Meta } from "@storybook/blocks";
     }
 
     .code-block code {
-      color: #fafaf9;
+      color: var(--sb-docs-code-text);
       font-family: 'Fira Code', 'Monaco', monospace;
       font-size: 0.8125rem;
       line-height: 1.6;

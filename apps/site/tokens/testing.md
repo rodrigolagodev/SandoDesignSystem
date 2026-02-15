@@ -1,10 +1,15 @@
+---
+title: Token Testing
+description: Comprehensive test suite ensuring token quality, reference integrity, accessibility compliance, and build output correctness
+---
+
 # Token Testing
 
-Comprehensive test suite ensuring token quality and integrity.
+Comprehensive test suite ensuring token quality and integrity. Just like a chef tastes every component of a dish before serving, Sando validates every token before it reaches your project.
 
 ## Philosophy
 
-**Tests replace validators.** All validation logic is implemented as tests, providing better error messages, watch mode, coverage tracking, and IDE integration.
+**Tests replace validators.** All validation logic is implemented as tests, providing better error messages, watch mode, coverage tracking, and IDE integration. No separate validation step — if the tests pass, the tokens are sound.
 
 ## Test Layers
 
@@ -17,19 +22,19 @@ pnpm test:structure
 ```
 
 ✅ JSON validity
-✅ Required properties (value, type)
+✅ Required properties (`value`, `type`)
 ✅ Valid DTCG types
 ✅ File organization
 
 ### 2. Reference Integrity
 
-Validates three-layer architecture:
+Validates the three-layer architecture — Ingredients, Flavors, and Recipes must respect the reference chain:
 
 ```bash
 pnpm test:references
 ```
 
-✅ Ingredients → No references (primitives)
+✅ Ingredients → No references (primitives only)
 ✅ Flavors → Reference Ingredients only
 ✅ Recipes → Reference Flavors only
 ✅ No circular references
@@ -37,13 +42,13 @@ pnpm test:references
 
 ### 3. Value Correctness
 
-Validates token values:
+Validates token values match their expected formats:
 
 ```bash
 pnpm test:values
 ```
 
-✅ Color format (HSL)
+✅ Color format (OKLCH)
 ✅ Dimensions (rem, px, em, %)
 ✅ Font weights (100-900)
 ✅ Durations (ms, s)
@@ -52,7 +57,7 @@ pnpm test:values
 
 ### 4. Accessibility
 
-WCAG compliance:
+WCAG compliance — making sure every color combination is accessible out of the box:
 
 ```bash
 pnpm test:accessibility
@@ -65,7 +70,7 @@ pnpm test:accessibility
 
 ### 5. Build Output
 
-Validates CSS generation:
+Validates CSS generation — the final plating of your tokens:
 
 ```bash
 pnpm test:build
@@ -73,7 +78,7 @@ pnpm test:build
 
 ✅ Files generated
 ✅ CSS variables correct
-✅ Selectors valid (:root, [flavor])
+✅ Selectors valid (`:root`, `[flavor]`)
 ✅ Reference resolution
 
 ## Running Tests
@@ -136,7 +141,7 @@ When adding a new token type:
 4. **Add build transforms** (if needed): Custom transformers
 5. **Add output tests**: Verify CSS generation
 
-See [TESTING.md](https://github.com/yourusername/sando-design-system/blob/master/packages/tokens/TESTING.md) for detailed guide.
+See the [token testing guide on GitHub](https://github.com/rodrigolagodev/SandoDesignSystem/blob/master/packages/tokens/TESTING.md) for the detailed walkthrough.
 
 ## Coverage Goals
 
@@ -150,5 +155,7 @@ See [TESTING.md](https://github.com/yourusername/sando-design-system/blob/master
 
 ## Next Steps
 
-- **[Token Architecture](/tokens/architecture)** - Understand the system
-- **[Contributing](/guides/contributing)** - Add new tokens
+- **[Token Architecture](/tokens/architecture)** — Understand the three-layer system
+- **[Ingredients](/tokens/ingredients)** — Explore the primitive values
+- **[Flavors](/tokens/flavors)** — Learn about theming
+- **[Contributing](/guides/contributing)** — Add new tokens

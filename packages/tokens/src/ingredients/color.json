@@ -536,6 +536,120 @@
         "description": "neutral 950"
       }
     },
+    "ink": {
+      "50": {
+        "value": "oklch(0.98 0 0)",
+        "type": "color",
+        "description": "ink 50"
+      },
+      "100": {
+        "value": "oklch(0.95 0 0)",
+        "type": "color",
+        "description": "ink 100"
+      },
+      "200": {
+        "value": "oklch(0.90 0 0)",
+        "type": "color",
+        "description": "ink 200"
+      },
+      "300": {
+        "value": "oklch(0.82 0 0)",
+        "type": "color",
+        "description": "ink 300"
+      },
+      "400": {
+        "value": "oklch(0.73 0 0)",
+        "type": "color",
+        "description": "ink 400"
+      },
+      "500": {
+        "value": "oklch(0.64 0 0)",
+        "type": "color",
+        "description": "ink 500"
+      },
+      "600": {
+        "value": "oklch(0.56 0 0)",
+        "type": "color",
+        "description": "ink 600"
+      },
+      "700": {
+        "value": "oklch(0.47 0 0)",
+        "type": "color",
+        "description": "ink 700"
+      },
+      "800": {
+        "value": "oklch(0.38 0 0)",
+        "type": "color",
+        "description": "ink 800"
+      },
+      "900": {
+        "value": "oklch(0.30 0 0)",
+        "type": "color",
+        "description": "ink 900"
+      },
+      "950": {
+        "value": "oklch(0.22 0 0)",
+        "type": "color",
+        "description": "ink 950"
+      }
+    },
+    "vermillion": {
+      "50": {
+        "value": "oklch(0.98 0.04 25)",
+        "type": "color",
+        "description": "vermillion 50"
+      },
+      "100": {
+        "value": "oklch(0.95 0.06 25)",
+        "type": "color",
+        "description": "vermillion 100"
+      },
+      "200": {
+        "value": "oklch(0.90 0.10 25)",
+        "type": "color",
+        "description": "vermillion 200"
+      },
+      "300": {
+        "value": "oklch(0.82 0.16 25)",
+        "type": "color",
+        "description": "vermillion 300"
+      },
+      "400": {
+        "value": "oklch(0.73 0.20 25)",
+        "type": "color",
+        "description": "vermillion 400"
+      },
+      "500": {
+        "value": "oklch(0.64 0.22 25)",
+        "type": "color",
+        "description": "vermillion 500"
+      },
+      "600": {
+        "value": "oklch(0.56 0.22 25)",
+        "type": "color",
+        "description": "vermillion 600"
+      },
+      "700": {
+        "value": "oklch(0.47 0.20 25)",
+        "type": "color",
+        "description": "vermillion 700"
+      },
+      "800": {
+        "value": "oklch(0.38 0.16 25)",
+        "type": "color",
+        "description": "vermillion 800"
+      },
+      "900": {
+        "value": "oklch(0.30 0.12 25)",
+        "type": "color",
+        "description": "vermillion 900"
+      },
+      "950": {
+        "value": "oklch(0.22 0.10 25)",
+        "type": "color",
+        "description": "vermillion 950"
+      }
+    },
     "neutralWarm": {
       "50": {
         "value": "oklch(0.98 0.018 30)",

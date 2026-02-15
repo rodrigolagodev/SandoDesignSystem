@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap");
+
 /**
  * Storybook Preview Global Styles
  *
@@ -78,8 +80,8 @@ body {
 
 /* Apply background color from design tokens to html (where attributes are set) */
 html {
-  background-color: var(--sando-color-background-base);
-  color: var(--sando-color-text-body);
+  background-color: var(--sb-docs-bg-base);
+  color: var(--sb-docs-text-body);
   font-family: var(--sando-font-family-body);
   min-height: 100%;
 }
@@ -109,7 +111,7 @@ body {
 
 /* MDX Container - Force light, neutral background for readability */
 .sbdocs-wrapper {
-  background: var(--sb-docs-bg-base) !important;
+  background: var(--sb-docs-bg-surface) !important;
   color: var(--sb-docs-text-body) !important;
 }
 
@@ -134,6 +136,10 @@ body {
   color: var(--sb-docs-text-body);
 }
 
+.sbdocs span {
+  background-color: transparent;
+}
+
 .sbdocs a {
   color: var(--sb-docs-link);
 }
@@ -143,7 +149,7 @@ body {
 }
 
 .sbdocs a:active {
-  color: #7c2d12; /* orange-900 */
+  color: var(--sb-docs-link-active);
 }
 
 /* ----------------------------------------
@@ -157,7 +163,7 @@ body {
   border-collapse: collapse;
   margin: 1.5rem 0;
   font-size: 0.875rem;
-  background-color: var(--sb-docs-bg-raised);
+  background-color: var(--sb-docs-table-bg);
   border: 1px solid var(--sb-docs-border);
   border-radius: 4px;
   overflow: hidden;
@@ -166,7 +172,7 @@ body {
 .sbdocs table th,
 .docs-story table th,
 .sb-unstyled table th {
-  background: var(--sb-docs-bg-emphasis);
+  background: var(--sb-docs-table-header-bg);
   font-weight: 600;
   color: var(--sb-docs-text-heading);
   padding: 0.75rem 1rem;
@@ -181,23 +187,24 @@ body {
   text-align: left;
   border-bottom: 1px solid var(--sb-docs-border);
   color: var(--sb-docs-text-body);
-  background-color: var(--sb-docs-bg-raised);
+  background-color: var(--sb-docs-table-bg);
 }
 
 .sbdocs table tr:hover td,
 .docs-story table tr:hover td,
 .sb-unstyled table tr:hover td {
-  background: var(--sb-docs-bg-emphasis);
+  background: var(--sb-docs-table-hover-bg);
 }
 
 .sbdocs table code,
 .docs-story table code,
 .sb-unstyled table code {
   background: var(--sb-docs-code-bg);
-  padding: 0.125rem 0.375rem;
-  border-radius: 4px;
-  font-size: 0.8125rem;
-  font-family: var(--sando-font-family-code, "Fira Code", monospace);
+  padding: 0.1rem 0.25rem;
+  border-radius: 3px;
+  border: 1px solid var(--sb-docs-code-border);
+  font-size: 0.8em;
+  font-family: var(--sando-font-family-mono, "Fira Code", monospace);
   color: var(--sb-docs-code-text);
 }
 
@@ -270,10 +277,16 @@ body {
    Story backgrounds follow the color mode token system.
    The .sb-story wrapper stays transparent for grid addons visibility.
    ---------------------------------------- */
-/* Story preview in docs - follows color mode */
-.sbdocs-preview,
-.docs-story {
-  background: var(--sando-color-background-base) !important;
+/* Story preview in docs - MDX wrapper uses static docs colors */
+.sbdocs-preview {
+  background: var(--sb-docs-bg-base) !important;
+}
+
+/* Component canvas - uses dynamic flavor token for real preview
+   html selector ensures we're in the document context where data-flavor is set */
+html .docs-story,
+:root .docs-story {
+  background-color: var(--sando-color-background-base) !important;
 }
 
 /* Canvas wrapper - transparent for grid visibility */
@@ -285,29 +298,30 @@ body {
 /* ----------------------------------------
    Code Blocks - Force light mode for MDX
    ---------------------------------------- */
+
 .sbdocs pre {
-  background: var(--sb-docs-bg-code) !important;
+  background: var(--sb-docs-bg-base) !important;
   border: 1px solid var(--sb-docs-border);
-  border-radius: 8px;
+  border-radius: 0px !important;
   padding: 1rem;
-  overflow-x: auto;
 }
 
 .sbdocs pre code {
   background: transparent !important;
   padding: 0;
   color: var(--sb-docs-code-text);
-  font-family: var(--sando-font-family-code, "Fira Code", monospace);
+  font-family: var(--sando-font-family-mono, "Fira Code", monospace);
 }
 
-/* Inline code in paragraphs */
+/* Inline code in paragraphs - subtle, integrated appearance */
 .sbdocs p code,
 .sbdocs li code {
   background: var(--sb-docs-code-bg);
-  padding: 0.125rem 0.375rem;
-  border-radius: 4px;
-  font-size: 0.875em;
-  font-family: var(--sando-font-family-code, "Fira Code", monospace);
+  padding: 0.1rem 0.25rem;
+  border-radius: 3px;
+  border: 1px solid var(--sb-docs-code-border);
+  font-size: 0.85em;
+  font-family: var(--sando-font-family-mono, "Fira Code", monospace);
   color: var(--sb-docs-code-text);
 }
 
@@ -333,8 +347,10 @@ body {
    Storybook Source Code Block
    ---------------------------------------- */
 .docblock-source {
-  background: var(--sb-docs-bg-emphasis) !important;
+  background: transparent !important;
   border-color: var(--sb-docs-border) !important;
+  border: none !important;
+  border-radius: 0 !important;
 }
 
 /* ----------------------------------------
@@ -364,44 +380,162 @@ body {
    Using variables instead of hardcoded hex values makes the
    theme maintainable and easy to update.
    
-   All colors are based on the Sando neutralWarm palette
+   All colors are based on the Sando ink + vermillion (brutalist) palette
    but defined statically for consistent docs appearance.
    ======================================== */
 :root {
   /* Docs Background colors */
-  --sb-docs-bg-base: #fafaf9; /* neutralWarm-100 */
-  --sb-docs-bg-surface: #f5f5f4; /* neutralWarm-200 */
+  --sb-docs-bg-base: #fafafa; /* ink.50 */
+  --sb-docs-bg-surface: #f5f5f5; /* ink.100 */
   --sb-docs-bg-raised: #ffffff; /* white */
-  --sb-docs-bg-emphasis: #f5f5f4; /* neutralWarm-200 - softer, WCAG approved */
-  --sb-docs-bg-code: #fafaf9; /* neutralWarm-100 - matches base per user request */
+  --sb-docs-bg-emphasis: #e5e5e5; /* ink.200 - softer, WCAG approved */
+  --sb-docs-bg-code: #fafafa; /* ink.50 - matches base per user request */
 
   /* Docs Text colors */
-  --sb-docs-text-heading: #0c0a09; /* neutralWarm-950 */
-  --sb-docs-text-body: #292524; /* neutralWarm-800 */
-  --sb-docs-text-caption: #44403c; /* neutralWarm-700 - WCAG AAA 8.5:1 */
-  --sb-docs-text-muted: #57534e; /* neutralWarm-600 - WCAG AA 6.0:1 */
-
+  --sb-docs-text-heading: #171717; /* ink.950 - darkest for headings */
+  --sb-docs-text-body: #262626; /* ink.800 */
+  --sb-docs-text-caption: #404040; /* ink.700 - WCAG AAA 8.5:1 */
+  --sb-docs-text-muted: #525252; /* ink.600 - WCAG AA 6.0:1 */
+  --sb-docs-text-heading-inverse: #fafafa; /* ink.50 - for inverse text on dark backgrounds */
   /* Docs Border colors */
-  --sb-docs-border: #d6d3d1; /* neutralWarm-300 */
-  --sb-docs-border-emphasis: #a8a29e; /* neutralWarm-400 */
+  --sb-docs-border: #d4d4d4; /* ink.300 */
+  --sb-docs-border-emphasis: #a3a3a3; /* ink.400 */
 
   /* Docs Link colors */
-  --sb-docs-link: #c2410c; /* orange-700 */
-  --sb-docs-link-hover: #9a3412; /* orange-800 */
+  --sb-docs-link: #c13b1e; /* vermillion.600 */
+  --sb-docs-link-hover: #9e2f18; /* vermillion.700 */
 
-  /* Docs Status colors */
-  --sb-docs-success-bg: #dcfce7; /* green-100 */
-  --sb-docs-success-text: #15803d; /* green-700 */
-  --sb-docs-warning-bg: #fef3c7; /* amber-100 */
-  --sb-docs-warning-text: #b45309; /* amber-700 */
-  --sb-docs-error-bg: #fee2e2; /* red-100 */
-  --sb-docs-error-text: #b91c1c; /* red-700 */
-  --sb-docs-info-bg: #dbeafe; /* blue-100 */
-  --sb-docs-info-text: #1d4ed8; /* blue-700 */
+  /* Docs Link active color */
+  --sb-docs-link-active: #7a2515; /* vermillion.800 */
 
-  /* Docs Code colors */
-  --sb-docs-code-bg: #f0efee; /* subtle distinction from base - WCAG approved */
-  --sb-docs-code-text: #292524; /* neutralWarm-800 */
+  /* Docs Status colors - using brutalist palette */
+  --sb-docs-success-bg: #ecfdf5; /* green background */
+  --sb-docs-success-text: #047857; /* green text */
+  --sb-docs-success-border: #a7f3d0; /* green border */
+  --sb-docs-warning-bg: #fffbeb; /* amber background */
+  --sb-docs-warning-text: #b45309; /* amber text */
+  --sb-docs-warning-border: #fcd34d; /* amber border */
+  --sb-docs-error-bg: #fef2f2; /* red background */
+  --sb-docs-error-text: #b91c1c; /* red text */
+  --sb-docs-error-border: #fecaca; /* red border */
+  --sb-docs-info-bg: #f0fdfa; /* teal background */
+  --sb-docs-info-text: #0f766e; /* teal text */
+  --sb-docs-info-border: #99f6e4; /* teal border */
+  --sb-docs-neutral-bg: var(--sb-docs-bg-emphasis); /* ink */
+  --sb-docs-neutral-text: var(--sb-docs-text-body); /* ink */
+  --sb-docs-neutral-border: var(--sb-docs-border); /* ink */
+
+  /* Docs Table colors - using ink palette */
+  --sb-docs-table-bg: #e5e5e5; /* ink.200 - table body background */
+  --sb-docs-table-header-bg: #d4d4d4; /* ink.300 - table header background */
+  --sb-docs-table-hover-bg: #d4d4d4; /* ink.300 - row hover background */
+
+  /* Docs Code colors - subtle, non-distracting */
+  --sb-docs-code-bg: #fafafa; /* ink.50 - very subtle, nearly matches base */
+  --sb-docs-code-text: #525252; /* ink.600 - slightly muted from body text */
+  --sb-docs-code-border: #e5e5e5; /* ink.200 - subtle border for definition */
+
+  /* Code syntax highlighting - Light Mode (brutalist palette) */
+  --sb-docs-code-comment: #737373; /* ink.500 - muted */
+  --sb-docs-code-punctuation: #525252; /* ink.600 */
+  --sb-docs-code-property: #9e2f18; /* vermillion.700 - softer than before */
+  --sb-docs-code-selector: #c13b1e; /* vermillion.600 */
+  --sb-docs-code-operator: #525252; /* ink.600 */
+  --sb-docs-code-atrule: #c13b1e; /* vermillion.600 */
+  --sb-docs-code-keyword: #7a2515; /* vermillion.800 */
+  --sb-docs-code-function: #404040; /* ink.700 */
+  --sb-docs-code-regex: #9e2f18; /* vermillion.700 */
+  --sb-docs-code-string: #365314; /* olive/green - for contrast */
+  --sb-docs-code-number: #9e2f18; /* vermillion.700 */
+  --sb-docs-code-boolean: #7a2515; /* vermillion.800 */
+  --sb-docs-code-class: #404040; /* ink.700 */
+  --sb-docs-code-constant: #7a2515; /* vermillion.800 */
+  --sb-docs-code-variable: #525252; /* ink.600 */
+  --sb-docs-code-tag: #c13b1e; /* vermillion.600 */
+  --sb-docs-code-attr-name: #9e2f18; /* vermillion.700 */
+  --sb-docs-code-attr-value: #365314; /* olive/green */
+  --sb-docs-code-inserted: #365314; /* olive/green */
+  --sb-docs-code-deleted: #7f1d1d; /* red-900 */
+}
+
+/* ========================================
+   Docs Variables - Dark Mode
+   
+   Override docs variables when dark mode is active.
+   Uses data-color-mode attribute set by preview.js
+   ======================================== */
+:root[data-color-mode="dark"] {
+  /* Docs Background colors - Dark */
+  --sb-docs-bg-base: #171717; /* ink.950 */
+  --sb-docs-bg-surface: #262626; /* ink.900 */
+  --sb-docs-bg-raised: #000000; /* pure black */
+  --sb-docs-bg-emphasis: #404040; /* ink.700 - better contrast for headers */
+  --sb-docs-bg-code: #171717; /* ink.950 */
+
+  /* Docs Text colors - Dark */
+  --sb-docs-text-heading: #fafafa; /* ink.50 */
+  --sb-docs-text-body: #e5e5e5; /* ink.200 */
+  --sb-docs-text-caption: #d4d4d4; /* ink.300 */
+  --sb-docs-text-muted: #a3a3a3; /* ink.400 */
+  --sb-docs-text-heading-inverse: #171717; /* ink.50 */
+
+  /* Docs Border colors - Dark */
+  --sb-docs-border: #404040; /* ink.700 */
+  --sb-docs-border-emphasis: #525252; /* ink.600 */
+
+  /* Docs Link colors - Dark (lighter vermillion for visibility) */
+  --sb-docs-link: #e86040; /* vermillion.400 */
+  --sb-docs-link-hover: #f08060; /* vermillion.300 */
+  --sb-docs-link-active: #f8a080; /* vermillion.200 - lighter for dark mode */
+
+  /* Docs Status colors - Dark (darker backgrounds, lighter text) */
+  --sb-docs-success-bg: #064e3b; /* green dark */
+  --sb-docs-success-text: #6ee7b7; /* green light */
+  --sb-docs-success-border: #065f46; /* green dark border */
+  --sb-docs-warning-bg: #78350f; /* amber dark */
+  --sb-docs-warning-text: #fcd34d; /* amber light */
+  --sb-docs-warning-border: #92400e; /* amber dark border */
+  --sb-docs-error-bg: #7f1d1d; /* red dark */
+  --sb-docs-error-text: #fca5a5; /* red light */
+  --sb-docs-error-border: #991b1b; /* red dark border */
+  --sb-docs-info-bg: #134e4a; /* teal dark */
+  --sb-docs-info-text: #5eead4; /* teal light */
+  --sb-docs-info-border: #115e59; /* teal dark border */
+  --sb-docs-neutral-bg: var(--sb-docs-bg-emphasis); /* ink dark */
+  --sb-docs-neutral-text: var(--sb-docs-text-body); /* ink dark */
+  --sb-docs-neutral-border: var(--sb-docs-border); /* ink dark */
+
+  /* Docs Table colors - Dark - using ink palette */
+  --sb-docs-table-bg: #333333; /* ~ink.850 - as requested */
+  --sb-docs-table-header-bg: #404040; /* ink.700 - darker header */
+  --sb-docs-table-hover-bg: #404040; /* ink.700 - row hover background */
+
+  /* Docs Code colors - Dark - subtle, non-distracting */
+  --sb-docs-code-bg: #171717; /* ink.950 - very subtle, nearly matches base */
+  --sb-docs-code-text: #a3a3a3; /* ink.400 - slightly muted from body text */
+  --sb-docs-code-border: #404040; /* ink.700 - subtle border for definition */
+
+  /* Code syntax highlighting - Dark Mode (brutalist palette) */
+  --sb-docs-code-comment: #a3a3a3; /* ink.400 - visible but muted */
+  --sb-docs-code-punctuation: #d4d4d4; /* ink.300 */
+  --sb-docs-code-property: #f08060; /* vermillion.300 - visible on dark */
+  --sb-docs-code-selector: #e86040; /* vermillion.400 */
+  --sb-docs-code-operator: #d4d4d4; /* ink.300 */
+  --sb-docs-code-atrule: #e86040; /* vermillion.400 */
+  --sb-docs-code-keyword: #f8a080; /* vermillion.200 */
+  --sb-docs-code-function: #e5e5e5; /* ink.200 */
+  --sb-docs-code-regex: #f08060; /* vermillion.300 */
+  --sb-docs-code-string: #a3e635; /* lime-400 - for contrast on dark */
+  --sb-docs-code-number: #f08060; /* vermillion.300 */
+  --sb-docs-code-boolean: #f8a080; /* vermillion.200 */
+  --sb-docs-code-class: #e5e5e5; /* ink.200 */
+  --sb-docs-code-constant: #f8a080; /* vermillion.200 */
+  --sb-docs-code-variable: #d4d4d4; /* ink.300 */
+  --sb-docs-code-tag: #e86040; /* vermillion.400 */
+  --sb-docs-code-attr-name: #f08060; /* vermillion.300 */
+  --sb-docs-code-attr-value: #a3e635; /* lime-400 */
+  --sb-docs-code-inserted: #a3e635; /* lime-400 */
+  --sb-docs-code-deleted: #fca5a5; /* red-300 */
 }
 
 /* ========================================
@@ -478,15 +612,16 @@ body {
 .demo-code {
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
   font-size: 12px;
-  padding: 2px 6px;
+  padding: 1px 4px;
   background-color: var(--sb-docs-code-bg);
-  border-radius: 4px;
+  border: 1px solid var(--sb-docs-code-border);
+  border-radius: 3px;
   color: var(--sb-docs-code-text);
 }
 
 /* Dark code block - for terminal/CLI snippets */
 .demo-code-dark {
-  background-color: #1c1917 !important;
+  background-color: #171717 !important;
   border-radius: 8px;
   padding: 16px;
   overflow: auto;
@@ -497,7 +632,7 @@ body {
 .demo-code-dark pre,
 .demo-code-dark code {
   background-color: transparent !important;
-  color: #fafaf9 !important;
+  color: #fafafa !important;
   margin: 0;
   padding: 0;
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
@@ -538,11 +673,11 @@ body {
   border-radius: 8px;
 }
 
-/* Toast/notification demo */
+/* Toast/notification demo - uses brown primary */
 .demo-toast {
   padding: 16px 24px;
-  background-color: #c2410c;
-  color: white;
+  background-color: var(--sb-docs-link); /* brown */
+  color: #ffffff;
   border-radius: 8px;
   font-size: 14px;
   font-weight: 600;
@@ -552,18 +687,18 @@ body {
 /* Tooltip demo */
 .demo-tooltip {
   padding: 8px 12px;
-  background-color: #1c1917;
+  background-color: #171717;
   color: white;
   border-radius: 6px;
   font-size: 12px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
-/* Button demo */
+/* Button demo - uses brown primary */
 .demo-button {
   padding: 12px 24px;
-  background-color: #c2410c;
-  color: white;
+  background-color: var(--sb-docs-link); /* brown */
+  color: #ffffff;
   border: none;
   border-radius: 8px;
   font-size: 14px;
@@ -572,7 +707,7 @@ body {
 }
 
 .demo-button:hover {
-  background-color: #9a3412;
+  background-color: var(--sb-docs-link-hover); /* brown darker */
 }
 
 /* Dropdown menu demo */
@@ -597,4 +732,506 @@ body {
 
 .demo-dropdown-item:hover {
   background-color: var(--sb-docs-bg-emphasis);
+}
+
+/* ----------------------------------------
+   Storybook Controls Panel - Dark Mode
+   ---------------------------------------- */
+[data-color-mode="dark"] .docblock-argstable,
+[data-color-mode="dark"] .docblock-argstable-body {
+  background: var(--sb-docs-bg-surface) !important;
+}
+
+[data-color-mode="dark"] .docblock-argstable th {
+  background: var(--sb-docs-bg-emphasis) !important;
+  color: var(--sb-docs-text-heading) !important;
+  border-color: var(--sb-docs-border) !important;
+}
+
+[data-color-mode="dark"] .docblock-argstable td {
+  background: var(--sb-docs-bg-surface) !important;
+  color: var(--sb-docs-text-body) !important;
+  border-color: var(--sb-docs-border) !important;
+}
+
+[data-color-mode="dark"]
+  .docblock-argstable
+  input:not([type="checkbox"]):not([type="radio"]),
+[data-color-mode="dark"] .docblock-argstable select,
+[data-color-mode="dark"] .docblock-argstable textarea {
+  background: var(--sb-docs-bg-base) !important;
+  color: var(--sb-docs-text-body) !important;
+  border-color: var(--sb-docs-border) !important;
+}
+
+/* ----------------------------------------
+   ArgTable Boolean Switch Control
+   
+   Storybook's boolean control uses:
+   - label > input[role="switch"] + span + span
+   Custom colors for sando brutalist theme.
+   ---------------------------------------- */
+
+/* Switch track (the label acts as track) */
+.docblock-argstable label:has(input[role="switch"]) {
+  background: var(--sb-docs-border) !important;
+  border: 2px solid var(--sb-docs-border) !important;
+  border-radius: 11px !important;
+}
+
+/* Switch when checked */
+.docblock-argstable label:has(input[role="switch"]:checked) {
+  background: var(--sb-docs-accent) !important;
+  border-color: var(--sb-docs-accent) !important;
+}
+
+/* Switch hover */
+.docblock-argstable label:has(input[role="switch"]):hover {
+  border-color: var(--sb-docs-accent) !important;
+}
+
+/* Switch text on hover - force dark text on light background */
+.docblock-argstable label:has(input[role="switch"]):hover > span {
+  color: #171717 !important; /* ink.950 - always readable */
+}
+
+/* Switch text labels - separate colors for each side
+   Structure: label > input + span[False] + span[True]
+   
+   UNCHECKED: False visible (dark bg left), True hidden (light bg right)
+   CHECKED:   False hidden (light bg left), True visible (dark bg right)
+*/
+
+/* First span = "False" */
+.docblock-argstable label:has(input[role="switch"]) > span:first-of-type {
+  color: #171717 !important; /* dark text - visible on light side when unchecked */
+}
+
+/* Second span = "True" */
+.docblock-argstable label:has(input[role="switch"]) > span:last-of-type {
+  color: #fafafa !important; /* light text - on dark side when unchecked */
+}
+
+/* When CHECKED - invert colors */
+/* First span "False" now on dark side */
+.docblock-argstable
+  label:has(input[role="switch"]:checked)
+  > span:first-of-type {
+  color: #fafafa !important; /* light text - on dark side */
+}
+
+/* Second span "True" now on accent (vermillion) side */
+.docblock-argstable
+  label:has(input[role="switch"]:checked)
+  > span:last-of-type {
+  color: #171717 !important; /* dark text - visible on vermillion */
+}
+
+/* Dark mode - same logic applies */
+[data-color-mode="dark"] .docblock-argstable label:has(input[role="switch"]) {
+  background: var(--sb-docs-bg-emphasis) !important;
+  border-color: var(--sb-docs-border) !important;
+}
+
+[data-color-mode="dark"]
+  .docblock-argstable
+  label:has(input[role="switch"]:checked) {
+  background: var(--sb-docs-accent) !important;
+  border-color: var(--sb-docs-accent) !important;
+}
+
+/* ----------------------------------------
+   MDX Tables - Dark Mode Override
+   
+   Storybook generates dynamic class names (like .css-qa4clq)
+   that can override our styles. We need high-specificity
+   selectors to ensure our dark mode colors are applied.
+   ---------------------------------------- */
+[data-color-mode="dark"] .sbdocs-wrapper table th,
+[data-color-mode="dark"] .sbdocs-wrapper table td,
+[data-color-mode="dark"] .sbdocs table th,
+[data-color-mode="dark"] .sbdocs table td,
+[data-color-mode="dark"] table:not(.sb-anchor) th,
+[data-color-mode="dark"] table:not(.sb-anchor) td {
+  color: var(--sb-docs-text-body) !important;
+}
+
+[data-color-mode="dark"] .sbdocs-wrapper table th,
+[data-color-mode="dark"] .sbdocs table th,
+[data-color-mode="dark"] table:not(.sb-anchor) th {
+  background: var(--sb-docs-table-header-bg) !important;
+  color: var(--sb-docs-text-heading) !important;
+  border-color: var(--sb-docs-border) !important;
+}
+
+[data-color-mode="dark"] .sbdocs-wrapper table td,
+[data-color-mode="dark"] .sbdocs table td,
+[data-color-mode="dark"] table:not(.sb-anchor) td {
+  background: var(--sb-docs-table-bg) !important;
+  border-color: var(--sb-docs-border) !important;
+}
+
+/* Table row hover in dark mode */
+[data-color-mode="dark"] .sbdocs-wrapper table tr:hover td,
+[data-color-mode="dark"] .sbdocs table tr:hover td,
+[data-color-mode="dark"] table:not(.sb-anchor) tr:hover td {
+  background: var(--sb-docs-table-hover-bg) !important;
+}
+
+/* Inline code in table cells - dark mode */
+[data-color-mode="dark"] table code,
+[data-color-mode="dark"] .sbdocs table code {
+  background: var(--sb-docs-code-bg) !important;
+  color: var(--sb-docs-code-text) !important;
+  border-color: var(--sb-docs-code-border) !important;
+}
+
+/* ========================================
+   Prism.js Syntax Highlighting Overrides
+   
+   These styles override Storybook's default Prism theme
+   to use the Sando ink + vermillion (brutalist) palette.
+   The colors are intentionally muted to not distract
+   from the code content itself.
+   ======================================== */
+
+/* Base code styling in pre blocks */
+.sbdocs pre[class*="language-"],
+.sbdocs code[class*="language-"],
+pre[class*="language-"],
+code[class*="language-"] {
+  color: var(--sb-docs-code-text);
+  background: none;
+  font-family: var(
+    --sando-font-family-mono,
+    "Fira Code",
+    Consolas,
+    Monaco,
+    "Andale Mono",
+    "Ubuntu Mono",
+    monospace
+  );
+  font-size: 0.875em;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.6;
+  tab-size: 2;
+  hyphens: none;
+}
+
+/* Comments */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: var(--sb-docs-code-comment) !important;
+  font-style: italic;
+}
+
+/* Punctuation */
+.token.punctuation {
+  color: var(--sb-docs-code-punctuation) !important;
+}
+
+/* Namespace */
+.token.namespace {
+  opacity: 0.7;
+}
+
+/* Properties, Tags, Selectors */
+.token.property,
+.token.tag,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: var(--sb-docs-code-property) !important;
+}
+
+/* Booleans, Numbers */
+.token.boolean,
+.token.number {
+  color: var(--sb-docs-code-number) !important;
+}
+
+/* Selectors, Attr names, Strings, Chars, Builtins, Inserted */
+.token.selector,
+.token.attr-name,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: var(--sb-docs-code-selector) !important;
+}
+
+/* Strings */
+.token.string,
+.token.attr-value {
+  color: var(--sb-docs-code-string) !important;
+}
+
+/* Operators, Entity, URL */
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  color: var(--sb-docs-code-operator) !important;
+}
+
+/* At-rules, Keywords */
+.token.atrule,
+.token.keyword {
+  color: var(--sb-docs-code-keyword) !important;
+}
+
+/* Functions, Class names */
+.token.function,
+.token.class-name {
+  color: var(--sb-docs-code-function) !important;
+}
+
+/* Regex, Important, Variables */
+.token.regex,
+.token.important,
+.token.variable {
+  color: var(--sb-docs-code-variable) !important;
+}
+
+/* Important, Bold */
+.token.important,
+.token.bold {
+  font-weight: bold;
+}
+
+/* Italic */
+.token.italic {
+  font-style: italic;
+}
+
+/* Entity - cursor help */
+.token.entity {
+  cursor: help;
+}
+
+/* ========================================
+   Brutalist Typography
+   
+   Barlow Condensed for headings (Extra Bold)
+   Inter for body text
+   JetBrains Mono for code
+   ======================================== */
+
+/* MDX Headings - Brutalist style */
+.sbdocs h1 {
+  font-family: var(--sando-font-family-heading) !important;
+  font-weight: var(--sando-font-weight-heading) !important;
+  line-height: var(--sando-font-lineHeight-heading) !important;
+  text-transform: uppercase !important;
+}
+
+.sbdocs h2 {
+  font-family: var(--sando-font-family-heading) !important;
+  font-weight: var(--sando-font-weight-heading) !important;
+  line-height: var(--sando-font-lineHeight-heading) !important;
+}
+
+.sbdocs h3,
+.sbdocs h4,
+.sbdocs h5,
+.sbdocs h6 {
+  font-family: var(--sando-font-family-heading) !important;
+  font-weight: var(--sando-font-weight-emphasis) !important;
+  line-height: 1.3 !important;
+}
+
+/* MDX Body Text */
+.sbdocs p,
+.sbdocs li,
+.sbdocs td,
+.sbdocs span:not(.token) {
+  font-family: var(--sando-font-family-body);
+  font-weight: var(--sando-font-weight-body);
+  line-height: var(--sando-font-lineHeight-body);
+}
+
+/* MDX Code */
+.sbdocs code,
+.sbdocs pre code {
+  font-family: var(--sando-font-family-mono) !important;
+}
+
+/* ----------------------------------------
+   Line highlighting (if used)
+   ---------------------------------------- */
+pre[data-line] {
+  position: relative;
+}
+
+.line-highlight {
+  background: var(--sb-docs-bg-emphasis);
+  left: 0;
+  right: 0;
+  margin-top: 1em;
+  pointer-events: none;
+  line-height: inherit;
+  white-space: pre;
+}
+
+/* ========================================
+   Mermaid Diagram Styles
+   
+   Mermaid diagrams are re-rendered via JS when dark mode changes,
+   but these CSS styles provide fallback styling and ensure smooth
+   transitions for the container backgrounds.
+   ======================================== */
+
+/* Mermaid diagram container */
+.mermaid-diagram {
+  border-radius: 0.5rem;
+  margin: 1rem 0;
+  overflow: auto;
+  transition: background-color 0.2s ease;
+}
+
+/* Light mode container background */
+.mermaid-diagram {
+  background: #fafafa;
+}
+
+/* Dark mode container background */
+[data-color-mode="dark"] .mermaid-diagram {
+  background: #171717;
+}
+
+/* Ensure SVG text is readable - Light mode */
+.mermaid-diagram svg text {
+  fill: #171717 !important;
+}
+
+/* Dark mode text override */
+[data-color-mode="dark"] .mermaid-diagram svg text {
+  fill: #fafafa !important;
+}
+
+/* Edge labels in flowcharts */
+.mermaid-diagram .edgeLabel {
+  background-color: transparent !important;
+}
+
+[data-color-mode="dark"] .mermaid-diagram .edgeLabel {
+  background-color: transparent !important;
+}
+
+/* Actor boxes in sequence diagrams - ensure text visibility */
+.mermaid-diagram .actor {
+  stroke-width: 2px;
+}
+
+/* Note boxes */
+.mermaid-diagram .note {
+  stroke-width: 1px;
+}
+
+/* ========================================
+   Mermaid Subgraph Styles with Dark Mode Support
+   
+   These styles override the inline Mermaid styles
+   to support dark mode. Uses Sando Design System colors.
+   ======================================== */
+
+/* ----- Light Mode (default) ----- */
+
+/* Layer 1: Ingredients - Orange tones */
+.mermaid-diagram [id*="Layer1"] rect,
+.mermaid-diagram [id*="Ingredient"] rect {
+  fill: #fef3e2 !important; /* orange-50 */
+  stroke: #ea580c !important; /* orange-600 */
+}
+
+/* Layer 2: Flavors - Green tones */
+.mermaid-diagram [id*="Layer2"] rect,
+.mermaid-diagram [id*="Flavor"] rect {
+  fill: #dcfce7 !important; /* green-100 */
+  stroke: #16a34a !important; /* green-600 */
+}
+
+/* Layer 3: Recipes - Yellow tones */
+.mermaid-diagram [id*="Layer3"] rect,
+.mermaid-diagram [id*="Recipe"] rect {
+  fill: #fef9c3 !important; /* yellow-100 */
+  stroke: #ca8a04 !important; /* yellow-600 */
+}
+
+/* Component - Indigo tones */
+.mermaid-diagram [id*="Component"] rect {
+  fill: #e0e7ff !important; /* indigo-100 */
+  stroke: #4f46e5 !important; /* indigo-600 */
+}
+
+/* All subgraph text - dark for light backgrounds */
+.mermaid-diagram .cluster text,
+.mermaid-diagram .cluster span,
+.mermaid-diagram .cluster .nodeLabel,
+.mermaid-diagram [id*="Layer"] text,
+.mermaid-diagram [id*="Ingredient"] text,
+.mermaid-diagram [id*="Flavor"] text,
+.mermaid-diagram [id*="Recipe"] text,
+.mermaid-diagram [id*="Component"] text {
+  fill: #171717 !important; /* ink.950 */
+  color: #171717 !important;
+}
+
+/* ----- Dark Mode ----- */
+
+/* Layer 1: Ingredients - Dark orange tones */
+[data-color-mode="dark"] .mermaid-diagram [id*="Layer1"] rect,
+[data-color-mode="dark"] .mermaid-diagram [id*="Ingredient"] rect {
+  fill: #7c2d12 !important; /* orange-900 */
+  stroke: #f97316 !important; /* orange-500 */
+}
+
+/* Layer 2: Flavors - Dark green tones */
+[data-color-mode="dark"] .mermaid-diagram [id*="Layer2"] rect,
+[data-color-mode="dark"] .mermaid-diagram [id*="Flavor"] rect {
+  fill: #14532d !important; /* green-900 */
+  stroke: #22c55e !important; /* green-500 */
+}
+
+/* Layer 3: Recipes - Dark yellow tones */
+[data-color-mode="dark"] .mermaid-diagram [id*="Layer3"] rect,
+[data-color-mode="dark"] .mermaid-diagram [id*="Recipe"] rect {
+  fill: #713f12 !important; /* yellow-900 */
+  stroke: #eab308 !important; /* yellow-500 */
+}
+
+/* Component - Dark indigo tones */
+[data-color-mode="dark"] .mermaid-diagram [id*="Component"] rect {
+  fill: #312e81 !important; /* indigo-900 */
+  stroke: #818cf8 !important; /* indigo-400 */
+}
+
+/* All subgraph text - light for dark backgrounds */
+[data-color-mode="dark"] .mermaid-diagram .cluster text,
+[data-color-mode="dark"] .mermaid-diagram .cluster span,
+[data-color-mode="dark"] .mermaid-diagram .cluster .nodeLabel,
+[data-color-mode="dark"] .mermaid-diagram [id*="Layer"] text,
+[data-color-mode="dark"] .mermaid-diagram [id*="Ingredient"] text,
+[data-color-mode="dark"] .mermaid-diagram [id*="Flavor"] text,
+[data-color-mode="dark"] .mermaid-diagram [id*="Recipe"] text,
+[data-color-mode="dark"] .mermaid-diagram [id*="Component"] text {
+  fill: #fafafa !important; /* ink.50 */
+  color: #fafafa !important;
+}
+
+/* Node labels inside subgraphs */
+.mermaid-diagram .node .label,
+.mermaid-diagram .node foreignObject div {
+  color: #171717 !important;
+}
+
+[data-color-mode="dark"] .mermaid-diagram .node .label,
+[data-color-mode="dark"] .mermaid-diagram .node foreignObject div {
+  color: #fafafa !important;
 }

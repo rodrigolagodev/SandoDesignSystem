@@ -4,57 +4,58 @@ layout: home
 hero:
   name: Sando
   text: Design System
-  tagline: The perfect recipe for building delicious UIs
+  tagline: Crafted with the care of a katsu sando — layered, balanced, and made to satisfy.
   actions:
     - theme: brand
       text: Get Started
       link: /getting-started/introduction
     - theme: alt
-      text: Explore Tokens
-      link: /tokens/architecture
+      text: Storybook
+      link: https://rodrigolagodev.github.io/SandoDesignSystem/storybook/
     - theme: alt
       text: GitHub
       link: https://github.com/rodrigolagodev/SandoDesignSystem
 
 features:
-  - icon: 🎨
-    title: Token-Based Architecture ✅
-    details: Three-layer token system (Ingredients → Flavors → Recipes) fully implemented and production-ready.
+  - icon: 🧩
+    title: 33 Web Components
+    details: From buttons and inputs to skeletons and badges — a full kitchen of framework-agnostic components built with Lit 3 and ready to serve.
 
-  - icon: ⚡
-    title: Web Components ✅
-    details: Button component available now! Built with Lit for framework-agnostic use. Works with React, Vue, Angular, or vanilla JS. More components coming soon.
+  - icon: 🎨
+    title: 3-Layer Token Architecture
+    details: Ingredients (primitives) → Flavors (semantic themes) → Recipes (component tokens). Built on the OKLCH color space for perceptual uniformity.
+
+  - icon: 🎭
+    title: 6 Flavors
+    details: Original, Tonkatsu, Strawberry, Kiwi, Egg Salad, and Sando — each with light, dark, high-contrast, motion-reduce, and forced-colors variants.
 
   - icon: ♿
     title: Accessibility First
-    details: WCAG 2.1 AA compliance baked into token system. Color contrast testing ensures accessible designs.
-
-  - icon: 🧪
-    title: Fully Tested ✅
-    details: 2,200+ tests covering token structure, references, values, accessibility, and build output. 99.8% pass rate.
+    details: WCAG 2.1 AA compliance baked into every component. Keyboard navigation, screen reader support, ARIA attributes, and focus management included.
 
   - icon: 📦
-    title: Monorepo Architecture ✅
-    details: Powered by Turborepo with incremental builds, smart caching, and parallel execution. 73% faster builds.
+    title: Tree-Shakeable
+    details: Import only what you need. Each component is independently importable — no bloated bundles, just the ingredients your project requires.
 
-  - icon: 🎭
-    title: Flexible Theming ✅
-    details: Flavor system fully functional. Original and Strawberry flavors available. Create custom themes by defining new flavor tokens.
+  - icon: 🔒
+    title: TypeScript
+    details: Full type safety across components, tokens, and events. Autocomplete-friendly APIs that catch errors at compile time, not runtime.
 
-  - icon: 🚀
-    title: Developer Experience ✅
-    details: TypeScript support, hot module replacement, comprehensive documentation, and automated builds.
+  - icon: ⚡
+    title: Monorepo Performance
+    details: Powered by Turborepo with incremental builds, smart caching, and parallel execution. Style Dictionary transforms tokens to CSS automatically.
 
-  - icon: 📊
-    title: Style Dictionary ✅
-    details: Automated token transformation to CSS. Build once, use everywhere. Smart caching for instant rebuilds.
+  - icon: 🧪
+    title: Tested
+    details: Comprehensive unit tests, accessibility tests, and token validation. Every component ships with confidence.
 ---
 
 ## Quick Example
 
 ```html
-<!-- Install the package -->
+<!-- Import tokens and components -->
 <script type="module">
+  import "@sando/tokens/css";
   import "@sando/components/button";
 </script>
 
@@ -64,10 +65,10 @@ features:
 
 ## Philosophy
 
-Sando is inspired by the Japanese "katsu sando" sandwich. Just like a sandwich has layers that work together to create something delicious, our design system has three layers:
+Sando is inspired by the Japanese _katsu sando_ sandwich. Just like a great sandwich has layers that work together to create something delicious, our design system has three layers:
 
-1. **Ingredients** - Raw, atomic values (colors, spacing, typography)
-2. **Flavors** - Semantic tokens that give meaning and context
-3. **Recipes** - Component-specific tokens that bring it all together
+1. **Ingredients** — Raw, atomic values (11 OKLCH color palettes, spacing, typography, animation, and more). The pantry staples that never change.
+2. **Flavors** — Semantic tokens that give meaning and context. They map ingredients to purposes like "action," "background," and "text."
+3. **Recipes** — Component-specific tokens that bring it all together. The final dish, plated and ready to serve.
 
-This architecture ensures consistency while allowing complete flexibility through theming.
+This architecture ensures consistency while giving you complete flexibility through theming. Swap a flavor, and every component updates — like changing the filling in your sando while the bread stays perfectly toasted.

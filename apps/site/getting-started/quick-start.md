@@ -1,23 +1,24 @@
+---
+title: Quick Start Guide
+description: Build your first Sando component in 5 minutes — from setup to themed UI.
+---
+
 # Quick Start
 
-Get started with Sando design tokens in your project.
-
-::: warning Components Coming Soon
-This guide focuses on using Sando's token system. Component examples are provided for future reference but are not yet implemented.
-:::
+Let's make your first sando! In just a few minutes, you'll go from an empty project to a themed, accessible UI. No prior design system experience needed.
 
 ## Step 1: Create a New Project
 
 ::: code-group
 
-```bash [Vite]
-pnpm create vite my-app --template vanilla-ts
-cd my-app
+```bash [Vite (recommended)]
+pnpm create vite my-sando-app --template vanilla-ts
+cd my-sando-app
 ```
 
 ```bash [Next.js]
-pnpm create next-app my-app
-cd my-app
+pnpm create next-app my-sando-app
+cd my-sando-app
 ```
 
 :::
@@ -25,36 +26,42 @@ cd my-app
 ## Step 2: Install Sando
 
 ```bash
-pnpm add @sando/components @sando/tokens
+pnpm add @sando/tokens @sando/components
 ```
 
-## Step 3: Import Styles and Components
+This gives you both the design tokens (colors, spacing, typography) and the Web Components (button, input, checkbox, and more).
+
+## Step 3: Import Tokens and Your First Component
 
 ```ts
-// main.ts or App.tsx
+// main.ts
 import "@sando/tokens/css";
 import "@sando/components/button";
 ```
 
+Two lines. That's all the setup you need.
+
 ## Step 4: Use Your First Component
 
 ```html
-<sando-button variant="solid" size="medium"> Hello Sando! </sando-button>
+<sando-button variant="solid" size="md">Hello Sando! 🍱</sando-button>
 ```
 
-## Full Example
+**Result:** A styled, accessible button with proper focus management, keyboard navigation, and WCAG-compliant contrast — right out of the box.
 
-Here's a complete working example:
+## Full Working Example
+
+Here's a complete project you can copy and run:
 
 ::: code-group
 
 ```html [index.html]
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Sando App</title>
+    <title>My First Sando App</title>
   </head>
   <body>
     <div id="app"></div>
@@ -70,35 +77,21 @@ import "@sando/components/button";
 const app = document.querySelector("#app")!;
 
 app.innerHTML = `
-  <div style="padding: 2rem;">
-    <h1>Welcome to Sando!</h1>
+  <div style="padding: 2rem; font-family: system-ui, sans-serif;">
+    <h1>Welcome to Sando! 🍱</h1>
+    <p>Your first component is ready to serve:</p>
 
-    <div style="display: flex; gap: 1rem; margin-top: 2rem;">
-      <sando-button variant="solid" size="small">
-        Small
-      </sando-button>
-
-      <sando-button variant="solid" size="medium">
-        Medium
-      </sando-button>
-
-      <sando-button variant="solid" size="large">
-        Large
-      </sando-button>
+    <div style="display: flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap;">
+      <sando-button variant="solid">Solid</sando-button>
+      <sando-button variant="outline">Outline</sando-button>
+      <sando-button variant="ghost">Ghost</sando-button>
+      <sando-button variant="text">Text</sando-button>
     </div>
 
-    <div style="display: flex; gap: 1rem; margin-top: 1rem;">
-      <sando-button variant="outline">
-        Outline
-      </sando-button>
-
-      <sando-button variant="ghost">
-        Ghost
-      </sando-button>
-
-      <sando-button variant="solid" disabled>
-        Disabled
-      </sando-button>
+    <div style="display: flex; gap: 1rem; margin-top: 1rem; align-items: center;">
+      <sando-button variant="solid" size="sm">Small</sando-button>
+      <sando-button variant="solid" size="md">Medium</sando-button>
+      <sando-button variant="solid" size="lg">Large</sando-button>
     </div>
   </div>
 `;
@@ -106,11 +99,145 @@ app.innerHTML = `
 
 :::
 
-## Interactive Example
+Run `pnpm dev` and open your browser. You should see a full set of styled buttons.
 
-::: warning Coming Soon
-Interactive component demos will be available once the component library is published. For now, see the code examples above or visit the [Storybook](https://rodrigolagodev.github.io/SandoDesignSystem/storybook/).
+## Adding More Components
+
+Let's build something more interesting — a simple sign-in form using real Sando components:
+
+```ts
+// main.ts
+import "@sando/tokens/css";
+import "@sando/components"; // auto-registers all components: <sando-button>, <sando-input>, etc.
+```
+
+```html
+<form style="max-width: 400px; padding: 2rem;">
+  <h2>Sign In</h2>
+
+  <sando-input
+    label="Email"
+    type="email"
+    placeholder="you@example.com"
+    required
+  ></sando-input>
+
+  <sando-input
+    label="Password"
+    type="password"
+    required
+    style="margin-top: 1rem;"
+  ></sando-input>
+
+  <sando-checkbox
+    label="Remember me"
+    style="margin-top: 1rem;"
+  ></sando-checkbox>
+
+  <sando-button
+    variant="solid"
+    type="submit"
+    style="margin-top: 1.5rem; width: 100%;"
+  >
+    Sign In
+  </sando-button>
+</form>
+```
+
+::: tip Import what you use
+Each import auto-registers its custom element. Import `'@sando/components/checkbox'` to use `<sando-checkbox>`, import `'@sando/components/switch'` to use `<sando-switch>`, and so on.
 :::
+
+## Theming with Flavors
+
+Sando comes with 6 handcrafted flavors. Switch your entire UI's personality by setting the `flavor` attribute:
+
+```html
+<!-- Default flavor (original) — warm orange tones -->
+<sando-button variant="solid">Original</sando-button>
+
+<!-- Strawberry flavor — pink/red tones -->
+<sando-button variant="solid" flavor="strawberry">Strawberry</sando-button>
+
+<!-- Tonkatsu flavor — rich brown tones -->
+<sando-button variant="solid" flavor="tonkatsu">Tonkatsu</sando-button>
+```
+
+Apply a flavor to an entire section — child components inherit it automatically:
+
+```html
+<!-- Everything inside inherits the strawberry flavor -->
+<div flavor="strawberry">
+  <sando-button variant="solid">I'm strawberry</sando-button>
+  <sando-input label="Me too" placeholder="Pink theme!"></sando-input>
+  <sando-checkbox label="Same here"></sando-checkbox>
+</div>
+```
+
+::: info Available Flavors
+| Flavor | Vibe | Primary Hue |
+| --- | --- | --- |
+| `original` | Warm orange (default) | Orange |
+| `sando` | Brand identity — golden amber | Brown |
+| `tonkatsu` | Craft kitchen — artisanal brown | Brown/Warm |
+| `strawberry` | Fresh and vibrant — pink/red | Pink |
+| `egg-salad` | Sunny and cheerful — yellow | Yellow |
+| `kiwi` | Natural and fresh — green | Green |
+:::
+
+## Dark Mode
+
+Sando handles dark mode **automatically** via CSS media queries. If your OS is set to dark mode, components adapt with no extra code.
+
+```html
+<!-- These components automatically switch to dark mode -->
+<!-- when the user's system preference is set to dark -->
+<sando-button variant="solid">Auto Dark Mode</sando-button>
+<sando-switch label="Notifications"></sando-switch>
+```
+
+::: tip No JavaScript required
+Sando detects `@media (prefers-color-scheme: dark)` and applies dark-optimized colors automatically. The same applies to high contrast (`@media (prefers-contrast: more)`) and reduced motion (`@media (prefers-reduced-motion: reduce)`).
+:::
+
+## Adding Event Listeners
+
+Sando components emit standard DOM events:
+
+```ts
+const button = document.querySelector("sando-button");
+
+button?.addEventListener("click", () => {
+  console.log("Button clicked!");
+});
+
+// Checkbox and switch fire sando-change events
+const checkbox = document.querySelector("sando-checkbox");
+
+checkbox?.addEventListener("sando-change", (event: Event) => {
+  const detail = (event as CustomEvent).detail;
+  console.log("Checkbox changed:", detail);
+});
+```
+
+## Customizing with CSS Custom Properties
+
+Every component exposes CSS custom properties for fine-grained control:
+
+```css
+/* Override specific button tokens */
+sando-button.my-brand {
+  --sando-button-solid-backgroundColor-default: oklch(0.55 0.15 250);
+  --sando-button-solid-backgroundColor-hover: oklch(0.48 0.15 250);
+  --sando-button-solid-textColor-default: oklch(1 0 0);
+}
+```
+
+```html
+<sando-button class="my-brand" variant="solid">
+  Custom Brand Button
+</sando-button>
+```
 
 ## Using with TypeScript
 
@@ -121,141 +248,24 @@ Enable full type safety and autocomplete:
 /// <reference types="@sando/components" />
 ```
 
-Now you get full IntelliSense:
-
-```tsx
+```ts
 import { SandoButton } from "@sando/components/button";
 
 // TypeScript knows all props and methods
 const button = new SandoButton();
-button.variant = "solid"; // ✅ Autocomplete works!
-button.size = "medium"; // ✅ Type-checked
-button.onClick = (e) => {
-  // ✅ Event types
-  console.log(e);
-};
-```
-
-## Adding Event Listeners
-
-Sando components emit standard DOM events:
-
-```ts
-const button = document.querySelector("sando-button");
-
-button?.addEventListener("click", (event) => {
-  console.log("Button clicked!", event);
-});
-```
-
-In React:
-
-```tsx
-<sando-button variant="solid" onClick={(e) => console.log("Clicked!", e)}>
-  Click me
-</sando-button>
-```
-
-## Using Custom Properties
-
-Override design tokens with CSS custom properties:
-
-```css
-sando-button {
-  /* Override button colors */
-  --sando-button-solid-backgroundColor-default: #ff6b6b;
-  --sando-button-solid-textColor-default: white;
-}
-
-/* Or create a custom class */
-.my-custom-button {
-  --sando-button-solid-backgroundColor-default: var(--my-brand-color);
-  --sando-button-solid-backgroundColor-hover: var(--my-brand-color-dark);
-}
-```
-
-```html
-<sando-button class="my-custom-button" variant="solid">
-  Custom Style
-</sando-button>
-```
-
-## Theming
-
-Apply different flavors to components:
-
-```html
-<!-- Default flavor (original) -->
-<sando-button variant="solid"> Original Flavor </sando-button>
-
-<!-- Strawberry flavor -->
-<sando-button variant="solid" flavor="strawberry">
-  Strawberry Flavor
-</sando-button>
-```
-
-[Learn more about theming →](/getting-started/theming)
-
-## Next Steps
-
-Now that you've built your first component, explore:
-
-- **[Theming Guide](/getting-started/theming)** - Learn how to customize your design system
-- **[Token Architecture](/tokens/architecture)** - Understand the three-layer token system
-- **[Component API](/components/button)** - Explore all available components
-- **[Storybook](https://rodrigolagodev.github.io/SandoDesignSystem/storybook/)** - Interactive component playground
-
-## Common Patterns
-
-### Form with Sando Components
-
-```html
-<form>
-  <sando-input
-    label="Email"
-    type="email"
-    placeholder="you@example.com"
-    required
-  ></sando-input>
-
-  <sando-input label="Password" type="password" required></sando-input>
-
-  <sando-button variant="solid" type="submit"> Sign In </sando-button>
-</form>
-```
-
-### Modal Dialog
-
-```html
-<sando-dialog>
-  <h2 slot="header">Confirm Action</h2>
-  <p>Are you sure you want to continue?</p>
-  <div slot="footer">
-    <sando-button variant="ghost">Cancel</sando-button>
-    <sando-button variant="solid">Confirm</sando-button>
-  </div>
-</sando-dialog>
-```
-
-### Card Layout
-
-```html
-<sando-card>
-  <h3>Card Title</h3>
-  <p>Card content goes here...</p>
-  <sando-button variant="outline">Learn More</sando-button>
-</sando-card>
+button.variant = "solid"; // ✅ Autocomplete works
+button.size = "md"; // ✅ Type-checked
 ```
 
 ## Troubleshooting
 
 ### Components not rendering?
 
-Make sure you've imported both the CSS tokens and the component:
+Make sure you've imported both the CSS tokens **and** the component:
 
 ```ts
 import "@sando/tokens/css"; // ← Don't forget this!
-import "@sando/components/button";
+import "@sando/components/button"; // ← And this!
 ```
 
 ### TypeScript errors in JSX?
@@ -268,10 +278,19 @@ Add the types reference:
 
 ### Styles not applying?
 
-Check that CSS custom properties are loaded before components render.
+Check that CSS tokens are loaded **before** components render. In most setups, importing at the top of your entry file handles this.
+
+## Next Steps
+
+Nice work — you've built your first sando! Here's where to go from here:
+
+- **[Theming Guide →](/getting-started/theming)** — Deep dive into flavors, modes, and customization
+- **[Token Architecture →](/tokens/architecture)** — Understand Ingredients, Flavors, and Recipes
+- **[Component API →](/components/button)** — Explore all available components
+- **[Storybook →](https://rodrigolagodev.github.io/SandoDesignSystem/storybook/)** — Interactive component playground
 
 ## Get Help
 
 - 📚 [Documentation](/)
-- 💬 [GitHub Discussions](https://github.com/yourusername/sando-design-system/discussions)
-- 🐛 [Report a Bug](https://github.com/yourusername/sando-design-system/issues)
+- 💬 [GitHub Discussions](https://github.com/rodrigolagodev/SandoDesignSystem/discussions)
+- 🐛 [Report a Bug](https://github.com/rodrigolagodev/SandoDesignSystem/issues)

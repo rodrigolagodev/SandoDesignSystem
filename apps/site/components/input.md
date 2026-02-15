@@ -1,12 +1,17 @@
+---
+title: Input Component
+description: A fully accessible text input component with variants, sizes, validation states, and prefix/suffix slots
+---
+
 # Input
 
-A fully accessible input component with multiple variants, sizes, and states.
+A fully accessible input component with multiple variants, sizes, and states. Like the bread in a good sandwich, the input is the foundation of any form — it needs to be reliable, consistent, and work well with every ingredient you add to it.
 
 ## Features
 
-- ✅ **Multiple Variants**: Outlined and filled styles
-- ✅ **Flexible Sizing**: Small, medium, and large sizes
-- ♿ **Accessibility**: WCAG 2.1 AA compliant with full keyboard support
+- ✅ **Multiple Variants**: Filled and outlined styles
+- ✅ **Flexible Sizing**: `sm`, `md`, and `lg` sizes
+- ♿ **Accessible**: WCAG 2.1 AA compliant with full keyboard support
 - 🎨 **Themeable**: Token-driven styling with flavor support
 - 🔒 **Type Safe**: Full TypeScript support
 - ✨ **Validation**: Error states with helper text and error messages
@@ -15,41 +20,45 @@ A fully accessible input component with multiple variants, sizes, and states.
 ## Basic Usage
 
 ```html
-<!-- Import -->
 <script type="module">
-  import "@sando/components/input";
+  import "@sando/components";
 </script>
 
-<!-- Basic input -->
 <sando-input label="Email" placeholder="you@example.com"></sando-input>
 ```
 
+::: tip Import Path
+The input component is imported via the main `@sando/components` entry point, which registers all components. Only `@sando/components/button` has a dedicated individual export path.
+:::
+
 ## Variants
 
-### Outlined (Default)
+### Filled (Default)
 
-Input with visible border.
-
-```html
-<sando-input variant="outlined" label="Username"></sando-input>
-```
-
-### Filled
-
-Input with filled background.
+Input with a filled background. This is the default variant — it provides a clear visual container that helps users identify the input area.
 
 ```html
 <sando-input variant="filled" label="Username"></sando-input>
 ```
 
+### Outlined
+
+Input with a visible border on a transparent background.
+
+```html
+<sando-input variant="outlined" label="Username"></sando-input>
+```
+
 ## Sizes
+
+All sizes meet WCAG 2.1 Level AA minimum touch target size (44x44px).
 
 ### Small
 
-Compact size for tight spaces.
+Compact size for tight spaces and dense UIs.
 
 ```html
-<sando-input size="small" label="Compact"></sando-input>
+<sando-input size="sm" label="Compact"></sando-input>
 ```
 
 ### Medium (Default)
@@ -57,15 +66,15 @@ Compact size for tight spaces.
 Standard size for most use cases.
 
 ```html
-<sando-input size="medium" label="Standard"></sando-input>
+<sando-input size="md" label="Standard"></sando-input>
 ```
 
 ### Large
 
-Larger size for emphasis.
+Larger size for emphasis or prominent inputs.
 
 ```html
-<sando-input size="large" label="Large"></sando-input>
+<sando-input size="lg" label="Large"></sando-input>
 ```
 
 ## States
@@ -114,7 +123,7 @@ Larger size for emphasis.
 
 ```html
 <sando-input label="Search" placeholder="Search...">
-  <span slot="prefix">🔍</span>
+  <sando-icon slot="prefix" name="search" size="sm"></sando-icon>
 </sando-input>
 ```
 
@@ -153,20 +162,23 @@ Supports standard HTML input types:
 
 ### Properties
 
-| Property      | Type                                                                        | Default      | Description                      |
-| ------------- | --------------------------------------------------------------------------- | ------------ | -------------------------------- |
-| `variant`     | `'outlined' \| 'filled'`                                                    | `'outlined'` | Visual style variant             |
-| `size`        | `'small' \| 'medium' \| 'large'`                                            | `'medium'`   | Input size                       |
-| `type`        | `'text' \| 'email' \| 'password' \| 'number' \| 'tel' \| 'url' \| 'search'` | `'text'`     | HTML input type                  |
-| `value`       | `string`                                                                    | `''`         | Input value                      |
-| `placeholder` | `string`                                                                    | `undefined`  | Placeholder text                 |
-| `label`       | `string`                                                                    | `undefined`  | Accessible label                 |
-| `helperText`  | `string`                                                                    | `undefined`  | Helper text below input          |
-| `errorText`   | `string`                                                                    | `undefined`  | Error message when error is true |
-| `disabled`    | `boolean`                                                                   | `false`      | Whether input is disabled        |
-| `readonly`    | `boolean`                                                                   | `false`      | Whether input is readonly        |
-| `required`    | `boolean`                                                                   | `false`      | Whether input is required        |
-| `error`       | `boolean`                                                                   | `false`      | Whether input has error          |
+| Property            | Attribute             | Type                                                                        | Default    | Description                                              |
+| ------------------- | --------------------- | --------------------------------------------------------------------------- | ---------- | -------------------------------------------------------- |
+| `variant`           | `variant`             | `'filled' \| 'outlined'`                                                    | `'filled'` | Visual style variant                                     |
+| `size`              | `size`                | `'sm' \| 'md' \| 'lg'`                                                      | `'md'`     | Input size                                               |
+| `type`              | `type`                | `'text' \| 'email' \| 'password' \| 'number' \| 'tel' \| 'url' \| 'search'` | `'text'`   | HTML input type                                          |
+| `value`             | `value`               | `string`                                                                    | `''`       | Input value                                              |
+| `placeholder`       | `placeholder`         | `string`                                                                    | `—`        | Placeholder text                                         |
+| `label`             | `label`               | `string`                                                                    | `—`        | Accessible label                                         |
+| `helperText`        | `helper-text`         | `string`                                                                    | `—`        | Helper text below input                                  |
+| `errorText`         | `error-text`          | `string`                                                                    | `—`        | Error message when error is true                         |
+| `disabled`          | `disabled`            | `boolean`                                                                   | `false`    | Whether input is disabled                                |
+| `readonly`          | `readonly`            | `boolean`                                                                   | `false`    | Whether input is readonly                                |
+| `required`          | `required`            | `boolean`                                                                   | `false`    | Whether input is required                                |
+| `error`             | `error`               | `boolean`                                                                   | `false`    | Whether input has an error                               |
+| `reserveErrorSpace` | `reserve-error-space` | `boolean`                                                                   | `true`     | Reserve space for error messages to prevent layout shift |
+| `name`              | `name`                | `string`                                                                    | `—`        | Name for form submission                                 |
+| `autocomplete`      | `autocomplete`        | `string`                                                                    | `—`        | Autocomplete attribute for browser autofill              |
 
 ### Slots
 
@@ -186,11 +198,14 @@ Supports standard HTML input types:
 
 ### Methods
 
-| Method     | Description                  |
-| ---------- | ---------------------------- |
-| `focus()`  | Programmatically focus input |
-| `blur()`   | Programmatically blur input  |
-| `select()` | Select all input text        |
+| Method                       | Description                                         |
+| ---------------------------- | --------------------------------------------------- |
+| `focus()`                    | Programmatically focus input                        |
+| `blur()`                     | Programmatically blur input                         |
+| `select()`                   | Select all input text                               |
+| `checkValidity()`            | Check native validation (returns `boolean`)         |
+| `reportValidity()`           | Report validity with browser UI (returns `boolean`) |
+| `setCustomValidity(message)` | Set a custom validation message                     |
 
 ### CSS Custom Properties
 
@@ -200,22 +215,71 @@ Supports standard HTML input types:
 --sando-input-outlined-borderColor-hover
 --sando-input-outlined-borderColor-focus
 --sando-input-outlined-borderColor-error
+--sando-input-outlined-borderColor-disabled
 
 /* Background colors */
 --sando-input-outlined-backgroundColor-default
+--sando-input-outlined-backgroundColor-disabled
 --sando-input-filled-backgroundColor-default
+--sando-input-filled-backgroundColor-hover
+--sando-input-filled-backgroundColor-disabled
 
 /* Text colors */
---sando-input-textColor-default
---sando-input-textColor-placeholder
+--sando-input-outlined-textColor-default
+--sando-input-outlined-textColor-placeholder
+--sando-input-outlined-textColor-disabled
+--sando-input-filled-textColor-default
+--sando-input-filled-textColor-placeholder
+--sando-input-filled-textColor-disabled
 
-/* Sizes */
---sando-input-size-small-height
---sando-input-size-medium-height
---sando-input-size-large-height
---sando-input-size-small-paddingInline
---sando-input-size-medium-paddingInline
---sando-input-size-large-paddingInline
+/* Filled variant borders */
+--sando-input-filled-borderColor-default
+--sando-input-filled-borderColor-hover
+--sando-input-filled-borderColor-focus
+--sando-input-filled-borderColor-error
+--sando-input-filled-borderColor-disabled
+
+/* Sizes (sm, md, lg) */
+--sando-input-size-sm-paddingInline
+--sando-input-size-sm-paddingBlock
+--sando-input-size-sm-fontSize
+--sando-input-size-sm-minHeight
+--sando-input-size-md-paddingInline
+--sando-input-size-md-paddingBlock
+--sando-input-size-md-fontSize
+--sando-input-size-md-minHeight
+--sando-input-size-lg-paddingInline
+--sando-input-size-lg-paddingBlock
+--sando-input-size-lg-fontSize
+--sando-input-size-lg-minHeight
+
+/* Label */
+--sando-input-label-textColor-default
+--sando-input-label-textColor-disabled
+--sando-input-label-fontSize
+--sando-input-label-fontWeight
+--sando-input-label-marginBottom
+
+/* Helper & Error text */
+--sando-input-helperText-textColor-default
+--sando-input-helperText-fontSize
+--sando-input-helperText-marginTop
+--sando-input-errorText-textColor
+--sando-input-errorText-fontSize
+--sando-input-errorText-marginTop
+
+/* General */
+--sando-input-fontFamily
+--sando-input-lineHeight
+--sando-input-borderRadius
+--sando-input-borderWidth
+--sando-input-focusOutlineColor
+--sando-input-focusOutlineWidth
+--sando-input-focusOutlineOffset
+--sando-input-transition-duration
+--sando-input-transition-timing
+--sando-input-gap
+--sando-input-required-textColor
 ```
 
 ## Accessibility
@@ -262,7 +326,7 @@ Supports standard HTML input types:
     helper-text="Must be at least 8 characters"
   ></sando-input>
 
-  <button type="submit">Sign In</button>
+  <sando-button type="submit">Sign In</sando-button>
 </form>
 ```
 
@@ -270,7 +334,7 @@ Supports standard HTML input types:
 
 ```html
 <sando-input label="Search" type="search" placeholder="Search documentation...">
-  <span slot="prefix">🔍</span>
+  <sando-icon slot="prefix" name="search" size="sm"></sando-icon>
   <button slot="suffix" aria-label="Clear search">✕</button>
 </sando-input>
 ```
@@ -287,22 +351,33 @@ Supports standard HTML input types:
 ></sando-input>
 ```
 
+### With Flavors
+
+```html
+<sando-input
+  label="Strawberry Input"
+  placeholder="Themed with strawberry flavor"
+  flavor="strawberry"
+></sando-input>
+```
+
 ## Best Practices
 
-- ✅ **DO**: Always provide a label for accessibility
-- ✅ **DO**: Use helper text to guide users
-- ✅ **DO**: Show clear error messages
-- ✅ **DO**: Use appropriate input types (email, tel, url, etc.)
-- ❌ **DON'T**: Use placeholder as the only label
+- ✅ **DO**: Always provide a `label` for accessibility
+- ✅ **DO**: Use `helper-text` to guide users with formatting expectations
+- ✅ **DO**: Show clear error messages with `error-text`
+- ✅ **DO**: Use appropriate input types (`email`, `tel`, `url`, etc.)
+- ✅ **DO**: Use `reserve-error-space` (default) to prevent layout shift
+- ❌ **DON'T**: Use `placeholder` as the only label
 - ❌ **DON'T**: Disable inputs unnecessarily
 - ❌ **DON'T**: Use custom validation without proper error messages
 
 ## Framework Integration
 
-### React
+::: code-group
 
-```tsx
-import "@sando/components/input";
+```tsx [React]
+import "@sando/components";
 
 function LoginForm() {
   const [email, setEmail] = useState("");
@@ -318,9 +393,7 @@ function LoginForm() {
 }
 ```
 
-### Vue 3
-
-```vue
+```vue [Vue]
 <template>
   <sando-input
     label="Email"
@@ -332,21 +405,17 @@ function LoginForm() {
 
 <script setup lang="ts">
 import { ref } from "vue";
-import "@sando/components/input";
+import "@sando/components";
 
 const email = ref("");
 </script>
 ```
 
+:::
+
 ## Related Components
 
-- [Button](./button.md) - For form submissions
-- [Form](./form.md) - For form layouts (TODO)
-- [Select](./select.md) - For dropdown selections (TODO)
-
-## TODO: Next Steps
-
-- [ ] Create Recipe tokens in `packages/tokens/src/recipes/input.json`
-- [ ] Replace temporary styles with token consumption
-- [ ] Add advanced validation patterns
-- [ ] Create additional input-related components (textarea, select)
+- [Button](/components/button) — For form submissions
+- [Form Group](/components/form-group) — For grouping label, input, and help text
+- [Textarea](/components/overview#textarea) — For multi-line text input
+- [Select](/components/overview#select) — For dropdown selections
