@@ -28,6 +28,9 @@ import "../../../../packages/tokens/dist/sando-tokens/css/ingredients/scale.css"
 // Import Washi paper texture for Sando brand identity
 import "../../../../packages/tokens/src/css/washi-texture.css";
 
+// Sando Flavor - Semantic tokens (font-family-heading, font-family-body, etc.)
+import "../../../../packages/tokens/dist/sando-tokens/css/flavors/sando/flavor.css";
+
 // VitePress theme styles with Sando token mappings
 import "./style.css";
 

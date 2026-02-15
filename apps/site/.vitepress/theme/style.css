@@ -141,22 +141,22 @@
  * -------------------------------------------------------------------------- */
 
 :root {
-  /* Font families */
-  --vp-font-family-base: "Inter", system-ui, -apple-system, sans-serif;
-  --vp-font-family-mono: "JetBrains Mono", Consolas, monospace;
+  /* Font families - Use Sando flavor tokens */
+  --vp-font-family-base: var(--sando-font-family-body);
+  --vp-font-family-mono: var(--sando-font-family-mono);
 
-  /* Heading typography - Barlow Condensed */
-  --sando-font-family-heading: "Barlow Condensed", "Arial Narrow", sans-serif;
-  --sando-font-weight-heading: 800;
-  --sando-line-height-heading: 1.2;
+  /* Heading typography - Use Sando flavor tokens */
+  --vp-font-family-heading: var(--sando-font-family-heading);
+  --vp-font-weight-heading: var(--sando-font-weight-heading);
+  --vp-line-height-heading: var(--sando-font-lineHeight-heading);
 }
 
 /* VitePress Headings - Brutalist style */
 .vp-doc h1,
 .vp-doc h2 {
-  font-family: var(--sando-font-family-heading) !important;
-  font-weight: var(--sando-font-weight-heading) !important;
-  line-height: var(--sando-line-height-heading) !important;
+  font-family: var(--vp-font-family-heading) !important;
+  font-weight: var(--vp-font-weight-heading) !important;
+  line-height: var(--vp-line-height-heading) !important;
   letter-spacing: -0.02em;
 }
 
@@ -168,14 +168,14 @@
 .vp-doc h4,
 .vp-doc h5,
 .vp-doc h6 {
-  font-family: var(--sando-font-family-heading);
-  font-weight: 700;
+  font-family: var(--vp-font-family-heading);
+  font-weight: var(--sando-font-weight-emphasis);
   line-height: 1.3;
 }
 
 /* Hero title - Extra impact */
 .VPHero .name {
-  font-family: var(--sando-font-family-heading) !important;
+  font-family: var(--vp-font-family-heading) !important;
   font-weight: 900 !important;
   text-transform: uppercase !important;
   letter-spacing: -0.03em !important;

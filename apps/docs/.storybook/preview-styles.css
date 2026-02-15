@@ -136,6 +136,10 @@ body {
   color: var(--sb-docs-text-body);
 }
 
+.sbdocs span{
+  background-color: transparent;
+}
+
 .sbdocs a {
   color: var(--sb-docs-link);
 }
@@ -200,7 +204,7 @@ body {
   border-radius: 3px;
   border: 1px solid var(--sb-docs-code-border);
   font-size: 0.8em;
-  font-family: var(--sando-font-family-code, "Fira Code", monospace);
+  font-family: var(--sando-font-family-mono, "Fira Code", monospace);
   color: var(--sb-docs-code-text);
 }
 
@@ -298,7 +302,7 @@ html .docs-story,
 .sbdocs pre {
   background: var(--sb-docs-bg-base) !important;
   border: 1px solid var(--sb-docs-border);
-  border-radius: 8px;
+  border-radius: 0px !important;
   padding: 1rem;
 }
 
@@ -306,7 +310,7 @@ html .docs-story,
   background: transparent !important;
   padding: 0;
   color: var(--sb-docs-code-text);
-  font-family: var(--sando-font-family-code, "Fira Code", monospace);
+  font-family: var(--sando-font-family-mono, "Fira Code", monospace);
 }
 
 /* Inline code in paragraphs - subtle, integrated appearance */
@@ -317,7 +321,7 @@ html .docs-story,
   border-radius: 3px;
   border: 1px solid var(--sb-docs-code-border);
   font-size: 0.85em;
-  font-family: var(--sando-font-family-code, "Fira Code", monospace);
+  font-family: var(--sando-font-family-mono, "Fira Code", monospace);
   color: var(--sb-docs-code-text);
 }
 
@@ -346,6 +350,7 @@ html .docs-story,
   background: transparent !important;
   border-color: var(--sb-docs-border) !important;
   border: none !important;
+  border-radius: 0 !important;
 }
 
 /* ----------------------------------------
@@ -391,7 +396,7 @@ html .docs-story,
   --sb-docs-text-body: #262626; /* ink.800 */
   --sb-docs-text-caption: #404040; /* ink.700 - WCAG AAA 8.5:1 */
   --sb-docs-text-muted: #525252; /* ink.600 - WCAG AA 6.0:1 */
-
+  --sb-docs-text-heading-inverse: #fafafa; /* ink.50 - for inverse text on dark backgrounds */
   /* Docs Border colors */
   --sb-docs-border: #d4d4d4; /* ink.300 */
   --sb-docs-border-emphasis: #a3a3a3; /* ink.400 */
@@ -472,6 +477,7 @@ html .docs-story,
   --sb-docs-text-body: #e5e5e5; /* ink.200 */
   --sb-docs-text-caption: #d4d4d4; /* ink.300 */
   --sb-docs-text-muted: #a3a3a3; /* ink.400 */
+  --sb-docs-text-heading-inverse: #171717; /* ink.50 */
 
   /* Docs Border colors - Dark */
   --sb-docs-border: #404040; /* ink.700 */
@@ -748,13 +754,85 @@ html .docs-story,
   border-color: var(--sb-docs-border) !important;
 }
 
-[data-color-mode="dark"] .docblock-argstable input,
+[data-color-mode="dark"] .docblock-argstable input:not([type="checkbox"]):not([type="radio"]),
 [data-color-mode="dark"] .docblock-argstable select,
 [data-color-mode="dark"] .docblock-argstable textarea {
   background: var(--sb-docs-bg-base) !important;
   color: var(--sb-docs-text-body) !important;
   border-color: var(--sb-docs-border) !important;
 }
+
+
+/* ----------------------------------------
+   ArgTable Boolean Switch Control
+   
+   Storybook's boolean control uses:
+   - label > input[role="switch"] + span + span
+   Custom colors for sando brutalist theme.
+   ---------------------------------------- */
+
+/* Switch track (the label acts as track) */
+.docblock-argstable label:has(input[role="switch"]) {
+  background: var(--sb-docs-border) !important;
+  border: 2px solid var(--sb-docs-border) !important;
+  border-radius: 11px !important;
+}
+
+/* Switch when checked */
+.docblock-argstable label:has(input[role="switch"]:checked) {
+  background: var(--sb-docs-accent) !important;
+  border-color: var(--sb-docs-accent) !important;
+}
+
+/* Switch hover */
+.docblock-argstable label:has(input[role="switch"]):hover {
+  border-color: var(--sb-docs-accent) !important;
+}
+
+/* Switch text on hover - force dark text on light background */
+.docblock-argstable label:has(input[role="switch"]):hover > span {
+  color: #171717 !important; /* ink.950 - always readable */
+}
+
+/* Switch text labels - separate colors for each side
+   Structure: label > input + span[False] + span[True]
+   
+   UNCHECKED: False visible (dark bg left), True hidden (light bg right)
+   CHECKED:   False hidden (light bg left), True visible (dark bg right)
+*/
+
+/* First span = "False" */
+.docblock-argstable label:has(input[role="switch"]) > span:first-of-type {
+  color: #171717 !important; /* dark text - visible on light side when unchecked */
+}
+
+/* Second span = "True" */
+.docblock-argstable label:has(input[role="switch"]) > span:last-of-type {
+  color: #fafafa !important; /* light text - on dark side when unchecked */
+}
+
+/* When CHECKED - invert colors */
+/* First span "False" now on dark side */
+.docblock-argstable label:has(input[role="switch"]:checked) > span:first-of-type {
+  color: #fafafa !important; /* light text - on dark side */
+}
+
+/* Second span "True" now on accent (vermillion) side */
+.docblock-argstable label:has(input[role="switch"]:checked) > span:last-of-type {
+  color: #171717 !important; /* dark text - visible on vermillion */
+}
+
+/* Dark mode - same logic applies */
+[data-color-mode="dark"] .docblock-argstable label:has(input[role="switch"]) {
+  background: var(--sb-docs-bg-emphasis) !important;
+  border-color: var(--sb-docs-border) !important;
+}
+
+[data-color-mode="dark"] .docblock-argstable label:has(input[role="switch"]:checked) {
+  background: var(--sb-docs-accent) !important;
+  border-color: var(--sb-docs-accent) !important;
+}
+
 
 /* ----------------------------------------
    MDX Tables - Dark Mode Override
@@ -819,7 +897,7 @@ code[class*="language-"] {
   color: var(--sb-docs-code-text);
   background: none;
   font-family: var(
-    --sando-font-family-code,
+    --sando-font-family-mono,
     "Fira Code",
     Consolas,
     Monaco,
@@ -941,26 +1019,24 @@ code[class*="language-"] {
 
 /* MDX Headings - Brutalist style */
 .sbdocs h1 {
-  font-family: "Barlow Condensed", "Arial Narrow", sans-serif !important;
-  font-weight: 800 !important;
-  line-height: 1.2 !important;
+  font-family: var(--sando-font-family-heading) !important;
+  font-weight: var(--sando-font-weight-heading) !important;
+  line-height: var(--sando-font-lineHeight-heading) !important;
   text-transform: uppercase !important;
-  letter-spacing: -0.02em !important;
 }
 
 .sbdocs h2 {
-  font-family: "Barlow Condensed", "Arial Narrow", sans-serif !important;
-  font-weight: 800 !important;
-  line-height: 1.2 !important;
-  letter-spacing: -0.01em !important;
+  font-family: var(--sando-font-family-heading) !important;
+  font-weight: var(--sando-font-weight-heading) !important;
+  line-height: var(--sando-font-lineHeight-heading) !important;
 }
 
 .sbdocs h3,
 .sbdocs h4,
 .sbdocs h5,
 .sbdocs h6 {
-  font-family: "Barlow Condensed", "Arial Narrow", sans-serif !important;
-  font-weight: 700 !important;
+  font-family: var(--sando-font-family-heading) !important;
+  font-weight: var(--sando-font-weight-emphasis) !important;
   line-height: 1.3 !important;
 }
 
@@ -969,19 +1045,15 @@ code[class*="language-"] {
 .sbdocs li,
 .sbdocs td,
 .sbdocs span:not(.token) {
-  font-family:
-    "Inter",
-    system-ui,
-    -apple-system,
-    sans-serif;
-  font-weight: 400;
-  line-height: 1.6;
+  font-family: var(--sando-font-family-body);
+  font-weight: var(--sando-font-weight-body);
+  line-height: var(--sando-font-lineHeight-body);
 }
 
 /* MDX Code */
 .sbdocs code,
 .sbdocs pre code {
-  font-family: "JetBrains Mono", Consolas, monospace !important;
+  font-family: var(--sando-font-family-mono) !important;
 }
 
 /* ----------------------------------------
