@@ -136,7 +136,7 @@ body {
   color: var(--sb-docs-text-body);
 }
 
-.sbdocs span{
+.sbdocs span {
   background-color: transparent;
 }
 
@@ -754,14 +754,15 @@ html .docs-story,
   border-color: var(--sb-docs-border) !important;
 }
 
-[data-color-mode="dark"] .docblock-argstable input:not([type="checkbox"]):not([type="radio"]),
+[data-color-mode="dark"]
+  .docblock-argstable
+  input:not([type="checkbox"]):not([type="radio"]),
 [data-color-mode="dark"] .docblock-argstable select,
 [data-color-mode="dark"] .docblock-argstable textarea {
   background: var(--sb-docs-bg-base) !important;
   color: var(--sb-docs-text-body) !important;
   border-color: var(--sb-docs-border) !important;
 }
-
 
 /* ----------------------------------------
    ArgTable Boolean Switch Control
@@ -813,12 +814,16 @@ html .docs-story,
 
 /* When CHECKED - invert colors */
 /* First span "False" now on dark side */
-.docblock-argstable label:has(input[role="switch"]:checked) > span:first-of-type {
+.docblock-argstable
+  label:has(input[role="switch"]:checked)
+  > span:first-of-type {
   color: #fafafa !important; /* light text - on dark side */
 }
 
 /* Second span "True" now on accent (vermillion) side */
-.docblock-argstable label:has(input[role="switch"]:checked) > span:last-of-type {
+.docblock-argstable
+  label:has(input[role="switch"]:checked)
+  > span:last-of-type {
   color: #171717 !important; /* dark text - visible on vermillion */
 }
 
@@ -828,11 +833,12 @@ html .docs-story,
   border-color: var(--sb-docs-border) !important;
 }
 
-[data-color-mode="dark"] .docblock-argstable label:has(input[role="switch"]:checked) {
+[data-color-mode="dark"]
+  .docblock-argstable
+  label:has(input[role="switch"]:checked) {
   background: var(--sb-docs-accent) !important;
   border-color: var(--sb-docs-accent) !important;
 }
-
 
 /* ----------------------------------------
    MDX Tables - Dark Mode Override

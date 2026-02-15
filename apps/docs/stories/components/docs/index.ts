@@ -3,4 +3,4 @@
  * These are React components used within MDX documentation.
  */
 
-export { Mermaid } from './Mermaid';
+export { Mermaid } from "./Mermaid";
