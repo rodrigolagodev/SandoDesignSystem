@@ -1,9 +1,9 @@
 meta:
   doc_id: "CS"
   category: "01-design-system"
-  version: "2.0.0"
+  version: "3.0.0"
   status: "Active"
-  last_updated: "2025-11-09"
+  last_updated: "2026-02-21"
   owner: "Design System Architect"
 
 purpose: |
@@ -23,7 +23,7 @@ core_rules:
     pattern:
       lang: "css"
       code: |
-        --color-orange-500: oklch(0.64 0.2 25); /* L=0.64, C=0.20, H=25° */
+        --color-orange-500: oklch(0.64 0.2 32); /* L=0.64, C=0.20, H=32° */
     key_advantage: "`orange-500` and `blue-500` have identical perceived brightness (both L=0.64)."
 
   - id: "CS-CR-R2"
@@ -87,13 +87,13 @@ core_rules:
       - name: "Neutral"
         peak_chroma: "0.005-0.018"
         use_case: "Foundations (text, borders, surfaces)"
-        examples: "All gray variants"
+        examples: "neutral, neutralWarm, neutralCool, sand"
     constraint: "Select profile by intended use, not preference."
     pattern:
       lang: "javascript"
       code: |
         // Medium saturation (most common)
-        const orange = generateColorScale("orange", 25, "medium");
+        const orange = generateColorScale("orange", 32, "medium");
         // Results in chroma curve: [0.08, 0.08, 0.14, 0.20, 0.20, 0.20, ...]
     reference: "See [packages/tokens/src/ JSON source files) for complete curves."
 
@@ -109,7 +109,7 @@ core_rules:
           color:
             orange:
               "500":
-                value: "oklch(0.64 0.20 25)"
+                value: "oklch(0.64 0.20 32)"
                 type: "color"
         # Flavors - define USE CONTEXT
         layer_2:
@@ -161,11 +161,14 @@ core_rules:
 token_structure:
   - id: "CS-TS-L1"
     title: "Layer 1: Ingredients (Algorithmic Primitives)"
-    summary: "15 colors, 11 steps each = 165 tokens (+ 3 utilities)."
+    summary: "14 chromatic + 4 state colors, 11 steps each = 198 tokens (+ 4 neutrals × 11 + 3 utilities = 245 total)."
     palette_groups:
+      - name: "State"
+        count: 4
+        palette: "error, warning, success, info"
       - name: "Warm"
-        count: 5
-        palette: "red, rose, orange, amber, yellow"
+        count: 4
+        palette: "red, orange, amber, yellow"
       - name: "Green"
         count: 3
         palette: "lime, green, emerald"
@@ -177,28 +180,28 @@ token_structure:
         palette: "purple, violet, pink"
       - name: "Neutral"
         count: 4
-        palette: "neutral, neutral-warm, neutral-cool, sand"
+        palette: "neutral, neutralWarm, neutralCool, sand"
       - name: "Utility"
         count: 3
         palette: "white, black, transparent"
     example:
       lang: "json"
-      title: "Example - Orange (Hue: 25°, Profile: Medium)"
+      title: "Example - Orange (Hue: 32°, Profile: Medium)"
       code:
         color:
           orange:
             "50":
-              value: "oklch(0.98 0.08 25)"
+              value: "oklch(0.98 0.08 32)"
               type: "color"
             "500":
-              value: "oklch(0.64 0.20 25)"
+              value: "oklch(0.64 0.20 32)"
               type: "color" # Base
             "950":
-              value: "oklch(0.22 0.12 25)"
+              value: "oklch(0.22 0.12 32)"
               type: "color"
             # ... 11 steps total
     pattern: "All colors follow universal lightness + profile chroma curve."
-    reference: "See [packages/tokens/src/ JSON source files) for all 165 tokens."
+    reference: "See [packages/tokens/src/ JSON source files) for all 245 tokens."
 
   - id: "CS-TS-L2"
     title: "Layer 2: Flavors (Semantic Mapping)"
@@ -368,7 +371,7 @@ colorblind_accessibility:
 related_guidelines:
   - type: "source_file"
     path: "packages/tokens/src/ JSON source files"
-    note: "Complete palette (165 tokens), chroma curves, approved contrast pairs"
+    note: "Complete palette (245 tokens), chroma curves, approved contrast pairs"
   - type: "guideline"
     doc_id: "TA"
     file: "TOKEN_ARCHITECTURE.toon"

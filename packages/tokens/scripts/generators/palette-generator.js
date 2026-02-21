@@ -4,6 +4,9 @@
  * Generates scientifically-designed 11-step color palettes using OKLCH color space
  * for perceptual uniformity and guaranteed WCAG accessibility.
  *
+ * Supports 14 curated chromatic palettes, 4 state palettes, 4 neutral palettes,
+ * and 3 utility colors (22 palette groups + 3 utilities = 25 total).
+ *
  * @module palette-generator
  */
 
@@ -117,50 +120,45 @@ export function generatePalette(config) {
 }
 
 /**
- * Generates a neutral palette with optional warmth/coolness
+ * Generates a neutral palette with configurable hue and chroma
  *
  * @param {Object} config - Neutral palette configuration
- * @param {string} config.name - Palette name (e.g., 'neutral', 'neutral-warm', 'neutral-cool')
- * @param {number} [config.warmth=0] - Warmth adjustment (-1 to 1)
- *   - Negative values: cooler (blue-ish)
- *   - 0: true neutral
- *   - Positive values: warmer (orange-ish)
+ * @param {string} config.name - Palette name (e.g., 'neutral', 'neutralWarm')
+ * @param {number} [config.hue] - Optional hue angle (undefined = achromatic)
+ * @param {number} [config.chroma] - Fixed chroma value (for non-adaptive)
+ * @param {number} [config.chromaLight] - Chroma for light steps (adaptive mode)
+ * @param {number} [config.chromaDark] - Chroma for dark steps (adaptive mode)
+ * @param {boolean} [config.adaptive=false] - Whether to use adaptive chroma curve
  * @returns {Object} Generated neutral palette
- *
- * @example
- * const neutralWarm = generateNeutralPalette({
- *   name: 'neutral-warm',
- *   warmth: 0.3
- * });
  */
 export function generateNeutralPalette(config) {
-  const { name, warmth = 0 } = config;
-
-  // Determine hue based on warmth
-  // Cool: 220° (blue), Neutral: no hue, Warm: 30° (orange)
-  let hue = undefined;
-  let baseChroma = 0.01; // Very low saturation for neutrals
-
-  if (warmth > 0) {
-    // Warm neutrals (orange tint)
-    hue = 30;
-    baseChroma = 0.015 + warmth * 0.01;
-  } else if (warmth < 0) {
-    // Cool neutrals (blue tint)
-    hue = 220;
-    baseChroma = 0.015 + Math.abs(warmth) * 0.01;
-  } else {
-    // True neutral (achromatic)
-    baseChroma = 0.005;
-  }
+  const {
+    name,
+    hue,
+    chroma: fixedChroma,
+    chromaLight,
+    chromaDark,
+    adaptive = false,
+  } = config;
 
   const palette = {};
 
   Object.entries(LIGHTNESS_SCALE).forEach(([step, lightness]) => {
+    let stepChroma;
+
+    if (adaptive && chromaLight !== undefined && chromaDark !== undefined) {
+      // Adaptive chroma: interpolate between light and dark values based on lightness
+      // At L=0.98 → chromaLight, at L=0.22 → chromaDark
+      const t = (lightness - 0.22) / (0.98 - 0.22);
+      stepChroma = chromaDark + t * (chromaLight - chromaDark);
+    } else {
+      stepChroma = fixedChroma || 0.005;
+    }
+
     const color = {
       mode: "oklch",
       l: lightness,
-      c: baseChroma,
+      c: stepChroma,
       h: hue,
     };
 
@@ -170,7 +168,7 @@ export function generateNeutralPalette(config) {
       value: hex,
       oklch: {
         l: Number(lightness.toFixed(3)),
-        c: Number(baseChroma.toFixed(3)),
+        c: Number(stepChroma.toFixed(4)),
         h: hue ? Number(hue.toFixed(1)) : undefined,
       },
     };
@@ -241,55 +239,71 @@ export function validatePaletteContrast(palette, options = {}) {
 }
 
 /**
- * Predefined palette configurations for Sando's 8 curated palettes
+ * Predefined state palette configurations
+ * State colors have dedicated semantic meaning and fixed hue assignments.
+ * Minimum 10° hue separation from nearest chromatic palette.
  */
-export const CURATED_PALETTES = {
-  orange: {
-    hue: 25,
-    chroma: 0.2,
-    name: "orange",
-  },
-  blue: {
-    hue: 220,
-    chroma: 0.18,
-    name: "blue",
-  },
-  green: {
-    hue: 140,
-    chroma: 0.17,
-    name: "green",
-  },
-  red: {
-    hue: 10,
-    chroma: 0.22,
-    name: "red",
-  },
-  purple: {
-    hue: 280,
-    chroma: 0.19,
-    name: "purple",
-  },
-  pink: {
-    hue: 340,
-    chroma: 0.21,
-    name: "pink",
-  },
+export const STATE_PALETTES = {
+  error: { hue: 0, chroma: 0.22, name: "error", profile: "high" },
+  warning: { hue: 85, chroma: 0.15, name: "warning", profile: "low" },
+  success: { hue: 155, chroma: 0.2, name: "success", profile: "medium" },
+  info: { hue: 250, chroma: 0.2, name: "info", profile: "medium" },
 };
 
 /**
- * Predefined neutral configurations
+ * Predefined chromatic palette configurations for Sando's 14 curated palettes
+ * Organized by hue wheel position (ascending hue order).
+ */
+export const CURATED_PALETTES = {
+  red: { hue: 15, chroma: 0.22, name: "red", profile: "high" },
+  orange: { hue: 32, chroma: 0.2, name: "orange", profile: "medium" },
+  amber: { hue: 55, chroma: 0.15, name: "amber", profile: "low" },
+  yellow: { hue: 95, chroma: 0.15, name: "yellow", profile: "low" },
+  lime: { hue: 120, chroma: 0.15, name: "lime", profile: "low" },
+  green: { hue: 145, chroma: 0.2, name: "green", profile: "medium" },
+  emerald: { hue: 165, chroma: 0.2, name: "emerald", profile: "medium" },
+  cyan: { hue: 190, chroma: 0.2, name: "cyan", profile: "medium" },
+  sky: { hue: 210, chroma: 0.2, name: "sky", profile: "medium" },
+  blue: { hue: 235, chroma: 0.2, name: "blue", profile: "medium" },
+  indigo: { hue: 265, chroma: 0.2, name: "indigo", profile: "medium" },
+  purple: { hue: 290, chroma: 0.2, name: "purple", profile: "medium" },
+  violet: { hue: 310, chroma: 0.22, name: "violet", profile: "high" },
+  pink: { hue: 350, chroma: 0.22, name: "pink", profile: "high" },
+};
+
+/**
+ * Predefined neutral palette configurations
+ *
+ * - neutral: Pure achromatic gray (chroma 0.005)
+ * - neutralWarm: Washi paper warmth (hue 70°) with adaptive chroma
+ *   Higher chroma in lights (0.02) for visible warmth, lower in darks (0.012) to avoid muddiness
+ * - neutralCool: Cool blue-tinted gray (hue 220°, flat chroma 0.018)
+ * - sand: Sandy warm neutral (hue 60°, flat chroma 0.025)
  */
 export const NEUTRAL_PALETTES = {
   neutral: {
     name: "neutral",
-    warmth: 0,
+    hue: undefined,
+    chroma: 0.005,
+    adaptive: false,
   },
-  "neutral-warm": {
-    name: "neutral-warm",
-    warmth: 0.3,
+  neutralWarm: {
+    name: "neutralWarm",
+    hue: 70,
+    chromaLight: 0.02,
+    chromaDark: 0.012,
+    adaptive: true,
   },
-  "neutral-cool": {
-    name: "neutral-cool",
-    warmth: -0.3,
+  neutralCool: {
+    name: "neutralCool",
+    hue: 220,
+    chroma: 0.018,
+    adaptive: false,
+  },
+  sand: {
+    name: "sand",
+    hue: 60,
+    chroma: 0.025,
+    adaptive: false,
   },
 };
