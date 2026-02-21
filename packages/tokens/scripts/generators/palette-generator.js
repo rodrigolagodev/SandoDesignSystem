@@ -4,8 +4,8 @@
  * Generates scientifically-designed 11-step color palettes using OKLCH color space
  * for perceptual uniformity and guaranteed WCAG accessibility.
  *
- * Supports 14 curated chromatic palettes, 4 state palettes, 4 neutral palettes,
- * and 3 utility colors (22 palette groups + 3 utilities = 25 total).
+ * Supports 14 curated chromatic palettes and 4 neutral palettes,
+ * plus 3 utility colors (18 palette groups + 3 utilities = 21 total).
  *
  * @module palette-generator
  */
@@ -237,18 +237,6 @@ export function validatePaletteContrast(palette, options = {}) {
 
   return results;
 }
-
-/**
- * Predefined state palette configurations
- * State colors have dedicated semantic meaning and fixed hue assignments.
- * Minimum 10° hue separation from nearest chromatic palette.
- */
-export const STATE_PALETTES = {
-  error: { hue: 0, chroma: 0.22, name: "error", profile: "high" },
-  warning: { hue: 85, chroma: 0.15, name: "warning", profile: "low" },
-  success: { hue: 155, chroma: 0.2, name: "success", profile: "medium" },
-  info: { hue: 250, chroma: 0.2, name: "info", profile: "medium" },
-};
 
 /**
  * Predefined chromatic palette configurations for Sando's 14 curated palettes

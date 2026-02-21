@@ -105,20 +105,20 @@
     "state": {
       "destructive": {
         "background": {
-          "value": "{color.state.error.900.value}",
+          "value": "{color.red.900.value}",
           "type": "color"
         },
-        "text": { "value": "{color.state.error.300.value}", "type": "color" },
-        "border": { "value": "{color.state.error.600.value}", "type": "color" }
+        "text": { "value": "{color.red.300.value}", "type": "color" },
+        "border": { "value": "{color.red.600.value}", "type": "color" }
       },
       "success": {
         "background": {
-          "value": "{color.state.success.900.value}",
+          "value": "{color.green.900.value}",
           "type": "color"
         },
-        "text": { "value": "{color.state.success.300.value}", "type": "color" },
+        "text": { "value": "{color.green.300.value}", "type": "color" },
         "border": {
-          "value": "{color.state.success.600.value}",
+          "value": "{color.green.600.value}",
           "type": "color"
         }
       }
