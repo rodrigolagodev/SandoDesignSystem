@@ -1,7 +1,7 @@
 meta:
   doc_id: "CS"
   category: "01-design-system"
-  version: "3.0.0"
+  version: "3.1.0"
   status: "Active"
   last_updated: "2026-02-21"
   owner: "Design System Architect"
@@ -126,6 +126,60 @@ core_rules:
         color:
           primary: {} # Too specific, not reusable
 
+  - id: "CS-CR-R4b"
+    title: "State Color Architecture"
+    summary: "State semantics (error, success, warning, info) are assigned at the Flavor layer (Layer 2), NOT the Ingredient layer."
+    why: |
+      Ingredient tokens must be brand-agnostic — "error" is a semantic concept, not a color name.
+      Different flavors can map different chromatic palettes to state semantics (e.g., a flavor could use `orange` for error instead of `red`).
+    default_mappings:
+      - state: "error"
+        ingredient: "{color.red.X.value}"
+        note: "Red is conventional, but not mandatory"
+      - state: "success"
+        ingredient: "{color.green.X.value}"
+        note: "Green is conventional, but not mandatory"
+      - state: "warning"
+        ingredient: "{color.yellow.X.value}"
+        note: "Yellow is conventional, but not mandatory"
+      - state: "info"
+        ingredient: "{color.blue.X.value}"
+        note: "Blue is conventional, but not mandatory"
+    pattern:
+      lang: "json"
+      code:
+        # Layer 2 (Flavor) — state semantics reference chromatic Ingredients
+        color:
+          state:
+            destructive:
+              background:
+                value: "{color.red.100.value}"
+              text:
+                value: "{color.red.700.value}"
+            success:
+              background:
+                value: "{color.green.100.value}"
+              text:
+                value: "{color.green.700.value}"
+            warning:
+              background:
+                value: "{color.yellow.100.value}"
+              text:
+                value: "{color.yellow.700.value}"
+            info:
+              background:
+                value: "{color.blue.100.value}"
+              text:
+                value: "{color.blue.700.value}"
+    anti_pattern:
+      lang: "json"
+      code:
+        # ❌ Don't create state palettes in Ingredients (Layer 1)
+        color:
+          error:
+            "500":
+              value: "oklch(0.64 0.22 27)" # Semantic name in wrong layer
+
   - id: "CS-CR-R5"
     title: "WCAG Contrast Requirements"
     summary: "All color combinations MUST meet WCAG 2.1 AA minimum."
@@ -161,11 +215,8 @@ core_rules:
 token_structure:
   - id: "CS-TS-L1"
     title: "Layer 1: Ingredients (Algorithmic Primitives)"
-    summary: "14 chromatic + 4 state colors, 11 steps each = 198 tokens (+ 4 neutrals × 11 + 3 utilities = 245 total)."
+    summary: "14 chromatic palettes + 4 neutrals, 11 steps each = 198 tokens (+ 3 utilities = 201 total)."
     palette_groups:
-      - name: "State"
-        count: 4
-        palette: "error, warning, success, info"
       - name: "Warm"
         count: 4
         palette: "red, orange, amber, yellow"
@@ -184,6 +235,7 @@ token_structure:
       - name: "Utility"
         count: 3
         palette: "white, black, transparent"
+    total: "14 chromatic + 4 neutral + 3 utility = 21 palette groups (201 tokens)"
     example:
       lang: "json"
       title: "Example - Orange (Hue: 32°, Profile: Medium)"
@@ -201,7 +253,7 @@ token_structure:
               type: "color"
             # ... 11 steps total
     pattern: "All colors follow universal lightness + profile chroma curve."
-    reference: "See [packages/tokens/src/ JSON source files) for all 245 tokens."
+    reference: "See [packages/tokens/src/ JSON source files) for all 201 tokens."
 
   - id: "CS-TS-L2"
     title: "Layer 2: Flavors (Semantic Mapping)"
@@ -249,7 +301,7 @@ token_structure:
       - "Flavors define USE, not brand: `color.action.solid.background` (not `color.brand.primary`)"
       - "User chooses Ingredient mapping: Purple for actions? Blue? Orange? User decides"
       - "Consistency within Flavor: If `color.action` uses purple-600, `color.focus.ring` should too"
-      - "States typically use semantic colors: `destructive` → red, `success` → green"
+      - "States typically use semantic colors: `destructive` → `{color.red.X}`, `success` → `{color.green.X}` (chromatic Ingredients, not state palettes)"
 
   - id: "CS-TS-L3"
     title: "Layer 3: Recipes (Component-Specific)"
@@ -371,7 +423,7 @@ colorblind_accessibility:
 related_guidelines:
   - type: "source_file"
     path: "packages/tokens/src/ JSON source files"
-    note: "Complete palette (245 tokens), chroma curves, approved contrast pairs"
+    note: "Complete palette (201 tokens), chroma curves, approved contrast pairs"
   - type: "guideline"
     doc_id: "TA"
     file: "TOKEN_ARCHITECTURE.toon"
