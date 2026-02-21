@@ -3,8 +3,6 @@ import { html } from 'lit';
 import './sando-textarea.js';
 
 /**
- * # Textarea Component
- *
  * A fully accessible multi-line text input component with multiple variants, sizes, and states.
  * Supports native form participation with validation, resize control, and character limits.
  *

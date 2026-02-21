@@ -16,38 +16,42 @@
    Typography - Import Inter font (must be first)
    ============================================================================ */
 
-@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Fira+Code:wght@400;500;700&display=swap");
 
 /* ============================================================================
    CSS Custom Properties - Light Mode (Default)
    ============================================================================ */
 
 :root {
-  /* Primary colors - Brutalist Vermillion (hue 25°) */
-  --sando-sb-primary: #c13b1e;
-  --sando-sb-primary-hover: #9e2f18;
-  --sando-sb-primary-light: #fee2e2;
-  --sando-sb-primary-dark: #7a2515;
+  /* Primary colors - Warm Precision Amber (hue 55°) */
+  --sando-sb-primary: #8d6e10;
+  --sando-sb-primary-hover: #6b530c;
+  --sando-sb-primary-light: #fff8e1;
+  --sando-sb-primary-dark: #4a3a09;
 
-  /* Background colors - Ink (zero chroma) */
-  --sando-sb-app-bg: #fafafa;
+  /* Background colors - NeutralWarm */
+  --sando-sb-app-bg: #faf9f6;
   --sando-sb-content-bg: #ffffff;
-  --sando-sb-sidebar-bg: #fafafa;
+  --sando-sb-sidebar-bg: #faf9f6;
 
-  /* Text colors - Ink */
-  --sando-sb-text-primary: #171717;
-  --sando-sb-text-secondary: #525252;
-  --sando-sb-text-muted: #a3a3a3;
+  /* Text colors - NeutralWarm */
+  --sando-sb-text-primary: #1e1b17;
+  --sando-sb-text-secondary: #5c5549;
+  --sando-sb-text-muted: #9e9689;
 
-  /* Border colors - Ink */
-  --sando-sb-border: #d4d4d4;
-  --sando-sb-border-light: #e5e5e5;
+  /* Border colors - NeutralWarm */
+  --sando-sb-border: #cfc9c0;
+  --sando-sb-border-light: #e8e1d9;
 
-  /* Interactive states - Vermillion accent */
-  --sando-sb-selected-bg: #fee2e2;
-  --sando-sb-selected-text: #7a2515;
-  --sando-sb-hover-bg: #f5f5f5;
-  --sando-sb-focus-color: #c13b1e;
+  /* Interactive states - Amber accent */
+  --sando-sb-selected-bg: #fff8e1;
+  --sando-sb-selected-text: #4a3a09;
+  --sando-sb-selected-border: #8d6e10;
+  --sando-sb-selected-hover-bg: #ffe88a;
+  --sando-sb-selected-hover-text: #4a3a09;
+  --sando-sb-hover-bg: #f5f0eb;
+  --sando-sb-hover-text: #1e1b17;
+  --sando-sb-focus-color: #8d6e10;
 
   /* Badge colors - Stable (green) */
   --sando-sb-badge-stable-bg: #dcfce7;
@@ -82,31 +86,35 @@
    ============================================================================ */
 
 [data-sb-theme="dark"] {
-  /* Primary colors - Brutalist Vermillion (hue 25°) */
-  --sando-sb-primary: #d4553b;
-  --sando-sb-primary-hover: #e07159;
-  --sando-sb-primary-light: #450a0a;
-  --sando-sb-primary-dark: #c13b1e;
+  /* Primary colors - Warm Precision Amber (hue 55°) */
+  --sando-sb-primary: #d4a017;
+  --sando-sb-primary-hover: #ffca28;
+  --sando-sb-primary-light: #2a2005;
+  --sando-sb-primary-dark: #a88514;
 
-  /* Background colors - Ink (inverted) */
-  --sando-sb-app-bg: #171717;
+  /* Background colors - Neutral (inverted) */
+  --sando-sb-app-bg: #0f0f0f;
   --sando-sb-content-bg: #0a0a0a;
-  --sando-sb-sidebar-bg: #171717;
+  --sando-sb-sidebar-bg: #0f0f0f;
 
-  /* Text colors - Ink (inverted) */
-  --sando-sb-text-primary: #fafafa;
-  --sando-sb-text-secondary: #d4d4d4;
-  --sando-sb-text-muted: #a3a3a3;
+  /* Text colors - Neutral (inverted) */
+  --sando-sb-text-primary: #f5f5f5;
+  --sando-sb-text-secondary: #c7c7c7;
+  --sando-sb-text-muted: #a0a0a0;
 
-  /* Border colors - Ink (inverted) */
-  --sando-sb-border: #404040;
-  --sando-sb-border-light: #262626;
+  /* Border colors - Neutral (inverted) */
+  --sando-sb-border: #292929;
+  --sando-sb-border-light: #1a1a1a;
 
-  /* Interactive states - Vermillion accent */
-  --sando-sb-selected-bg: #450a0a;
-  --sando-sb-selected-text: #d4553b;
-  --sando-sb-hover-bg: #262626;
-  --sando-sb-focus-color: #d4553b;
+  /* Interactive states - Amber accent */
+  --sando-sb-selected-bg: #1e1b17;
+  --sando-sb-selected-text: #d4a017;
+  --sando-sb-selected-border: #d4a017;
+  --sando-sb-selected-hover-bg: #2e2a24;
+  --sando-sb-selected-hover-text: #ffca28;
+  --sando-sb-hover-bg: #1a1a1a;
+  --sando-sb-hover-text: #f5f5f5;
+  --sando-sb-focus-color: #d4a017;
 
   /* Badge colors - Stable (green) - dark mode */
   --sando-sb-badge-stable-bg: #14532d;
@@ -132,31 +140,35 @@
 /* System preference fallback (when no explicit theme is set) */
 @media (prefers-color-scheme: dark) {
   :root:not([data-sb-theme]) {
-    /* Primary colors - Brutalist Vermillion (hue 25°) */
-    --sando-sb-primary: #d4553b;
-    --sando-sb-primary-hover: #e07159;
-    --sando-sb-primary-light: #450a0a;
-    --sando-sb-primary-dark: #c13b1e;
+    /* Primary colors - Warm Precision Amber (hue 55°) */
+    --sando-sb-primary: #d4a017;
+    --sando-sb-primary-hover: #ffca28;
+    --sando-sb-primary-light: #2a2005;
+    --sando-sb-primary-dark: #a88514;
 
-    /* Background colors - Ink (inverted) */
-    --sando-sb-app-bg: #171717;
+    /* Background colors - Neutral (inverted) */
+    --sando-sb-app-bg: #0f0f0f;
     --sando-sb-content-bg: #0a0a0a;
-    --sando-sb-sidebar-bg: #171717;
+    --sando-sb-sidebar-bg: #0f0f0f;
 
-    /* Text colors - Ink (inverted) */
-    --sando-sb-text-primary: #fafafa;
-    --sando-sb-text-secondary: #d4d4d4;
-    --sando-sb-text-muted: #a3a3a3;
+    /* Text colors - Neutral (inverted) */
+    --sando-sb-text-primary: #f5f5f5;
+    --sando-sb-text-secondary: #c7c7c7;
+    --sando-sb-text-muted: #a0a0a0;
 
-    /* Border colors - Ink (inverted) */
-    --sando-sb-border: #404040;
-    --sando-sb-border-light: #262626;
+    /* Border colors - Neutral (inverted) */
+    --sando-sb-border: #292929;
+    --sando-sb-border-light: #1a1a1a;
 
-    /* Interactive states - Vermillion accent */
-    --sando-sb-selected-bg: #450a0a;
-    --sando-sb-selected-text: #d4553b;
-    --sando-sb-hover-bg: #262626;
-    --sando-sb-focus-color: #d4553b;
+    /* Interactive states - Amber accent */
+    --sando-sb-selected-bg: #1e1b17;
+    --sando-sb-selected-text: #d4a017;
+    --sando-sb-selected-border: #d4a017;
+    --sando-sb-selected-hover-bg: #2e2a24;
+    --sando-sb-selected-hover-text: #ffca28;
+    --sando-sb-hover-bg: #1a1a1a;
+    --sando-sb-hover-text: #f5f5f5;
+    --sando-sb-focus-color: #d4a017;
 
     /* Badge colors - dark mode */
     --sando-sb-badge-stable-bg: #14532d;
@@ -179,6 +191,7 @@
 /* Sidebar item - selected state */
 [data-selected="true"] {
   background: var(--sando-sb-selected-bg) !important;
+  border-left: 2px solid var(--sando-sb-selected-border) !important;
   font-weight: 600 !important;
   transition:
     background-color var(--sando-sb-transition-fast) ease,
@@ -201,6 +214,28 @@ a[data-nodetype="story"]:hover,
 a[data-nodetype="docs"]:hover {
   background: var(--sando-sb-hover-bg) !important;
   transition: background-color var(--sando-sb-transition-fast) ease;
+}
+
+/* Hover text brightening */
+button[data-nodetype="component"]:hover span,
+button[data-nodetype="story"]:hover span,
+button[data-nodetype="docs"]:hover span,
+button[data-nodetype="group"]:hover span,
+a[data-nodetype="component"]:hover span,
+a[data-nodetype="story"]:hover span,
+a[data-nodetype="docs"]:hover span {
+  color: var(--sando-sb-hover-text) !important;
+}
+
+/* Selected item - hover state */
+[data-selected="true"]:hover {
+  background: var(--sando-sb-selected-hover-bg) !important;
+}
+
+[data-selected="true"]:hover a,
+[data-selected="true"]:hover span,
+[data-selected="true"]:hover svg {
+  color: var(--sando-sb-selected-hover-text) !important;
 }
 
 /* Sidebar icons */
@@ -271,7 +306,7 @@ button[title="Design system flavor/theme"] span::before {
 .tag-badge {
   font-weight: 500 !important;
   font-family:
-    "Inter",
+    "DM Sans",
     -apple-system,
     BlinkMacSystemFont,
     sans-serif !important;

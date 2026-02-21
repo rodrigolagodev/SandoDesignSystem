@@ -5,7 +5,7 @@ import { darkPalette, typography, layout } from "./variables";
  * Sando Design System - Dark Theme
  *
  * Dark mode Storybook theme using inverted warm neutrals
- * with adjusted brown (Tonkatsu Amber) primary for dark backgrounds.
+ * with adjusted Kohaku amber (琥珀) primary for dark backgrounds.
  *
  * This file contains ALL available Storybook theme variables.
  * Each variable is documented with its purpose for easy customization.
