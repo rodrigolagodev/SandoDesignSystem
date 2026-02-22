@@ -4,8 +4,6 @@ import './sando-input.js';
 import '../icon/sando-icon.ts';
 
 /**
- * # Input Component
- *
  * The Input component provides a fully accessible text input with multiple variants,
  * sizes, and states. It supports validation, helper text, and customizable prefix/suffix content.
  *

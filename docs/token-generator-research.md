@@ -572,7 +572,6 @@ npx @sando/token-generator build --with-flavors
 npx @sando/token-generator init
 ? What's your primary brand color? #FF6B00
 ? Generate neutrals automatically? Yes
-? Include state colors? Yes
 ✓ Generated 55 ingredient tokens
 ✓ Generated 120 flavor tokens (light + dark)
 ✓ All WCAG AA checks passed

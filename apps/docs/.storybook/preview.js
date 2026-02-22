@@ -158,7 +158,7 @@ const initializeMermaid = (isDark = false) => {
     theme: "base",
     themeVariables: theme,
     securityLevel: "loose",
-    fontFamily: "Inter, system-ui, sans-serif",
+    fontFamily: "DM Sans, system-ui, sans-serif",
   });
 };
 
@@ -218,13 +218,13 @@ import "../../../packages/tokens/dist/sando-tokens/css/flavors/egg-salad/flavor-
 import "../../../packages/tokens/dist/sando-tokens/css/flavors/egg-salad/flavor-high-contrast.css";
 import "../../../packages/tokens/dist/sando-tokens/css/flavors/egg-salad/flavor-motion-reduce.css";
 
-// Sando (Brand identity - warm neutrals with Tonkatsu Amber accents)
+// Sando (Brand identity - Warm Precision with Kohaku amber accents)
 import "../../../packages/tokens/dist/sando-tokens/css/flavors/sando/flavor.css";
 import "../../../packages/tokens/dist/sando-tokens/css/flavors/sando/flavor-dark.css";
 import "../../../packages/tokens/dist/sando-tokens/css/flavors/sando/flavor-high-contrast.css";
 import "../../../packages/tokens/dist/sando-tokens/css/flavors/sando/flavor-motion-reduce.css";
 
-// Brutalist (Japanese brutalist - pure neutrals with electric vermillion)
+// Brutalist (Japanese brutalist - pure neutrals with red accent)
 import "../../../packages/tokens/dist/sando-tokens/css/flavors/brutalist/flavor.css";
 import "../../../packages/tokens/dist/sando-tokens/css/flavors/brutalist/flavor-dark.css";
 import "../../../packages/tokens/dist/sando-tokens/css/flavors/brutalist/flavor-high-contrast.css";
@@ -346,7 +346,7 @@ const renderMermaidDiagrams = async () => {
       // Determine background color based on current color mode
       const isDark =
         document.documentElement.getAttribute("data-color-mode") === "dark";
-      const bgColor = isDark ? "#1c1917" : "#fafafa";
+      const bgColor = isDark ? "#0F0F0F" : "#FAF9F6";
 
       // Create a container for the rendered diagram
       const container = document.createElement("div");
@@ -409,7 +409,7 @@ const reRenderMermaidDiagrams = async () => {
     // Determine current color mode for background
     const isDark =
       document.documentElement.getAttribute("data-color-mode") === "dark";
-    const bgColor = isDark ? "#1c1917" : "#fafafa";
+    const bgColor = isDark ? "#0F0F0F" : "#FAF9F6";
 
     // Process each rendered diagram
     const reRenderPromises = Array.from(renderedDiagrams).map(
@@ -658,7 +658,7 @@ const preview = {
         // No icon - emoji in title is sufficient
         title: "Flavor:",
         items: [
-          { value: "sando", title: "Sando", right: "Flat Brutal + Washi" },
+          { value: "sando", title: "Sando", right: "Warm Precision + Washi" },
           { value: "brutalist", title: "Brutalist", right: "Japanese Minimal" },
           { value: "original", title: "Original", right: "Neutral" },
           { value: "strawberry", title: "Strawberry", right: "Red tones" },
@@ -675,7 +675,7 @@ const preview = {
    * Decorators - Flavor switcher only
    *
    * Flavor Switcher:
-   * - "sando": Flat Brutal + Washi (data-flavor="sando") - DEFAULT
+   * - "sando": Warm Precision + Washi (data-flavor="sando") - DEFAULT
    * - "brutalist": Japanese Minimal (data-flavor="brutalist")
    * - "original": Neutral tones (no data-flavor attribute, uses :root styles)
    * - "strawberry": Red tones (data-flavor="strawberry")
@@ -713,7 +713,7 @@ const preview = {
    * Initial global values
    */
   initialGlobals: {
-    // Flavor switcher default - Sando (Flat Brutal + Washi)
+    // Flavor switcher default - Sando (Warm Precision + Washi)
     flavor: "sando",
   },
 };

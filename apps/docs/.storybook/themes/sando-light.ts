@@ -5,7 +5,7 @@ import { lightPalette, typography, layout } from "./variables";
  * Sando Design System - Light Theme
  *
  * Light mode Storybook theme using warm neutral tones
- * with brown (Tonkatsu Amber) primary accent color.
+ * with Kohaku amber (琥珀) primary accent color.
  *
  * This file contains ALL available Storybook theme variables.
  * Each variable is documented with its purpose for easy customization.

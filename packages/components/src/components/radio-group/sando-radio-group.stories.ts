@@ -9,8 +9,6 @@ import '../form-group/sando-form-group.js';
 import type { SandoRadioGroupProps } from './sando-radio-group.types.js';
 
 /**
- * # Radio Group Component
- *
  * A container that groups sando-radio elements with proper ARIA radiogroup semantics,
  * roving tabindex for keyboard navigation, and shared label/helper/error support.
  *

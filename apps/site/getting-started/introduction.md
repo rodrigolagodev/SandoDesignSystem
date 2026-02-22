@@ -106,13 +106,12 @@ From buttons to complex form elements, everything you need to build real applica
 
 `sando-button` · `sando-input` · `sando-checkbox` · `sando-switch` · `sando-select` · `sando-textarea` · `sando-radio` · `sando-radio-group` · `sando-badge` · `sando-tag` · `sando-spinner` · `sando-icon` · `sando-label` · `sando-help-text` · `sando-form-group` · `sando-option` · `sando-option-group` · plus **14 skeleton loading patterns** for polished loading states.
 
-### 🎯 8 OKLCH Color Palettes
+### 🎯 18 OKLCH Color Palettes
 
 Every color is defined in [OKLCH](https://oklch.com/) — a perceptually uniform color space where `L=0.5` actually _looks_ 50% bright:
 
-- **orange** · **blue** · **green** · **red** · **purple** · **pink** · **yellow** · **brown**
-- **3 neutral scales** — neutral, neutral-warm, neutral-cool
-- **4 semantic state colors** — error, warning, success, info
+- **14 chromatic palettes** — red, orange, amber, yellow, lime, green, emerald, cyan, sky, blue, indigo, purple, violet, pink
+- **4 neutral scales** — neutral, neutral-warm, neutral-cool, sand
 
 ### 🔒 TypeScript-First
 

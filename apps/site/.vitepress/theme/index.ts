@@ -10,7 +10,7 @@ import DefaultTheme from "vitepress/theme";
  * 1. Ingredients (primitives) - base color values, spacing, typography
  * 2. Style.css - VitePress variable mappings to Sando tokens
  *
- * The brutalist flavor tokens are mapped directly in style.css to VitePress
+ * The Sando flavor tokens are mapped directly in style.css to VitePress
  * variables, ensuring both Storybook and VitePress use the same colors.
  */
 
