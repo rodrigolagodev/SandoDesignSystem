@@ -4,7 +4,7 @@
  * Consolidate Color Palettes
  *
  * Merges all individual color palette files into a single color.json file
- * while preserving state and utility colors.
+ * while preserving utility colors.
  */
 
 import fs from "fs";
@@ -31,7 +31,7 @@ const PALETTE_FILES = [
 
 console.log("🔗 Consolidating Color Palettes\n");
 
-// Read the current color.json to preserve state and utility
+// Read the current color.json to preserve utility
 const colorJsonPath = path.join(INGREDIENTS_DIR, "color.json");
 let baseColors = { color: {} };
 
@@ -39,16 +39,15 @@ if (fs.existsSync(colorJsonPath)) {
   console.log("📖 Reading existing color.json...");
   const content = fs.readFileSync(colorJsonPath, "utf-8");
   baseColors = JSON.parse(content);
-  console.log("  ✓ Preserved state and utility colors\n");
+  console.log("  ✓ Preserved utility colors\n");
 } else {
   console.log("⚠️  No existing color.json found, creating new file\n");
 }
 
-// Start with a fresh color object but preserve state and utility
+// Start with a fresh color object but preserve utility
 const consolidatedColors = {
   color: {
-    // Keep state and utility from existing file
-    ...(baseColors.color.state && { state: baseColors.color.state }),
+    // Keep utility from existing file
     ...(baseColors.color.utility && { utility: baseColors.color.utility }),
   },
 };

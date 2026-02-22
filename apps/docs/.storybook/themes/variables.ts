@@ -55,18 +55,6 @@ export const lightPalette = {
   hoverText: "#1E1B17", // neutralWarm.950 — text darkens on hover
   hover: "#F5F0EB", // neutralWarm.100
   focus: "#8D6E10", // amber.600
-
-  // Status colors — aligned with chromatic palettes (Phase 10)
-  success: "#d8ffd8", // green.50
-  successText: "#007400", // green.700
-  warning: "#fff9cb", // yellow.50
-  warningText: "#765600", // yellow.700
-  error: "#ffe1e5", // red.50
-  errorText: "#b50030", // red.700
-  info: "#c4ffff", // blue.50
-  infoText: "#0063b8", // blue.700
-  purple: "#f3e8ff", // keep as-is (not a state color)
-  purpleText: "#6b21a8", // keep as-is
 } as const;
 
 /**
@@ -112,18 +100,6 @@ export const darkPalette = {
   hoverText: "#F5F5F5", // neutral.50 — text brightens on hover
   hover: "#1A1A1A", // neutral.900
   focus: "#D4A017", // amber.400
-
-  // Status colors — dark mode, aligned with chromatic palettes (Phase 10)
-  success: "#003f00", // green.900
-  successText: "#cefdce", // green.100
-  warning: "#412a00", // yellow.900
-  warningText: "#fbefc2", // yellow.100
-  error: "#6c000d", // red.900
-  errorText: "#ffd7db", // red.100
-  info: "#003170", // blue.900
-  infoText: "#baf8ff", // blue.100
-  purple: "#581c87", // keep as-is
-  purpleText: "#d8b4fe", // keep as-is
 } as const;
 
 // ============================================================================
