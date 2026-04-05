@@ -387,44 +387,6 @@ Examples:
 5. Run verification loop
    </examples>
 
-## Verification Loop
-
-<verification required="true">
-CRITICAL: After ANY code changes, you MUST run:
-
-```bash
-# Run these in sequence
-pnpm lint           # Check code style
-pnpm typecheck      # Verify TypeScript
-pnpm test           # Run unit tests
-```
-
-### Decision Tree
-
-```
-IF lint fails:
-  → Fix linting errors
-  → Re-run lint
-
-IF typecheck fails:
-  → Fix type errors
-  → Re-run typecheck
-
-IF tests fail:
-  → Fix failing tests (or update if behavior changed intentionally)
-  → Re-run tests
-
-ONLY report completion when ALL pass
-```
-
-### Quick Verification (for small changes)
-
-```bash
-pnpm lint && pnpm typecheck
-```
-
-</verification>
-
 ## Anti-Patterns
 
 **DON'T:**

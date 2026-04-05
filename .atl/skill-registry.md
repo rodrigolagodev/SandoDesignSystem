@@ -24,6 +24,8 @@ See `.opencode/skills/_shared/skill-resolver.md` for the full resolution protoco
 | Create issue, reportar bug, feature request, GitHub issue                                         | `issue-creation`                 | `.opencode/skills/issue-creation/SKILL.md`                 |
 | Inject guidelines into sub-agent, compact guidelines, token-efficient rules, pre-digested context | `agent-guidelines-compact`       | `.opencode/skills/agent-guidelines-compact/SKILL.md`       |
 | Verification commands, post-work checks, done criteria, blocking thresholds, verify completion    | `verification-protocol`          | `.opencode/skills/verification-protocol/SKILL.md`          |
+| Orchestrator routing, keyword→agent mapping, ask protocol, SDD gate, skill injection reference    | `orchestration-routing`          | `.opencode/skills/orchestration-routing/SKILL.md`          |
+| SDD pipeline for architectural changes, explore→propose→spec→design→tasks, hybrid mode            | `sdd-architectural-workflow`     | `.opencode/skills/sdd-architectural-workflow/SKILL.md`     |
 
 ---
 
@@ -172,12 +174,34 @@ Pre-digested rules per skill. Delegators copy matching blocks into sub-agent pro
 
 ---
 
+### orchestration-routing
+
+- Load this skill once per session BEFORE any delegation
+- Check SDD Architectural Gate for every ARCHITECTURE-classified request
+- Inject `agent-guidelines-compact` + `verification-protocol` into EVERY sub-agent prompt
+- Use Ask Protocol template verbatim when unclear — no improvising
+- Use `delegate` tool (async) for parallel work, `task` tool (sync) for sequential
+
+---
+
+### sdd-architectural-workflow
+
+- Only fires when SDD Architectural Gate = YES (structural change, breaking change, guideline affecting 2+ agents)
+- Mode is always `hybrid` — artifacts persist to both Engram AND `openspec/` in repo
+- ALWAYS stop after Phase 2 (propose) and show proposal to user before continuing
+- Phases 3 (spec + design) run in PARALLEL — use `delegate` tool, not `task`
+- Do NOT start implementation until tasks.md is complete and shown to user
+- sdd-archive runs only after sdd-verify returns PASS — never archive with CRITICAL issues
+- change-name must be kebab-case, descriptive, and unique (e.g., `rename-recipe-token-convention`)
+
+---
+
 ## Project Conventions
 
 | File                   | Path                                                               | Notes                                                                        |
 | ---------------------- | ------------------------------------------------------------------ | ---------------------------------------------------------------------------- |
 | Agent instructions     | `.opencode/agents/`                                                | All Sando AI agents — orchestrator + 8 specialists                           |
-| Guidelines index       | `.opencode/guidelines/GUIDELINES_INDEX.toon`                       | Master index — 29 guidelines across 7 categories                             |
+| Guidelines index       | `.opencode/guidelines/GUIDELINES_INDEX.toon`                       | Master index — 32 guidelines across 7 categories                             |
 | Token architecture     | `.opencode/guidelines/01-design-system/TOKEN_ARCHITECTURE.toon`    | 3-layer system: Ingredients → Flavors → Recipes                              |
 | Component architecture | `.opencode/guidelines/02-architecture/COMPONENT_ARCHITECTURE.toon` | 7-file pattern, Lit 3+, Shadow DOM                                           |
 | Naming conventions     | `.opencode/guidelines/03-development/NAMING_CONVENTIONS.toon`      | sando-\* prefix, camelCase tokens                                            |
