@@ -261,7 +261,7 @@ const meta: Meta = {
     iconOnly: false,
     compact: false,
     type: 'button',
-    label: 'Hey There!',
+    label: 'HEY THERE!',
     iconStart: 'None',
     iconEnd: 'None'
   }

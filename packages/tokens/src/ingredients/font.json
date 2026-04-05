@@ -87,6 +87,16 @@
         "value": "'Fira Code', Consolas, monospace",
         "type": "fontFamily",
         "description": "Mozilla heritage, warm mono"
+      },
+      "outfit": {
+        "value": "'Outfit', system-ui, sans-serif",
+        "type": "fontFamily",
+        "description": "Geometric sans-serif — warm precision for headings"
+      },
+      "source-sans": {
+        "value": "'Source Sans 3', system-ui, sans-serif",
+        "type": "fontFamily",
+        "description": "Adobe humanist sans — warm readability for body text"
       }
     },
     "size": {

@@ -284,16 +284,17 @@ Before doing ANYTHING, you MUST classify the request. This is NOT optional.
 
 Scan the user's request for these keywords and IMMEDIATELY route to the corresponding agent:
 
-| Keywords Detected                                                                                             | Classification | Route To            | Action               |
-| ------------------------------------------------------------------------------------------------------------- | -------------- | ------------------- | -------------------- |
-| `token`, `color`, `spacing`, `typography`, `flavor`, `ingredient`, `recipe`, `theme`, `--sando-`              | TOKEN_WORK     | `sando-tokens`      | Delegate immediately |
-| `implement`, `component`, `fix bug`, `add feature`, `refactor`, `Lit`, `render`, `@property`, `customElement` | COMPONENT_CODE | `sando-developer`   | Delegate immediately |
-| `test`, `coverage`, `a11y`, `accessibility`, `axe`, `WCAG`, `audit`, `quality`, `validate`                    | QUALITY_WORK   | `sando-quality`     | Delegate immediately |
-| `story`, `stories`, `storybook`, `argTypes`, `controls`, `addon`, `CSF`, `preview.ts`, `main.ts`              | STORYBOOK_WORK | `sando-storybook`   | Delegate immediately |
-| `document`, `docs`, `JSDoc`, `VitePress`, `README`, `API reference`, `guide`                                  | DOCUMENTATION  | `sando-documenter`  | Delegate immediately |
-| `architecture`, `pattern`, `structure`, `breaking change`, `decision`, `RFC`, `ADR`, `build system`           | ARCHITECTURE   | `sando-architect`   | Delegate immediately |
-| `UX`, `user experience`, `states`, `behavior`, `flow`, `empty state`, `error message`, `microcopy`, `motion`  | UX_DESIGN      | `sando-ux-designer` | Delegate immediately |
-| `create component`, `new component`, `scaffold`, `build [component-name]`                                     | FULL_WORKFLOW  | Multi-agent         | Execute workflow     |
+| Keywords Detected                                                                                                                             | Classification | Route To            | Action               |
+| --------------------------------------------------------------------------------------------------------------------------------------------- | -------------- | ------------------- | -------------------- |
+| `token`, `color`, `spacing`, `typography`, `flavor`, `ingredient`, `recipe`, `theme`, `--sando-`                                              | TOKEN_WORK     | `sando-tokens`      | Delegate immediately |
+| `implement`, `component`, `fix bug`, `add feature`, `refactor`, `Lit`, `render`, `@property`, `customElement`                                 | COMPONENT_CODE | `sando-developer`   | Delegate immediately |
+| `test`, `coverage`, `a11y`, `accessibility`, `axe`, `WCAG`, `audit`, `quality`, `validate`                                                    | QUALITY_WORK   | `sando-quality`     | Delegate immediately |
+| `story`, `stories`, `storybook`, `argTypes`, `controls`, `addon`, `CSF`, `preview.ts`, `main.ts`                                              | STORYBOOK_WORK | `sando-storybook`   | Delegate immediately |
+| `document`, `docs`, `JSDoc`, `VitePress`, `README`, `API reference`, `guide`                                                                  | DOCUMENTATION  | `sando-documenter`  | Delegate immediately |
+| `architecture`, `pattern`, `structure`, `breaking change`, `decision`, `RFC`, `ADR`, `build system`                                           | ARCHITECTURE   | `sando-architect`   | Delegate immediately |
+| `UX`, `user experience`, `states`, `behavior`, `flow`, `empty state`, `error message`, `microcopy`, `motion`                                  | UX_DESIGN      | `sando-ux-designer` | Delegate immediately |
+| `copy`, `microcopy`, `write text`, `error message`, `empty state text`, `README intro`, `tagline`, `changelog entry`, `content audit`, `tone` | UX_WRITING     | `sando-ux-writer`   | Delegate immediately |
+| `create component`, `new component`, `scaffold`, `build [component-name]`                                                                     | FULL_WORKFLOW  | Multi-agent         | Execute workflow     |
 
 ### Classification Protocol
 
@@ -382,6 +383,7 @@ When you delegate, use this exact format:
 | Write docs, JSDoc, VitePress guides                   | `sando-documenter`  |
 | Design patterns, architecture decisions               | `sando-architect`   |
 | UX decisions, states, flows, microcopy, motion design | `sando-ux-designer` |
+| Write copy, microcopy, marketing text, content audits | `sando-ux-writer`   |
 
 </delegation_protocol>
 
@@ -474,15 +476,16 @@ Before reporting ANY workflow as complete:
 
 ## Agent Fleet Reference
 
-| Agent               | Domain                               | Invoke For                                                 |
-| ------------------- | ------------------------------------ | ---------------------------------------------------------- |
-| `sando-architect`   | Architecture, patterns, build config | New patterns, architectural decisions, breaking changes    |
-| `sando-tokens`      | Token system, Style Dictionary       | New tokens, flavors, Recipe creation                       |
-| `sando-developer`   | Component implementation             | Component creation, features, bug fixes                    |
-| `sando-quality`     | Tests, accessibility, validation     | Testing, a11y audit, guideline compliance                  |
-| `sando-storybook`   | Storybook config, stories, addons    | Stories, Storybook config, troubleshooting                 |
-| `sando-documenter`  | API docs, JSDoc, VitePress guides    | API reference, JSDoc, VitePress content (NOT stories)      |
-| `sando-ux-designer` | UX patterns, behavior, microcopy     | UX decisions, states, flows, error messages, motion design |
+| Agent               | Domain                               | Invoke For                                                   |
+| ------------------- | ------------------------------------ | ------------------------------------------------------------ |
+| `sando-architect`   | Architecture, patterns, build config | New patterns, architectural decisions, breaking changes      |
+| `sando-tokens`      | Token system, Style Dictionary       | New tokens, flavors, Recipe creation                         |
+| `sando-developer`   | Component implementation             | Component creation, features, bug fixes                      |
+| `sando-quality`     | Tests, accessibility, validation     | Testing, a11y audit, guideline compliance                    |
+| `sando-storybook`   | Storybook config, stories, addons    | Stories, Storybook config, troubleshooting                   |
+| `sando-documenter`  | API docs, JSDoc, VitePress guides    | API reference, JSDoc, VitePress content (NOT stories)        |
+| `sando-ux-designer` | UX patterns, behavior, microcopy     | UX decisions, states, flows, error messages, motion design   |
+| `sando-ux-writer`   | Copy, microcopy, marketing, content  | All user/developer-facing text, README prose, content audits |
 
 ## Response Templates
 
@@ -677,7 +680,7 @@ It's always better to ask one extra question than to destroy user's work.
 
 ### The Guidelines System
 
-The `.opencode/guidelines/` folder contains **27 TOON files** that are the **single source of truth** for all project decisions. These are NOT optional references - they are **binding rules**.
+The `.opencode/guidelines/` folder contains **29 TOON files** that are the **single source of truth** for all project decisions. These are NOT optional references - they are **binding rules**.
 
 ### Guidelines Index Location
 
@@ -716,6 +719,7 @@ Read these guidelines first:
 | `sando-storybook`   | STORYBOOK_STORIES.toon, COMPONENT_ARCHITECTURE.toon                                                                         |
 | `sando-documenter`  | API_REFERENCE.toon, VITEPRESS_GUIDES.toon, INLINE_CODE_DOCS.toon, STORYBOOK_STORIES.toon                                    |
 | `sando-ux-designer` | COMPONENT_DESIGN.toon, WCAG_COMPLIANCE.toon, MOTION_DESIGN.toon, KEYBOARD_NAVIGATION.toon                                   |
+| `sando-ux-writer`   | VOICE_AND_TONE.toon, STORYBOOK_STORIES.toon, API_REFERENCE.toon, VITEPRESS_GUIDES.toon, WCAG_COMPLIANCE.toon                |
 
 ### Why This Matters
 
@@ -740,6 +744,7 @@ Example categories:
 - `04-accessibility/` - WCAG, keyboard, screen readers
 - `05-quality/` - Coverage, performance, security
 - `06-documentation/` - API docs, Storybook, VitePress
+- `07-communication/` - Voice, tone, UX writing standards
 
 </guidelines_protocol>
 

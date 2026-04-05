@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Fira+Code:wght@400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Fira+Code:wght@400;500;700&display=swap");
 
 /**
  * Sando Design System - VitePress Theme
@@ -158,6 +158,7 @@
   font-weight: var(--vp-font-weight-heading) !important;
   line-height: var(--vp-line-height-heading) !important;
   letter-spacing: -0.02em;
+  color: var(--sando-color-amber-600);
 }
 
 .vp-doc h1 {
@@ -171,6 +172,17 @@
   font-family: var(--vp-font-family-heading);
   font-weight: var(--sando-font-weight-emphasis);
   line-height: 1.3;
+  color: var(--sando-color-amber-600);
+}
+
+/* Dark mode heading color - brighter amber for contrast */
+.dark .vp-doc h1,
+.dark .vp-doc h2,
+.dark .vp-doc h3,
+.dark .vp-doc h4,
+.dark .vp-doc h5,
+.dark .vp-doc h6 {
+  color: var(--sando-color-amber-400);
 }
 
 /* Hero title - Extra impact */
