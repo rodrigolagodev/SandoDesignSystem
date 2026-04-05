@@ -6,7 +6,7 @@ meta:
   title: "Sando Design System Guidelines Index"
 
 summary: |
-  Complete catalog of 28 guidelines - single source of truth for Sando Design System standardization.
+  Complete catalog of 29 guidelines - single source of truth for Sando Design System standardization.
 
 navigation:
   - cat: "Design System"
@@ -21,6 +21,8 @@ navigation:
     note: "Coverage, performance, security"
   - cat: "Documentation"
     note: "API reference, Storybook, VitePress"
+  - cat: "Communication"
+    note: "Voice, tone, UX writing, brand language"
 
 usage:
   - "Find guideline category"
@@ -210,6 +212,17 @@ documentation:
   agents: "sando-documenter, sando-developer"
   commands: "/document-component"
 
+communication:
+  id: "07-communication"
+  purpose: "Voice, tone, UX writing, and brand language standards"
+  guidelines:
+    - id: "VT"
+      file: "VOICE_AND_TONE.toon"
+      ver: "1.0.0"
+      desc: "Brand voice attributes, tone spectrum, culinary metaphor system, vocabulary registry, microcopy rules"
+      owner: "ux-writer"
+  agents: "ux-writer, sando-documenter, sando-storybook, sando-ux-designer"
+
 status_legend:
   - "✅ Active - Complete and in use"
   - "📝 Planned - Defined but not created"
@@ -235,8 +248,8 @@ maintenance:
     task: "Major review of all guidelines"
 
 stats:
-  total: 28
-  categories: 6
+  total: 29
+  categories: 7
   format: "TOON"
   ext: ".toon"
   optimization: "20-30% token reduction"

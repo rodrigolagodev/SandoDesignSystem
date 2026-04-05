@@ -1,0 +1,1059 @@
+meta:
+  doc_id: "VT"
+  category: "07-communication"
+  version: "1.0.0"
+  status: "Active"
+  last_updated: "2026-02-22"
+  owner: "UX Writer"
+
+purpose:
+  id: "VT-PU"
+  description: |
+    Define the voice, tone, and writing standards for all Sando Design System communication — from UI microcopy to documentation, marketing, and contributor guides. This guideline ensures every word reflects the Warm Precision (精密な温もり) brand direction: the discipline of a kaiseki restaurant paired with the warmth of handcrafted ingredients.
+
+# ────────────────────────────────────────────────────────────
+# SECTION 1: BRAND VOICE DEFINITION
+# ────────────────────────────────────────────────────────────
+
+core_rules:
+  id: "VT-CR"
+  rules:
+    - id: "VT-CR-R1"
+      title: "Voice Attribute — Warm (Non-Negotiable)"
+      summary: "Sando's voice is friendly and approachable, like inviting someone into your kitchen. We use inclusive language ('we', 'you'), welcome questions, and write like a knowledgeable friend — never a faceless corporation."
+      why: "Warmth lowers the barrier to adoption. Developers already face enough cold documentation. A warm voice builds trust and makes complex systems feel accessible."
+      balance: "Warm but never casual. We are a trusted mentor, not a buddy on a group chat."
+      pattern:
+        lang: "text"
+        code: |
+          ✅ "Flavors work like themes — they're brand identities you can swap with one attribute."
+          ✅ "We crafted 8 color palettes so you can focus on building, not picking colors."
+          ✅ "Need help? We're here to walk you through it."
+      anti_pattern:
+        lang: "text"
+        code: |
+          ❌ "Flavors are semantic token mappings that override base layer configurations."
+          ❌ "The system provides theme abstraction via attribute-driven token resolution."
+          ❌ "Hey!! Super excited you're here lol 🎉🎉🎉"
+
+    - id: "VT-CR-R2"
+      title: "Voice Attribute — Precise (Non-Negotiable)"
+      summary: "Every technical claim must be exact. We state specific numbers, name concrete APIs, and avoid weasel words like 'very fast' or 'highly optimized'. When we say something works, we explain how."
+      why: "Developers trust precision. Vague claims erode credibility. A design system lives or dies by the accuracy of its documentation."
+      balance: "Precise but never cold. Technical accuracy does not require stripping out humanity."
+      pattern:
+        lang: "text"
+        code: |
+          ✅ "8 curated OKLCH palettes with automatic WCAG AA contrast."
+          ✅ "Each component ships under 10KB gzipped."
+          ✅ "Set flavor='tonkatsu' on any ancestor element to apply the theme."
+      anti_pattern:
+        lang: "text"
+        code: |
+          ❌ "Many carefully designed color palettes."
+          ❌ "Our components are lightweight and performant."
+          ❌ "Just add the attribute to an element to change themes."
+
+    - id: "VT-CR-R3"
+      title: "Voice Attribute — Educational (Non-Negotiable)"
+      summary: "We teach, not just tell. Every explanation includes the 'why' or 'because'. We anticipate follow-up questions, provide context, and build the reader's understanding rather than demanding blind compliance."
+      why: "An educated user makes better decisions. Teaching 'why' prevents misuse more effectively than listing rules. It also respects the reader's intelligence."
+      balance: "Educational but never condescending. Explain concepts, but do not over-explain what developers already know."
+      pattern:
+        lang: "text"
+        code: |
+          ✅ "We use OKLCH because it produces perceptually uniform color scales — what you see in the editor matches what users see on screen."
+          ✅ "Ingredients are primitive tokens. Think of them as raw materials — the OKLCH colors, spacing units, and font scales everything else builds on."
+      anti_pattern:
+        lang: "text"
+        code: |
+          ❌ "We use OKLCH for colors." (no explanation of why)
+          ❌ "As you probably already know, OKLCH is a perceptually uniform color space based on..." (condescending)
+          ❌ "Simply use the token. It's easy!" (dismissive of complexity)
+
+    - id: "VT-CR-R4"
+      title: "Voice Attribute — Humble (Non-Negotiable)"
+      summary: "We are confident in our craft but never boastful. We say 'we believe' not 'it's the best'. We acknowledge trade-offs, credit inspirations, and let the work speak for itself."
+      why: "Arrogance alienates. Humility invites contribution. Open-source projects thrive when maintainers are approachable and honest about limitations."
+      balance: "Humble but never uncertain. Confidence and humility coexist. We stand behind our decisions while remaining open to better ideas."
+      pattern:
+        lang: "text"
+        code: |
+          ✅ "We spent months perfecting 8 color palettes so you can spend minutes creating a beautiful, accessible design system."
+          ✅ "We believe this approach balances flexibility with consistency."
+          ✅ "Inspired by Strapi's documentation patterns, adapted for Web Components."
+      anti_pattern:
+        lang: "text"
+        code: |
+          ❌ "The most advanced color system available."
+          ❌ "Industry-leading component library with optimized OKLCH values."
+          ❌ "Unlike other design systems, we actually care about accessibility."
+
+    - id: "VT-CR-R5"
+      title: "Voice Attribute — Playful (Non-Negotiable)"
+      summary: "The culinary metaphor adds lightness and memorability without undermining technical expertise. We use food and kitchen analogies to make architecture tangible, but we know when to set the metaphor aside."
+      why: "A memorable metaphor helps users internalize complex architecture. 'Ingredients, Flavors, Recipes' is easier to recall than 'primitive, semantic, component tokens'. Playfulness also signals that rigorous work can be enjoyable."
+      balance: "Playful but never silly. The metaphor serves comprehension, not entertainment. We are a chef explaining their craft, not a cartoon mascot."
+      pattern:
+        lang: "text"
+        code: |
+          ✅ "Think of building a UI like making a sandwich. You don't just throw everything together — you start with quality ingredients, add your signature flavor, and follow a trusted recipe."
+          ✅ "Accessibility isn't an afterthought — it's baked into every ingredient."
+      anti_pattern:
+        lang: "text"
+        code: |
+          ❌ "Cook up some yummy UIs! 🍳🔥"
+          ❌ "Hungry for components? Nom nom!"
+          ❌ "Time to feast on some delicious code!"
+
+    # ────────────────────────────────────────────────────────
+    # SECTION 2: TONE SPECTRUM
+    # ────────────────────────────────────────────────────────
+
+    - id: "VT-CR-R6"
+      title: "Tone Spectrum — Context-Driven Modulation (Non-Negotiable)"
+      summary: "Tone shifts by context while voice stays constant. Every piece of content maps to a position on the tone spectrum, determining warmth level, formality, and culinary metaphor frequency."
+      why: "A single tone for all contexts feels robotic or inappropriate. Error messages need empathy; API docs need precision. The spectrum ensures each context gets the right emotional register."
+      tone_map:
+        - context: "Documentation and Guides"
+          tone: "Educational, detailed"
+          warmth: "High"
+          formality: "Medium"
+          culinary_metaphor: "Frequent"
+          example: "Flavors are Sando's theming layer — brand identities you apply to your entire UI. Think of them as your signature seasoning."
+        - context: "API Reference"
+          tone: "Precise, concise"
+          warmth: "Low"
+          formality: "High"
+          culinary_metaphor: "Rare"
+          example: "flavor: string — Sets the active theme. Accepted values: 'original', 'sando', 'tonkatsu', 'strawberry', 'egg-salad', 'kiwi'. Default: 'sando'."
+        - context: "Error Messages"
+          tone: "Empathetic, actionable"
+          warmth: "High"
+          formality: "Low"
+          culinary_metaphor: "Never"
+          example: "We couldn't find that flavor. Did you mean 'tonkatsu'?"
+        - context: "UI Microcopy"
+          tone: "Clear, brief"
+          warmth: "Medium"
+          formality: "Medium"
+          culinary_metaphor: "Never"
+          example: "No components match your search."
+        - context: "Marketing and README"
+          tone: "Inspiring, confident"
+          warmth: "High"
+          formality: "Low"
+          culinary_metaphor: "Frequent"
+          example: "The perfect recipe for building delicious UIs."
+        - context: "Onboarding"
+          tone: "Encouraging, accessible"
+          warmth: "Very high"
+          formality: "Low"
+          culinary_metaphor: "Frequent"
+          example: "Welcome to Sando. Let's set up your first flavor and build something together."
+        - context: "Changelog and Release Notes"
+          tone: "Direct, grateful"
+          warmth: "Medium"
+          formality: "Medium"
+          culinary_metaphor: "Occasional"
+          example: "New: Added 'kiwi' flavor. Thanks to @contributor for the palette work."
+        - context: "Storybook Descriptions"
+          tone: "Descriptive, useful"
+          warmth: "Medium"
+          formality: "Medium"
+          culinary_metaphor: "Occasional"
+          example: "Buttons trigger actions and events. They communicate calls to action and help users interact with your application."
+      constraint: "If unsure which tone to use, default to Documentation tone (educational, warm, medium formality)."
+
+    # ────────────────────────────────────────────────────────
+    # SECTION 3: CULINARY METAPHOR SYSTEM
+    # ────────────────────────────────────────────────────────
+
+    - id: "VT-CR-R7"
+      title: "Culinary Metaphor System — Usage Rules (Non-Negotiable)"
+      summary: "The culinary metaphor (Ingredients, Flavors, Recipes) is a core brand element. It MUST be used intentionally — to clarify architecture, not to decorate prose. These rules define when, where, and how to deploy it."
+      why: "The metaphor is Sando's most distinctive brand asset. Overuse dilutes it; underuse wastes it. Precise deployment keeps it powerful and memorable."
+      when_to_use:
+        - "Explaining the three-layer token architecture (Ingredients, Flavors, Recipes)"
+        - "Onboarding content and first-time user guides"
+        - "Marketing copy, taglines, and README introductions"
+        - "Clarifying abstract concepts with tangible analogies"
+        - "Brand storytelling and conference presentations"
+      when_not_to_use:
+        - "Error messages — empathy, not metaphor"
+        - "API reference — precision, not flavor"
+        - "UI labels, tooltips, and form microcopy — clarity, not cleverness"
+        - "When the metaphor must be forced or feels unnatural"
+        - "Accessibility-critical text (ARIA labels, alt text)"
+        - "Legal or compliance content"
+      approved_vocabulary:
+        - term: "ingredients"
+          meaning: "Primitive tokens (Layer 1)"
+          context: "Architecture explanation, onboarding"
+        - term: "flavors"
+          meaning: "Semantic/theme tokens (Layer 2), also brand themes"
+          context: "Theming docs, marketing, architecture"
+        - term: "recipes"
+          meaning: "Component tokens (Layer 3)"
+          context: "Architecture explanation, component docs"
+        - term: "curated"
+          meaning: "Carefully selected with expertise"
+          context: "Feature descriptions, palette descriptions"
+        - term: "crafted"
+          meaning: "Built with care and skill"
+          context: "Component descriptions, brand copy"
+        - term: "handcrafted"
+          meaning: "Made with artisanal attention"
+          context: "Brand storytelling, premium positioning"
+        - term: "serve / served"
+          meaning: "Deliver to the user"
+          context: "Marketing, architecture overview"
+        - term: "delicious"
+          meaning: "Visually appealing, well-made"
+          context: "Tagline and marketing ONLY"
+        - term: "baked in"
+          meaning: "Built into the foundation"
+          context: "Feature descriptions (e.g., accessibility)"
+        - term: "kitchen"
+          meaning: "Development workspace"
+          context: "Onboarding, brand storytelling"
+        - term: "pantry"
+          meaning: "The set of available primitives"
+          context: "Architecture overview, token docs"
+      prohibited_vocabulary:
+        - term: "yummy"
+          reason: "Childish, undermines technical credibility"
+        - term: "tasty"
+          reason: "Too casual, breaks Warm Precision tone"
+        - term: "nom nom"
+          reason: "Internet slang, unprofessional"
+        - term: "eating / eat"
+          reason: "Literal food action, breaks the abstraction"
+        - term: "cooking / cook"
+          reason: "Too literal; we craft and compose, not cook"
+        - term: "chef"
+          reason: "Reserved for brand persona definition only"
+        - term: "hungry"
+          reason: "Literal appetite, breaks the abstraction"
+        - term: "feast"
+          reason: "Excessive, breaks Warm Precision balance"
+        - term: "spicy"
+          reason: "Slang connotation, unpredictable interpretation"
+      pattern:
+        lang: "text"
+        code: |
+          ✅ "Start with the basics, season with meaning, and serve with style."
+          ✅ "Sando (サンド) is the Japanese word for sandwich. But calling a Katsu Sando 'just a sandwich' is like calling a design system 'just some components.'"
+          ✅ "Your token pantry comes stocked with 8 curated palettes."
+      anti_pattern:
+        lang: "text"
+        code: |
+          ❌ "Cook up some yummy UIs in our kitchen! 🍳"
+          ❌ "Hungry for more components? Let's eat!"
+          ❌ "This spicy new feature is a real feast for your eyes."
+
+    # ────────────────────────────────────────────────────────
+    # SECTION 9: JAPANESE CULTURAL ELEMENTS
+    # ────────────────────────────────────────────────────────
+
+    - id: "VT-CR-R8"
+      title: "Japanese Cultural Elements — Usage Rules (Non-Negotiable)"
+      summary: "Japanese terms reinforce Sando's cultural heritage and design philosophy. They MUST follow a strict format, always include English context, and never assume the reader knows Japanese."
+      why: "Japanese terms add authenticity and cultural depth, but misuse creates exclusion. The format rule ensures accessibility while preserving the brand's cultural identity."
+      format_rule: "Always use the pattern: English Term (漢字 — Romaji). The English term comes first, the Japanese provides cultural context."
+      examples:
+        - correct: "Warm Precision (精密な温もり — Seimitsu na Nukumori)"
+        - correct: "Craftsmanship (職人の技 — Shokunin no Waza)"
+        - correct: "Kohaku amber (琥珀 — Kohaku)"
+        - incorrect: "精密な温もり is our brand direction."
+        - incorrect: "We follow the 職人の技 philosophy."
+      when_to_use:
+        - "Brand philosophy statements and pillar names"
+        - "Flavor and color naming origins (Kohaku, Washi)"
+        - "Design principle headers in marketing or guides"
+        - "Cultural context where the Japanese term adds meaning"
+      when_not_to_use:
+        - "API reference or code documentation"
+        - "Error messages or UI microcopy"
+        - "When the Japanese term adds no meaning beyond decoration"
+        - "Inline code comments"
+      pattern:
+        lang: "text"
+        code: |
+          ✅ "Our brand direction is Warm Precision (精密な温もり) — Japanese minimalism discipline paired with culinary warmth."
+          ✅ "The accent color is Kohaku amber (琥珀), inspired by traditional Japanese amber."
+          ✅ "Sando (サンド) is the Japanese word for sandwich."
+      anti_pattern:
+        lang: "text"
+        code: |
+          ❌ "Our brand direction is 精密な温もり." (no English, excludes non-Japanese readers)
+          ❌ "We use the Kohaku (琥珀 — kohaku) amber color." (redundant — Kohaku appears twice)
+          ❌ "Error: 無効なフレーバー" (Japanese in error messages)
+
+# ────────────────────────────────────────────────────────────
+# SECTIONS 4-8, 10-12: STANDARDS
+# ────────────────────────────────────────────────────────────
+
+standards:
+  id: "VT-ST"
+  summary: "Detailed writing standards, vocabulary, and formatting rules for all Sando communication."
+  rules:
+
+    # ────────────────────────────────────────────────────────
+    # SECTION 4: WRITING PRINCIPLES — THE 4 PILLARS
+    # ────────────────────────────────────────────────────────
+
+    - id: "VT-ST-C1"
+      title: "Writing Principles — The 4 Pillars"
+      description: "Four non-negotiable pillars govern all Sando writing. When pillars conflict, priority order is: Clarity > Precision > Warmth > Conciseness."
+      requirements:
+        - type: "MUST"
+          note: "Clarity — Choose clear over clever. If a sentence requires re-reading, rewrite it. Prefer common words over jargon. One idea per sentence."
+        - type: "MUST"
+          note: "Precision — Technical data must be exact. State specific numbers, name real APIs, link to real files. Never use 'various', 'several', or 'many' when a number exists."
+        - type: "MUST"
+          note: "Warmth — No corporate jargon. Use 'we' and 'you'. Write like a knowledgeable colleague, not a legal department. Contractions are encouraged ('we're', 'you'll', 'it's')."
+        - type: "SHOULD"
+          note: "Conciseness — Every word earns its place. Cut filler ('in order to' becomes 'to', 'at this point in time' becomes 'now'). Shorter is better when clarity is preserved."
+      pattern:
+        lang: "text"
+        code: |
+          ✅ Clarity:    "Set the flavor attribute to change themes." (one idea, simple words)
+          ✅ Precision:  "Sando ships 8 OKLCH palettes with 11 lightness steps each." (exact numbers)
+          ✅ Warmth:     "We've designed tokens so you don't have to worry about contrast." (personal, helpful)
+          ✅ Conciseness: "Tokens resolve automatically." (5 words, complete thought)
+      anti_pattern:
+        lang: "text"
+        code: |
+          ❌ Clarity:    "Flavor attribute mutation triggers semantic token layer re-resolution." (jargon overload)
+          ❌ Precision:  "Sando ships many carefully designed color palettes." (vague, no numbers)
+          ❌ Warmth:     "The system provides theme configuration capabilities." (corporate, impersonal)
+          ❌ Conciseness: "In order to change the theme, you will need to set the flavor attribute." (wordy)
+      explanation: "When pillars conflict — e.g., adding warmth makes text longer — Clarity wins. A clear, slightly longer sentence beats a short, ambiguous one."
+
+    # ────────────────────────────────────────────────────────
+    # SECTION 5: VOCABULARY REGISTRY
+    # ────────────────────────────────────────────────────────
+
+    - id: "VT-ST-C2"
+      title: "Vocabulary Registry"
+      description: "Canonical word choices for Sando communication. Use 'Prefer' column in all writing. 'Avoid' terms are not banned in code or APIs — only in prose, docs, and UI text."
+      vocabulary:
+        - prefer: "curated"
+          avoid: "selected, picked"
+          why: "Implies expertise and intentionality"
+        - prefer: "crafted"
+          avoid: "built, made, created"
+          why: "Artisanal connotation aligned with brand"
+        - prefer: "flavor"
+          avoid: "theme, skin"
+          why: "System terminology — core brand metaphor"
+        - prefer: "ingredient"
+          avoid: "primitive, base token"
+          why: "System terminology in prose (use 'primitive token' in code docs)"
+        - prefer: "recipe"
+          avoid: "component token"
+          why: "System terminology in prose (use 'component token' in code docs)"
+        - prefer: "ensures"
+          avoid: "guarantees"
+          why: "Less absolute, more honest"
+        - prefer: "helps"
+          avoid: "allows, enables, permits"
+          why: "More human, implies partnership"
+        - prefer: "works with"
+          avoid: "supports, is compatible with"
+          why: "Simpler, more natural"
+        - prefer: "we"
+          avoid: "the system, Sando Design System, the library"
+          why: "More personal, builds relationship"
+        - prefer: "you"
+          avoid: "the user, the developer, the consumer"
+          why: "Direct second person, respectful"
+        - prefer: "use"
+          avoid: "utilize, leverage, employ"
+          why: "Plain language, no corporate bloat"
+        - prefer: "set up"
+          avoid: "configure, initialize, instantiate"
+          why: "More approachable in guides (technical terms OK in API docs)"
+        - prefer: "change"
+          avoid: "modify, mutate, alter"
+          why: "Simpler in prose (technical terms OK in API docs)"
+        - prefer: "show"
+          avoid: "display, render, present"
+          why: "Plainer language in guides (technical terms OK in code docs)"
+        - prefer: "check"
+          avoid: "verify, validate, confirm"
+          why: "More conversational in UI copy"
+        - prefer: "fix"
+          avoid: "resolve, remediate, rectify"
+          why: "Direct, no jargon"
+        - prefer: "try again"
+          avoid: "retry, reattempt"
+          why: "Natural language in error messages"
+        - prefer: "need"
+          avoid: "require, necessitate"
+          why: "Warmer, less formal"
+        - prefer: "let you"
+          avoid: "empower you, give you the ability"
+          why: "Simple over grandiose"
+        - prefer: "built-in"
+          avoid: "out-of-the-box, OOTB"
+          why: "Clearer, no acronym"
+        - prefer: "works everywhere"
+          avoid: "framework-agnostic, cross-framework"
+          why: "User benefit over technical descriptor (use technical term in architecture docs)"
+        - prefer: "fast"
+          avoid: "performant, optimized, blazing fast"
+          why: "Plain language; pair with specific metrics"
+        - prefer: "ships with"
+          avoid: "bundles, includes, comes with"
+          why: "Active, modern, developer-familiar"
+        - prefer: "plug in"
+          avoid: "integrate, implement"
+          why: "Simpler in guides (technical terms OK in architecture docs)"
+      constraint: "In API reference and code documentation, technical terms (render, validate, configure) are acceptable and preferred for precision. This registry applies primarily to prose, guides, marketing, and UI copy."
+
+    # ────────────────────────────────────────────────────────
+    # SECTION 6: UI MICROCOPY RULES
+    # ────────────────────────────────────────────────────────
+
+    - id: "VT-ST-C3"
+      title: "UI Microcopy Rules"
+      description: "Standards for every category of UI text in Sando components and documentation interfaces."
+      categories:
+        - name: "Error Messages"
+          rules:
+            - "State what happened, then what to do — in that order"
+            - "Never blame the user. Say 'We couldn't find...' not 'You entered an invalid...'"
+            - "Suggest a fix or next step whenever possible"
+            - "No culinary metaphors in errors"
+            - "No error codes without human-readable explanation"
+          examples:
+            good: "We couldn't find that flavor. Did you mean 'tonkatsu'?"
+            bad: "Error: Invalid flavor attribute."
+        - name: "Success Messages"
+          rules:
+            - "Confirm what was accomplished, not just 'Success'"
+            - "Keep it brief — the user wants to move on"
+            - "Use present tense: 'saved' not 'has been saved'"
+          examples:
+            good: "Changes saved. Your new flavor is active."
+            bad: "Success! The operation has been completed successfully."
+        - name: "Empty States"
+          rules:
+            - "Explain what will appear here and how to populate it"
+            - "Include a clear call to action"
+            - "Motivate without pressuring"
+          examples:
+            good: "No components yet. Create your first one to get started."
+            bad: "Nothing to display."
+        - name: "Loading States"
+          rules:
+            - "Tell the user what is loading, not just 'Loading...'"
+            - "Use progressive tense: 'Loading your components...'"
+            - "For long operations, add reassurance: 'This may take a moment'"
+          examples:
+            good: "Loading your components..."
+            bad: "Please wait."
+        - name: "Tooltips"
+          rules:
+            - "One idea, one sentence maximum"
+            - "No periods at the end unless multiple sentences"
+            - "Describe the action or clarify the element"
+          examples:
+            good: "Copy token value to clipboard"
+            bad: "This button allows you to copy the token value to your clipboard."
+        - name: "Labels"
+          rules:
+            - "Use sentence case"
+            - "Be specific: 'Component name' not 'Name'"
+            - "No colons after labels in forms"
+          examples:
+            good: "Component name"
+            bad: "NAME:"
+        - name: "Buttons and CTAs"
+          rules:
+            - "Use verb + object format: 'Create component', 'Apply flavor'"
+            - "Never use generic labels: 'OK', 'Submit', 'Click here'"
+            - "Destructive actions must name what will be destroyed"
+          examples:
+            good: "Delete component"
+            bad: "Delete"
+        - name: "Placeholders"
+          rules:
+            - "Show example values, not instructions"
+            - "Use realistic data"
+            - "Keep shorter than the input field"
+          examples:
+            good: "sando-button"
+            bad: "Enter the name of your component here"
+        - name: "Confirmation Dialogs"
+          rules:
+            - "State the consequence clearly"
+            - "Make the primary action match the dialog title"
+            - "Include what cannot be undone"
+          examples:
+            good: "Delete 'sando-card'? This removes all associated tokens and cannot be undone."
+            bad: "Are you sure?"
+
+    # ────────────────────────────────────────────────────────
+    # SECTION 7: DOCUMENTATION TONE
+    # ────────────────────────────────────────────────────────
+
+    - id: "VT-ST-C4"
+      title: "Documentation Tone Standards"
+      description: "Tone and structure rules for each documentation type in the Sando ecosystem."
+      doc_types:
+        - type: "API Reference"
+          tone: "Precise, concise, formal"
+          rules:
+            - "Lead with the property/method name and type"
+            - "One sentence description, no more"
+            - "Use technical terms (render, configure, validate) — vocabulary registry relaxed"
+            - "Default values always stated"
+            - "No culinary metaphors except in overview paragraphs"
+          example: "variant: 'solid' | 'outline' | 'ghost' — Sets the visual emphasis level. Default: 'solid'."
+        - type: "Guides and Tutorials"
+          tone: "Educational, warm, step-by-step"
+          rules:
+            - "Open with what the reader will learn and why it matters"
+            - "Use numbered steps for sequential tasks"
+            - "Include 'why' explanations after key steps"
+            - "Culinary metaphors welcome when clarifying architecture"
+            - "End with a 'What's next' section"
+          example: "In this guide, you'll set up your first flavor and apply it across your application. By the end, you'll understand how Sando's theming layer works."
+        - type: "Conceptual Documentation"
+          tone: "Educational, detailed, warm"
+          rules:
+            - "Start with a one-sentence definition"
+            - "Follow with 'why this matters' context"
+            - "Use analogies and metaphors to ground abstract concepts"
+            - "Include diagrams or visual references when helpful"
+          example: "Ingredients are primitive tokens — the raw materials of your design system. They define the foundational OKLCH colors, spacing units, and type scales that everything else builds on."
+        - type: "README"
+          tone: "Inspiring, confident, welcoming"
+          rules:
+            - "Opening line must communicate what + who in under 20 words"
+            - "Culinary metaphor in the introduction to establish brand identity"
+            - "Feature list uses specific numbers and concrete benefits"
+            - "Getting started section must get to first result in under 5 steps"
+          example: "Sando is a framework-agnostic design system crafted with Web Components. The perfect recipe for building delicious UIs."
+        - type: "Code Comments"
+          tone: "Brief, precise, helpful"
+          rules:
+            - "Explain WHY, not WHAT — the code shows what"
+            - "No culinary metaphors in code comments"
+            - "JSDoc for public APIs; inline comments for non-obvious logic"
+            - "Keep under 80 characters per line"
+          example: "// Resolve flavor tokens before render to avoid FOUC"
+
+    # ────────────────────────────────────────────────────────
+    # SECTION 8: MARKETING AND EXTERNAL COMMUNICATION
+    # ────────────────────────────────────────────────────────
+
+    - id: "VT-ST-C5"
+      title: "Marketing and External Communication"
+      description: "Standards for public-facing content: taglines, feature descriptions, social media, and conference talks."
+      categories:
+        - name: "Tagline Patterns"
+          rules:
+            - "Culinary metaphor allowed and encouraged"
+            - "Under 10 words"
+            - "Communicate benefit, not feature"
+            - "Confident but not superlative"
+          approved: "The perfect recipe for building delicious UIs."
+          pattern:
+            lang: "text"
+            code: |
+              ✅ "The perfect recipe for building delicious UIs."
+              ✅ "Start with the basics, season with meaning, and serve with style."
+          anti_pattern:
+            lang: "text"
+            code: |
+              ❌ "The best component library ever made."
+              ❌ "A comprehensive component library solution."
+        - name: "Feature Descriptions"
+          rules:
+            - "Lead with a specific number or metric"
+            - "State the user benefit, not just the technical fact"
+            - "Use 'curated', 'crafted', 'handcrafted' vocabulary"
+          pattern:
+            lang: "text"
+            code: |
+              ✅ "8 curated OKLCH palettes"
+              ✅ "6 handcrafted flavors, each with light and dark modes"
+              ✅ "We spent months perfecting 8 color palettes so you can spend minutes creating a beautiful, accessible design system."
+          anti_pattern:
+            lang: "text"
+            code: |
+              ❌ "Industry-leading color system with optimized OKLCH values."
+              ❌ "Multiple themes available."
+              ❌ "Robust theming solution."
+        - name: "Social Media"
+          rules:
+            - "Warm, conversational, concise"
+            - "One culinary metaphor per post maximum"
+            - "Link to docs or demos, not just announcements"
+            - "No more than 2 emojis per post, and only brand-relevant ones"
+          approved_emojis: "🥪 (sandwich), 🎨 (palette), ✨ (new feature), 🔧 (fix), 📦 (release)"
+        - name: "Conference Talks"
+          rules:
+            - "Open with the sandwich analogy to establish brand"
+            - "Technical depth follows brand warmth"
+            - "Acknowledge inspirations and community contributions"
+            - "Close with an invitation to contribute, not a sales pitch"
+
+    # ────────────────────────────────────────────────────────
+    # SECTION 10: ACCESSIBILITY IN LANGUAGE
+    # ────────────────────────────────────────────────────────
+
+    - id: "VT-ST-C6"
+      title: "Accessibility in Language"
+      description: "Writing standards that ensure all Sando content is accessible to the widest possible audience, including non-native English speakers, screen reader users, and readers with cognitive disabilities."
+      requirements:
+        - type: "MUST"
+          note: "Reading level — Target 8th-grade reading level (Flesch-Kincaid). Short sentences, common words, active voice."
+        - type: "MUST"
+          note: "Plain language — Replace jargon with everyday words in all non-API content. If a technical term is necessary, define it on first use."
+        - type: "MUST"
+          note: "Inclusive language — Use gender-neutral terms ('they', 'them'). Avoid ableist language ('blind to', 'crippled by', 'lame'). Use 'accessible' not 'handicapped-friendly'."
+        - type: "MUST"
+          note: "Screen reader friendliness — Write meaningful link text ('Read the theming guide' not 'Click here'). Use descriptive alt text. Avoid 'see above' or 'as shown below'."
+        - type: "SHOULD"
+          note: "Cognitive load — Break complex information into numbered steps. Use bullet lists for 3+ items. One concept per paragraph."
+        - type: "SHOULD"
+          note: "Headings — Use descriptive headings that make sense out of context (screen reader users navigate by headings). 'How to apply a flavor' not 'Getting started'."
+      pattern:
+        lang: "text"
+        code: |
+          ✅ "Add the flavor attribute to your wrapper element. This changes the color palette for all child components."
+          ✅ "Read the theming guide for more details."
+      anti_pattern:
+        lang: "text"
+        code: |
+          ❌ "As you can see in the diagram above, the token resolution paradigm facilitates..."
+          ❌ "Click here for more info."
+          ❌ "This feature is not handicapped-friendly yet."
+
+    # ────────────────────────────────────────────────────────
+    # SECTION 11: FORMATTING STANDARDS
+    # ────────────────────────────────────────────────────────
+
+    - id: "VT-ST-C7"
+      title: "Formatting Standards"
+      description: "Mechanical rules for capitalization, punctuation, numbers, and typographic conventions across all Sando content."
+      rules_list:
+        - name: "Capitalization"
+          rule: "Sentence case everywhere — headings, buttons, labels, menu items. Only proper nouns and acronyms get capitals."
+          good: "Getting started with flavors"
+          bad: "Getting Started With Flavors"
+        - name: "Punctuation — Periods"
+          rule: "Full sentences get periods. Headings, labels, tooltips, and button text do not."
+          good: "Label: 'Component name'  |  Tooltip: 'Copy to clipboard'  |  Body: 'Tokens resolve automatically.'"
+          bad: "Label: 'Component name.'  |  Tooltip: 'Copy to clipboard.'"
+        - name: "Punctuation — Oxford comma"
+          rule: "Always use the Oxford comma in lists of three or more items."
+          good: "Ingredients, flavors, and recipes"
+          bad: "Ingredients, flavors and recipes"
+        - name: "Punctuation — Em dash"
+          rule: "Use em dash (—) with no spaces for parenthetical clauses. Never use double hyphens (--)."
+          good: "Flavors — Sando's theming layer — apply automatically."
+          bad: "Flavors -- Sando's theming layer -- apply automatically."
+        - name: "Numbers"
+          rule: "Spell out one through nine. Use numerals for 10 and above, and always for version numbers, measurements, and counts of technical items."
+          good: "8 palettes, 3 token layers, version 1.0.0"
+          bad: "Eight palettes, three token layers, version one"
+        - name: "Lists"
+          rule: "Use bullet lists for unordered items (3+). Use numbered lists for sequential steps. Each item starts with a capital letter. No periods on single-phrase items; periods on full sentences."
+        - name: "Code references"
+          rule: "Wrap all code, file names, component names, attribute names, and token names in backticks in Markdown/prose."
+          good: "Set the `flavor` attribute on `sando-button`."
+          bad: "Set the flavor attribute on sando-button."
+        - name: "Contractions"
+          rule: "Use contractions in guides, onboarding, and marketing ('we're', 'you'll', 'it's'). Avoid in API reference."
+        - name: "Ampersands"
+          rule: "Never use '&' in prose. Write out 'and'. Ampersands are acceptable in code and compact UI labels only."
+
+    # ────────────────────────────────────────────────────────
+    # SECTION 12: MULTI-LANGUAGE CONSIDERATIONS
+    # ────────────────────────────────────────────────────────
+
+    - id: "VT-ST-C8"
+      title: "Multi-language Considerations"
+      description: "Rules for writing content that translates well and respects cultural differences."
+      requirements:
+        - type: "MUST"
+          note: "Primary language is US English (color, not colour; customize, not customise)."
+        - type: "MUST"
+          note: "System terminology does NOT translate: Ingredients, Flavors, and Recipes remain in English in all languages. They are proper nouns within the Sando brand."
+        - type: "MUST"
+          note: "Flavor names do NOT translate: 'original', 'sando', 'tonkatsu', 'strawberry', 'egg-salad', 'kiwi' are brand identifiers, not descriptive words."
+        - type: "SHOULD"
+          note: "Avoid idioms and culturally specific references that do not translate. 'Hit the ground running' or 'piece of cake' do not translate well."
+        - type: "SHOULD"
+          note: "Keep sentences short and structurally simple for translation. Subject-verb-object order. Avoid nested clauses."
+        - type: "SHOULD"
+          note: "Leave space for text expansion. Translated text is often 20-40% longer than English. UI layouts must accommodate this."
+        - type: "MAY"
+          note: "The culinary metaphor translates well across cultures since food is universal. Translators should adapt the metaphor naturally, not translate literally."
+      pattern:
+        lang: "text"
+        code: |
+          ✅ "Sando ships with 6 built-in Flavors." (Flavors capitalized as brand term, not translated)
+          ✅ "Set up your first component." (simple structure, translates cleanly)
+      anti_pattern:
+        lang: "text"
+        code: |
+          ❌ "Sando viene con 6 Sabores integrados." (Flavors should not be translated to 'Sabores')
+          ❌ "Getting started is a piece of cake!" (idiom, does not translate)
+
+# ────────────────────────────────────────────────────────────
+# DETAILED EXAMPLES
+# ────────────────────────────────────────────────────────────
+
+detailed_examples:
+  id: "VT-DE"
+  use_cases:
+    - id: "VT-DE-UC1"
+      title: "Use Case 1: Writing a New Component Introduction"
+      scenario: "The sando-documenter agent needs to write the introduction paragraph for a new sando-card component in VitePress documentation."
+      solution:
+        lang: "text"
+        code: |
+          Cards group related content and actions. They give users a scannable
+          entry point into more detailed information.
+
+          Use cards to:
+          - Preview content before navigating to a detail view
+          - Group related actions and information
+          - Create visual hierarchy in grid layouts
+
+          Cards support all 6 Flavors and adapt to light and dark modes
+          automatically. Every card variant meets WCAG AA contrast requirements.
+      key_aspects:
+        - "Opens with what + why in one sentence"
+        - "Use cases in a bullet list for scannability"
+        - "Mentions Flavors (brand term) and accessibility (pillar)"
+        - "No forced culinary metaphor — cards are not a food concept"
+        - "Warm but focused tone appropriate for documentation"
+
+    - id: "VT-DE-UC2"
+      title: "Use Case 2: Writing an Error Message for Invalid Flavor"
+      scenario: "The sando-ux-designer agent needs to write a console/UI error message when a user passes an invalid flavor attribute value."
+      solution:
+        lang: "text"
+        code: |
+          We couldn't find that flavor. Did you mean 'tonkatsu'?
+
+          Accepted values: 'original', 'sando', 'tonkatsu', 'strawberry',
+          'egg-salad', 'kiwi'.
+      key_aspects:
+        - "Empathetic opener: 'We couldn't find' not 'Invalid value'"
+        - "Suggests a likely correction (fuzzy match)"
+        - "Lists all valid options so the user can self-correct"
+        - "No culinary metaphor — errors need clarity, not cleverness"
+        - "No blame: 'We couldn't find' not 'You entered an invalid'"
+
+    - id: "VT-DE-UC3"
+      title: "Use Case 3: Writing a Storybook Story Description"
+      scenario: "The sando-storybook agent needs a JSDoc description for the sando-button story file."
+      solution:
+        lang: "text"
+        code: |
+          Buttons trigger actions and events. They communicate calls to action
+          and help users interact with your application.
+
+          Usage:
+          - Submitting forms
+          - Opening dialogs
+          - Confirming or canceling operations
+
+          Accessibility:
+          - All buttons have visible focus indicators
+          - Disabled buttons are not focusable
+          - Icon-only buttons need an aria-label
+          - Loading state is announced to screen readers
+      key_aspects:
+        - "Opens with component purpose in one clear sentence"
+        - "Usage section lists concrete scenarios"
+        - "Accessibility section shows commitment to pillar 2 (誰でも)"
+        - "Warm but descriptive tone matches Storybook context"
+        - "No culinary metaphor — component docs stay practical"
+
+    - id: "VT-DE-UC4"
+      title: "Use Case 4: Writing a Package README Introduction"
+      scenario: "The sando-documenter agent needs to write the README.md introduction for the @sando-ui/tokens package."
+      solution:
+        lang: "text"
+        code: |
+          @sando-ui/tokens
+
+          The ingredient pantry for Sando Design System. This package contains
+          every design token — colors, spacing, typography, and motion — organized
+          in three layers: Ingredients (primitives), Flavors (themes), and Recipes
+          (component tokens).
+
+          We crafted 8 OKLCH color palettes with 11 lightness steps each, tuned
+          for WCAG AA contrast in both light and dark modes. Every token is
+          available as CSS custom properties and JavaScript constants.
+
+          Features:
+          - 8 curated OKLCH palettes with perceptually uniform scales
+          - 6 handcrafted Flavors: original, sando, tonkatsu, strawberry, egg-salad, kiwi
+          - Automatic light and dark mode support
+          - CSS custom properties and JS exports
+          - Under 5KB gzipped
+      key_aspects:
+        - "Culinary metaphor in intro ('ingredient pantry') — appropriate for README context"
+        - "Three-layer architecture explained with both metaphor and technical names"
+        - "Specific numbers: 8 palettes, 11 steps, 6 Flavors, 5KB"
+        - "Feature list leads with numbers and uses brand vocabulary (curated, handcrafted)"
+        - "Confident tone without superlatives"
+
+    - id: "VT-DE-UC5"
+      title: "Use Case 5: Writing Microcopy for an Empty State"
+      scenario: "The sando-ux-designer agent needs to write empty state copy for a component gallery page with no components."
+      solution:
+        lang: "text"
+        code: |
+          Title: No components yet
+          Description: Components you create will appear here.
+          CTA: Create your first component
+      key_aspects:
+        - "Title states the current situation clearly"
+        - "Description tells the user what will populate this space"
+        - "CTA uses verb + object format with encouraging language"
+        - "No culinary metaphor — UI microcopy stays clear and direct"
+        - "'Yet' implies this is temporary and progress is expected"
+
+    - id: "VT-DE-UC6"
+      title: "Use Case 6: Writing a Changelog Entry"
+      scenario: "The team needs a changelog entry for a new flavor added in version 2.3.0."
+      solution:
+        lang: "text"
+        code: |
+          [2.3.0] - 2026-02-15
+
+          New:
+          - Added 'kiwi' flavor — a fresh, growth-oriented palette crafted around green.600.
+          - Kiwi ships with light and dark modes, both meeting WCAG AA contrast.
+
+          Improved:
+          - Flavor switching performance reduced by 35% through token pre-resolution.
+
+          Thanks to @contributor-name for the initial palette proposal.
+      key_aspects:
+        - "Direct tone with medium warmth (changelog context)"
+        - "Specific version, date, and metrics (35%)"
+        - "One subtle culinary metaphor ('fresh') — appropriate for occasional use"
+        - "Credits contributor by name — humble, community-first"
+        - "Technical detail paired with user benefit"
+
+# ────────────────────────────────────────────────────────────
+# ANTI-PATTERNS
+# ────────────────────────────────────────────────────────────
+
+anti_patterns:
+  id: "VT-AP"
+  summary: "Common writing mistakes that violate Sando's voice and tone. Each pattern includes a bad example, why it fails, and the correct approach."
+  patterns:
+    - id: "VT-AP-1"
+      title: "Corporate Speak"
+      problem: "Writing that sounds like a press release or enterprise sales pitch. Strips out warmth, replaces specific claims with vague superlatives, and treats the reader as a 'customer' rather than a colleague."
+      bad_example:
+        lang: "text"
+        code: |
+          ❌ "A comprehensive component library solution enabling enterprise-grade UI development with industry-leading theming capabilities."
+      why_wrong: "No warmth, no specifics, no personality. 'Comprehensive', 'enterprise-grade', and 'industry-leading' are empty calories — they communicate nothing verifiable."
+      correct_approach:
+        lang: "text"
+        code: |
+          ✅ "Sando gives you 30+ Web Components with 6 built-in themes. Every component works across frameworks and meets WCAG AA accessibility standards."
+
+    - id: "VT-AP-2"
+      title: "Over-Metaphoring"
+      problem: "Forcing the culinary metaphor into every sentence, especially in contexts where it hinders clarity (errors, API docs, microcopy)."
+      bad_example:
+        lang: "text"
+        code: |
+          ❌ "Cook up some yummy UIs in our kitchen! Your ingredient pantry is stocked with tasty tokens ready to be served on a delicious platter of components! 🍳🔥"
+      why_wrong: "Every sentence uses a food term. The metaphor stops serving comprehension and becomes noise. Prohibited words ('yummy', 'tasty', 'cook'). Emojis add visual clutter without meaning."
+      correct_approach:
+        lang: "text"
+        code: |
+          ✅ "Start with quality ingredients, add your signature flavor, and follow a trusted recipe. That's the Sando approach to building UIs."
+
+    - id: "VT-AP-3"
+      title: "Tech Jargon Without Context"
+      problem: "Using technical terms without explaining what they mean or why they matter to the reader. Assumes expert knowledge and alienates newcomers."
+      bad_example:
+        lang: "text"
+        code: |
+          ❌ "Flavors are semantic token mappings that override base layer configurations via CSS custom property cascade resolution."
+      why_wrong: "Requires deep knowledge of token architecture, CSS custom properties, and cascade behavior. A new user learns nothing from this sentence."
+      correct_approach:
+        lang: "text"
+        code: |
+          ✅ "Flavors work like themes — they're brand identities you can swap with one attribute. Under the hood, they change which color tokens your components use."
+
+    - id: "VT-AP-4"
+      title: "Blaming the User"
+      problem: "Error messages that frame the problem as the user's fault, using accusatory language or passive-aggressive phrasing."
+      bad_example:
+        lang: "text"
+        code: |
+          ❌ "Error: Invalid flavor attribute. You provided an unsupported value."
+      why_wrong: "'Invalid' and 'You provided' place blame on the user. 'Error:' prefix is cold and unhelpful. No suggestion for correction."
+      correct_approach:
+        lang: "text"
+        code: |
+          ✅ "We couldn't find that flavor. Did you mean 'tonkatsu'? Accepted values: 'original', 'sando', 'tonkatsu', 'strawberry', 'egg-salad', 'kiwi'."
+
+    - id: "VT-AP-5"
+      title: "Vague Descriptions"
+      problem: "Describing features without specific numbers, concrete examples, or verifiable claims. Leaves the reader unable to evaluate or trust the claim."
+      bad_example:
+        lang: "text"
+        code: |
+          ❌ "Sando offers a wide range of carefully selected color options with various theme configurations for different use cases."
+      why_wrong: "'Wide range', 'carefully selected', 'various', and 'different' are all filler. Not one specific number or named feature. The reader learns nothing actionable."
+      correct_approach:
+        lang: "text"
+        code: |
+          ✅ "Sando ships with 8 OKLCH color palettes and 6 Flavors. Each palette has 11 lightness steps tuned for WCAG AA contrast in light and dark modes."
+
+    - id: "VT-AP-6"
+      title: "Emoji Abuse"
+      problem: "Using emojis as content substitutes, scattering them through documentation, or using them in technical contexts where they add no information."
+      bad_example:
+        lang: "text"
+        code: |
+          ❌ "🎨 Color System 🎨
+          Sando has AMAZING colors!! 🔥🔥🔥
+          Check out our palettes 👇👇👇
+          ✨ 8 palettes ✨ 6 themes ✨ Dark mode ✨"
+      why_wrong: "Emojis replace structure, exclamation marks replace substance, and the visual noise overwhelms the content. Inaccessible to screen readers when overused."
+      correct_approach:
+        lang: "text"
+        code: |
+          ✅ "Color system
+
+          Sando's color system follows the Warm Precision brand direction — the discipline of a kaiseki restaurant paired with the warmth of handcrafted ingredients.
+
+          - 8 curated OKLCH palettes
+          - 6 Flavors with light and dark modes
+          - WCAG AA contrast built in"
+
+    - id: "VT-AP-7"
+      title: "Condescending Simplification"
+      problem: "Over-explaining basic concepts, using phrases like 'simply', 'just', or 'easy' that dismiss real complexity, or adopting a tone that talks down to the reader."
+      bad_example:
+        lang: "text"
+        code: |
+          ❌ "Simply add the attribute. It's easy! Even beginners can do it. Just follow these simple steps and you'll be done in no time!"
+      why_wrong: "'Simply', 'easy', and 'even beginners' are condescending. If someone is struggling, being told it's 'easy' makes them feel worse. 'Just' minimizes real effort."
+      correct_approach:
+        lang: "text"
+        code: |
+          ✅ "Add the flavor attribute to your root element:
+          <div flavor='sando'>
+          All child components will inherit this theme."
+
+# ────────────────────────────────────────────────────────────
+# INTEGRATION POINTS
+# ────────────────────────────────────────────────────────────
+
+integration_points:
+  id: "VT-IP"
+  for_agents:
+    summary: "How each agent uses this guideline in their workflow."
+    usage:
+      - agent: "ux-writer"
+        note: "Primary consumer. Consult for ALL copy tasks: microcopy, campaigns, onboarding flows, error messages, empty states, and content audits. Apply vocabulary registry (VT-ST-C2) and tone spectrum (VT-CR-R6) to every deliverable."
+      - agent: "sando-documenter"
+        note: "Consult for documentation tone (VT-ST-C4), API reference writing, guide introductions, README structure, and changelog entries. Apply vocabulary registry for prose. Use culinary metaphor per context rules (VT-CR-R7)."
+      - agent: "sando-storybook"
+        note: "Consult for story descriptions (JSDoc blocks), control labels, argTypes descriptions, and component documentation within Storybook. Match Storybook tone from tone spectrum (VT-CR-R6)."
+      - agent: "sando-ux-designer"
+        note: "Consult for all user-facing text in component designs: error messages, feedback states, empty states, loading text, tooltip copy, and confirmation dialogs. Apply UI microcopy rules (VT-ST-C3)."
+    reference_pattern: |
+      Reference `.opencode/guidelines/07-communication/VOICE_AND_TONE.toon` for:
+      - Voice attributes and tone modulation (VT-CR)
+      - Vocabulary choices (VT-ST-C2)
+      - UI microcopy patterns (VT-ST-C3)
+      - Documentation tone (VT-ST-C4)
+      - Culinary metaphor boundaries (VT-CR-R7)
+
+# ────────────────────────────────────────────────────────────
+# RELATED GUIDELINES
+# ────────────────────────────────────────────────────────────
+
+related_guidelines:
+  id: "VT-RG"
+  references:
+    - type: "guideline"
+      doc_id: "CD"
+      file: "../01-design-system/COMPONENT_DESIGN.toon"
+      category: "01-design-system"
+      note: "Component naming and API conventions — voice and tone apply to property descriptions, variant names, and documentation blocks within component design."
+    - type: "guideline"
+      doc_id: "SBS"
+      file: "../06-documentation/STORYBOOK_STORIES.toon"
+      category: "06-documentation"
+      note: "Story descriptions and JSDoc blocks must follow Storybook tone from VT-CR-R6. argTypes descriptions follow UI microcopy rules (VT-ST-C3)."
+    - type: "guideline"
+      doc_id: "API"
+      file: "../06-documentation/API_REFERENCE.toon"
+      category: "06-documentation"
+      note: "API reference tone (precise, concise, formal) defined in VT-ST-C4. Vocabulary registry relaxed for technical terms in this context."
+    - type: "guideline"
+      doc_id: "VPG"
+      file: "../06-documentation/VITEPRESS_GUIDES.toon"
+      category: "06-documentation"
+      note: "Guide introductions, tutorial tone, and conceptual documentation follow VT-ST-C4. Culinary metaphor encouraged per VT-CR-R7."
+    - type: "guideline"
+      doc_id: "WC"
+      file: "../04-accessibility/WCAG_COMPLIANCE.toon"
+      category: "04-accessibility"
+      note: "Accessibility in language (VT-ST-C6) complements WCAG compliance. Plain language, screen reader friendliness, and inclusive terminology standards align with accessibility-first pillar."
+
+# ────────────────────────────────────────────────────────────
+# APPROVAL
+# ────────────────────────────────────────────────────────────
+
+approval:
+  id: "VT-APR"
+  approved_by: "Design System Team"
+  approval_date: "2026-02-22"
+  review_cycle: "Quarterly"
+  next_review: "2026-05-22"
+
+# ────────────────────────────────────────────────────────────
+# CONTRIBUTING
+# ────────────────────────────────────────────────────────────
+
+contributing:
+  id: "VT-CON"
+  summary: "To propose changes to this guideline:"
+  process:
+    - number: 1
+      note: "Open a discussion with rationale for the change, including real examples of current text that would be affected."
+    - number: 2
+      note: "Draft proposed modifications using this template. Include before/after copy examples."
+    - number: 3
+      note: |
+        Get review from relevant stakeholders:
+        - ux-writer (voice and tone alignment)
+        - sando-documenter (documentation impact)
+        - sando-architect (brand direction consistency)
+        - sando-quality (accessibility language review)
+    - number: 4
+      note: "Update version number following semantic versioning."
+    - number: 5
+      note: "Document in changelog."
+    - number: 6
+      note: "Update affected agents and skills that reference this guideline."
+  versioning:
+    - "MAJOR: Changes to voice attributes, tone spectrum, or culinary metaphor rules"
+    - "MINOR: New vocabulary entries, additional microcopy categories, new use case examples"
+    - "PATCH: Clarifications, typo fixes, additional examples for existing rules"
