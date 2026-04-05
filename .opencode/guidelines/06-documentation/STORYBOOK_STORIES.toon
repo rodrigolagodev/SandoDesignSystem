@@ -168,7 +168,7 @@ core_rules:
           argTypes: {
             flavor: {
               control: "select",
-              options: ["original", "strawberry", "ocean", "forest", "sunset"],
+              options: ["sando", "original", "strawberry", "brutalist", "egg-salad", "kiwi", "tonkatsu"],
               description: "Theme flavor (inherited from ancestor)",
             },
             // ❌ DO NOT add flavorMode control - it's automatic
@@ -383,7 +383,7 @@ common_patterns:
       export const AllFlavors: Story = {
         render: () => html`
           <div style="display: grid; gap: 24px;">
-            ${["original", "strawberry", "ocean"].map(flavor => html`
+            ${["sando", "original", "strawberry", "brutalist", "egg-salad", "kiwi", "tonkatsu"].map(flavor => html`
               <div flavor="${flavor}">
                 <sando-button>Solid</sando-button>
               </div>

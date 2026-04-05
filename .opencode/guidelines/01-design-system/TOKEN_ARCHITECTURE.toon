@@ -119,7 +119,7 @@ core_rules:
         title: "Flavors (Manual brand themes)"
         characteristics:
           - "Selected via `flavor='name'` attribute"
-          - "Examples: `original`, `strawberry`, `midnight`"
+          - "Examples: `sando`, `original`, `strawberry`, `brutalist`, `egg-salad`, `kiwi`, `tonkatsu`"
           - "**Developer chooses** which flavor to apply"
           - "Created by adding Flavor files: `src/flavors/{name}/flavor.json`"
       - id: "TA-CR-R4-C2"

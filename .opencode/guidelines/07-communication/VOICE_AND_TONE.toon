@@ -126,7 +126,7 @@ core_rules:
           warmth: "Low"
           formality: "High"
           culinary_metaphor: "Rare"
-          example: "flavor: string — Sets the active theme. Accepted values: 'original', 'sando', 'tonkatsu', 'strawberry', 'egg-salad', 'kiwi'. Default: 'sando'."
+          example: "flavor: string — Sets the active theme. Accepted values: 'sando', 'original', 'strawberry', 'brutalist', 'egg-salad', 'kiwi', 'tonkatsu'. Default: 'sando'."
         - context: "Error Messages"
           tone: "Empathetic, actionable"
           warmth: "High"
@@ -581,7 +581,7 @@ standards:
             lang: "text"
             code: |
               ✅ "8 curated OKLCH palettes"
-              ✅ "6 handcrafted flavors, each with light and dark modes"
+              ✅ "7 handcrafted flavors, each with light and dark modes"
               ✅ "We spent months perfecting 8 color palettes so you can spend minutes creating a beautiful, accessible design system."
           anti_pattern:
             lang: "text"
@@ -687,7 +687,7 @@ standards:
         - type: "MUST"
           note: "System terminology does NOT translate: Ingredients, Flavors, and Recipes remain in English in all languages. They are proper nouns within the Sando brand."
         - type: "MUST"
-          note: "Flavor names do NOT translate: 'original', 'sando', 'tonkatsu', 'strawberry', 'egg-salad', 'kiwi' are brand identifiers, not descriptive words."
+          note: "Flavor names do NOT translate: 'sando', 'original', 'strawberry', 'brutalist', 'egg-salad', 'kiwi', 'tonkatsu' are brand identifiers, not descriptive words."
         - type: "SHOULD"
           note: "Avoid idioms and culturally specific references that do not translate. 'Hit the ground running' or 'piece of cake' do not translate well."
         - type: "SHOULD"
@@ -745,8 +745,8 @@ detailed_examples:
         code: |
           We couldn't find that flavor. Did you mean 'tonkatsu'?
 
-          Accepted values: 'original', 'sando', 'tonkatsu', 'strawberry',
-          'egg-salad', 'kiwi'.
+          Accepted values: 'sando', 'original', 'strawberry', 'brutalist',
+          'egg-salad', 'kiwi', 'tonkatsu'.
       key_aspects:
         - "Empathetic opener: 'We couldn't find' not 'Invalid value'"
         - "Suggests a likely correction (fuzzy match)"
@@ -799,7 +799,7 @@ detailed_examples:
 
           Features:
           - 8 curated OKLCH palettes with perceptually uniform scales
-          - 6 handcrafted Flavors: original, sando, tonkatsu, strawberry, egg-salad, kiwi
+          - 7 handcrafted Flavors: sando, original, strawberry, brutalist, egg-salad, kiwi, tonkatsu
           - Automatic light and dark mode support
           - CSS custom properties and JS exports
           - Under 5KB gzipped
@@ -907,7 +907,7 @@ anti_patterns:
       correct_approach:
         lang: "text"
         code: |
-          ✅ "We couldn't find that flavor. Did you mean 'tonkatsu'? Accepted values: 'original', 'sando', 'tonkatsu', 'strawberry', 'egg-salad', 'kiwi'."
+          ✅ "We couldn't find that flavor. Did you mean 'tonkatsu'? Accepted values: 'sando', 'original', 'strawberry', 'brutalist', 'egg-salad', 'kiwi', 'tonkatsu'."
 
     - id: "VT-AP-5"
       title: "Vague Descriptions"

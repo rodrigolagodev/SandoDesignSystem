@@ -477,7 +477,7 @@ focus_visible_styles:
         }
     verify_in_all_themes:
       - "Original flavor"
-      - "Strawberry, Ocean, Forest, Sunset flavors"
+      - "All flavors: sando, original, strawberry, brutalist, egg-salad, kiwi, tonkatsu"
       - "Light mode, dark mode, high-contrast mode"
 
 testing:
