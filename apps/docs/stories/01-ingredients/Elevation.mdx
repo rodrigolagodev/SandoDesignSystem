@@ -57,7 +57,8 @@ Our elevation system uses layered shadows to simulate depth and focus, helping u
             style={{
               width: "100px",
               height: "60px",
-              backgroundColor: "var(--sb-docs-bg-raised)",
+              backgroundColor: "var(--sb-docs-bg-emphasis)",
+              border: "1px solid var(--sb-docs-border)",
               borderRadius: "8px",
               boxShadow: `var(--sando-elevation-${item.token})`,
               display: "flex",
@@ -92,7 +93,7 @@ Elevation creates a visual z-axis, with higher elevations appearing "closer" to 
     marginTop: "32px",
     position: "relative",
     height: "400px",
-    backgroundColor: "var(--sb-docs-bg-surface)",
+    backgroundColor: "var(--sb-docs-bg-base)",
     borderRadius: "12px",
     padding: "40px",
     overflow: "hidden",
@@ -103,7 +104,8 @@ Elevation creates a visual z-axis, with higher elevations appearing "closer" to 
       position: "absolute",
       bottom: "40px",
       left: "40px",
-      backgroundColor: "var(--sb-docs-bg-raised)",
+      backgroundColor: "var(--sb-docs-bg-emphasis)",
+      border: "1px solid var(--sb-docs-border)",
       padding: "24px",
       borderRadius: "8px",
       boxShadow: "var(--sando-elevation-100)",
@@ -121,7 +123,8 @@ Elevation creates a visual z-axis, with higher elevations appearing "closer" to 
     position: "absolute",
     bottom: "80px",
     left: "120px",
-    backgroundColor: "var(--sb-docs-bg-raised)",
+    backgroundColor: "var(--sb-docs-bg-emphasis)",
+    border: "1px solid var(--sb-docs-border)",
     padding: "24px",
     borderRadius: "8px",
     boxShadow: "var(--sando-elevation-200)",
@@ -147,7 +150,8 @@ Elevation creates a visual z-axis, with higher elevations appearing "closer" to 
     position: "absolute",
     bottom: "120px",
     left: "200px",
-    backgroundColor: "var(--sb-docs-bg-raised)",
+    backgroundColor: "var(--sb-docs-bg-emphasis)",
+    border: "1px solid var(--sb-docs-border)",
     padding: "24px",
     borderRadius: "8px",
     boxShadow: "var(--sando-elevation-300)",
@@ -173,7 +177,8 @@ Elevation creates a visual z-axis, with higher elevations appearing "closer" to 
     position: "absolute",
     bottom: "160px",
     left: "280px",
-    backgroundColor: "var(--sb-docs-bg-raised)",
+    backgroundColor: "var(--sb-docs-bg-emphasis)",
+    border: "1px solid var(--sb-docs-border)",
     padding: "24px",
     borderRadius: "8px",
     boxShadow: "var(--sando-elevation-400)",
@@ -199,7 +204,8 @@ Elevation creates a visual z-axis, with higher elevations appearing "closer" to 
       position: "absolute",
       bottom: "200px",
       left: "360px",
-      backgroundColor: "var(--sb-docs-bg-raised)",
+      backgroundColor: "var(--sb-docs-bg-emphasis)",
+      border: "1px solid var(--sb-docs-border)",
       padding: "24px",
       borderRadius: "8px",
       boxShadow: "var(--sando-elevation-500)",
@@ -225,7 +231,8 @@ Elevation creates a visual z-axis, with higher elevations appearing "closer" to 
   <div
     style={{
       flex: "1 1 250px",
-      backgroundColor: "var(--sb-docs-bg-raised)",
+      backgroundColor: "var(--sb-docs-bg-emphasis)",
+      border: "1px solid var(--sb-docs-border)",
       padding: "24px",
       borderRadius: "12px",
       boxShadow: "var(--sando-elevation-0)",
@@ -249,7 +256,8 @@ Elevation creates a visual z-axis, with higher elevations appearing "closer" to 
 <div
   style={{
     flex: "1 1 250px",
-    backgroundColor: "var(--sb-docs-bg-raised)",
+    backgroundColor: "var(--sb-docs-bg-emphasis)",
+    border: "1px solid var(--sb-docs-border)",
     padding: "24px",
     borderRadius: "12px",
     boxShadow: "var(--sando-elevation-100)",
@@ -273,7 +281,8 @@ Elevation creates a visual z-axis, with higher elevations appearing "closer" to 
   <div
     style={{
       flex: "1 1 250px",
-      backgroundColor: "var(--sb-docs-bg-raised)",
+      backgroundColor: "var(--sb-docs-bg-emphasis)",
+      border: "1px solid var(--sb-docs-border)",
       padding: "24px",
       borderRadius: "12px",
       boxShadow: "var(--sando-elevation-200)",
@@ -331,7 +340,8 @@ Elevation can change on interaction to provide feedback.
   <div
     style={{
       flex: "1 1 250px",
-      backgroundColor: "var(--sb-docs-bg-raised)",
+      backgroundColor: "var(--sb-docs-bg-emphasis)",
+      border: "1px solid var(--sb-docs-border)",
       padding: "24px",
       borderRadius: "12px",
       boxShadow: "var(--sando-elevation-200)",
@@ -384,28 +394,14 @@ Elevation can change on interaction to provide feedback.
 
 ---
 
-## Dark Mode Considerations
+## Dark Mode Behavior
 
-Elevation shadows work differently in dark mode:
+Elevation shadows use `rgba(0,0,0,...)` values optimized for light backgrounds. In dark mode, elevation is communicated through:
 
-- **Light mode**: Shadows are dark (rgba(0,0,0))
-- **Dark mode**: May need lighter shadows or borders for definition
-- **Future enhancement**: Dynamic shadow colors based on flavor mode
+- **Surface lightening** — elevated elements use lighter surface colors to stand out from the base background
+- **Subtle borders** — provide boundary definition when shadows lack contrast against dark backgrounds
 
-<div
-  style={{
-    marginTop: "24px",
-    padding: "16px",
-    backgroundColor: "var(--sb-docs-bg-surface)",
-    borderRadius: "8px",
-    fontSize: "14px",
-    color: "var(--sb-docs-text-body)",
-  }}
->
-  <strong>Note:</strong> Current elevation tokens use the same shadow values in
-  both light and dark modes. Future iterations may include mode-specific shadow
-  adjustments.
-</div>
+This follows the established Material Design pattern where dark mode elevation relies on surface luminance rather than shadow depth. The Ingredient tokens remain unchanged — dark mode adaptation happens at the documentation level through appropriate background choices.
 
 ---
 
