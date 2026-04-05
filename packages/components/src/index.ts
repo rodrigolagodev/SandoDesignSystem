@@ -247,6 +247,15 @@ export type {
   SandoSkeletonMediaCardProps
 } from './components/skeleton-media-card/index.js';
 
+export { SandoDivider } from './components/divider/index.js';
+export type {
+  DividerOrientation,
+  DividerWeight,
+  DividerVariant,
+  DividerSpacing,
+  SandoDividerProps
+} from './components/divider/index.js';
+
 export { SandoLabel } from './components/label/index.js';
 export type { LabelSize, LabelWeight, SandoLabelProps } from './components/label/index.js';
 

@@ -108,3 +108,6 @@ apps/site/.vitepress/cache/
 
 # Vitest
 .vitest/
+
+# OpenCode internal
+.opencode/package-lock.json
