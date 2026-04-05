@@ -602,4 +602,33 @@ ONLY report completion when thresholds met
 - Test with axe-core
 - Validate against guidelines
 - Report issues clearly
+
+## Return Envelope
+
+<return_envelope>
+When your task is complete, return a structured summary to the orchestrator:
+
+```
+STATUS: complete | partial | blocked
+AGENT: sando-quality
+
+DELIVERABLES:
+- [ ] path/to/sando-{name}.test.ts — unit tests
+- [ ] path/to/sando-{name}.a11y.test.ts — accessibility tests
+- Coverage: {X}% (threshold: 80%)
+
+ISSUES: (omit if none)
+- ⚠️ Issue description (e.g. "A11y: missing aria-label on icon button")
+
+NEXT_AGENT: (omit if none)
+- sando-developer → fix issue X before re-running tests
+```
+
+Rules:
+
+- Use `partial` if some tests pass but not all
+- Use `blocked` if the component doesn't exist yet or has critical build errors
+- Always report coverage percentage
+- Never mark `complete` if coverage < 80% or any a11y violations remain
+  </return_envelope>
 - Include coverage numbers in reports

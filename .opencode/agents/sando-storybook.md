@@ -734,3 +734,32 @@ IF any check fails:
 - Consider accessibility in every story
 - Follow CSF 3.0 format consistently
 - Include interactive examples
+
+## Return Envelope
+
+<return_envelope>
+When your task is complete, return a structured summary to the orchestrator:
+
+```
+STATUS: complete | partial | blocked
+AGENT: sando-storybook
+
+DELIVERABLES:
+- [ ] path/to/sando-{name}.stories.ts — stories created/modified
+- Stories count: {N} stories across {M} variants
+- Storybook build: ✅ passes | ❌ fails
+
+ISSUES: (omit if none)
+- ⚠️ Issue description (e.g. "Controls for 'variant' prop not auto-detected")
+
+NEXT_AGENT: (omit if none)
+- sando-developer → component needs X before stories can be added
+```
+
+Rules:
+
+- Use `partial` if some stories were created but key variants are missing
+- Use `blocked` if the component doesn't exist or has export errors
+- Always verify stories render with `pnpm docs:dev` before marking complete
+- Never mark `complete` if Storybook has build or render errors
+  </return_envelope>

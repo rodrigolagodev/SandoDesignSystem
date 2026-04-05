@@ -512,3 +512,33 @@ var(--sando-button-solid-backgroundColor-default)
 // ✅ Always verify after changes
 // pnpm lint && pnpm typecheck && pnpm test
 ```
+
+## Return Envelope
+
+<return_envelope>
+When your task is complete, return a structured summary to the orchestrator:
+
+```
+STATUS: complete | partial | blocked
+AGENT: sando-developer
+
+DELIVERABLES:
+- [ ] path/to/sando-{name}.ts — component implementation
+- [ ] path/to/sando-{name}.types.ts — TypeScript types
+- [ ] path/to/index.ts — barrel export
+
+ISSUES: (omit if none)
+- ⚠️ Issue description + recommended action
+
+NEXT_AGENT: (omit if none)
+- sando-quality → write tests for new component
+- sando-storybook → write stories for new component
+```
+
+Rules:
+
+- Use `partial` if you completed some but not all deliverables
+- Use `blocked` if you cannot proceed without external input (e.g. tokens don't exist yet)
+- Always list every file created or modified under DELIVERABLES
+- Never mark `complete` if the verification loop (lint + typecheck + test) failed
+  </return_envelope>

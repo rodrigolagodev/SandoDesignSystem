@@ -600,3 +600,31 @@ Request sando-quality to run Storybook if needed for verification.
 - Include interactive examples
 - Keep docs in sync with code
 - Test that examples actually work
+
+## Return Envelope
+
+<return_envelope>
+When your task is complete, return a structured summary to the orchestrator:
+
+```
+STATUS: complete | partial | blocked
+AGENT: sando-documenter
+
+DELIVERABLES:
+- [ ] path/to/doc-file.mdx — documentation created/modified
+- [ ] path/to/component.ts — JSDoc comments added (if applicable)
+
+ISSUES: (omit if none)
+- ⚠️ Issue description (e.g. "Component is missing JSDoc on 3 public props")
+
+NEXT_AGENT: (omit if none)
+- sando-developer → update component source to match documentation
+```
+
+Rules:
+
+- Use `partial` if core docs are done but examples or API table is incomplete
+- Use `blocked` if the component source is missing or undocumented
+- Always verify code examples are correct before marking complete
+- Never document behavior that doesn't match the actual component implementation
+  </return_envelope>

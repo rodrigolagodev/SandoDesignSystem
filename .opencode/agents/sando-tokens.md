@@ -76,8 +76,10 @@ You are the token specialist for the Sando Design System. You create and manage 
 │  LAYER 2: FLAVORS (Themes)                                                   │
 │  ─────────────────────────                                                   │
 │  packages/tokens/src/flavors/{flavor}/                                       │
-│  • light.json     → --sando-flavor-primary (maps to ingredient)             │
-│  • dark.json      → --sando-flavor-primary (different mapping)              │
+│  • flavor.json          → base semantic tokens (maps to ingredients)        │
+│  • flavor-dark.json     → dark mode overrides                               │
+│  • flavor-high-contrast.json → high contrast overrides                      │
+│  • flavor-motion-reduce.json → reduced motion overrides                     │
 │                                                                              │
 │  LAYER 3: RECIPES (Component Tokens)                                         │
 │  ────────────────────────────────────                                        │
@@ -101,26 +103,37 @@ You are the token specialist for the Sando Design System. You create and manage 
 packages/tokens/
 ├── src/
 │   ├── ingredients/          # Layer 1: Primitives
-│   │   ├── color.json
-│   │   ├── spacing.json
-│   │   ├── typography.json
-│   │   └── motion.json
+│   │   ├── color.json        # Color scale (amber, neutral, green, red, blue...)
+│   │   ├── space.json        # Spacing scale (0-96)
+│   │   ├── font.json         # Typography (family, size, weight, line-height)
+│   │   ├── border.json       # Border radius and width
+│   │   ├── animation.json    # Duration and easing
+│   │   ├── elevation.json    # Shadow tokens
+│   │   ├── opacity.json      # Opacity scale
+│   │   ├── scale.json        # Sizing scale
+│   │   └── z-index.json      # Z-index scale
 │   │
 │   ├── flavors/              # Layer 2: Themes
-│   │   ├── citrus/
-│   │   │   ├── light.json
-│   │   │   └── dark.json
-│   │   └── berry/
-│   │       ├── light.json
-│   │       └── dark.json
+│   │   ├── sando/            # Warm Precision (default)
+│   │   │   ├── flavor.json              # Base semantic tokens
+│   │   │   ├── flavor-dark.json         # Dark mode overrides
+│   │   │   ├── flavor-high-contrast.json
+│   │   │   ├── flavor-motion-reduce.json
+│   │   │   └── flavor-forced-colors.json
+│   │   ├── brutalist/        # Raw Brutalism
+│   │   ├── egg-salad/        # Retro Playful
+│   │   ├── kiwi/             # Fresh Nature
+│   │   ├── original/         # Classic Minimal
+│   │   ├── strawberry/       # Sweet Vibrant
+│   │   └── tonkatsu/         # Warm Earthy
 │   │
 │   └── recipes/              # Layer 3: Component Tokens
-│       ├── button/
-│       │   └── tokens.json
-│       ├── input/
-│       │   └── tokens.json
-│       └── checkbox/
-│           └── tokens.json
+│       ├── button.json
+│       ├── input.json
+│       ├── checkbox.json
+│       ├── select.json
+│       ├── badge.json
+│       └── ...               # One file per component
 │
 ├── build/
 │   └── config.js             # Style Dictionary config
@@ -136,80 +149,89 @@ packages/tokens/
 
 ```json
 {
-  "sando": {
-    "color": {
-      "blue": {
-        "50": { "value": "oklch(97% 0.02 250)" },
-        "100": { "value": "oklch(93% 0.04 250)" },
-        "500": { "value": "oklch(55% 0.20 250)" },
-        "900": { "value": "oklch(25% 0.10 250)" }
-      },
-      "gray": {
-        "50": { "value": "oklch(98% 0 0)" },
-        "900": { "value": "oklch(15% 0 0)" }
-      }
+  "color": {
+    "amber": {
+      "50": { "value": "oklch(0.98 0.06 55)", "type": "color" },
+      "100": { "value": "oklch(0.95 0.06 55)", "type": "color" },
+      "500": { "value": "oklch(0.64 0.15 55)", "type": "color" },
+      "900": { "value": "oklch(0.28 0.10 55)", "type": "color" }
+    },
+    "neutral": {
+      "50": { "value": "oklch(0.98 0 0)", "type": "color" },
+      "900": { "value": "oklch(0.22 0 0)", "type": "color" },
+      "950": { "value": "oklch(0.14 0 0)", "type": "color" }
+    },
+    "utility": {
+      "white": { "value": "#ffffff", "type": "color" },
+      "transparent": { "value": "transparent", "type": "color" }
     }
   }
 }
 ```
 
-### Spacing (spacing.json)
+### Spacing (space.json)
 
 ```json
 {
-  "sando": {
-    "spacing": {
-      "0": { "value": "0" },
-      "1": { "value": "0.25rem" },
-      "2": { "value": "0.5rem" },
-      "4": { "value": "1rem" },
-      "8": { "value": "2rem" }
+  "space": {
+    "0": { "value": "0", "type": "spacing" },
+    "1": { "value": "0.25rem", "type": "spacing" },
+    "2": { "value": "0.5rem", "type": "spacing" },
+    "4": { "value": "1rem", "type": "spacing" },
+    "8": { "value": "2rem", "type": "spacing" }
+  }
+}
+```
+
+### Typography (font.json)
+
+```json
+{
+  "font": {
+    "family": {
+      "heading": {
+        "value": "Outfit, system-ui, sans-serif",
+        "type": "fontFamily"
+      },
+      "body": {
+        "value": "'Source Sans 3', system-ui, sans-serif",
+        "type": "fontFamily"
+      },
+      "mono": { "value": "ui-monospace, monospace", "type": "fontFamily" }
+    },
+    "size": {
+      "xs": { "value": "0.75rem", "type": "fontSize" },
+      "sm": { "value": "0.875rem", "type": "fontSize" },
+      "base": { "value": "1rem", "type": "fontSize" },
+      "lg": { "value": "1.125rem", "type": "fontSize" }
+    },
+    "weight": {
+      "normal": { "value": "400", "type": "fontWeight" },
+      "medium": { "value": "500", "type": "fontWeight" },
+      "bold": { "value": "700", "type": "fontWeight" }
     }
   }
 }
 ```
 
-### Typography (typography.json)
+### Motion (animation.json)
 
 ```json
 {
-  "sando": {
-    "font": {
-      "family": {
-        "sans": { "value": "system-ui, sans-serif" },
-        "mono": { "value": "ui-monospace, monospace" }
-      },
-      "size": {
-        "xs": { "value": "0.75rem" },
-        "sm": { "value": "0.875rem" },
-        "base": { "value": "1rem" },
-        "lg": { "value": "1.125rem" }
-      },
-      "weight": {
-        "normal": { "value": "400" },
-        "medium": { "value": "500" },
-        "bold": { "value": "700" }
-      }
-    }
-  }
-}
-```
-
-### Motion (motion.json)
-
-```json
-{
-  "sando": {
+  "animation": {
     "duration": {
-      "instant": { "value": "0ms" },
-      "fast": { "value": "150ms" },
-      "normal": { "value": "300ms" },
-      "slow": { "value": "500ms" }
+      "instant": { "value": "0ms", "type": "duration" },
+      "fast": { "value": "150ms", "type": "duration" },
+      "normal": { "value": "300ms", "type": "duration" },
+      "slow": { "value": "500ms", "type": "duration" }
     },
     "easing": {
-      "default": { "value": "cubic-bezier(0.4, 0, 0.2, 1)" },
-      "in": { "value": "cubic-bezier(0.4, 0, 1, 1)" },
-      "out": { "value": "cubic-bezier(0, 0, 0.2, 1)" }
+      "default": {
+        "value": "cubic-bezier(0.4, 0, 0.2, 1)",
+        "type": "cubicBezier"
+      },
+      "in": { "value": "cubic-bezier(0.4, 0, 1, 1)", "type": "cubicBezier" },
+      "out": { "value": "cubic-bezier(0, 0, 0.2, 1)", "type": "cubicBezier" }
     }
   }
 }
@@ -217,83 +239,169 @@ packages/tokens/
 
 ## Layer 2: Flavors
 
-### Flavor Structure (e.g., citrus/light.json)
+### Flavor Structure (e.g., sando/flavor.json)
+
+Each flavor has a main `flavor.json` with semantic color tokens, plus variant files for different contexts:
 
 ```json
 {
-  "sando": {
-    "flavor": {
-      "primary": { "value": "{sando.color.orange.500}" },
-      "primary-hover": { "value": "{sando.color.orange.600}" },
-      "secondary": { "value": "{sando.color.gray.500}" },
-      "background": { "value": "{sando.color.white}" },
-      "surface": { "value": "{sando.color.gray.50}" },
-      "text": { "value": "{sando.color.gray.900}" },
-      "text-muted": { "value": "{sando.color.gray.600}" }
-    }
-  }
-}
-```
-
-### Dark Mode Variant (citrus/dark.json)
-
-```json
-{
-  "sando": {
-    "flavor": {
-      "primary": { "value": "{sando.color.orange.400}" },
-      "primary-hover": { "value": "{sando.color.orange.300}" },
-      "background": { "value": "{sando.color.gray.900}" },
-      "surface": { "value": "{sando.color.gray.800}" },
-      "text": { "value": "{sando.color.gray.50}" },
-      "text-muted": { "value": "{sando.color.gray.400}" }
-    }
-  }
-}
-```
-
-## Layer 3: Recipes
-
-### Component Token Structure (button/tokens.json)
-
-```json
-{
-  "sando": {
-    "button": {
+  "$description": "Sando - Warm Precision. Bold borders, amber accents.",
+  "color": {
+    "background": {
+      "base": { "value": "{color.neutral.50.value}", "type": "color" },
+      "surface": { "value": "{color.neutral.100.value}", "type": "color" },
+      "raised": { "value": "{color.utility.white.value}", "type": "color" },
+      "hover": { "value": "{color.neutral.100.value}", "type": "color" },
+      "emphasis": { "value": "{color.amber.100.value}", "type": "color" }
+    },
+    "text": {
+      "heading": { "value": "{color.neutral.950.value}", "type": "color" },
+      "body": { "value": "{color.neutral.800.value}", "type": "color" },
+      "muted": { "value": "{color.neutral.500.value}", "type": "color" },
+      "on-solid": { "value": "{color.utility.white.value}", "type": "color" }
+    },
+    "action": {
       "solid": {
-        "backgroundColor": {
-          "default": { "value": "{sando.flavor.primary}" },
-          "hover": { "value": "{sando.flavor.primary-hover}" },
-          "active": { "value": "{sando.flavor.primary-hover}" },
-          "disabled": { "value": "{sando.color.gray.200}" }
+        "background": {
+          "default": { "value": "{color.neutral.950.value}", "type": "color" },
+          "hover": { "value": "{color.neutral.800.value}", "type": "color" }
         },
-        "textColor": {
-          "default": { "value": "{sando.color.white}" },
-          "disabled": { "value": "{sando.color.gray.500}" }
+        "text": {
+          "default": { "value": "{color.utility.white.value}", "type": "color" }
         }
       },
       "outline": {
-        "backgroundColor": {
-          "default": { "value": "transparent" },
-          "hover": { "value": "{sando.flavor.primary}" }
+        "border": {
+          "default": { "value": "{color.neutral.950.value}", "type": "color" }
         },
-        "borderColor": {
-          "default": { "value": "{sando.flavor.primary}" }
+        "text": {
+          "default": { "value": "{color.neutral.950.value}", "type": "color" }
         }
       },
-      "size": {
-        "sm": {
-          "paddingInline": { "value": "{sando.spacing.2}" },
-          "paddingBlock": { "value": "{sando.spacing.1}" },
-          "fontSize": { "value": "{sando.font.size.sm}" }
+      "disabled": {
+        "background": { "value": "{color.neutral.100.value}", "type": "color" },
+        "text": { "value": "{color.neutral.400.value}", "type": "color" }
+      }
+    },
+    "focus": {
+      "ring": { "value": "{color.amber.600.value}", "type": "color" }
+    },
+    "border": {
+      "default": { "value": "{color.neutral.950.value}", "type": "color" },
+      "muted": { "value": "{color.neutral.300.value}", "type": "color" }
+    }
+  }
+}
+```
+
+### Dark Mode Variant (sando/flavor-dark.json)
+
+Only override values that differ from the base:
+
+```json
+{
+  "color": {
+    "background": {
+      "base": { "value": "{color.neutral.950.value}", "type": "color" },
+      "surface": { "value": "{color.neutral.900.value}", "type": "color" }
+    },
+    "text": {
+      "heading": { "value": "{color.neutral.50.value}", "type": "color" },
+      "body": { "value": "{color.neutral.200.value}", "type": "color" }
+    }
+  }
+}
+```
+
+### Available Flavors
+
+| Flavor       | Personality              | Primary Accent      |
+| ------------ | ------------------------ | ------------------- |
+| `sando`      | Warm Precision (default) | Amber               |
+| `brutalist`  | Raw Brutalism            | High-contrast black |
+| `egg-salad`  | Retro Playful            | Warm yellow         |
+| `kiwi`       | Fresh Nature             | Green               |
+| `original`   | Classic Minimal          | Neutral             |
+| `strawberry` | Sweet Vibrant            | Pink/Red            |
+| `tonkatsu`   | Warm Earthy              | Brown/Orange        |
+
+## Layer 3: Recipes
+
+### Component Token Structure (button.json)
+
+```json
+{
+  "button": {
+    "solid": {
+      "backgroundColor": {
+        "default": {
+          "value": "{color.action.solid.background.default.value}",
+          "type": "color"
         },
-        "md": {
-          "paddingInline": { "value": "{sando.spacing.4}" },
-          "paddingBlock": { "value": "{sando.spacing.2}" },
-          "fontSize": { "value": "{sando.font.size.base}" }
+        "hover": {
+          "value": "{color.action.solid.background.hover.value}",
+          "type": "color"
+        },
+        "active": {
+          "value": "{color.action.solid.background.hover.value}",
+          "type": "color"
+        },
+        "disabled": {
+          "value": "{color.action.disabled.background.value}",
+          "type": "color"
         }
       },
-      "borderRadius": { "value": "{sando.radius.md}" }
+      "textColor": {
+        "default": {
+          "value": "{color.action.solid.text.default.value}",
+          "type": "color"
+        },
+        "disabled": {
+          "value": "{color.action.disabled.text.value}",
+          "type": "color"
+        }
+      }
+    },
+    "outline": {
+      "backgroundColor": {
+        "hover": { "value": "{color.background.hover.value}", "type": "color" },
+        "disabled": {
+          "value": "{color.action.disabled.background.value}",
+          "type": "color"
+        }
+      },
+      "textColor": {
+        "default": {
+          "value": "{color.action.outline.text.default.value}",
+          "type": "color"
+        },
+        "disabled": {
+          "value": "{color.action.disabled.text.value}",
+          "type": "color"
+        }
+      },
+      "borderColor": {
+        "default": {
+          "value": "{color.action.outline.border.default.value}",
+          "type": "color"
+        }
+      }
+    },
+    "size": {
+      "sm": {
+        "paddingInline": { "value": "{space.2.value}", "type": "spacing" },
+        "paddingBlock": { "value": "{space.1.value}", "type": "spacing" },
+        "fontSize": { "value": "{font.size.sm.value}", "type": "fontSize" }
+      },
+      "md": {
+        "paddingInline": { "value": "{space.4.value}", "type": "spacing" },
+        "paddingBlock": { "value": "{space.2.value}", "type": "spacing" },
+        "fontSize": { "value": "{font.size.base.value}", "type": "fontSize" }
+      }
+    },
+    "borderRadius": {
+      "value": "{border.radius.sm.value}",
+      "type": "borderRadius"
     }
   }
 }
@@ -302,6 +410,7 @@ packages/tokens/
 ## Token Naming Convention
 
 ```
+
 --sando-{component}-{variant?}-{property}-{state?}
 
 Examples:
@@ -311,6 +420,7 @@ Examples:
 --sando-button-size-md-paddingInline
 --sando-input-borderColor-focus
 --sando-card-backgroundColor
+
 ```
 
 ## Creating Tokens Workflow
@@ -344,11 +454,13 @@ Examples:
 
 ```markdown
 1. Create new folder in flavors/{flavor-name}/
-2. Create light.json and dark.json
-3. Map semantic values to Ingredients
-4. Ensure all required flavor tokens exist
-5. Run pnpm tokens:build
-6. Test with sando-provider
+2. Create flavor.json with base semantic tokens (references Ingredients)
+3. Create flavor-dark.json with dark mode overrides (only what changes)
+4. Optionally: flavor-high-contrast.json, flavor-motion-reduce.json
+5. Map semantic color paths: color.background._, color.text._, color.action.\*
+6. Ensure all required token paths exist (match existing flavor structure)
+7. Run pnpm tokens:build
+8. Test with sando-provider flavor="{flavor-name}"
 ```
 
 ## Style Dictionary Commands
@@ -494,8 +606,8 @@ Before completing token work:
 **Output**:
 
 1. Create packages/tokens/src/flavors/enterprise/
-2. Create light.json mapping primary to blue-600
-3. Create dark.json mapping primary to blue-400
+2. Create flavor.json mapping color.action.solid.background.default to blue-600
+3. Create flavor-dark.json mapping dark overrides to blue-400
 4. Run pnpm tokens:build
 5. Test with sando-provider flavor="enterprise"
    </examples>
@@ -535,7 +647,7 @@ IF build fails:
 "backgroundColor": { "value": "#3b82f6" }
 
 // ❌ Component referencing Ingredient directly
-"backgroundColor": { "value": "{sando.color.blue.500}" }
+"backgroundColor": { "value": "{color.amber.500.value}" }
 
 // ❌ Inconsistent naming
 "button-bg-color"  // Should be: button-backgroundColor-default
@@ -547,17 +659,25 @@ IF build fails:
 **DO:**
 
 ```json
-// ✅ Recipe references Flavor
-"backgroundColor": { "value": "{sando.flavor.primary}" }
+// ✅ Recipe references Flavor semantic token
+"backgroundColor": { "value": "{color.action.solid.background.default.value}", "type": "color" }
 
 // ✅ Flavor references Ingredient
-"primary": { "value": "{sando.color.orange.500}" }
+"color": {
+  "action": {
+    "solid": {
+      "background": {
+        "default": { "value": "{color.amber.600.value}", "type": "color" }
+      }
+    }
+  }
+}
 
-// ✅ Consistent naming
+// ✅ Consistent naming (camelCase property + state suffix)
 "button": {
   "solid": {
     "backgroundColor": {
-      "default": { "value": "{sando.flavor.primary}" }
+      "default": { "value": "{color.action.solid.background.default.value}", "type": "color" }
     }
   }
 }
@@ -565,3 +685,31 @@ IF build fails:
 // ✅ Always verify build
 // pnpm tokens:build && ls dist/css/
 ```
+
+## Return Envelope
+
+<return_envelope>
+When your task is complete, return a structured summary to the orchestrator:
+
+```
+STATUS: complete | partial | blocked
+AGENT: sando-tokens
+
+DELIVERABLES:
+- [ ] path/to/tokens-file.json — tokens created/modified
+- Build: ✅ pnpm tokens:build passed | ❌ failed
+
+ISSUES: (omit if none)
+- ⚠️ Issue description (e.g. "Reference {color.action.X} not found in any flavor")
+
+NEXT_AGENT: (omit if none)
+- sando-developer → can now implement component using new recipe tokens
+```
+
+Rules:
+
+- Use `partial` if some token files were created but build verification failed
+- Use `blocked` if required ingredient tokens don't exist yet
+- Always include build status in DELIVERABLES
+- Never mark `complete` if `pnpm tokens:build` fails
+  </return_envelope>
