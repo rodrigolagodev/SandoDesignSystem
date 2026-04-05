@@ -5,18 +5,18 @@
  * Uses CSS custom properties for light/dark mode switching.
  *
  * Theme is applied via:
- * - data-sb-theme="light|dark" (new, preferred)
- * - data-theme="light|dark" (legacy, for backwards compatibility)
+ * - .dark/.light classes on html (set by storybook-dark-mode addon)
+ * - [data-sb-theme="dark"] (Storybook native, forward compat)
+ * - @media (prefers-color-scheme: dark) (system preference fallback)
  *
- * Theme preference is stored in localStorage under "sando-storybook-ui-theme"
- * and can be toggled with Ctrl+Shift+T keyboard shortcut.
+ * Theme preference is stored in localStorage by storybook-dark-mode addon.
  */
 
 /* ============================================================================
    Typography - Import Inter font (must be first)
    ============================================================================ */
 
-@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Fira+Code:wght@400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Fira+Code:wght@400;500;700&display=swap");
 
 /* ============================================================================
    CSS Custom Properties - Light Mode (Default)
@@ -24,34 +24,34 @@
 
 :root {
   /* Primary colors - Warm Precision Amber (hue 55°) */
-  --sando-sb-primary: #8d6e10;
-  --sando-sb-primary-hover: #6b530c;
-  --sando-sb-primary-light: #fff8e1;
-  --sando-sb-primary-dark: #4a3a09;
+  --sando-sb-primary: #b45600;
+  --sando-sb-primary-hover: #973b00;
+  --sando-sb-primary-light: #ffefd3;
+  --sando-sb-primary-dark: #702a00;
 
-  /* Background colors - NeutralWarm */
-  --sando-sb-app-bg: #faf9f6;
-  --sando-sb-content-bg: #ffffff;
-  --sando-sb-sidebar-bg: #faf9f6;
+  /* Background colors - NeutralWarm — aligned with VitePress */
+  --sando-sb-app-bg: #f8ece0; /* neutralWarm.100 (VitePress --vp-c-bg-alt — sidebar/toolbar chrome) */
+  --sando-sb-content-bg: #fff6ea; /* neutralWarm.50 (VitePress --vp-c-bg — main content area) */
+  --sando-sb-sidebar-bg: #f8ece0; /* neutralWarm.100 (VitePress --vp-c-bg-alt) */
 
-  /* Text colors - NeutralWarm */
-  --sando-sb-text-primary: #1e1b17;
-  --sando-sb-text-secondary: #5c5549;
-  --sando-sb-text-muted: #9e9689;
+  /* Text colors - NeutralWarm — aligned with VitePress */
+  --sando-sb-text-primary: #1e1a15; /* neutralWarm.950 (VitePress --vp-c-text-1) */
+  --sando-sb-text-secondary: #47413c; /* neutralWarm.800 (VitePress --vp-c-text-2) */
+  --sando-sb-text-muted: #928b83; /* neutralWarm.500 (VitePress --vp-c-text-3) */
 
   /* Border colors - NeutralWarm */
-  --sando-sb-border: #cfc9c0;
-  --sando-sb-border-light: #e8e1d9;
+  --sando-sb-border: #cbc3b9;
+  --sando-sb-border-light: #e6dcd2;
 
   /* Interactive states - Amber accent */
-  --sando-sb-selected-bg: #fff8e1;
-  --sando-sb-selected-text: #4a3a09;
-  --sando-sb-selected-border: #8d6e10;
-  --sando-sb-selected-hover-bg: #ffe88a;
-  --sando-sb-selected-hover-text: #4a3a09;
-  --sando-sb-hover-bg: #f5f0eb;
-  --sando-sb-hover-text: #1e1b17;
-  --sando-sb-focus-color: #8d6e10;
+  --sando-sb-selected-bg: #ffefd3;
+  --sando-sb-selected-text: #702a00;
+  --sando-sb-selected-border: #b45600;
+  --sando-sb-selected-hover-bg: #ffe5c9;
+  --sando-sb-selected-hover-text: #702a00;
+  --sando-sb-hover-bg: #e6dcd2; /* neutralWarm.200 (visible against neutralWarm.100 sidebar bg) */
+  --sando-sb-hover-text: #1e1a15;
+  --sando-sb-focus-color: #b45600;
 
   /* Badge colors - Stable (green) */
   --sando-sb-badge-stable-bg: #dcfce7;
@@ -81,40 +81,46 @@
 /* ============================================================================
    CSS Custom Properties - Dark Mode
    
-   Uses data-sb-theme exclusively for Manager UI theming.
+   The storybook-dark-mode addon sets .dark/.light classes on the html element
+   (via classTarget: "html" in preview.js). We also support [data-sb-theme]
+   for forward compatibility with Storybook's native theming.
    Preview canvas uses separate data-color-mode attribute.
    ============================================================================ */
 
-[data-sb-theme="dark"] {
+/* Dark mode activated by:
+   - .dark class on html (set by storybook-dark-mode addon via classTarget: "html")
+   - [data-sb-theme="dark"] (Storybook's native theme attribute, legacy compat) */
+[data-sb-theme="dark"],
+.dark {
   /* Primary colors - Warm Precision Amber (hue 55°) */
-  --sando-sb-primary: #d4a017;
-  --sando-sb-primary-hover: #ffca28;
-  --sando-sb-primary-light: #2a2005;
-  --sando-sb-primary-dark: #a88514;
+  --sando-sb-primary: #ee8b3e;
+  --sando-sb-primary-hover: #ffa85d;
+  --sando-sb-primary-light: #370700;
+  --sando-sb-primary-dark: #cf6f19;
 
-  /* Background colors - Neutral (inverted) */
-  --sando-sb-app-bg: #0f0f0f;
-  --sando-sb-content-bg: #0a0a0a;
-  --sando-sb-sidebar-bg: #0f0f0f;
+  /* Background colors - Neutral (inverted) — aligned with VitePress */
+  --sando-sb-app-bg: #302d2e; /* neutral.900 (VitePress --vp-c-bg-alt) — sidebar/toolbar chrome */
+  --sando-sb-content-bg: #1d1a1a; /* neutral.950 (VitePress --vp-c-bg) — main content area */
+  --sando-sb-sidebar-bg: #302d2e; /* neutral.900 (VitePress --vp-c-bg-alt) */
 
-  /* Text colors - Neutral (inverted) */
-  --sando-sb-text-primary: #f5f5f5;
-  --sando-sb-text-secondary: #c7c7c7;
-  --sando-sb-text-muted: #a0a0a0;
+  /* Text colors - Neutral (inverted) — aligned with VitePress */
+  --sando-sb-text-primary: #fcf7f8; /* neutral.50 (VitePress --vp-c-text-1) */
+  --sando-sb-text-secondary: #e1ddde; /* neutral.200 (VitePress --vp-c-text-2) */
+  --sando-sb-text-muted: #aaa6a7; /* neutral.400 (VitePress --vp-c-text-3) */
 
-  /* Border colors - Neutral (inverted) */
-  --sando-sb-border: #292929;
-  --sando-sb-border-light: #1a1a1a;
+  /* Border colors - Neutral (inverted) — aligned with VitePress */
+  --sando-sb-border: #777374; /* neutral.600 (VitePress --vp-c-border) */
+  --sando-sb-border-light: #454142; /* neutral.800 */
 
   /* Interactive states - Amber accent */
-  --sando-sb-selected-bg: #1e1b17;
-  --sando-sb-selected-text: #d4a017;
-  --sando-sb-selected-border: #d4a017;
-  --sando-sb-selected-hover-bg: #2e2a24;
-  --sando-sb-selected-hover-text: #ffca28;
-  --sando-sb-hover-bg: #1a1a1a;
-  --sando-sb-hover-text: #f5f5f5;
-  --sando-sb-focus-color: #d4a017;
+  --sando-sb-selected-bg: #1e1a15;
+  --sando-sb-selected-text: #ee8b3e;
+  --sando-sb-selected-border: #ee8b3e;
+  --sando-sb-selected-hover-bg: #322d27;
+  --sando-sb-selected-hover-text: #ffa85d;
+  --sando-sb-hover-bg: #454142; /* neutral.800 (visible contrast against neutral.900 appBg) */
+  --sando-sb-hover-text: #fcf7f8;
+  --sando-sb-focus-color: #ee8b3e;
 
   /* Badge colors - Stable (green) - dark mode */
   --sando-sb-badge-stable-bg: #14532d;
@@ -137,38 +143,38 @@
   --sando-sb-badge-updated-text: #d8b4fe;
 }
 
-/* System preference fallback (when no explicit theme is set) */
+/* System preference fallback (when no explicit theme toggle has been used) */
 @media (prefers-color-scheme: dark) {
-  :root:not([data-sb-theme]) {
+  :root:not([data-sb-theme]):not(.light):not(.dark) {
     /* Primary colors - Warm Precision Amber (hue 55°) */
-    --sando-sb-primary: #d4a017;
-    --sando-sb-primary-hover: #ffca28;
-    --sando-sb-primary-light: #2a2005;
-    --sando-sb-primary-dark: #a88514;
+    --sando-sb-primary: #ee8b3e;
+    --sando-sb-primary-hover: #ffa85d;
+    --sando-sb-primary-light: #370700;
+    --sando-sb-primary-dark: #cf6f19;
 
-    /* Background colors - Neutral (inverted) */
-    --sando-sb-app-bg: #0f0f0f;
-    --sando-sb-content-bg: #0a0a0a;
-    --sando-sb-sidebar-bg: #0f0f0f;
+    /* Background colors - Neutral (inverted) — aligned with VitePress */
+    --sando-sb-app-bg: #302d2e; /* neutral.900 (VitePress --vp-c-bg-alt) — sidebar/toolbar chrome */
+    --sando-sb-content-bg: #1d1a1a; /* neutral.950 (VitePress --vp-c-bg) — main content area */
+    --sando-sb-sidebar-bg: #302d2e; /* neutral.900 (VitePress --vp-c-bg-alt) */
 
-    /* Text colors - Neutral (inverted) */
-    --sando-sb-text-primary: #f5f5f5;
-    --sando-sb-text-secondary: #c7c7c7;
-    --sando-sb-text-muted: #a0a0a0;
+    /* Text colors - Neutral (inverted) — aligned with VitePress */
+    --sando-sb-text-primary: #fcf7f8; /* neutral.50 (VitePress --vp-c-text-1) */
+    --sando-sb-text-secondary: #e1ddde; /* neutral.200 (VitePress --vp-c-text-2) */
+    --sando-sb-text-muted: #aaa6a7; /* neutral.400 (VitePress --vp-c-text-3) */
 
-    /* Border colors - Neutral (inverted) */
-    --sando-sb-border: #292929;
-    --sando-sb-border-light: #1a1a1a;
+    /* Border colors - Neutral (inverted) — aligned with VitePress */
+    --sando-sb-border: #777374; /* neutral.600 (VitePress --vp-c-border) */
+    --sando-sb-border-light: #454142; /* neutral.800 */
 
     /* Interactive states - Amber accent */
-    --sando-sb-selected-bg: #1e1b17;
-    --sando-sb-selected-text: #d4a017;
-    --sando-sb-selected-border: #d4a017;
-    --sando-sb-selected-hover-bg: #2e2a24;
-    --sando-sb-selected-hover-text: #ffca28;
-    --sando-sb-hover-bg: #1a1a1a;
-    --sando-sb-hover-text: #f5f5f5;
-    --sando-sb-focus-color: #d4a017;
+    --sando-sb-selected-bg: #1e1a15;
+    --sando-sb-selected-text: #ee8b3e;
+    --sando-sb-selected-border: #ee8b3e;
+    --sando-sb-selected-hover-bg: #322d27;
+    --sando-sb-selected-hover-text: #ffa85d;
+    --sando-sb-hover-bg: #454142; /* neutral.800 (visible contrast against neutral.900 appBg) */
+    --sando-sb-hover-text: #fcf7f8;
+    --sando-sb-focus-color: #ee8b3e;
 
     /* Badge colors - dark mode */
     --sando-sb-badge-stable-bg: #14532d;
@@ -305,11 +311,7 @@ button[title="Design system flavor/theme"] span::before {
 [class*="tag-badge"],
 .tag-badge {
   font-weight: 500 !important;
-  font-family:
-    "DM Sans",
-    -apple-system,
-    BlinkMacSystemFont,
-    sans-serif !important;
+  font-family: "Source Sans 3", system-ui, sans-serif !important;
   font-size: 11px !important;
   line-height: 18px !important;
   height: 18px !important;
@@ -438,6 +440,28 @@ body,
   transition:
     background-color var(--sando-sb-transition-normal) ease,
     color var(--sando-sb-transition-normal) ease;
+}
+
+/* Sidebar background - explicit override to ensure our custom property
+   is applied. Storybook's theme API sets appBg via CSS-in-JS, but this
+   CSS rule provides a higher-specificity fallback using !important. */
+.sidebar-container {
+  background-color: var(--sando-sb-sidebar-bg) !important;
+}
+
+/* Content area background - explicit override to ensure our custom property
+   is applied. Storybook's theme API sets appContentBg via CSS-in-JS, but
+   the appBg value can bleed into the content area. This CSS rule provides
+   a higher-specificity fallback using !important, just like the sidebar fix.
+   
+   Targets:
+   - [role="main"]  → Storybook's main content area (ARIA landmark)
+   - .sb-show-main  → Storybook's canvas wrapper class
+   
+   Light mode: neutralWarm.50 (#FFF6EA) — lighter than sidebar
+   Dark mode:  neutral.950 (#1D1A1A) — darker than sidebar */
+[role="main"] {
+  background-color: var(--sando-sb-content-bg) !important;
 }
 
 /* Story canvas background */

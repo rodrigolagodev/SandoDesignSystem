@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Fira+Code:wght@400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Fira+Code:wght@400;500;700&display=swap");
 
 /**
  * Storybook Preview Global Styles
@@ -385,31 +385,31 @@ html .docs-story,
    ======================================== */
 :root {
   /* Docs Background colors */
-  --sb-docs-bg-base: #faf9f6; /* neutralWarm.50 */
-  --sb-docs-bg-surface: #f5f0eb; /* neutralWarm.100 */
+  --sb-docs-bg-base: #fff6ea; /* neutralWarm.50 */
+  --sb-docs-bg-surface: #f8ece0; /* neutralWarm.100 */
   --sb-docs-bg-raised: #ffffff; /* white */
-  --sb-docs-bg-emphasis: #e8e1d9; /* neutralWarm.200 - softer, WCAG approved */
-  --sb-docs-bg-code: #faf9f6; /* neutralWarm.50 - matches base per user request */
+  --sb-docs-bg-emphasis: #e6dcd2; /* neutralWarm.200 - softer, WCAG approved */
+  --sb-docs-bg-code: #fff6ea; /* neutralWarm.50 - matches base per user request */
 
   /* Docs Text colors */
-  --sb-docs-text-heading: #3a2d07; /* amber.900 - warm heading tone */
-  --sb-docs-text-body: #302b24; /* neutralWarm.800 */
-  --sb-docs-text-caption: #4a4439; /* neutralWarm.700 - WCAG AAA 8.5:1 */
-  --sb-docs-text-muted: #5c5549; /* neutralWarm.600 - WCAG AA 6.0:1 */
-  --sb-docs-text-heading-inverse: #faf9f6; /* neutralWarm.50 - for inverse text on dark backgrounds */
+  --sb-docs-text-heading: #b45600; /* amber.600 - Kohaku brand accent */
+  --sb-docs-text-body: #47413c; /* neutralWarm.800 */
+  --sb-docs-text-caption: #5f5a54; /* neutralWarm.700 - WCAG AAA 8.5:1 */
+  --sb-docs-text-muted: #928b83; /* neutralWarm.500 - aligned with VitePress --vp-c-text-3 */
+  --sb-docs-text-heading-inverse: #fff6ea; /* neutralWarm.50 - for inverse text on dark backgrounds */
   /* Docs Border colors */
-  --sb-docs-border: #cfc9c0; /* neutralWarm.300 */
-  --sb-docs-border-emphasis: #9e9689; /* neutralWarm.400 */
+  --sb-docs-border: #cbc3b9; /* neutralWarm.300 */
+  --sb-docs-border-emphasis: #aea69d; /* neutralWarm.400 */
 
   /* Docs Link colors */
-  --sb-docs-link: #8d6e10; /* amber.600 */
-  --sb-docs-link-hover: #6b530c; /* amber.700 */
+  --sb-docs-link: #b45600; /* amber.600 */
+  --sb-docs-link-hover: #973b00; /* amber.700 */
 
   /* Docs Link active color */
-  --sb-docs-link-active: #4a3a09; /* amber.800 */
+  --sb-docs-link-active: #702a00; /* amber.800 */
 
   /* Docs accent color for switch controls */
-  --sb-docs-accent: #8d6e10; /* amber.600 */
+  --sb-docs-accent: #b45600; /* amber.600 */
 
   /* Docs Status colors — aligned with chromatic palettes (Phase 10) */
   --sb-docs-success-bg: #d8ffd8; /* green.50 background */
@@ -429,33 +429,33 @@ html .docs-story,
   --sb-docs-neutral-border: var(--sb-docs-border); /* ink */
 
   /* Docs Table colors - using neutralWarm palette */
-  --sb-docs-table-bg: #e8e1d9; /* neutralWarm.200 - table body background */
-  --sb-docs-table-header-bg: #cfc9c0; /* neutralWarm.300 - table header background */
-  --sb-docs-table-hover-bg: #cfc9c0; /* neutralWarm.300 - row hover background */
+  --sb-docs-table-bg: #e6dcd2; /* neutralWarm.200 - table body background */
+  --sb-docs-table-header-bg: #cbc3b9; /* neutralWarm.300 - table header background */
+  --sb-docs-table-hover-bg: #cbc3b9; /* neutralWarm.300 - row hover background */
 
   /* Docs Code colors - subtle, non-distracting */
-  --sb-docs-code-bg: #faf9f6; /* neutralWarm.50 - very subtle, nearly matches base */
-  --sb-docs-code-text: #5c5549; /* neutralWarm.600 - slightly muted from body text */
-  --sb-docs-code-border: #e8e1d9; /* neutralWarm.200 - subtle border for definition */
+  --sb-docs-code-bg: #fff6ea; /* neutralWarm.50 - very subtle, nearly matches base */
+  --sb-docs-code-text: #7a736c; /* neutralWarm.600 - slightly muted from body text */
+  --sb-docs-code-border: #e6dcd2; /* neutralWarm.200 - subtle border for definition */
 
   /* Code syntax highlighting - Light Mode (Warm Precision palette) */
-  --sb-docs-code-comment: #9e9689; /* neutralWarm.400 - muted */
-  --sb-docs-code-punctuation: #5c5549; /* neutralWarm.600 */
-  --sb-docs-code-property: #6b530c; /* amber.700 - softer than before */
-  --sb-docs-code-selector: #8d6e10; /* amber.600 */
-  --sb-docs-code-operator: #5c5549; /* neutralWarm.600 */
-  --sb-docs-code-atrule: #8d6e10; /* amber.600 */
-  --sb-docs-code-keyword: #4a3a09; /* amber.800 */
-  --sb-docs-code-function: #4a4439; /* neutralWarm.700 */
-  --sb-docs-code-regex: #6b530c; /* amber.700 */
+  --sb-docs-code-comment: #aea69d; /* neutralWarm.400 - muted */
+  --sb-docs-code-punctuation: #7a736c; /* neutralWarm.600 */
+  --sb-docs-code-property: #973b00; /* amber.700 - softer than before */
+  --sb-docs-code-selector: #b45600; /* amber.600 */
+  --sb-docs-code-operator: #7a736c; /* neutralWarm.600 */
+  --sb-docs-code-atrule: #b45600; /* amber.600 */
+  --sb-docs-code-keyword: #702a00; /* amber.800 */
+  --sb-docs-code-function: #5f5a54; /* neutralWarm.700 */
+  --sb-docs-code-regex: #973b00; /* amber.700 */
   --sb-docs-code-string: #365314; /* olive/green - for contrast */
-  --sb-docs-code-number: #6b530c; /* amber.700 */
-  --sb-docs-code-boolean: #4a3a09; /* amber.800 */
-  --sb-docs-code-class: #4a4439; /* neutralWarm.700 */
-  --sb-docs-code-constant: #4a3a09; /* amber.800 */
-  --sb-docs-code-variable: #5c5549; /* neutralWarm.600 */
-  --sb-docs-code-tag: #8d6e10; /* amber.600 */
-  --sb-docs-code-attr-name: #6b530c; /* amber.700 */
+  --sb-docs-code-number: #973b00; /* amber.700 */
+  --sb-docs-code-boolean: #702a00; /* amber.800 */
+  --sb-docs-code-class: #5f5a54; /* neutralWarm.700 */
+  --sb-docs-code-constant: #702a00; /* amber.800 */
+  --sb-docs-code-variable: #7a736c; /* neutralWarm.600 */
+  --sb-docs-code-tag: #b45600; /* amber.600 */
+  --sb-docs-code-attr-name: #973b00; /* amber.700 */
   --sb-docs-code-attr-value: #365314; /* olive/green */
   --sb-docs-code-inserted: #365314; /* olive/green */
   --sb-docs-code-deleted: #7f1d1d; /* red-900 */
@@ -469,30 +469,30 @@ html .docs-story,
    ======================================== */
 :root[data-color-mode="dark"] {
   /* Docs Background colors - Dark */
-  --sb-docs-bg-base: #0f0f0f; /* neutral.950 */
-  --sb-docs-bg-surface: #1a1a1a; /* neutral.900 */
-  --sb-docs-bg-raised: #000000; /* pure black */
-  --sb-docs-bg-emphasis: #333333; /* neutral.700 - better contrast for headers */
-  --sb-docs-bg-code: #0f0f0f; /* neutral.950 */
+  --sb-docs-bg-base: #1d1a1a; /* neutral.950 */
+  --sb-docs-bg-surface: #302d2e; /* neutral.900 */
+  --sb-docs-bg-raised: #454142; /* neutral.800 - aligned with VitePress --vp-c-bg-elv */
+  --sb-docs-bg-emphasis: #5d5a5b; /* neutral.700 - better contrast for headers */
+  --sb-docs-bg-code: #1d1a1a; /* neutral.950 */
 
   /* Docs Text colors - Dark */
-  --sb-docs-text-heading: #ffe88a; /* amber.100 - warm heading tone */
-  --sb-docs-text-body: #dedede; /* neutral.200 */
-  --sb-docs-text-caption: #c7c7c7; /* neutral.300 */
-  --sb-docs-text-muted: #a0a0a0; /* neutral.400 */
-  --sb-docs-text-heading-inverse: #0f0f0f; /* neutral.950 */
+  --sb-docs-text-heading: #ee8b3e; /* amber.400 - Kohaku brand accent (dark mode) */
+  --sb-docs-text-body: #e1ddde; /* neutral.200 */
+  --sb-docs-text-caption: #c7c3c4; /* neutral.300 */
+  --sb-docs-text-muted: #aaa6a7; /* neutral.400 */
+  --sb-docs-text-heading-inverse: #1d1a1a; /* neutral.950 */
 
-  /* Docs Border colors - Dark */
-  --sb-docs-border: #292929; /* neutral.800 */
-  --sb-docs-border-emphasis: #3d3d3d; /* neutral.600 */
+  /* Docs Border colors - Dark — aligned with VitePress */
+  --sb-docs-border: #777374; /* neutral.600 - aligned with VitePress --vp-c-border */
+  --sb-docs-border-emphasis: #777374; /* neutral.600 - aligned with VitePress --vp-c-border */
 
   /* Docs Link colors - Dark (lighter amber for visibility) */
-  --sb-docs-link: #ffca28; /* amber.300 */
-  --sb-docs-link-hover: #ffd54f; /* amber.200 */
-  --sb-docs-link-active: #ffe082; /* amber.100 - lighter for dark mode */
+  --sb-docs-link: #ffa85d; /* amber.300 */
+  --sb-docs-link-hover: #ffcd9e; /* amber.200 */
+  --sb-docs-link-active: #ffefd3; /* amber.50 - lightest for dark mode active */
 
   /* Docs accent color for switch controls */
-  --sb-docs-accent: #d4a017; /* amber.400 */
+  --sb-docs-accent: #ee8b3e; /* amber.400 */
 
   /* Docs Status colors — dark mode, aligned with chromatic palettes (Phase 10) */
   --sb-docs-success-bg: #003f00; /* green.900 dark */
@@ -512,33 +512,33 @@ html .docs-story,
   --sb-docs-neutral-border: var(--sb-docs-border); /* ink dark */
 
   /* Docs Table colors - Dark - using neutral palette */
-  --sb-docs-table-bg: #292929; /* neutral.800 */
-  --sb-docs-table-header-bg: #333333; /* neutral.700 - darker header */
-  --sb-docs-table-hover-bg: #333333; /* neutral.700 - row hover background */
+  --sb-docs-table-bg: #454142; /* neutral.800 */
+  --sb-docs-table-header-bg: #5d5a5b; /* neutral.700 - darker header */
+  --sb-docs-table-hover-bg: #5d5a5b; /* neutral.700 - row hover background */
 
   /* Docs Code colors - Dark - subtle, non-distracting */
-  --sb-docs-code-bg: #0f0f0f; /* neutral.950 - very subtle, nearly matches base */
-  --sb-docs-code-text: #a0a0a0; /* neutral.400 - slightly muted from body text */
-  --sb-docs-code-border: #292929; /* neutral.800 - subtle border for definition */
+  --sb-docs-code-bg: #1d1a1a; /* neutral.950 - very subtle, nearly matches base */
+  --sb-docs-code-text: #aaa6a7; /* neutral.400 - slightly muted from body text */
+  --sb-docs-code-border: #454142; /* neutral.800 - subtle border for definition */
 
   /* Code syntax highlighting - Dark Mode (Warm Precision palette) */
-  --sb-docs-code-comment: #a0a0a0; /* neutral.400 - visible but muted */
-  --sb-docs-code-punctuation: #c7c7c7; /* neutral.300 */
-  --sb-docs-code-property: #ffca28; /* amber.300 - visible on dark */
-  --sb-docs-code-selector: #d4a017; /* amber.400 */
-  --sb-docs-code-operator: #c7c7c7; /* neutral.300 */
-  --sb-docs-code-atrule: #d4a017; /* amber.400 */
-  --sb-docs-code-keyword: #ffd54f; /* amber.200 */
-  --sb-docs-code-function: #dedede; /* neutral.200 */
-  --sb-docs-code-regex: #ffca28; /* amber.300 */
+  --sb-docs-code-comment: #aaa6a7; /* neutral.400 - visible but muted */
+  --sb-docs-code-punctuation: #c7c3c4; /* neutral.300 */
+  --sb-docs-code-property: #ffa85d; /* amber.300 - visible on dark */
+  --sb-docs-code-selector: #ee8b3e; /* amber.400 */
+  --sb-docs-code-operator: #c7c3c4; /* neutral.300 */
+  --sb-docs-code-atrule: #ee8b3e; /* amber.400 */
+  --sb-docs-code-keyword: #ffcd9e; /* amber.200 */
+  --sb-docs-code-function: #e1ddde; /* neutral.200 */
+  --sb-docs-code-regex: #ffa85d; /* amber.300 */
   --sb-docs-code-string: #a3e635; /* lime-400 - for contrast on dark */
-  --sb-docs-code-number: #ffca28; /* amber.300 */
-  --sb-docs-code-boolean: #ffd54f; /* amber.200 */
-  --sb-docs-code-class: #dedede; /* neutral.200 */
-  --sb-docs-code-constant: #ffd54f; /* amber.200 */
-  --sb-docs-code-variable: #c7c7c7; /* neutral.300 */
-  --sb-docs-code-tag: #d4a017; /* amber.400 */
-  --sb-docs-code-attr-name: #ffca28; /* amber.300 */
+  --sb-docs-code-number: #ffa85d; /* amber.300 */
+  --sb-docs-code-boolean: #ffcd9e; /* amber.200 */
+  --sb-docs-code-class: #e1ddde; /* neutral.200 */
+  --sb-docs-code-constant: #ffcd9e; /* amber.200 */
+  --sb-docs-code-variable: #c7c3c4; /* neutral.300 */
+  --sb-docs-code-tag: #ee8b3e; /* amber.400 */
+  --sb-docs-code-attr-name: #ffa85d; /* amber.300 */
   --sb-docs-code-attr-value: #a3e635; /* lime-400 */
   --sb-docs-code-inserted: #a3e635; /* lime-400 */
   --sb-docs-code-deleted: #fca5a5; /* red-300 */
@@ -563,7 +563,7 @@ html .docs-story,
 
 /* Demo box variant with border instead of background */
 .demo-box--outlined {
-  background-color: var(--sb-docs-bg-raised);
+  background-color: var(--sb-docs-bg-emphasis);
   border: 1px solid var(--sb-docs-border);
 }
 
@@ -579,7 +579,7 @@ html .docs-story,
 /* Demo box card - raised element within demo box */
 .demo-card {
   padding: 16px 20px;
-  background-color: var(--sb-docs-bg-raised);
+  background-color: var(--sb-docs-bg-emphasis);
   border-radius: 8px;
   border: 1px solid var(--sb-docs-border);
   color: var(--sb-docs-text-body);
@@ -595,7 +595,7 @@ html .docs-story,
 
 /* Demo label - small caption text */
 .demo-label {
-  font-family: monospace;
+  font-family: var(--sando-font-family-mono);
   font-size: 12px;
   color: var(--sb-docs-text-caption);
 }
@@ -616,7 +616,7 @@ html .docs-story,
 
 /* Code display in demos */
 .demo-code {
-  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-family: var(--sando-font-family-mono);
   font-size: 12px;
   padding: 1px 4px;
   background-color: var(--sb-docs-code-bg);
@@ -627,7 +627,7 @@ html .docs-story,
 
 /* Dark code block - for terminal/CLI snippets */
 .demo-code-dark {
-  background-color: #0f0f0f !important;
+  background-color: #1d1a1a !important;
   border-radius: 8px;
   padding: 16px;
   overflow: auto;
@@ -638,10 +638,10 @@ html .docs-story,
 .demo-code-dark pre,
 .demo-code-dark code {
   background-color: transparent !important;
-  color: #f5f5f5 !important;
+  color: #fcf7f8 !important;
   margin: 0;
   padding: 0;
-  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-family: var(--sando-font-family-mono);
   font-size: 13px;
   line-height: 1.6;
   white-space: pre-wrap;
@@ -718,7 +718,8 @@ html .docs-story,
 
 /* Dropdown menu demo */
 .demo-dropdown {
-  background-color: var(--sb-docs-bg-raised);
+  background-color: var(--sb-docs-bg-emphasis);
+  border: 1px solid var(--sb-docs-border);
   border-radius: 8px;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   overflow: hidden;
@@ -798,7 +799,7 @@ html .docs-story,
 
 /* Switch text on hover - force dark text on light background */
 .docblock-argstable label:has(input[role="switch"]):hover > span {
-  color: #1e1b17 !important; /* neutralWarm.950 - always readable */
+  color: #1e1a15 !important; /* neutralWarm.950 - always readable */
 }
 
 /* Switch text labels - separate colors for each side
@@ -810,12 +811,12 @@ html .docs-story,
 
 /* First span = "False" */
 .docblock-argstable label:has(input[role="switch"]) > span:first-of-type {
-  color: #1e1b17 !important; /* dark text - visible on light side when unchecked */
+  color: #1e1a15 !important; /* dark text - visible on light side when unchecked */
 }
 
 /* Second span = "True" */
 .docblock-argstable label:has(input[role="switch"]) > span:last-of-type {
-  color: #f5f5f5 !important; /* light text - on dark side when unchecked */
+  color: #fcf7f8 !important; /* light text - on dark side when unchecked */
 }
 
 /* When CHECKED - invert colors */
@@ -823,14 +824,14 @@ html .docs-story,
 .docblock-argstable
   label:has(input[role="switch"]:checked)
   > span:first-of-type {
-  color: #f5f5f5 !important; /* light text - on dark side */
+  color: #fcf7f8 !important; /* light text - on dark side */
 }
 
 /* Second span "True" now on accent (amber) side */
 .docblock-argstable
   label:has(input[role="switch"]:checked)
   > span:last-of-type {
-  color: #1e1b17 !important; /* dark text - visible on amber */
+  color: #1e1a15 !important; /* dark text - visible on amber */
 }
 
 /* Dark mode - same logic applies */
@@ -1024,8 +1025,8 @@ code[class*="language-"] {
 /* ========================================
     Warm Precision Typography
     
-    Space Grotesk for headings (Extra Bold)
-    DM Sans for body text
+     Outfit for headings (Extra Bold)
+     Source Sans 3 for body text
     Fira Code for code
     ======================================== */
 
@@ -1103,22 +1104,22 @@ pre[data-line] {
 
 /* Light mode container background */
 .mermaid-diagram {
-  background: #faf9f6;
+  background: #fff6ea;
 }
 
 /* Dark mode container background */
 [data-color-mode="dark"] .mermaid-diagram {
-  background: #0f0f0f;
+  background: #1d1a1a;
 }
 
 /* Ensure SVG text is readable - Light mode */
 .mermaid-diagram svg text {
-  fill: #1e1b17 !important;
+  fill: #1e1a15 !important;
 }
 
 /* Dark mode text override */
 [data-color-mode="dark"] .mermaid-diagram svg text {
-  fill: #f5f5f5 !important;
+  fill: #fcf7f8 !important;
 }
 
 /* Edge labels in flowcharts */
@@ -1185,8 +1186,8 @@ pre[data-line] {
 .mermaid-diagram [id*="Flavor"] text,
 .mermaid-diagram [id*="Recipe"] text,
 .mermaid-diagram [id*="Component"] text {
-  fill: #1e1b17 !important; /* neutralWarm.950 */
-  color: #1e1b17 !important;
+  fill: #1e1a15 !important; /* neutralWarm.950 */
+  color: #1e1a15 !important;
 }
 
 /* ----- Dark Mode ----- */
@@ -1227,17 +1228,17 @@ pre[data-line] {
 [data-color-mode="dark"] .mermaid-diagram [id*="Flavor"] text,
 [data-color-mode="dark"] .mermaid-diagram [id*="Recipe"] text,
 [data-color-mode="dark"] .mermaid-diagram [id*="Component"] text {
-  fill: #f5f5f5 !important; /* neutral.50 */
-  color: #f5f5f5 !important;
+  fill: #fcf7f8 !important; /* neutral.50 */
+  color: #fcf7f8 !important;
 }
 
 /* Node labels inside subgraphs */
 .mermaid-diagram .node .label,
 .mermaid-diagram .node foreignObject div {
-  color: #1e1b17 !important;
+  color: #1e1a15 !important;
 }
 
 [data-color-mode="dark"] .mermaid-diagram .node .label,
 [data-color-mode="dark"] .mermaid-diagram .node foreignObject div {
-  color: #f5f5f5 !important;
+  color: #fcf7f8 !important;
 }

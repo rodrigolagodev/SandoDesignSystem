@@ -15,91 +15,98 @@
 /**
  * Light mode color palette
  * Warm Precision design language with Amber accent and NeutralWarm neutrals
+ * Aligned with VitePress color mappings for visual consistency.
  *
- * Key mappings:
- * - primary → amber.600
- * - primaryHover → amber.700
- * - appBg → neutralWarm.50
- * - contentBg → WHITE (per requirement: previews should be white)
- * - textPrimary → neutralWarm.950
- * - border → neutralWarm.300
+ * Key mappings (aligned with VitePress --vp-c-* variables):
+ * - primary → amber.600 (VitePress --vp-c-brand-1)
+ * - primaryHover → amber.700 (VitePress --vp-c-brand-2)
+ * - appBg → neutralWarm.100 (VitePress --vp-c-bg-alt) — sidebar/toolbar chrome
+ * - contentBg → neutralWarm.50 (VitePress --vp-c-bg) — main content area
+ * - sidebarBg → neutralWarm.100 (VitePress --vp-c-bg-alt)
+ * - textPrimary → neutralWarm.950 (VitePress --vp-c-text-1)
+ * - textSecondary → neutralWarm.800 (VitePress --vp-c-text-2)
+ * - textMuted → neutralWarm.500 (VitePress --vp-c-text-3)
+ * - border → neutralWarm.300 (VitePress --vp-c-border)
  */
 export const lightPalette = {
   // Primary colors (amber - Warm Precision accent, hue 55°)
-  primary: "#8D6E10", // amber.600
-  primaryHover: "#6B530C", // amber.700
-  primaryLight: "#FFF8E1", // amber.50
-  primaryDark: "#4A3A09", // amber.800
+  primary: "#B45600", // amber.600
+  primaryHover: "#973B00", // amber.700
+  primaryLight: "#FFEFD3", // amber.50
+  primaryDark: "#702A00", // amber.800
 
-  // Background colors (neutralWarm)
-  appBg: "#FAF9F6", // neutralWarm.50
-  contentBg: "#FFFFFF", // pure white
-  sidebarBg: "#FAF9F6", // neutralWarm.50
+  // Background colors (neutralWarm) — aligned with VitePress
+  appBg: "#F8ECE0", // neutralWarm.100 (VitePress --vp-c-bg-alt — sidebar/toolbar chrome)
+  contentBg: "#FFF6EA", // neutralWarm.50 (VitePress --vp-c-bg — main content area)
+  sidebarBg: "#F8ECE0", // neutralWarm.100 (VitePress --vp-c-bg-alt)
 
-  // Text colors (neutralWarm)
-  textPrimary: "#1E1B17", // neutralWarm.950
-  textSecondary: "#5C5549", // neutralWarm.600
-  textMuted: "#9E9689", // neutralWarm.400
+  // Text colors (neutralWarm) — aligned with VitePress
+  textPrimary: "#1E1A15", // neutralWarm.950 (VitePress --vp-c-text-1)
+  textSecondary: "#47413C", // neutralWarm.800 (VitePress --vp-c-text-2)
+  textMuted: "#928B83", // neutralWarm.500 (VitePress --vp-c-text-3)
   textInverse: "#FFFFFF",
 
-  // Border colors (neutralWarm)
-  border: "#CFC9C0", // neutralWarm.300
-  borderLight: "#E8E1D9", // neutralWarm.200
+  // Border colors (neutralWarm) — aligned with VitePress
+  border: "#CBC3B9", // neutralWarm.300 (VitePress --vp-c-border)
+  borderLight: "#E6DCD2", // neutralWarm.200
 
   // Interactive states (amber accent)
-  selected: "#FFF8E1", // amber.50
-  selectedText: "#4A3A09", // amber.800
-  selectedBorder: "#8D6E10", // amber.600 — 2px left border accent
-  selectedHoverBg: "#FFE88A", // amber.100
-  selectedHoverText: "#4A3A09", // amber.800 (same as selectedText)
-  hoverText: "#1E1B17", // neutralWarm.950 — text darkens on hover
-  hover: "#F5F0EB", // neutralWarm.100
-  focus: "#8D6E10", // amber.600
+  selected: "#FFEFD3", // amber.50
+  selectedText: "#702A00", // amber.800
+  selectedBorder: "#B45600", // amber.600 — 2px left border accent
+  selectedHoverBg: "#FFE5C9", // amber.100
+  selectedHoverText: "#702A00", // amber.800 (same as selectedText)
+  hoverText: "#1E1A15", // neutralWarm.950 — text darkens on hover
+  hover: "#E6DCD2", // neutralWarm.200 (visible against neutralWarm.100 sidebar bg)
+  focus: "#B45600", // amber.600
 } as const;
 
 /**
  * Dark mode color palette
  * Warm Precision design language with Amber accent and Neutral achromatic neutrals
+ * Aligned with VitePress dark mode color mappings for visual consistency.
  *
- * Key mappings:
- * - primary → amber.400
- * - primaryHover → amber.300
- * - appBg → neutral.950
- * - contentBg → near black (per requirement: previews should be black in dark mode)
- * - textPrimary → neutral.50
- * - border → neutral.800
+ * Key mappings (aligned with VitePress .dark --vp-c-* variables):
+ * - primary → amber.400 (VitePress --vp-c-brand-1)
+ * - primaryHover → amber.300 (VitePress --vp-c-brand-2)
+ * - appBg → neutral.900 (VitePress --vp-c-bg-alt) — sidebar/toolbar chrome
+ * - contentBg → neutral.950 (VitePress --vp-c-bg) — main content area
+ * - sidebarBg → neutral.900 (VitePress --vp-c-bg-alt) — used by manager.css
+ * - textPrimary → neutral.50 (VitePress --vp-c-text-1)
+ * - textSecondary → neutral.200 (VitePress --vp-c-text-2)
+ * - border → neutral.600 (VitePress --vp-c-border)
  */
 export const darkPalette = {
   // Primary colors (amber - adjusted for dark mode)
-  primary: "#D4A017", // amber.400
-  primaryHover: "#FFCA28", // amber.300
-  primaryLight: "#2A2005", // amber.950
-  primaryDark: "#A88514", // amber.500
+  primary: "#EE8B3E", // amber.400
+  primaryHover: "#FFA85D", // amber.300
+  primaryLight: "#370700", // amber.950
+  primaryDark: "#CF6F19", // amber.500
 
-  // Background colors (neutral - inverted)
-  appBg: "#0F0F0F", // neutral.950
-  contentBg: "#0A0A0A", // near black
-  sidebarBg: "#0F0F0F", // neutral.950
+  // Background colors (neutral - inverted) — aligned with VitePress
+  appBg: "#302D2E", // neutral.900 (VitePress --vp-c-bg-alt) — sidebar/toolbar chrome
+  contentBg: "#1D1A1A", // neutral.950 (VitePress --vp-c-bg) — main content area
+  sidebarBg: "#302D2E", // neutral.900 (VitePress --vp-c-bg-alt) — used by manager.css
 
-  // Text colors (neutral - inverted)
-  textPrimary: "#F5F5F5", // neutral.50
-  textSecondary: "#C7C7C7", // neutral.300
-  textMuted: "#A0A0A0", // neutral.400
-  textInverse: "#0F0F0F",
+  // Text colors (neutral - inverted) — aligned with VitePress
+  textPrimary: "#FCF7F8", // neutral.50 (VitePress --vp-c-text-1)
+  textSecondary: "#E1DDDE", // neutral.200 (VitePress --vp-c-text-2)
+  textMuted: "#AAA6A7", // neutral.400 (VitePress --vp-c-text-3)
+  textInverse: "#1D1A1A", // neutral.950
 
-  // Border colors (neutral - inverted)
-  border: "#292929", // neutral.800
-  borderLight: "#1A1A1A", // neutral.900
+  // Border colors (neutral - inverted) — aligned with VitePress
+  border: "#777374", // neutral.600 (VitePress --vp-c-border)
+  borderLight: "#454142", // neutral.800
 
   // Interactive states
-  selected: "#1E1B17", // neutralWarm.950
-  selectedText: "#D4A017", // amber.400
-  selectedBorder: "#D4A017", // amber.400 — 2px left border accent
-  selectedHoverBg: "#2E2A24", // neutralWarm.900
-  selectedHoverText: "#FFCA28", // amber.300
-  hoverText: "#F5F5F5", // neutral.50 — text brightens on hover
-  hover: "#1A1A1A", // neutral.900
-  focus: "#D4A017", // amber.400
+  selected: "#1E1A15", // neutralWarm.950
+  selectedText: "#EE8B3E", // amber.400
+  selectedBorder: "#EE8B3E", // amber.400 — 2px left border accent
+  selectedHoverBg: "#322D27", // neutralWarm.900
+  selectedHoverText: "#FFA85D", // amber.300
+  hoverText: "#FCF7F8", // neutral.50 — text brightens on hover
+  hover: "#454142", // neutral.800 (visible contrast against neutral.900 appBg)
+  focus: "#EE8B3E", // amber.400
 } as const;
 
 // ============================================================================
@@ -107,13 +114,12 @@ export const darkPalette = {
 // ============================================================================
 
 export const typography = {
-  // Headings: Space Grotesk (Warm Precision)
-  fontHeading: '"Space Grotesk", "Arial", sans-serif',
-  // Body: DM Sans
-  fontBase:
-    '"DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+  // Headings: Outfit (Warm Precision)
+  fontHeading: '"Outfit", system-ui, sans-serif',
+  // Body: Source Sans 3
+  fontBase: '"Source Sans 3", system-ui, sans-serif',
   // Code: Fira Code
-  fontCode: '"Fira Code", "JetBrains Mono", Consolas, monospace',
+  fontCode: '"Fira Code", Consolas, monospace',
 } as const;
 
 // ============================================================================
