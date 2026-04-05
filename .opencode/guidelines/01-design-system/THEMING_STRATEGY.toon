@@ -1,9 +1,9 @@
 meta:
   doc_id: "TS"
   category: "01-design-system"
-  version: "1.0.0"
+  version: "2.0.0"
   status: "Active"
-  last_updated: "2025-11-09"
+  last_updated: "2026-04-05"
   owner: "Design System Architect + Design Ops Specialist"
 
 purpose: |
@@ -36,12 +36,13 @@ flavors_vs_modes:
       - "Developer-controlled"
       - "Persistent across the application or sections"
     examples:
+      - "sando"
       - "original"
       - "strawberry"
-      - "matcha"
-      - "tamago"
-      - "sakura"
-      - "midnight"
+      - "brutalist"
+      - "egg-salad"
+      - "kiwi"
+      - "tonkatsu"
     application_example:
       lang: "html"
       code: |
@@ -55,7 +56,7 @@ flavors_vs_modes:
           <sando-card>Strawberry themed card</sando-card>
         </section>
 
-        <sando-button flavor="matcha">Matcha themed button</sando-button>
+        <sando-button flavor="kiwi">Kiwi themed button</sando-button>
 
   - id: "TS-FVM-M1"
     title: "Modes (Accessibility Variants)"
@@ -244,7 +245,7 @@ theming_patterns:
       code: |
         <html flavor="original">
           <body>
-            <header flavor="midnight"></header>
+            <header flavor="tonkatsu"></header>
             <main></main>
             <aside flavor="strawberry"></aside>
           </body>
@@ -257,7 +258,7 @@ theming_patterns:
       code: |
         <section flavor="original">
           <sando-button>Original themed</sando-button>
-          <sando-button flavor="matcha">Matcha override</sando-button>
+          <sando-button flavor="kiwi">Kiwi override</sando-button>
         </section>
   - id: "TS-TP-P4"
     title: "CSS Variable Override"
@@ -382,7 +383,7 @@ accessibility_requirements:
         note: "Respect motion-reduce preference"
 
 guidelines_for_flavor_naming:
-  summary: "Sando-Inspired Naming: Flavor names reference Japanese sandwich varieties to maintain brand identity."
+  summary: "Sando-Inspired Naming: Flavor names reference Japanese sandwich varieties and food-inspired concepts to maintain brand identity."
   rules:
     - id: "TS-GFN-R1"
       title: "Naming Principles"
@@ -392,15 +393,25 @@ guidelines_for_flavor_naming:
         - "Related to food, nature, or cultural references"
         - "Avoid generic names (theme1, theme2, blue, red)"
     - id: "TS-GFN-R2"
-      title: "Existing Pattern"
-      examples:
-        - "original"
-        - "strawberry"
-        - "matcha"
-        - "tamago"
-        - "sakura"
-        - "midnight"
-        - "ume"
+      title: "Current Flavors (Production)"
+      note: "These are the ONLY valid flavors in the system. Do not reference non-existent ones."
+      flavors:
+        - name: "sando"
+          note: "Default — the classic sando identity"
+        - name: "original"
+          note: "Clean, foundational — the baseline theme"
+        - name: "strawberry"
+          note: "Warm reds and pinks — vibrant, energetic"
+        - name: "brutalist"
+          note: "High contrast, raw — bold and graphic"
+        - name: "egg-salad"
+          note: "Soft yellows — warm and approachable"
+        - name: "kiwi"
+          note: "Fresh greens — lively and fresh"
+        - name: "tonkatsu"
+          note: "Deep browns/neutrals — grounded and rich"
+      adding_flavors:
+        note: "New flavors MUST follow the naming principles above and be added to this list when created. See `creating_new_flavors` section for implementation steps."
 
 related_guidelines:
   - type: "guideline"

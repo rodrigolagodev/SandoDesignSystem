@@ -1,10 +1,10 @@
 meta:
   doc_id: "PB"
   category: "05-quality"
-  version: "1.0.0"
+  version: "2.0.0"
   status: "Active"
-  last_updated: "2025-11-09"
-  owner: "Performance Monitor"
+  last_updated: "2026-04-05"
+  owner: "Design System Architect"
 
 purpose:
   id: "PB-PU"
@@ -149,9 +149,9 @@ core_rules:
                 - "error"
                 - maxNumericValue: 0.1
     enforcement:
-      - "CI runs Lighthouse on every PR"
-      - "Scores less than 90 block merge"
-      - "Generate before/after comparison reports"
+      - "Target: CI runs Lighthouse on every PR (not yet implemented — see lighthouse_ci section)"
+      - "Target: Scores less than 90 block merge (aspirational)"
+      - "Manual: Run Lighthouse locally with `pnpm exec lhci autorun` when checking performance"
     why: "Lighthouse audits catch common performance issues (unoptimized images, render-blocking resources, excessive JavaScript)."
     reference:
       type: "external"
@@ -373,6 +373,7 @@ core_web_vitals:
 
 lighthouse_ci:
   id: "PB-LCI"
+  implementation_status: "ASPIRATIONAL — not yet implemented in CI. The configuration below is the target setup. Current CI (pr.yml) runs build, test, and lint only."
   configuration:
     id: "PB-LCI-CFG"
     config_file:

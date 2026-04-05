@@ -1,44 +1,70 @@
 meta:
   doc_id: "TSYS"
   category: "01-design-system"
-  version: "2.0.0"
+  version: "3.0.0"
   status: "Active"
-  last_updated: "2025-11-09"
+  last_updated: "2026-04-05"
   owner: "UI Designer + Design System Architect"
 
 purpose:
   id: "TSYS-PU"
   description: |
-    Establishes scalable, accessible typographic foundation using system fonts, modular scale, and responsive sizing. Operates through three-layer token architecture.
+    Establishes scalable, accessible typographic foundation using the Warm Precision identity fonts (Outfit + Source Sans 3), modular scale, and responsive sizing. Operates through the three-layer token architecture. Typography is a brand expression — these fonts define the visual character of the Sando Design System.
 
 core_rules:
   - id: "TSYS-CR-R1"
-    title: "System Font Stack (Performance First)"
-    summary: "Use native system fonts for zero network latency and familiar rendering."
+    title: "Web Font Stack — Warm Precision Identity (Non-Negotiable)"
+    summary: "Use Outfit for headings and Source Sans 3 for body text. These are the official Sando DS brand fonts loaded via Google Fonts."
+    fonts:
+      heading:
+        family: "Outfit"
+        weights: [400, 600, 700]
+        character: "Geometric, modern, clean — conveys precision and structure"
+      body:
+        family: "Source Sans 3"
+        weights: [400, 600]
+        character: "Humanist, warm, highly readable — conveys approachability"
+      mono:
+        family: "'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace"
+        character: "System fallback — for code blocks and technical content"
     pattern:
       lang: "json"
       code:
         font:
           family:
-            sans:
-              value: "system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+            heading:
+              value: "'Outfit', sans-serif"
+              type: "fontFamily"
+            body:
+              value: "'Source Sans 3', sans-serif"
               type: "fontFamily"
             mono:
               value: "'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace"
               type: "fontFamily"
-    why: "System fonts are already installed—zero download time, consistent with OS, no FOIT/FOUT issues."
+    loading:
+      lang: "html"
+      title: "Load via Google Fonts (link in document head)"
+      code: |
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Source+Sans+3:wght@400;600&display=swap"
+          rel="stylesheet"
+        />
+    font_display: "Use `font-display: swap` to prevent FOIT (Flash of Invisible Text). Google Fonts includes this automatically."
+    why: "Outfit + Source Sans 3 define the Warm Precision identity — the visual soul of the design system. Headings need geometric character (Outfit), body needs humanist readability (Source Sans 3). These are distinct roles requiring distinct fonts."
     anti_pattern:
       lang: "json"
-      title: "❌ Custom web fonts (add latency, FOIT issues)"
+      title: "❌ Using a single sans-serif for both heading and body (loses brand identity)"
       code:
         font:
           family:
             sans:
-              value: "'Inter', 'Helvetica', sans-serif" # Requires download
+              value: "system-ui, sans-serif" # Generic, no brand identity
     reference:
       type: "source_file"
       path: "packages/tokens/src/ JSON source files"
-      note: "complete stack specifications"
+      note: "complete font family token definitions"
 
   - id: "TSYS-CR-R2"
     title: "Modular Scale (Consistent Ratio)"
@@ -171,6 +197,21 @@ core_rules:
 token_structure:
   - id: "TSYS-TS-L1"
     title: "Layer 1: Ingredients (Primitives)"
+    font_families:
+      lang: "json"
+      title: "Font families — brand fonts + mono fallback"
+      code:
+        font:
+          family:
+            heading:
+              value: "'Outfit', sans-serif"
+              type: "fontFamily" # Geometric — headings, titles, display
+            body:
+              value: "'Source Sans 3', sans-serif"
+              type: "fontFamily" # Humanist — body copy, labels, UI
+            mono:
+              value: "'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace"
+              type: "fontFamily" # Code blocks, technical content
     font_sizes:
       lang: "json"
       title: "Numeric scale - absolute values, no semantic meaning."
@@ -209,19 +250,19 @@ token_structure:
               type: "dimension" # 48px - Display
     font_weights:
       lang: "json"
-      title: "Font Weights (100-900 standard)"
+      title: "Font Weights — Outfit (heading) supports 400/600/700, Source Sans 3 (body) supports 400/600"
       code:
         font:
           weight:
             "400":
               value: "400"
               type: "fontWeight" # Regular (body default)
-            "500":
-              value: "500"
-              type: "fontWeight" # Medium
+            "600":
+              value: "600"
+              type: "fontWeight" # SemiBold (body emphasis, headings)
             "700":
               value: "700"
-              type: "fontWeight" # Bold (heading default)
+              type: "fontWeight" # Bold (heading emphasis)
     line_heights:
       lang: "json"
       title: "Line Heights (unitless multipliers)"
@@ -243,17 +284,20 @@ token_structure:
 
   - id: "TSYS-TS-L2"
     title: "Layer 2: Flavors (Semantic)"
-    summary: "Semantic tokens that reference ONLY Ingredients."
+    summary: "Semantic tokens that reference ONLY Ingredients. Font family tokens map heading role to Outfit and body role to Source Sans 3."
     semantic_tokens:
       lang: "json"
       code:
         font:
           family:
             body:
-              value: "{font.family.sans.value}"
+              value: "{font.family.body.value}"  # Source Sans 3
               type: "fontFamily"
             heading:
-              value: "{font.family.sans.value}"
+              value: "{font.family.heading.value}"  # Outfit
+              type: "fontFamily"
+            code:
+              value: "{font.family.mono.value}"
               type: "fontFamily"
           size:
             body:
@@ -272,6 +316,9 @@ token_structure:
             body:
               value: "{font.weight.400.value}"
               type: "fontWeight"
+            body-emphasis:
+              value: "{font.weight.600.value}"
+              type: "fontWeight"
             heading:
               value: "{font.weight.700.value}"
               type: "fontWeight"
@@ -282,6 +329,7 @@ token_structure:
             heading:
               value: "{font.lineHeight.120.value}"
               type: "number" # 1.2
+    key_rule: "Heading and body font families MUST reference different Ingredient tokens. A flavor CAN override font families (e.g., a serif flavor could map heading to a different font), but MUST maintain the two-role separation."
     responsive_note:
       title: "Responsive Headings using clamp()"
       notes:
@@ -320,10 +368,10 @@ component_implementation:
     code:
       button:
         fontFamily:
-          value: "{font.family.body.value}"
+          value: "{font.family.body.value}" # Source Sans 3 — UI control
           type: "fontFamily"
         fontWeight:
-          value: "{font.weight.700.value}"
+          value: "{font.weight.600.value}" # SemiBold for legibility
           type: "fontWeight"
         lineHeight:
           value: "{font.lineHeight.body.value}"
@@ -369,12 +417,16 @@ component_implementation:
       `;
   applicability: "All text-containing components (Cards, Inputs, Modals, etc.)"
   special_cases:
+    - name: "Heading components (h1-h6, display text)"
+      note: "Use `{font.family.heading.value}` (Outfit) — never mix heading font into body-level components"
+    - name: "Body/UI components (buttons, inputs, labels)"
+      note: "Use `{font.family.body.value}` (Source Sans 3) — consistent with body reading experience"
     - name: "Responsive headings"
-      note: "Use `clamp()` in Flavors. See example above."
+      note: "Use `clamp()` in Flavors. See token_structure section above."
     - name: "Monospace code"
-      note: "Use `{font.family.mono.value}` for code blocks"
+      note: "Use `{font.family.mono.value}` for code blocks and technical content"
     - name: "Different font stacks per flavor"
-      note: "Override in `flavor.json` (e.g. serif theme)"
+      note: "Override in `flavor.json` — but ALWAYS maintain the heading/body separation"
 
 responsive_typography:
   id: "TSYS-RT"
