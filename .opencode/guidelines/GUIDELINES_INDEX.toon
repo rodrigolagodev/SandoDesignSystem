@@ -170,7 +170,6 @@ accessibility:
       desc: "WCAG contrast (4.5:1 AA, 7:1 AAA), OKLCH lightness scale"
       owner: "sando-tokens"
   agents: "sando-quality, sando-developer"
-  skills: "accessibility-validator"
   commands: "/check-a11y"
 
 quality:
