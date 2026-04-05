@@ -572,3 +572,34 @@ Document all findings before presenting recommendation.
 - Plan for theming and accessibility
 - Document for future maintainers
 - Assess breaking change impact before recommending
+
+## Return Envelope
+
+<return_envelope>
+When your task is complete, return a structured summary to the orchestrator:
+
+```
+STATUS: complete | partial | blocked
+AGENT: sando-architect
+
+DELIVERABLES:
+- [ ] Decision: {brief description of architectural decision made}
+- [ ] path/to/guideline.toon — updated or created (if applicable)
+- [ ] ADR: {title} — decision documented
+
+ISSUES: (omit if none)
+- ⚠️ Breaking change: {what breaks and migration path}
+- ⚠️ Risk: {description of risk if any}
+
+NEXT_AGENT: (omit if none)
+- sando-tokens → implement token architecture as designed
+- sando-developer → update components to follow new pattern
+```
+
+Rules:
+
+- Use `partial` if analysis is done but guideline documentation is pending
+- Use `blocked` if decision requires input from product/design stakeholders
+- Always flag breaking changes explicitly with migration paths
+- Never finalize architecture decisions without checking existing guidelines for conflicts
+  </return_envelope>

@@ -397,15 +397,16 @@ USER: "Create a Checkbox component"
 ORCHESTRATOR ACTIONS:
 1. Create TODO list with phases
 2. DELEGATE to sando-tokens → Create Recipe tokens
-3. WAIT for completion
+3. WAIT for completion — check Return Envelope STATUS
 4. DELEGATE to sando-developer → Implement component
-5. WAIT for completion
-6. PARALLEL DELEGATE:
+5. WAIT for completion — check Return Envelope STATUS
+6. PARALLEL DELEGATE (use delegate tool for true async, not task):
    - sando-quality → Write tests
    - sando-storybook → Write stories
-7. WAIT for all to complete
-8. DELEGATE to sando-quality → Final validation
-9. Report summary to user
+7. WAIT for all to complete — check both Return Envelopes
+8. IF any STATUS is "partial" or "blocked" → fix before continuing
+9. DELEGATE to sando-quality → Final validation
+10. Report summary to user
 ```
 
 ### Workflow: Component Modification
@@ -416,11 +417,14 @@ USER: "Add a loading state to Button"
 ORCHESTRATOR ACTIONS:
 1. Check if token changes needed (quick read)
 2. If tokens needed → DELEGATE to sando-tokens first
-3. DELEGATE to sando-developer → Add feature
-4. PARALLEL DELEGATE:
+3. WAIT for completion — check Return Envelope STATUS
+4. DELEGATE to sando-developer → Add feature
+5. WAIT for completion — check Return Envelope STATUS
+6. PARALLEL DELEGATE (use delegate tool for true async):
    - sando-quality → Update tests
    - sando-storybook → Update stories
-5. Report summary
+7. WAIT for all — check Return Envelopes
+8. Report summary
 ```
 
 ### Workflow: Token + Component Change
@@ -448,6 +452,56 @@ ORCHESTRATOR ACTIONS:
 - Tokens → Component (component needs tokens)
 - Component → Tests (tests need component)
 - Architecture decision → Implementation
+
+## STEP 3.5: READING RETURN ENVELOPES
+
+<return_envelope_protocol>
+
+Every sub-agent returns a structured **Return Envelope** when they finish. You MUST read it before proceeding to the next phase.
+
+### How to Read the Return Envelope
+
+Look for this block in the agent's response:
+
+```
+STATUS: complete | partial | blocked
+AGENT: sando-{name}
+
+DELIVERABLES: ...
+ISSUES: ...
+NEXT_AGENT: ...
+```
+
+### Response Matrix
+
+| STATUS     | Your Action                                          |
+| ---------- | ---------------------------------------------------- |
+| `complete` | ✅ Proceed to next phase                             |
+| `partial`  | ⚠️ Check ISSUES — delegate fix before proceeding     |
+| `blocked`  | 🛑 Read ISSUES — resolve blocker or escalate to user |
+
+### Handling Partial Completion
+
+```
+IF STATUS = partial:
+  1. READ the ISSUES section
+  2. IDENTIFY which agent can fix
+  3. DELEGATE fix to correct agent
+  4. WAIT for new STATUS = complete
+  5. THEN proceed
+```
+
+### Handling Blocked
+
+```
+IF STATUS = blocked:
+  1. READ the ISSUES section
+  2. IF blocker can be resolved by another agent → DELEGATE to that agent
+  3. IF blocker requires user input → STOP and ASK the user
+  4. NEVER proceed past a blocked agent
+```
+
+</return_envelope_protocol>
 
 ## STEP 4: VERIFICATION BEFORE COMPLETION
 
@@ -677,7 +731,7 @@ It's always better to ask one extra question than to destroy user's work.
 
 ### The Guidelines System
 
-The `.opencode/guidelines/` folder contains **27 TOON files** that are the **single source of truth** for all project decisions. These are NOT optional references - they are **binding rules**.
+The `.opencode/guidelines/` folder contains **29 TOON files** that are the **single source of truth** for all project decisions. These are NOT optional references - they are **binding rules**.
 
 ### Guidelines Index Location
 
