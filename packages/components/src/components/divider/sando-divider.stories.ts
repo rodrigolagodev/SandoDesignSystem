@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import './sando-divider.js';
+import '../button/sando-button.ts';
+import '../input/sando-input.ts';
 
 /**
  * # Divider Component
@@ -339,8 +341,8 @@ export const LabelVariants: Story = {
 };
 
 /**
- * Realistic in-context usage — content blocks separated by a labeled divider,
- * mimicking a login / sign-up form pattern.
+ * Realistic in-context usage — a login form pattern that demonstrates the
+ * divider separating two distinct auth flows using real Sando components.
  */
 export const InContext: Story = {
   ...DOCS_ONLY,
@@ -348,31 +350,19 @@ export const InContext: Story = {
     <div
       style="max-width: 400px; padding: 2rem; background: var(--sando-color-background-surface); border: 1px solid var(--sando-color-border-muted); border-radius: 0.75rem;"
     >
-      <!-- Section one -->
+      <!-- Sign-in section -->
       <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-        <p style="margin: 0; font-size: 0.875rem; color: var(--sando-color-text-body);">
-          Continue with your existing account to access all features and saved preferences.
-        </p>
-        <button
-          style="padding: 0.625rem 1rem; border-radius: 0.375rem; border: none; background: var(--sando-color-background-overlay); color: var(--sando-color-text-body); font-size: 0.875rem; cursor: pointer;"
-        >
-          Sign in
-        </button>
+        <sando-input label="Email" type="email" placeholder="you@example.com"></sando-input>
+        <sando-input label="Password" type="password" placeholder="••••••••"></sando-input>
+        <sando-button variant="solid">Sign in</sando-button>
       </div>
 
       <!-- Divider with label -->
       <sando-divider label="OR"></sando-divider>
 
-      <!-- Section two -->
+      <!-- Sign-up section -->
       <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-        <p style="margin: 0; font-size: 0.875rem; color: var(--sando-color-text-body);">
-          New here? Create a free account and get started in seconds.
-        </p>
-        <button
-          style="padding: 0.625rem 1rem; border-radius: 0.375rem; border: 1px solid var(--sando-color-border-default); background: transparent; color: var(--sando-color-text-body); font-size: 0.875rem; cursor: pointer;"
-        >
-          Create account
-        </button>
+        <sando-button variant="outline">Create account</sando-button>
       </div>
     </div>
   `,
