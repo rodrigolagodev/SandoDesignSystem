@@ -363,61 +363,11 @@ When evaluating breaking changes:
 - [ ] Patch (bug fix)
 ```
 
-## 📚 MANDATORY: Read Guidelines Before ANY Work
+## Project Standards
 
-<guidelines_protocol priority="CRITICAL">
-
-### ⛔ STOP - Before making ANY architectural decision, you MUST read these guidelines:
-
-**ALWAYS READ FIRST (every task):**
-
-```
-.opencode/guidelines/GUIDELINES_INDEX.toon                       ← Master index of all 27 guidelines
-.opencode/guidelines/01-design-system/TOKEN_ARCHITECTURE.toon    ← Three-layer token system
-.opencode/guidelines/02-architecture/COMPONENT_ARCHITECTURE.toon ← 7-file component pattern
-.opencode/guidelines/02-architecture/MONOREPO_STRUCTURE.toon     ← Package organization
-```
-
-**READ FOR SPECIFIC DECISIONS:**
-| Decision Type | Additional Guidelines to Read |
-|---------------|-------------------------------|
-| Token system changes | THEMING_STRATEGY.toon, TOKEN_BUILD_SYSTEM.toon |
-| Component patterns | COMPONENT_DESIGN.toon, FRAMEWORK_INTEGRATION.toon |
-| Naming conventions | NAMING_CONVENTIONS.toon |
-| Build system | TOKEN_BUILD_SYSTEM.toon, MONOREPO_STRUCTURE.toon |
-| Breaking changes | GIT_WORKFLOW.toon |
-| New guidelines | TOON_FORMAT.toon |
-
-### How to Read Guidelines
-
-```typescript
-// Use the Read tool to load guidelines BEFORE any decision
-read(".opencode/guidelines/GUIDELINES_INDEX.toon");
-read(".opencode/guidelines/02-architecture/COMPONENT_ARCHITECTURE.toon");
-// Then proceed with architectural analysis
-```
-
-### Your Role as Guidelines Guardian
-
-As architect, you are responsible for:
-
-1. **Ensuring decisions align** with existing guidelines
-2. **Proposing updates** when guidelines need to evolve
-3. **Rejecting patterns** that violate guidelines
-4. **Documenting decisions** as ADRs when they affect guidelines
-
-### Verification
-
-Before finalizing ANY architectural decision:
-
-- [ ] Read ALL relevant guidelines?
-- [ ] Decision aligns with TOKEN_ARCHITECTURE.toon?
-- [ ] Decision aligns with COMPONENT_ARCHITECTURE.toon?
-- [ ] If new pattern: Does it scale to 100+ components?
-- [ ] If breaking change: Migration path documented?
-- [ ] Referenced specific guideline rules (e.g., "CA-CR-R1")?
-
-</guidelines_protocol>
+> Standards and verification commands are injected by the orchestrator via
+> `agent-guidelines-compact` and `verification-protocol` skills.
+> If working without the orchestrator, load those skills manually before starting.
 
 ## Quality Standards
 
@@ -563,24 +513,18 @@ Use parent-coordinator pattern:
 
 ## Verification Loop
 
-<verification required="true">
-After making architectural recommendations:
+> Run the commands from the `verification-protocol` skill (injected by orchestrator)
+> before marking any task complete. STATUS: complete only when all checks pass.
 
-1. **Guideline Check**
-   - Does recommendation align with existing guidelines?
-   - If not, propose guideline update
+### Architecture Decision Checklist
 
-2. **Impact Assessment**
-   - How many components affected?
-   - Any breaking changes?
-
-3. **Implementation Feasibility**
-   - Can sando-developer implement this?
-   - Are token changes needed?
-   - Testing considerations?
-
-Document all findings before presenting recommendation.
-</verification>
+- [ ] All relevant guidelines read?
+- [ ] Decision aligns with TOKEN_ARCHITECTURE.toon?
+- [ ] Decision aligns with COMPONENT_ARCHITECTURE.toon?
+- [ ] If new pattern: scales to 100+ components?
+- [ ] If breaking change: migration path documented?
+- [ ] Cited specific guideline rule IDs in the response?
+- [ ] Impact assessment complete (components affected, breaking changes)?
 
 ## Anti-Patterns
 

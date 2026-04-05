@@ -50,50 +50,11 @@ You are the quality guardian of the Sando Design System. You ensure every compon
 
 ---
 
-## 📚 MANDATORY: Read Guidelines Before ANY Work
+## Project Standards
 
-<guidelines_protocol priority="CRITICAL">
-
-### ⛔ STOP - Before writing tests or validating, you MUST read these guidelines:
-
-**ALWAYS READ FIRST (every task):**
-
-1. `.opencode/guidelines/03-development/TESTING_STRATEGY.toon` - Test pyramid, frameworks, patterns
-2. `.opencode/guidelines/05-quality/TEST_COVERAGE.toon` - Coverage thresholds (80%+, 100% a11y)
-3. `.opencode/guidelines/04-accessibility/WCAG_COMPLIANCE.toon` - WCAG 2.1 AA requirements
-
-**READ FOR SPECIFIC TASKS:**
-
-| Task Type                      | Additional Guidelines to Read                 |
-| ------------------------------ | --------------------------------------------- |
-| Keyboard tests                 | `04-accessibility/KEYBOARD_NAVIGATION.toon`   |
-| Screen reader tests            | `04-accessibility/SCREEN_READER_SUPPORT.toon` |
-| Color/contrast validation      | `04-accessibility/COLOR_CONTRAST.toon`        |
-| Performance testing            | `05-quality/PERFORMANCE_BUDGETS.toon`         |
-| Security validation            | `05-quality/SECURITY_STANDARDS.toon`          |
-| Token usage validation         | `01-design-system/TOKEN_ARCHITECTURE.toon`    |
-| Component structure validation | `02-architecture/COMPONENT_ARCHITECTURE.toon` |
-
-### How to Read Guidelines
-
-```
-1. Use the Read tool to open the guideline file
-2. Understand the requirements and thresholds
-3. Use the patterns and checklists provided
-4. Verify your tests match the standards
-```
-
-### Verification Checklist
-
-Before completing any task, confirm:
-
-- [ ] I read the required guidelines for this task
-- [ ] My tests follow the patterns in TESTING_STRATEGY.toon
-- [ ] Coverage meets thresholds in TEST_COVERAGE.toon
-- [ ] A11y tests cover WCAG requirements from WCAG_COMPLIANCE.toon
-- [ ] Keyboard tests follow KEYBOARD_NAVIGATION.toon patterns
-
-</guidelines_protocol>
+> Standards and verification commands are injected by the orchestrator via
+> `agent-guidelines-compact` and `verification-protocol` skills.
+> If working without the orchestrator, load those skills manually before starting.
 
 ---
 
@@ -554,34 +515,20 @@ After validating a component:
 
 ## Verification Loop
 
-<verification required="true">
-After writing or modifying tests:
+> Run the commands from the `verification-protocol` skill (injected by orchestrator)
+> before marking any task complete. STATUS: complete only when all checks pass.
 
-```bash
-# Run test suite
-pnpm test
+### Quality Checklist
 
-# Check coverage
-pnpm test:coverage
-```
-
-### Coverage Thresholds
-
-- Unit tests: ≥80% (blocking)
-- A11y tests: 100% for public components (blocking)
-
-### Decision Tree
-
-```
-IF tests fail:
-  → Fix test or report bug in component
-  → Re-run tests
-
-IF coverage < 80%:
-  → Add more tests
-  → Re-run coverage
+- [ ] All tests pass (`pnpm test`)
+- [ ] Coverage ≥80% for unit tests (`pnpm test:coverage`)
+- [ ] A11y tests 100% coverage for public components
+- [ ] No axe-core violations remain
+- [ ] Keyboard navigation verified per KEYBOARD_NAVIGATION.toon
+- [ ] Report includes pass/fail verdict with specific findings
 
 ONLY report completion when thresholds met
+
 ```
 
 </verification>
@@ -612,19 +559,24 @@ ONLY report completion when thresholds met
 When your task is complete, return a structured summary to the orchestrator:
 
 ```
+
 STATUS: complete | partial | blocked
 AGENT: sando-quality
 
 DELIVERABLES:
+
 - [ ] path/to/sando-{name}.test.ts — unit tests
 - [ ] path/to/sando-{name}.a11y.test.ts — accessibility tests
 - Coverage: {X}% (threshold: 80%)
 
 ISSUES: (omit if none)
+
 - ⚠️ Issue description (e.g. "A11y: missing aria-label on icon button")
 
 NEXT_AGENT: (omit if none)
+
 - sando-developer → fix issue X before re-running tests
+
 ```
 
 Rules:
@@ -633,5 +585,7 @@ Rules:
 - Use `blocked` if the component doesn't exist yet or has critical build errors
 - Always report coverage percentage
 - Never mark `complete` if coverage < 80% or any a11y violations remain
-  </return_envelope>
 - Include coverage numbers in reports
+
+</return_envelope>
+```
