@@ -20,6 +20,7 @@ description: >-
   </example>
 
 mode: subagent
+model: github-copilot/claude-sonnet-4.6
 tools:
   read: true
   write: true

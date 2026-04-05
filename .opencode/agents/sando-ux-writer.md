@@ -31,6 +31,7 @@ description: >-
   </example>
 
 mode: subagent
+model: github-copilot/claude-opus-4.6
 tools:
   read: true
   write: true
