@@ -166,12 +166,12 @@ core_rules:
 
   - id: "CC-CR-R5"
     title: "Test Across All Flavors and Modes"
-    summary: "Validate contrast in light mode, dark mode, high-contrast mode, and all custom flavors (strawberry, ocean, forest, sunset)."
+    summary: "Validate contrast in light mode, dark mode, high-contrast mode, and all flavors."
     pattern:
       lang: "javascript"
       code: |
         // Test matrix from contrast.test.js
-        describe.each(["original", "dark"])("Flavor: %s", (flavor) => {
+        describe.each(["sando", "original", "strawberry", "brutalist", "egg-salad", "kiwi", "tonkatsu"])("Flavor: %s", (flavor) => {
           it("validates all text/background pairs", () => {
             const tokens = loadFlavorTokens(flavor);
             validateContrastPairs(tokens);
@@ -180,14 +180,16 @@ core_rules:
     modes_to_test:
       - "Light mode (default): @media (prefers-color-scheme: light)"
       - "Dark mode: @media (prefers-color-scheme: dark)"
-      - "High contrast: @media (prefers-contrast: more)"
+      - "High contrast: @media (prefers-contrast: high)"
       - "Forced colors: @media (forced-colors: active)"
     flavors_to_test:
-      - "original (default)"
+      - "sando (default)"
+      - "original"
       - "strawberry"
-      - "ocean"
-      - "forest"
-      - "sunset"
+      - "brutalist"
+      - "egg-salad"
+      - "kiwi"
+      - "tonkatsu"
     why: "Contrast ratios change dramatically in dark mode. A color pair that works in light mode may fail in dark mode. Automated tests must cover all combinations"
     reference:
       type: "source_file"
@@ -388,7 +390,7 @@ tools_and_testing:
     - number: 4
       note: "Test all modes: Repeat for dark mode, high contrast, forced colors"
     - number: 5
-      note: "Test all flavors: Validate strawberry, ocean, forest, sunset"
+        note: "Test all flavors: sando, original, strawberry, brutalist, egg-salad, kiwi, tonkatsu"
     - number: 6
       note: "Document: Record ratios in component documentation"
   spot_check_frequency: "Monthly for existing components, always for new tokens"

@@ -1,9 +1,9 @@
 meta:
   doc_id: "CA"
   category: "02-architecture"
-  version: "1.0.0"
+  version: "2.0.0"
   status: "Active"
-  last_updated: "2026-02-06"
+  last_updated: "2026-04-05"
   owner: "Design System Architect"
 
 purpose:
@@ -317,7 +317,7 @@ seven_file_pattern:
           }
       reference:
         type: "template"
-        path: ".claude/skills/component-creator/assets/templates/types.ts.template"
+        path: ".opencode/skills/component-creator/assets/templates/types.ts.template"
         note: "Component template"
 
     - id: "CA-7FP-F3"
@@ -352,7 +352,7 @@ seven_file_pattern:
           });
       reference:
         type: "template"
-        path: ".claude/skills/component-creator/assets/templates/test.ts.template"
+        path: ".opencode/skills/component-creator/assets/templates/test.ts.template"
         note: "Test template"
 
     - id: "CA-7FP-F4"
@@ -384,7 +384,7 @@ seven_file_pattern:
           });
       reference:
         - type: "template"
-          path: ".claude/skills/component-creator/assets/templates/a11y.test.ts.template"
+          path: ".opencode/skills/component-creator/assets/templates/a11y.test.ts.template"
           note: "Accessibility test template"
         - type: "guideline"
           doc_id: "WC"
@@ -425,7 +425,7 @@ seven_file_pattern:
           };
       reference:
         type: "template"
-        path: ".claude/skills/component-creator/assets/templates/stories.ts.template"
+        path: ".opencode/skills/component-creator/assets/templates/stories.ts.template"
         note: "Stories template"
 
     - id: "CA-7FP-F6"
@@ -440,7 +440,7 @@ seven_file_pattern:
       why: "Allows `import { SandoExample } from '@sando/components/example'` instead of long paths."
       reference:
         type: "template"
-        path: ".claude/skills/component-creator/assets/templates/index.ts.template"
+        path: ".opencode/skills/component-creator/assets/templates/index.ts.template"
         note: "Index template"
 
     - id: "CA-7FP-F7"
@@ -617,11 +617,11 @@ external_references:
     title: "Web Components Standard"
     note: "Custom Elements, Shadow DOM specifications"
   - type: "skill"
-    path: "../../skills/component-creator/SKILL.md"
+    path: ".opencode/skills/component-creator/SKILL.md"
     title: "component-creator skill"
     note: "Component scaffolding automation"
   - type: "templates"
-    path: "../../skills/component-creator/assets/templates/"
+    path: ".opencode/skills/component-creator/assets/templates/"
     title: "component-creator templates"
     note: "Boilerplate templates for all file types"
 

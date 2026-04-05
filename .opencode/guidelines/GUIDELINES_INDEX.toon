@@ -1,12 +1,12 @@
 meta:
   doc_id: "GIDX"
-  ver: "5.0.0"
-  updated: "2026-01-31"
+  ver: "6.0.0"
+  updated: "2026-04-05"
   status: "Active"
   title: "Sando Design System Guidelines Index"
 
 summary: |
-  Complete catalog of 29 guidelines - single source of truth for Sando Design System standardization.
+  Complete catalog of 32 guidelines - single source of truth for Sando Design System standardization.
 
 navigation:
   - cat: "Design System"
@@ -46,8 +46,8 @@ design_system:
       owner: "sando-tokens"
     - id: "TSYS"
       file: "TYPOGRAPHY_SYSTEM.toon"
-      ver: "2.0.0"
-      desc: "System fonts, modular scale, responsive clamp()"
+      ver: "3.0.0"
+      desc: "Outfit + Source Sans 3 web fonts, modular scale, responsive clamp()"
       owner: "sando-tokens"
     - id: "SS"
       file: "SPACING_SYSTEM.toon"
@@ -61,7 +61,7 @@ design_system:
       owner: "sando-developer"
     - id: "TS"
       file: "THEMING_STRATEGY.toon"
-      ver: "1.0.0"
+      ver: "2.0.0"
       desc: "Flavors vs Modes, inheritance, 5-file structure"
       owner: "sando-architect"
     - id: "MD"
@@ -73,6 +73,21 @@ design_system:
       file: "LOADING_STATES.toon"
       ver: "1.0.0"
       desc: "Spinner vs Skeleton patterns, loading prop API, accessibility"
+      owner: "sando-architect"
+    - id: "IS"
+      file: "ICON_SYSTEM.toon"
+      ver: "1.0.0"
+      desc: "Lucide icons, sando-icon API, size/color tokens, accessibility"
+      owner: "sando-developer"
+    - id: "FP"
+      file: "FORM_PATTERNS.toon"
+      ver: "1.0.0"
+      desc: "sando-form, validation, events, loading state, known patterns"
+      owner: "sando-developer"
+    - id: "RD"
+      file: "RESPONSIVE_DESIGN.toon"
+      ver: "1.0.0"
+      desc: "Token-driven responsiveness via clamp(), no component media queries"
       owner: "sando-architect"
   agents: "sando-architect, sando-tokens, sando-developer"
   skills: "component-creator"
@@ -88,7 +103,7 @@ architecture:
       owner: "sando-architect"
     - id: "CA"
       file: "COMPONENT_ARCHITECTURE.toon"
-      ver: "1.0.0"
+      ver: "2.0.0"
       desc: "7-file pattern, Lit, Shadow DOM, FlavorableMixin"
       owner: "sando-architect"
     - id: "TBS"
@@ -136,7 +151,7 @@ accessibility:
   guidelines:
     - id: "WC"
       file: "WCAG_COMPLIANCE.toon"
-      ver: "1.0.0"
+      ver: "2.0.0"
       desc: "WCAG 2.1 AA/AAA, jest-axe, contrast requirements, semantic HTML"
       owner: "sando-quality"
     - id: "KN"
@@ -169,7 +184,7 @@ quality:
       owner: "sando-quality"
     - id: "PB"
       file: "PERFORMANCE_BUDGETS.toon"
-      ver: "1.0.0"
+      ver: "2.0.0"
       desc: "Bundle budgets (<10KB gzipped), Core Web Vitals, Lighthouse ≥90"
       owner: "sando-quality"
     - id: "SEC"
@@ -248,7 +263,7 @@ maintenance:
     task: "Major review of all guidelines"
 
 stats:
-  total: 29
+  total: 32
   categories: 7
   format: "TOON"
   ext: ".toon"

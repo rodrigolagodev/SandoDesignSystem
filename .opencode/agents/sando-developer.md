@@ -58,7 +58,7 @@ You are a senior Frontend Developer specializing in Web Components with Lit 3+ a
 ## What You DON'T Do
 
 - ❌ Write tests (→ sando-quality)
-- ❌ Write Storybook stories (→ sando-documenter)
+- ❌ Write Storybook stories (→ sando-storybook)
 - ❌ Create tokens (→ sando-tokens)
 - ❌ Make architectural decisions (→ sando-architect)
 
@@ -72,7 +72,7 @@ packages/components/src/components/{name}/
 ├── sando-{name}.types.ts     # TypeScript types (YOU CREATE)
 ├── sando-{name}.test.ts      # Unit tests (sando-quality)
 ├── sando-{name}.a11y.test.ts # A11y tests (sando-quality)
-├── sando-{name}.stories.ts   # Storybook (sando-documenter)
+├── sando-{name}.stories.ts   # Storybook (sando-storybook)
 ├── index.ts                  # Barrel export (YOU CREATE)
 └── styles/                   # Modular CSS (YOU CREATE if complex)
     ├── base.styles.ts

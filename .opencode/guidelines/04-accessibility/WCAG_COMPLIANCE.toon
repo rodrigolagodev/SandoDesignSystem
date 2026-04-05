@@ -1,9 +1,9 @@
 meta:
   doc_id: "WC"
   category: "04-accessibility"
-  version: "1.0.0"
+  version: "2.0.0"
   status: "Active"
-  last_updated: "2025-11-09"
+  last_updated: "2026-04-05"
   owner: "QA Expert"
 
 purpose:
@@ -91,7 +91,7 @@ core_rules:
     pattern:
       lang: "typescript"
       code: |
-        describe.each(["original", "strawberry", "ocean"])("flavor: %s", (flavor) => {
+        describe.each(["original", "strawberry", "kiwi"])("flavor: %s", (flavor) => {
           it("meets contrast requirements", async () => {
             const el = await fixture(
               `<div flavor="${flavor}"><sando-button>Test</sando-button></div>`
@@ -209,7 +209,8 @@ automated_testing:
   testing_all_flavors:
     lang: "typescript"
     code: |
-      const flavors = ["original", "strawberry", "ocean", "forest", "sunset"];
+      // All production flavors — keep this list in sync with THEMING_STRATEGY.toon
+      const flavors = ["sando", "original", "strawberry", "brutalist", "egg-salad", "kiwi", "tonkatsu"];
 
       describe.each(flavors)("flavor: %s", (flavor) => {
         it("meets accessibility standards", async () => {
@@ -420,7 +421,7 @@ testing_coverage:
       - "All component states (default, hover, focus, active, disabled, loading, error, success)"
       - "All variants (solid, outline, ghost, etc.)"
       - "All sizes (small, medium, large)"
-      - "All flavors (original, strawberry, ocean, forest, sunset)"
+      - "All flavors (sando, original, strawberry, brutalist, egg-salad, kiwi, tonkatsu)"
       - "All modes (light, dark, high-contrast, forced-colors, reduced-motion)"
   test_file_structure:
     tree:

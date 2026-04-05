@@ -1,0 +1,217 @@
+meta:
+  doc_id: "IS"
+  ver: "1.0.0"
+  updated: "2026-04-05"
+  status: "Active"
+  title: "Icon System"
+  owner: "sando-developer"
+
+summary: |
+  Standards for using sando-icon — the Lucide-based icon component with lazy loading,
+  semantic accessibility, and five-tier size/color token system.
+
+library:
+  name: "Lucide Icons"
+  count: 1637
+  loading: "Lazy — each icon fetches its SVG via loadIconSvg() on connectedCallback"
+  discovery: "Browse at https://lucide.dev"
+
+component: "sando-icon"
+
+# ─── API ────────────────────────────────────────────────────────────────────
+props:
+  name:
+    type: "IconName (string literal union)"
+    required: true
+    note: "Must be a valid Lucide icon slug (kebab-case). TypeScript enforces this."
+  size:
+    type: "IconSize"
+    values: ["xs", "sm", "md", "lg", "xl"]
+    default: "md"
+    note: "Maps to font.size tokens for visual harmony with adjacent text."
+  color:
+    type: "IconColor"
+    values: ["default", "muted", "emphasis", "brand", "onSolid"]
+    default: "default"
+    note: "Semantic color tokens only — never hardcode."
+  custom-color:
+    type: "string (CSS color value)"
+    note: "Overrides color prop. Use sparingly — prefer semantic tokens."
+  custom-size:
+    type: "string (CSS dimension)"
+    note: "Overrides size prop. Use sparingly — prefer size tokens."
+  flip-horizontal:
+    type: "boolean"
+    default: false
+    note: "Mirrors icon via scaleX(-1). Use to avoid duplicate icons (e.g. arrow-left from arrow-right)."
+  flip-vertical:
+    type: "boolean"
+    default: false
+    note: "Mirrors icon via scaleY(-1)."
+  rotate:
+    type: "0 | 90 | 180 | 270"
+    default: 0
+    note: "CSS rotate() in degrees. Useful for directional icons."
+  decorative:
+    type: "boolean"
+    default: false
+    note: "Set to true for purely visual icons. Adds role='presentation' aria-hidden='true'."
+  aria-label:
+    type: "string | null"
+    default: null
+    note: "Required when icon has semantic meaning and decorative is false."
+  stroke-width:
+    type: "number"
+    default: 2
+    note: "SVG stroke-width override. Default (2) matches Lucide's design system."
+  inherit-color:
+    type: "boolean"
+    default: false
+    note: "Sets color to currentColor — inherits from parent text color."
+
+# ─── SIZE SCALE ─────────────────────────────────────────────────────────────
+sizes:
+  xs:
+    px: 12
+    token: "--sando-icon-size-xs"
+    matches: "font.size.100"
+    use: "Inline metadata, compact tags, breadcrumbs"
+  sm:
+    px: 14
+    token: "--sando-icon-size-sm"
+    matches: "font.size.200"
+    use: "Secondary actions, helper text icons"
+  md:
+    px: 18
+    token: "--sando-icon-size-md"
+    matches: "font.size.400"
+    use: "Default — most button and input icons"
+  lg:
+    px: 24
+    token: "--sando-icon-size-lg"
+    matches: "font.size.600"
+    use: "Standalone icons, empty states, card headers"
+  xl:
+    px: 32
+    token: "--sando-icon-size-xl"
+    matches: "font.size.700"
+    use: "Hero icons, large illustrative contexts"
+
+rule: "Always match icon size to adjacent text size. An icon next to body text → size='sm' or 'md'."
+
+# ─── COLOR TOKENS ───────────────────────────────────────────────────────────
+colors:
+  default:
+    token: "--sando-icon-color-default"
+    use: "Most icons — subtle, blends with UI"
+  muted:
+    token: "--sando-icon-color-muted"
+    use: "Disabled states, secondary decorative icons"
+  emphasis:
+    token: "--sando-icon-color-emphasis"
+    use: "Important actions, active states"
+  brand:
+    token: "--sando-icon-color-brand"
+    use: "Brand accent actions (e.g., star, heart, logo icon)"
+  onSolid:
+    token: "--sando-icon-color-onSolid"
+    use: "Icons on solid/filled backgrounds (buttons, badges)"
+
+color_rule: "Never use color='brand' just for decoration. Brand color carries semantic weight."
+
+# ─── EVENTS ─────────────────────────────────────────────────────────────────
+events:
+  icon-load:
+    detail: "{ iconName: string, success: true }"
+    when: "SVG loaded successfully"
+  icon-error:
+    detail: "{ iconName: string, error: string }"
+    when: "Invalid name or network failure"
+
+# ─── ACCESSIBILITY ──────────────────────────────────────────────────────────
+accessibility:
+  rule_decorative: |
+    Icons that are purely visual MUST use `decorative` attribute.
+    Example: a search icon inside a labeled search input.
+  rule_semantic: |
+    Icons that convey meaning WITHOUT adjacent visible label MUST have `aria-label`.
+    Example: an icon-only button (trash icon = "Delete item").
+  rule_adjacent: |
+    Icons paired with visible text: set `decorative` (the text is the label).
+    Example: <sando-button><sando-icon name="download" decorative></sando-icon> Download</sando-button>
+
+  patterns:
+    - name: "Decorative"
+      code: '<sando-icon name="star" decorative></sando-icon>'
+      result: 'role="presentation" aria-hidden="true"'
+    - name: "Semantic (icon-only)"
+      code: '<sando-icon name="trash" aria-label="Delete item"></sando-icon>'
+      result: 'role="img" aria-label="Delete item"'
+    - name: "Adjacent to text"
+      code: '<sando-button><sando-icon name="check" decorative></sando-icon> Confirm</sando-button>'
+      result: "Icon hidden; button label = 'Confirm'"
+
+# ─── USAGE PATTERNS ─────────────────────────────────────────────────────────
+patterns:
+  basic:
+    code: '<sando-icon name="star"></sando-icon>'
+    note: "Default size (md) and color (default)."
+  in_button:
+    code: |
+      <sando-button>
+        <sando-icon name="download" decorative></sando-icon>
+        Download
+      </sando-button>
+    note: "Always decorative when paired with a text label."
+  inherit_color:
+    code: |
+      <p style="color: var(--sando-color-text-brand);">
+        Brand text <sando-icon name="star" inherit-color></sando-icon>
+      </p>
+    note: "inherit-color bridges icon color to parent text — useful in themed text contexts."
+  error_state:
+    code: '<sando-icon name="alert-circle" color="emphasis" aria-label="Error"></sando-icon>'
+    note: "Use emphasis for error/warning icons that carry status meaning."
+  transformation:
+    code: '<sando-icon name="arrow-right" rotate="180"></sando-icon>'
+    note: "Prefer flip/rotate over using separate icon names when possible — reduces bundle."
+
+# ─── ANTI-PATTERNS ───────────────────────────────────────────────────────────
+anti_patterns:
+  - what: "Semantic icon without aria-label"
+    bad: '<sando-icon name="trash"></sando-icon> <!-- inside icon-only button -->'
+    good: '<sando-icon name="trash" aria-label="Delete item"></sando-icon>'
+  - what: "Hardcoded color instead of token"
+    bad: '<sando-icon name="star" custom-color="#f59e0b"></sando-icon>'
+    good: '<sando-icon name="star" color="brand"></sando-icon>'
+  - what: "Wrong size for context"
+    bad: '<sando-icon name="check" size="xl"></sando-icon> <!-- in a small badge -->'
+    good: '<sando-icon name="check" size="xs"></sando-icon>'
+  - what: "Using icon for loading state"
+    bad: '<sando-icon name="loader" rotate="90"></sando-icon> <!-- fake spinner -->'
+    good: '<sando-spinner size="sm"></sando-spinner> <!-- use sando-spinner -->'
+
+# ─── TOKEN CUSTOMIZATION ─────────────────────────────────────────────────────
+customization:
+  note: "Tokens are set per flavor. Do NOT override with CSS custom properties unless building a one-off theming layer."
+  css_props:
+    - "--sando-icon-size-xs"
+    - "--sando-icon-size-sm"
+    - "--sando-icon-size-md"
+    - "--sando-icon-size-lg"
+    - "--sando-icon-size-xl"
+    - "--sando-icon-color-default"
+    - "--sando-icon-color-muted"
+    - "--sando-icon-color-emphasis"
+    - "--sando-icon-color-brand"
+    - "--sando-icon-color-onSolid"
+
+# ─── CHECKLIST ───────────────────────────────────────────────────────────────
+checklist:
+  - "[ ] Icon name is a valid Lucide slug"
+  - "[ ] Size matches adjacent text context"
+  - "[ ] Semantic color token used (not custom-color)"
+  - "[ ] Decorative icons have decorative attribute"
+  - "[ ] Semantic icons have aria-label"
+  - "[ ] Icon-only interactive elements have aria-label on the button/control, not the icon"
+  - "[ ] No sando-icon used for loading states (use sando-spinner instead)"

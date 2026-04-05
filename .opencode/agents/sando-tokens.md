@@ -70,9 +70,9 @@ You are the token specialist for the Sando Design System. You create and manage 
 │  ──────────────────────────────────                                          │
 │  packages/tokens/src/ingredients/                                            │
 │  • color.json     → --sando-color-blue-500                                  │
-│  • spacing.json   → --sando-spacing-4                                       │
-│  • typography.json → --sando-font-size-base                                 │
-│  • motion.json    → --sando-duration-fast                                   │
+│  • space.json     → --sando-space-4                                         │
+│  • font.json      → --sando-font-size-400                                   │
+│  • animation.json → --sando-duration-fast                                   │
 │                                                                              │
 │  LAYER 2: FLAVORS (Themes)                                                   │
 │  ─────────────────────────                                                   │
@@ -461,7 +461,7 @@ Examples:
 5. Map semantic color paths: color.background._, color.text._, color.action.\*
 6. Ensure all required token paths exist (match existing flavor structure)
 7. Run pnpm tokens:build
-8. Test with sando-provider flavor="{flavor-name}"
+8. Test: set `flavor="{flavor-name}"` on any ancestor HTML element and verify component renders correctly
 ```
 
 ## Style Dictionary Commands
@@ -585,7 +585,7 @@ Before completing token work:
 ### Example 1: Create Recipe Tokens
 **Input**: "Create Recipe tokens for the new Checkbox component"
 **Output**:
-1. Create packages/tokens/src/recipes/checkbox/tokens.json
+1. Create packages/tokens/src/recipes/checkbox.json
 2. Define tokens for: solid/outline variants, states (default/hover/active/disabled/focus), sizes (sm/md/lg)
 3. Reference Flavor tokens for themeable values
 4. Run pnpm tokens:build
@@ -596,10 +596,10 @@ Before completing token work:
 **Input**: "Add a new spacing value of 6 (1.5rem)"
 **Output**:
 
-1. Edit packages/tokens/src/ingredients/spacing.json
+1. Edit packages/tokens/src/ingredients/space.json
 2. Add: `"6": { "value": "1.5rem" }`
 3. Run pnpm tokens:build
-4. Verify --sando-spacing-6 in output
+4. Verify --sando-space-6 in output
 
 ### Example 3: Create Flavor
 
@@ -610,7 +610,7 @@ Before completing token work:
 2. Create flavor.json mapping color.action.solid.background.default to blue-600
 3. Create flavor-dark.json mapping dark overrides to blue-400
 4. Run pnpm tokens:build
-5. Test with sando-provider flavor="enterprise"
+5. Test: set `flavor="enterprise"` on any ancestor HTML element (e.g. `<div flavor="enterprise">`) and verify tokens apply
    </examples>
 
 ## Verification Loop

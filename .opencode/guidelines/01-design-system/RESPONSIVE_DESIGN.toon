@@ -1,0 +1,208 @@
+meta:
+  doc_id: "RD"
+  ver: "1.0.0"
+  updated: "2026-04-05"
+  status: "Active"
+  title: "Responsive Design"
+  owner: "sando-architect"
+
+summary: |
+  Responsive strategy for the Sando Design System. Responsiveness lives in flavor tokens
+  via CSS clamp() — NOT in component code via media queries. Components are intrinsically
+  responsive by consuming flavor tokens that already encode fluid behavior.
+
+# ─── CORE PRINCIPLE ──────────────────────────────────────────────────────────
+principle: |
+  Sando's responsive strategy is token-driven, not breakpoint-driven.
+
+  Flavors encode responsiveness directly in token values using CSS clamp().
+  Components consume those tokens. Result: components are fluid by default,
+  with zero media query logic in component code.
+
+  This is the "Warm Precision" approach — deliberate constraints, no arbitrary breakpoints.
+
+# ─── RESPONSIVE STRATEGY ─────────────────────────────────────────────────────
+strategy:
+  clamp_in_flavors:
+    desc: "Fluid values are defined inside flavor token files, not in component CSS."
+    example_token:
+      path: "packages/tokens/src/flavors/{flavor}/flavor.json"
+      json: |
+        "font": {
+          "size": {
+            "heading-100": {
+              "value": "clamp({font.size.500.value}, 4vw, {font.size.600.value})",
+              "type": "dimension"
+            },
+            "heading-200": {
+              "value": "clamp({font.size.400.value}, 3vw, {font.size.500.value})",
+              "type": "dimension"
+            }
+          }
+        }
+    resulting_css: |
+      --sando-font-size-heading-100: clamp(1.5rem, 4vw, 2rem);
+      --sando-font-size-heading-200: clamp(1.25rem, 3vw, 1.5rem);
+
+  component_rule: |
+    Components NEVER use @media queries for their own sizing or typography.
+    They consume flavor tokens — responsiveness comes for free.
+
+  no_viewport_tokens: |
+    There are NO breakpoint tokens (sm, md, lg, xl) in ingredients or recipes.
+    Breakpoints are a concern of the consuming application, not the design system.
+
+# ─── WHERE RESPONSIVENESS LIVES ──────────────────────────────────────────────
+layers:
+  ingredients:
+    responsive: false
+    note: "Raw values only — no viewport logic."
+  flavors:
+    responsive: true
+    note: "clamp() values live here. Per-flavor customization of fluid ranges."
+  recipes:
+    responsive: false
+    note: "Reference flavor tokens. Fluid behavior inherited from flavor layer."
+  components:
+    responsive: false
+    note: "Consume recipe/flavor tokens via CSS custom properties. Zero media queries."
+  application:
+    responsive: true
+    note: "Applications CAN add their own layout breakpoints for grid/layout concerns."
+
+# ─── CLAMP PATTERN ───────────────────────────────────────────────────────────
+clamp_pattern:
+  signature: "clamp(MIN, PREFERRED, MAX)"
+  params:
+    MIN: "Minimum value — applies on smallest viewport"
+    PREFERRED: "Fluid value — typically vw-based (1vw = 1% of viewport width)"
+    MAX: "Maximum value — applies on largest viewport"
+  example:
+    code: "clamp(1rem, 2.5vw, 1.5rem)"
+    reads: "At least 1rem, scale with viewport, cap at 1.5rem"
+  anchor_to_tokens: |
+    Always anchor MIN and MAX to ingredient tokens (font.size, space).
+    NEVER use raw px/rem values in flavor clamp() definitions.
+    Good:  clamp({font.size.400.value}, 3vw, {font.size.500.value})
+    Bad:   clamp(1.25rem, 3vw, 1.5rem)   ← loses token traceability
+
+# ─── SPACING AND SIZING ───────────────────────────────────────────────────────
+spacing:
+  scale: "4px base grid (space.1 = 0.25rem, space.2 = 0.5rem, space.4 = 1rem...)"
+  available: "0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 16, 20, 24, 32, 40, 48, 64"
+  note: "Use logical properties for RTL support: padding-inline, margin-block, etc."
+
+control_sizing:
+  desc: "T-shirt size tokens for interactive controls — set per flavor."
+  tokens:
+    xs: "--sando-sizing-control-xs"
+    sm: "--sando-sizing-control-sm"
+    md: "--sando-sizing-control-md"
+    lg: "--sando-sizing-control-lg"
+    xl: "--sando-sizing-control-xl"
+  note: "These map to space tokens (e.g., xs = space.5 = 1.25rem) per flavor."
+
+# ─── WHAT APPLICATIONS HANDLE ─────────────────────────────────────────────────
+application_responsibility:
+  layout_breakpoints: |
+    Applications own their grid and layout breakpoints.
+    The design system provides fluid components that adapt to any container size.
+  css_container_queries: |
+    Prefer CSS Container Queries (@container) over media queries for layout inside
+    components. Container queries make components context-aware, not viewport-aware.
+    Sando components do not use container queries internally — this is left to apps.
+  example_app_pattern: |
+    /* Application CSS — outside the design system */
+    @media (min-width: 768px) {
+      .form-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    /* sando-input inside this grid adapts naturally via its fluid tokens */
+
+# ─── MOTION AND RESPONSIVE ACCESSIBILITY ─────────────────────────────────────
+accessibility:
+  prefers_reduced_motion: |
+    Each flavor has a flavor-motion-reduce.json variant that overrides animation tokens
+    to zero durations and instant transitions. Applied automatically via:
+      @media (prefers-reduced-motion: reduce) { ... }
+  high_contrast: |
+    Each flavor has a flavor-high-contrast.json variant. Applied via:
+      @media (prefers-contrast: high) { ... }
+  forced_colors: |
+    Each flavor has a flavor-forced-colors.json variant. Applied via:
+      @media (forced-colors: active) { ... }
+  note: "These are handled by the token build system (TOKEN_BUILD_SYSTEM.toon). No component code needed."
+
+# ─── AUTHOR GUIDELINES ────────────────────────────────────────────────────────
+author_guidelines:
+  flavor_author:
+    - "Define clamp() values for heading sizes (heading-100, heading-200)"
+    - "Anchor MIN/MAX to font.size ingredient tokens"
+    - "Test at 320px (min) and 1440px (max) viewport widths"
+    - "Do NOT hardcode px values in clamp — use ingredient token references"
+
+  component_author:
+    - "Consume flavor/recipe tokens. Zero media queries in component CSS."
+    - "Use logical CSS properties (padding-inline, margin-block, inset-inline) for RTL"
+    - "Use :host display: block or display: inline-flex as appropriate — never magic widths"
+    - "Components SHOULD be width-agnostic (adapt to their container)"
+
+  application_author:
+    - "Implement layout breakpoints at application level"
+    - "Use CSS Container Queries for component-aware layout (preferred over media queries)"
+    - "Override flavor tokens locally if you need one-off responsive overrides"
+
+# ─── ANTI-PATTERNS ────────────────────────────────────────────────────────────
+anti_patterns:
+  - what: "Media queries in component CSS"
+    bad: |
+      /* ❌ Inside sando-button styles/base.styles.ts */
+      @media (max-width: 480px) {
+        :host { width: 100%; }
+      }
+    good: |
+      /* ✅ Component is width-agnostic — application controls layout */
+      :host { display: inline-flex; }
+    reason: "Media queries in components create rigid assumptions about viewport context."
+
+  - what: "Raw clamp values (not anchored to tokens)"
+    bad: |
+      /* ❌ In flavor.json */
+      "heading-100": { "value": "clamp(1.5rem, 4vw, 2rem)" }
+    good: |
+      /* ✅ In flavor.json */
+      "heading-100": { "value": "clamp({font.size.500.value}, 4vw, {font.size.600.value})" }
+    reason: "Hardcoded values break token traceability and make flavor audits impossible."
+
+  - what: "Breakpoint tokens in ingredients"
+    bad: |
+      /* ❌ ingredients/breakpoints.json */
+      "breakpoint": { "sm": "640px", "md": "768px" }
+    good: "No breakpoint tokens. Applications define their own breakpoints."
+    reason: "Breakpoints are application-level concerns. The DS provides intrinsically fluid components."
+
+  - what: "Fixed widths on components"
+    bad: |
+      /* ❌ */
+      :host { width: 320px; }
+    good: |
+      /* ✅ */
+      :host { display: block; width: 100%; max-width: var(--sando-{name}-maxWidth, none); }
+    reason: "Fixed widths make components inflexible in grid/layout contexts."
+
+# ─── CHECKLIST ────────────────────────────────────────────────────────────────
+checklist:
+  component_author:
+    - "[ ] No @media queries in component styles"
+    - "[ ] Uses logical CSS properties (padding-inline not padding-left)"
+    - "[ ] :host has no fixed width/height"
+    - "[ ] Fluid sizing comes from flavor tokens, not component code"
+  flavor_author:
+    - "[ ] Heading tokens use clamp() anchored to font.size ingredients"
+    - "[ ] All clamp MIN/MAX reference ingredient tokens, not raw values"
+    - "[ ] Tested at 320px and 1440px viewport widths"
+  application_author:
+    - "[ ] Layout breakpoints live in application CSS, not component overrides"
+    - "[ ] Container queries used where possible over media queries"
