@@ -85,30 +85,41 @@ You are the guardian of the three-layer system:
 LAYER 1: INGREDIENTS (Primitives)
 ────────────────────────────────
 packages/tokens/src/ingredients/
-├── color.json      # Raw colors (blue-500, gray-100)
-├── spacing.json    # Base spacing (4, 8, 16, 24...)
-├── typography.json # Font sizes, weights, families
-└── motion.json     # Durations, easings
+├── color.json      # Raw colors (OKLCH values)
+├── space.json      # Base spacing (4px grid: 0-13, 16-64)
+├── font.json       # Font families, sizes, weights, line-heights
+├── animation.json  # Durations, easings
+├── border.json     # Border widths, radii
+├── elevation.json  # Shadow definitions
+├── opacity.json    # Opacity scale
+├── scale.json      # Transform/scale values
+└── z-index.json    # Z-index scale
 
 LAYER 2: FLAVORS (Themes)
 ─────────────────────────
 packages/tokens/src/flavors/
-├── citrus/         # Orange theme
-│   ├── light.json
-│   └── dark.json
-└── berry/          # Purple theme
-    ├── light.json
-    └── dark.json
+├── sando/          # Default identity
+├── original/       # Clean baseline
+├── strawberry/     # Warm reds/pinks
+├── brutalist/      # High contrast, raw
+├── egg-salad/      # Soft yellows
+├── kiwi/           # Fresh greens
+└── tonkatsu/       # Deep browns/neutrals
+    # Each flavor has 5 files:
+    # flavor.json, flavor-dark.json,
+    # flavor-high-contrast.json,
+    # flavor-forced-colors.json,
+    # flavor-motion-reduce.json
 
 LAYER 3: RECIPES (Component Tokens)
 ───────────────────────────────────
 packages/tokens/src/recipes/
-├── button/
-│   └── tokens.json  # --sando-button-*
-├── input/
-│   └── tokens.json  # --sando-input-*
-└── card/
-    └── tokens.json  # --sando-card-*
+├── button.json      # --sando-button-*
+├── input.json       # --sando-input-*
+├── checkbox.json    # --sando-checkbox-*
+├── icon.json        # --sando-icon-*
+├── select.json      # --sando-select-*
+└── ...              # One JSON file per component
 ```
 
 ## Decision Framework
@@ -225,33 +236,50 @@ For maximum flexibility:
 ### Flavors vs Modes
 
 ```
-FLAVORS (Brand identity)
-────────────────────────
-- citrus (orange)
-- berry (purple)
-- mint (green)
-→ Different brand colors
+FLAVORS (Brand identity) — applied via `flavor` HTML attribute
+──────────────────────────────────────────────────────────────
+- sando      (default identity)
+- original   (clean baseline)
+- strawberry (warm reds/pinks)
+- brutalist  (high contrast, raw)
+- egg-salad  (soft yellows)
+- kiwi       (fresh greens)
+- tonkatsu   (deep browns/neutrals)
+→ Different brand colors, developer-controlled
 
-MODES (User preference)
-───────────────────────
-- light
-- dark
-- high-contrast
-→ Same brand, different brightness
+MODES (User preference) — automatic via CSS @media queries
+──────────────────────────────────────────────────────────
+- dark           (prefers-color-scheme: dark)
+- high-contrast  (prefers-contrast: high)
+- forced-colors  (forced-colors: active)
+- motion-reduce  (prefers-reduced-motion: reduce)
+→ Same brand, different accessibility variant, user-controlled
 ```
 
 ### Flavor Inheritance
 
 ```html
-<!-- Flavor flows down the tree -->
-<sando-provider flavor="citrus">
-  <sando-button>Uses citrus tokens</sando-button>
+<!-- Flavor flows down via attribute on any ancestor element.
+     FlavorableMixin traverses DOM upward to find nearest [flavor].
+     No wrapper component needed — use any HTML element. -->
+<div flavor="strawberry">
+  <sando-button>Inherits strawberry theme</sando-button>
 
-  <sando-provider flavor="berry">
-    <sando-button>Uses berry tokens</sando-button>
-  </sando-provider>
-</sando-provider>
+  <section flavor="kiwi">
+    <sando-button>Inherits kiwi (nearest ancestor wins)</sando-button>
+  </section>
+</div>
+
+<!-- Global flavor on html element -->
+<html flavor="original">
+  <body>
+    <!-- All components inherit original flavor -->
+  </body>
+</html>
 ```
+
+> ⚠️ There is NO `<sando-provider>` component. Flavor inheritance is achieved
+> via the `flavor` HTML attribute on any element — powered by `FlavorableMixin`.
 
 ## Build Configuration
 
