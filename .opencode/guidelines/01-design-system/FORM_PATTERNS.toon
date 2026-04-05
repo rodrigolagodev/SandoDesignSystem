@@ -1,0 +1,273 @@
+meta:
+  doc_id: "FP"
+  ver: "1.0.0"
+  updated: "2026-04-05"
+  status: "Active"
+  title: "Form Patterns"
+  owner: "sando-developer"
+
+summary: |
+  Standards for building forms with sando-form and its companion components.
+  Covers component selection, validation strategy, accessibility, events, and
+  known patterns (login, search, settings).
+
+# ─── FORM COMPONENT HIERARCHY ───────────────────────────────────────────────
+components:
+  sando-form:
+    role: "Smart form wrapper — handles submission, validation, reset, dirty tracking"
+    renders: "Native <form> element for progressive enhancement"
+    note: "Always use as the outermost container for any form."
+  sando-input:
+    role: "Text / email / password / number / search / url / tel input"
+    note: "Preferred over native <input>. Has built-in label, helper, error slots."
+  sando-textarea:
+    role: "Multi-line text input"
+  sando-select:
+    role: "Single-select dropdown. Pair with sando-option and sando-option-group."
+  sando-checkbox:
+    role: "Boolean toggle or multi-select item"
+  sando-radio-group:
+    role: "Mutually exclusive selection from a group"
+  sando-switch:
+    role: "Instant-effect toggle (settings, preferences). NOT for form submission gates."
+  sando-label:
+    role: "Standalone label. Use ONLY when wrapping a complex custom control."
+    note: "sando-input, sando-select, sando-checkbox, sando-radio-group all have built-in labels."
+  sando-help-text:
+    role: "Standalone helper or error text. Use ONLY when not provided by the field component."
+  sando-form-group:
+    status: "DEPRECATED"
+    replacement: "Use components with built-in labels (sando-input, sando-select, etc.)"
+    note: "Do NOT use sando-form-group in new code."
+
+# ─── FIELD REGISTRATION ──────────────────────────────────────────────────────
+field_registration:
+  rule: "Every field that should be included in form data MUST have a [name] attribute."
+  auto_detected: |
+    sando-form auto-detects these selectors when they have [name]:
+      sando-input[name], sando-select[name], sando-checkbox[name],
+      sando-switch[name], sando-textarea[name], sando-radio-group[name],
+      input[name], select[name], textarea[name]
+  note: "Native elements are also supported for progressive enhancement."
+
+# ─── SANDO-FORM API ───────────────────────────────────────────────────────────
+sando_form:
+  props:
+    loading:
+      type: "boolean"
+      default: false
+      note: "Disables all controls and shows sando-spinner overlay. Sets aria-busy='true' on form."
+    loading-label:
+      type: "string"
+      default: "'Submitting form'"
+      note: "Screen reader label for the loading spinner."
+    novalidate:
+      type: "boolean"
+      default: false
+      note: "Skips all built-in validation. Use when you implement custom validation via sando-validate event."
+    name:
+      type: "string"
+    action:
+      type: "string"
+      note: "For progressive enhancement (fallback without JS)."
+    method:
+      type: "'get' | 'post'"
+      default: "post"
+    enctype:
+      type: "'application/x-www-form-urlencoded' | 'multipart/form-data' | 'text/plain'"
+      note: "Use 'multipart/form-data' for file upload forms."
+
+  methods:
+    submit(): "Programmatic submission. Runs validation → emits sando-submit or sando-invalid."
+    reset(): "Resets all fields to initial captured values. Emits sando-reset."
+    validate(): "Returns boolean. Sets error state on invalid fields. Focuses first invalid."
+    clearErrors(): "Clears visual error state on all controls without resetting values."
+    getFormData(): "Returns FormData object with all named fields."
+    getJson(): "Returns plain object { fieldName: value }."
+    setLoading(boolean): "Imperative loading state setter."
+    markAsPristine(): "Promotes current values as new initial baseline (use after successful save)."
+
+  getters:
+    dirty: "true if any field changed from initial value"
+    pristine: "true if no fields changed"
+
+  events:
+    sando-submit:
+      detail: "{ formData: FormData, json: Record<string, unknown>, isValid: true }"
+      when: "Form passes validation"
+    sando-invalid:
+      detail: "{ errors: FormValidationError[] }"
+      when: "Validation fails"
+    sando-reset:
+      detail: "{}"
+      when: "Form reset"
+    sando-change:
+      detail: "{ field: string | null, value: unknown, json: Record<string, unknown> }"
+      when: "Any field value changes (input or change event)"
+    sando-validate:
+      detail: "{ json, isValid, errors, addError(name, message) }"
+      when: "Before sando-submit/sando-invalid — allows custom validation injection"
+      cancelable: true
+      note: "Call event.preventDefault() to block submission and add custom errors."
+
+# ─── SANDO-INPUT API ─────────────────────────────────────────────────────────
+sando_input:
+  variants:
+    filled:
+      desc: "Solid background, bottom border only. Default."
+      use: "Most forms — clean, minimal"
+    outlined:
+      desc: "Full border all sides"
+      use: "Forms on busy backgrounds, cards"
+  sizes:
+    sm: "Compact — table inline edits, sidebars"
+    md: "Default — standard forms"
+    lg: "Prominent — landing page forms, hero search"
+  key_props:
+    label: "Required unless wrapping in a container with explicit aria-label"
+    helper-text: "Descriptive hint below input"
+    error-text: "Validation message. Only shown when error=true."
+    error: "boolean — activates error state + shows error-text"
+    required: "boolean — adds required indicator to label + native required"
+    disabled: "boolean"
+    readonly: "boolean"
+    reserve-error-space:
+      type: "boolean"
+      default: true
+      note: "Reserves min-height for error message area to prevent layout shift on validation."
+    name: "Required for form submission"
+    autocomplete: "String — pass browser autocomplete hint (email, current-password, etc.)"
+  slots:
+    prefix: "Icon or text before input (e.g., currency symbol)"
+    suffix: "Icon or action after input (e.g., clear button, eye toggle)"
+
+# ─── VALIDATION STRATEGY ─────────────────────────────────────────────────────
+validation:
+  built_in:
+    desc: "sando-form calls checkValidity() on each control on submit. Sets error=true on failures."
+    trigger: "Automatic on sando-form.submit() or sando-button[type='submit'] click"
+  custom:
+    desc: "Listen to sando-validate event to add server-side or cross-field errors."
+    pattern: |
+      form.addEventListener('sando-validate', (e) => {
+        if (e.detail.json.password !== e.detail.json.confirmPassword) {
+          e.preventDefault();
+          e.detail.addError('confirmPassword', 'Passwords do not match');
+        }
+      });
+  error_display:
+    - "Set error=true on the control"
+    - "Set error-text on the control for the message"
+    - "sando-form auto-focuses first invalid control"
+  reset_errors: "Call form.clearErrors() to clear visual error state without resetting values."
+
+# ─── LOADING STATE PATTERN ───────────────────────────────────────────────────
+loading_pattern:
+  desc: |
+    Use sando-form[loading] for async submissions. It disables all controls,
+    shows a spinner overlay, and sets aria-busy='true' automatically.
+  pattern: |
+    form.addEventListener('sando-submit', async (e) => {
+      form.loading = true;
+      try {
+        await submit(e.detail.json);
+        form.markAsPristine();
+      } finally {
+        form.loading = false;
+      }
+    });
+  note: "Never disable the submit button manually — use loading instead."
+
+# ─── KNOWN PATTERNS ──────────────────────────────────────────────────────────
+patterns:
+  login_form:
+    code: |
+      <sando-form @sando-submit=${handleLogin}>
+        <sando-input name="email" label="Email" type="email"
+          autocomplete="email" required></sando-input>
+        <sando-input name="password" label="Password" type="password"
+          autocomplete="current-password" required></sando-input>
+        <sando-button type="submit">Sign In</sando-button>
+      </sando-form>
+    notes:
+      - "Always add autocomplete for password managers"
+      - "Always type='email' for email fields"
+
+  search_form:
+    code: |
+      <sando-form method="get">
+        <sando-input name="q" label="Search" type="search"
+          placeholder="Search products…">
+          <sando-icon slot="prefix" name="search" decorative></sando-icon>
+        </sando-input>
+        <sando-button type="submit">Search</sando-button>
+      </sando-form>
+    notes:
+      - "Use method='get' for search — allows bookmarking"
+      - "Use type='search' for browser search UX (clear button, search key)"
+
+  settings_form:
+    code: |
+      <sando-form @sando-submit=${saveSettings}>
+        <sando-input name="displayName" label="Display name" required></sando-input>
+        <sando-select name="language" label="Language">
+          <sando-option value="en">English</sando-option>
+          <sando-option value="es">Español</sando-option>
+        </sando-select>
+        <sando-switch name="notifications">Email notifications</sando-switch>
+        <sando-button type="submit">Save</sando-button>
+        <sando-button type="reset" variant="ghost">Cancel</sando-button>
+      </sando-form>
+
+  file_upload:
+    code: |
+      <sando-form enctype="multipart/form-data" @sando-submit=${handleUpload}>
+        <sando-input name="file" type="file" label="Upload file"></sando-input>
+        <sando-button type="submit">Upload</sando-button>
+      </sando-form>
+
+# ─── ACCESSIBILITY ────────────────────────────────────────────────────────────
+accessibility:
+  - "Every field MUST have an associated label (via label prop or aria-label)"
+  - "Required fields MUST use required prop — never just a visual asterisk"
+  - "Error messages MUST be programmatically associated (use error-text prop)"
+  - "sando-form sets aria-busy on the native <form> during loading"
+  - "sando-form focuses first invalid control on failed validation"
+  - "Use autocomplete attributes on login/registration forms (WCAG 1.3.5)"
+  - "Group related fields with fieldset + legend when using native HTML"
+
+# ─── ANTI-PATTERNS ────────────────────────────────────────────────────────────
+anti_patterns:
+  - what: "Using sando-form-group in new code"
+    bad: |
+      <sando-form-group label="Email">
+        <sando-input></sando-input>
+      </sando-form-group>
+    good: '<sando-input name="email" label="Email"></sando-input>'
+    reason: "sando-form-group is DEPRECATED — components have built-in labels"
+
+  - what: "Missing name attribute"
+    bad: '<sando-input label="Email" type="email"></sando-input>'
+    good: '<sando-input name="email" label="Email" type="email"></sando-input>'
+    reason: "sando-form cannot detect/collect fields without [name]"
+
+  - what: "Manually disabling submit button"
+    bad: '<sando-button type="submit" .disabled=${isSubmitting}>Submit</sando-button>'
+    good: '<sando-form .loading=${isSubmitting}> ... <sando-button type="submit">Submit</sando-button>'
+    reason: "sando-form[loading] handles disable + spinner + aria-busy atomically"
+
+  - what: "Using sando-switch as a form gate"
+    bad: '<sando-switch name="agree"> I agree to terms <sando-button type="submit">...</sando-switch>'
+    good: '<sando-checkbox name="agree" required>I agree to terms</sando-checkbox>'
+    reason: "sando-switch is for instant-effect preferences; sando-checkbox is for form submission intent"
+
+# ─── CHECKLIST ────────────────────────────────────────────────────────────────
+checklist:
+  - "[ ] All fields have name attribute"
+  - "[ ] All fields have label prop or aria-label"
+  - "[ ] Required fields have required prop"
+  - "[ ] Error messages use error-text prop (not hardcoded text outside)"
+  - "[ ] No sando-form-group used"
+  - "[ ] Loading state uses sando-form[loading] not manual button disable"
+  - "[ ] Async submit uses markAsPristine() after success"
+  - "[ ] autocomplete attributes set for login/registration flows"
