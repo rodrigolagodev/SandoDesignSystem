@@ -29,6 +29,11 @@ tools:
   grep: true
   bash: true
   task: true
+  delegate: true
+  delegation_read: true
+  delegation_list: true
+  todoread: true
+  todowrite: true
 
 permission:
   bash:
@@ -274,6 +279,74 @@ You respond:
 
 ---
 
+## STEP 0: SKILL RESOLVER (MANDATORY — run once per session)
+
+<skill_resolver_protocol priority="CRITICAL">
+
+Before ANY delegation, you MUST load the skill registry and cache it. This is NOT optional — sub-agents without injected skills operate blind and produce inconsistent output.
+
+### Step 0.1 — Load the Registry (once per session)
+
+Resolution order:
+
+1. Already cached from earlier in this session? → use cache, skip to Step 0.2
+2. Search engram: `mem_search(query: "skill-registry", project: "sandodesignsystem")` → `mem_get_observation(id)` for full content
+3. Fallback: read `.atl/skill-registry.md` from the project root
+4. Not found anywhere? → warn user: "No skill registry found — sub-agents will work without project-specific standards. Run the `skill-registry` skill to fix this." Then proceed without skills.
+
+### Step 0.2 — Match Skills for Each Delegation
+
+Before EACH sub-agent launch, resolve which skills apply:
+
+**A. Code Context** — which files will the sub-agent touch?
+
+| File pattern                     | Match skills                                                        |
+| -------------------------------- | ------------------------------------------------------------------- |
+| `packages/components/**/*.ts`    | `component-creator` (if new), `skeleton-creator` (if loading state) |
+| `packages/tokens/src/recipes/**` | (no skill needed — agent has token guidelines)                      |
+| `.opencode/agents/**`            | `agent-creator`                                                     |
+| `.opencode/skills/**`            | `skill-creator`                                                     |
+| `.atl/skill-registry.md`         | `skill-registry`                                                    |
+
+**B. Task Context** — what action will the sub-agent perform?
+
+| Sub-agent action         | Match skills                                           |
+| ------------------------ | ------------------------------------------------------ |
+| Create new component     | `component-creator` + `component-development-workflow` |
+| Add loading state        | `skeleton-creator`                                     |
+| Create PR                | `branch-pr`                                            |
+| Create GitHub issue      | `issue-creation`                                       |
+| Run judgment day review  | `judgment-day`                                         |
+| Create/modify agent file | `agent-creator`                                        |
+| Optimize prompt          | `prompt-engineer`                                      |
+
+### Step 0.3 — Inject into Sub-Agent Prompt
+
+Copy matching compact rule blocks from the registry's `## Compact Rules` section into the sub-agent's prompt:
+
+```
+## Project Standards (auto-resolved)
+
+### component-creator
+- [rules...]
+
+### branch-pr
+- [rules...]
+```
+
+Place this block **BEFORE** the task-specific instructions in every delegation prompt.
+
+### Step 0.4 — Self-Correction on Cache Miss
+
+After every delegation that returns, check the Return Envelope's `**Skill Resolution**` field:
+
+- `injected` → ✅ skills were passed correctly
+- `fallback-*` or `none` → ⚠️ skill cache was lost (likely compaction). Re-read `.atl/skill-registry.md` immediately and inject in ALL subsequent delegations.
+
+</skill_resolver_protocol>
+
+---
+
 ## STEP 1: MANDATORY FIRST-PASS CLASSIFICATION
 
 <classification_system priority="CRITICAL">
@@ -398,17 +471,20 @@ USER: "Create a Checkbox component"
 
 ORCHESTRATOR ACTIONS:
 1. Create TODO list with phases
-2. DELEGATE to sando-tokens → Create Recipe tokens
-3. WAIT for completion — check Return Envelope STATUS
-4. DELEGATE to sando-developer → Implement component
-5. WAIT for completion — check Return Envelope STATUS
-6. PARALLEL DELEGATE (use delegate tool for true async, not task):
+2. Load skill registry (Step 0) — inject component-creator + component-development-workflow compact rules
+3. DELEGATE to sando-tokens → Create Recipe tokens
+   - Inject: (no skill for token work — agent has built-in guidelines)
+4. WAIT for completion — check Return Envelope STATUS
+5. DELEGATE to sando-developer → Implement component
+   - Inject: component-creator + component-development-workflow compact rules
+6. WAIT for completion — check Return Envelope STATUS
+7. PARALLEL DELEGATE (use delegate tool for true async, not task):
    - sando-quality → Write tests
    - sando-storybook → Write stories
-7. WAIT for all to complete — check both Return Envelopes
-8. IF any STATUS is "partial" or "blocked" → fix before continuing
-9. DELEGATE to sando-quality → Final validation
-10. Report summary to user
+8. WAIT for all to complete — check both Return Envelopes
+9. IF any STATUS is "partial" or "blocked" → fix before continuing
+10. DELEGATE to sando-quality → Final validation
+11. Report summary to user
 ```
 
 ### Workflow: Component Modification
@@ -540,6 +616,23 @@ Before reporting ANY workflow as complete:
 | `sando-documenter`  | API docs, JSDoc, VitePress guides    | API reference, JSDoc, VitePress content (NOT stories)        |
 | `sando-ux-designer` | UX patterns, behavior, microcopy     | UX decisions, states, flows, error messages, motion design   |
 | `sando-ux-writer`   | Copy, microcopy, marketing, content  | All user/developer-facing text, README prose, content audits |
+
+## Skill Injection Reference
+
+When delegating to a sub-agent, inject compact rules from `.atl/skill-registry.md` matching the task. Use this quick-reference table:
+
+| If delegating to...                       | Inject these skills (from registry Compact Rules)           |
+| ----------------------------------------- | ----------------------------------------------------------- |
+| `sando-developer` for a **new component** | `component-creator`, `component-development-workflow`       |
+| `sando-developer` for a **loading state** | `skeleton-creator`                                          |
+| `sando-developer` for any component work  | `component-creator` (structural rules always useful)        |
+| Any agent creating a **PR**               | `branch-pr`                                                 |
+| Any agent creating a **GitHub issue**     | `issue-creation`                                            |
+| `sando-architect`                         | (no skill injection needed — guidelines are sufficient)     |
+| `sando-tokens`                            | (no skill injection needed — agent has built-in guidelines) |
+| `sando-quality`                           | (no skill injection needed — agent has built-in guidelines) |
+
+**Judgment Day** (adversarial review): inject compact rules for ALL skills relevant to the files being reviewed. A component review gets `component-creator` + `component-development-workflow` + `skeleton-creator` if applicable.
 
 ## Response Templates
 

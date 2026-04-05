@@ -25,17 +25,24 @@ description: >-
   </example>
 
 mode: subagent
+model: github-copilot/claude-sonnet-4.6
 tools:
   read: true
   write: true
   edit: true
   glob: true
   grep: true
+  bash: true
   task: true
 
 permission:
   bash:
-    "*": deny
+    "*": ask
+    "pnpm typecheck*": allow
+    "pnpm build*": allow
+    "ls *": allow
+    "cat *": allow
+    "rm -rf*": deny
 ---
 
 # Sando Documenter
