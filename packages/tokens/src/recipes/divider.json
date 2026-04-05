@@ -1,0 +1,36 @@
+{
+  "divider": {
+    "color": {
+      "value": "{color.border.muted.value}",
+      "type": "color"
+    },
+    "weight": {
+      "thin": {
+        "value": "{border.width.stroke.value}",
+        "type": "dimension"
+      },
+      "medium": {
+        "value": "{border.width.default.value}",
+        "type": "dimension"
+      },
+      "thick": {
+        "value": "{border.width.strokeHeavy.value}",
+        "type": "dimension"
+      }
+    },
+    "spacing": {
+      "sm": {
+        "value": "{space.stack.muted.value}",
+        "type": "dimension"
+      },
+      "md": {
+        "value": "{space.stack.default.value}",
+        "type": "dimension"
+      },
+      "lg": {
+        "value": "{space.stack.emphasis.value}",
+        "type": "dimension"
+      }
+    }
+  }
+}
