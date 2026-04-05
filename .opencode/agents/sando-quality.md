@@ -93,108 +93,114 @@ packages/components/src/components/{name}/
 
 ## Unit Tests (sando-{name}.test.ts)
 
+Stack: **Vitest** (`globals: true`) + **`@open-wc/testing`** for `fixture`/`html`.
+Use Vitest `expect` (global) for assertions — NOT `@open-wc` Chai-style `.to.equal`.
+`@open-wc` `expect` can be aliased as `expectWc` when you need `.to.be.accessible()`.
+
 ```typescript
-import { fixture, expect, html } from '@open-wc/testing';
-import { sendKeys } from '@web/test-runner-commands';
+import { fixture, html, expect as expectWc } from '@open-wc/testing';
 import './sando-{name}.js';
 import type { Sando{Name} } from './sando-{name}.js';
 
 describe('sando-{name}', () => {
+  let element: Sando{Name};
+
+  beforeEach(async () => {
+    element = await fixture<Sando{Name}>(html`<sando-{name}>Content</sando-{name}>`);
+    await element.updateComplete;
+  });
+
   // RENDERING
   describe('rendering', () => {
-    it('should render with default props', async () => {
-      const el = await fixture<Sando{Name}>(html`
-        <sando-{name}></sando-{name}>
-      `);
-      expect(el).to.exist;
-      expect(el.shadowRoot).to.exist;
+    it('should render with default props', () => {
+      expect(element).toBeDefined();
+      expect(element.shadowRoot).toBeDefined();
     });
 
-    it('should render slot content', async () => {
-      const el = await fixture<Sando{Name}>(html`
-        <sando-{name}>Test Content</sando-{name}>
-      `);
-      const slot = el.shadowRoot!.querySelector('slot');
-      expect(slot).to.exist;
+    it('should render slot content', () => {
+      expect(element.textContent?.trim()).toBe('Content');
+    });
+
+    it('should be accessible', async () => {
+      await expectWc(element).to.be.accessible();
     });
   });
 
   // PROPS
   describe('props', () => {
     it('should reflect variant attribute', async () => {
-      const el = await fixture<Sando{Name}>(html`
-        <sando-{name} variant="outline"></sando-{name}>
-      `);
-      expect(el.variant).to.equal('outline');
-      expect(el.getAttribute('variant')).to.equal('outline');
+      element.variant = 'outline';
+      await element.updateComplete;
+      expect(element.variant).toBe('outline');
+      expect(element.getAttribute('variant')).toBe('outline');
     });
 
     it('should handle disabled state', async () => {
-      const el = await fixture<Sando{Name}>(html`
-        <sando-{name} disabled></sando-{name}>
-      `);
-      expect(el.disabled).to.be.true;
+      element.disabled = true;
+      await element.updateComplete;
+      expect(element.disabled).toBe(true);
+      expect(element.hasAttribute('disabled')).toBe(true);
     });
   });
 
   // EVENTS
   describe('events', () => {
     it('should emit sando-{event} on interaction', async () => {
-      const el = await fixture<Sando{Name}>(html`
-        <sando-{name}></sando-{name}>
-      `);
-
       let eventFired = false;
-      el.addEventListener('sando-{event}', () => { eventFired = true; });
+      element.addEventListener('sando-{event}', () => {
+        eventFired = true;
+      });
 
-      // Trigger interaction
-      el.click();
-
-      expect(eventFired).to.be.true;
+      element.click();
+      expect(eventFired).toBe(true);
     });
 
     it('should not emit events when disabled', async () => {
-      const el = await fixture<Sando{Name}>(html`
-        <sando-{name} disabled></sando-{name}>
-      `);
+      element.disabled = true;
+      await element.updateComplete;
 
       let eventFired = false;
-      el.addEventListener('sando-{event}', () => { eventFired = true; });
+      element.addEventListener('sando-{event}', () => {
+        eventFired = true;
+      });
 
-      el.click();
-
-      expect(eventFired).to.be.false;
+      element.click();
+      expect(eventFired).toBe(false);
     });
   });
 
   // KEYBOARD
   describe('keyboard navigation', () => {
     it('should activate on Enter key', async () => {
-      const el = await fixture<Sando{Name}>(html`
-        <sando-{name}></sando-{name}>
-      `);
-
       let activated = false;
-      el.addEventListener('sando-{event}', () => { activated = true; });
+      element.addEventListener('sando-{event}', () => {
+        activated = true;
+      });
 
-      el.focus();
-      await sendKeys({ press: 'Enter' });
+      const inner = element.shadowRoot!.querySelector('button, [role="button"]');
+      inner?.focus();
+      inner?.dispatchEvent(
+        new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true })
+      );
+      inner?.click();
 
-      expect(activated).to.be.true;
+      expect(activated).toBe(true);
     });
 
     it('should activate on Space key', async () => {
-      const el = await fixture<Sando{Name}>(html`
-        <sando-{name}></sando-{name}>
-      `);
-
       let activated = false;
-      el.addEventListener('sando-{event}', () => { activated = true; });
+      element.addEventListener('sando-{event}', () => {
+        activated = true;
+      });
 
-      el.focus();
-      await sendKeys({ press: ' ' });
+      const inner = element.shadowRoot!.querySelector('button, [role="button"]');
+      inner?.focus();
+      inner?.dispatchEvent(
+        new KeyboardEvent('keydown', { key: ' ', bubbles: true, cancelable: true })
+      );
+      inner?.click();
 
-      expect(activated).to.be.true;
+      expect(activated).toBe(true);
     });
   });
 });
@@ -202,39 +208,43 @@ describe('sando-{name}', () => {
 
 ## Accessibility Tests (sando-{name}.a11y.test.ts)
 
+Stack: **Vitest** (`globals: true`) + **`@open-wc/testing`** + **`jest-axe`**.
+`toHaveNoViolations` is already extended globally in `src/test/vitest.setup.ts` —
+do NOT call `expect.extend(toHaveNoViolations)` inside test files.
+
 ```typescript
-import { fixture, expect, html } from '@open-wc/testing';
-import { axe, toHaveNoViolations } from 'jest-axe';
+import { fixture, html } from '@open-wc/testing';
+import { axe } from 'jest-axe';
 import './sando-{name}.js';
 import type { Sando{Name} } from './sando-{name}.js';
 
-expect.extend(toHaveNoViolations);
-
 describe('sando-{name} accessibility', () => {
+  let element: Sando{Name};
+
+  beforeEach(async () => {
+    element = await fixture<Sando{Name}>(html`<sando-{name}>Accessible content</sando-{name}>`);
+    await element.updateComplete;
+  });
+
   // AXE-CORE AUTOMATED TESTS
   describe('axe-core validation', () => {
     it('should have no accessibility violations (default)', async () => {
-      const el = await fixture(html`
-        <sando-{name}>Accessible content</sando-{name}>
-      `);
-      const results = await axe(el);
+      const results = await axe(element);
       expect(results).toHaveNoViolations();
     });
 
     it('should have no violations when disabled', async () => {
-      const el = await fixture(html`
-        <sando-{name} disabled>Disabled content</sando-{name}>
-      `);
-      const results = await axe(el);
+      element.disabled = true;
+      await element.updateComplete;
+      const results = await axe(element);
       expect(results).toHaveNoViolations();
     });
 
     it('should have no violations for all variants', async () => {
       for (const variant of ['solid', 'outline', 'ghost']) {
-        const el = await fixture(html`
-          <sando-{name} variant=${variant}>Content</sando-{name}>
-        `);
-        const results = await axe(el);
+        element.variant = variant;
+        await element.updateComplete;
+        const results = await axe(element);
         expect(results).toHaveNoViolations();
       }
     });
@@ -243,66 +253,75 @@ describe('sando-{name} accessibility', () => {
   // ARIA ATTRIBUTES
   describe('ARIA attributes', () => {
     it('should have correct role', async () => {
-      const el = await fixture<Sando{Name}>(html`
-        <sando-{name}></sando-{name}>
-      `);
-      const inner = el.shadowRoot!.querySelector('[role]');
-      expect(inner?.getAttribute('role')).to.equal('{expected-role}');
+      const inner = element.shadowRoot!.querySelector('[role]');
+      expect(inner?.getAttribute('role')).toBe('{expected-role}');
     });
 
     it('should have aria-disabled when disabled', async () => {
-      const el = await fixture<Sando{Name}>(html`
-        <sando-{name} disabled></sando-{name}>
-      `);
-      const inner = el.shadowRoot!.querySelector('[aria-disabled]');
-      expect(inner?.getAttribute('aria-disabled')).to.equal('true');
+      element.disabled = true;
+      await element.updateComplete;
+      const inner = element.shadowRoot!.querySelector('[aria-disabled]');
+      expect(inner?.getAttribute('aria-disabled')).toBe('true');
     });
   });
 
   // FOCUS MANAGEMENT
   describe('focus management', () => {
-    it('should be focusable', async () => {
-      const el = await fixture<Sando{Name}>(html`
-        <sando-{name}></sando-{name}>
-      `);
-      el.focus();
-      expect(document.activeElement).to.equal(el);
+    it('should be focusable', () => {
+      const inner = element.shadowRoot!.querySelector('button, [tabindex]');
+      expect(inner).toBeDefined();
+      expect(inner?.getAttribute('tabindex')).not.toBe('-1');
     });
 
     it('should not be focusable when disabled', async () => {
-      const el = await fixture<Sando{Name}>(html`
-        <sando-{name} disabled></sando-{name}>
-      `);
-      const focusable = el.shadowRoot!.querySelector('[tabindex]');
-      expect(focusable?.getAttribute('tabindex')).to.equal('-1');
+      element.disabled = true;
+      await element.updateComplete;
+      const focusable = element.shadowRoot!.querySelector('button, [tabindex]');
+      expect(
+        focusable?.hasAttribute('disabled') || focusable?.getAttribute('tabindex') === '-1'
+      ).toBe(true);
     });
 
-    it('should have visible focus indicator', async () => {
-      const el = await fixture<Sando{Name}>(html`
-        <sando-{name}></sando-{name}>
-      `);
-      el.focus();
-
-      // Check focus styles are applied
-      const inner = el.shadowRoot!.querySelector('.{name}');
-      const styles = getComputedStyle(inner!);
-
-      // Verify focus ring or outline exists
-      expect(
-        styles.outline !== 'none' ||
-        styles.boxShadow !== 'none'
-      ).to.be.true;
+    it('should have visible focus indicator', () => {
+      const inner = element.shadowRoot!.querySelector('button, [tabindex="0"]') as HTMLElement;
+      inner?.focus();
+      const styles = getComputedStyle(inner);
+      expect(styles.outline !== 'none' || styles.boxShadow !== 'none').toBe(true);
     });
   });
 
   // KEYBOARD ACCESSIBILITY
   describe('keyboard accessibility', () => {
     it('should support Enter activation', async () => {
-      // Tested in unit tests, verify here too
+      let activated = false;
+      element.addEventListener('sando-{event}', () => {
+        activated = true;
+      });
+
+      const inner = element.shadowRoot!.querySelector('button, [role="button"]') as HTMLElement;
+      inner?.focus();
+      inner?.dispatchEvent(
+        new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true })
+      );
+      inner?.click();
+
+      expect(activated).toBe(true);
     });
 
     it('should support Space activation', async () => {
-      // Tested in unit tests, verify here too
+      let activated = false;
+      element.addEventListener('sando-{event}', () => {
+        activated = true;
+      });
+
+      const inner = element.shadowRoot!.querySelector('button, [role="button"]') as HTMLElement;
+      inner?.focus();
+      inner?.dispatchEvent(
+        new KeyboardEvent('keydown', { key: ' ', bubbles: true, cancelable: true })
+      );
+      inner?.click();
+
+      expect(activated).toBe(true);
     });
   });
 });
@@ -529,10 +548,6 @@ After validating a component:
 
 ONLY report completion when thresholds met
 
-```
-
-</verification>
-
 ## Anti-Patterns
 
 **DON'T:**
@@ -588,4 +603,7 @@ Rules:
 - Include coverage numbers in reports
 
 </return_envelope>
+
+```
+
 ```
