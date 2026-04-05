@@ -10,18 +10,20 @@ See `.opencode/skills/_shared/skill-resolver.md` for the full resolution protoco
 
 ## User Skills
 
-| Trigger                                                                        | Skill                            | Path                                                       |
-| ------------------------------------------------------------------------------ | -------------------------------- | ---------------------------------------------------------- |
-| New component, scaffold, 7-file pattern, boilerplate                           | `component-creator`              | `.opencode/skills/component-creator/SKILL.md`              |
-| Full component workflow, create component end-to-end, no deliverable forgotten | `component-development-workflow` | `.opencode/skills/component-development-workflow/SKILL.md` |
-| Loading state, skeleton, sando-skeleton-\*, \_renderSkeleton                   | `skeleton-creator`               | `.opencode/skills/skeleton-creator/SKILL.md`               |
-| Create agent, new agent file, OpenCode agent, configure tools                  | `agent-creator`                  | `.opencode/skills/agent-creator/SKILL.md`                  |
-| Optimize prompt, improve prompt, prompt engineering, LLM prompt                | `prompt-engineer`                | `.opencode/skills/prompt-engineer/SKILL.md`                |
-| Create skill, new skill file, skill standard                                   | `skill-creator`                  | `.opencode/skills/skill-creator/SKILL.md`                  |
-| Update skills, skill registry, actualizar skills, update registry              | `skill-registry`                 | `.opencode/skills/skill-registry/SKILL.md`                 |
-| judgment day, juzgar, que lo juzguen, dual review, review adversarial          | `judgment-day`                   | `.opencode/skills/judgment-day/SKILL.md`                   |
-| Create PR, open PR, pull request, preparar cambios para review                 | `branch-pr`                      | `.opencode/skills/branch-pr/SKILL.md`                      |
-| Create issue, reportar bug, feature request, GitHub issue                      | `issue-creation`                 | `.opencode/skills/issue-creation/SKILL.md`                 |
+| Trigger                                                                                           | Skill                            | Path                                                       |
+| ------------------------------------------------------------------------------------------------- | -------------------------------- | ---------------------------------------------------------- |
+| New component, scaffold, 7-file pattern, boilerplate                                              | `component-creator`              | `.opencode/skills/component-creator/SKILL.md`              |
+| Full component workflow, create component end-to-end, no deliverable forgotten                    | `component-development-workflow` | `.opencode/skills/component-development-workflow/SKILL.md` |
+| Loading state, skeleton, sando-skeleton-\*, \_renderSkeleton                                      | `skeleton-creator`               | `.opencode/skills/skeleton-creator/SKILL.md`               |
+| Create agent, new agent file, OpenCode agent, configure tools                                     | `agent-creator`                  | `.opencode/skills/agent-creator/SKILL.md`                  |
+| Optimize prompt, improve prompt, prompt engineering, LLM prompt                                   | `prompt-engineer`                | `.opencode/skills/prompt-engineer/SKILL.md`                |
+| Create skill, new skill file, skill standard                                                      | `skill-creator`                  | `.opencode/skills/skill-creator/SKILL.md`                  |
+| Update skills, skill registry, actualizar skills, update registry                                 | `skill-registry`                 | `.opencode/skills/skill-registry/SKILL.md`                 |
+| judgment day, juzgar, que lo juzguen, dual review, review adversarial                             | `judgment-day`                   | `.opencode/skills/judgment-day/SKILL.md`                   |
+| Create PR, open PR, pull request, preparar cambios para review                                    | `branch-pr`                      | `.opencode/skills/branch-pr/SKILL.md`                      |
+| Create issue, reportar bug, feature request, GitHub issue                                         | `issue-creation`                 | `.opencode/skills/issue-creation/SKILL.md`                 |
+| Inject guidelines into sub-agent, compact guidelines, token-efficient rules, pre-digested context | `agent-guidelines-compact`       | `.opencode/skills/agent-guidelines-compact/SKILL.md`       |
+| Verification commands, post-work checks, done criteria, blocking thresholds, verify completion    | `verification-protocol`          | `.opencode/skills/verification-protocol/SKILL.md`          |
 
 ---
 
@@ -147,6 +149,26 @@ Pre-digested rules per skill. Delegators copy matching blocks into sub-agent pro
 - Required for features: problem description, proposed solution, affected area
 - Sando scopes: component name, `tokens`, `flavor-*`, `storybook`, `docs`, `agents`, `build`, `ci`
 - After creating: reference issue in PR body with `Closes #N`
+
+---
+
+### agent-guidelines-compact
+
+- Inject SHARED block into every sub-agent prompt under `## Project Standards (auto-resolved)`
+- Select agent-specific block by role: DEVELOPER, TOKENS, QUALITY, STORYBOOK, ARCHITECT, DOCUMENTER, UX_DESIGNER, UX_WRITER
+- Inject both blocks BEFORE task-specific instructions — replaces the full `guidelines_protocol` block
+- Sub-agents skip reading `.toon` files unless the task involves a NEW pattern or ambiguous requirements
+- NOT a substitute for reading guidelines on architectural decisions — only for routine implementation tasks
+
+---
+
+### verification-protocol
+
+- Inject matching agent-role section under `## Verification Protocol (auto-resolved)` in sub-agent prompts
+- Agents MUST run specified commands before marking `STATUS: complete` in Return Envelope
+- Blocking thresholds: lint 0 errors, typecheck 0 errors, test coverage ≥80% unit / 100% a11y, 0 axe-core violations
+- STATUS mapping: `complete` = all checks pass, `partial` = some done but verification failed, `blocked` = cannot proceed
+- Never mark complete without actual command run — no "I'll run it later"
 
 ---
 

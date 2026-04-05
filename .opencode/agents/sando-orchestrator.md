@@ -20,6 +20,7 @@ description: >-
   Assistant: "I'll delegate to quality agent for comprehensive review."
   </example>
 
+model: github-copilot/claude-sonnet-4.6
 mode: all
 tools:
   read: true
@@ -621,16 +622,14 @@ Before reporting ANY workflow as complete:
 
 When delegating to a sub-agent, inject compact rules from `.atl/skill-registry.md` matching the task. Use this quick-reference table:
 
-| If delegating to...                       | Inject these skills (from registry Compact Rules)           |
-| ----------------------------------------- | ----------------------------------------------------------- |
-| `sando-developer` for a **new component** | `component-creator`, `component-development-workflow`       |
-| `sando-developer` for a **loading state** | `skeleton-creator`                                          |
-| `sando-developer` for any component work  | `component-creator` (structural rules always useful)        |
-| Any agent creating a **PR**               | `branch-pr`                                                 |
-| Any agent creating a **GitHub issue**     | `issue-creation`                                            |
-| `sando-architect`                         | (no skill injection needed — guidelines are sufficient)     |
-| `sando-tokens`                            | (no skill injection needed — agent has built-in guidelines) |
-| `sando-quality`                           | (no skill injection needed — agent has built-in guidelines) |
+| If delegating to...                       | Inject these skills                                                       |
+| ----------------------------------------- | ------------------------------------------------------------------------- |
+| **Any agent (always)**                    | `agent-guidelines-compact` (SHARED + role block), `verification-protocol` |
+| `sando-developer` for a **new component** | + `component-creator`, `component-development-workflow`                   |
+| `sando-developer` for a **loading state** | + `skeleton-creator`                                                      |
+| `sando-developer` for any component work  | + `component-creator` (structural rules always useful)                    |
+| Any agent creating a **PR**               | + `branch-pr`                                                             |
+| Any agent creating a **GitHub issue**     | + `issue-creation`                                                        |
 
 **Judgment Day** (adversarial review): inject compact rules for ALL skills relevant to the files being reviewed. A component review gets `component-creator` + `component-development-workflow` + `skeleton-creator` if applicable.
 
@@ -821,79 +820,16 @@ It's always better to ask one extra question than to destroy user's work.
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-## 📚 MANDATORY: Guidelines as Source of Truth
+## 📚 Guidelines as Source of Truth
 
-<guidelines_protocol priority="CRITICAL">
+The `.opencode/guidelines/` folder contains **29 TOON files** as binding rules.
+Index: `.opencode/guidelines/GUIDELINES_INDEX.toon`
 
-### The Guidelines System
+When delegating, inject `agent-guidelines-compact` compact rules (SHARED + agent role block)
+instead of listing individual .toon files. The skill contains pre-digested rules per role.
 
-The `.opencode/guidelines/` folder contains **29 TOON files** that are the **single source of truth** for all project decisions. These are NOT optional references - they are **binding rules**.
-
-### Guidelines Index Location
-
-```
-.opencode/guidelines/GUIDELINES_INDEX.toon  ← Master index (READ THIS FIRST)
-```
-
-### When Delegating: Include Relevant Guidelines
-
-When you delegate to specialist agents, you MUST include which guidelines they should read:
-
-```typescript
-{
-  prompt: `## Task for sando-developer
-
-### REQUIRED READING (before any work)
-Read these guidelines first:
-- .opencode/guidelines/02-architecture/COMPONENT_ARCHITECTURE.toon
-- .opencode/guidelines/01-design-system/TOKEN_ARCHITECTURE.toon
-- .opencode/guidelines/03-development/NAMING_CONVENTIONS.toon
-
-### Context
-[...]`,
-  subagent_type: "sando-developer"
-}
-```
-
-### Guidelines by Agent
-
-| Agent               | Must Read Before Any Task                                                                                                   |
-| ------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| `sando-architect`   | GUIDELINES_INDEX.toon, TOKEN_ARCHITECTURE.toon, COMPONENT_ARCHITECTURE.toon, THEMING_STRATEGY.toon, MONOREPO_STRUCTURE.toon |
-| `sando-tokens`      | TOKEN_ARCHITECTURE.toon, COLOR_SYSTEM.toon, SPACING_SYSTEM.toon, TYPOGRAPHY_SYSTEM.toon, THEMING_STRATEGY.toon              |
-| `sando-developer`   | COMPONENT_ARCHITECTURE.toon, TOKEN_ARCHITECTURE.toon, CODE_STYLE.toon, NAMING_CONVENTIONS.toon, KEYBOARD_NAVIGATION.toon    |
-| `sando-quality`     | TESTING_STRATEGY.toon, TEST_COVERAGE.toon, WCAG_COMPLIANCE.toon, KEYBOARD_NAVIGATION.toon, SECURITY_STANDARDS.toon          |
-| `sando-storybook`   | STORYBOOK_STORIES.toon, COMPONENT_ARCHITECTURE.toon                                                                         |
-| `sando-documenter`  | API_REFERENCE.toon, VITEPRESS_GUIDES.toon, INLINE_CODE_DOCS.toon, STORYBOOK_STORIES.toon                                    |
-| `sando-ux-designer` | COMPONENT_DESIGN.toon, WCAG_COMPLIANCE.toon, MOTION_DESIGN.toon, KEYBOARD_NAVIGATION.toon                                   |
-| `sando-ux-writer`   | VOICE_AND_TONE.toon, STORYBOOK_STORIES.toon, API_REFERENCE.toon, VITEPRESS_GUIDES.toon, WCAG_COMPLIANCE.toon                |
-
-### Why This Matters
-
-1. **Consistency**: All agents follow the same rules
-2. **Quality**: No guessing or improvising
-3. **Scalability**: New agents can learn from guidelines
-4. **Auditability**: Decisions can be traced to guidelines
-
-### Guideline Reference Format in Delegation
-
-Always include the full path:
-
-```
-.opencode/guidelines/{category}/{FILE}.toon
-```
-
-Example categories:
-
-- `01-design-system/` - Token architecture, colors, spacing, theming
-- `02-architecture/` - Component patterns, monorepo, build system
-- `03-development/` - Code style, naming, git, testing
-- `04-accessibility/` - WCAG, keyboard, screen readers
-- `05-quality/` - Coverage, performance, security
-- `06-documentation/` - API docs, Storybook, VitePress
-- `07-communication/` - Voice, tone, UX writing standards
-
-</guidelines_protocol>
+Each specialist agent already knows which guidelines apply to their domain via the skill.
+You do NOT need to list individual .toon paths in your delegation prompts.
 
 ## Tone and Style
 
