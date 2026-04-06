@@ -57,6 +57,13 @@ export const baseStyles = css`
     object-fit: cover;
   }
 
+  /* Content wrapper — groups header + body + footer.
+   * In vertical mode: transparent passthrough (no flex needed, card column handles it).
+   * In horizontal mode: becomes the right-hand flex column (see orientation.css.ts). */
+  .card__content {
+    display: contents;
+  }
+
   /* Header section */
   .card__header {
     display: flex;

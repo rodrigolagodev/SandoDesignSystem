@@ -528,47 +528,51 @@ export class SandoCard extends FlavorableMixin(LitElement) {
           <slot name="media" @slotchange=${(e: Event) => this._handleSlotChange('media', e)}></slot>
         </div>
 
-        <!-- Header: either from slot or from heading prop + header-action -->
-        <div class="card__header" part="header" ?hidden=${!this._hasHeaderSlot && !this.heading}>
-          ${this._hasHeaderSlot
-            ? html`
-                <slot
-                  name="header"
-                  @slotchange=${(e: Event) => this._handleSlotChange('header', e)}
-                ></slot>
-              `
-            : html`
-                <div class="card__header-content">${this._renderHeading()}</div>
-                <div
-                  class="card__header-action"
-                  part="header-action"
-                  ?hidden=${!this._hasHeaderActionSlot}
-                >
+        <!-- Content wrapper: groups header + body + footer as a flex-column column -->
+        <!-- In horizontal mode this wrapper becomes the right-hand flex column -->
+        <div class="card__content">
+          <!-- Header: either from slot or from heading prop + header-action -->
+          <div class="card__header" part="header" ?hidden=${!this._hasHeaderSlot && !this.heading}>
+            ${this._hasHeaderSlot
+              ? html`
                   <slot
-                    name="header-action"
-                    @slotchange=${(e: Event) => this._handleSlotChange('header-action', e)}
+                    name="header"
+                    @slotchange=${(e: Event) => this._handleSlotChange('header', e)}
                   ></slot>
-                </div>
-                <!-- Keep header slot listening even when not displayed (detects future projection) -->
-                <slot
-                  name="header"
-                  style="display:none"
-                  @slotchange=${(e: Event) => this._handleSlotChange('header', e)}
-                ></slot>
-              `}
-        </div>
+                `
+              : html`
+                  <div class="card__header-content">${this._renderHeading()}</div>
+                  <div
+                    class="card__header-action"
+                    part="header-action"
+                    ?hidden=${!this._hasHeaderActionSlot}
+                  >
+                    <slot
+                      name="header-action"
+                      @slotchange=${(e: Event) => this._handleSlotChange('header-action', e)}
+                    ></slot>
+                  </div>
+                  <!-- Keep header slot listening even when not displayed (detects future projection) -->
+                  <slot
+                    name="header"
+                    style="display:none"
+                    @slotchange=${(e: Event) => this._handleSlotChange('header', e)}
+                  ></slot>
+                `}
+          </div>
 
-        <!-- Body (default slot) -->
-        <div class="card__body" part="body">
-          <slot></slot>
-        </div>
+          <!-- Body (default slot) -->
+          <div class="card__body" part="body">
+            <slot></slot>
+          </div>
 
-        <!-- Footer -->
-        <div class="card__footer" part="footer" ?hidden=${!this._hasFooterSlot}>
-          <slot
-            name="footer"
-            @slotchange=${(e: Event) => this._handleSlotChange('footer', e)}
-          ></slot>
+          <!-- Footer -->
+          <div class="card__footer" part="footer" ?hidden=${!this._hasFooterSlot}>
+            <slot
+              name="footer"
+              @slotchange=${(e: Event) => this._handleSlotChange('footer', e)}
+            ></slot>
+          </div>
         </div>
 
         <!-- Interactive surface overlay (CA-LP-PIS) -->
