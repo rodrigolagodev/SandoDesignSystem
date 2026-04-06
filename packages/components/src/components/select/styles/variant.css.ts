@@ -29,6 +29,7 @@ export const variantStyles = css`
 
   /* Outlined hover */
   :host(:not([disabled])) .select-trigger:hover {
+    background-color: var(--sando-select-outlined-backgroundColor-hover);
     border-color: var(--sando-select-outlined-borderColor-hover);
   }
 
@@ -39,6 +40,7 @@ export const variantStyles = css`
 
   /* Outlined focus */
   :host(:not([disabled])) .select-trigger:focus-visible {
+    background-color: var(--sando-select-outlined-backgroundColor-focus);
     border-color: var(--sando-select-outlined-borderColor-focus);
   }
 
@@ -73,6 +75,7 @@ export const variantStyles = css`
 
   /* Filled focus */
   :host([variant='filled']:not([disabled])) .select-trigger:focus-visible {
+    background-color: var(--sando-select-filled-backgroundColor-focus);
     border-color: var(--sando-select-filled-borderColor-focus);
   }
 `;

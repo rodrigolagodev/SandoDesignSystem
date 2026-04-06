@@ -9,6 +9,14 @@
         "disabled": {
           "value": "{color.action.disabled.background.value}",
           "type": "color"
+        },
+        "hover": {
+          "value": "{color.background.base.value}",
+          "type": "color"
+        },
+        "focus": {
+          "value": "{color.background.transparent.value}",
+          "type": "color"
         }
       },
       "textColor": {
@@ -74,6 +82,10 @@
         },
         "disabled": {
           "value": "{color.action.disabled.background.value}",
+          "type": "color"
+        },
+        "focus": {
+          "value": "{color.background.raised.value}",
           "type": "color"
         }
       },

@@ -19,6 +19,7 @@ export const stateStyles = css`
   /* Outlined hover */
   :host([variant='outlined']) .input-wrapper:hover:not(.disabled):not(.error),
   .input-wrapper:hover:not(.disabled):not(.error) {
+    background: var(--sando-input-outlined-backgroundColor-hover);
     border-color: var(--sando-input-outlined-borderColor-hover);
   }
 
@@ -34,6 +35,7 @@ export const stateStyles = css`
   /* Outlined focus */
   :host([variant='outlined']) .input-wrapper.focused,
   .input-wrapper.focused {
+    background: var(--sando-input-outlined-backgroundColor-focus);
     border-color: var(--sando-input-outlined-borderColor-focus);
     outline: var(--sando-input-focusOutlineWidth) solid var(--sando-input-focusOutlineColor);
     outline-offset: 0;
@@ -41,6 +43,7 @@ export const stateStyles = css`
 
   /* Filled focus */
   :host([variant='filled']) .input-wrapper.focused {
+    background: var(--sando-input-filled-backgroundColor-focus);
     border-color: var(--sando-input-filled-borderColor-focus);
     outline: var(--sando-input-focusOutlineWidth) solid var(--sando-input-focusOutlineColor);
     outline-offset: 0;
