@@ -41,9 +41,9 @@
         "description": "No radius for sharp-edge containers"
       },
       "rounded": {
-        "value": "{border.radius.default.value}",
+        "value": "{border.radius.emphasis.value}",
         "type": "dimension",
-        "description": "Default radius for card-like skeletons"
+        "description": "Container radius for image and card-like skeletons — matches card/panel radius"
       }
     },
     "spacing": {
@@ -153,6 +153,30 @@
           "value": "{space.inset.muted.value}",
           "type": "dimension",
           "description": "Generous line spacing for larger text"
+        }
+      }
+    },
+    "image": {
+      "aspectRatio": {
+        "square": {
+          "value": "{media.aspectRatio.square.value}",
+          "type": "other",
+          "description": "1:1 square skeleton image"
+        },
+        "photo": {
+          "value": "{media.aspectRatio.photo.value}",
+          "type": "other",
+          "description": "4:3 standard photo skeleton image"
+        },
+        "video": {
+          "value": "{media.aspectRatio.video.value}",
+          "type": "other",
+          "description": "16:9 widescreen skeleton image (default)"
+        },
+        "cinema": {
+          "value": "{media.aspectRatio.cinema.value}",
+          "type": "other",
+          "description": "21:9 ultrawide skeleton image"
         }
       }
     }
