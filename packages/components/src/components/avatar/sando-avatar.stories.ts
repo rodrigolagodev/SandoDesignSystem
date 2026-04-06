@@ -24,7 +24,7 @@ import './sando-avatar.js';
  * ## Accessibility
  *
  * - Static avatars render with `role="img"` and a descriptive `aria-label`
- * - Interactive avatars render as `<a>` with `aria-label="Ir al perfil de …"`
+ * - Interactive avatars render as `<a>` with `aria-label="Go to [name]'s profile"`
  * - Presence indicators include a visually hidden `<span>` for screen readers
  * - Image `alt` falls back to `name` if not explicitly provided
  */
@@ -470,7 +470,7 @@ export const AsLink: Story = {
         <sando-avatar
           src="https://i.pravatar.cc/150?img=10"
           name="Ana López"
-          href="#perfil-ana"
+          href="#ana-profile"
           size="lg"
         ></sando-avatar>
         <div style="text-align: center;">
@@ -489,7 +489,7 @@ export const AsLink: Story = {
         <sando-avatar
           src="https://i.pravatar.cc/150?img=11"
           name="Carlos Ruiz"
-          href="https://example.com/perfil"
+          href="https://example.com/profile"
           target="_blank"
           size="lg"
         ></sando-avatar>
@@ -506,7 +506,7 @@ export const AsLink: Story = {
       </div>
 
       <div style="display: flex; flex-direction: column; align-items: center; gap: 0.75rem;">
-        <sando-avatar name="Invitado" href="#perfil" size="lg" presence="online"></sando-avatar>
+        <sando-avatar name="Guest" href="#profile" size="lg" presence="online"></sando-avatar>
         <div style="text-align: center;">
           <span
             style="display: block; font-size: 0.875rem; font-weight: 500; color: var(--sando-color-text-body);"

@@ -172,6 +172,13 @@
           "description": "Overlay tint on image when avatar is clickable"
         }
       },
+      "opacity": {
+        "hover": {
+          "value": "{opacity.hover.value}",
+          "type": "number",
+          "description": "Subtle dimming on image when interactive avatar is hovered"
+        }
+      },
       "focusOutlineColor": {
         "value": "{color.focus.ring.value}",
         "type": "color"

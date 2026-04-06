@@ -58,10 +58,11 @@ export const baseStyles = css`
     border-width: var(--sando-textarea-borderWidth);
     border-style: solid;
     border-radius: var(--sando-textarea-borderRadius);
-    transition-property: background-color, border-color, box-shadow, outline;
+    /* DLD §7.4: transition only structural state changes — no box-shadow (focus uses outline), no outline (causes flash) */
+    transition-property: background-color, border-color;
     transition-duration: var(--sando-textarea-transition-duration);
     transition-timing-function: var(--sando-textarea-transition-timing);
-    /* Prepare for focus outline */
+    /* Prepare for focus outline — transparent by default, activated on :focus-visible */
     outline: var(--sando-textarea-focusOutlineWidth) solid transparent;
     outline-offset: var(--sando-textarea-focusOutlineOffset);
     /* Remove native resize handle - we control via resize property */

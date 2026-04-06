@@ -1,7 +1,3 @@
-/**
- * Storybook stories for sando-skeleton-paragraph component
- */
-
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import './sando-skeleton-paragraph.js';
@@ -42,7 +38,7 @@ const meta: Meta = {
     flavor: {
       control: 'select',
       options: ['original', 'strawberry', 'tonkatsu', 'kiwi', 'egg-salad'],
-      description: 'Visual flavor/theme of the component',
+      description: 'Active flavor — changes the color palette and visual identity of the component',
       table: {
         category: 'Appearance',
         type: { summary: 'string' },

@@ -1,9 +1,9 @@
 meta:
   doc_id: "WC"
   category: "04-accessibility"
-  version: "2.0.0"
+  version: "2.1.0"
   status: "Active"
-  last_updated: "2026-04-05"
+  last_updated: "2026-04-06"
   owner: "QA Expert"
 
 purpose:
@@ -499,3 +499,122 @@ external_references:
     note: "Technical reference"
 
 conclusion: "Accessibility is non-negotiable. Every component must be usable by everyone."
+
+design_language_notes:
+  id: "WC-DLN"
+  source: "SANDO_DESIGN_LANGUAGE.md v1.0.0"
+  last_synced: "2026-04-06"
+
+  - id: "WC-DLN-R1"
+    title: "Focus Ring Specification"
+    summary: "Focus rings are universal, consistent, and NEVER overridden per component."
+    specification:
+      - property: "Style"
+        value: "outline (NOT box-shadow, NOT border)"
+        why: "Outline doesn't affect layout. Box-shadow focus rings break in overflow:hidden containers."
+      - property: "Width"
+        value: "2px"
+        why: "Meets WCAG 2.4.12 'Focus Appearance' (minimum 2px)"
+      - property: "Color"
+        value: "Accent color (Kohaku Gold at 600 step in light mode, 400 step in dark mode)"
+      - property: "Offset"
+        value: "2px"
+        why: "Small gap between element edge and ring creates visual clarity"
+      - property: "Border-radius"
+        value: "Matches the element's border-radius + offset"
+        why: "A rounded button gets a rounded focus ring"
+      - property: "Visibility"
+        value: ":focus-visible ONLY (not :focus)"
+        why: "Mouse clicks don't show ring; keyboard navigation does"
+    pattern:
+      lang: "css"
+      title: "✅ CORRECT: Focus ring implementation"
+      code: |
+        :host(:focus-visible) {
+          outline: 2px solid var(--sando-color-focus-ring);
+          outline-offset: 2px;
+          border-radius: inherit; /* matches element's radius */
+        }
+    anti_pattern:
+      lang: "css"
+      title: "❌ WRONG: Box-shadow focus rings"
+      code: |
+        /* WRONG: box-shadow breaks in overflow:hidden containers */
+        :host(:focus) {
+          box-shadow: 0 0 0 2px var(--sando-color-focus-ring);
+        }
+        /* WRONG: :focus shows ring on mouse click too */
+        :host(:focus) {
+          outline: 2px solid blue;
+        }
+        /* WRONG: border shifts layout */
+        :host(:focus-visible) {
+          border: 2px solid var(--sando-color-focus-ring);
+        }
+    rules:
+      - "Focus rings MUST use outline, NEVER box-shadow or border."
+      - "Focus rings MUST use :focus-visible, NEVER :focus."
+      - "Focus rings are NEVER overridden, hidden, or styled differently per component."
+      - "The only variance allowed is border-radius matching the element's own radius."
+
+  - id: "WC-DLN-R2"
+    title: "Disabled Elements — Accessibility Requirements"
+    summary: "Disabled elements MUST be removed from tab order AND use neutral colors. Opacity alone is insufficient."
+    specification:
+      - property: "tabindex"
+        value: "-1"
+        why: "Disabled elements MUST be removed from the tab order, not just have pointer-events:none."
+      - property: "aria-disabled"
+        value: "true"
+        why: "Communicates disabled state to assistive technology."
+      - property: "pointer-events"
+        value: "none"
+        why: "Prevents interaction at the DOM level."
+    rules:
+      - "Disabled elements MUST set tabindex='-1' to be removed from tab order."
+      - "pointer-events:none alone is NOT sufficient — it doesn't remove the element from keyboard navigation."
+      - "Disabled state MUST NOT rely on opacity alone — colors MUST also change to neutral warm gray."
+      - "A disabled element's background, text, and border colors ALL change to neutralWarm values."
+      - "ALL chromatic color (accent, state colors) MUST be removed from disabled elements."
+    pattern:
+      lang: "typescript"
+      title: "✅ CORRECT: Disabled implementation"
+      code: |
+        render() {
+          return html`
+            <button
+              ?disabled=${this.disabled}
+              tabindex=${this.disabled ? '-1' : '0'}
+              aria-disabled=${this.disabled ? 'true' : 'false'}
+            >
+              <slot></slot>
+            </button>
+          `;
+        }
+
+        /* CSS */
+        :host([disabled]) {
+          opacity: 0.6;
+          pointer-events: none;
+          cursor: not-allowed;
+        }
+        :host([disabled]) .button {
+          background: var(--sando-color-neutralWarm-100);
+          color: var(--sando-color-neutralWarm-400);
+          border-color: var(--sando-color-neutralWarm-200);
+          /* ALL chromatic color removed — monochromatic warm gray */
+        }
+    anti_pattern:
+      lang: "css"
+      title: "❌ WRONG: Opacity-only disabled state"
+      code: |
+        /* WRONG: Opacity alone is insufficient */
+        :host([disabled]) {
+          opacity: 0.5;
+          pointer-events: none;
+          /* Missing: color changes to neutral, missing: tabindex=-1 */
+        }
+    why: |
+      Relying solely on opacity fails users who have difficulty perceiving transparency differences.
+      A disabled red "delete" button MUST NOT look red — it becomes monochromatic warm gray.
+      tabindex="-1" ensures keyboard users cannot accidentally focus disabled elements.

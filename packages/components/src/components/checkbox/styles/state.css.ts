@@ -34,6 +34,52 @@ export const stateStyles = css`
   }
 
   /* ========================================
+     HOVER STATE
+     ======================================== */
+  :host(:not([disabled]):not([checked]):not([indeterminate]))
+    .checkbox-container:hover
+    .checkbox-box {
+    border-color: var(--sando-checkbox-solid-borderColor-hover);
+    background-color: var(--sando-checkbox-solid-backgroundColor-hover);
+  }
+
+  :host([checked]:not([disabled])) .checkbox-container:hover .checkbox-box {
+    border-color: var(--sando-checkbox-solid-borderColor-checkedHover);
+    background-color: var(--sando-checkbox-solid-backgroundColor-checkedHover);
+  }
+
+  :host([indeterminate]:not([disabled])) .checkbox-container:hover .checkbox-box {
+    border-color: var(--sando-checkbox-solid-borderColor-indeterminateHover);
+    background-color: var(--sando-checkbox-solid-backgroundColor-indeterminateHover);
+  }
+
+  :host([variant='outline']:not([disabled]):not([checked]):not([indeterminate]))
+    .checkbox-container:hover
+    .checkbox-box {
+    border-color: var(--sando-checkbox-outline-borderColor-hover);
+    background-color: var(--sando-checkbox-outline-backgroundColor-hover);
+  }
+
+  :host([variant='outline'][checked]:not([disabled])) .checkbox-container:hover .checkbox-box {
+    border-color: var(--sando-checkbox-outline-borderColor-checkedHover);
+    background-color: var(--sando-checkbox-outline-backgroundColor-checkedHover);
+  }
+
+  :host([variant='outline'][indeterminate]:not([disabled]))
+    .checkbox-container:hover
+    .checkbox-box {
+    border-color: var(--sando-checkbox-outline-borderColor-indeterminateHover);
+    background-color: var(--sando-checkbox-outline-backgroundColor-indeterminateHover);
+  }
+
+  /* ========================================
+     ACTIVE/PRESS STATE
+     ======================================== */
+  :host(:not([disabled])) .checkbox-container:active .checkbox-box {
+    transform: scale(var(--sando-checkbox-transform-active));
+  }
+
+  /* ========================================
      DISABLED STATE
      ======================================== */
   :host([disabled]) .checkbox-container {

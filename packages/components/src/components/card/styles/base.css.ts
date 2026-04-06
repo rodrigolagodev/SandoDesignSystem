@@ -97,6 +97,9 @@ export const baseStyles = css`
     font-size: var(--sando-card-heading-fontSize);
     font-weight: var(--sando-card-heading-fontWeight);
     color: var(--sando-card-heading-color);
+    /* NOTE: No recipe token for heading line-height exists in card.json.
+     * Using DLD §2.4 subheading rule (1.3) until --sando-card-heading-lineHeight
+     * is added to the recipe. */
     line-height: 1.3;
   }
 

@@ -3,6 +3,8 @@
  *
  * Contains styles for interactive states:
  * - Checked: Shows dot indicator
+ * - Hover: Border darkening + background tint (DLD §7.1)
+ * - Active/Press: scale(0.98) tactile feedback (DLD §7.2)
  * - Disabled: Prevents interaction
  * - Error: Shows error styling
  *
@@ -18,6 +20,38 @@ export const stateStyles = css`
   :host([checked]) .radio-dot {
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
+  }
+
+  /* ========================================
+     HOVER STATE
+     DLD §7.1: border darkens, background tints, 150ms ease-out
+     ======================================== */
+  :host(:not([disabled]):not([checked])) .radio-container:hover .radio-box {
+    border-color: var(--sando-radio-solid-borderColor-hover);
+    background-color: var(--sando-radio-solid-backgroundColor-hover);
+  }
+
+  :host([checked]:not([disabled])) .radio-container:hover .radio-box {
+    border-color: var(--sando-radio-solid-borderColor-checkedHover);
+    background-color: var(--sando-radio-solid-backgroundColor-checkedHover);
+  }
+
+  :host([variant='outline']:not([disabled]):not([checked])) .radio-container:hover .radio-box {
+    border-color: var(--sando-radio-outline-borderColor-hover);
+    background-color: var(--sando-radio-outline-backgroundColor-hover);
+  }
+
+  :host([variant='outline'][checked]:not([disabled])) .radio-container:hover .radio-box {
+    border-color: var(--sando-radio-outline-borderColor-checkedHover);
+    background-color: var(--sando-radio-outline-backgroundColor-checkedHover);
+  }
+
+  /* ========================================
+     ACTIVE/PRESS STATE
+     DLD §7.2: scale(0.98) on all pressable elements
+     ======================================== */
+  :host(:not([disabled])) .radio-container:active .radio-box {
+    transform: scale(var(--sando-radio-transform-active, 0.98));
   }
 
   /* ========================================

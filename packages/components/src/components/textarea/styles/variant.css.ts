@@ -24,14 +24,15 @@ export const variantStyles = css`
     color: var(--sando-textarea-outlined-textColor-placeholder);
   }
 
-  :host([variant='outlined']) .textarea-field:hover:not(:disabled):not(:focus),
-  .textarea-field:hover:not(:disabled):not(:focus) {
+  :host([variant='outlined']) .textarea-field:hover:not(:disabled):not(:focus-visible),
+  .textarea-field:hover:not(:disabled):not(:focus-visible) {
     background-color: var(--sando-textarea-outlined-backgroundColor-hover);
     border-color: var(--sando-textarea-outlined-borderColor-hover);
   }
 
-  :host([variant='outlined']) .textarea-field:focus,
-  .textarea-field:focus {
+  /* DLD §7.3: Use :focus-visible — mouse clicks must NOT show focus ring, keyboard nav must */
+  :host([variant='outlined']) .textarea-field:focus-visible,
+  .textarea-field:focus-visible {
     background-color: var(--sando-textarea-outlined-backgroundColor-focus);
     border-color: var(--sando-textarea-outlined-borderColor-focus);
   }
@@ -49,12 +50,13 @@ export const variantStyles = css`
     color: var(--sando-textarea-filled-textColor-placeholder);
   }
 
-  :host([variant='filled']) .textarea-field:hover:not(:disabled):not(:focus) {
+  :host([variant='filled']) .textarea-field:hover:not(:disabled):not(:focus-visible) {
     background-color: var(--sando-textarea-filled-backgroundColor-hover);
     border-color: var(--sando-textarea-filled-borderColor-hover);
   }
 
-  :host([variant='filled']) .textarea-field:focus {
+  /* DLD §7.3: Use :focus-visible — mouse clicks must NOT show focus ring, keyboard nav must */
+  :host([variant='filled']) .textarea-field:focus-visible {
     background-color: var(--sando-textarea-filled-backgroundColor-focus);
     border-color: var(--sando-textarea-filled-borderColor-focus);
   }

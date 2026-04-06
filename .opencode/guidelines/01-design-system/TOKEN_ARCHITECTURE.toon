@@ -1,9 +1,9 @@
 meta:
   doc_id: "TA"
   category: "01-design-system"
-  version: "2.0.0"
+  version: "2.1.0"
   status: "Active"
-  last_updated: "2025-11-09"
+  last_updated: "2026-04-06"
   owner: "Design System Architect"
 
 purpose:
@@ -552,3 +552,83 @@ changelog:
 
 conclusion: |
   This guideline is the foundation of the Sando Design System. The three-layer architecture is non-negotiable and must be followed strictly to maintain theming flexibility and system scalability.
+
+design_language_notes:
+  id: "TA-DLN"
+  source: "SANDO_DESIGN_LANGUAGE.md v1.0.0"
+  last_synced: "2026-04-06"
+
+  - id: "TA-DLN-R1"
+    title: "Sando Flavor Accent — Kohaku Gold (Not Pure Amber)"
+    summary: "The sando flavor MUST use Kohaku Gold (hue 40-55° OKLCH) as its accent, not pure amber."
+    specification: |
+      The Kohaku Gold direction is warmer (lower hue angle) and slightly less saturated
+      than the previous amber. The target feeling is "burnished gold" — like toasted sesame
+      or craft whiskey, not "notification yellow" or "construction warning."
+    token_impact:
+      - layer: "Ingredients"
+        note: "Kohaku Gold ingredient tokens at hue 40-55° with medium chroma profile"
+      - layer: "Flavors"
+        note: "The `sando` flavor maps `color.action.*` to Kohaku Gold ingredients instead of amber"
+      - layer: "Recipes"
+        note: "No changes — Recipes reference Flavors, not Ingredients directly"
+    reference:
+      type: "source_document"
+      path: ".opencode/SANDO_DESIGN_LANGUAGE.md"
+      section: "§3.2 Accent Color Direction"
+
+  - id: "TA-DLN-R2"
+    title: "Surface Hierarchy — Four Levels"
+    summary: "The system defines exactly four surface levels, differentiated by background color alone."
+    levels:
+      - name: "Base"
+        token: "background.base"
+        light_value: "neutralWarm.50"
+        dark_value: "neutral.950"
+        use: "Page background, the canvas"
+      - name: "Surface"
+        token: "background.surface"
+        light_value: "neutralWarm.100"
+        dark_value: "neutral.900"
+        use: "Sidebar, secondary areas, grouping"
+      - name: "Raised"
+        token: "background.raised"
+        light_value: "white"
+        dark_value: "neutral.800"
+        use: "Cards, modals, popovers — 'on top of' surface"
+      - name: "Overlay"
+        token: "background.overlay"
+        light_value: "neutral.950 @ 60% opacity"
+        dark_value: "neutral.950 @ 80% opacity"
+        use: "Backdrop behind modals/drawers"
+    rules:
+      - "These four levels MUST be distinguishable by background color alone (no borders or shadows required to differentiate)"
+      - "In light mode, the stacking goes lighter: warm.50 → warm.100 → white"
+      - "In dark mode, the stacking goes lighter: 950 → 900 → 800"
+      - "`background.emphasis` uses neutralWarm.200 (a neutral tint), NOT the accent color"
+
+  - id: "TA-DLN-R3"
+    title: "Sando Flavor Weight System — 400/500/700 Only"
+    summary: "The Sando flagship flavor uses exactly three font weights: 400, 500, and 700. Weight 600 is explicitly SKIPPED."
+    weight_mapping:
+      - weight: 400
+        name: "Regular"
+        use: "Body text, descriptions, paragraphs, form values"
+      - weight: 500
+        name: "Medium"
+        use: "Labels, nav items, table headers, button text, emphasis within body"
+      - weight: 600
+        name: "Semibold (RESERVED)"
+        use: "Only for specific flavor overrides (e.g., brutalist, tonkatsu). NEVER used in Sando flavor."
+      - weight: 700
+        name: "Bold"
+        use: "Headings (h1-h6), card titles, section headers"
+    rules:
+      - "In the Sando flavor, only three weights appear on any given screen: 400, 500, 700."
+      - "The 600 weight exists in Ingredients for flavors that want a denser weight stack."
+      - "Maximum perceptual differentiation: 400→500 is subtle emphasis, 500→700 is clear hierarchy."
+    why: "600 and 700 are nearly indistinguishable in many sans-serif fonts. Skipping 600 creates maximum perceptual contrast between emphasis (500) and heading (700)."
+    reference:
+      type: "source_document"
+      path: ".opencode/SANDO_DESIGN_LANGUAGE.md"
+      section: "§2.3 Weight Philosophy"

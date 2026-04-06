@@ -67,7 +67,7 @@ export const baseStyles = css`
     border-width: var(--sando-checkbox-borderWidth);
     border-style: solid;
     border-radius: var(--sando-checkbox-borderRadius);
-    transition-property: background-color, border-color, box-shadow, outline;
+    transition-property: background-color, border-color, outline-color;
     transition-duration: var(--sando-checkbox-transition-duration);
     transition-timing-function: var(--sando-checkbox-transition-timing);
     position: relative;

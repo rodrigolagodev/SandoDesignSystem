@@ -44,9 +44,9 @@ const meta: Meta = {
     flavor: {
       control: 'select',
       options: ['original', 'strawberry', 'tonkatsu', 'kiwi', 'egg-salad'],
-      description: 'Design system flavor/theme - each has unique animation easing',
+      description: 'Active flavor — each has unique animation easing that reflects its personality',
       table: {
-        category: 'Theming',
+        category: 'Flavor',
         type: { summary: 'string' },
         defaultValue: { summary: 'original' }
       }

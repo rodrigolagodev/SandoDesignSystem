@@ -116,7 +116,7 @@ export const baseStyles = css`
   }
 
   .tag__action:active {
-    transform: scale(0.95);
+    transform: scale(var(--sando-tag-active-scale, 0.98));
   }
 
   .tag__action:focus-visible {
@@ -146,7 +146,7 @@ export const baseStyles = css`
   .tag__action:disabled,
   .tag__action[aria-disabled='true'] {
     cursor: not-allowed;
-    opacity: 0.5;
+    opacity: var(--sando-tag-opacity-disabled);
   }
 
   /* Default icon (circle-chevron-right) */

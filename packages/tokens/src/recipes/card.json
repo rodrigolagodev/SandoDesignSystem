@@ -17,6 +17,16 @@
           "type": "shadow",
           "description": "Elevation level 0 — card pressed back down on active"
         }
+      },
+      "borderColor": {
+        "value": "{color.border.muted.value}",
+        "type": "color",
+        "description": "Optional barely-there 1px border on elevated card — belt-and-suspenders definition"
+      },
+      "borderWidth": {
+        "value": "{border.width.default.value}",
+        "type": "dimension",
+        "description": "1px structural border for elevated cards"
       }
     },
     "outlined": {
@@ -74,9 +84,9 @@
         "description": "No border radius"
       },
       "default": {
-        "value": "{border.radius.default.value}",
+        "value": "{border.radius.emphasis.value}",
         "type": "dimension",
-        "description": "Default border radius for card"
+        "description": "Container border radius — 12px for cards and panels"
       },
       "full": {
         "value": "{border.radius.full.value}",
@@ -134,9 +144,9 @@
         "description": "Transition duration for hover/active states"
       },
       "timing": {
-        "value": "{animation.easing.default.value}",
+        "value": "{animation.easing.entrance.value}",
         "type": "cubicBezier",
-        "description": "Easing function for card transitions"
+        "description": "ease-out for state change arrivals"
       }
     },
     "media": {

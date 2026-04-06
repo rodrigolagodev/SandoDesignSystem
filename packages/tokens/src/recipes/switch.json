@@ -323,6 +323,13 @@
         "value": "{animation.easing.default.value}",
         "type": "cubicBezier"
       }
+    },
+    "transform": {
+      "active": {
+        "value": "{scale.press.subtle.value}",
+        "type": "number",
+        "description": "scale(0.98) on press — tactile stamp feedback on track"
+      }
     }
   }
 }

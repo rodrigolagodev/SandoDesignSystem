@@ -1,9 +1,9 @@
 meta:
   doc_id: "CST"
   category: "03-development"
-  version: "1.0.0"
+  version: "1.1.0"
   status: "Active"
-  last_updated: "2025-11-09"
+  last_updated: "2026-04-06"
   owner: "Frontend Developer"
 
 purpose:
@@ -462,3 +462,101 @@ tooling_support:
 
 conclusion: |
   These code style standards ensure consistency and quality across the Sando Design System. Follow them precisely, use automated tooling to enforce them, and maintain them as the single source of truth for code formatting decisions.
+
+design_language_notes:
+  id: "CST-DLN"
+  source: "SANDO_DESIGN_LANGUAGE.md v1.0.0"
+  last_synced: "2026-04-06"
+
+  - id: "CST-DLN-R1"
+    title: "Transition Duration Rules"
+    summary: "Animation durations are categorized by purpose. NEVER hardcode durations — always use CSS custom properties from the token system."
+    specification:
+      - category: "State changes"
+        duration: "150ms"
+        easing: "ease-out"
+        examples: "Hover on/off, active state, color changes, border-color transitions"
+      - category: "Layout shifts"
+        duration: "200ms"
+        easing: "ease-in-out"
+        examples: "Accordion expand, drawer slide, tab switch, card lift on hover"
+      - category: "Entrances"
+        duration: "200ms"
+        easing: "ease-out"
+        examples: "Dropdown appear, tooltip show, modal open"
+      - category: "Exits"
+        duration: "150ms"
+        easing: "ease-in"
+        examples: "Dropdown close, tooltip hide, modal close"
+      - category: "Loading"
+        duration: "500ms"
+        easing: "linear"
+        examples: "Skeleton pulse, spinner rotation"
+    rules:
+      - "State changes (hover, active) MUST use 150ms ease-out."
+      - "Layout transitions (expand/collapse) MUST use 200ms ease-in-out."
+      - "Exit animations MUST be 150ms (25% faster than the 200ms entrances). This feels snappy — the thing arrives smoothly but leaves quickly."
+      - "200ms is the CEILING for state changes. 300ms is ONLY for layout transitions."
+    pattern:
+      lang: "css"
+      title: "✅ CORRECT: Token-based transitions"
+      code: |
+        .button {
+          transition:
+            background-color var(--sando-animation-duration-state) var(--sando-animation-easing-state),
+            border-color var(--sando-animation-duration-state) var(--sando-animation-easing-state);
+        }
+        .accordion-panel {
+          transition: height var(--sando-animation-duration-layout) var(--sando-animation-easing-layout);
+        }
+    anti_pattern:
+      lang: "css"
+      title: "❌ WRONG: Hardcoded durations"
+      code: |
+        .button {
+          transition: background-color 150ms ease-out; /* NEVER hardcode — use token variables */
+        }
+        .button-slow {
+          transition: all 500ms ease; /* NEVER: 'all' is wasteful, 500ms is too slow for state changes */
+        }
+
+  - id: "CST-DLN-R2"
+    title: "Scale Transform — Press ONLY, Never Hover"
+    summary: "`scale(0.98)` is reserved EXCLUSIVELY for the press/active state."
+    rules:
+      - "Apply `transform: scale(0.98)` on `:active` for all pressable elements."
+      - "NEVER apply scale transforms on `:hover`. Scaling on hover feels unstable — the element 'breathes' when the cursor passes over it."
+      - "Exceptions to scale on press: text links, table rows, nav items, elements smaller than 24px."
+    pattern:
+      lang: "css"
+      title: "✅ CORRECT: Scale only on press"
+      code: |
+        .button:active:not(:disabled) {
+          transform: scale(0.98);
+        }
+    anti_pattern:
+      lang: "css"
+      title: "❌ WRONG: Scale on hover"
+      code: |
+        .button:hover {
+          transform: scale(1.02); /* NEVER scale on hover */
+        }
+        .card:hover {
+          transform: scale(1.01); /* NEVER — use translateY(-2px) + shadow escalation for cards */
+        }
+
+  - id: "CST-DLN-R3"
+    title: "Forbidden Animation Patterns"
+    summary: "Sando motion is organic and purposeful. Several animation patterns are explicitly forbidden."
+    forbidden:
+      - "NEVER use spring, bounce, elastic, or overshoot easings."
+      - "NEVER animate idle elements (no pulsing buttons, no floating cards, no rotating icons except spinners)."
+      - "NEVER add entrance animations on page load."
+      - "NEVER use parallax scrolling effects."
+      - "NEVER use `transition: all` — always specify exact properties to transition."
+      - "NEVER exceed 300ms for any state change duration."
+    allowed_easings:
+      - "ease-out — for entrances and state changes (arriving)"
+      - "ease-in — for exits (departing)"
+      - "ease-in-out — for persistent layout changes"
+      - "linear — for loading animations ONLY"

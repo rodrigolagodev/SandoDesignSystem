@@ -106,7 +106,7 @@ export const baseStyles = css`
   .avatar--interactive:hover .avatar__image,
   .avatar--interactive:hover .avatar__initials,
   .avatar--interactive:hover .avatar__icon {
-    opacity: 0.85;
+    opacity: var(--sando-avatar-interactive-opacity-hover, 0.85);
   }
 
   .avatar--interactive:hover {

@@ -224,11 +224,11 @@ import "../../../packages/tokens/dist/sando-tokens/css/flavors/sando/flavor-dark
 import "../../../packages/tokens/dist/sando-tokens/css/flavors/sando/flavor-high-contrast.css";
 import "../../../packages/tokens/dist/sando-tokens/css/flavors/sando/flavor-motion-reduce.css";
 
-// Brutalist (Japanese brutalist - pure neutrals with red accent)
-import "../../../packages/tokens/dist/sando-tokens/css/flavors/brutalist/flavor.css";
-import "../../../packages/tokens/dist/sando-tokens/css/flavors/brutalist/flavor-dark.css";
-import "../../../packages/tokens/dist/sando-tokens/css/flavors/brutalist/flavor-high-contrast.css";
-import "../../../packages/tokens/dist/sando-tokens/css/flavors/brutalist/flavor-motion-reduce.css";
+// Nori (Dark-first, monochromatic, seaweed ink)
+import "../../../packages/tokens/dist/sando-tokens/css/flavors/nori/flavor.css";
+import "../../../packages/tokens/dist/sando-tokens/css/flavors/nori/flavor-dark.css";
+import "../../../packages/tokens/dist/sando-tokens/css/flavors/nori/flavor-high-contrast.css";
+import "../../../packages/tokens/dist/sando-tokens/css/flavors/nori/flavor-motion-reduce.css";
 
 // Import Washi paper texture for Sando flavor
 import "../../../packages/tokens/src/css/washi-texture.css";
@@ -659,7 +659,7 @@ const preview = {
         title: "Flavor:",
         items: [
           { value: "sando", title: "Sando", right: "Warm Precision + Washi" },
-          { value: "brutalist", title: "Brutalist", right: "Japanese Minimal" },
+          { value: "nori", title: "Nori", right: "Dark-first Ink" },
           { value: "original", title: "Original", right: "Neutral" },
           { value: "strawberry", title: "Strawberry", right: "Red tones" },
           { value: "tonkatsu", title: "Tonkatsu", right: "Brown tones" },
@@ -676,7 +676,7 @@ const preview = {
    *
    * Flavor Switcher:
    * - "sando": Warm Precision + Washi (data-flavor="sando") - DEFAULT
-   * - "brutalist": Japanese Minimal (data-flavor="brutalist")
+   * - "nori": Dark-first Ink (data-flavor="nori")
    * - "original": Neutral tones (no data-flavor attribute, uses :root styles)
    * - "strawberry": Red tones (data-flavor="strawberry")
    * - "tonkatsu": Brown tones (data-flavor="tonkatsu")
