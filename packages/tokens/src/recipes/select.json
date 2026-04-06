@@ -283,7 +283,11 @@
           "type": "color"
         },
         "selected": {
-          "value": "{color.focus.text.value}",
+          "value": "{color.orange.500.value}",
+          "type": "color"
+        },
+        "selectedHover": {
+          "value": "{color.orange.500.value}",
           "type": "color"
         },
         "disabled": {
