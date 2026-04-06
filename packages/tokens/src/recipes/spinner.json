@@ -64,6 +64,11 @@
         "value": "{color.icon.on-solid.value}",
         "type": "color",
         "description": "Inverted spinner color for dark backgrounds"
+      },
+      "accent": {
+        "value": "{color.action.solid.background.default.value}",
+        "type": "color",
+        "description": "Accent spinner color for solid button loading states (Kohaku Gold)"
       }
     },
     "animation": {

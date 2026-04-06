@@ -55,7 +55,7 @@
           "type": "color"
         },
         "hover": {
-          "value": "{color.background.base.value}",
+          "value": "{color.background.emphasis.value}",
           "type": "color"
         },
         "disabled": {

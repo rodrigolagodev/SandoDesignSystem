@@ -213,7 +213,7 @@
       "type": "fontFamily"
     },
     "fontWeight": {
-      "value": "{font.weight.body.value}",
+      "value": "{font.weight.emphasis.value}",
       "type": "fontWeight"
     },
     "lineHeight": {
@@ -221,7 +221,7 @@
       "type": "number"
     },
     "borderRadius": {
-      "value": "{border.radius.muted.value}",
+      "value": "{border.radius.default.value}",
       "type": "dimension"
     },
     "borderWidth": {

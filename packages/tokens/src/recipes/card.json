@@ -19,7 +19,7 @@
         }
       },
       "borderColor": {
-        "value": "{color.border.muted.value}",
+        "value": "{color.border.default.value}",
         "type": "color",
         "description": "Optional barely-there 1px border on elevated card — belt-and-suspenders definition"
       },
@@ -32,7 +32,7 @@
     "outlined": {
       "borderColor": {
         "default": {
-          "value": "{color.border.muted.value}",
+          "value": "{color.border.default.value}",
           "type": "color",
           "description": "Subtle border for outlined card default state"
         },
@@ -158,9 +158,9 @@
     },
     "heading": {
       "fontSize": {
-        "value": "{font.size.body.value}",
+        "value": "{font.size.heading-200.value}",
         "type": "dimension",
-        "description": "Card heading font size — maps to body scale by default"
+        "description": "Card heading font size — slightly larger than body, uses heading-200 scale"
       },
       "fontWeight": {
         "value": "{font.weight.heading.value}",

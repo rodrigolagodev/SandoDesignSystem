@@ -222,7 +222,11 @@
         "type": "dimension"
       },
       "paddingBlock": {
-        "value": "{space.stack.muted.value}",
+        "value": "{space.stack.default.value}",
+        "type": "dimension"
+      },
+      "paddingInline": {
+        "value": "{space.inset.muted.value}",
         "type": "dimension"
       }
     },
