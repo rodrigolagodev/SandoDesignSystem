@@ -37,6 +37,7 @@ import '../skeleton/sando-skeleton-text.js';
 import '../skeleton-button/sando-skeleton-button.js';
 
 import type { SkeletonMediaCardImageRatio } from './sando-skeleton-media-card.types.js';
+import type { SkeletonEffect } from '../skeleton/sando-skeleton.types.js';
 
 /**
  * Default values for skeleton media card properties
@@ -77,6 +78,13 @@ export class SandoSkeletonMediaCard extends FlavorableMixin(LitElement) {
   showActions: boolean = DEFAULT_SHOW_ACTIONS;
 
   /**
+   * Animation effect applied to all inner skeleton elements
+   * @default 'shimmer'
+   */
+  @property({ reflect: true })
+  effect: SkeletonEffect = 'shimmer';
+
+  /**
    * Component styles
    */
   static styles = [
@@ -93,14 +101,18 @@ export class SandoSkeletonMediaCard extends FlavorableMixin(LitElement) {
    * Render image/thumbnail section
    */
   private _renderImage() {
-    return html` <sando-skeleton-image ratio=${this.imageRatio}></sando-skeleton-image> `;
+    return html`
+      <sando-skeleton-image ratio=${this.imageRatio} effect=${this.effect}></sando-skeleton-image>
+    `;
   }
 
   /**
    * Render title section
    */
   private _renderTitle() {
-    return html` <sando-skeleton-text size="lg" width="85%"></sando-skeleton-text> `;
+    return html`
+      <sando-skeleton-text size="lg" width="85%" effect=${this.effect}></sando-skeleton-text>
+    `;
   }
 
   /**
@@ -114,7 +126,7 @@ export class SandoSkeletonMediaCard extends FlavorableMixin(LitElement) {
       // Last line is shorter for natural look
       const width = i === this.descriptionLines - 1 ? '60%' : '100%';
       descriptionLinesHtml.push(html`
-        <sando-skeleton-text size="sm" width=${width}></sando-skeleton-text>
+        <sando-skeleton-text size="sm" width=${width} effect=${this.effect}></sando-skeleton-text>
       `);
     }
 
@@ -129,8 +141,8 @@ export class SandoSkeletonMediaCard extends FlavorableMixin(LitElement) {
 
     return html`
       <sando-skeleton-row gap="sm">
-        <sando-skeleton-button size="sm"></sando-skeleton-button>
-        <sando-skeleton-button size="sm"></sando-skeleton-button>
+        <sando-skeleton-button size="sm" effect=${this.effect}></sando-skeleton-button>
+        <sando-skeleton-button size="sm" effect=${this.effect}></sando-skeleton-button>
       </sando-skeleton-row>
     `;
   }

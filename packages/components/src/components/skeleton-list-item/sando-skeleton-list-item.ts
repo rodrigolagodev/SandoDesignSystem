@@ -48,6 +48,7 @@ import '../skeleton/sando-skeleton-text.js';
 import '../skeleton-button/sando-skeleton-button.js';
 
 import type { SkeletonListItemAvatarSize } from './sando-skeleton-list-item.types.js';
+import type { SkeletonEffect } from '../skeleton/sando-skeleton.types.js';
 
 /**
  * Default values for skeleton list item properties
@@ -88,6 +89,13 @@ export class SandoSkeletonListItem extends FlavorableMixin(LitElement) {
   avatarSize: SkeletonListItemAvatarSize = DEFAULT_AVATAR_SIZE;
 
   /**
+   * Animation effect applied to all inner skeleton elements
+   * @default 'shimmer'
+   */
+  @property({ reflect: true })
+  effect: SkeletonEffect = 'shimmer';
+
+  /**
    * Component styles
    */
   static styles = [
@@ -116,21 +124,32 @@ export class SandoSkeletonListItem extends FlavorableMixin(LitElement) {
       <sando-skeleton-composer>
         <sando-skeleton-row gap="md" align="center">
           ${this.showAvatar
-            ? html`<sando-skeleton-avatar size=${this.avatarSize}></sando-skeleton-avatar>`
+            ? html`<sando-skeleton-avatar
+                size=${this.avatarSize}
+                effect=${this.effect}
+              ></sando-skeleton-avatar>`
             : nothing}
 
           <sando-skeleton-stack gap="xs" class="content">
-            <sando-skeleton-text width="70%"></sando-skeleton-text>
+            <sando-skeleton-text width="70%" effect=${this.effect}></sando-skeleton-text>
             ${lineCount >= 2
-              ? html`<sando-skeleton-text width="50%" size="sm"></sando-skeleton-text>`
+              ? html`<sando-skeleton-text
+                  width="50%"
+                  size="sm"
+                  effect=${this.effect}
+                ></sando-skeleton-text>`
               : nothing}
             ${lineCount >= 3
-              ? html`<sando-skeleton-text width="40%" size="sm"></sando-skeleton-text>`
+              ? html`<sando-skeleton-text
+                  width="40%"
+                  size="sm"
+                  effect=${this.effect}
+                ></sando-skeleton-text>`
               : nothing}
           </sando-skeleton-stack>
 
           ${this.showAction
-            ? html`<sando-skeleton-button size="sm"></sando-skeleton-button>`
+            ? html`<sando-skeleton-button size="sm" effect=${this.effect}></sando-skeleton-button>`
             : nothing}
         </sando-skeleton-row>
       </sando-skeleton-composer>

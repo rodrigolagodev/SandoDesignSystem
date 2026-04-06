@@ -5,12 +5,13 @@
 
 /**
  * Size variants for the profile avatar
+ * - xs: 24px
  * - sm: 32px
  * - md: 40px
  * - lg: 48px
  * - xl: 64px (default for profile)
  */
-export type SkeletonProfileAvatarSize = 'sm' | 'md' | 'lg' | 'xl';
+export type SkeletonProfileAvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 /**
  * Props for the SandoSkeletonProfile component

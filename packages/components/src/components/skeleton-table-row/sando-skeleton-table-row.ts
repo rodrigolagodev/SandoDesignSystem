@@ -39,6 +39,8 @@ import '../skeleton-composer/sando-skeleton-composer.js';
 import '../skeleton/sando-skeleton.js';
 import '../skeleton/sando-skeleton-text.js';
 
+import type { SkeletonEffect } from '../skeleton/sando-skeleton.types.js';
+
 /**
  * Default values
  */
@@ -66,6 +68,13 @@ export class SandoSkeletonTableRow extends FlavorableMixin(LitElement) {
    */
   @property({ type: Boolean, attribute: 'show-checkbox' })
   showCheckbox = false;
+
+  /**
+   * Animation effect applied to all inner skeleton elements
+   * @default 'shimmer'
+   */
+  @property({ reflect: true })
+  effect: SkeletonEffect = 'shimmer';
 
   /**
    * Component styles
@@ -133,7 +142,12 @@ export class SandoSkeletonTableRow extends FlavorableMixin(LitElement) {
           ${this.showCheckbox
             ? html`
                 <div class="checkbox">
-                  <sando-skeleton shape="rounded" width="16px" height="16px"></sando-skeleton>
+                  <sando-skeleton
+                    shape="rounded"
+                    width="16px"
+                    height="16px"
+                    effect=${this.effect}
+                  ></sando-skeleton>
                 </div>
               `
             : nothing}
@@ -143,7 +157,7 @@ export class SandoSkeletonTableRow extends FlavorableMixin(LitElement) {
 
             return html`
               <div class="cell" style="flex: 0 0 ${width};">
-                <sando-skeleton-text width=${textWidth}></sando-skeleton-text>
+                <sando-skeleton-text width=${textWidth} effect=${this.effect}></sando-skeleton-text>
               </div>
             `;
           })}
