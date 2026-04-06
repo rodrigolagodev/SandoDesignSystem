@@ -1,9 +1,9 @@
 meta:
   doc_id: "CA"
   category: "02-architecture"
-  version: "2.0.0"
+  version: "2.1.0"
   status: "Active"
-  last_updated: "2026-04-05"
+  last_updated: "2026-04-06"
   owner: "Design System Architect"
 
 purpose:
@@ -627,3 +627,154 @@ external_references:
 
 conclusion: |
   This guideline is the foundation of the component architecture. The monolithic 7-file pattern ensures components are self-contained, portable, and consistently structured across the design system.
+
+design_language_notes:
+  id: "CA-DLN"
+  source: "SANDO_DESIGN_LANGUAGE.md v1.0.0"
+  last_synced: "2026-04-06"
+
+  - id: "CA-DLN-R1"
+    title: "Border Width Rules"
+    summary: "Borders use exactly two widths: 1px for structure, 2px for emphasis/focus. NEVER thick borders for structural purposes."
+    specification:
+      - width: "1px"
+        token: "border.width.50"
+        use: "Structural borders — control edges (inputs, selects), card outlines, dividers, table cells"
+        never: "Focus rings, active indicators"
+      - width: "2px"
+        token: "border.width.100"
+        use: "Emphasis borders — focus rings, active tab indicators, selected state borders, error state borders"
+        never: "Structural borders, card outlines, dividers"
+      - width: "0px"
+        use: "No border — solid-variant buttons, ghost buttons at rest, filled cards, elevated cards"
+    rules:
+      - "NEVER use borders thicker than 2px, except alerts which use a 4px left-border as state indicator."
+      - "A 4px alert left-border is the ONLY structural use of thick borders, and it MUST be combined with a state color."
+    anti_pattern: "❌ NEVER: 3px borders, 4px decorative borders, 'accent border' thickness on cards or controls."
+
+  - id: "CA-DLN-R2"
+    title: "Border Radius Rules"
+    summary: "Radius values are role-based: controls=8px, containers=12px, badges/tags=4px, pills=9999px."
+    specification:
+      - token: "radius.muted"
+        value: "4px (border.radius.100)"
+        applies_to: "Inline elements: badges, tags, code blocks"
+        intent: "Barely rounded — just enough to not be sharp"
+      - token: "radius.default"
+        value: "8px (border.radius.200)"
+        applies_to: "ALL controls: buttons, inputs, selects, checkboxes, toggles"
+        intent: "The signature Sando rounding — visible but restrained"
+      - token: "radius.emphasis"
+        value: "12px (border.radius.300)"
+        applies_to: "Containers: cards, modals, panels, dropdowns, popovers"
+        intent: "More generous — containers feel softer"
+      - token: "radius.circular"
+        value: "50%"
+        applies_to: "Avatars, status dots, round icon buttons"
+      - token: "radius.full"
+        value: "9999px"
+        applies_to: "Pill-shaped elements: pill badges, pill buttons (variant)"
+    rules:
+      - "Controls MUST use 8px radius. Containers MUST use 12px radius."
+      - "A button inside a card MUST have visibly less rounding than the card itself."
+      - "Exception: When a control IS the container (large CTA button), use container radius (12px)."
+
+  - id: "CA-DLN-R3"
+    title: "Surface Rule — Border OR Shadow, Never Both"
+    summary: "At rest, an element has EITHER a border OR a shadow, never both simultaneously."
+    rules:
+      - "Element on base/surface → Use border (outlined card) OR shadow (elevated card), never both"
+      - "Element is floating (dropdown, popover, tooltip) → Use shadow (perceived depth required)"
+      - "Element is inline (badge, tag) → Use border only (shadows on tiny elements look wrong)"
+      - "Element is a control (button, input) → Use border (controls are defined by their edges)"
+    exception: |
+      The outlined variant of controls (input, select) has a 1px border and gains a shadow-like
+      effect on focus via the focus ring (2px outline). This is the focus indicator, not a decorative shadow.
+      Dropdowns use 1px border + Level 2 shadow (both needed for clear definition).
+    anti_pattern:
+      lang: "css"
+      title: "❌ WRONG: Border AND shadow on same resting element"
+      code: |
+        .card {
+          border: 1px solid var(--sando-border-default);
+          box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* Pick one or the other */
+        }
+
+  - id: "CA-DLN-R4"
+    title: "Control Height Alignment"
+    summary: "ALL controls (buttons, inputs, selects, checkboxes) MUST share the same visual height at each size."
+    sizes:
+      - size: "sm"
+        min_height: "28px (space.7)"
+        font_size: "12px (font.100)"
+      - size: "md"
+        min_height: "36px (space.9)"
+        font_size: "14px (font.200)"
+      - size: "lg"
+        min_height: "44px (space.11)"
+        font_size: "14px (font.200)"
+    rule: |
+      When controls appear side-by-side (button + input, checkbox + label, select + button),
+      they MUST share the same visual height at the same size prop.
+      sm controls are ALL 28px. md controls are ALL 36px. lg controls are ALL 44px.
+    why: "Consistent heights create visual alignment and reduce the 'mismatched controls' problem across form layouts."
+
+  - id: "CA-DLN-R5"
+    title: "Disabled State — Removes ALL Chromatic Color"
+    summary: "Disabled elements become monochromatic warm gray. No accent tint, no state color."
+    specification:
+      - property: "Opacity"
+        value: "0.6 (opacity.600)"
+      - property: "Background"
+        value: "neutralWarm.100"
+      - property: "Text"
+        value: "neutralWarm.400"
+      - property: "Border"
+        value: "neutralWarm.200"
+      - property: "Cursor"
+        value: "not-allowed"
+      - property: "Pointer events"
+        value: "none"
+      - property: "Focus"
+        value: "Not focusable (tabindex='-1')"
+      - property: "Scale on press"
+        value: "None — the element is inert"
+    rules:
+      - "Disabled elements MUST lose ALL chromatic color — no accent tint, no state color."
+      - "A disabled red 'delete' button MUST NOT look red. It becomes monochromatic warm gray."
+      - "NEVER rely on opacity alone — colors MUST also change to neutral warm gray."
+      - "Disabled elements MUST be removed from tab order with tabindex='-1'."
+
+  - id: "CA-DLN-R6"
+    title: "Variant Vocabulary — Canonical Terms"
+    summary: "All components MUST use the same variant terms. NEVER mix synonyms."
+    vocabulary:
+      - term: "solid"
+        meaning: "Filled with accent/action color"
+        used_by: "Buttons, badges"
+      - term: "outline"
+        meaning: "Border-defined, transparent fill"
+        used_by: "Buttons, badges, cards, inputs"
+      - term: "ghost"
+        meaning: "No border, no fill at rest"
+        used_by: "Buttons"
+      - term: "text"
+        meaning: "No border, no fill, just text"
+        used_by: "Buttons (link-style)"
+      - term: "soft"
+        meaning: "Tinted fill (light version of accent)"
+        used_by: "Badges, alerts"
+      - term: "surface"
+        meaning: "White/raised fill with border"
+        used_by: "Badges"
+      - term: "elevated"
+        meaning: "Shadow-defined, raised fill"
+        used_by: "Cards"
+      - term: "filled"
+        meaning: "Solid neutral fill (non-accent)"
+        used_by: "Cards, inputs"
+    anti_pattern: |
+      ❌ NEVER use `bordered` (use `outline`).
+      ❌ NEVER use `contained` (use `solid`).
+      ❌ NEVER use `flat` (use `ghost` or `text` depending on intent).
+      ❌ NEVER use `primary`/`secondary` as variant names (those describe importance, not visual style).

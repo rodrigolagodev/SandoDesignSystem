@@ -1,9 +1,9 @@
 meta:
   doc_id: "CS"
   category: "01-design-system"
-  version: "3.1.0"
+  version: "3.2.0"
   status: "Active"
-  last_updated: "2026-02-21"
+  last_updated: "2026-04-06"
   owner: "Design System Architect"
 
 purpose: |
@@ -420,6 +420,103 @@ colorblind_accessibility:
         note: '"Error" text + red color, not just red alone'
     why: "All Sando colors have sufficient lightness contrast for colorblind users."
 
+design_language_notes:
+  id: "CS-DLN"
+  source: "SANDO_DESIGN_LANGUAGE.md v1.0.0"
+  last_synced: "2026-04-06"
+
+  - id: "CS-DLN-R1"
+    title: "Kohaku Gold Accent Direction (Sando Flavor)"
+    summary: "The Sando flagship flavor uses Kohaku Gold, NOT pure amber, as its accent color."
+    specification: |
+      Hue range: 40-55° in OKLCH (gold-orange territory).
+      This is a shift of roughly 20-30° warmer from the previous amber (hue ~58-95°).
+      The target feeling is "burnished gold" — toasted sesame, craft whiskey, kohaku (amber stone).
+      NOT "warning yellow", NOT "notification amber", NOT "construction orange".
+    comparison:
+      - quality: "Hue range"
+        previous: "58-95° (yellow-amber)"
+        target: "40-55° (gold-orange)"
+      - quality: "Feeling"
+        previous: "Notification, caution, construction"
+        target: "Crafted, premium, warm authority"
+      - quality: "Saturation"
+        previous: "Medium-high (screams for attention)"
+        target: "Medium (confident, doesn't scream)"
+    rules:
+      - "The exact ingredient tokens are determined by the tokens specialist, but the direction is: warmer hue, slightly lower chroma, same lightness scale."
+      - "The Kohaku Gold accent MUST appear on ≤5% of screen pixels — restraint creates premium."
+      - "Accent appears in actions, focus indicators, and active controls ONLY."
+
+  - id: "CS-DLN-R2"
+    title: "Semantic Color Rules — Four Contexts Only"
+    summary: "Chromatic color is used in EXACTLY four contexts. No exceptions."
+    contexts:
+      - name: "Action"
+        description: "Interactive elements only (buttons, links, toggles). The accent color."
+      - name: "State"
+        description: "Feedback only (error=red, success=green, warning=yellow, info=blue). Universal across flavors."
+      - name: "Focus"
+        description: "Accessibility indicators only. Uses accent hue at specific width/offset."
+      - name: "Surface hierarchy"
+        description: "Background shade differences (base → surface → raised → overlay). Neutral colors ONLY, never chromatic."
+    constraint: "If a color use doesn't fit one of these four categories, it is WRONG."
+
+  - id: "CS-DLN-R3"
+    title: "Anti-Pattern — Decorative Chromatic Color is Forbidden"
+    summary: "NEVER use chromatic color as decoration."
+    forbidden_uses:
+      - "Colored backgrounds for sections"
+      - "Gradient fills on surfaces"
+      - "Tinted cards to 'add visual interest'"
+      - "Colored dividers or separators"
+      - "Accent color as section backgrounds"
+    rule: "If you want visual variety, change the surface level (base/surface/raised) — do NOT add color."
+
+  - id: "CS-DLN-R4"
+    title: "Anti-Pattern — background.emphasis MUST Use neutralWarm.200"
+    summary: "`background.emphasis` MUST map to `neutralWarm.200`, NOT the accent color."
+    why: |
+      Emphasis backgrounds should be perceptibly "different" from base, but not "colored."
+      Mapping to amber.100 (or any accent tint) violates the four-context rule:
+      surface hierarchy uses neutral colors ONLY.
+    pattern:
+      lang: "json"
+      title: "✅ CORRECT: Neutral emphasis background"
+      code:
+        color:
+          background:
+            emphasis:
+              value: "{color.neutralWarm.200.value}"
+    anti_pattern:
+      lang: "json"
+      title: "❌ WRONG: Accent-tinted emphasis background"
+      code:
+        color:
+          background:
+            emphasis:
+              value: "{color.amber.100.value}" # Violates semantic color rules
+
+  - id: "CS-DLN-R5"
+    title: "Dark Mode — Depth, Not Inversion"
+    summary: "Dark mode creates depth through layered dark surfaces. It is NOT a color inversion."
+    rules:
+      - "Base surface: Near-black with warm undertone (not pure #000)"
+      - "Surface stacking: Each level gets LIGHTER, not darker (950 → 900 → 800)"
+      - "Text: Light warm neutrals, not pure white (pure white on dark backgrounds causes eye strain)"
+      - "Accent: Shifts lighter (600 → 400-500 range) to maintain contrast on dark backgrounds"
+      - "Shadows: Become more subtle or disappear entirely — dark surfaces don't cast visible shadows"
+      - "Borders: Become MORE prominent — they are the primary spatial separator in dark mode"
+    key_principle: "In light mode, shadows define depth. In dark mode, borders define depth. The transition is automatic via mode tokens."
+    shadow_to_border_transition: |
+      Light mode: shadows are the primary depth cue, borders are subtle.
+      Dark mode: shadows resolve to `none` or near-zero. Borders take over as the primary depth cue.
+      This MUST be handled automatically by the token build system via mode overrides.
+    anti_pattern:
+      - "NEVER use rgba(0,0,0,x) shadows — all shadows MUST be warm-tinted using the neutralWarm hue"
+      - "NEVER use pure #000000 as a dark mode background — use neutralWarm.950 with warm undertone"
+      - "NEVER use pure #FFFFFF for text in dark mode — use neutralWarm.100 or similar warm light"
+
 related_guidelines:
   - type: "source_file"
     path: "packages/tokens/src/ JSON source files"
@@ -432,3 +529,6 @@ related_guidelines:
     doc_id: "TS"
     file: "THEMING_STRATEGY.toon"
     note: "How colors enable theming via Flavors"
+  - type: "source_document"
+    path: ".opencode/SANDO_DESIGN_LANGUAGE.md"
+    note: "Governing visual specification — sections §3 (Color Philosophy) and §10 (Anti-Patterns)"
