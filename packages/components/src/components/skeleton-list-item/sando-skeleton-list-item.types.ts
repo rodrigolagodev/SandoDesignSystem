@@ -5,11 +5,13 @@
 
 /**
  * Avatar size variants
+ * - xs: Extra small avatar (24px)
  * - sm: Small avatar (32px)
  * - md: Medium avatar (40px, default)
  * - lg: Large avatar (48px)
+ * - xl: Extra large avatar (64px)
  */
-export type SkeletonListItemAvatarSize = 'sm' | 'md' | 'lg';
+export type SkeletonListItemAvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 /**
  * Props for the SandoSkeletonListItem component

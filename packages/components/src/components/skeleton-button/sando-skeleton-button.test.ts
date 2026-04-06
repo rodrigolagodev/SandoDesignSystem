@@ -38,8 +38,8 @@ describe('sando-skeleton-button', () => {
       const skeleton = element.shadowRoot?.querySelector('sando-skeleton');
       expect(element.size).to.equal('sm');
       expect(skeleton?.getAttribute('height')).to.include('--sando-skeleton-size-button-height-sm');
-      // Width uses hardcoded values (not tokens - internal values)
-      expect(skeleton?.getAttribute('width')).to.equal('4rem');
+      // Width uses space tokens
+      expect(skeleton?.getAttribute('width')).to.equal('var(--sando-space-16)');
     });
 
     it('renders medium size correctly', async () => {
@@ -47,8 +47,8 @@ describe('sando-skeleton-button', () => {
       const skeleton = element.shadowRoot?.querySelector('sando-skeleton');
       expect(element.size).to.equal('md');
       expect(skeleton?.getAttribute('height')).to.include('--sando-skeleton-size-button-height-md');
-      // Width uses hardcoded values (not tokens - internal values)
-      expect(skeleton?.getAttribute('width')).to.equal('6rem');
+      // Width uses space tokens
+      expect(skeleton?.getAttribute('width')).to.equal('var(--sando-space-24)');
     });
 
     it('renders large size correctly', async () => {
@@ -56,8 +56,8 @@ describe('sando-skeleton-button', () => {
       const skeleton = element.shadowRoot?.querySelector('sando-skeleton');
       expect(element.size).to.equal('lg');
       expect(skeleton?.getAttribute('height')).to.include('--sando-skeleton-size-button-height-lg');
-      // Width uses hardcoded values (not tokens - internal values)
-      expect(skeleton?.getAttribute('width')).to.equal('8rem');
+      // Width uses space tokens
+      expect(skeleton?.getAttribute('width')).to.equal('var(--sando-space-32)');
     });
 
     it('reflects size attribute', async () => {
@@ -67,10 +67,10 @@ describe('sando-skeleton-button', () => {
   });
 
   describe('width prop', () => {
-    it('uses auto width by default (hardcoded values)', async () => {
+    it('uses auto width by default (space tokens)', async () => {
       const skeleton = element.shadowRoot?.querySelector('sando-skeleton');
-      // Default size is 'md', which uses 6rem width
-      expect(skeleton?.getAttribute('width')).to.equal('6rem');
+      // Default size is 'md', which uses var(--sando-space-24) width
+      expect(skeleton?.getAttribute('width')).to.equal('var(--sando-space-24)');
     });
 
     it('uses 100% for full width', async () => {

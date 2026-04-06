@@ -5,6 +5,21 @@ import './sando-skeleton-text.js';
 // Tag constant for documentation-only stories
 const DOCS_ONLY = ['!dev', '!autodocs'];
 
+const storyLabel = (text: string) => html`
+  <span
+    style="
+    display: block;
+    font-size: var(--sando-typography-size-xs, 0.75rem);
+    font-weight: var(--sando-typography-weight-medium, 500);
+    color: var(--sando-color-text-subtle, #6b7280);
+    margin-bottom: var(--sando-space-2, 0.5rem);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  "
+    >${text}</span
+  >
+`;
+
 /**
  * A semantic skeleton component for single lines of text.
  * This is a thin wrapper around `sando-skeleton` with text-specific sizing presets.
@@ -116,23 +131,17 @@ export const AllSizes: Story = {
   render: () => html`
     <div style="display: flex; flex-direction: column; gap: 24px; max-width: 400px;">
       <div>
-        <p style="margin-bottom: 8px; font-weight: 500; font-size: 0.875rem; color: #666;">
-          sm (0.875em) - Captions, small text
-        </p>
+        ${storyLabel('sm (0.875em) — Captions, small text')}
         <sando-skeleton-text size="sm" width="70%"></sando-skeleton-text>
       </div>
 
       <div>
-        <p style="margin-bottom: 8px; font-weight: 500; font-size: 0.875rem; color: #666;">
-          md (1em) - Body text (default)
-        </p>
+        ${storyLabel('md (1em) — Body text (default)')}
         <sando-skeleton-text size="md" width="85%"></sando-skeleton-text>
       </div>
 
       <div>
-        <p style="margin-bottom: 8px; font-weight: 500; font-size: 0.875rem; color: #666;">
-          lg (1.25em) - Headings, titles
-        </p>
+        ${storyLabel('lg (1.25em) — Headings, titles')}
         <sando-skeleton-text size="lg" width="60%"></sando-skeleton-text>
       </div>
     </div>
@@ -148,17 +157,17 @@ export const AllEffects: Story = {
   render: () => html`
     <div style="display: flex; flex-direction: column; gap: 24px; max-width: 400px;">
       <div>
-        <p style="margin-bottom: 8px; font-weight: 500;">Shimmer (default)</p>
+        ${storyLabel('Shimmer (default)')}
         <sando-skeleton-text effect="shimmer" width="90%"></sando-skeleton-text>
       </div>
 
       <div>
-        <p style="margin-bottom: 8px; font-weight: 500;">Pulse</p>
+        ${storyLabel('Pulse')}
         <sando-skeleton-text effect="pulse" width="90%"></sando-skeleton-text>
       </div>
 
       <div>
-        <p style="margin-bottom: 8px; font-weight: 500;">None (static)</p>
+        ${storyLabel('None (static)')}
         <sando-skeleton-text effect="none" width="90%"></sando-skeleton-text>
       </div>
     </div>

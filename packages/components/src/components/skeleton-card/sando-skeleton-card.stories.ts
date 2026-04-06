@@ -5,29 +5,26 @@ import './sando-skeleton-card.js';
 // Tag constant for documentation-only stories
 const DOCS_ONLY = ['!dev', '!autodocs'];
 
+const storyLabel = (text: string) => html`
+  <span
+    style="
+    display: block;
+    font-size: var(--sando-typography-size-xs, 0.75rem);
+    font-weight: var(--sando-typography-weight-medium, 500);
+    color: var(--sando-color-text-subtle, #6b7280);
+    margin-bottom: var(--sando-space-2, 0.5rem);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  "
+    >${text}</span
+  >
+`;
+
 /**
  * A preset skeleton for card layouts that composes skeleton primitives
  * and layout helpers. Provides a ready-to-use card loading placeholder
  * with configurable sections including header (with optional avatar),
  * image, paragraph content, and action buttons.
- *
- * ## Structure
- * ```
- * +--------------------------------------+
- * | [Avatar]  ################ (60%)     |  <- Header (optional avatar)
- * |           ########## (40%, smaller)  |
- * +--------------------------------------+
- * | +----------------------------------+ |  <- Image (optional, 16/9 default)
- * | |                                  | |
- * | +----------------------------------+ |
- * +--------------------------------------+
- * | #################################### |  <- Paragraph lines
- * | ##################################   |
- * | ##########################           |
- * +--------------------------------------+
- * | [Button] [Button]                    |  <- Actions (optional)
- * +--------------------------------------+
- * ```
  */
 const meta: Meta = {
   title: 'Components/Skeleton/SkeletonCard',
@@ -186,11 +183,11 @@ export const DifferentImageRatios: Story = {
   render: () => html`
     <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;">
       <div>
-        <p style="margin-bottom: 8px; font-size: 14px; color: #666;">1/1 (Square)</p>
+        ${storyLabel('1/1 (Square)')}
         <sando-skeleton-card show-image image-ratio="1/1"></sando-skeleton-card>
       </div>
       <div>
-        <p style="margin-bottom: 8px; font-size: 14px; color: #666;">16/9 (Widescreen)</p>
+        ${storyLabel('16/9 (Widescreen)')}
         <sando-skeleton-card show-image image-ratio="16/9"></sando-skeleton-card>
       </div>
     </div>

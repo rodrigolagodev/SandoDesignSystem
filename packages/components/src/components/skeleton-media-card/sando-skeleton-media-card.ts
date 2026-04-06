@@ -36,7 +36,11 @@ import '../skeleton-image/sando-skeleton-image.js';
 import '../skeleton/sando-skeleton-text.js';
 import '../skeleton-button/sando-skeleton-button.js';
 
-import type { SkeletonMediaCardImageRatio } from './sando-skeleton-media-card.types.js';
+import type {
+  SkeletonMediaCardImageRatio,
+  SkeletonMediaCardWidth
+} from './sando-skeleton-media-card.types.js';
+import type { SkeletonEffect } from '../skeleton/sando-skeleton.types.js';
 
 /**
  * Default values for skeleton media card properties
@@ -77,6 +81,23 @@ export class SandoSkeletonMediaCard extends FlavorableMixin(LitElement) {
   showActions: boolean = DEFAULT_SHOW_ACTIONS;
 
   /**
+   * Animation effect applied to all inner skeleton elements
+   * @default 'shimmer'
+   */
+  @property({ reflect: true })
+  effect: SkeletonEffect = 'shimmer';
+
+  /**
+   * Width of the media card
+   * - 'auto': Natural width based on content/container
+   * - 'full': 100% of container width
+   * - Custom string: Any valid CSS width (e.g., '300px', '20rem')
+   * @default 'auto'
+   */
+  @property({ reflect: true })
+  width: SkeletonMediaCardWidth = 'auto';
+
+  /**
    * Component styles
    */
   static styles = [
@@ -86,6 +107,11 @@ export class SandoSkeletonMediaCard extends FlavorableMixin(LitElement) {
       :host {
         display: block;
       }
+
+      :host([width='full']) {
+        display: block;
+        width: 100%;
+      }
     `
   ];
 
@@ -93,14 +119,18 @@ export class SandoSkeletonMediaCard extends FlavorableMixin(LitElement) {
    * Render image/thumbnail section
    */
   private _renderImage() {
-    return html` <sando-skeleton-image ratio=${this.imageRatio}></sando-skeleton-image> `;
+    return html`
+      <sando-skeleton-image ratio=${this.imageRatio} effect=${this.effect}></sando-skeleton-image>
+    `;
   }
 
   /**
    * Render title section
    */
   private _renderTitle() {
-    return html` <sando-skeleton-text size="lg" width="85%"></sando-skeleton-text> `;
+    return html`
+      <sando-skeleton-text size="lg" width="85%" effect=${this.effect}></sando-skeleton-text>
+    `;
   }
 
   /**
@@ -114,7 +144,7 @@ export class SandoSkeletonMediaCard extends FlavorableMixin(LitElement) {
       // Last line is shorter for natural look
       const width = i === this.descriptionLines - 1 ? '60%' : '100%';
       descriptionLinesHtml.push(html`
-        <sando-skeleton-text size="sm" width=${width}></sando-skeleton-text>
+        <sando-skeleton-text size="sm" width=${width} effect=${this.effect}></sando-skeleton-text>
       `);
     }
 
@@ -129,8 +159,8 @@ export class SandoSkeletonMediaCard extends FlavorableMixin(LitElement) {
 
     return html`
       <sando-skeleton-row gap="sm">
-        <sando-skeleton-button size="sm"></sando-skeleton-button>
-        <sando-skeleton-button size="sm"></sando-skeleton-button>
+        <sando-skeleton-button size="sm" effect=${this.effect}></sando-skeleton-button>
+        <sando-skeleton-button size="sm" effect=${this.effect}></sando-skeleton-button>
       </sando-skeleton-row>
     `;
   }
@@ -139,8 +169,9 @@ export class SandoSkeletonMediaCard extends FlavorableMixin(LitElement) {
    * Render the skeleton media card
    */
   render() {
+    const customWidth = this.width !== 'auto' && this.width !== 'full' ? this.width : null;
     return html`
-      <sando-skeleton-composer>
+      <sando-skeleton-composer style=${customWidth ? `width: ${customWidth}` : nothing}>
         <sando-skeleton-stack gap="md">
           ${this._renderImage()} ${this._renderTitle()} ${this._renderDescription()}
           ${this._renderActions()}

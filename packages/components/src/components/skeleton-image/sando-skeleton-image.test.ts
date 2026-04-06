@@ -5,7 +5,6 @@
 import { fixture, expect, html } from '@open-wc/testing';
 import './sando-skeleton-image.js';
 import type { SandoSkeletonImage } from './sando-skeleton-image.js';
-import type { SandoSkeleton } from '../skeleton/sando-skeleton.js';
 
 describe('sando-skeleton-image', () => {
   describe('rendering', () => {
@@ -44,6 +43,14 @@ describe('sando-skeleton-image', () => {
       );
       expect(el.height).to.be.undefined;
     });
+
+    it('renders inner .skeleton div in shadow root', async () => {
+      const el = await fixture<SandoSkeletonImage>(
+        html`<sando-skeleton-image></sando-skeleton-image>`
+      );
+      const skeletonDiv = el.shadowRoot!.querySelector('.skeleton');
+      expect(skeletonDiv).to.exist;
+    });
   });
 
   describe('aspect ratio variants', () => {
@@ -55,12 +62,26 @@ describe('sando-skeleton-image', () => {
       expect(el.getAttribute('ratio')).to.equal('1/1');
     });
 
+    it('applies 1/1 aspect-ratio to host style', async () => {
+      const el = await fixture<SandoSkeletonImage>(
+        html`<sando-skeleton-image ratio="1/1"></sando-skeleton-image>`
+      );
+      expect(el.style.getPropertyValue('aspect-ratio')).to.equal('1 / 1');
+    });
+
     it('renders 4/3 ratio correctly', async () => {
       const el = await fixture<SandoSkeletonImage>(
         html`<sando-skeleton-image ratio="4/3"></sando-skeleton-image>`
       );
       expect(el.ratio).to.equal('4/3');
       expect(el.getAttribute('ratio')).to.equal('4/3');
+    });
+
+    it('applies 4/3 aspect-ratio to host style', async () => {
+      const el = await fixture<SandoSkeletonImage>(
+        html`<sando-skeleton-image ratio="4/3"></sando-skeleton-image>`
+      );
+      expect(el.style.getPropertyValue('aspect-ratio')).to.equal('4 / 3');
     });
 
     it('renders 16/9 ratio correctly', async () => {
@@ -71,12 +92,26 @@ describe('sando-skeleton-image', () => {
       expect(el.getAttribute('ratio')).to.equal('16/9');
     });
 
+    it('applies 16/9 aspect-ratio to host style', async () => {
+      const el = await fixture<SandoSkeletonImage>(
+        html`<sando-skeleton-image ratio="16/9"></sando-skeleton-image>`
+      );
+      expect(el.style.getPropertyValue('aspect-ratio')).to.equal('16 / 9');
+    });
+
     it('renders 21/9 ratio correctly', async () => {
       const el = await fixture<SandoSkeletonImage>(
         html`<sando-skeleton-image ratio="21/9"></sando-skeleton-image>`
       );
       expect(el.ratio).to.equal('21/9');
       expect(el.getAttribute('ratio')).to.equal('21/9');
+    });
+
+    it('applies 21/9 aspect-ratio to host style', async () => {
+      const el = await fixture<SandoSkeletonImage>(
+        html`<sando-skeleton-image ratio="21/9"></sando-skeleton-image>`
+      );
+      expect(el.style.getPropertyValue('aspect-ratio')).to.equal('21 / 9');
     });
   });
 
@@ -86,19 +121,16 @@ describe('sando-skeleton-image', () => {
         html`<sando-skeleton-image height="200px"></sando-skeleton-image>`
       );
       expect(el.height).to.equal('200px');
-
-      const skeleton = el.shadowRoot!.querySelector('sando-skeleton') as SandoSkeleton;
-      expect(skeleton.height).to.equal('200px');
+      expect(el.style.height).to.equal('200px');
     });
 
-    it('fixed height overrides aspect ratio', async () => {
+    it('fixed height overrides aspect ratio (aspect-ratio removed from host)', async () => {
       const el = await fixture<SandoSkeletonImage>(
         html`<sando-skeleton-image ratio="1/1" height="150px"></sando-skeleton-image>`
       );
-
-      const skeleton = el.shadowRoot!.querySelector('sando-skeleton') as SandoSkeleton;
-      // When height is provided, it should use that value, not 100% from aspect ratio
-      expect(skeleton.height).to.equal('150px');
+      // When height is set, aspect-ratio must be removed from inline style
+      expect(el.style.height).to.equal('150px');
+      expect(el.style.getPropertyValue('aspect-ratio')).to.equal('');
     });
   });
 
@@ -108,9 +140,7 @@ describe('sando-skeleton-image', () => {
         html`<sando-skeleton-image width="300px"></sando-skeleton-image>`
       );
       expect(el.width).to.equal('300px');
-
-      const skeleton = el.shadowRoot!.querySelector('sando-skeleton') as SandoSkeleton;
-      expect(skeleton.width).to.equal('300px');
+      expect(el.style.width).to.equal('300px');
     });
 
     it('respects percentage width', async () => {
@@ -118,52 +148,72 @@ describe('sando-skeleton-image', () => {
         html`<sando-skeleton-image width="50%"></sando-skeleton-image>`
       );
       expect(el.width).to.equal('50%');
-
-      const skeleton = el.shadowRoot!.querySelector('sando-skeleton') as SandoSkeleton;
-      expect(skeleton.width).to.equal('50%');
+      expect(el.style.width).to.equal('50%');
     });
   });
 
   describe('rounded shape', () => {
-    it('uses rounded shape for the inner skeleton', async () => {
+    it('renders .skeleton div with correct structure for border-radius token', async () => {
       const el = await fixture<SandoSkeletonImage>(
         html`<sando-skeleton-image></sando-skeleton-image>`
       );
-
-      const skeleton = el.shadowRoot!.querySelector('sando-skeleton') as SandoSkeleton;
-      expect(skeleton.shape).to.equal('rounded');
+      const skeletonDiv = el.shadowRoot!.querySelector('.skeleton') as HTMLElement;
+      expect(skeletonDiv).to.exist;
+      // border-radius is applied via CSS custom property (--sando-skeleton-borderRadius-rounded).
+      // jsdom doesn't resolve Shadow DOM styles via getComputedStyle, so we verify
+      // the div has the expected CSS part attribute that ties it to the token.
+      expect(skeletonDiv.getAttribute('part')).to.equal('skeleton');
+      // Also confirm the shimmer child exists as a sibling structure
+      // (both share the .skeleton container that owns the border-radius rule)
+      const shimmerDiv = skeletonDiv.querySelector('.skeleton__shimmer');
+      expect(shimmerDiv).to.exist;
     });
   });
 
   describe('effect variants', () => {
-    it('respects shimmer effect', async () => {
+    it('respects shimmer effect on host property', async () => {
       const el = await fixture<SandoSkeletonImage>(
         html`<sando-skeleton-image effect="shimmer"></sando-skeleton-image>`
       );
       expect(el.effect).to.equal('shimmer');
-
-      const skeleton = el.shadowRoot!.querySelector('sando-skeleton') as SandoSkeleton;
-      expect(skeleton.effect).to.equal('shimmer');
     });
 
-    it('respects pulse effect', async () => {
+    it('renders .skeleton__shimmer div when effect is shimmer', async () => {
+      const el = await fixture<SandoSkeletonImage>(
+        html`<sando-skeleton-image effect="shimmer"></sando-skeleton-image>`
+      );
+      const shimmer = el.shadowRoot!.querySelector('.skeleton__shimmer');
+      expect(shimmer).to.exist;
+    });
+
+    it('respects pulse effect on host property', async () => {
       const el = await fixture<SandoSkeletonImage>(
         html`<sando-skeleton-image effect="pulse"></sando-skeleton-image>`
       );
       expect(el.effect).to.equal('pulse');
-
-      const skeleton = el.shadowRoot!.querySelector('sando-skeleton') as SandoSkeleton;
-      expect(skeleton.effect).to.equal('pulse');
     });
 
-    it('respects none effect', async () => {
+    it('does NOT render .skeleton__shimmer div when effect is pulse', async () => {
+      const el = await fixture<SandoSkeletonImage>(
+        html`<sando-skeleton-image effect="pulse"></sando-skeleton-image>`
+      );
+      const shimmer = el.shadowRoot!.querySelector('.skeleton__shimmer');
+      expect(shimmer).to.not.exist;
+    });
+
+    it('respects none effect on host property', async () => {
       const el = await fixture<SandoSkeletonImage>(
         html`<sando-skeleton-image effect="none"></sando-skeleton-image>`
       );
       expect(el.effect).to.equal('none');
+    });
 
-      const skeleton = el.shadowRoot!.querySelector('sando-skeleton') as SandoSkeleton;
-      expect(skeleton.effect).to.equal('none');
+    it('does NOT render .skeleton__shimmer div when effect is none', async () => {
+      const el = await fixture<SandoSkeletonImage>(
+        html`<sando-skeleton-image effect="none"></sando-skeleton-image>`
+      );
+      const shimmer = el.shadowRoot!.querySelector('.skeleton__shimmer');
+      expect(shimmer).to.not.exist;
     });
   });
 
@@ -184,7 +234,7 @@ describe('sando-skeleton-image', () => {
   });
 
   describe('dynamic updates', () => {
-    it('updates ratio dynamically', async () => {
+    it('updates ratio dynamically and reflects to attribute', async () => {
       const el = await fixture<SandoSkeletonImage>(
         html`<sando-skeleton-image ratio="16/9"></sando-skeleton-image>`
       );
@@ -196,6 +246,16 @@ describe('sando-skeleton-image', () => {
       expect(el.getAttribute('ratio')).to.equal('1/1');
     });
 
+    it('updates aspect-ratio on host style when ratio changes', async () => {
+      const el = await fixture<SandoSkeletonImage>(
+        html`<sando-skeleton-image ratio="16/9"></sando-skeleton-image>`
+      );
+
+      el.ratio = '1/1';
+      await el.updateComplete;
+      expect(el.style.getPropertyValue('aspect-ratio')).to.equal('1 / 1');
+    });
+
     it('updates width dynamically', async () => {
       const el = await fixture<SandoSkeletonImage>(
         html`<sando-skeleton-image width="100%"></sando-skeleton-image>`
@@ -205,12 +265,10 @@ describe('sando-skeleton-image', () => {
       el.width = '50%';
       await el.updateComplete;
       expect(el.width).to.equal('50%');
-
-      const skeleton = el.shadowRoot!.querySelector('sando-skeleton') as SandoSkeleton;
-      expect(skeleton.width).to.equal('50%');
+      expect(el.style.width).to.equal('50%');
     });
 
-    it('updates height dynamically', async () => {
+    it('updates height dynamically and removes aspect-ratio', async () => {
       const el = await fixture<SandoSkeletonImage>(
         html`<sando-skeleton-image></sando-skeleton-image>`
       );
@@ -219,12 +277,11 @@ describe('sando-skeleton-image', () => {
       el.height = '200px';
       await el.updateComplete;
       expect(el.height).to.equal('200px');
-
-      const skeleton = el.shadowRoot!.querySelector('sando-skeleton') as SandoSkeleton;
-      expect(skeleton.height).to.equal('200px');
+      expect(el.style.height).to.equal('200px');
+      expect(el.style.getPropertyValue('aspect-ratio')).to.equal('');
     });
 
-    it('updates effect dynamically', async () => {
+    it('updates effect dynamically and reflects to attribute', async () => {
       const el = await fixture<SandoSkeletonImage>(
         html`<sando-skeleton-image effect="shimmer"></sando-skeleton-image>`
       );
@@ -233,9 +290,29 @@ describe('sando-skeleton-image', () => {
       el.effect = 'pulse';
       await el.updateComplete;
       expect(el.effect).to.equal('pulse');
+      expect(el.getAttribute('effect')).to.equal('pulse');
+    });
 
-      const skeleton = el.shadowRoot!.querySelector('sando-skeleton') as SandoSkeleton;
-      expect(skeleton.effect).to.equal('pulse');
+    it('removes .skeleton__shimmer when effect changes from shimmer to pulse', async () => {
+      const el = await fixture<SandoSkeletonImage>(
+        html`<sando-skeleton-image effect="shimmer"></sando-skeleton-image>`
+      );
+      expect(el.shadowRoot!.querySelector('.skeleton__shimmer')).to.exist;
+
+      el.effect = 'pulse';
+      await el.updateComplete;
+      expect(el.shadowRoot!.querySelector('.skeleton__shimmer')).to.not.exist;
+    });
+
+    it('adds .skeleton__shimmer when effect changes from pulse to shimmer', async () => {
+      const el = await fixture<SandoSkeletonImage>(
+        html`<sando-skeleton-image effect="pulse"></sando-skeleton-image>`
+      );
+      expect(el.shadowRoot!.querySelector('.skeleton__shimmer')).to.not.exist;
+
+      el.effect = 'shimmer';
+      await el.updateComplete;
+      expect(el.shadowRoot!.querySelector('.skeleton__shimmer')).to.exist;
     });
   });
 });

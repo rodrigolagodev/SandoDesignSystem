@@ -5,6 +5,21 @@ import './sando-skeleton-button.js';
 // Tag constant for documentation-only stories
 const DOCS_ONLY = ['!dev', '!autodocs'];
 
+const storyLabel = (text: string) => html`
+  <span
+    style="
+    display: block;
+    font-size: var(--sando-typography-size-xs, 0.75rem);
+    font-weight: var(--sando-typography-weight-medium, 500);
+    color: var(--sando-color-text-subtle, #6b7280);
+    margin-bottom: var(--sando-space-2, 0.5rem);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  "
+    >${text}</span
+  >
+`;
+
 /**
  * A skeleton placeholder for button loading states.
  * Uses the base `sando-skeleton` component with a rounded shape to match button appearance.
@@ -110,16 +125,16 @@ export const AllSizes: Story = {
   tags: DOCS_ONLY,
   render: () => html`
     <div style="display: flex; flex-direction: column; gap: 16px; align-items: flex-start;">
-      <div style="display: flex; align-items: center; gap: 16px;">
-        <span style="width: 40px; font-size: 12px; color: #666;">sm</span>
+      <div>
+        ${storyLabel('sm')}
         <sando-skeleton-button size="sm"></sando-skeleton-button>
       </div>
-      <div style="display: flex; align-items: center; gap: 16px;">
-        <span style="width: 40px; font-size: 12px; color: #666;">md</span>
+      <div>
+        ${storyLabel('md')}
         <sando-skeleton-button size="md"></sando-skeleton-button>
       </div>
-      <div style="display: flex; align-items: center; gap: 16px;">
-        <span style="width: 40px; font-size: 12px; color: #666;">lg</span>
+      <div>
+        ${storyLabel('lg')}
         <sando-skeleton-button size="lg"></sando-skeleton-button>
       </div>
     </div>

@@ -5,6 +5,21 @@ import './sando-skeleton-paragraph.js';
 // Tag constant for documentation-only stories
 const DOCS_ONLY = ['!dev', '!autodocs'];
 
+const storyLabel = (text: string) => html`
+  <span
+    style="
+    display: block;
+    font-size: var(--sando-typography-size-xs, 0.75rem);
+    font-weight: var(--sando-typography-weight-medium, 500);
+    color: var(--sando-color-text-subtle, #6b7280);
+    margin-bottom: var(--sando-space-2, 0.5rem);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  "
+    >${text}</span
+  >
+`;
+
 /**
  * A skeleton placeholder for multiple lines of text content.
  * Renders configurable number of skeleton lines with the last line
@@ -148,15 +163,15 @@ export const SizeVariants: Story = {
   render: () => html`
     <div style="display: flex; gap: 32px; max-width: 800px;">
       <div style="flex: 1;">
-        <p style="margin-bottom: 8px; font-weight: 500;">sm (caption-sized)</p>
+        ${storyLabel('sm (caption-sized)')}
         <sando-skeleton-paragraph size="sm"></sando-skeleton-paragraph>
       </div>
       <div style="flex: 1;">
-        <p style="margin-bottom: 8px; font-weight: 500;">md (body-sized, default)</p>
+        ${storyLabel('md (body-sized, default)')}
         <sando-skeleton-paragraph size="md"></sando-skeleton-paragraph>
       </div>
       <div style="flex: 1;">
-        <p style="margin-bottom: 8px; font-weight: 500;">lg (heading-sized)</p>
+        ${storyLabel('lg (heading-sized)')}
         <sando-skeleton-paragraph size="lg"></sando-skeleton-paragraph>
       </div>
     </div>
@@ -172,17 +187,17 @@ export const DifferentLineCounts: Story = {
   render: () => html`
     <div style="display: flex; flex-direction: column; gap: 32px; max-width: 400px;">
       <div>
-        <p style="margin-bottom: 8px; font-weight: 500;">1 Line</p>
+        ${storyLabel('1 Line')}
         <sando-skeleton-paragraph lines="1"></sando-skeleton-paragraph>
       </div>
 
       <div>
-        <p style="margin-bottom: 8px; font-weight: 500;">3 Lines (default)</p>
+        ${storyLabel('3 Lines (default)')}
         <sando-skeleton-paragraph lines="3"></sando-skeleton-paragraph>
       </div>
 
       <div>
-        <p style="margin-bottom: 8px; font-weight: 500;">5 Lines</p>
+        ${storyLabel('5 Lines')}
         <sando-skeleton-paragraph lines="5"></sando-skeleton-paragraph>
       </div>
     </div>
@@ -198,19 +213,19 @@ export const SpacingVariants: Story = {
   render: () => html`
     <div style="display: flex; gap: 32px; max-width: 800px;">
       <div style="flex: 1;">
-        <p style="margin-bottom: 8px; font-weight: 500;">xs</p>
+        ${storyLabel('xs')}
         <sando-skeleton-paragraph spacing="xs"></sando-skeleton-paragraph>
       </div>
       <div style="flex: 1;">
-        <p style="margin-bottom: 8px; font-weight: 500;">sm (default)</p>
+        ${storyLabel('sm (default)')}
         <sando-skeleton-paragraph spacing="sm"></sando-skeleton-paragraph>
       </div>
       <div style="flex: 1;">
-        <p style="margin-bottom: 8px; font-weight: 500;">md</p>
+        ${storyLabel('md')}
         <sando-skeleton-paragraph spacing="md"></sando-skeleton-paragraph>
       </div>
       <div style="flex: 1;">
-        <p style="margin-bottom: 8px; font-weight: 500;">lg</p>
+        ${storyLabel('lg')}
         <sando-skeleton-paragraph spacing="lg"></sando-skeleton-paragraph>
       </div>
     </div>

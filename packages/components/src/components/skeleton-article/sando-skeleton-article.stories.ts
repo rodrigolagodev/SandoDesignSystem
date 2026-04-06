@@ -5,25 +5,24 @@ import './sando-skeleton-article.js';
 // Tag constant for documentation-only stories
 const DOCS_ONLY = ['!dev', '!autodocs'];
 
+const storyLabel = (text: string) => html`
+  <span
+    style="
+    display: block;
+    font-size: var(--sando-typography-size-xs, 0.75rem);
+    font-weight: var(--sando-typography-weight-medium, 500);
+    color: var(--sando-color-text-subtle, #6b7280);
+    margin-bottom: var(--sando-space-2, 0.5rem);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  "
+    >${text}</span
+  >
+`;
+
 /**
  * A preset skeleton for blog post or article layouts. Provides a ready-to-use
  * article loading placeholder with title, meta info, and multiple paragraphs.
- *
- * ## Structure
- * ```
- * +--------------------------------------+
- * | ########################### (title)   |
- * | #### ####### (date + author)          |
- * +--------------------------------------+
- * | #################################### |
- * | ##################################   |  <- Paragraph 1
- * | ##########################           |
- * +--------------------------------------+
- * | #################################### |
- * | ##################################   |  <- Paragraph 2
- * | ##########################           |
- * +--------------------------------------+
- * ```
  */
 const meta: Meta = {
   title: 'Components/Skeleton/SkeletonArticle',
@@ -143,21 +142,15 @@ export const SizeVariants: Story = {
   render: () => html`
     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;">
       <div>
-        <p style="margin-bottom: 12px; font-size: 14px; font-weight: 600; color: #374151;">
-          Small (sm)
-        </p>
+        ${storyLabel('Small (sm)')}
         <sando-skeleton-article size="sm" paragraphs="2"></sando-skeleton-article>
       </div>
       <div>
-        <p style="margin-bottom: 12px; font-size: 14px; font-weight: 600; color: #374151;">
-          Medium (md) - default
-        </p>
+        ${storyLabel('Medium (md) - default')}
         <sando-skeleton-article size="md" paragraphs="2"></sando-skeleton-article>
       </div>
       <div>
-        <p style="margin-bottom: 12px; font-size: 14px; font-weight: 600; color: #374151;">
-          Large (lg)
-        </p>
+        ${storyLabel('Large (lg)')}
         <sando-skeleton-article size="lg" paragraphs="2"></sando-skeleton-article>
       </div>
     </div>
@@ -173,21 +166,15 @@ export const DifferentParagraphCounts: Story = {
   render: () => html`
     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;">
       <div>
-        <p style="margin-bottom: 12px; font-size: 14px; font-weight: 600; color: #374151;">
-          1 Paragraph
-        </p>
+        ${storyLabel('1 Paragraph')}
         <sando-skeleton-article paragraphs="1"></sando-skeleton-article>
       </div>
       <div>
-        <p style="margin-bottom: 12px; font-size: 14px; font-weight: 600; color: #374151;">
-          3 Paragraphs (default)
-        </p>
+        ${storyLabel('3 Paragraphs (default)')}
         <sando-skeleton-article paragraphs="3"></sando-skeleton-article>
       </div>
       <div>
-        <p style="margin-bottom: 12px; font-size: 14px; font-weight: 600; color: #374151;">
-          5 Paragraphs
-        </p>
+        ${storyLabel('5 Paragraphs')}
         <sando-skeleton-article paragraphs="5"></sando-skeleton-article>
       </div>
     </div>

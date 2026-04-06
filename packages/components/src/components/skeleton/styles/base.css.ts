@@ -25,7 +25,7 @@ export const baseStyles = css`
       opacity: 1;
     }
     50% {
-      opacity: 0.4;
+      opacity: 0.6;
     }
   }
 

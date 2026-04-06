@@ -24,4 +24,10 @@ export interface SandoSkeletonTableRowProps {
    * @default false
    */
   showCheckbox?: boolean;
+
+  /**
+   * Animation effect applied to all inner skeleton elements
+   * @default 'shimmer'
+   */
+  effect?: 'shimmer' | 'pulse' | 'none';
 }

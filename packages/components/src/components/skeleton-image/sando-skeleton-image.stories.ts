@@ -5,6 +5,22 @@ import './sando-skeleton-image.js';
 // Tag constant for documentation-only stories
 const DOCS_ONLY = ['!dev', '!autodocs'];
 
+const storyLabel = (text: string) => html`
+  <span
+    style="
+    display: block;
+    font-size: var(--sando-typography-size-xs, 0.75rem);
+    font-weight: var(--sando-typography-weight-medium, 500);
+    color: var(--sando-color-text-subtle, #6b7280);
+    margin-top: var(--sando-space-2, 0.5rem);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    text-align: center;
+  "
+    >${text}</span
+  >
+`;
+
 /**
  * A skeleton placeholder for media/image content with aspect ratio support.
  * Useful for loading states of images, videos, and other media.
@@ -18,7 +34,7 @@ const DOCS_ONLY = ['!dev', '!autodocs'];
 const meta: Meta = {
   title: 'Components/Skeleton/SkeletonImage',
   component: 'sando-skeleton-image',
-  tags: ['autodocs', 'beta'],
+  tags: ['autodocs', 'stable'],
   render: (args) => html`
     <div style="max-width: 400px;">
       <sando-skeleton-image
@@ -111,27 +127,19 @@ export const AspectRatios: Story = {
     <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 600px;">
       <div>
         <sando-skeleton-image ratio="1/1"></sando-skeleton-image>
-        <div style="margin-top: 8px; font-size: 12px; color: #666; text-align: center;">
-          1/1 (Square)
-        </div>
+        ${storyLabel('1/1 (Square)')}
       </div>
       <div>
         <sando-skeleton-image ratio="4/3"></sando-skeleton-image>
-        <div style="margin-top: 8px; font-size: 12px; color: #666; text-align: center;">
-          4/3 (Standard Photo)
-        </div>
+        ${storyLabel('4/3 (Standard Photo)')}
       </div>
       <div>
         <sando-skeleton-image ratio="16/9"></sando-skeleton-image>
-        <div style="margin-top: 8px; font-size: 12px; color: #666; text-align: center;">
-          16/9 (Widescreen)
-        </div>
+        ${storyLabel('16/9 (Widescreen)')}
       </div>
       <div>
         <sando-skeleton-image ratio="21/9"></sando-skeleton-image>
-        <div style="margin-top: 8px; font-size: 12px; color: #666; text-align: center;">
-          21/9 (Ultra-Wide)
-        </div>
+        ${storyLabel('21/9 (Ultra-Wide)')}
       </div>
     </div>
   `,

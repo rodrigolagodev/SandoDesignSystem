@@ -5,23 +5,29 @@ import './sando-skeleton-list-item.js';
 // Tag constant for documentation-only stories
 const DOCS_ONLY = ['!dev', '!autodocs'];
 
+const storyLabel = (text: string) => html`
+  <span
+    style="
+    display: block;
+    font-size: var(--sando-typography-size-xs, 0.75rem);
+    font-weight: var(--sando-typography-weight-medium, 500);
+    color: var(--sando-color-text-subtle, #6b7280);
+    margin-bottom: var(--sando-space-2, 0.5rem);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  "
+    >${text}</span
+  >
+`;
+
 /**
  * A preset skeleton for list item layouts. Provides a common pattern for loading
  * states in list views with optional avatar, text lines, and action button placeholders.
- *
- * ## Structure
- * ```
- * +------------------------------------------------------------------+
- * | [Avatar]  ###################### (70%)                   [Action] |
- * |           ############## (50%, smaller)                           |
- * |           ########## (40%, smaller - if 3 lines)                  |
- * +------------------------------------------------------------------+
- * ```
  */
 const meta: Meta = {
   title: 'Components/Skeleton/SkeletonListItem',
   component: 'sando-skeleton-list-item',
-  tags: ['autodocs', 'beta'],
+  tags: ['autodocs', 'stable'],
   render: (args) => html`
     <div style="max-width: 400px;">
       <sando-skeleton-list-item
@@ -114,15 +120,15 @@ export const DifferentLineCounts: Story = {
   render: () => html`
     <div style="display: flex; flex-direction: column; gap: 24px; max-width: 400px;">
       <div>
-        <p style="margin-bottom: 8px; font-size: 14px; color: #666;">1 line</p>
+        ${storyLabel('1 line')}
         <sando-skeleton-list-item lines="1"></sando-skeleton-list-item>
       </div>
       <div>
-        <p style="margin-bottom: 8px; font-size: 14px; color: #666;">2 lines (default)</p>
+        ${storyLabel('2 lines (default)')}
         <sando-skeleton-list-item lines="2"></sando-skeleton-list-item>
       </div>
       <div>
-        <p style="margin-bottom: 8px; font-size: 14px; color: #666;">3 lines</p>
+        ${storyLabel('3 lines')}
         <sando-skeleton-list-item lines="3"></sando-skeleton-list-item>
       </div>
     </div>

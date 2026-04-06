@@ -37,6 +37,7 @@ import { css, unsafeCSS } from 'lit';
 // These are base values (colors, spacing, typography) that never change.
 // Safe to include in Shadow DOM as they don't vary by flavor.
 // ============================================================================
+import ingredientsAspect from '@sando/tokens/css/ingredients/aspect.css?inline';
 import ingredientsAnimation from '@sando/tokens/css/ingredients/animation.css?inline';
 import ingredientsBorder from '@sando/tokens/css/ingredients/border.css?inline';
 import ingredientsColor from '@sando/tokens/css/ingredients/color.css?inline';
@@ -82,6 +83,7 @@ export const tokenStyles = css`
      INGREDIENTS LAYER - Primitives
      Base values that never change by flavor
      ======================================== */
+  ${unsafeCSS(ingredientsAspect)}
   ${unsafeCSS(ingredientsAnimation)}
   ${unsafeCSS(ingredientsBorder)}
   ${unsafeCSS(ingredientsColor)}

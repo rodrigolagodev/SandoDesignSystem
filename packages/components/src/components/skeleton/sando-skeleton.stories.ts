@@ -2,6 +2,21 @@ import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import './sando-skeleton.js';
 
+const storyLabel = (text: string) => html`
+  <span
+    style="
+    display: block;
+    font-size: var(--sando-typography-size-xs, 0.75rem);
+    font-weight: var(--sando-typography-weight-medium, 500);
+    color: var(--sando-color-text-subtle, #6b7280);
+    margin-bottom: var(--sando-space-2, 0.5rem);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  "
+    >${text}</span
+  >
+`;
+
 /**
  * A loading placeholder component that indicates content is being loaded.
  * Used for system-initiated content loading to reduce perceived wait time.
@@ -125,14 +140,14 @@ export const AllShapes: Story = {
   render: () => html`
     <div style="display: flex; flex-direction: column; gap: 24px; max-width: 400px;">
       <div>
-        <p style="margin-bottom: 8px; font-weight: 500;">Text (default)</p>
+        ${storyLabel('Text (default)')}
         <sando-skeleton shape="text" width="80%" height="1em"></sando-skeleton>
         <div style="height: 8px;"></div>
         <sando-skeleton shape="text" width="60%" height="1em"></sando-skeleton>
       </div>
 
       <div>
-        <p style="margin-bottom: 8px; font-weight: 500;">Circular</p>
+        ${storyLabel('Circular')}
         <div style="display: flex; gap: 12px; align-items: center;">
           <sando-skeleton shape="circular" width="32px" height="32px"></sando-skeleton>
           <sando-skeleton shape="circular" width="48px" height="48px"></sando-skeleton>
@@ -141,12 +156,12 @@ export const AllShapes: Story = {
       </div>
 
       <div>
-        <p style="margin-bottom: 8px; font-weight: 500;">Rectangular</p>
+        ${storyLabel('Rectangular')}
         <sando-skeleton shape="rectangular" width="100%" height="120px"></sando-skeleton>
       </div>
 
       <div>
-        <p style="margin-bottom: 8px; font-weight: 500;">Rounded</p>
+        ${storyLabel('Rounded')}
         <sando-skeleton shape="rounded" width="100%" height="80px"></sando-skeleton>
       </div>
     </div>
@@ -221,17 +236,17 @@ export const AllEffects: Story = {
   render: () => html`
     <div style="display: flex; flex-direction: column; gap: 24px; max-width: 400px;">
       <div>
-        <p style="margin-bottom: 8px; font-weight: 500;">Shimmer (default)</p>
+        ${storyLabel('Shimmer (default)')}
         <sando-skeleton effect="shimmer" width="100%" height="24px"></sando-skeleton>
       </div>
 
       <div>
-        <p style="margin-bottom: 8px; font-weight: 500;">Pulse</p>
+        ${storyLabel('Pulse')}
         <sando-skeleton effect="pulse" width="100%" height="24px"></sando-skeleton>
       </div>
 
       <div>
-        <p style="margin-bottom: 8px; font-weight: 500;">None (static)</p>
+        ${storyLabel('None (static)')}
         <sando-skeleton effect="none" width="100%" height="24px"></sando-skeleton>
       </div>
     </div>

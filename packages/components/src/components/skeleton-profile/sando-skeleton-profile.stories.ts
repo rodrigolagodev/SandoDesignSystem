@@ -4,10 +4,26 @@ import './sando-skeleton-profile.js';
 
 const DOCS_ONLY = ['!dev', '!autodocs'];
 
+const storyLabel = (text: string) => html`
+  <span
+    style="
+    display: block;
+    font-size: var(--sando-typography-size-xs, 0.75rem);
+    font-weight: var(--sando-typography-weight-medium, 500);
+    color: var(--sando-color-text-subtle, #6b7280);
+    margin-bottom: var(--sando-space-2, 0.5rem);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    text-align: center;
+  "
+    >${text}</span
+  >
+`;
+
 const meta: Meta = {
   title: 'Components/Skeleton/SkeletonProfile',
   component: 'sando-skeleton-profile',
-  tags: ['autodocs', 'beta'],
+  tags: ['autodocs', 'stable'],
   render: (args) => html`
     <div style="max-width: 300px;">
       <sando-skeleton-profile
@@ -59,19 +75,6 @@ const meta: Meta = {
 A preset skeleton for user profile card layouts with centered avatar, name, 
 and optional bio lines. Perfect for profile cards, user previews, and account sections.
 
-## Structure
-
-\`\`\`
-+--------------------------------+
-|           [Avatar]             |  <- Centered avatar (xl default)
-|                                |
-|        ############ (60%)      |  <- Name
-|                                |
-|    #################### (90%)  |  <- Bio line 1
-|    ############## (70%)        |  <- Bio line 2
-+--------------------------------+
-\`\`\`
-
 ## Usage
 
 \`\`\`html
@@ -120,35 +123,19 @@ export const AvatarSizes: Story = {
   render: () => html`
     <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;">
       <div>
-        <p
-          style="margin-bottom: 12px; font-size: 14px; font-weight: 600; color: #374151; text-align: center;"
-        >
-          Small
-        </p>
+        ${storyLabel('Small')}
         <sando-skeleton-profile avatar-size="sm"></sando-skeleton-profile>
       </div>
       <div>
-        <p
-          style="margin-bottom: 12px; font-size: 14px; font-weight: 600; color: #374151; text-align: center;"
-        >
-          Medium
-        </p>
+        ${storyLabel('Medium')}
         <sando-skeleton-profile avatar-size="md"></sando-skeleton-profile>
       </div>
       <div>
-        <p
-          style="margin-bottom: 12px; font-size: 14px; font-weight: 600; color: #374151; text-align: center;"
-        >
-          Large
-        </p>
+        ${storyLabel('Large')}
         <sando-skeleton-profile avatar-size="lg"></sando-skeleton-profile>
       </div>
       <div>
-        <p
-          style="margin-bottom: 12px; font-size: 14px; font-weight: 600; color: #374151; text-align: center;"
-        >
-          XL (default)
-        </p>
+        ${storyLabel('XL (default)')}
         <sando-skeleton-profile avatar-size="xl"></sando-skeleton-profile>
       </div>
     </div>

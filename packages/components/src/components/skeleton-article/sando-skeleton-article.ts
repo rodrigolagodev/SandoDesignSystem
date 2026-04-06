@@ -23,6 +23,12 @@
  * <sando-skeleton-article size="sm"></sando-skeleton-article>
  * <sando-skeleton-article size="md"></sando-skeleton-article>
  * <sando-skeleton-article size="lg"></sando-skeleton-article>
+ *
+ * @example With hero image
+ * <sando-skeleton-article show-hero-image></sando-skeleton-article>
+ *
+ * @example Pulse effect with hero image
+ * <sando-skeleton-article show-hero-image effect="pulse"></sando-skeleton-article>
  */
 
 import { LitElement, html, css, nothing } from 'lit';
@@ -31,6 +37,7 @@ import { FlavorableMixin } from '../../mixins/index.js';
 import { resetStyles } from '../../styles/reset.css.js';
 import { tokenStyles } from '../../styles/tokens.css.js';
 import type { SkeletonArticleSize } from './sando-skeleton-article.types.js';
+import type { SkeletonEffect } from '../skeleton/sando-skeleton.types.js';
 
 // Import skeleton components
 import '../skeleton-composer/sando-skeleton-composer.js';
@@ -38,6 +45,7 @@ import '../skeleton-stack/sando-skeleton-stack.js';
 import '../skeleton-row/sando-skeleton-row.js';
 import '../skeleton/sando-skeleton.js';
 import '../skeleton-paragraph/sando-skeleton-paragraph.js';
+import '../skeleton-image/sando-skeleton-image.js';
 
 /**
  * Default values for skeleton article properties
@@ -121,6 +129,20 @@ export class SandoSkeletonArticle extends FlavorableMixin(LitElement) {
   width: 'auto' | 'full' | string = 'auto';
 
   /**
+   * Animation effect applied to all inner skeleton elements
+   * @default 'shimmer'
+   */
+  @property({ reflect: true })
+  effect: SkeletonEffect = 'shimmer';
+
+  /**
+   * Show hero image at the top of the article skeleton
+   * @default false
+   */
+  @property({ type: Boolean, attribute: 'show-hero-image' })
+  showHeroImage: boolean = false;
+
+  /**
    * Component styles
    */
   static styles = [
@@ -159,6 +181,14 @@ export class SandoSkeletonArticle extends FlavorableMixin(LitElement) {
   }
 
   /**
+   * Render optional hero image section
+   */
+  private _renderHeroImage() {
+    if (!this.showHeroImage) return nothing;
+    return html`<sando-skeleton-image ratio="16/9" effect=${this.effect}></sando-skeleton-image>`;
+  }
+
+  /**
    * Render title section
    */
   private _renderTitle() {
@@ -167,6 +197,7 @@ export class SandoSkeletonArticle extends FlavorableMixin(LitElement) {
         shape="text"
         width=${this.titleWidth}
         height=${this._getTitleHeight()}
+        effect=${this.effect}
       ></sando-skeleton>
     `;
   }
@@ -182,11 +213,17 @@ export class SandoSkeletonArticle extends FlavorableMixin(LitElement) {
 
     return html`
       <sando-skeleton-row gap="sm">
-        <sando-skeleton shape="text" width=${metaWidths.date} height=${metaHeight}></sando-skeleton>
+        <sando-skeleton
+          shape="text"
+          width=${metaWidths.date}
+          height=${metaHeight}
+          effect=${this.effect}
+        ></sando-skeleton>
         <sando-skeleton
           shape="text"
           width=${metaWidths.author}
           height=${metaHeight}
+          effect=${this.effect}
         ></sando-skeleton>
       </sando-skeleton-row>
     `;
@@ -203,6 +240,7 @@ export class SandoSkeletonArticle extends FlavorableMixin(LitElement) {
           size=${this.size}
           lines="4"
           last-line-width="70%"
+          effect=${this.effect}
         ></sando-skeleton-paragraph>
       `);
     }
@@ -218,7 +256,8 @@ export class SandoSkeletonArticle extends FlavorableMixin(LitElement) {
     return html`
       <sando-skeleton-composer style=${customWidth ? `width: ${customWidth}` : nothing}>
         <sando-skeleton-stack gap="md">
-          ${this._renderTitle()} ${this._renderMeta()} ${this._renderParagraphs()}
+          ${this._renderHeroImage()} ${this._renderTitle()} ${this._renderMeta()}
+          ${this._renderParagraphs()}
         </sando-skeleton-stack>
       </sando-skeleton-composer>
     `;

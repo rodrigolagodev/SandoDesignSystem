@@ -46,6 +46,7 @@ import type {
   SkeletonCommentSize,
   SkeletonCommentWidth
 } from './sando-skeleton-comment.types.js';
+import type { SkeletonEffect } from '../skeleton/sando-skeleton.types.js';
 
 /**
  * Default values for skeleton comment properties
@@ -109,6 +110,13 @@ export class SandoSkeletonComment extends FlavorableMixin(LitElement) {
   width: SkeletonCommentWidth = DEFAULT_WIDTH;
 
   /**
+   * Animation effect applied to all inner skeleton elements
+   * @default 'shimmer'
+   */
+  @property({ reflect: true })
+  effect: SkeletonEffect = 'shimmer';
+
+  /**
    * Component styles
    */
   static styles = [
@@ -136,9 +144,17 @@ export class SandoSkeletonComment extends FlavorableMixin(LitElement) {
   private _renderHeader() {
     return html`
       <sando-skeleton-row gap="sm" align="center">
-        <sando-skeleton-text size="${this.size}" width="${AUTHOR_WIDTH}"></sando-skeleton-text>
+        <sando-skeleton-text
+          size="${this.size}"
+          width="${AUTHOR_WIDTH}"
+          effect=${this.effect}
+        ></sando-skeleton-text>
         ${this.showTimestamp
-          ? html`<sando-skeleton-text size="sm" width="${TIMESTAMP_WIDTH}"></sando-skeleton-text>`
+          ? html`<sando-skeleton-text
+              size="sm"
+              width="${TIMESTAMP_WIDTH}"
+              effect=${this.effect}
+            ></sando-skeleton-text>`
           : nothing}
       </sando-skeleton-row>
     `;
@@ -153,7 +169,11 @@ export class SandoSkeletonComment extends FlavorableMixin(LitElement) {
       // Last line is shorter for natural look
       const width = i === this.lines - 1 ? '70%' : 'full';
       commentLines.push(
-        html`<sando-skeleton-text size="${this.size}" width="${width}"></sando-skeleton-text>`
+        html`<sando-skeleton-text
+          size="${this.size}"
+          width="${width}"
+          effect=${this.effect}
+        ></sando-skeleton-text>`
       );
     }
     return html`<sando-skeleton-stack gap="xs">${commentLines}</sando-skeleton-stack>`;
@@ -168,7 +188,10 @@ export class SandoSkeletonComment extends FlavorableMixin(LitElement) {
     return html`
       <sando-skeleton-composer style=${customWidth ? `width: ${customWidth}` : nothing}>
         <sando-skeleton-row gap="md" align="start">
-          <sando-skeleton-avatar size=${this.avatarSize}></sando-skeleton-avatar>
+          <sando-skeleton-avatar
+            size=${this.avatarSize}
+            effect=${this.effect}
+          ></sando-skeleton-avatar>
           <div class="comment-content">
             <sando-skeleton-stack gap="sm">
               ${this._renderHeader()} ${this._renderCommentLines()}

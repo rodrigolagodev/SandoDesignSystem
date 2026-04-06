@@ -22,6 +22,10 @@
  * <sando-skeleton-avatar size="lg"></sando-skeleton-avatar>
  * <sando-skeleton-avatar size="xl"></sando-skeleton-avatar>
  *
+ * @example Shape variants
+ * <sando-skeleton-avatar shape="circle"></sando-skeleton-avatar>
+ * <sando-skeleton-avatar shape="rounded"></sando-skeleton-avatar>
+ *
  * @example Effect variants
  * <sando-skeleton-avatar effect="shimmer"></sando-skeleton-avatar>
  * <sando-skeleton-avatar effect="pulse"></sando-skeleton-avatar>
@@ -34,7 +38,11 @@ import { FlavorableMixin } from '../../mixins/index.js';
 import { resetStyles } from '../../styles/reset.css.js';
 import { tokenStyles } from '../../styles/tokens.css.js';
 import '../skeleton/sando-skeleton.js';
-import type { SkeletonAvatarSize, SkeletonAvatarEffect } from './sando-skeleton-avatar.types.js';
+import type {
+  SkeletonAvatarSize,
+  SkeletonAvatarEffect,
+  SkeletonAvatarShape
+} from './sando-skeleton-avatar.types.js';
 
 /**
  * Default values for skeleton avatar properties
@@ -68,6 +76,15 @@ export class SandoSkeletonAvatar extends FlavorableMixin(LitElement) {
   effect: SkeletonAvatarEffect = DEFAULT_EFFECT;
 
   /**
+   * Shape of the avatar skeleton
+   * - circle: Fully circular — matches sando-avatar shape="circle" (default)
+   * - rounded: Rounded rectangle — matches sando-avatar shape="rounded"
+   * @default 'circle'
+   */
+  @property({ reflect: true })
+  shape: SkeletonAvatarShape = 'circle';
+
+  /**
    * Component styles
    */
   static styles = [
@@ -92,10 +109,11 @@ export class SandoSkeletonAvatar extends FlavorableMixin(LitElement) {
    */
   render() {
     const dimension = this._getSize();
+    const primitiveShape = this.shape === 'rounded' ? 'rounded' : 'circular';
 
     return html`
       <sando-skeleton
-        shape="circular"
+        shape=${primitiveShape}
         effect=${this.effect}
         width=${dimension}
         height=${dimension}

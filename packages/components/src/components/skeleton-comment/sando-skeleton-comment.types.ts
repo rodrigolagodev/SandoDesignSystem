@@ -8,8 +8,10 @@
  * - xs: 24px (compact comment)
  * - sm: 32px (default)
  * - md: 40px (larger comment)
+ * - lg: 48px (large comment)
+ * - xl: 64px (extra large)
  */
-export type SkeletonCommentAvatarSize = 'xs' | 'sm' | 'md';
+export type SkeletonCommentAvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 /**
  * Size variants for comment text

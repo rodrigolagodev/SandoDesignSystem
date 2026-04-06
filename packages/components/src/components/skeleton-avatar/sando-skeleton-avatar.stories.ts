@@ -5,18 +5,24 @@ import './sando-skeleton-avatar.js';
 // Tag constant for documentation-only stories
 const DOCS_ONLY = ['!dev', '!autodocs'];
 
+const storyLabel = (text: string) => html`
+  <span
+    style="
+    display: block;
+    font-size: var(--sando-typography-size-xs, 0.75rem);
+    font-weight: var(--sando-typography-weight-medium, 500);
+    color: var(--sando-color-text-subtle, #6b7280);
+    margin-bottom: var(--sando-space-2, 0.5rem);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  "
+    >${text}</span
+  >
+`;
+
 /**
  * A circular skeleton placeholder for avatar loading states.
  * Uses predefined size tokens for consistent avatar dimensions.
- *
- * ## Size Reference
- * | Size | Dimensions | Use Case |
- * |------|------------|----------|
- * | xs | 24px | Compact lists |
- * | sm | 32px | Comments |
- * | md | 40px | User lists (default) |
- * | lg | 48px | Profile headers |
- * | xl | 64px | Profile pages |
  */
 const meta: Meta = {
   title: 'Components/Skeleton/SkeletonAvatar',
@@ -99,26 +105,26 @@ export const Playground: Story = {
 export const AllSizes: Story = {
   tags: DOCS_ONLY,
   render: () => html`
-    <div style="display: flex; align-items: center; gap: 16px;">
+    <div style="display: flex; align-items: flex-end; gap: 24px;">
       <div style="text-align: center;">
         <sando-skeleton-avatar size="xs"></sando-skeleton-avatar>
-        <div style="margin-top: 8px; font-size: 12px; color: #666;">xs (24px)</div>
+        ${storyLabel('xs · 24px')}
       </div>
       <div style="text-align: center;">
         <sando-skeleton-avatar size="sm"></sando-skeleton-avatar>
-        <div style="margin-top: 8px; font-size: 12px; color: #666;">sm (32px)</div>
+        ${storyLabel('sm · 32px')}
       </div>
       <div style="text-align: center;">
         <sando-skeleton-avatar size="md"></sando-skeleton-avatar>
-        <div style="margin-top: 8px; font-size: 12px; color: #666;">md (40px)</div>
+        ${storyLabel('md · 40px')}
       </div>
       <div style="text-align: center;">
         <sando-skeleton-avatar size="lg"></sando-skeleton-avatar>
-        <div style="margin-top: 8px; font-size: 12px; color: #666;">lg (48px)</div>
+        ${storyLabel('lg · 48px')}
       </div>
       <div style="text-align: center;">
         <sando-skeleton-avatar size="xl"></sando-skeleton-avatar>
-        <div style="margin-top: 8px; font-size: 12px; color: #666;">xl (64px)</div>
+        ${storyLabel('xl · 64px')}
       </div>
     </div>
   `,

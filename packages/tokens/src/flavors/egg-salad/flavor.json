@@ -173,6 +173,16 @@
           "description": "Toggle thumb when disabled"
         }
       }
+    },
+    "skeleton": {
+      "background": {
+        "value": "{color.neutralWarm.100.value}",
+        "type": "color"
+      },
+      "shimmer": {
+        "value": "{color.neutralWarm.50.value}",
+        "type": "color"
+      }
     }
   },
   "font": {
@@ -423,5 +433,39 @@
       "emphasis": { "value": "{scale.110.value}", "type": "number" }
     },
     "base": { "value": "{scale.100.value}", "type": "number" }
+  },
+  "media": {
+    "aspectRatio": {
+      "square": {
+        "value": "{aspect.ratio.square.value}",
+        "type": "other",
+        "description": "1:1 square"
+      },
+      "photo": {
+        "value": "{aspect.ratio.photo.value}",
+        "type": "other",
+        "description": "4:3 standard photo"
+      },
+      "video": {
+        "value": "{aspect.ratio.video.value}",
+        "type": "other",
+        "description": "16:9 widescreen (default)"
+      },
+      "cinema": {
+        "value": "{aspect.ratio.cinema.value}",
+        "type": "other",
+        "description": "21:9 ultrawide"
+      },
+      "portrait": {
+        "value": "{aspect.ratio.portrait.value}",
+        "type": "other",
+        "description": "3:4 portrait"
+      },
+      "tall": {
+        "value": "{aspect.ratio.tall.value}",
+        "type": "other",
+        "description": "9:16 tall"
+      }
+    }
   }
 }

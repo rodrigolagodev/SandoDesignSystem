@@ -151,9 +151,9 @@
     },
     "media": {
       "aspectRatio": {
-        "value": "16 / 9",
+        "value": "{media.aspectRatio.video.value}",
         "type": "other",
-        "description": "Default aspect ratio for card media section (consumer can override)"
+        "description": "Default aspect ratio for card media section — 16:9 widescreen"
       }
     },
     "heading": {

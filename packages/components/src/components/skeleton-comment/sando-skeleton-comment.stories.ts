@@ -4,6 +4,21 @@ import './sando-skeleton-comment.js';
 
 const DOCS_ONLY = ['!dev', '!autodocs'];
 
+const storyLabel = (text: string) => html`
+  <span
+    style="
+    display: block;
+    font-size: var(--sando-typography-size-xs, 0.75rem);
+    font-weight: var(--sando-typography-weight-medium, 500);
+    color: var(--sando-color-text-subtle, #6b7280);
+    margin-bottom: var(--sando-space-2, 0.5rem);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  "
+    >${text}</span
+  >
+`;
+
 const meta: Meta = {
   title: 'Components/Skeleton/SkeletonComment',
   component: 'sando-skeleton-comment',
@@ -94,16 +109,6 @@ const meta: Meta = {
 A preset skeleton for comment or review layouts with avatar on the side, 
 author name, optional timestamp, and comment text lines.
 
-## Structure
-
-\`\`\`
-+----------------------------------------------------+
-| [Avatar]  ######## (author)  #### (timestamp)      |
-|           ###################################### (100%) |
-|           ########################## (70%)         |
-+----------------------------------------------------+
-\`\`\`
-
 ## Usage
 
 \`\`\`html
@@ -152,21 +157,15 @@ export const AvatarSizes: Story = {
   render: () => html`
     <div style="display: flex; flex-direction: column; gap: 24px; max-width: 500px;">
       <div>
-        <p style="margin-bottom: 8px; font-size: 14px; font-weight: 600; color: #374151;">
-          XS - Compact
-        </p>
+        ${storyLabel('XS - Compact')}
         <sando-skeleton-comment avatar-size="xs"></sando-skeleton-comment>
       </div>
       <div>
-        <p style="margin-bottom: 8px; font-size: 14px; font-weight: 600; color: #374151;">
-          SM - Default
-        </p>
+        ${storyLabel('SM - Default')}
         <sando-skeleton-comment avatar-size="sm"></sando-skeleton-comment>
       </div>
       <div>
-        <p style="margin-bottom: 8px; font-size: 14px; font-weight: 600; color: #374151;">
-          MD - Large
-        </p>
+        ${storyLabel('MD - Large')}
         <sando-skeleton-comment avatar-size="md"></sando-skeleton-comment>
       </div>
     </div>

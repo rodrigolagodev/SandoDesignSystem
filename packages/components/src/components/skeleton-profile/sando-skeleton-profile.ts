@@ -33,6 +33,7 @@ import '../skeleton-avatar/sando-skeleton-avatar.js';
 import '../skeleton/sando-skeleton-text.js';
 
 import type { SkeletonProfileAvatarSize } from './sando-skeleton-profile.types.js';
+import type { SkeletonEffect } from '../skeleton/sando-skeleton.types.js';
 
 /**
  * Default values for skeleton profile properties
@@ -65,6 +66,13 @@ export class SandoSkeletonProfile extends FlavorableMixin(LitElement) {
   bioLines: number = DEFAULT_BIO_LINES;
 
   /**
+   * Animation effect applied to all inner skeleton elements
+   * @default 'shimmer'
+   */
+  @property({ reflect: true })
+  effect: SkeletonEffect = 'shimmer';
+
+  /**
    * Component styles
    */
   static styles = [
@@ -84,7 +92,7 @@ export class SandoSkeletonProfile extends FlavorableMixin(LitElement) {
 
       .bio-container {
         width: 100%;
-        max-width: 280px;
+        max-width: var(--sando-skeleton-profile-max-width, 280px);
       }
     `
   ];
@@ -93,14 +101,16 @@ export class SandoSkeletonProfile extends FlavorableMixin(LitElement) {
    * Render avatar section
    */
   private _renderAvatar() {
-    return html` <sando-skeleton-avatar size=${this.avatarSize}></sando-skeleton-avatar> `;
+    return html`
+      <sando-skeleton-avatar size=${this.avatarSize} effect=${this.effect}></sando-skeleton-avatar>
+    `;
   }
 
   /**
    * Render name section (centered)
    */
   private _renderName() {
-    return html` <sando-skeleton-text width="60%"></sando-skeleton-text> `;
+    return html` <sando-skeleton-text width="60%" effect=${this.effect}></sando-skeleton-text> `;
   }
 
   /**
@@ -114,7 +124,7 @@ export class SandoSkeletonProfile extends FlavorableMixin(LitElement) {
       // Vary width for natural look
       const width = i === this.bioLines - 1 ? '70%' : '90%';
       bioLinesHtml.push(html`
-        <sando-skeleton-text size="sm" width=${width}></sando-skeleton-text>
+        <sando-skeleton-text size="sm" width=${width} effect=${this.effect}></sando-skeleton-text>
       `);
     }
 
