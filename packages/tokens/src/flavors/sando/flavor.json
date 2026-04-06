@@ -77,7 +77,7 @@
       "outline": {
         "border": {
           "default": {
-            "value": "{color.neutralWarm.800.value}",
+            "value": "{color.neutralWarm.400.value}",
             "type": "color"
           },
           "hover": { "value": "{color.neutralWarm.950.value}", "type": "color" }
@@ -117,7 +117,12 @@
           "type": "color"
         },
         "text": { "value": "{color.red.700.value}", "type": "color" },
-        "border": { "value": "{color.red.400.value}", "type": "color" }
+        "border": { "value": "{color.red.400.value}", "type": "color" },
+        "solidBackground": {
+          "value": "{color.red.600.value}",
+          "type": "color"
+        },
+        "solidText": { "value": "{color.utility.white.value}", "type": "color" }
       },
       "success": {
         "background": {
@@ -128,7 +133,12 @@
         "border": {
           "value": "{color.green.400.value}",
           "type": "color"
-        }
+        },
+        "solidBackground": {
+          "value": "{color.green.600.value}",
+          "type": "color"
+        },
+        "solidText": { "value": "{color.utility.white.value}", "type": "color" }
       },
       "warning": {
         "background": {
@@ -139,6 +149,14 @@
         "border": {
           "value": "{color.yellow.400.value}",
           "type": "color"
+        },
+        "solidBackground": {
+          "value": "{color.yellow.500.value}",
+          "type": "color"
+        },
+        "solidText": {
+          "value": "{color.neutralWarm.950.value}",
+          "type": "color"
         }
       },
       "info": {
@@ -147,7 +165,12 @@
           "type": "color"
         },
         "text": { "value": "{color.blue.700.value}", "type": "color" },
-        "border": { "value": "{color.blue.400.value}", "type": "color" }
+        "border": { "value": "{color.blue.400.value}", "type": "color" },
+        "solidBackground": {
+          "value": "{color.blue.600.value}",
+          "type": "color"
+        },
+        "solidText": { "value": "{color.utility.white.value}", "type": "color" }
       }
     },
     "selection": {
