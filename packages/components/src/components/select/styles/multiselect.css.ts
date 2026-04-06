@@ -32,4 +32,16 @@ export const multiselectStyles = css`
     color: var(--sando-select-outlined-textColor-placeholder);
     white-space: nowrap;
   }
+
+  /* ========================================
+     TRIGGER OVERRIDES
+     ======================================== */
+
+  /* Reset line-height on trigger when displaying tags.
+     The inherited line-height from :host creates an implicit
+     line box that adds extra vertical space above flex children,
+     even when the trigger uses align-items: center. */
+  :host([multiple]) .select-trigger {
+    line-height: 1;
+  }
 `;
