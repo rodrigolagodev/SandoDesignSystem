@@ -1,12 +1,12 @@
 {
-  "$description": "Sando - Warm Precision (精密な温もり). 1px neutralWarm borders, subtle elevation, refined 8px radius, Kohaku amber accents. Kaiseki discipline meets handcrafted warmth — depth without drama, warmth without excess.",
+  "$description": "Sando — Kohaku Gold (琥珀の金). Burnished gold accents on warm parchment. Stripe's premium warmth meets Vercel's technical precision. Sesame-crusted shokupan: crafted, confident, alive.",
   "color": {
     "background": {
       "base": { "value": "{color.neutralWarm.50.value}", "type": "color" },
       "surface": { "value": "{color.neutralWarm.100.value}", "type": "color" },
       "raised": { "value": "{color.utility.white.value}", "type": "color" },
       "overlay": { "value": "{color.neutral.950.value}", "type": "color" },
-      "emphasis": { "value": "{color.amber.100.value}", "type": "color" },
+      "emphasis": { "value": "{color.neutralWarm.200.value}", "type": "color" },
       "hover": { "value": "{color.neutralWarm.100.value}", "type": "color" },
       "transparent": {
         "value": "{color.utility.transparent.value}",
@@ -14,13 +14,17 @@
       }
     },
     "focus": {
-      "ring": { "value": "{color.amber.600.value}", "type": "color" },
+      "ring": {
+        "value": "{color.orange.600.value}",
+        "type": "color",
+        "description": "Kohaku Gold focus ring — 2px outline, 2px offset"
+      },
       "ring-offset": {
         "value": "{color.neutralWarm.50.value}",
         "type": "color"
       },
-      "background": { "value": "{color.amber.50.value}", "type": "color" },
-      "text": { "value": "{color.amber.900.value}", "type": "color" }
+      "background": { "value": "{color.orange.50.value}", "type": "color" },
+      "text": { "value": "{color.orange.900.value}", "type": "color" }
     },
     "text": {
       "heading": { "value": "{color.neutralWarm.950.value}", "type": "color" },
@@ -29,11 +33,11 @@
       "muted": { "value": "{color.neutralWarm.500.value}", "type": "color" },
       "on-solid": { "value": "{color.utility.white.value}", "type": "color" },
       "link": {
-        "default": { "value": "{color.amber.600.value}", "type": "color" },
-        "hover": { "value": "{color.amber.700.value}", "type": "color" },
-        "active": { "value": "{color.amber.800.value}", "type": "color" },
-        "visited": { "value": "{color.amber.700.value}", "type": "color" },
-        "focus": { "value": "{color.amber.600.value}", "type": "color" }
+        "default": { "value": "{color.orange.600.value}", "type": "color" },
+        "hover": { "value": "{color.orange.700.value}", "type": "color" },
+        "active": { "value": "{color.orange.800.value}", "type": "color" },
+        "visited": { "value": "{color.orange.700.value}", "type": "color" },
+        "focus": { "value": "{color.orange.600.value}", "type": "color" }
       }
     },
     "icon": {
@@ -41,7 +45,7 @@
       "muted": { "value": "{color.neutralWarm.500.value}", "type": "color" },
       "emphasis": { "value": "{color.neutralWarm.900.value}", "type": "color" },
       "interactive": {
-        "value": "{color.amber.600.value}",
+        "value": "{color.orange.600.value}",
         "type": "color"
       },
       "on-solid": { "value": "{color.utility.white.value}", "type": "color" }
@@ -53,17 +57,18 @@
         "type": "color",
         "description": "1px neutralWarm border — warm precision baseline"
       },
-      "emphasis": { "value": "{color.amber.600.value}", "type": "color" },
-      "on-solid": { "value": "{color.amber.400.value}", "type": "color" }
+      "emphasis": { "value": "{color.orange.600.value}", "type": "color" },
+      "on-solid": { "value": "{color.orange.400.value}", "type": "color" }
     },
     "action": {
       "solid": {
+        "description": "Kohaku Gold — burnished sesame-crust accent",
         "background": {
           "default": {
-            "value": "{color.amber.600.value}",
+            "value": "{color.orange.600.value}",
             "type": "color"
           },
-          "hover": { "value": "{color.amber.700.value}", "type": "color" }
+          "hover": { "value": "{color.orange.700.value}", "type": "color" }
         },
         "text": {
           "default": { "value": "{color.utility.white.value}", "type": "color" }
@@ -147,7 +152,7 @@
     },
     "selection": {
       "background": {
-        "value": "{color.amber.100.value}",
+        "value": "{color.orange.50.value}",
         "type": "color"
       },
       "text": { "value": "{color.neutralWarm.950.value}", "type": "color" }
@@ -160,7 +165,7 @@
           "type": "color"
         },
         "trackActive": {
-          "value": "{color.amber.600.value}",
+          "value": "{color.orange.600.value}",
           "type": "color"
         },
         "trackDisabled": {
@@ -211,7 +216,7 @@
         "type": "fontWeight",
         "description": "700 — confident weight, warm not harsh"
       },
-      "emphasis": { "value": "{font.weight.600.value}", "type": "fontWeight" }
+      "emphasis": { "value": "{font.weight.500.value}", "type": "fontWeight" }
     },
     "lineHeight": {
       "body": { "value": "{font.lineHeight.160.value}", "type": "number" },

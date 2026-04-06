@@ -434,8 +434,22 @@
       "value": "{font.lineHeight.body.value}",
       "type": "number"
     },
+    "disabled": {
+      "backgroundColor": {
+        "value": "{color.action.disabled.background.value}",
+        "type": "color"
+      },
+      "textColor": {
+        "value": "{color.action.disabled.text.value}",
+        "type": "color"
+      },
+      "borderColor": {
+        "value": "{color.action.disabled.border.value}",
+        "type": "color"
+      }
+    },
     "borderRadius": {
-      "value": "{border.radius.default.value}",
+      "value": "{border.radius.muted.value}",
       "type": "dimension"
     },
     "borderWidth": {

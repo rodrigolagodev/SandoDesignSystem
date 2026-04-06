@@ -37,7 +37,7 @@
           "type": "color"
         },
         "active": {
-          "value": "{color.background.emphasis.value}",
+          "value": "{color.background.hover.value}",
           "type": "color"
         },
         "disabled": {
@@ -323,7 +323,7 @@
         "type": "duration"
       },
       "timing": {
-        "value": "{animation.easing.default.value}",
+        "value": "{animation.easing.entrance.value}",
         "type": "cubicBezier"
       }
     }
