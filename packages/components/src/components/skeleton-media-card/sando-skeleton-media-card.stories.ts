@@ -4,6 +4,21 @@ import './sando-skeleton-media-card.js';
 
 const DOCS_ONLY = ['!dev', '!autodocs'];
 
+const storyLabel = (text: string) => html`
+  <span
+    style="
+    display: block;
+    font-size: var(--sando-typography-size-xs, 0.75rem);
+    font-weight: var(--sando-typography-weight-medium, 500);
+    color: var(--sando-color-text-subtle, #6b7280);
+    margin-bottom: var(--sando-space-2, 0.5rem);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  "
+    >${text}</span
+  >
+`;
+
 const meta: Meta = {
   title: 'Components/Skeleton/SkeletonMediaCard',
   component: 'sando-skeleton-media-card',
@@ -70,24 +85,6 @@ const meta: Meta = {
 A preset skeleton for media content cards (video, podcast, etc.) with
 large image/thumbnail, title, description, and action buttons.
 
-## Structure
-
-\`\`\`
-+--------------------------------------+
-| +----------------------------------+ |  <- Image (configurable ratio)
-| |                                  | |
-| |                                  | |
-| +----------------------------------+ |
-+--------------------------------------+
-| #################################### |  <- Title (85% width)
-+--------------------------------------+
-| #################################### |  <- Description lines (optional)
-| ############################         |
-+--------------------------------------+
-| [Button] [Button]                    |  <- Actions (optional)
-+--------------------------------------+
-\`\`\`
-
 ## Usage
 
 \`\`\`html
@@ -137,19 +134,19 @@ export const ImageRatios: Story = {
   render: () => html`
     <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;">
       <div>
-        <p style="margin-bottom: 8px; font-size: 14px; color: #666;">1/1 (Square)</p>
+        ${storyLabel('1/1 (Square)')}
         <sando-skeleton-media-card image-ratio="1/1"></sando-skeleton-media-card>
       </div>
       <div>
-        <p style="margin-bottom: 8px; font-size: 14px; color: #666;">4/3 (Standard)</p>
+        ${storyLabel('4/3 (Standard)')}
         <sando-skeleton-media-card image-ratio="4/3"></sando-skeleton-media-card>
       </div>
       <div>
-        <p style="margin-bottom: 8px; font-size: 14px; color: #666;">16/9 (Widescreen - Default)</p>
+        ${storyLabel('16/9 (Widescreen - Default)')}
         <sando-skeleton-media-card image-ratio="16/9"></sando-skeleton-media-card>
       </div>
       <div>
-        <p style="margin-bottom: 8px; font-size: 14px; color: #666;">21/9 (Ultra-wide)</p>
+        ${storyLabel('21/9 (Ultra-wide)')}
         <sando-skeleton-media-card image-ratio="21/9"></sando-skeleton-media-card>
       </div>
     </div>

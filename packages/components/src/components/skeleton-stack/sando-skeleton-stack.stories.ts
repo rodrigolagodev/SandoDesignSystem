@@ -8,6 +8,21 @@ import '../skeleton-avatar/sando-skeleton-avatar.js';
 // Tag constant for documentation-only stories
 const DOCS_ONLY = ['!dev', '!autodocs'];
 
+const storyLabel = (text: string) => html`
+  <span
+    style="
+    display: block;
+    font-size: var(--sando-typography-size-xs, 0.75rem);
+    font-weight: var(--sando-typography-weight-medium, 500);
+    color: var(--sando-color-text-subtle, #6b7280);
+    margin-bottom: var(--sando-space-2, 0.5rem);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  "
+    >${text}</span
+  >
+`;
+
 /**
  * A vertical layout helper for composing skeleton placeholders.
  * Use this to stack skeleton elements with configurable gap and horizontal alignment.
@@ -102,7 +117,7 @@ export const DifferentGaps: Story = {
   render: () => html`
     <div style="display: flex; gap: 48px; flex-wrap: wrap;">
       <div style="flex: 1; min-width: 150px;">
-        <p style="margin: 0 0 8px; font-size: 12px; color: #666;">gap="xs"</p>
+        ${storyLabel('gap="xs"')}
         <sando-skeleton-stack gap="xs">
           <sando-skeleton-text></sando-skeleton-text>
           <sando-skeleton-text></sando-skeleton-text>
@@ -110,7 +125,7 @@ export const DifferentGaps: Story = {
         </sando-skeleton-stack>
       </div>
       <div style="flex: 1; min-width: 150px;">
-        <p style="margin: 0 0 8px; font-size: 12px; color: #666;">gap="md"</p>
+        ${storyLabel('gap="md"')}
         <sando-skeleton-stack gap="md">
           <sando-skeleton-text></sando-skeleton-text>
           <sando-skeleton-text></sando-skeleton-text>
@@ -118,7 +133,7 @@ export const DifferentGaps: Story = {
         </sando-skeleton-stack>
       </div>
       <div style="flex: 1; min-width: 150px;">
-        <p style="margin: 0 0 8px; font-size: 12px; color: #666;">gap="lg"</p>
+        ${storyLabel('gap="lg"')}
         <sando-skeleton-stack gap="lg">
           <sando-skeleton-text></sando-skeleton-text>
           <sando-skeleton-text></sando-skeleton-text>
@@ -138,7 +153,7 @@ export const DifferentAlignments: Story = {
   render: () => html`
     <div style="display: flex; gap: 48px; flex-wrap: wrap;">
       <div style="flex: 1; min-width: 200px;">
-        <p style="margin: 0 0 8px; font-size: 12px; color: #666;">align="start"</p>
+        ${storyLabel('align="start"')}
         <sando-skeleton-stack align="start" style="border: 1px dashed #ccc; padding: 16px;">
           <sando-skeleton-text width="80%"></sando-skeleton-text>
           <sando-skeleton-text width="60%"></sando-skeleton-text>
@@ -146,7 +161,7 @@ export const DifferentAlignments: Story = {
         </sando-skeleton-stack>
       </div>
       <div style="flex: 1; min-width: 200px;">
-        <p style="margin: 0 0 8px; font-size: 12px; color: #666;">align="center"</p>
+        ${storyLabel('align="center"')}
         <sando-skeleton-stack align="center" style="border: 1px dashed #ccc; padding: 16px;">
           <sando-skeleton-text width="80%"></sando-skeleton-text>
           <sando-skeleton-text width="60%"></sando-skeleton-text>
@@ -154,7 +169,7 @@ export const DifferentAlignments: Story = {
         </sando-skeleton-stack>
       </div>
       <div style="flex: 1; min-width: 200px;">
-        <p style="margin: 0 0 8px; font-size: 12px; color: #666;">align="stretch" (default)</p>
+        ${storyLabel('align="stretch" (default)')}
         <sando-skeleton-stack align="stretch" style="border: 1px dashed #ccc; padding: 16px;">
           <sando-skeleton-text></sando-skeleton-text>
           <sando-skeleton-text></sando-skeleton-text>

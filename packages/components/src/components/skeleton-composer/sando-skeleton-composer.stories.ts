@@ -10,6 +10,21 @@ import '../skeleton-row/sando-skeleton-row.js';
 // Tag constant for documentation-only stories
 const DOCS_ONLY = ['!dev', '!autodocs'];
 
+const storyLabel = (text: string) => html`
+  <span
+    style="
+    display: block;
+    font-size: var(--sando-typography-size-xs, 0.75rem);
+    font-weight: var(--sando-typography-weight-medium, 500);
+    color: var(--sando-color-text-subtle, #6b7280);
+    margin-bottom: var(--sando-space-2, 0.5rem);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  "
+    >${text}</span
+  >
+`;
+
 /**
  * An orchestrator component that synchronizes animations across all child skeleton
  * elements. Controls timing coordination for cohesive loading states.
@@ -95,9 +110,7 @@ export const AnimationComparison: Story = {
   render: () => html`
     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;">
       <div>
-        <p style="margin-bottom: 12px; font-size: 14px; font-weight: 600; color: #374151;">
-          Synchronized
-        </p>
+        ${storyLabel('Synchronized')}
         <sando-skeleton-composer>
           <sando-skeleton-stack gap="sm">
             <sando-skeleton-text width="100%"></sando-skeleton-text>
@@ -107,9 +120,7 @@ export const AnimationComparison: Story = {
         </sando-skeleton-composer>
       </div>
       <div>
-        <p style="margin-bottom: 12px; font-size: 14px; font-weight: 600; color: #374151;">
-          Staggered (50ms)
-        </p>
+        ${storyLabel('Staggered (50ms)')}
         <sando-skeleton-composer stagger="50ms">
           <sando-skeleton-stack gap="sm">
             <sando-skeleton-text width="100%"></sando-skeleton-text>
@@ -119,9 +130,7 @@ export const AnimationComparison: Story = {
         </sando-skeleton-composer>
       </div>
       <div>
-        <p style="margin-bottom: 12px; font-size: 14px; font-weight: 600; color: #374151;">
-          Independent
-        </p>
+        ${storyLabel('Independent')}
         <sando-skeleton-composer ?sync="${false}">
           <sando-skeleton-stack gap="sm">
             <sando-skeleton-text width="100%"></sando-skeleton-text>

@@ -6,6 +6,21 @@ import '../skeleton-composer/sando-skeleton-composer.js';
 // Tag constant for documentation-only stories
 const DOCS_ONLY = ['!dev', '!autodocs'];
 
+const storyLabel = (text: string) => html`
+  <span
+    style="
+    display: block;
+    font-size: var(--sando-typography-size-xs, 0.75rem);
+    font-weight: var(--sando-typography-weight-medium, 500);
+    color: var(--sando-color-text-subtle, #6b7280);
+    margin-bottom: var(--sando-space-2, 0.5rem);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  "
+    >${text}</span
+  >
+`;
+
 /**
  * A preset skeleton for table row layouts. Provides a quick way to create
  * loading states for tabular data with configurable columns.
@@ -99,15 +114,15 @@ export const DifferentColumnCounts: Story = {
   render: () => html`
     <div style="display: flex; flex-direction: column; gap: 24px;">
       <div>
-        <h4 style="margin: 0 0 8px 0; color: #666;">2 Columns</h4>
+        ${storyLabel('2 Columns')}
         <sando-skeleton-table-row columns="2"></sando-skeleton-table-row>
       </div>
       <div>
-        <h4 style="margin: 0 0 8px 0; color: #666;">4 Columns</h4>
+        ${storyLabel('4 Columns')}
         <sando-skeleton-table-row columns="4"></sando-skeleton-table-row>
       </div>
       <div>
-        <h4 style="margin: 0 0 8px 0; color: #666;">6 Columns</h4>
+        ${storyLabel('6 Columns')}
         <sando-skeleton-table-row columns="6"></sando-skeleton-table-row>
       </div>
     </div>
