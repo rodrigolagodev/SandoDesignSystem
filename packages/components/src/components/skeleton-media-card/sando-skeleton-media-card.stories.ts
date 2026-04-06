@@ -1,7 +1,3 @@
-/**
- * Storybook stories for sando-skeleton-media-card component
- */
-
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import './sando-skeleton-media-card.js';

@@ -1,7 +1,3 @@
-/**
- * Storybook stories for sando-skeleton-composer component
- */
-
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import './sando-skeleton-composer.js';

@@ -15,15 +15,15 @@ Sando ships with 6 curated flavors. Each one defines not just colors, but typogr
 
 ## The Flavor Menu
 
-| Flavor                                                    | Primary Color             | Personality                | Best For                                             |
-| --------------------------------------------------------- | ------------------------- | -------------------------- | ---------------------------------------------------- |
-| 🍱 **Sando**                                              | Brown (Tonkatsu Amber)    | Warm, crafted, artisanal   | Official brand, design system docs                   |
-| 🍞 **Original**                                           | Orange                    | Clean, modern, versatile   | SaaS, tech products, content sites                   |
-| 🍓 **Strawberry**                                         | Red (Deep Rose)           | Elegant, romantic, premium | Fashion, luxury, editorial                           |
-| 🍖 **Tonkatsu**                                           | Brown (Burnt Amber)       | Bold, rugged, handcrafted  | Craft brands, artisan, food & beverage               |
-| 🥝 **Kiwi**                                               | Green (Emerald)           | Serene, natural, fresh     | Wellness, sustainability, eco brands                 |
-| 🥚 **Egg Salad**                                          | Yellow (Amber/Gold)       | Cheerful, warm, inviting   | Breakfast brands, creative work, children's products |
-| 🖤 **[Brutalist](/docs/design-system/flavors/brutalist)** | Vermillion (Electric Red) | Stark, modern, impactful   | Developer tools, tech startups, portfolios           |
+| Flavor                                          | Primary Color             | Personality                | Best For                                             |
+| ----------------------------------------------- | ------------------------- | -------------------------- | ---------------------------------------------------- |
+| 🍱 **Sando**                                    | Brown (Tonkatsu Amber)    | Warm, crafted, artisanal   | Official brand, design system docs                   |
+| 🍞 **Original**                                 | Orange                    | Clean, modern, versatile   | SaaS, tech products, content sites                   |
+| 🍓 **Strawberry**                               | Red (Deep Rose)           | Elegant, romantic, premium | Fashion, luxury, editorial                           |
+| 🍖 **Tonkatsu**                                 | Brown (Burnt Amber)       | Bold, rugged, handcrafted  | Craft brands, artisan, food & beverage               |
+| 🥝 **Kiwi**                                     | Green (Emerald)           | Serene, natural, fresh     | Wellness, sustainability, eco brands                 |
+| 🥚 **Egg Salad**                                | Yellow (Amber/Gold)       | Cheerful, warm, inviting   | Breakfast brands, creative work, children's products |
+| 🖤 **[Nori](/docs/design-system/flavors/nori)** | Vermillion (Electric Red) | Stark, modern, impactful   | Developer tools, tech startups, portfolios           |
 
 ## Applying a Flavor
 

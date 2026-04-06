@@ -1,5 +1,5 @@
 {
-  "$description": "Forced colors mode for 'brutalist' flavor. Uses CSS system colors for Windows High Contrast mode and other forced-colors environments. Automatically applied via @media (forced-colors: active). Cannot be manually overridden.",
+  "$description": "Forced colors mode for 'nori' flavor. Uses CSS system colors for Windows High Contrast mode and other forced-colors environments. Automatically applied via @media (forced-colors: active). Cannot be manually overridden.",
   "color": {
     "background": {
       "base": { "value": "Canvas", "type": "color" },
@@ -77,45 +77,24 @@
     },
     "state": {
       "destructive": {
-        "background": {
-          "value": "Mark",
-          "type": "color"
-        },
+        "background": { "value": "Mark", "type": "color" },
         "text": { "value": "MarkText", "type": "color" },
         "border": { "value": "MarkText", "type": "color" }
       },
       "success": {
-        "background": {
-          "value": "Mark",
-          "type": "color"
-        },
+        "background": { "value": "Mark", "type": "color" },
         "text": { "value": "MarkText", "type": "color" },
-        "border": {
-          "value": "MarkText",
-          "type": "color"
-        }
+        "border": { "value": "MarkText", "type": "color" }
       },
       "warning": {
-        "background": {
-          "value": "Mark",
-          "type": "color"
-        },
+        "background": { "value": "Mark", "type": "color" },
         "text": { "value": "MarkText", "type": "color" },
-        "border": {
-          "value": "MarkText",
-          "type": "color"
-        }
+        "border": { "value": "MarkText", "type": "color" }
       },
       "info": {
-        "background": {
-          "value": "Mark",
-          "type": "color"
-        },
+        "background": { "value": "Mark", "type": "color" },
         "text": { "value": "MarkText", "type": "color" },
-        "border": {
-          "value": "MarkText",
-          "type": "color"
-        }
+        "border": { "value": "MarkText", "type": "color" }
       }
     },
     "selection": {
@@ -124,26 +103,11 @@
     },
     "control": {
       "surface": {
-        "thumb": {
-          "value": "ButtonFace",
-          "type": "color"
-        },
-        "trackInactive": {
-          "value": "CanvasText",
-          "type": "color"
-        },
-        "trackActive": {
-          "value": "Highlight",
-          "type": "color"
-        },
-        "trackDisabled": {
-          "value": "GrayText",
-          "type": "color"
-        },
-        "thumbDisabled": {
-          "value": "Canvas",
-          "type": "color"
-        }
+        "thumb": { "value": "ButtonFace", "type": "color" },
+        "trackInactive": { "value": "CanvasText", "type": "color" },
+        "trackActive": { "value": "Highlight", "type": "color" },
+        "trackDisabled": { "value": "GrayText", "type": "color" },
+        "thumbDisabled": { "value": "Canvas", "type": "color" }
       }
     }
   }

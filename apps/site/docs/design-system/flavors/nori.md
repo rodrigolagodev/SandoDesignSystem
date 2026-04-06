@@ -1,15 +1,15 @@
 ---
-title: Brutalist Flavor
+title: Nori Flavor
 description: Japanese brutalist design meets modern web aesthetics. Pure neutrals, electric vermillion accents, sharp edges, and bold typography for maximum visual impact.
 ---
 
-# Brutalist Flavor
+# Nori Flavor
 
-The Brutalist flavor embodies modern Japanese brutalist design principles: stark contrasts, bold typography, sharp edges, and purposeful minimalism. Inspired by contemporary Japanese web design trends and brutalist architecture, it delivers maximum visual impact through intentional restraint.
+The Nori flavor embodies modern Japanese brutalist design principles: stark contrasts, bold typography, sharp edges, and purposeful minimalism. Inspired by contemporary Japanese web design trends and brutalist architecture, it delivers maximum visual impact through intentional restraint.
 
 ## Design Philosophy
 
-Brutalist is the most opinionated flavor in the Sando system, making bold choices that prioritize clarity and impact over softness:
+Nori is the most opinionated flavor in the Sando system, making bold choices that prioritize clarity and impact over softness:
 
 - **Pure Neutrals**: Zero-chroma `ink` palette for absolute clarity — no warm or cool bias
 - **Electric Accent**: High-impact `vermillion` (hue 25°) for maximum visual punch
@@ -19,7 +19,7 @@ Brutalist is the most opinionated flavor in the Sando system, making bold choice
 - **Snappy Motion**: Fast, linear animations (100ms default) — no leisurely transitions
 
 ::: tip Inspired by Japanese Brutalism
-Brutalist draws from the stark beauty of Japanese brutalist architecture and contemporary web design trends from Tokyo studios. It's designed for tech products, developer tools, and brands that want to make a bold statement.
+Nori draws from the stark beauty of Japanese brutalist architecture and contemporary web design trends from Tokyo studios. It's designed for tech products, developer tools, and brands that want to make a bold statement.
 :::
 
 ## Color Palette
@@ -55,7 +55,7 @@ Vermillion uses chroma values up to `0.22` — significantly higher than most fl
 
 ## When to Use
 
-Choose Brutalist when you want:
+Choose Nori when you want:
 
 - **Modern, contemporary aesthetic** — tech-forward and cutting-edge
 - **Maximum contrast and clarity** — zero-chroma neutrals eliminate ambiguity
@@ -84,18 +84,18 @@ Consider other flavors when:
 
 ### HTML
 
-Apply the brutalist flavor at any level of your DOM:
+Apply the nori flavor at any level of your DOM:
 
 ```html
 <!-- Page-level flavor -->
-<body flavor="brutalist">
+<body flavor="nori">
   <sando-button>Bold Action</sando-button>
 </body>
 ```
 
 ### Scoped Sections
 
-Mix brutalist with other flavors on the same page:
+Mix nori with other flavors on the same page:
 
 ```html
 <body flavor="original">
@@ -104,8 +104,8 @@ Mix brutalist with other flavors on the same page:
     <sando-button variant="solid">Primary</sando-button>
   </header>
 
-  <section flavor="brutalist">
-    <!-- Brutalist section for impact -->
+  <section flavor="nori">
+    <!-- Nori section for impact -->
     <h2>Featured Content</h2>
     <sando-button variant="solid">View Project</sando-button>
   </section>
@@ -119,7 +119,7 @@ Override a single component without affecting its context:
 ```html
 <div flavor="sando">
   <sando-button>Sando Button</sando-button>
-  <sando-button flavor="brutalist">Brutalist CTA</sando-button>
+  <sando-button flavor="nori">Nori CTA</sando-button>
 </div>
 ```
 
@@ -128,7 +128,7 @@ Override a single component without affecting its context:
 Dark mode is automatic via CSS media queries — no additional attributes needed:
 
 ```html
-<body flavor="brutalist">
+<body flavor="nori">
   <!-- Components automatically adapt to system preference -->
   <sando-button variant="solid">Always Accessible</sando-button>
 </body>
@@ -137,7 +137,7 @@ Dark mode is automatic via CSS media queries — no additional attributes needed
 To force a specific mode, use the `flavor-mode` attribute:
 
 ```html
-<div flavor="brutalist" flavor-mode="dark">
+<div flavor="nori" flavor-mode="dark">
   <!-- Forces dark mode regardless of system preference -->
   <sando-button>Dark Mode Button</sando-button>
 </div>
@@ -145,7 +145,7 @@ To force a specific mode, use the `flavor-mode` attribute:
 
 ## Comparison with Other Flavors
 
-| Aspect          | Brutalist           | Sando           | Original         | Tonkatsu      |
+| Aspect          | Nori                | Sando           | Original         | Tonkatsu      |
 | --------------- | ------------------- | --------------- | ---------------- | ------------- |
 | **Neutrals**    | Pure ink (0 chroma) | Warm neutrals   | Warm neutrals    | Warm neutrals |
 | **Accent**      | Vermillion (25°)    | Brown (50°)     | Orange (38°)     | Brown (50°)   |
@@ -159,7 +159,7 @@ To force a specific mode, use the `flavor-mode` attribute:
 
 ### Typography
 
-Brutalist uses a bold, condensed heading typeface for maximum impact:
+Nori uses a bold, condensed heading typeface for maximum impact:
 
 ```css
 /* Heading */
@@ -245,7 +245,7 @@ Primary action tokens using the vermillion palette:
 
 ## Mode Variants
 
-Like all Sando flavors, Brutalist ships with 5 mode variants that respond automatically to user preferences:
+Like all Sando flavors, Nori ships with 5 mode variants that respond automatically to user preferences:
 
 | Mode              | Trigger                                   | Purpose                                         |
 | ----------------- | ----------------------------------------- | ----------------------------------------------- |
@@ -259,7 +259,7 @@ Like all Sando flavors, Brutalist ships with 5 mode variants that respond automa
 
 ### DO
 
-- **Use for impact sections** — Brutalist works great for hero sections, CTAs, and featured content
+- **Use for impact sections** — Nori works great for hero sections, CTAs, and featured content
 - **Pair with neutral content** — Let the vermillion accent do the heavy lifting
 - **Leverage the typography** — Condensed bold headings are a key feature; use them prominently
 - **Trust the borders** — Without shadows, borders define your surfaces; use them intentionally
@@ -270,11 +270,11 @@ Like all Sando flavors, Brutalist ships with 5 mode variants that respond automa
 - **Don't overuse the accent** — Vermillion is powerful; too much dilutes its impact
 - **Don't add shadows** — The flavor intentionally removes them; adding shadows breaks the aesthetic
 - **Don't mix with warm flavors in the same section** — The temperature clash is jarring
-- **Don't use for soft, approachable contexts** — Brutalist is intentionally stark
+- **Don't use for soft, approachable contexts** — Nori is intentionally stark
 
 ## Accessibility Considerations
 
-Brutalist maintains WCAG AA compliance while pursuing its stark aesthetic:
+Nori maintains WCAG AA compliance while pursuing its stark aesthetic:
 
 - **Contrast ratios**: The zero-chroma ink palette ensures maximum text contrast
 - **Focus indicators**: Vermillion focus rings are highly visible against neutral backgrounds
@@ -282,7 +282,7 @@ Brutalist maintains WCAG AA compliance while pursuing its stark aesthetic:
 - **Motion**: Respects `prefers-reduced-motion` automatically
 
 ::: tip High Contrast Mode
-In high contrast mode, Brutalist increases the vermillion chroma even further and ensures all interactive elements meet WCAG AAA contrast ratios. The stark aesthetic actually benefits accessibility.
+In high contrast mode, Nori increases the vermillion chroma even further and ensures all interactive elements meet WCAG AAA contrast ratios. The stark aesthetic actually benefits accessibility.
 :::
 
 ## Related Resources
@@ -294,4 +294,4 @@ In high contrast mode, Brutalist increases the vermillion chroma even further an
 
 ---
 
-[View brutalist flavor source](https://github.com/rodrigolagodev/SandoDesignSystem/tree/master/packages/tokens/src/flavors/brutalist)
+[View nori flavor source](https://github.com/rodrigolagodev/SandoDesignSystem/tree/master/packages/tokens/src/flavors/nori)

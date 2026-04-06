@@ -1,13 +1,13 @@
 {
-  "$description": "Sando - Warm Precision (精密な温もり). Bold 2px neutral borders, no shadows, minimal radius, Kohaku amber accents. Japanese kaiseki discipline meets warm craftsmanship. Washi paper neutrals with golden warmth.",
+  "$description": "Sando - Warm Precision (精密な温もり). 1px neutralWarm borders, subtle elevation, refined 8px radius, Kohaku amber accents. Kaiseki discipline meets handcrafted warmth — depth without drama, warmth without excess.",
   "color": {
     "background": {
-      "base": { "value": "{color.neutral.50.value}", "type": "color" },
-      "surface": { "value": "{color.neutral.100.value}", "type": "color" },
+      "base": { "value": "{color.neutralWarm.50.value}", "type": "color" },
+      "surface": { "value": "{color.neutralWarm.100.value}", "type": "color" },
       "raised": { "value": "{color.utility.white.value}", "type": "color" },
       "overlay": { "value": "{color.neutral.950.value}", "type": "color" },
       "emphasis": { "value": "{color.amber.100.value}", "type": "color" },
-      "hover": { "value": "{color.neutral.100.value}", "type": "color" },
+      "hover": { "value": "{color.neutralWarm.100.value}", "type": "color" },
       "transparent": {
         "value": "{color.utility.transparent.value}",
         "type": "color"
@@ -15,15 +15,18 @@
     },
     "focus": {
       "ring": { "value": "{color.amber.600.value}", "type": "color" },
-      "ring-offset": { "value": "{color.neutral.50.value}", "type": "color" },
+      "ring-offset": {
+        "value": "{color.neutralWarm.50.value}",
+        "type": "color"
+      },
       "background": { "value": "{color.amber.50.value}", "type": "color" },
       "text": { "value": "{color.amber.900.value}", "type": "color" }
     },
     "text": {
-      "heading": { "value": "{color.neutral.950.value}", "type": "color" },
-      "body": { "value": "{color.neutral.800.value}", "type": "color" },
-      "caption": { "value": "{color.neutral.600.value}", "type": "color" },
-      "muted": { "value": "{color.neutral.500.value}", "type": "color" },
+      "heading": { "value": "{color.neutralWarm.950.value}", "type": "color" },
+      "body": { "value": "{color.neutralWarm.800.value}", "type": "color" },
+      "caption": { "value": "{color.neutralWarm.600.value}", "type": "color" },
+      "muted": { "value": "{color.neutralWarm.500.value}", "type": "color" },
       "on-solid": { "value": "{color.utility.white.value}", "type": "color" },
       "link": {
         "default": { "value": "{color.amber.600.value}", "type": "color" },
@@ -34,9 +37,9 @@
       }
     },
     "icon": {
-      "default": { "value": "{color.neutral.600.value}", "type": "color" },
-      "muted": { "value": "{color.neutral.500.value}", "type": "color" },
-      "emphasis": { "value": "{color.neutral.900.value}", "type": "color" },
+      "default": { "value": "{color.neutralWarm.600.value}", "type": "color" },
+      "muted": { "value": "{color.neutralWarm.500.value}", "type": "color" },
+      "emphasis": { "value": "{color.neutralWarm.900.value}", "type": "color" },
       "interactive": {
         "value": "{color.amber.600.value}",
         "type": "color"
@@ -44,9 +47,9 @@
       "on-solid": { "value": "{color.utility.white.value}", "type": "color" }
     },
     "border": {
-      "muted": { "value": "{color.neutral.300.value}", "type": "color" },
+      "muted": { "value": "{color.neutralWarm.200.value}", "type": "color" },
       "default": {
-        "value": "{color.neutral.950.value}",
+        "value": "{color.neutralWarm.300.value}",
         "type": "color",
         "description": "Bold neutral border - key brutal element"
       },
@@ -68,25 +71,37 @@
       },
       "outline": {
         "border": {
-          "default": { "value": "{color.neutral.950.value}", "type": "color" },
-          "hover": { "value": "{color.neutral.950.value}", "type": "color" }
+          "default": {
+            "value": "{color.neutralWarm.800.value}",
+            "type": "color"
+          },
+          "hover": { "value": "{color.neutralWarm.950.value}", "type": "color" }
         },
         "text": {
-          "default": { "value": "{color.neutral.800.value}", "type": "color" }
+          "default": {
+            "value": "{color.neutralWarm.800.value}",
+            "type": "color"
+          }
         }
       },
       "ghost": {
         "background": {
-          "hover": { "value": "{color.neutral.100.value}", "type": "color" }
+          "hover": { "value": "{color.neutralWarm.100.value}", "type": "color" }
         },
         "text": {
-          "default": { "value": "{color.neutral.800.value}", "type": "color" }
+          "default": {
+            "value": "{color.neutralWarm.800.value}",
+            "type": "color"
+          }
         }
       },
       "disabled": {
-        "background": { "value": "{color.neutral.100.value}", "type": "color" },
-        "text": { "value": "{color.neutral.400.value}", "type": "color" },
-        "border": { "value": "{color.neutral.200.value}", "type": "color" },
+        "background": {
+          "value": "{color.neutralWarm.100.value}",
+          "type": "color"
+        },
+        "text": { "value": "{color.neutralWarm.400.value}", "type": "color" },
+        "border": { "value": "{color.neutralWarm.200.value}", "type": "color" },
         "opacity": { "value": "{opacity.600.value}", "type": "number" }
       }
     },
@@ -135,13 +150,13 @@
         "value": "{color.amber.100.value}",
         "type": "color"
       },
-      "text": { "value": "{color.neutral.950.value}", "type": "color" }
+      "text": { "value": "{color.neutralWarm.950.value}", "type": "color" }
     },
     "control": {
       "surface": {
         "thumb": { "value": "{color.utility.white.value}", "type": "color" },
         "trackInactive": {
-          "value": "{color.neutral.400.value}",
+          "value": "{color.neutralWarm.400.value}",
           "type": "color"
         },
         "trackActive": {
@@ -149,11 +164,11 @@
           "type": "color"
         },
         "trackDisabled": {
-          "value": "{color.neutral.200.value}",
+          "value": "{color.neutralWarm.200.value}",
           "type": "color"
         },
         "thumbDisabled": {
-          "value": "{color.neutral.300.value}",
+          "value": "{color.neutralWarm.300.value}",
           "type": "color"
         }
       }
@@ -192,11 +207,11 @@
     "weight": {
       "body": { "value": "{font.weight.400.value}", "type": "fontWeight" },
       "heading": {
-        "value": "{font.weight.800.value}",
+        "value": "{font.weight.700.value}",
         "type": "fontWeight",
-        "description": "Extra bold for brutalist impact"
+        "description": "Extra bold for nori impact"
       },
-      "emphasis": { "value": "{font.weight.700.value}", "type": "fontWeight" }
+      "emphasis": { "value": "{font.weight.600.value}", "type": "fontWeight" }
     },
     "lineHeight": {
       "body": { "value": "{font.lineHeight.160.value}", "type": "number" },
@@ -207,17 +222,17 @@
   "border": {
     "radius": {
       "muted": {
-        "value": "{border.radius.50.value}",
+        "value": "{border.radius.100.value}",
         "type": "dimension",
         "description": "2px - subtle wabi-sabi"
       },
       "default": {
-        "value": "{border.radius.100.value}",
+        "value": "{border.radius.200.value}",
         "type": "dimension",
         "description": "4px - controlled imperfection"
       },
       "emphasis": {
-        "value": "{border.radius.100.value}",
+        "value": "{border.radius.300.value}",
         "type": "dimension",
         "description": "4px - consistent"
       },
@@ -229,18 +244,18 @@
     },
     "width": {
       "default": {
-        "value": "{border.width.100.value}",
+        "value": "{border.width.50.value}",
         "type": "dimension",
         "description": "2px - calligraphy-weight borders"
       },
       "emphasis": {
-        "value": "{border.width.150.value}",
+        "value": "{border.width.100.value}",
         "type": "dimension",
         "description": "3px - strong emphasis"
       },
-      "stroke": { "value": "{border.width.100.value}", "type": "dimension" },
+      "stroke": { "value": "{border.width.50.value}", "type": "dimension" },
       "strokeEmphasis": {
-        "value": "{border.width.150.value}",
+        "value": "{border.width.100.value}",
         "type": "dimension"
       },
       "strokeHeavy": {
@@ -375,12 +390,12 @@
       "description": "No shadow - flat brutal"
     },
     "default": {
-      "value": "{elevation.0.value}",
+      "value": "{elevation.100.value}",
       "type": "shadow",
       "description": "No shadow - flat brutal"
     },
     "emphasis": {
-      "value": "{elevation.0.value}",
+      "value": "{elevation.200.value}",
       "type": "shadow",
       "description": "No shadow - flat brutal"
     }
@@ -392,16 +407,16 @@
         "type": "duration"
       },
       "fast": {
-        "value": "{animation.duration.100.value}",
+        "value": "{animation.duration.200.value}",
         "type": "duration",
-        "description": "100ms - brutalist snappy"
+        "description": "100ms - nori snappy"
       },
       "normal": {
-        "value": "{animation.duration.100.value}",
+        "value": "{animation.duration.300.value}",
         "type": "duration",
         "description": "100ms - even normal is fast"
       },
-      "slow": { "value": "{animation.duration.200.value}", "type": "duration" },
+      "slow": { "value": "{animation.duration.500.value}", "type": "duration" },
       "continuous": {
         "value": "{animation.duration.500.value}",
         "type": "duration"
@@ -409,7 +424,7 @@
     },
     "easing": {
       "default": {
-        "value": "{animation.easing.linear.value}",
+        "value": "{animation.easing.ease-in-out.value}",
         "type": "cubicBezier",
         "description": "Linear - brutal directness"
       },
@@ -439,8 +454,8 @@
   },
   "focus": {
     "outline": {
-      "width": { "value": "{border.width.100.value}", "type": "dimension" },
-      "offset": { "value": "{space.0.value}", "type": "dimension" }
+      "width": { "value": "{border.width.50.value}", "type": "dimension" },
+      "offset": { "value": "{space.1.value}", "type": "dimension" }
     }
   },
   "scale": {
@@ -455,11 +470,11 @@
     "hover": {
       "subtle": { "value": "{scale.100.value}", "type": "number" },
       "default": {
-        "value": "{scale.100.value}",
+        "value": "{scale.102.value}",
         "type": "number",
         "description": "No scale on hover - seijaku"
       },
-      "emphasis": { "value": "{scale.100.value}", "type": "number" }
+      "emphasis": { "value": "{scale.102.value}", "type": "number" }
     },
     "base": { "value": "{scale.100.value}", "type": "number" }
   }

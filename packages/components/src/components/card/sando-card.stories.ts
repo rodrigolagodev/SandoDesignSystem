@@ -221,13 +221,13 @@ const meta: Meta = {
         type: { summary: 'string' }
       }
     },
-    // ── Theming ───────────────────────────────────────────────────────────
+    // ── Flavor ────────────────────────────────────────────────────────────
     flavor: {
       control: 'select',
       options: ['original', 'strawberry', 'tonkatsu', 'kiwi', 'egg-salad'],
-      description: 'Design system flavor/theme',
+      description: 'Active flavor — changes the color palette and visual identity of the component',
       table: {
-        category: 'Theming',
+        category: 'Flavor',
         type: { summary: 'string' },
         defaultValue: { summary: 'original' }
       }

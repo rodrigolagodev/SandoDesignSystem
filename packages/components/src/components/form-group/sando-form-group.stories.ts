@@ -40,13 +40,13 @@ const meta: Meta = {
   component: 'sando-form-group',
   tags: ['autodocs', 'deprecated'],
   argTypes: {
-    // 1. Theming (ALWAYS first)
+    // 1. Flavor (ALWAYS first)
     flavor: {
       control: 'select',
       options: ['original', 'strawberry', 'tonkatsu', 'kiwi', 'egg-salad'],
-      description: 'Design system flavor/theme',
+      description: 'Active flavor — changes the color palette and visual identity of the component',
       table: {
-        category: 'Theming',
+        category: 'Flavor',
         type: { summary: 'string' },
         defaultValue: { summary: 'original' }
       }

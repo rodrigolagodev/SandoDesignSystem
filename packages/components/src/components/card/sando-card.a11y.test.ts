@@ -76,15 +76,7 @@ describe('sando-card accessibility', () => {
   // 3. axe-core — all flavors (theming)
   // ──────────────────────────────────────────────────────────────────────────
   describe('axe-core: flavors', () => {
-    const flavors = [
-      'sando',
-      'original',
-      'strawberry',
-      'brutalist',
-      'egg-salad',
-      'kiwi',
-      'tonkatsu'
-    ];
+    const flavors = ['sando', 'original', 'strawberry', 'nori', 'egg-salad', 'kiwi', 'tonkatsu'];
 
     for (const flavor of flavors) {
       it(`has no violations with flavor="${flavor}"`, async () => {
