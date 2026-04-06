@@ -109,10 +109,7 @@ export const baseStyles = css`
   }
 
   .tag__action:hover {
-    background-color: var(
-      --sando-tag-action-backgroundColor-hover,
-      var(--sando-tag-removeButton-backgroundColor-hover)
-    );
+    background-color: color-mix(in srgb, currentColor 15%, transparent);
   }
 
   .tag__action:active {
@@ -197,7 +194,7 @@ export const baseStyles = css`
   }
 
   .tag__remove:hover {
-    background-color: var(--sando-tag-removeButton-backgroundColor-hover);
+    background-color: color-mix(in srgb, currentColor 15%, transparent);
   }
 
   .tag__remove:focus-visible {
