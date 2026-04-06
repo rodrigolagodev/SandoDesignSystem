@@ -57,7 +57,7 @@ export const baseStyles = css`
   .select-trigger {
     display: flex;
     align-items: center;
-    gap: var(--sando-select-size-medium-gap);
+    gap: var(--sando-select-size-md-gap);
     width: 100%;
     border-radius: var(--sando-select-borderRadius);
     border-width: var(--sando-select-borderWidth);

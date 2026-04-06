@@ -20,7 +20,7 @@ export const dropdownStyles = css`
     left: 0;
     right: 0;
     z-index: var(--sando-select-zIndex-dropdown, 100);
-    margin-top: 4px;
+    margin-top: var(--sando-select-dropdown-paddingBlock);
     background-color: var(--sando-select-dropdown-backgroundColor);
     border: var(--sando-select-dropdown-borderWidth) solid var(--sando-select-dropdown-borderColor);
     border-radius: var(--sando-select-dropdown-borderRadius);
@@ -51,7 +51,7 @@ export const dropdownStyles = css`
     top: auto;
     bottom: 100%;
     margin-top: 0;
-    margin-bottom: 4px;
+    margin-bottom: var(--sando-select-dropdown-paddingBlock);
     transform: translateY(8px);
   }
 
@@ -138,7 +138,7 @@ export const dropdownStyles = css`
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: var(--sando-spacing-lg, 1rem);
+    padding: var(--sando-select-option-paddingInline);
     min-height: 100px;
   }
 
@@ -150,7 +150,7 @@ export const dropdownStyles = css`
 
   /* Scrollbar styling */
   .select-dropdown::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
   }
 
   .select-dropdown::-webkit-scrollbar-track {
@@ -159,8 +159,8 @@ export const dropdownStyles = css`
 
   .select-dropdown::-webkit-scrollbar-thumb {
     background-color: var(--sando-select-dropdown-borderColor);
-    border-radius: 4px;
-    border: 2px solid var(--sando-select-dropdown-backgroundColor);
+    border-radius: var(--sando-select-dropdown-borderRadius);
+    border: var(--sando-select-borderWidth) solid var(--sando-select-dropdown-backgroundColor);
   }
 
   .select-dropdown::-webkit-scrollbar-thumb:hover {

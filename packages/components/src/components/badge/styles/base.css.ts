@@ -37,16 +37,13 @@ export const baseStyles = css`
     border-width: var(--sando-badge-borderWidth);
     border-style: solid;
 
-    /* Transition (for theming) */
+    /* Transition (for theming)
+     * NOTE: No recipe-level badge transition tokens exist yet.
+     * Using flavor-level animation tokens directly until badge.transition
+     * tokens are added to badge.json. */
     transition-property: background-color, color, border-color;
-    transition-duration: var(
-      --sando-badge-transition-duration,
-      var(--sando-animation-duration-fast)
-    );
-    transition-timing-function: var(
-      --sando-badge-transition-timing,
-      var(--sando-animation-easing-default)
-    );
+    transition-duration: var(--sando-animation-duration-fast);
+    transition-timing-function: var(--sando-animation-easing-entrance);
   }
 
   /* Reduced motion support */
