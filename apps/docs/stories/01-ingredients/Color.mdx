@@ -4,7 +4,7 @@ import { Meta } from "@storybook/blocks";
 
 # Color
 
-The Sando Design System provides **14 chromatic palettes + 4 neutral variants + 3 utility colors** = **201 tokens**, all defined in **OKLCH color space** for perceptual uniformity. Every shade at a given step shares the same perceived lightness — `orange-500` and `blue-500` look equally bright because both use `L=0.64`.
+The Sando Design System provides **17 chromatic palettes + 4 neutral variants + 3 utility colors** = **234 tokens**, all defined in **OKLCH color space** for perceptual uniformity. Every shade at a given step shares the same perceived lightness — `orange-500` and `blue-500` look equally bright because both use `L=0.64`.
 
 ## Color Philosophy: Warm Precision (精密な温もり)
 
@@ -30,15 +30,15 @@ Sando's color system follows the **Warm Precision** brand direction — the disc
   <tbody>
     <tr>
       <td>**High-impact**</td>
-      <td>`0.22`</td>
+      <td>`0.22–0.295`</td>
       <td>Maximum vibrancy, bold accents</td>
-      <td>red, violet, pink</td>
+      <td>red, violet, pink, fuchsia, rose</td>
     </tr>
     <tr>
       <td>**Standard**</td>
       <td>`0.20`</td>
       <td>Professional UI, primary colors</td>
-      <td>orange, green, emerald, cyan, sky, blue, indigo, purple</td>
+      <td>orange, green, emerald, teal, cyan, sky, blue, indigo, purple</td>
     </tr>
     <tr>
       <td>**Moderate**</td>
@@ -51,7 +51,7 @@ Sando's color system follows the **Warm Precision** brand direction — the disc
 
 **Three-layer architecture:**
 
-1. **Ingredients** (this page) — 14 chromatic palettes + 4 neutral variants + 3 utility = 201 raw color tokens
+1. **Ingredients** (this page) — 17 chromatic palettes + 4 neutral variants + 3 utility = 234 raw color tokens
 2. **Flavors** — Map palettes to semantic roles (action, state, background, text)
 3. **Recipes** — Component-specific tokens referencing Flavors
 
@@ -59,9 +59,9 @@ Sando's color system follows the **Warm Precision** brand direction — the disc
 
 ## Palette Overview
 
-Quick reference for all 21 palette groups.
+Quick reference for all 24 palette groups.
 
-### Chromatic Palettes (14 palettes × 11 steps = 154 tokens)
+### Chromatic Palettes (17 palettes × 11 steps = 187 tokens)
 
 <table>
   <thead>
@@ -82,18 +82,18 @@ Quick reference for all 21 palette groups.
       <td></td>
     </tr>
     <tr>
-      <td>orange</td>
+      <td>orange ★</td>
       <td>32°</td>
       <td>0.20</td>
       <td>Standard</td>
-      <td></td>
+      <td>Kohaku (琥珀) — flagship accent</td>
     </tr>
     <tr>
-      <td>amber ★</td>
+      <td>amber</td>
       <td>55°</td>
       <td>0.15</td>
       <td>Moderate</td>
-      <td>Kohaku (琥珀) — flagship accent</td>
+      <td></td>
     </tr>
     <tr>
       <td>yellow</td>
@@ -120,6 +120,13 @@ Quick reference for all 21 palette groups.
       <td>emerald</td>
       <td>165°</td>
       <td>0.20</td>
+      <td>Standard</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>teal</td>
+      <td>~181°</td>
+      <td>0.14</td>
       <td>Standard</td>
       <td></td>
     </tr>
@@ -166,9 +173,23 @@ Quick reference for all 21 palette groups.
       <td></td>
     </tr>
     <tr>
+      <td>fuchsia</td>
+      <td>322°</td>
+      <td>0.295</td>
+      <td>High-impact</td>
+      <td></td>
+    </tr>
+    <tr>
       <td>pink</td>
       <td>350°</td>
       <td>0.22</td>
+      <td>High-impact</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>rose</td>
+      <td>~14°</td>
+      <td>0.25</td>
       <td>High-impact</td>
       <td></td>
     </tr>
@@ -292,9 +313,9 @@ Hue 15° · High-impact chroma (0.22) · Bold, warm red with terracotta underton
   </tbody>
 </table>
 
-### Orange
+### Orange ★ — Kohaku (琥珀) — Sando's Flagship Accent
 
-Hue 32° · Standard chroma (0.20) · Warm, golden, artisanal.
+Hue 32° · Standard chroma (0.20) · Toasted shokupan, sesame, craft deli premium. The warm, golden heart of the Sando brand — darker and more toasted than amber.
 
 <table style={{ width: "100%", marginTop: "24px" }}>
   <thead>
@@ -341,9 +362,9 @@ Hue 32° · Standard chroma (0.20) · Warm, golden, artisanal.
   </tbody>
 </table>
 
-### Amber ★ — Kohaku (琥珀) — Sando's Flagship Accent
+### Amber
 
-Hue 55° · Moderate chroma (0.15) · The warm, golden heart of the Sando brand. Named after Japanese amber resin.
+Hue 55° · Moderate chroma (0.15) · Warm, honey-toned, golden yellow.
 
 <table style={{ width: "100%", marginTop: "24px" }}>
   <thead>
@@ -579,6 +600,55 @@ Hue 165° · Standard chroma (0.20) · Rich, jewel-toned green with teal underto
         <td style={{ fontWeight: 500 }}>emerald-{shade}</td>
         <td>
           <code>--sando-color-emerald-{shade}</code>
+        </td>
+        <td style={{ fontFamily: "monospace", fontSize: "12px" }}>{oklch}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+
+### Teal
+
+Hue ~181° · Standard chroma (0.14) · Cool, tranquil, sea glass.
+
+<table style={{ width: "100%", marginTop: "24px" }}>
+  <thead>
+    <tr>
+      <th style={{ width: "60px" }}>Swatch</th>
+      <th style={{ width: "100px" }}>Name</th>
+      <th>Token</th>
+      <th style={{ width: "180px" }}>OKLCH</th>
+    </tr>
+  </thead>
+  <tbody>
+    {[
+      { shade: 50, oklch: "oklch(0.984 0.014 180.72)" },
+      { shade: 100, oklch: "oklch(0.953 0.051 180.8)" },
+      { shade: 200, oklch: "oklch(0.91 0.096 180.74)" },
+      { shade: 300, oklch: "oklch(0.855 0.138 181.07)" },
+      { shade: 400, oklch: "oklch(0.777 0.152 181.72)" },
+      { shade: 500, oklch: "oklch(0.704 0.14 182.5)" },
+      { shade: 600, oklch: "oklch(0.6 0.118 184.7)" },
+      { shade: 700, oklch: "oklch(0.511 0.096 186.39)" },
+      { shade: 800, oklch: "oklch(0.437 0.078 188.22)" },
+      { shade: 900, oklch: "oklch(0.386 0.063 188.42)" },
+      { shade: 950, oklch: "oklch(0.277 0.046 192.52)" },
+    ].map(({ shade, oklch }) => (
+      <tr key={shade}>
+        <td>
+          <div
+            style={{
+              backgroundColor: `var(--sando-color-teal-${shade})`,
+              width: "40px",
+              height: "28px",
+              borderRadius: "4px",
+              border: "1px solid var(--sb-docs-border)",
+            }}
+          />
+        </td>
+        <td style={{ fontWeight: 500 }}>teal-{shade}</td>
+        <td>
+          <code>--sando-color-teal-{shade}</code>
         </td>
         <td style={{ fontFamily: "monospace", fontSize: "12px" }}>{oklch}</td>
       </tr>
@@ -880,6 +950,55 @@ Hue 310° · High-impact chroma (0.22) · Vibrant, energetic, magenta-leaning pu
   </tbody>
 </table>
 
+### Fuchsia
+
+Hue 322° · High-impact chroma (0.295) · Vivid, electric, magenta-violet.
+
+<table style={{ width: "100%", marginTop: "24px" }}>
+  <thead>
+    <tr>
+      <th style={{ width: "60px" }}>Swatch</th>
+      <th style={{ width: "100px" }}>Name</th>
+      <th>Token</th>
+      <th style={{ width: "180px" }}>OKLCH</th>
+    </tr>
+  </thead>
+  <tbody>
+    {[
+      { shade: 50, oklch: "oklch(0.977 0.017 320.06)" },
+      { shade: 100, oklch: "oklch(0.952 0.037 318.85)" },
+      { shade: 200, oklch: "oklch(0.903 0.076 319.62)" },
+      { shade: 300, oklch: "oklch(0.833 0.145 321.43)" },
+      { shade: 400, oklch: "oklch(0.74 0.238 322.16)" },
+      { shade: 500, oklch: "oklch(0.667 0.295 322.15)" },
+      { shade: 600, oklch: "oklch(0.591 0.293 322.14)" },
+      { shade: 700, oklch: "oklch(0.518 0.253 323.95)" },
+      { shade: 800, oklch: "oklch(0.452 0.211 324.59)" },
+      { shade: 900, oklch: "oklch(0.401 0.17 325.61)" },
+      { shade: 950, oklch: "oklch(0.293 0.136 325.4)" },
+    ].map(({ shade, oklch }) => (
+      <tr key={shade}>
+        <td>
+          <div
+            style={{
+              backgroundColor: `var(--sando-color-fuchsia-${shade})`,
+              width: "40px",
+              height: "28px",
+              borderRadius: "4px",
+              border: "1px solid var(--sb-docs-border)",
+            }}
+          />
+        </td>
+        <td style={{ fontWeight: 500 }}>fuchsia-{shade}</td>
+        <td>
+          <code>--sando-color-fuchsia-{shade}</code>
+        </td>
+        <td style={{ fontFamily: "monospace", fontSize: "12px" }}>{oklch}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+
 ### Pink
 
 Hue 350° · High-impact chroma (0.22) · Soft, romantic, sakura-inspired.
@@ -922,6 +1041,55 @@ Hue 350° · High-impact chroma (0.22) · Soft, romantic, sakura-inspired.
         <td style={{ fontWeight: 500 }}>pink-{shade}</td>
         <td>
           <code>--sando-color-pink-{shade}</code>
+        </td>
+        <td style={{ fontFamily: "monospace", fontSize: "12px" }}>{oklch}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+
+### Rose
+
+Hue ~14° · High-impact chroma (0.25) · Delicate, warm, sakura-rose.
+
+<table style={{ width: "100%", marginTop: "24px" }}>
+  <thead>
+    <tr>
+      <th style={{ width: "60px" }}>Swatch</th>
+      <th style={{ width: "100px" }}>Name</th>
+      <th>Token</th>
+      <th style={{ width: "180px" }}>OKLCH</th>
+    </tr>
+  </thead>
+  <tbody>
+    {[
+      { shade: 50, oklch: "oklch(0.969 0.015 12.42)" },
+      { shade: 100, oklch: "oklch(0.941 0.03 12.58)" },
+      { shade: 200, oklch: "oklch(0.892 0.058 10.02)" },
+      { shade: 300, oklch: "oklch(0.81 0.117 11.28)" },
+      { shade: 400, oklch: "oklch(0.712 0.194 13.42)" },
+      { shade: 500, oklch: "oklch(0.645 0.246 16.44)" },
+      { shade: 600, oklch: "oklch(0.586 0.253 17.42)" },
+      { shade: 700, oklch: "oklch(0.514 0.222 16.94)" },
+      { shade: 800, oklch: "oklch(0.455 0.188 13.18)" },
+      { shade: 900, oklch: "oklch(0.41 0.159 10.95)" },
+      { shade: 950, oklch: "oklch(0.271 0.105 12.08)" },
+    ].map(({ shade, oklch }) => (
+      <tr key={shade}>
+        <td>
+          <div
+            style={{
+              backgroundColor: `var(--sando-color-rose-${shade})`,
+              width: "40px",
+              height: "28px",
+              borderRadius: "4px",
+              border: "1px solid var(--sb-docs-border)",
+            }}
+          />
+        </td>
+        <td style={{ fontWeight: 500 }}>rose-{shade}</td>
+        <td>
+          <code>--sando-color-rose-{shade}</code>
         </td>
         <td style={{ fontFamily: "monospace", fontSize: "12px" }}>{oklch}</td>
       </tr>
@@ -1236,7 +1404,7 @@ Three special-purpose tokens that sit outside the palette system.
 
 ### OKLCH Lightness Curve
 
-All 18 palettes share the same 11-step lightness progression:
+All 21 palettes share the same 11-step lightness progression:
 
 <table>
   <thead>
@@ -1388,6 +1556,8 @@ Chroma values are not constant — they follow a bell-shaped curve that peaks fr
   </tbody>
 </table>
 
+> **Note on fuchsia:** Fuchsia is an outlier within the High-impact tier — its peak chroma reaches **0.295** (steps 500–600), significantly higher than the 0.22 ceiling of red, violet, pink, and rose. This makes fuchsia the most saturated palette in the system. Use with intent for maximum electric vibrancy.
+
 ### Why OKLCH?
 
 - **Perceptual uniformity**: `L=0.64` looks equally bright for every hue — unlike HSL where `L=50%` varies wildly
@@ -1414,7 +1584,7 @@ The uniform lightness curve guarantees that contrast ratios are consistent acros
 
 ## Related
 
-- **Flavors Layer** — See how these 201 tokens are mapped to semantic roles (action, state, background, text)
+- **Flavors Layer** — See how these 234 tokens are mapped to semantic roles (action, state, background, text)
 - **Recipes Layer** — Component-specific color applications referencing Flavors
 - **Dark Mode** — How Flavor modes adapt colors automatically via `@media (prefers-color-scheme)`
-- **Color Philosophy** — Why 21 curated palettes (14 chromatic + 4 neutral + 3 utility) instead of infinite options
+- **Color Philosophy** — Why 24 curated palettes (17 chromatic + 4 neutral + 3 utility) instead of infinite options
