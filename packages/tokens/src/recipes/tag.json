@@ -128,7 +128,7 @@
           "type": "dimension"
         },
         "paddingBlock": {
-          "value": "{space.stack.tight.value}",
+          "value": "{space.stack.none.value}",
           "type": "dimension"
         },
         "fontSize": {
