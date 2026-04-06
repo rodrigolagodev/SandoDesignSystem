@@ -23,7 +23,7 @@ const storyLabel = (text: string) => html`
 const meta: Meta = {
   title: 'Components/Skeleton/SkeletonProfile',
   component: 'sando-skeleton-profile',
-  tags: ['autodocs', 'beta'],
+  tags: ['autodocs', 'stable'],
   render: (args) => html`
     <div style="max-width: 300px;">
       <sando-skeleton-profile

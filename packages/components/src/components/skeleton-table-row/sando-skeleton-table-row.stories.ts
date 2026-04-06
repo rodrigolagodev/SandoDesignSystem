@@ -35,7 +35,7 @@ const storyLabel = (text: string) => html`
 const meta: Meta = {
   title: 'Components/Skeleton/SkeletonTableRow',
   component: 'sando-skeleton-table-row',
-  tags: ['autodocs', 'beta'],
+  tags: ['autodocs', 'stable'],
   render: (args) => html`
     <sando-skeleton-table-row
       columns="${args.columns || 4}"

@@ -22,7 +22,7 @@ const storyLabel = (text: string) => html`
 const meta: Meta = {
   title: 'Components/Skeleton/SkeletonMediaCard',
   component: 'sando-skeleton-media-card',
-  tags: ['autodocs', 'beta'],
+  tags: ['autodocs', 'stable'],
   render: (args) => html`
     <div style="max-width: 400px;">
       <sando-skeleton-media-card

@@ -39,7 +39,7 @@ const storyLabel = (text: string) => html`
 const meta: Meta = {
   title: 'Components/Skeleton/SkeletonComposer',
   component: 'sando-skeleton-composer',
-  tags: ['autodocs', 'beta'],
+  tags: ['autodocs', 'stable'],
   render: (args) => html`
     <sando-skeleton-composer ?sync="${args.sync}" stagger="${args.stagger || ''}">
       <sando-skeleton-stack gap="sm">
