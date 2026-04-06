@@ -37,6 +37,11 @@ export const sizeStyles = css`
     height: var(--sando-tag-size-sm-iconSize);
   }
 
+  /* Divider height override for sm */
+  :host([size='sm']) .tag__divider {
+    height: 1em;
+  }
+
   /* ========================================
      MEDIUM SIZE (md) - Default
      ======================================== */
