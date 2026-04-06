@@ -2,6 +2,9 @@ import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import './sando-card.js';
 import '../button/sando-button.ts';
+import '../badge/sando-badge.ts';
+import '../avatar/sando-avatar.ts';
+import '../tag/sando-tag.ts';
 
 /**
  * The Card component is a versatile surface container that groups related
@@ -251,7 +254,7 @@ export default meta;
 type Story = StoryObj;
 
 // Tag constant for documentation-only stories
-const DOCS_ONLY = ['!dev', '!autodocs'];
+const DOCS_ONLY = ['docs-only'];
 
 // ============================================================================
 // PUBLIC STORIES (visible in sidebar)
@@ -539,11 +542,7 @@ export const WithHeaderSlot: Story = {
         slot="header"
         style="display: flex; align-items: center; gap: 0.75rem; padding: 1rem 1.25rem;"
       >
-        <div
-          style="width: 40px; height: 40px; border-radius: 50%; background: var(--sando-color-background-overlay); display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--sando-color-text-on-solid); flex-shrink: 0;"
-        >
-          RG
-        </div>
+        <sando-avatar name="Rodrigo González" size="md" shape="circle"></sando-avatar>
         <div>
           <p
             style="margin: 0; font-weight: 600; color: var(--sando-color-text-heading); line-height: 1.2;"
@@ -572,12 +571,9 @@ export const WithHeaderAction: Story = {
   tags: DOCS_ONLY,
   render: () => html`
     <sando-card variant="elevated" heading="Article Title" style="max-width: 360px;">
-      <span
-        slot="header-action"
-        style="display: inline-flex; align-items: center; padding: 0.25rem 0.625rem; border-radius: 9999px; background: var(--sando-color-status-success-subtle, #dcfce7); color: var(--sando-color-status-success-emphasis, #166534); font-size: 0.75rem; font-weight: 600;"
+      <sando-badge slot="header-action" color="success" variant="soft" compact
+        >Published</sando-badge
       >
-        ● Published
-      </span>
       <p>
         The header-action slot occupies the top-right area of the card header, perfect for status
         badges, icon buttons, or contextual menus.
@@ -683,30 +679,6 @@ export const FullWidth: Story = {
 };
 
 /**
- * The card component rendered across all available design system flavors.
- */
-export const AllFlavors: Story = {
-  tags: DOCS_ONLY,
-  render: () => html`
-    <div
-      style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.5rem;"
-    >
-      ${(['original', 'strawberry', 'tonkatsu', 'kiwi', 'egg-salad'] as const).map(
-        (flavor) => html`
-          <div flavor="${flavor}">
-            <sando-card variant="elevated" heading="${flavor}" style="width: 100%;">
-              <p style="font-size: 0.875rem;">flavor="${flavor}" applied to ancestor element.</p>
-              <sando-button slot="footer" variant="solid">Action</sando-button>
-            </sando-card>
-          </div>
-        `
-      )}
-    </div>
-  `,
-  parameters: { controls: { disable: true } }
-};
-
-/**
  * Real-world composed card — article layout with media, heading, body, and footer CTAs.
  * Demonstrates the full slot composition in a realistic scenario.
  */
@@ -726,12 +698,9 @@ export const ComposedCard: Story = {
         alt="Laptop on a wooden desk with code on screen"
         style="width: 100%; display: block;"
       />
-      <span
-        slot="header-action"
-        style="display: inline-flex; align-items: center; padding: 0.2rem 0.5rem; border-radius: 9999px; background: var(--sando-color-background-overlay); color: var(--sando-color-text-muted); font-size: 0.75rem;"
+      <sando-badge slot="header-action" color="neutral" variant="soft" no-icon compact
+        >5 min read</sando-badge
       >
-        5 min read
-      </span>
       <p>
         Learn how to incorporate WCAG 2.1 AA guidelines from the very first line of code — not as an
         afterthought. We cover focus management, contrast ratios, and keyboard navigation patterns.
@@ -741,6 +710,303 @@ export const ComposedCard: Story = {
         <sando-button variant="ghost">Save</sando-button>
       </div>
     </sando-card>
+  `,
+  parameters: { controls: { disable: true } }
+};
+
+// ============================================================================
+// REAL-WORLD EXAMPLE STORIES
+// ============================================================================
+
+/**
+ * Blog/news article card with a cover image, category badge, article excerpt,
+ * and read/save actions. This is the canonical card pattern for editorial content.
+ */
+export const ArticleCard: Story = {
+  tags: DOCS_ONLY,
+  render: () => html`
+    <sando-card
+      variant="elevated"
+      heading="The Future of Design Systems: AI-Assisted Tokenomics"
+      heading-level="2"
+      hoverable
+      style="max-width: 380px;"
+    >
+      <img
+        slot="media"
+        src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=720&h=400&fit=crop"
+        alt="Laptop on a desk with code and design tools open"
+        style="width: 100%; display: block;"
+      />
+      <sando-badge slot="header-action" color="info" variant="soft" no-icon compact>
+        Design Systems
+      </sando-badge>
+      <p>
+        Design tokens are the backbone of scalable design systems — but managing hundreds of
+        semantic variables across multiple themes has always been a manual, error-prone process. AI
+        tools are now changing the game entirely.
+      </p>
+      <p style="font-size: 0.875rem; color: var(--sando-color-text-muted); margin-top: 0.5rem;">
+        By María Flores · 8 min read
+      </p>
+      <div slot="footer" style="display: flex; gap: 0.75rem; align-items: center;">
+        <sando-button variant="solid">Read Article</sando-button>
+        <sando-button variant="ghost">Save for Later</sando-button>
+      </div>
+    </sando-card>
+  `,
+  parameters: { controls: { disable: true } }
+};
+
+/**
+ * E-commerce product card with sale badge, price comparison, and cart/wishlist CTAs.
+ * The `elevated` variant and tight max-width suit dense product grid layouts.
+ */
+export const ProductCard: Story = {
+  tags: DOCS_ONLY,
+  render: () => html`
+    <sando-card
+      variant="elevated"
+      heading="Wireless Noise-Cancelling Headphones"
+      style="max-width: 300px;"
+    >
+      <img
+        slot="media"
+        src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=400&fit=crop"
+        alt="Premium over-ear wireless headphones in matte black"
+        style="width: 100%; display: block;"
+      />
+      <sando-badge slot="header-action" color="danger" variant="soft" no-icon compact
+        >SALE</sando-badge
+      >
+      <p style="margin-bottom: 0.75rem;">
+        Studio-quality sound meets all-day comfort. Up to 30h battery life, foldable design, and
+        USB-C charging included.
+      </p>
+      <p
+        style="font-size: 1.125rem; font-weight: 700; color: var(--sando-color-text-heading); margin: 0;"
+      >
+        <strong>$79.99</strong>
+        <s
+          style="font-weight: 400; font-size: 0.875rem; color: var(--sando-color-text-muted); margin-left: 0.5rem;"
+          >$129.99</s
+        >
+      </p>
+      <div slot="footer" style="display: flex; gap: 0.75rem; align-items: center;">
+        <sando-button variant="solid">Add to Cart</sando-button>
+        <sando-button variant="ghost">Wishlist</sando-button>
+      </div>
+    </sando-card>
+  `,
+  parameters: { controls: { disable: true } }
+};
+
+/**
+ * Team member/user profile card with avatar, role, bio, skill tags, and a profile link CTA.
+ * Uses a custom `header` slot to compose avatar + name + role + follow button into one row.
+ */
+export const ProfileCard: Story = {
+  tags: DOCS_ONLY,
+  render: () => html`
+    <sando-card variant="outlined" style="max-width: 340px;">
+      <div
+        slot="header"
+        style="display: flex; align-items: flex-start; gap: 0.75rem; padding: 1rem 1.25rem;"
+      >
+        <sando-avatar name="Ana López" size="lg" shape="circle"></sando-avatar>
+        <div style="flex: 1; min-width: 0;">
+          <p
+            style="margin: 0; font-weight: 700; color: var(--sando-color-text-heading); line-height: 1.2;"
+          >
+            Ana López
+          </p>
+          <p style="margin: 0; font-size: 0.75rem; color: var(--sando-color-text-muted);">
+            Senior UX Designer
+          </p>
+        </div>
+        <sando-button variant="outline" size="sm" compact>Follow</sando-button>
+      </div>
+      <p>
+        I craft inclusive digital experiences with a focus on accessibility and systems thinking.
+        Previously at Figma and Shopify, now building the future of open design at Sando.
+      </p>
+      <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.75rem;">
+        <sando-tag variant="soft" size="md" compact>UX Design</sando-tag>
+        <sando-tag variant="soft" size="md" compact>Figma</sando-tag>
+        <sando-tag variant="soft" size="md" compact>Accessibility</sando-tag>
+      </div>
+      <sando-button slot="footer" variant="outline" full-width>View Profile</sando-button>
+    </sando-card>
+  `,
+  parameters: { controls: { disable: true } }
+};
+
+/**
+ * Conference/event card with cover photo, availability badge, date + location metadata,
+ * and a registration CTA. The `hoverable` attribute hints at an upcoming link behaviour.
+ */
+export const EventCard: Story = {
+  tags: DOCS_ONLY,
+  render: () => html`
+    <sando-card
+      variant="elevated"
+      heading="Design Systems Summit 2026"
+      heading-level="2"
+      hoverable
+      style="max-width: 360px;"
+    >
+      <img
+        slot="media"
+        src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=720&h=400&fit=crop"
+        alt="Conference hall with large screens and an engaged audience"
+        style="width: 100%; display: block;"
+      />
+      <sando-badge slot="header-action" color="success" variant="soft" compact> Free </sando-badge>
+      <p
+        style="display: flex; align-items: center; gap: 0.4rem; font-size: 0.875rem; color: var(--sando-color-text-muted); margin-bottom: 0.5rem;"
+      >
+        📅 April 20, 2026 · San Francisco, CA
+      </p>
+      <p>
+        Two days of talks, workshops, and live demos by the teams shaping the future of design
+        infrastructure — tokens, multi-brand theming, and component governance at scale.
+      </p>
+      <sando-button slot="footer" variant="solid">Register Now</sando-button>
+    </sando-card>
+  `,
+  parameters: { controls: { disable: true } }
+};
+
+/**
+ * CSS grid with 4 varied cards — shows how elevated cards behave as a collection
+ * in a responsive auto-fill layout. Mix of article, product, recipe, and destination content.
+ */
+export const CardGrid: Story = {
+  tags: DOCS_ONLY,
+  render: () => html`
+    <div
+      style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; max-width: 1200px;"
+    >
+      <sando-card variant="elevated" heading="Mastering Component APIs" full-width>
+        <img
+          slot="media"
+          src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=720&h=400&fit=crop"
+          alt="Developer working with code on a laptop"
+          style="width: 100%; display: block;"
+        />
+        <p>
+          How to design component interfaces that scale from a single product to an entire platform.
+        </p>
+        <sando-button slot="footer" variant="solid">Read More</sando-button>
+      </sando-card>
+
+      <sando-card variant="elevated" heading="Ergonomic Office Chair Pro" full-width>
+        <img
+          slot="media"
+          src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&h=400&fit=crop"
+          alt="Modern ergonomic office chair in a bright workspace"
+          style="width: 100%; display: block;"
+        />
+        <p>All-day lumbar support meets premium aesthetics. Ships in 3–5 business days.</p>
+        <sando-button slot="footer" variant="solid">Add to Cart</sando-button>
+      </sando-card>
+
+      <sando-card variant="elevated" heading="Lemon Ricotta Pancakes" full-width>
+        <img
+          slot="media"
+          src="https://images.unsplash.com/photo-1481833761820-0509d3217039?w=400&h=300&fit=crop"
+          alt="Stack of golden pancakes with fresh berries and syrup"
+          style="width: 100%; display: block;"
+        />
+        <p>Light, fluffy, and bursting with citrus flavour. Ready in under 20 minutes.</p>
+        <sando-button slot="footer" variant="outline">View Recipe</sando-button>
+      </sando-card>
+
+      <sando-card variant="elevated" heading="Patagonia: End of the World" full-width>
+        <img
+          slot="media"
+          src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=720&h=400&fit=crop"
+          alt="Dramatic glacier landscape in Patagonia at sunset"
+          style="width: 100%; display: block;"
+        />
+        <p>Trek through ancient ice fields, turquoise lakes, and untouched wilderness.</p>
+        <sando-button slot="footer" variant="outline">Explore Trips</sando-button>
+      </sando-card>
+    </div>
+  `,
+  parameters: { controls: { disable: true } }
+};
+
+/**
+ * News-feed / article-list pattern using horizontal cards.
+ * Three `orientation="horizontal"` cards stacked in a column — ideal for
+ * compact list views, search results, or reading queues.
+ */
+export const HorizontalArticleList: Story = {
+  tags: DOCS_ONLY,
+  render: () => html`
+    <div style="display: flex; flex-direction: column; gap: 1rem; max-width: 600px;">
+      <sando-card
+        variant="outlined"
+        orientation="horizontal"
+        heading="Building a Token Pipeline with Style Dictionary"
+        hoverable
+      >
+        <img
+          slot="media"
+          src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400&h=300&fit=crop"
+          alt="Laptop showing design token configuration"
+          style="width: 100%; height: 100%; object-fit: cover; display: block;"
+        />
+        <sando-badge slot="header-action" color="neutral" variant="soft" no-icon compact
+          >Tokens</sando-badge
+        >
+        <p style="font-size: 0.875rem; color: var(--sando-color-text-body);">
+          Automate your design-to-code token workflow and eliminate manual syncing forever.
+        </p>
+      </sando-card>
+
+      <sando-card
+        variant="outlined"
+        orientation="horizontal"
+        heading="Accessible Color Contrast at Scale"
+        hoverable
+      >
+        <img
+          slot="media"
+          src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=400&h=300&fit=crop"
+          alt="Team collaborating around a shared workspace"
+          style="width: 100%; height: 100%; object-fit: cover; display: block;"
+        />
+        <sando-badge slot="header-action" color="neutral" variant="soft" no-icon compact
+          >Accessibility</sando-badge
+        >
+        <p style="font-size: 0.875rem; color: var(--sando-color-text-body);">
+          Audit every color pair against WCAG 2.1 AA in CI — no more surprise contrast failures in
+          production.
+        </p>
+      </sando-card>
+
+      <sando-card
+        variant="outlined"
+        orientation="horizontal"
+        heading="Monorepo Architecture for Design Systems"
+        hoverable
+      >
+        <img
+          slot="media"
+          src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop"
+          alt="Mountain landscape representing scalable structure"
+          style="width: 100%; height: 100%; object-fit: cover; display: block;"
+        />
+        <sando-badge slot="header-action" color="neutral" variant="soft" no-icon compact
+          >Architecture</sando-badge
+        >
+        <p style="font-size: 0.875rem; color: var(--sando-color-text-body);">
+          Structure components, tokens, and docs in a single pnpm workspace for seamless versioning.
+        </p>
+      </sando-card>
+    </div>
   `,
   parameters: { controls: { disable: true } }
 };
