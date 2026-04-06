@@ -1,0 +1,198 @@
+{
+  "card": {
+    "elevated": {
+      "boxShadow": {
+        "default": {
+          "value": "{elevation.default.value}",
+          "type": "shadow",
+          "description": "Elevation level 1 — card resting state"
+        },
+        "hover": {
+          "value": "{elevation.emphasis.value}",
+          "type": "shadow",
+          "description": "Elevation level 2 — card lifted on hover"
+        },
+        "active": {
+          "value": "{elevation.muted.value}",
+          "type": "shadow",
+          "description": "Elevation level 0 — card pressed back down on active"
+        }
+      }
+    },
+    "outlined": {
+      "borderColor": {
+        "default": {
+          "value": "{color.border.muted.value}",
+          "type": "color",
+          "description": "Subtle border for outlined card default state"
+        },
+        "hover": {
+          "value": "{color.border.default.value}",
+          "type": "color",
+          "description": "Stronger border on hover for outlined card"
+        }
+      },
+      "borderWidth": {
+        "value": "{border.width.default.value}",
+        "type": "dimension",
+        "description": "1px border for outlined variant (maps to default border-width)"
+      }
+    },
+    "backgroundColor": {
+      "value": "{color.background.raised.value}",
+      "type": "color",
+      "description": "Base surface color for elevated and outlined card variants"
+    },
+    "filled": {
+      "backgroundColor": {
+        "value": "{color.background.emphasis.value}",
+        "type": "color",
+        "description": "Subtle tinted background for filled variant (no shadow, no border)"
+      }
+    },
+    "padding": {
+      "sm": {
+        "value": "{space.inset.muted.value}",
+        "type": "dimension",
+        "description": "Compact padding for small card"
+      },
+      "md": {
+        "value": "{space.inset.default.value}",
+        "type": "dimension",
+        "description": "Default padding for medium card"
+      },
+      "lg": {
+        "value": "{space.inset.emphasis.value}",
+        "type": "dimension",
+        "description": "Comfortable padding for large card"
+      }
+    },
+    "borderRadius": {
+      "none": {
+        "value": "0",
+        "type": "dimension",
+        "description": "No border radius"
+      },
+      "default": {
+        "value": "{border.radius.default.value}",
+        "type": "dimension",
+        "description": "Default border radius for card"
+      },
+      "full": {
+        "value": "{border.radius.full.value}",
+        "type": "dimension",
+        "description": "Fully rounded card (pill shape)"
+      }
+    },
+    "focusOutlineColor": {
+      "value": "{color.focus.ring.value}",
+      "type": "color",
+      "description": "Focus ring color for interactive (clickable/href) cards"
+    },
+    "focusOutlineWidth": {
+      "value": "{border.width.emphasis.value}",
+      "type": "dimension",
+      "description": "Focus ring width — 2px"
+    },
+    "focusOutlineOffset": {
+      "value": "{space.stack.tight.value}",
+      "type": "dimension",
+      "description": "Offset between card edge and focus ring"
+    },
+    "disabled": {
+      "opacity": {
+        "value": "{opacity.disabled.value}",
+        "type": "number",
+        "description": "Reduced opacity for disabled interactive cards"
+      }
+    },
+    "hover": {
+      "transform": {
+        "value": "translateY(-2px)",
+        "type": "other",
+        "description": "Vertical lift effect on hoverable/clickable cards"
+      }
+    },
+    "active": {
+      "transform": {
+        "value": "{scale.press.subtle.value}",
+        "type": "number",
+        "description": "Subtle scale-down on press for interactive cards"
+      }
+    },
+    "loading": {
+      "opacity": {
+        "value": "{opacity.loading.value}",
+        "type": "number",
+        "description": "Reduced opacity during loading state"
+      }
+    },
+    "transition": {
+      "duration": {
+        "value": "{animation.duration.fast.value}",
+        "type": "duration",
+        "description": "Transition duration for hover/active states"
+      },
+      "timing": {
+        "value": "{animation.easing.default.value}",
+        "type": "cubicBezier",
+        "description": "Easing function for card transitions"
+      }
+    },
+    "media": {
+      "aspectRatio": {
+        "value": "16 / 9",
+        "type": "other",
+        "description": "Default aspect ratio for card media section (consumer can override)"
+      }
+    },
+    "heading": {
+      "fontSize": {
+        "value": "{font.size.body.value}",
+        "type": "dimension",
+        "description": "Card heading font size — maps to body scale by default"
+      },
+      "fontWeight": {
+        "value": "{font.weight.heading.value}",
+        "type": "fontWeight",
+        "description": "Bold weight for card heading"
+      },
+      "color": {
+        "value": "{color.text.heading.value}",
+        "type": "color",
+        "description": "Card heading text color"
+      }
+    },
+    "description": {
+      "fontSize": {
+        "value": "{font.size.caption.value}",
+        "type": "dimension",
+        "description": "Card description font size — smaller, supporting text"
+      },
+      "color": {
+        "value": "{color.text.muted.value}",
+        "type": "color",
+        "description": "Muted color for card description text"
+      }
+    },
+    "footer": {
+      "gap": {
+        "value": "{space.stack.muted.value}",
+        "type": "dimension",
+        "description": "Spacing between items in card footer"
+      },
+      "paddingTop": {
+        "value": "{space.stack.default.value}",
+        "type": "dimension",
+        "description": "Spacing between card body content and footer"
+      }
+    },
+    "section": {
+      "gap": {
+        "value": "{space.stack.default.value}",
+        "type": "dimension",
+        "description": "Vertical spacing between card sections (header, body, footer)"
+      }
+    }
+  }
+}

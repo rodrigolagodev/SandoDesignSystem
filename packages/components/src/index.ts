@@ -247,6 +247,18 @@ export type {
   SandoSkeletonMediaCardProps
 } from './components/skeleton-media-card/index.js';
 
+export { SandoCard } from './components/card/index.js';
+export type {
+  CardVariant,
+  CardPadding,
+  CardRadius,
+  CardOrientation,
+  HeadingLevel,
+  CardClickEventDetail,
+  CardClickEvent,
+  SandoCardProps
+} from './components/card/index.js';
+
 export { SandoAvatar } from './components/avatar/index.js';
 export type {
   AvatarSize,
