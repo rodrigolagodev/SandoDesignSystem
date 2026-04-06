@@ -97,9 +97,12 @@ export class SandoSkeletonButton extends FlavorableMixin(LitElement) {
       return '100%';
     }
     if (this.width === 'auto') {
-      // Default widths for button skeletons (not tokens - internal values)
-      const widths = { sm: '4rem', md: '6rem', lg: '8rem' };
-      return widths[this.size];
+      const widthTokens: Record<SkeletonButtonSize, string> = {
+        sm: 'var(--sando-space-16)', // 4rem
+        md: 'var(--sando-space-24)', // 6rem
+        lg: 'var(--sando-space-32)' // 8rem
+      };
+      return widthTokens[this.size];
     }
     return this.width;
   }

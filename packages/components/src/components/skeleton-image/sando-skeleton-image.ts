@@ -2,7 +2,8 @@
  * Sando Skeleton Image Component
  *
  * A skeleton placeholder for media/image content with aspect ratio support.
- * Wraps sando-skeleton with configurable aspect ratio or fixed height.
+ * Renders the skeleton visual directly (no inner sando-skeleton) so it can
+ * own its own sizing via aspect-ratio or fixed height on the host.
  *
  * @element sando-skeleton-image
  *
@@ -39,7 +40,6 @@ import { customElement, property } from 'lit/decorators.js';
 import { FlavorableMixin } from '../../mixins/index.js';
 import { resetStyles } from '../../styles/reset.css.js';
 import { tokenStyles } from '../../styles/tokens.css.js';
-import '../skeleton/sando-skeleton.js';
 import type { SkeletonImageRatio, SkeletonImageEffect } from './sando-skeleton-image.types.js';
 
 /**
@@ -48,6 +48,17 @@ import type { SkeletonImageRatio, SkeletonImageEffect } from './sando-skeleton-i
 const DEFAULT_RATIO: SkeletonImageRatio = '16/9';
 const DEFAULT_WIDTH = '100%';
 const DEFAULT_EFFECT: SkeletonImageEffect = 'shimmer';
+
+/**
+ * Maps ratio prop values to literal CSS aspect-ratio values.
+ * These are fixed primitives — they don't vary by flavor.
+ */
+const RATIO_VALUE_MAP: Record<SkeletonImageRatio, string> = {
+  '1/1':  '1 / 1',
+  '4/3':  '4 / 3',
+  '16/9': '16 / 9',
+  '21/9': '21 / 9'
+};
 
 @customElement('sando-skeleton-image')
 export class SandoSkeletonImage extends FlavorableMixin(LitElement) {
@@ -95,7 +106,21 @@ export class SandoSkeletonImage extends FlavorableMixin(LitElement) {
     tokenStyles,
     css`
       /* ============================================
-         HOST
+         KEYFRAMES — same as sando-skeleton base
+         ============================================ */
+
+      @keyframes sando-shimmer {
+        0%   { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+      }
+
+      @keyframes sando-pulse {
+        0%, 100% { opacity: 1; }
+        50%       { opacity: 0.4; }
+      }
+
+      /* ============================================
+         HOST — sizing is applied via _applySizing()
          ============================================ */
 
       :host {
@@ -103,52 +128,107 @@ export class SandoSkeletonImage extends FlavorableMixin(LitElement) {
       }
 
       /* ============================================
-         IMAGE SKELETON CONTAINER
+         SKELETON SURFACE
          ============================================ */
 
-      .image-skeleton {
+      .skeleton {
         width: 100%;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+        background-color: var(--sando-skeleton-color-background);
+        border-radius: var(--sando-skeleton-borderRadius-rounded);
       }
 
       /* ============================================
-         ASPECT RATIO VARIANTS
-         Uses CSS aspect-ratio for modern browser support
+         SHIMMER
          ============================================ */
 
-      :host([ratio='1/1']) .image-skeleton {
-        aspect-ratio: 1 / 1;
+      .skeleton__shimmer {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--sando-skeleton-color-shimmer),
+          transparent
+        );
+        animation: sando-shimmer var(--sando-skeleton-animation-duration) infinite;
+        animation-timing-function: var(--sando-skeleton-animation-easing);
       }
 
-      :host([ratio='4/3']) .image-skeleton {
-        aspect-ratio: 4 / 3;
+      /* ============================================
+         PULSE
+         ============================================ */
+
+      :host([effect='pulse']) .skeleton {
+        animation: sando-pulse var(--sando-skeleton-animation-duration) infinite;
+        animation-timing-function: var(--sando-skeleton-animation-easing);
       }
 
-      :host([ratio='16/9']) .image-skeleton {
-        aspect-ratio: 16 / 9;
+      /* ============================================
+         NO ANIMATION
+         ============================================ */
+
+      :host([effect='none']) .skeleton__shimmer {
+        display: none;
       }
 
-      :host([ratio='21/9']) .image-skeleton {
-        aspect-ratio: 21 / 9;
+      :host([effect='none']) .skeleton {
+        animation: none;
+      }
+
+      /* ============================================
+         REDUCED MOTION
+         ============================================ */
+
+      @media (prefers-reduced-motion: reduce) {
+        .skeleton__shimmer { display: none; }
+        .skeleton { animation: none; }
       }
     `
   ];
 
   /**
-   * Render the skeleton image placeholder
+   * Apply sizing to the host element.
+   * Uses setProperty/removeProperty so CSS vars and non-standard
+   * values are accepted by the browser.
    */
-  render() {
-    // If height is provided, use it directly; otherwise use aspect-ratio via CSS
-    const useFixedHeight = !!this.height;
+  private _applySizing() {
+    this.style.width = this.width;
+    if (this.height) {
+      this.style.height = this.height;
+      this.style.removeProperty('aspect-ratio');
+    } else {
+      this.style.removeProperty('height');
+      this.style.setProperty('aspect-ratio', RATIO_VALUE_MAP[this.ratio]);
+    }
+  }
 
+  override firstUpdated() {
+    this._applySizing();
+  }
+
+  override updated(changedProperties: Map<string, unknown>) {
+    super.updated(changedProperties);
+    const sizingChanged =
+      changedProperties.has('width') ||
+      changedProperties.has('height') ||
+      changedProperties.has('ratio');
+    if (sizingChanged) this._applySizing();
+  }
+
+  render() {
+    const showShimmer = this.effect === 'shimmer';
     return html`
-      <sando-skeleton
-        class="image-skeleton"
-        shape="rounded"
-        effect=${this.effect}
-        width=${this.width}
-        height=${useFixedHeight ? this.height : '100%'}
-        style=${useFixedHeight ? '' : `aspect-ratio: ${this.ratio.replace('/', ' / ')}`}
-      ></sando-skeleton>
+      <div
+        class="skeleton"
+        part="skeleton"
+        role="presentation"
+        aria-hidden="true"
+      >
+        ${showShimmer ? html`<div class="skeleton__shimmer" part="shimmer"></div>` : null}
+      </div>
     `;
   }
 }
