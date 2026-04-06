@@ -50,6 +50,7 @@ export const sizeStyles = css`
      Works with all sizes
      ======================================== */
   :host([compact]) .badge {
+    padding-inline: var(--sando-badge-compact-paddingInline);
     padding-block: var(--sando-badge-compact-paddingBlock);
     min-height: auto;
   }

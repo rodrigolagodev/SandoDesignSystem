@@ -73,7 +73,7 @@ export const baseStyles = css`
     position: relative;
     /* Prepare for focus outline */
     outline: var(--sando-checkbox-focusOutlineWidth) solid transparent;
-    outline-offset: var(--sando-checkbox-focusOutlineOffset);
+    outline-offset: 0;
     /*
      * Vertical alignment fix: When container uses align-items: flex-start,
      * we need margin-top to visually center the box with the first line of text.
@@ -94,7 +94,7 @@ export const baseStyles = css`
   @media (prefers-contrast: high) {
     .checkbox-box.focused {
       outline-width: calc(var(--sando-checkbox-focusOutlineWidth) * 2);
-      outline-offset: calc(var(--sando-checkbox-focusOutlineOffset) * 1.5);
+      outline-offset: 2px;
     }
   }
 

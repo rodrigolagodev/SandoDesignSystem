@@ -64,7 +64,7 @@ export const baseStyles = css`
     transition-timing-function: var(--sando-textarea-transition-timing);
     /* Prepare for focus outline — transparent by default, activated on :focus-visible */
     outline: var(--sando-textarea-focusOutlineWidth) solid transparent;
-    outline-offset: var(--sando-textarea-focusOutlineOffset);
+    outline-offset: 0;
     /* Remove native resize handle - we control via resize property */
     resize: var(--sando-textarea-resize-default);
   }
@@ -86,7 +86,7 @@ export const baseStyles = css`
   @media (prefers-contrast: high) {
     .textarea-field:focus-visible {
       outline-width: calc(var(--sando-textarea-focusOutlineWidth) * 2);
-      outline-offset: calc(var(--sando-textarea-focusOutlineOffset) * 1.5);
+      outline-offset: 2px;
     }
   }
 

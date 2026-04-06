@@ -72,7 +72,7 @@ export const baseStyles = css`
     position: relative;
     /* Prepare for focus outline */
     outline: var(--sando-switch-focusOutlineWidth) solid transparent;
-    outline-offset: var(--sando-switch-focusOutlineOffset);
+    outline-offset: 0;
     /*
      * Vertical alignment fix: When container uses align-items: flex-start,
      * we need margin-top to visually center the track with the first line of text.
@@ -93,7 +93,7 @@ export const baseStyles = css`
   @media (prefers-contrast: high) {
     .switch-track.focused {
       outline-width: calc(var(--sando-switch-focusOutlineWidth) * 2);
-      outline-offset: calc(var(--sando-switch-focusOutlineOffset) * 1.5);
+      outline-offset: 2px;
     }
   }
 

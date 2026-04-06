@@ -36,14 +36,14 @@ export const stateStyles = css`
   .input-wrapper.focused {
     border-color: var(--sando-input-outlined-borderColor-focus);
     outline: var(--sando-input-focusOutlineWidth) solid var(--sando-input-focusOutlineColor);
-    outline-offset: var(--sando-input-focusOutlineOffset);
+    outline-offset: 0;
   }
 
   /* Filled focus */
   :host([variant='filled']) .input-wrapper.focused {
     border-color: var(--sando-input-filled-borderColor-focus);
     outline: var(--sando-input-focusOutlineWidth) solid var(--sando-input-focusOutlineColor);
-    outline-offset: var(--sando-input-focusOutlineOffset);
+    outline-offset: 0;
   }
 
   /* ========================================

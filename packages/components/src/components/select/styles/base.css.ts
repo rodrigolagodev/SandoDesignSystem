@@ -69,7 +69,7 @@ export const baseStyles = css`
     transition-timing-function: var(--sando-select-transition-timing);
     position: relative;
     outline: var(--sando-select-focusOutlineWidth) solid transparent;
-    outline-offset: var(--sando-select-focusOutlineOffset);
+    outline-offset: 0;
   }
 
   /* Focus visible on trigger */
@@ -134,7 +134,7 @@ export const baseStyles = css`
 
   .select-clear:focus-visible {
     outline: var(--sando-select-focusOutlineWidth) solid var(--sando-select-focusOutlineColor);
-    outline-offset: var(--sando-select-focusOutlineOffset);
+    outline-offset: 0;
   }
 
   .select-clear sando-icon {
@@ -170,7 +170,7 @@ export const baseStyles = css`
   @media (prefers-contrast: high) {
     .select-trigger:focus-visible {
       outline-width: calc(var(--sando-select-focusOutlineWidth) * 2);
-      outline-offset: calc(var(--sando-select-focusOutlineOffset) * 1.5);
+      outline-offset: 2px;
     }
   }
 `;

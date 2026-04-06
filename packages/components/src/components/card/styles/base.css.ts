@@ -164,7 +164,7 @@ export const baseStyles = css`
   /* Focus ring on the overlay element */
   .card__surface-action:focus-visible {
     outline: var(--sando-card-focusOutlineWidth) solid var(--sando-card-focusOutlineColor);
-    outline-offset: var(--sando-card-focusOutlineOffset);
+    outline-offset: 0;
   }
 
   /* Reduced motion */
