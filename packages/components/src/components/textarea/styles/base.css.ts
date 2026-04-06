@@ -55,6 +55,8 @@ export const baseStyles = css`
     width: 100%;
     font-family: inherit;
     line-height: var(--sando-textarea-size-md-lineHeight);
+    /* Reset UA stylesheet background — variant.css.ts applies the correct token */
+    background-color: transparent;
     border-width: var(--sando-textarea-borderWidth);
     border-style: solid;
     border-radius: var(--sando-textarea-borderRadius);
