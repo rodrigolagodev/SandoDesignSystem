@@ -3,6 +3,7 @@
  *
  * Contains styles for interactive states:
  * - Checked: Thumb slides to the right
+ * - Active/Press: scale(0.98) tactile feedback (DLD §7.2)
  * - Disabled: Prevents interaction
  * - Error: Shows error styling
  */
@@ -15,6 +16,14 @@ export const stateStyles = css`
      Thumb is positioned via size.css.ts transforms
      ======================================== */
   /* Base checked state handled in size.css.ts via transform */
+
+  /* ========================================
+     ACTIVE/PRESS STATE
+     DLD §7.2: scale(0.98) on all pressable elements
+     ======================================== */
+  :host(:not([disabled])) .switch-container:active .switch-track {
+    transform: scale(var(--sando-switch-transform-active, 0.98));
+  }
 
   /* ========================================
      DISABLED STATE

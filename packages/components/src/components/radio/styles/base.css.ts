@@ -69,7 +69,7 @@ export const baseStyles = css`
     border-style: solid;
     /* Circular shape - key difference from checkbox */
     border-radius: var(--sando-radio-borderRadius);
-    transition-property: background-color, border-color, box-shadow, outline;
+    transition-property: background-color, border-color, outline-color;
     transition-duration: var(--sando-radio-transition-duration);
     transition-timing-function: var(--sando-radio-transition-timing);
     position: relative;

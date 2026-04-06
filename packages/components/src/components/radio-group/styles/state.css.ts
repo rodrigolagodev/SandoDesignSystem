@@ -27,7 +27,7 @@ export const stateStyles = css`
   /* High contrast mode support */
   @media (prefers-contrast: high) {
     .error-text {
-      font-weight: var(--sando-font-weight-emphasis);
+      font-weight: var(--sando-radio-group-label-fontWeight);
     }
   }
 

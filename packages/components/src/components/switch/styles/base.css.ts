@@ -66,7 +66,7 @@ export const baseStyles = css`
     border-width: var(--sando-switch-borderWidth);
     border-style: solid;
     border-radius: var(--sando-switch-borderRadius);
-    transition-property: background-color, border-color, box-shadow, outline;
+    transition-property: background-color, border-color, outline-color;
     transition-duration: var(--sando-switch-transition-duration);
     transition-timing-function: var(--sando-switch-transition-timing);
     position: relative;
@@ -104,7 +104,7 @@ export const baseStyles = css`
     /* Vertical centering - size styles only control horizontal position */
     top: 50%;
     transform: translateY(-50%);
-    transition-property: transform, background-color, box-shadow;
+    transition-property: transform, background-color;
     transition-duration: var(--sando-switch-transition-duration);
     transition-timing-function: var(--sando-switch-transition-timing);
     box-shadow: var(--sando-switch-solid-thumb-shadow);
