@@ -77,4 +77,10 @@ export interface SandoSkeletonCardProps {
    * @default 'vertical'
    */
   orientation?: SkeletonCardOrientation;
+
+  /**
+   * Animation effect applied to all inner skeleton elements
+   * @default 'shimmer'
+   */
+  effect?: 'shimmer' | 'pulse' | 'none';
 }

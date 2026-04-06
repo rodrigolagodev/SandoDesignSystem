@@ -36,7 +36,10 @@ import '../skeleton-image/sando-skeleton-image.js';
 import '../skeleton/sando-skeleton-text.js';
 import '../skeleton-button/sando-skeleton-button.js';
 
-import type { SkeletonMediaCardImageRatio } from './sando-skeleton-media-card.types.js';
+import type {
+  SkeletonMediaCardImageRatio,
+  SkeletonMediaCardWidth
+} from './sando-skeleton-media-card.types.js';
 import type { SkeletonEffect } from '../skeleton/sando-skeleton.types.js';
 
 /**
@@ -85,6 +88,16 @@ export class SandoSkeletonMediaCard extends FlavorableMixin(LitElement) {
   effect: SkeletonEffect = 'shimmer';
 
   /**
+   * Width of the media card
+   * - 'auto': Natural width based on content/container
+   * - 'full': 100% of container width
+   * - Custom string: Any valid CSS width (e.g., '300px', '20rem')
+   * @default 'auto'
+   */
+  @property({ reflect: true })
+  width: SkeletonMediaCardWidth = 'auto';
+
+  /**
    * Component styles
    */
   static styles = [
@@ -93,6 +106,11 @@ export class SandoSkeletonMediaCard extends FlavorableMixin(LitElement) {
     css`
       :host {
         display: block;
+      }
+
+      :host([width='full']) {
+        display: block;
+        width: 100%;
       }
     `
   ];
@@ -151,8 +169,9 @@ export class SandoSkeletonMediaCard extends FlavorableMixin(LitElement) {
    * Render the skeleton media card
    */
   render() {
+    const customWidth = this.width !== 'auto' && this.width !== 'full' ? this.width : null;
     return html`
-      <sando-skeleton-composer>
+      <sando-skeleton-composer style=${customWidth ? `width: ${customWidth}` : nothing}>
         <sando-skeleton-stack gap="md">
           ${this._renderImage()} ${this._renderTitle()} ${this._renderDescription()}
           ${this._renderActions()}

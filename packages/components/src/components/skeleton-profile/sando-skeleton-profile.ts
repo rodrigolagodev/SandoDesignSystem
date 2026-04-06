@@ -92,7 +92,7 @@ export class SandoSkeletonProfile extends FlavorableMixin(LitElement) {
 
       .bio-container {
         width: 100%;
-        max-width: 280px;
+        max-width: var(--sando-skeleton-profile-max-width, 280px);
       }
     `
   ];

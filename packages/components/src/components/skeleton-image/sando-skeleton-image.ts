@@ -54,8 +54,8 @@ const DEFAULT_EFFECT: SkeletonImageEffect = 'shimmer';
  * These are fixed primitives — they don't vary by flavor.
  */
 const RATIO_VALUE_MAP: Record<SkeletonImageRatio, string> = {
-  '1/1':  '1 / 1',
-  '4/3':  '4 / 3',
+  '1/1': '1 / 1',
+  '4/3': '4 / 3',
   '16/9': '16 / 9',
   '21/9': '21 / 9'
 };
@@ -110,13 +110,22 @@ export class SandoSkeletonImage extends FlavorableMixin(LitElement) {
          ============================================ */
 
       @keyframes sando-shimmer {
-        0%   { transform: translateX(-100%); }
-        100% { transform: translateX(100%); }
+        0% {
+          transform: translateX(-100%);
+        }
+        100% {
+          transform: translateX(100%);
+        }
       }
 
       @keyframes sando-pulse {
-        0%, 100% { opacity: 1; }
-        50%       { opacity: 0.4; }
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.6;
+        }
       }
 
       /* ============================================
@@ -183,8 +192,12 @@ export class SandoSkeletonImage extends FlavorableMixin(LitElement) {
          ============================================ */
 
       @media (prefers-reduced-motion: reduce) {
-        .skeleton__shimmer { display: none; }
-        .skeleton { animation: none; }
+        .skeleton__shimmer {
+          display: none;
+        }
+        .skeleton {
+          animation: none;
+        }
       }
     `
   ];
@@ -221,12 +234,7 @@ export class SandoSkeletonImage extends FlavorableMixin(LitElement) {
   render() {
     const showShimmer = this.effect === 'shimmer';
     return html`
-      <div
-        class="skeleton"
-        part="skeleton"
-        role="presentation"
-        aria-hidden="true"
-      >
+      <div class="skeleton" part="skeleton" role="presentation" aria-hidden="true">
         ${showShimmer ? html`<div class="skeleton__shimmer" part="shimmer"></div>` : null}
       </div>
     `;

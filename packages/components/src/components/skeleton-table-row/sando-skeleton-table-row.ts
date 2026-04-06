@@ -111,7 +111,7 @@ export class SandoSkeletonTableRow extends FlavorableMixin(LitElement) {
       }
 
       .checkbox {
-        flex: 0 0 24px;
+        flex: 0 0 var(--sando-space-6);
       }
     `
   ];
@@ -144,8 +144,8 @@ export class SandoSkeletonTableRow extends FlavorableMixin(LitElement) {
                 <div class="checkbox">
                   <sando-skeleton
                     shape="rounded"
-                    width="16px"
-                    height="16px"
+                    width="var(--sando-space-4)"
+                    height="var(--sando-space-4)"
                     effect=${this.effect}
                   ></sando-skeleton>
                 </div>
