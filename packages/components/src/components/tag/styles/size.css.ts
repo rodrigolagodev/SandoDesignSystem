@@ -37,6 +37,11 @@ export const sizeStyles = css`
     height: var(--sando-tag-size-sm-iconSize);
   }
 
+  /* Divider height override for sm */
+  :host([size='sm']) .tag__divider {
+    height: 1em;
+  }
+
   /* ========================================
      MEDIUM SIZE (md) - Default
      ======================================== */
@@ -104,17 +109,20 @@ export const sizeStyles = css`
      Works with all sizes
      ======================================== */
   :host([compact][size='sm']) .tag {
+    padding-inline: var(--sando-tag-compact-sm-paddingInline);
     padding-block: var(--sando-tag-compact-sm-paddingBlock);
     min-height: auto;
   }
 
   :host([compact][size='md']) .tag,
   :host([compact]:not([size])) .tag {
+    padding-inline: var(--sando-tag-compact-md-paddingInline);
     padding-block: var(--sando-tag-compact-md-paddingBlock);
     min-height: auto;
   }
 
   :host([compact][size='lg']) .tag {
+    padding-inline: var(--sando-tag-compact-lg-paddingInline);
     padding-block: var(--sando-tag-compact-lg-paddingBlock);
     min-height: auto;
   }

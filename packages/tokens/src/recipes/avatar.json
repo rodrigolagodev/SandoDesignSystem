@@ -141,7 +141,7 @@
     },
     "border": {
       "color": {
-        "value": "{color.border.muted.value}",
+        "value": "{color.border.default.value}",
         "type": "color",
         "description": "Subtle border to separate avatar from background"
       },

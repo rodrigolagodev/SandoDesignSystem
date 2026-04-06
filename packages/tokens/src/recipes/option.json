@@ -14,11 +14,11 @@
         "type": "color"
       },
       "selected": {
-        "value": "{color.action.solid.background.default.value}",
+        "value": "{color.focus.background.value}",
         "type": "color"
       },
       "selectedHover": {
-        "value": "{color.action.solid.background.hover.value}",
+        "value": "{color.background.hover.value}",
         "type": "color"
       },
       "disabled": {
@@ -40,7 +40,7 @@
         "type": "color"
       },
       "selected": {
-        "value": "{color.text.on-solid.value}",
+        "value": "{color.focus.text.value}",
         "type": "color"
       },
       "disabled": {
@@ -148,6 +148,10 @@
     },
     "focusOutlineOffset": {
       "value": "{space.stack.tight.value}",
+      "type": "dimension"
+    },
+    "borderRadius": {
+      "value": "{border.radius.muted.value}",
       "type": "dimension"
     },
     "transition": {

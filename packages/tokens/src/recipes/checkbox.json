@@ -3,7 +3,7 @@
     "solid": {
       "backgroundColor": {
         "default": {
-          "value": "{color.background.raised.value}",
+          "value": "{color.background.surface.value}",
           "type": "color"
         },
         "hover": {

@@ -235,7 +235,7 @@ const meta: Meta = {
     }
   },
   args: {
-    variant: 'outlined',
+    variant: 'filled',
     size: 'md',
     resize: 'vertical',
     wrap: 'soft',

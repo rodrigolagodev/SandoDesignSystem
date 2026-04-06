@@ -47,6 +47,7 @@ export const stateStyles = css`
   /* Selected + Hover */
   :host([selected]:not([disabled])) .option:hover {
     background-color: var(--sando-select-option-backgroundColor-selectedHover);
+    color: var(--sando-select-option-textColor-selectedHover);
   }
 
   /* ========================================

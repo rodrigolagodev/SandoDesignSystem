@@ -20,7 +20,7 @@ export const stateStyles = css`
 
   :host([disabled]) .textarea-field,
   .textarea-field:disabled {
-    background-color: var(--sando-textarea-outlined-backgroundColor-disabled);
+    background: var(--sando-textarea-outlined-backgroundColor-disabled);
     border-color: var(--sando-textarea-outlined-borderColor-disabled);
     color: var(--sando-textarea-outlined-textColor-disabled);
     cursor: not-allowed;
@@ -29,7 +29,7 @@ export const stateStyles = css`
 
   :host([variant='filled'][disabled]) .textarea-field,
   :host([variant='filled']) .textarea-field:disabled {
-    background-color: var(--sando-textarea-filled-backgroundColor-disabled);
+    background: var(--sando-textarea-filled-backgroundColor-disabled);
     border-color: var(--sando-textarea-filled-borderColor-disabled);
     color: var(--sando-textarea-filled-textColor-disabled);
   }
@@ -52,13 +52,13 @@ export const stateStyles = css`
 
   :host([error]) .textarea-field,
   :host([variant='outlined'][error]) .textarea-field {
-    background-color: var(--sando-textarea-outlined-backgroundColor-error);
+    background: var(--sando-textarea-outlined-backgroundColor-error);
     border-color: var(--sando-textarea-outlined-borderColor-error);
     color: var(--sando-textarea-outlined-textColor-error);
   }
 
   :host([variant='filled'][error]) .textarea-field {
-    background-color: var(--sando-textarea-filled-backgroundColor-error);
+    background: var(--sando-textarea-filled-backgroundColor-error);
     border-color: var(--sando-textarea-filled-borderColor-error);
     color: var(--sando-textarea-filled-textColor-error);
   }

@@ -109,10 +109,7 @@ export const baseStyles = css`
   }
 
   .tag__action:hover {
-    background-color: var(
-      --sando-tag-action-backgroundColor-hover,
-      var(--sando-tag-removeButton-backgroundColor-hover)
-    );
+    background-color: color-mix(in srgb, currentColor 25%, transparent);
   }
 
   .tag__action:active {
@@ -121,7 +118,7 @@ export const baseStyles = css`
 
   .tag__action:focus-visible {
     outline: var(--sando-tag-focus-outlineWidth) solid var(--sando-tag-focus-outlineColor);
-    outline-offset: var(--sando-tag-focus-outlineOffset);
+    outline-offset: 0;
   }
 
   /* ===== Removable Tag Focus Enhancement ===== */
@@ -135,7 +132,7 @@ export const baseStyles = css`
   /* Show focus ring on the entire tag when removable and action is focused */
   .tag--removable:focus-within {
     outline: var(--sando-tag-focus-outlineWidth) solid var(--sando-tag-focus-outlineColor);
-    outline-offset: var(--sando-tag-focus-outlineOffset);
+    outline-offset: 0;
   }
 
   /* Only show focus ring for keyboard navigation (not mouse clicks) */
@@ -197,12 +194,12 @@ export const baseStyles = css`
   }
 
   .tag__remove:hover {
-    background-color: var(--sando-tag-removeButton-backgroundColor-hover);
+    background-color: color-mix(in srgb, currentColor 25%, transparent);
   }
 
   .tag__remove:focus-visible {
     outline: var(--sando-tag-focus-outlineWidth) solid var(--sando-tag-focus-outlineColor);
-    outline-offset: var(--sando-tag-focus-outlineOffset);
+    outline-offset: 0;
   }
 
   /* Legacy: Hide focus ring on small button when in removable mode */

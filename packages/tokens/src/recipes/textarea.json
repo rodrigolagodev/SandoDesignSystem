@@ -15,7 +15,7 @@
           "type": "color"
         },
         "disabled": {
-          "value": "{color.background.emphasis.value}",
+          "value": "{color.action.disabled.background.value}",
           "type": "color"
         },
         "error": {
@@ -79,7 +79,7 @@
           "type": "color"
         },
         "disabled": {
-          "value": "{color.background.emphasis.value}",
+          "value": "{color.action.disabled.background.value}",
           "type": "color"
         },
         "error": {

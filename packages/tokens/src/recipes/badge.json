@@ -119,15 +119,15 @@
     "success": {
       "solid": {
         "backgroundColor": {
-          "value": "{color.state.success.text.value}",
+          "value": "{color.state.success.solidBackground.value}",
           "type": "color"
         },
         "textColor": {
-          "value": "{color.text.on-solid.value}",
+          "value": "{color.state.success.solidText.value}",
           "type": "color"
         },
         "borderColor": {
-          "value": "{color.state.success.text.value}",
+          "value": "{color.state.success.solidBackground.value}",
           "type": "color"
         }
       },
@@ -177,15 +177,15 @@
     "warning": {
       "solid": {
         "backgroundColor": {
-          "value": "{color.state.warning.text.value}",
+          "value": "{color.state.warning.solidBackground.value}",
           "type": "color"
         },
         "textColor": {
-          "value": "{color.text.heading.value}",
+          "value": "{color.state.warning.solidText.value}",
           "type": "color"
         },
         "borderColor": {
-          "value": "{color.state.warning.text.value}",
+          "value": "{color.state.warning.solidBackground.value}",
           "type": "color"
         }
       },
@@ -235,15 +235,15 @@
     "danger": {
       "solid": {
         "backgroundColor": {
-          "value": "{color.state.destructive.text.value}",
+          "value": "{color.state.destructive.solidBackground.value}",
           "type": "color"
         },
         "textColor": {
-          "value": "{color.text.on-solid.value}",
+          "value": "{color.state.destructive.solidText.value}",
           "type": "color"
         },
         "borderColor": {
-          "value": "{color.state.destructive.text.value}",
+          "value": "{color.state.destructive.solidBackground.value}",
           "type": "color"
         }
       },
@@ -293,15 +293,15 @@
     "info": {
       "solid": {
         "backgroundColor": {
-          "value": "{color.state.info.text.value}",
+          "value": "{color.state.info.solidBackground.value}",
           "type": "color"
         },
         "textColor": {
-          "value": "{color.text.on-solid.value}",
+          "value": "{color.state.info.solidText.value}",
           "type": "color"
         },
         "borderColor": {
-          "value": "{color.state.info.text.value}",
+          "value": "{color.state.info.solidBackground.value}",
           "type": "color"
         }
       },
@@ -373,7 +373,7 @@
       },
       "md": {
         "paddingInline": {
-          "value": "{space.inset.muted.value}",
+          "value": "{space.inset.default.value}",
           "type": "dimension"
         },
         "paddingBlock": {
@@ -395,11 +395,11 @@
       },
       "lg": {
         "paddingInline": {
-          "value": "{space.inset.default.value}",
+          "value": "{space.inset.emphasis.value}",
           "type": "dimension"
         },
         "paddingBlock": {
-          "value": "{space.stack.muted.value}",
+          "value": "{space.stack.default.value}",
           "type": "dimension"
         },
         "fontSize": {
@@ -417,6 +417,10 @@
       }
     },
     "compact": {
+      "paddingInline": {
+        "value": "{space.stack.muted.value}",
+        "type": "dimension"
+      },
       "paddingBlock": {
         "value": "{space.stack.tight.value}",
         "type": "dimension"
@@ -427,7 +431,7 @@
       "type": "fontFamily"
     },
     "fontWeight": {
-      "value": "{font.weight.body.value}",
+      "value": "{font.weight.emphasis.value}",
       "type": "fontWeight"
     },
     "lineHeight": {
@@ -449,7 +453,7 @@
       }
     },
     "borderRadius": {
-      "value": "{border.radius.muted.value}",
+      "value": "{border.radius.full.value}",
       "type": "dimension"
     },
     "borderWidth": {

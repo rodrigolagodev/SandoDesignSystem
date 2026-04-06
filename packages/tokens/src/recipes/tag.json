@@ -31,8 +31,9 @@
       },
       "borderColor": {
         "default": {
-          "value": "{color.border.on-solid.value}",
-          "type": "color"
+          "value": "{color.orange.700.value}",
+          "type": "color",
+          "description": "Slightly darker than solid background (orange.600/400) — subtle depth, not accent"
         }
       }
     },
@@ -127,7 +128,7 @@
           "type": "dimension"
         },
         "paddingBlock": {
-          "value": "{space.stack.tight.value}",
+          "value": "{space.stack.none.value}",
           "type": "dimension"
         },
         "fontSize": {
@@ -145,7 +146,7 @@
       },
       "md": {
         "paddingInline": {
-          "value": "{space.inset.muted.value}",
+          "value": "{space.stack.muted.value}",
           "type": "dimension"
         },
         "paddingBlock": {
@@ -167,11 +168,11 @@
       },
       "lg": {
         "paddingInline": {
-          "value": "{space.inset.default.value}",
+          "value": "{space.stack.default.value}",
           "type": "dimension"
         },
         "paddingBlock": {
-          "value": "{space.stack.muted.value}",
+          "value": "{space.stack.default.value}",
           "type": "dimension"
         },
         "fontSize": {
@@ -190,18 +191,30 @@
     },
     "compact": {
       "sm": {
+        "paddingInline": {
+          "value": "{space.stack.tight.value}",
+          "type": "dimension"
+        },
         "paddingBlock": {
           "value": "{space.stack.none.value}",
           "type": "dimension"
         }
       },
       "md": {
+        "paddingInline": {
+          "value": "{space.stack.tight.value}",
+          "type": "dimension"
+        },
         "paddingBlock": {
           "value": "{space.stack.tight.value}",
           "type": "dimension"
         }
       },
       "lg": {
+        "paddingInline": {
+          "value": "{space.stack.muted.value}",
+          "type": "dimension"
+        },
         "paddingBlock": {
           "value": "{space.stack.tight.value}",
           "type": "dimension"
@@ -213,7 +226,7 @@
       "type": "fontFamily"
     },
     "fontWeight": {
-      "value": "{font.weight.body.value}",
+      "value": "{font.weight.emphasis.value}",
       "type": "fontWeight"
     },
     "lineHeight": {

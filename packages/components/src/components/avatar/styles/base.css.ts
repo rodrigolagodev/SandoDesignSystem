@@ -120,7 +120,7 @@ export const baseStyles = css`
   .avatar--interactive:focus-visible {
     outline: var(--sando-avatar-interactive-focusOutlineWidth) solid
       var(--sando-avatar-interactive-focusOutlineColor);
-    outline-offset: var(--sando-avatar-interactive-focusOutlineOffset);
+    outline-offset: 0;
   }
 
   /* Remove default link styles */

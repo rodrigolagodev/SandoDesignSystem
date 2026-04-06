@@ -26,6 +26,7 @@ export const dropdownStyles = css`
     border-radius: var(--sando-select-dropdown-borderRadius);
     box-shadow: var(--sando-select-dropdown-boxShadow);
     padding-block: var(--sando-select-dropdown-paddingBlock);
+    padding-inline: var(--sando-select-dropdown-paddingInline);
     max-height: var(--sando-select-dropdown-maxHeight);
     overflow-y: auto;
     overflow-x: hidden;
@@ -106,6 +107,7 @@ export const dropdownStyles = css`
     border-radius: var(--sando-select-dropdown-borderRadius);
     box-shadow: var(--sando-select-dropdown-boxShadow);
     padding-block: var(--sando-select-dropdown-paddingBlock);
+    padding-inline: var(--sando-select-dropdown-paddingInline);
     overflow-y: auto;
     overflow-x: hidden;
     overscroll-behavior: contain;

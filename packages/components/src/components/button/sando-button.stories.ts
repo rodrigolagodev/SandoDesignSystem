@@ -47,11 +47,21 @@ const meta: Meta = {
       aria-label="${args.ariaLabel || ''}"
     >
       ${args.iconStart && args.iconStart !== 'None'
-        ? html`<sando-icon slot="icon-start" name="${args.iconStart}" size="sm"></sando-icon>`
+        ? html`<sando-icon
+            slot="icon-start"
+            name="${args.iconStart}"
+            size="sm"
+            inherit-color
+          ></sando-icon>`
         : ''}
       ${args.iconOnly ? '' : args.label}
       ${args.iconEnd && args.iconEnd !== 'None'
-        ? html`<sando-icon slot="icon-end" name="${args.iconEnd}" size="sm"></sando-icon>`
+        ? html`<sando-icon
+            slot="icon-end"
+            name="${args.iconEnd}"
+            size="sm"
+            inherit-color
+          ></sando-icon>`
         : ''}
     </sando-button>
   `,
@@ -359,11 +369,11 @@ export const AllStatus: Story = {
     <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
       <sando-button status="default">Default</sando-button>
       <sando-button status="success">
-        <sando-icon slot="icon-start" name="check" size="sm"></sando-icon>
+        <sando-icon slot="icon-start" name="check" size="sm" inherit-color></sando-icon>
         Success
       </sando-button>
       <sando-button status="destructive">
-        <sando-icon slot="icon-start" name="trash-2" size="sm"></sando-icon>
+        <sando-icon slot="icon-start" name="trash-2" size="sm" inherit-color></sando-icon>
         Destructive
       </sando-button>
     </div>
@@ -444,25 +454,25 @@ export const ToolbarExample: Story = {
       style="display: flex; gap: 0.25rem; padding: 0.5rem; background: var(--sando-color-background-surface); border-radius: 0.5rem; border: 1px solid var(--sando-color-border-muted);"
     >
       <sando-button variant="ghost" compact icon-only aria-label="Bold">
-        <sando-icon slot="icon-start" name="bold" size="sm"></sando-icon>
+        <sando-icon slot="icon-start" name="bold" size="sm" inherit-color></sando-icon>
       </sando-button>
       <sando-button variant="ghost" compact icon-only aria-label="Italic">
-        <sando-icon slot="icon-start" name="italic" size="sm"></sando-icon>
+        <sando-icon slot="icon-start" name="italic" size="sm" inherit-color></sando-icon>
       </sando-button>
       <sando-button variant="ghost" compact icon-only aria-label="Underline">
-        <sando-icon slot="icon-start" name="underline" size="sm"></sando-icon>
+        <sando-icon slot="icon-start" name="underline" size="sm" inherit-color></sando-icon>
       </sando-button>
       <div
         style="width: 1px; background: var(--sando-color-border-muted); margin: 0 0.25rem;"
       ></div>
       <sando-button variant="ghost" compact icon-only aria-label="Align left">
-        <sando-icon slot="icon-start" name="align-left" size="sm"></sando-icon>
+        <sando-icon slot="icon-start" name="align-left" size="sm" inherit-color></sando-icon>
       </sando-button>
       <sando-button variant="ghost" compact icon-only aria-label="Align center">
-        <sando-icon slot="icon-start" name="align-center" size="sm"></sando-icon>
+        <sando-icon slot="icon-start" name="align-center" size="sm" inherit-color></sando-icon>
       </sando-button>
       <sando-button variant="ghost" compact icon-only aria-label="Align right">
-        <sando-icon slot="icon-start" name="align-right" size="sm"></sando-icon>
+        <sando-icon slot="icon-start" name="align-right" size="sm" inherit-color></sando-icon>
       </sando-button>
     </div>
   `,
@@ -477,21 +487,21 @@ export const WithIcons: Story = {
   render: () => html`
     <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
       <sando-button>
-        <sando-icon slot="icon-start" name="star" size="sm"></sando-icon>
+        <sando-icon slot="icon-start" name="star" size="sm" inherit-color></sando-icon>
         Favorite
       </sando-button>
       <sando-button variant="outline">
-        <sando-icon slot="icon-start" name="download" size="sm"></sando-icon>
+        <sando-icon slot="icon-start" name="download" size="sm" inherit-color></sando-icon>
         Download
       </sando-button>
       <sando-button variant="ghost">
         Settings
-        <sando-icon slot="icon-end" name="settings" size="sm"></sando-icon>
+        <sando-icon slot="icon-end" name="settings" size="sm" inherit-color></sando-icon>
       </sando-button>
       <sando-button>
-        <sando-icon slot="icon-start" name="upload" size="sm"></sando-icon>
+        <sando-icon slot="icon-start" name="upload" size="sm" inherit-color></sando-icon>
         Upload
-        <sando-icon slot="icon-end" name="arrow-right" size="sm"></sando-icon>
+        <sando-icon slot="icon-end" name="arrow-right" size="sm" inherit-color></sando-icon>
       </sando-button>
     </div>
   `,
@@ -513,13 +523,13 @@ export const IconOnlyVariants: Story = {
         </h4>
         <div style="display: flex; gap: 1rem; align-items: center;">
           <sando-button icon-only size="sm" aria-label="Star">
-            <sando-icon slot="icon-start" name="star" size="sm"></sando-icon>
+            <sando-icon slot="icon-start" name="star" size="sm" inherit-color></sando-icon>
           </sando-button>
           <sando-button icon-only size="md" aria-label="Star">
-            <sando-icon slot="icon-start" name="star" size="sm"></sando-icon>
+            <sando-icon slot="icon-start" name="star" size="sm" inherit-color></sando-icon>
           </sando-button>
           <sando-button icon-only size="lg" aria-label="Star">
-            <sando-icon slot="icon-start" name="star" size="md"></sando-icon>
+            <sando-icon slot="icon-start" name="star" size="md" inherit-color></sando-icon>
           </sando-button>
         </div>
       </div>
@@ -531,13 +541,13 @@ export const IconOnlyVariants: Story = {
         </h4>
         <div style="display: flex; gap: 1rem; align-items: center;">
           <sando-button icon-only variant="solid" aria-label="Heart">
-            <sando-icon slot="icon-start" name="heart" size="sm"></sando-icon>
+            <sando-icon slot="icon-start" name="heart" size="sm" inherit-color></sando-icon>
           </sando-button>
           <sando-button icon-only variant="outline" aria-label="Trash">
-            <sando-icon slot="icon-start" name="trash-2" size="sm"></sando-icon>
+            <sando-icon slot="icon-start" name="trash-2" size="sm" inherit-color></sando-icon>
           </sando-button>
           <sando-button icon-only variant="ghost" aria-label="Edit">
-            <sando-icon slot="icon-start" name="edit" size="sm"></sando-icon>
+            <sando-icon slot="icon-start" name="edit" size="sm" inherit-color></sando-icon>
           </sando-button>
         </div>
       </div>
@@ -549,13 +559,13 @@ export const IconOnlyVariants: Story = {
         </h4>
         <div style="display: flex; gap: 1rem; align-items: center;">
           <sando-button icon-only radius="full" aria-label="Add">
-            <sando-icon slot="icon-start" name="plus" size="sm"></sando-icon>
+            <sando-icon slot="icon-start" name="plus" size="sm" inherit-color></sando-icon>
           </sando-button>
           <sando-button icon-only radius="full" status="success" aria-label="Check">
-            <sando-icon slot="icon-start" name="check" size="sm"></sando-icon>
+            <sando-icon slot="icon-start" name="check" size="sm" inherit-color></sando-icon>
           </sando-button>
           <sando-button icon-only radius="full" status="destructive" aria-label="Close">
-            <sando-icon slot="icon-start" name="x" size="sm"></sando-icon>
+            <sando-icon slot="icon-start" name="x" size="sm" inherit-color></sando-icon>
           </sando-button>
         </div>
       </div>
@@ -624,10 +634,10 @@ export const AsLinks: Story = {
     <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
       <sando-button href="https://example.com" target="_blank">
         External Link
-        <sando-icon slot="icon-end" name="external-link" size="sm"></sando-icon>
+        <sando-icon slot="icon-end" name="external-link" size="sm" inherit-color></sando-icon>
       </sando-button>
       <sando-button variant="outline" href="/">
-        <sando-icon slot="icon-start" name="home" size="sm"></sando-icon>
+        <sando-icon slot="icon-start" name="home" size="sm" inherit-color></sando-icon>
         Home
       </sando-button>
       <sando-button variant="ghost" href="/docs">Documentation</sando-button>
@@ -683,16 +693,16 @@ export const AllExamples: Story = {
         <h3 style="margin: 0 0 1rem 0; font-size: 1rem;">With Icons</h3>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
           <sando-button flavor="${args.flavor}">
-            <sando-icon slot="icon-start" name="star" size="sm"></sando-icon>
+            <sando-icon slot="icon-start" name="star" size="sm" inherit-color></sando-icon>
             Favorite
           </sando-button>
           <sando-button flavor="${args.flavor}" variant="outline">
-            <sando-icon slot="icon-start" name="download" size="sm"></sando-icon>
+            <sando-icon slot="icon-start" name="download" size="sm" inherit-color></sando-icon>
             Download
           </sando-button>
           <sando-button flavor="${args.flavor}" variant="ghost">
             Settings
-            <sando-icon slot="icon-end" name="settings" size="sm"></sando-icon>
+            <sando-icon slot="icon-end" name="settings" size="sm" inherit-color></sando-icon>
           </sando-button>
         </div>
       </section>
@@ -702,13 +712,13 @@ export const AllExamples: Story = {
         <h3 style="margin: 0 0 1rem 0; font-size: 1rem;">Icon-only</h3>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
           <sando-button flavor="${args.flavor}" icon-only aria-label="Like">
-            <sando-icon slot="icon-start" name="heart" size="sm"></sando-icon>
+            <sando-icon slot="icon-start" name="heart" size="sm" inherit-color></sando-icon>
           </sando-button>
           <sando-button flavor="${args.flavor}" icon-only variant="outline" aria-label="Delete">
-            <sando-icon slot="icon-start" name="trash-2" size="sm"></sando-icon>
+            <sando-icon slot="icon-start" name="trash-2" size="sm" inherit-color></sando-icon>
           </sando-button>
           <sando-button flavor="${args.flavor}" icon-only variant="ghost" aria-label="Edit">
-            <sando-icon slot="icon-start" name="edit" size="sm"></sando-icon>
+            <sando-icon slot="icon-start" name="edit" size="sm" inherit-color></sando-icon>
           </sando-button>
           <sando-button
             flavor="${args.flavor}"
@@ -717,7 +727,7 @@ export const AllExamples: Story = {
             status="success"
             aria-label="Confirm"
           >
-            <sando-icon slot="icon-start" name="check" size="sm"></sando-icon>
+            <sando-icon slot="icon-start" name="check" size="sm" inherit-color></sando-icon>
           </sando-button>
           <sando-button
             flavor="${args.flavor}"
@@ -726,7 +736,7 @@ export const AllExamples: Story = {
             status="destructive"
             aria-label="Cancel"
           >
-            <sando-icon slot="icon-start" name="x" size="sm"></sando-icon>
+            <sando-icon slot="icon-start" name="x" size="sm" inherit-color></sando-icon>
           </sando-button>
         </div>
       </section>

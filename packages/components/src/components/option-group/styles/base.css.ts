@@ -22,6 +22,12 @@ export const baseStyles = css`
   .option-group {
     display: flex;
     flex-direction: column;
+    background-color: var(--sando-option-group-backgroundColor);
+    border: var(--sando-option-group-borderWidth) solid var(--sando-option-group-borderColor);
+    border-radius: var(--sando-option-group-borderRadius);
+    box-shadow: var(--sando-option-group-boxShadow);
+    padding-block: var(--sando-option-group-paddingBlock);
+    padding-inline: var(--sando-option-group-paddingInline);
   }
 
   /* Divider above group (not first child) */
