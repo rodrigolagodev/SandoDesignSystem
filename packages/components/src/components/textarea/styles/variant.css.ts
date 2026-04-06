@@ -14,7 +14,7 @@ export const variantStyles = css`
      ======================================== */
   :host([variant='outlined']) .textarea-field,
   .textarea-field {
-    background-color: var(--sando-textarea-outlined-backgroundColor-default);
+    background: var(--sando-textarea-outlined-backgroundColor-default);
     border-color: var(--sando-textarea-outlined-borderColor-default);
     color: var(--sando-textarea-outlined-textColor-default);
   }
@@ -26,14 +26,14 @@ export const variantStyles = css`
 
   :host([variant='outlined']) .textarea-field:hover:not(:disabled):not(:focus-visible),
   .textarea-field:hover:not(:disabled):not(:focus-visible) {
-    background-color: var(--sando-textarea-outlined-backgroundColor-hover);
+    background: var(--sando-textarea-outlined-backgroundColor-hover);
     border-color: var(--sando-textarea-outlined-borderColor-hover);
   }
 
   /* DLD §7.3: Use :focus-visible — mouse clicks must NOT show focus ring, keyboard nav must */
   :host([variant='outlined']) .textarea-field:focus-visible,
   .textarea-field:focus-visible {
-    background-color: var(--sando-textarea-outlined-backgroundColor-focus);
+    background: var(--sando-textarea-outlined-backgroundColor-focus);
     border-color: var(--sando-textarea-outlined-borderColor-focus);
   }
 
@@ -41,7 +41,7 @@ export const variantStyles = css`
      FILLED VARIANT
      ======================================== */
   :host([variant='filled']) .textarea-field {
-    background-color: var(--sando-textarea-filled-backgroundColor-default);
+    background: var(--sando-textarea-filled-backgroundColor-default);
     border-color: var(--sando-textarea-filled-borderColor-default);
     color: var(--sando-textarea-filled-textColor-default);
   }
@@ -51,13 +51,13 @@ export const variantStyles = css`
   }
 
   :host([variant='filled']) .textarea-field:hover:not(:disabled):not(:focus-visible) {
-    background-color: var(--sando-textarea-filled-backgroundColor-hover);
+    background: var(--sando-textarea-filled-backgroundColor-hover);
     border-color: var(--sando-textarea-filled-borderColor-hover);
   }
 
   /* DLD §7.3: Use :focus-visible — mouse clicks must NOT show focus ring, keyboard nav must */
   :host([variant='filled']) .textarea-field:focus-visible {
-    background-color: var(--sando-textarea-filled-backgroundColor-focus);
+    background: var(--sando-textarea-filled-backgroundColor-focus);
     border-color: var(--sando-textarea-filled-borderColor-focus);
   }
 `;
