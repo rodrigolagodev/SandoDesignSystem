@@ -296,7 +296,6 @@ export const Clickable: Story = {
       heading="${args.heading || ''}"
       ?clickable="${args.clickable}"
       ?disabled="${args.disabled}"
-      @sando-card-click="${(e: CustomEvent) => console.log('sando-card-click', e.detail)}"
       style="max-width: 320px;"
     >
       <p>${args.body}</p>
@@ -618,7 +617,6 @@ export const Disabled: Story = {
         heading="Clickable (enabled)"
         clickable
         style="max-width: 280px; flex: 1;"
-        @sando-card-click="${(e: CustomEvent) => console.log('card clicked', e.detail)}"
       >
         <p>This card is interactive. Click anywhere to trigger the event.</p>
       </sando-card>
