@@ -1,7 +1,7 @@
 {
   "option-group": {
     "backgroundColor": {
-      "value": "{color.background.transparent.value}",
+      "value": "{color.background.raised.value}",
       "type": "color"
     },
     "label": {
@@ -61,7 +61,7 @@
       }
     },
     "borderRadius": {
-      "value": "{border.radius.default.value}",
+      "value": "{border.radius.muted.value}",
       "type": "dimension"
     },
     "opacity": {
@@ -69,6 +69,26 @@
         "value": "{opacity.disabled.value}",
         "type": "number"
       }
+    },
+    "borderColor": {
+      "value": "{color.border.default.value}",
+      "type": "color"
+    },
+    "borderWidth": {
+      "value": "{border.width.default.value}",
+      "type": "dimension"
+    },
+    "boxShadow": {
+      "value": "{elevation.emphasis.value}",
+      "type": "shadow"
+    },
+    "paddingBlock": {
+      "value": "{space.stack.default.value}",
+      "type": "dimension"
+    },
+    "paddingInline": {
+      "value": "{space.inset.muted.value}",
+      "type": "dimension"
     }
   }
 }

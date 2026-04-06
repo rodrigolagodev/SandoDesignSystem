@@ -24,6 +24,7 @@ export const baseStyles = css`
     align-items: center;
     cursor: pointer;
     user-select: none;
+    border-radius: var(--sando-option-borderRadius);
     transition-property: background-color, color;
     transition-duration: var(--sando-select-transition-duration);
     transition-timing-function: var(--sando-select-transition-timing);

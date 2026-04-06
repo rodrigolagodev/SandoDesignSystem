@@ -150,6 +150,10 @@
       "value": "{space.stack.tight.value}",
       "type": "dimension"
     },
+    "borderRadius": {
+      "value": "{border.radius.muted.value}",
+      "type": "dimension"
+    },
     "transition": {
       "duration": {
         "value": "{animation.duration.fast.value}",
