@@ -195,5 +195,15 @@
         }
       }
     }
+  },
+  "tag": {
+    "solid": {
+      "borderColor": {
+        "default": {
+          "value": "{color.orange.500.value}",
+          "type": "color"
+        }
+      }
+    }
   }
 }
