@@ -275,7 +275,7 @@
           "type": "color"
         },
         "hover": {
-          "value": "{color.text.body.value}",
+          "value": "{color.orange.500.value}",
           "type": "color"
         },
         "focus": {
