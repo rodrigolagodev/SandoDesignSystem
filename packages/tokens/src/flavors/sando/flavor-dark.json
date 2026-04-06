@@ -194,6 +194,16 @@
           "type": "color"
         }
       }
+    },
+    "skeleton": {
+      "background": {
+        "value": "{color.neutralWarm.800.value}",
+        "type": "color"
+      },
+      "shimmer": {
+        "value": "{color.neutralWarm.700.value}",
+        "type": "color"
+      }
     }
   },
   "tag": {

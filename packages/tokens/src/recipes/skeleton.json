@@ -2,14 +2,14 @@
   "skeleton": {
     "color": {
       "background": {
-        "value": "{color.background.emphasis.value}",
+        "value": "{color.skeleton.background.value}",
         "type": "color",
-        "description": "Base background color of skeleton placeholder"
+        "description": "Base background color of skeleton placeholder — dedicated token, lighter than emphasis"
       },
       "shimmer": {
-        "value": "{color.background.raised.value}",
+        "value": "{color.skeleton.shimmer.value}",
         "type": "color",
-        "description": "Shimmer highlight color (lighter than background)"
+        "description": "Shimmer highlight color — dedicated token, reduced intensity vs raised"
       }
     },
     "animation": {

@@ -329,6 +329,16 @@
           "type": "color"
         }
       }
+    },
+    "skeleton": {
+      "background": {
+        "value": "{color.neutralWarm.100.value}",
+        "type": "color"
+      },
+      "shimmer": {
+        "value": "{color.neutralWarm.50.value}",
+        "type": "color"
+      }
     }
   },
   "font": {

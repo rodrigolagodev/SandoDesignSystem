@@ -119,6 +119,16 @@
           "type": "color"
         }
       }
+    },
+    "skeleton": {
+      "background": {
+        "value": "{color.neutral.800.value}",
+        "type": "color"
+      },
+      "shimmer": {
+        "value": "{color.neutral.700.value}",
+        "type": "color"
+      }
     }
   }
 }
