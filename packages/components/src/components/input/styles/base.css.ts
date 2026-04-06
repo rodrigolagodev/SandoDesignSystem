@@ -48,7 +48,8 @@ export const baseStyles = css`
     align-items: center;
     gap: var(--sando-input-gap);
     border-radius: var(--sando-input-borderRadius);
-    transition-property: border-color, background-color, box-shadow;
+    /* DLD §7.4: transition only structural state changes — no box-shadow (focus uses outline) */
+    transition-property: border-color, background-color;
     transition-duration: var(--sando-input-transition-duration);
     transition-timing-function: var(--sando-input-transition-timing);
   }

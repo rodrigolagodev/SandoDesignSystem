@@ -48,8 +48,8 @@ export const baseStyles = css`
     /* Appearance */
     border-radius: var(--sando-button-borderRadius);
 
-    /* Transition */
-    transition-property: background-color, color, border-color, transform, box-shadow;
+    /* Transition — DLD §7.4: state changes only, no box-shadow (focus uses outline, not shadow) */
+    transition-property: background-color, color, border-color, transform;
     transition-duration: var(--sando-button-transition-duration);
     transition-timing-function: var(--sando-button-transition-timing);
   }
@@ -74,8 +74,8 @@ export const baseStyles = css`
     /* Appearance */
     border-radius: var(--sando-button-borderRadius);
 
-    /* Transition */
-    transition-property: background-color, color, border-color, transform, box-shadow;
+    /* Transition — DLD §7.4: state changes only, no box-shadow (focus uses outline, not shadow) */
+    transition-property: background-color, color, border-color, transform;
     transition-duration: var(--sando-button-transition-duration);
     transition-timing-function: var(--sando-button-transition-timing);
   }
@@ -86,11 +86,11 @@ export const baseStyles = css`
     outline-offset: var(--sando-button-focusOutlineOffset);
   }
 
-  /* High contrast mode support */
+  /* High contrast mode support — DLD §7.3: use recipe token, not ingredient token */
   @media (prefers-contrast: high) {
     button:focus-visible,
     a:focus-visible {
-      outline-width: var(--sando-border-width-emphasis);
+      outline-width: var(--sando-button-focusOutlineWidth);
       outline-offset: var(--sando-button-focusOutlineOffset);
     }
   }
