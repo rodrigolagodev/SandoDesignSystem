@@ -34,6 +34,26 @@ export const stateStyles = css`
   }
 
   /* ========================================
+     HOVER STATE
+     ======================================== */
+  :host(:not([disabled])) .checkbox-container:hover .checkbox-box {
+    border-color: var(--sando-checkbox-solid-borderColor-hover);
+    background-color: var(--sando-checkbox-solid-backgroundColor-hover);
+  }
+
+  :host([variant='outline']:not([disabled])) .checkbox-container:hover .checkbox-box {
+    border-color: var(--sando-checkbox-outline-borderColor-hover);
+    background-color: var(--sando-checkbox-outline-backgroundColor-hover);
+  }
+
+  /* ========================================
+     ACTIVE/PRESS STATE
+     ======================================== */
+  :host(:not([disabled])) .checkbox-container:active .checkbox-box {
+    transform: scale(var(--sando-checkbox-active-scale, 0.98));
+  }
+
+  /* ========================================
      DISABLED STATE
      ======================================== */
   :host([disabled]) .checkbox-container {

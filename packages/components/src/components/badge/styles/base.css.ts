@@ -39,8 +39,14 @@ export const baseStyles = css`
 
     /* Transition (for theming) */
     transition-property: background-color, color, border-color;
-    transition-duration: var(--sando-transition-duration-fast, 150ms);
-    transition-timing-function: var(--sando-transition-timing-default, ease);
+    transition-duration: var(
+      --sando-badge-transition-duration,
+      var(--sando-animation-duration-fast)
+    );
+    transition-timing-function: var(
+      --sando-badge-transition-timing,
+      var(--sando-animation-easing-default)
+    );
   }
 
   /* Reduced motion support */

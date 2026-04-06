@@ -51,7 +51,7 @@
       "default": {
         "value": "{color.neutralWarm.300.value}",
         "type": "color",
-        "description": "Bold neutral border - key brutal element"
+        "description": "1px neutralWarm border — warm precision baseline"
       },
       "emphasis": { "value": "{color.amber.600.value}", "type": "color" },
       "on-solid": { "value": "{color.amber.400.value}", "type": "color" }
@@ -209,7 +209,7 @@
       "heading": {
         "value": "{font.weight.700.value}",
         "type": "fontWeight",
-        "description": "Extra bold for nori impact"
+        "description": "700 — confident weight, warm not harsh"
       },
       "emphasis": { "value": "{font.weight.600.value}", "type": "fontWeight" }
     },
@@ -224,17 +224,17 @@
       "muted": {
         "value": "{border.radius.100.value}",
         "type": "dimension",
-        "description": "2px - subtle wabi-sabi"
+        "description": "2px — minimal radius for inline elements"
       },
       "default": {
         "value": "{border.radius.200.value}",
         "type": "dimension",
-        "description": "4px - controlled imperfection"
+        "description": "8px — refined control radius (buttons, inputs)"
       },
       "emphasis": {
         "value": "{border.radius.300.value}",
         "type": "dimension",
-        "description": "4px - consistent"
+        "description": "12px — container radius (cards, panels)"
       },
       "circular": {
         "value": "{border.radius.circle.value}",
@@ -246,12 +246,12 @@
       "default": {
         "value": "{border.width.50.value}",
         "type": "dimension",
-        "description": "2px - calligraphy-weight borders"
+        "description": "1px — precise hairline border"
       },
       "emphasis": {
         "value": "{border.width.100.value}",
         "type": "dimension",
-        "description": "3px - strong emphasis"
+        "description": "2px — emphasis border for focus and active states"
       },
       "stroke": { "value": "{border.width.50.value}", "type": "dimension" },
       "strokeEmphasis": {
@@ -387,17 +387,17 @@
     "muted": {
       "value": "{elevation.0.value}",
       "type": "shadow",
-      "description": "No shadow - flat brutal"
+      "description": "Barely-there shadow — depth without drama"
     },
     "default": {
       "value": "{elevation.100.value}",
       "type": "shadow",
-      "description": "No shadow - flat brutal"
+      "description": "Soft ambient shadow — warm elevation"
     },
     "emphasis": {
       "value": "{elevation.200.value}",
       "type": "shadow",
-      "description": "No shadow - flat brutal"
+      "description": "Elevated shadow — modal and overlay depth"
     }
   },
   "animation": {
@@ -409,12 +409,12 @@
       "fast": {
         "value": "{animation.duration.200.value}",
         "type": "duration",
-        "description": "100ms - nori snappy"
+        "description": "200ms — Warm & Alive standard speed"
       },
       "normal": {
         "value": "{animation.duration.300.value}",
         "type": "duration",
-        "description": "100ms - even normal is fast"
+        "description": "300ms — deliberate transitions"
       },
       "slow": { "value": "{animation.duration.500.value}", "type": "duration" },
       "continuous": {
@@ -426,7 +426,7 @@
       "default": {
         "value": "{animation.easing.ease-in-out.value}",
         "type": "cubicBezier",
-        "description": "Linear - brutal directness"
+        "description": "ease-in-out — natural, non-mechanical motion"
       },
       "entrance": {
         "value": "{animation.easing.ease-out.value}",
@@ -470,11 +470,11 @@
     "hover": {
       "subtle": { "value": "{scale.100.value}", "type": "number" },
       "default": {
-        "value": "{scale.102.value}",
+        "value": "{scale.100.value}",
         "type": "number",
-        "description": "No scale on hover - seijaku"
+        "description": "No scale on hover — contrast via color, not movement"
       },
-      "emphasis": { "value": "{scale.102.value}", "type": "number" }
+      "emphasis": { "value": "{scale.100.value}", "type": "number" }
     },
     "base": { "value": "{scale.100.value}", "type": "number" }
   }

@@ -116,7 +116,7 @@ export const baseStyles = css`
   }
 
   .tag__action:active {
-    transform: scale(0.95);
+    transform: scale(var(--sando-tag-active-scale, 0.98));
   }
 
   .tag__action:focus-visible {
