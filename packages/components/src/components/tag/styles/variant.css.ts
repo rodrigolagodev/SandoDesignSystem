@@ -16,19 +16,7 @@ export const variantStyles = css`
   :host([variant='solid']) .tag {
     background-color: var(--sando-tag-solid-backgroundColor-default);
     color: var(--sando-tag-solid-textColor-default);
-    /**
-     * Apply subtle opacity to border using color-mix.
-     * 
-     * Note: Using calc(opacity-token * 100%) to convert the unitless opacity 
-     * value (0.8) to a percentage (80%) for color-mix.
-     * 
-     * @token --sando-opacity-800 = 0.8 → 80% of border color mixed with transparent
-     */
-    border-color: color-mix(
-      in srgb,
-      var(--sando-tag-solid-borderColor-default) calc(var(--sando-opacity-800) * 100%),
-      transparent
-    );
+    border-color: var(--sando-tag-solid-borderColor-default);
   }
 
   :host([variant='solid']) .tag--clickable:hover {
