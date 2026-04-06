@@ -403,7 +403,7 @@
   "border": {
     "radius": {
       "muted": {
-        "value": "{border.radius.100.value}",
+        "value": "{border.radius.50.value}",
         "type": "dimension",
         "description": "2px — minimal radius for inline elements"
       },

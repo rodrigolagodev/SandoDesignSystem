@@ -218,7 +218,7 @@
         "type": "color"
       },
       "borderRadius": {
-        "value": "{border.radius.muted.value}",
+        "value": "{border.radius.default.value}",
         "type": "dimension"
       },
       "borderWidth": {
