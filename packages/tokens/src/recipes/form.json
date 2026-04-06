@@ -1,0 +1,35 @@
+{
+  "form": {
+    "loading": {
+      "overlay": {
+        "backgroundColor": {
+          "value": "{color.background.raised.value}",
+          "type": "color",
+          "description": "Base surface color for the loading overlay. Used with 85% opacity via CSS color-mix(). References the raised surface so the overlay always matches the form's background."
+        },
+        "opacity": {
+          "default": {
+            "value": "0.85",
+            "type": "number",
+            "description": "Loading overlay opacity in default (light) mode — semi-transparent warm surface"
+          },
+          "dark": {
+            "value": "0.75",
+            "type": "number",
+            "description": "Loading overlay opacity in dark mode — slightly more transparent to keep depth readable"
+          },
+          "reducedMotion": {
+            "value": "0.92",
+            "type": "number",
+            "description": "Loading overlay opacity when prefers-reduced-motion is active — higher opacity since there is no blur/animation to signal loading state"
+          },
+          "darkReducedMotion": {
+            "value": "0.88",
+            "type": "number",
+            "description": "Loading overlay opacity in dark mode + prefers-reduced-motion — balanced between dark.opacity and reducedMotion.opacity"
+          }
+        }
+      }
+    }
+  }
+}
