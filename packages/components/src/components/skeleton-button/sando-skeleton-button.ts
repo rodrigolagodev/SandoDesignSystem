@@ -24,6 +24,10 @@
  * @example Custom width
  * <sando-skeleton-button width="200px"></sando-skeleton-button>
  *
+ * @example Icon-only button (square)
+ * <sando-skeleton-button icon-only></sando-skeleton-button>
+ * <sando-skeleton-button size="lg" icon-only></sando-skeleton-button>
+ *
  * @example Button group placeholder
  * <div style="display: flex; gap: 8px;">
  *   <sando-skeleton-button size="md"></sando-skeleton-button>
@@ -83,6 +87,14 @@ export class SandoSkeletonButton extends FlavorableMixin(LitElement) {
   effect: SkeletonEffect = 'shimmer';
 
   /**
+   * When true, renders the skeleton as a square (width = height).
+   * Use this to match icon-only button variants.
+   * @default false
+   */
+  @property({ type: Boolean, attribute: 'icon-only' })
+  iconOnly: boolean = false;
+
+  /**
    * Get the height based on size using token
    */
   private _getHeight(): string {
@@ -93,6 +105,9 @@ export class SandoSkeletonButton extends FlavorableMixin(LitElement) {
    * Get the width based on width prop
    */
   private _getWidth(): string {
+    if (this.iconOnly) {
+      return this._getHeight(); // square: same as height
+    }
     if (this.width === 'full') {
       return '100%';
     }

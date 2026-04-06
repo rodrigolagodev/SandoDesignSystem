@@ -497,7 +497,7 @@ export class SandoCard extends FlavorableMixin(LitElement) {
    * Renders the skeleton loading state, replacing all card content.
    */
   private _renderSkeleton() {
-    return html`<sando-skeleton-card show-image></sando-skeleton-card>`;
+    return html`<sando-skeleton-card></sando-skeleton-card>`;
   }
 
   render() {

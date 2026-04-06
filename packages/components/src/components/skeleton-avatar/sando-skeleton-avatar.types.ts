@@ -22,6 +22,13 @@ export type SkeletonAvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 export type SkeletonAvatarEffect = 'shimmer' | 'pulse' | 'none';
 
 /**
+ * Shape variants for the skeleton avatar
+ * - circle: Fully circular (default) — matches sando-avatar shape="circle"
+ * - rounded: Rounded rectangle — matches sando-avatar shape="rounded"
+ */
+export type SkeletonAvatarShape = 'circle' | 'rounded';
+
+/**
  * Props for the SandoSkeletonAvatar component
  */
 export interface SandoSkeletonAvatarProps {
@@ -40,4 +47,12 @@ export interface SandoSkeletonAvatarProps {
    * @default 'shimmer'
    */
   effect?: SkeletonAvatarEffect;
+
+  /**
+   * Shape of the avatar skeleton
+   * - circle: Fully circular (default)
+   * - rounded: Rounded rectangle
+   * @default 'circle'
+   */
+  shape?: SkeletonAvatarShape;
 }

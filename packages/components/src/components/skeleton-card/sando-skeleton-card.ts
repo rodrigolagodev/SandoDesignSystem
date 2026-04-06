@@ -19,11 +19,17 @@
  * @example Full card (all sections)
  * <sando-skeleton-card show-image show-actions></sando-skeleton-card>
  *
- * @example Minimal (no avatar)
- * <sando-skeleton-card show-avatar="false"></sando-skeleton-card>
+ * @example With avatar
+ * <sando-skeleton-card show-avatar></sando-skeleton-card>
  *
  * @example Custom lines and image ratio
  * <sando-skeleton-card lines="5" image-ratio="4/3" show-image></sando-skeleton-card>
+ *
+ * @example Horizontal layout
+ * <sando-skeleton-card orientation="horizontal" show-image></sando-skeleton-card>
+ *
+ * @example Horizontal with actions
+ * <sando-skeleton-card orientation="horizontal" show-image show-actions></sando-skeleton-card>
  */
 
 import { LitElement, html, css, nothing } from 'lit';
@@ -42,12 +48,17 @@ import '../skeleton-image/sando-skeleton-image.js';
 import '../skeleton-paragraph/sando-skeleton-paragraph.js';
 import '../skeleton-button/sando-skeleton-button.js';
 
-import type { SkeletonCardImageRatio, SkeletonCardWidth } from './sando-skeleton-card.types.js';
+import type {
+  SkeletonCardImageRatio,
+  SkeletonCardWidth,
+  SkeletonCardOrientation
+} from './sando-skeleton-card.types.js';
+import type { SkeletonEffect } from '../skeleton/sando-skeleton.types.js';
 
 /**
  * Default values for skeleton card properties
  */
-const DEFAULT_SHOW_AVATAR = true;
+const DEFAULT_SHOW_AVATAR = false;
 const DEFAULT_SHOW_IMAGE = false;
 const DEFAULT_SHOW_ACTIONS = false;
 const DEFAULT_LINES = 3;
@@ -57,7 +68,7 @@ const DEFAULT_IMAGE_RATIO: SkeletonCardImageRatio = '16/9';
 export class SandoSkeletonCard extends FlavorableMixin(LitElement) {
   /**
    * Show avatar in header section
-   * @default true
+   * @default false
    */
   @property({ type: Boolean, attribute: 'show-avatar' })
   showAvatar: boolean = DEFAULT_SHOW_AVATAR;
@@ -101,6 +112,22 @@ export class SandoSkeletonCard extends FlavorableMixin(LitElement) {
   width: SkeletonCardWidth = 'auto';
 
   /**
+   * Layout orientation of the skeleton card
+   * - 'vertical': Stacked — image on top, content below (default)
+   * - 'horizontal': Side-by-side — image left, content right
+   * @default 'vertical'
+   */
+  @property({ reflect: true })
+  orientation: SkeletonCardOrientation = 'vertical';
+
+  /**
+   * Animation effect applied to all inner skeleton elements
+   * @default 'shimmer'
+   */
+  @property({ reflect: true })
+  effect: SkeletonEffect = 'shimmer';
+
+  /**
    * Component styles
    */
   static styles = [
@@ -114,6 +141,24 @@ export class SandoSkeletonCard extends FlavorableMixin(LitElement) {
       :host([width='full']) {
         width: 100%;
       }
+
+      :host([orientation='horizontal']) .card-horizontal {
+        display: flex;
+        flex-direction: row;
+        gap: var(--sando-skeleton-spacing-gap-md);
+      }
+
+      :host([orientation='horizontal']) .card-horizontal sando-skeleton-image {
+        flex: 0 0 40%;
+        max-width: 40%;
+      }
+
+      :host([orientation='horizontal']) .card-horizontal .card-horizontal__content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: var(--sando-skeleton-spacing-gap-md);
+      }
     `
   ];
 
@@ -124,11 +169,11 @@ export class SandoSkeletonCard extends FlavorableMixin(LitElement) {
     return html`
       <sando-skeleton-row gap="md" align="center">
         ${this.showAvatar
-          ? html`<sando-skeleton-avatar size="md"></sando-skeleton-avatar>`
+          ? html`<sando-skeleton-avatar size="md" effect=${this.effect}></sando-skeleton-avatar>`
           : nothing}
         <sando-skeleton-stack gap="xs" style="flex: 1;">
-          <sando-skeleton-text width="60%"></sando-skeleton-text>
-          <sando-skeleton-text width="40%" size="sm"></sando-skeleton-text>
+          <sando-skeleton-text width="60%" effect=${this.effect}></sando-skeleton-text>
+          <sando-skeleton-text width="40%" size="sm" effect=${this.effect}></sando-skeleton-text>
         </sando-skeleton-stack>
       </sando-skeleton-row>
     `;
@@ -140,7 +185,9 @@ export class SandoSkeletonCard extends FlavorableMixin(LitElement) {
   private _renderImage() {
     if (!this.showImage) return nothing;
 
-    return html` <sando-skeleton-image ratio=${this.imageRatio}></sando-skeleton-image> `;
+    return html`
+      <sando-skeleton-image ratio=${this.imageRatio} effect=${this.effect}></sando-skeleton-image>
+    `;
   }
 
   /**
@@ -151,6 +198,7 @@ export class SandoSkeletonCard extends FlavorableMixin(LitElement) {
       <sando-skeleton-paragraph
         lines=${this.lines}
         last-line-width="70%"
+        effect=${this.effect}
       ></sando-skeleton-paragraph>
     `;
   }
@@ -163,8 +211,8 @@ export class SandoSkeletonCard extends FlavorableMixin(LitElement) {
 
     return html`
       <sando-skeleton-row gap="sm">
-        <sando-skeleton-button size="sm"></sando-skeleton-button>
-        <sando-skeleton-button size="sm"></sando-skeleton-button>
+        <sando-skeleton-button size="sm" effect=${this.effect}></sando-skeleton-button>
+        <sando-skeleton-button size="sm" effect=${this.effect}></sando-skeleton-button>
       </sando-skeleton-row>
     `;
   }
@@ -174,6 +222,24 @@ export class SandoSkeletonCard extends FlavorableMixin(LitElement) {
    */
   render() {
     const customWidth = this.width !== 'auto' && this.width !== 'full' ? this.width : null;
+
+    if (this.orientation === 'horizontal') {
+      return html`
+        <sando-skeleton-composer style=${customWidth ? `width: ${customWidth}` : nothing}>
+          <div class="card-horizontal">
+            ${this.showImage
+              ? html`<sando-skeleton-image
+                  ratio=${this.imageRatio}
+                  effect=${this.effect}
+                ></sando-skeleton-image>`
+              : nothing}
+            <div class="card-horizontal__content">
+              ${this._renderHeader()} ${this._renderParagraph()} ${this._renderActions()}
+            </div>
+          </div>
+        </sando-skeleton-composer>
+      `;
+    }
 
     return html`
       <sando-skeleton-composer style=${customWidth ? `width: ${customWidth}` : nothing}>

@@ -21,12 +21,19 @@ export type SkeletonCardImageRatio = '1/1' | '4/3' | '16/9' | '21/9';
 export type SkeletonCardWidth = 'auto' | 'full' | string;
 
 /**
+ * Orientation variants for the skeleton card
+ * - 'vertical': Stacked layout — image on top, content below (default)
+ * - 'horizontal': Side-by-side layout — image left, content right
+ */
+export type SkeletonCardOrientation = 'vertical' | 'horizontal';
+
+/**
  * Props for the SandoSkeletonCard component
  */
 export interface SandoSkeletonCardProps {
   /**
    * Show avatar in header section
-   * @default true
+   * @default false
    */
   showAvatar?: boolean;
 
@@ -62,4 +69,12 @@ export interface SandoSkeletonCardProps {
    * @default 'auto'
    */
   width?: SkeletonCardWidth;
+
+  /**
+   * Layout orientation of the skeleton card
+   * - 'vertical': Stacked — image on top (default)
+   * - 'horizontal': Side-by-side — image left, content right
+   * @default 'vertical'
+   */
+  orientation?: SkeletonCardOrientation;
 }
