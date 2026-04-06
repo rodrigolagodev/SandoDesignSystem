@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Card Component** (`sando-card`) — versatile surface container with `elevated`/`outlined`/`filled` variants, configurable `padding`/`radius`/`orientation`, clickable and link (`href`) interaction modes via the Pseudo-Interactive Surface pattern, skeleton loading state, and full WCAG 2.1 AA accessibility support
 - **Divider Component** (`sando-divider`) - Visual separator with horizontal/vertical orientation, three weights, three line styles (solid/dashed/dotted), configurable spacing, and optional centered label. Renders semantic `<hr>` for horizontal and `<div role="separator" aria-orientation="vertical">` for vertical.
 - **Checkbox Component** - Full accessibility support with keyboard navigation, indeterminate state, and ARIA attributes
 - **Installation Guide** - Comprehensive documentation for importing tokens with 4 different strategies
