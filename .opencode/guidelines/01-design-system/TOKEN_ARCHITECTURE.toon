@@ -1,7 +1,7 @@
 meta:
   doc_id: "TA"
   category: "01-design-system"
-  version: "2.1.0"
+  version: "2.2.0"
   status: "Active"
   last_updated: "2026-04-06"
   owner: "Design System Architect"
@@ -172,6 +172,68 @@ core_rules:
             primary:
               value: "{color.orange.700.value}" # What is "primary" used for?
     why: "Semantic naming enables brand-agnostic design. `color.action.solid.background` can map to ANY color—orange, purple, blue—without changing component code."
+
+  - id: "TA-CR-R6"
+    title: "Inner Radius Rule — Nested Elements Step Down One Semantic Level"
+    summary: "An element rendered INSIDE a rounded container MUST use the border-radius token one level lower in the semantic scale."
+    nesting_scale:
+      description: "Semantic levels from outermost to innermost:"
+      levels:
+        - level: "emphasis"
+          use: "Large containers: cards, panels, dialogs"
+        - level: "default"
+          use: "Interactive controls: buttons, inputs, selects; floating containers"
+        - level: "muted"
+          use: "Internal elements: options in dropdowns, tags inside inputs, hover states"
+        - level: "0 (none)"
+          use: "Maximum nesting depth"
+      flow: "emphasis → default → muted → 0"
+    pattern:
+      lang: "css"
+      title: "✅ Correct — inner element steps down one level"
+      code: |
+        /* Card (container) uses 'emphasis' */
+        .card { border-radius: var(--sando-card-borderRadius); /* → emphasis */ }
+
+        /* Button inside card steps down to 'default' */
+        .card .button { border-radius: var(--sando-button-borderRadius); /* → default */ }
+
+        /* Tag inside an input steps down to 'muted' */
+        .input .tag { border-radius: var(--sando-tag-borderRadius); /* → muted */ }
+    anti_pattern:
+      lang: "css"
+      title: "❌ Wrong — inner element reuses the same level as the container"
+      code: |
+        /* Card uses 'emphasis', button inside also uses 'emphasis' — WRONG */
+        .card { border-radius: var(--sando-borderRadius-emphasis); }
+        .card .button { border-radius: var(--sando-borderRadius-emphasis); } /* Same level — violates rule */
+    floating_reset_rule:
+      summary: "Floating elements (popovers, dropdowns, modals, overlays) RESET the nesting context."
+      note: "They are treated as a new root container and ALWAYS use `default`, regardless of what triggered them."
+      example:
+        lang: "css"
+        code: |
+          /* A dropdown triggered from inside a card resets context — uses 'default', not 'muted' */
+          .popover { border-radius: var(--sando-borderRadius-default); /* reset → default */ }
+    exceptions:
+      - id: "TA-CR-R6-E1"
+        title: "Circular / Pill shapes"
+        note: "`circular` and `full` tokens are semantic shapes, not hierarchy levels. Apply directly regardless of nesting depth."
+      - id: "TA-CR-R6-E2"
+        title: "Sibling elements (same level)"
+        note: "Elements at the same visual level with no parent-child relationship follow their own standard token."
+      - id: "TA-CR-R6-E3"
+        title: "Parent with radius: 0"
+        note: "If the container has no border-radius, children use their own standard token without stepping down."
+      - id: "TA-CR-R6-E4"
+        title: "Functional border-radius (e.g. checkbox)"
+        note: "Controls where border-radius is intrinsic to their identity (checkbox, radio) are exempt. Their radius is not a hierarchy decision."
+    developer_tip: |
+      "Does this component render INSIDE another rounded component?
+      If yes, use the semantic token one step lower:
+        emphasis → default → muted → 0
+      Floating elements (popovers, dropdowns, modals) always reset to `default`."
+    why: "Consistent radius stepping prevents visual 'collision' between nested rounded shapes and creates a clear spatial hierarchy. Mismatched radii (same level inside same level) make nested elements look detached or incorrectly elevated."
 
 three_layer_architecture:
   summary: "This section is the DEFINITIVE source for the three-layer system. Other guidelines reference this."
@@ -525,6 +587,11 @@ related_guidelines:
     note: "Complete token specifications (165 colors, all scales)"
 
 changelog:
+  - version: "2.2.0"
+    date: "2026-04-06"
+    changes:
+      - type: "NEW"
+        note: "Added TA-CR-R6 Inner Radius Rule — nested elements step down one semantic border-radius level (emphasis → default → muted → 0), with floating reset rule and four exceptions"
   - version: "2.0.0"
     date: "2025-11-02"
     changes:
