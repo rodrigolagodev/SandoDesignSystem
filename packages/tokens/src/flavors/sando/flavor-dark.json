@@ -197,11 +197,11 @@
     },
     "skeleton": {
       "background": {
-        "value": "{color.neutralWarm.800.value}",
+        "value": "{color.neutralWarm.900.value}",
         "type": "color"
       },
       "shimmer": {
-        "value": "{color.neutralWarm.700.value}",
+        "value": "{color.neutralWarm.800.value}",
         "type": "color"
       }
     }
