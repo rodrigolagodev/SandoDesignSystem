@@ -234,7 +234,7 @@
       "type": "number"
     },
     "borderRadius": {
-      "value": "{border.radius.default.value}",
+      "value": "{border.radius.muted.value}",
       "type": "dimension"
     },
     "borderWidth": {
