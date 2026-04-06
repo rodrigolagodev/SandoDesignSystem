@@ -50,7 +50,7 @@ export const baseStyles = css`
   div.divider {
     display: flex;
     align-items: center;
-    gap: 0.75em;
+    gap: var(--sando-divider-label-gap, var(--sando-space-stack-muted));
 
     /* Spacing */
     margin-block: var(--sando-divider-spacing-md);

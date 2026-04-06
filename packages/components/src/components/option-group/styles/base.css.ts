@@ -28,7 +28,7 @@ export const baseStyles = css`
   :host(:not(:first-child)) .option-group::before {
     content: '';
     display: block;
-    height: var(--sando-select-optionGroup-dividerWidth, 1px);
+    height: var(--sando-select-optionGroup-dividerWidth, var(--sando-border-width-default));
     background-color: var(--sando-select-optionGroup-dividerColor);
     margin-top: var(--sando-select-optionGroup-marginTop);
     margin-bottom: var(--sando-select-optionGroup-marginTop);
@@ -41,7 +41,7 @@ export const baseStyles = css`
     color: var(--sando-select-optionGroup-labelColor);
     padding-block: var(--sando-select-optionGroup-labelPaddingBlock);
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: var(--sando-option-group-label-letterSpacing, 0.05em);
     user-select: none;
   }
 
@@ -52,6 +52,6 @@ export const baseStyles = css`
 
   /* Disabled state styling */
   :host([disabled]) .option-group-label {
-    opacity: 0.5;
+    opacity: var(--sando-option-group-opacity-disabled, var(--sando-opacity-disabled));
   }
 `;

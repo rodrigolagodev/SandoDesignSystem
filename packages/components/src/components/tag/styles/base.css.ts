@@ -146,7 +146,7 @@ export const baseStyles = css`
   .tag__action:disabled,
   .tag__action[aria-disabled='true'] {
     cursor: not-allowed;
-    opacity: 0.5;
+    opacity: var(--sando-tag-opacity-disabled);
   }
 
   /* Default icon (circle-chevron-right) */

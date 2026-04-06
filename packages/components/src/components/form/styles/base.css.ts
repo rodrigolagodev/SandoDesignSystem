@@ -36,8 +36,11 @@ export const baseStyles = css`
     display: flex;
     align-items: center;
     justify-content: center;
-    /* Light semi-transparent white - spinner is visible on this */
-    background-color: rgba(255, 255, 255, 0.85);
+    /* Semi-transparent surface overlay — uses recipe token with warm-neutral fallback */
+    background-color: var(
+      --sando-form-loading-overlayColor,
+      color-mix(in oklch, var(--sando-color-background-raised, oklch(1 0.005 60)) 85%, transparent)
+    );
     z-index: 10;
     border-radius: inherit;
     /* Subtle backdrop blur for modern browsers */
@@ -45,26 +48,45 @@ export const baseStyles = css`
     -webkit-backdrop-filter: blur(2px);
   }
 
-  /* Dark mode - use LIGHT overlay so dark spinner remains visible */
+  /* Dark mode - overlay remains light so dark spinner stays visible */
   @media (prefers-color-scheme: dark) {
     .form-loading-overlay {
-      /* Light overlay in dark mode ensures default (dark) spinner is visible */
-      background-color: rgba(255, 255, 255, 0.75);
+      background-color: var(
+        --sando-form-loading-overlayColor-dark,
+        color-mix(
+          in oklch,
+          var(--sando-color-background-raised, oklch(1 0.005 60)) 75%,
+          transparent
+        )
+      );
     }
   }
 
   /* Respect reduced motion - higher opacity for clearer static state */
   @media (prefers-reduced-motion: reduce) {
     .form-loading-overlay {
-      background-color: rgba(255, 255, 255, 0.92);
+      background-color: var(
+        --sando-form-loading-overlayColor-reducedMotion,
+        color-mix(
+          in oklch,
+          var(--sando-color-background-raised, oklch(1 0.005 60)) 92%,
+          transparent
+        )
+      );
       backdrop-filter: none;
       -webkit-backdrop-filter: none;
     }
 
     @media (prefers-color-scheme: dark) {
       .form-loading-overlay {
-        /* Light overlay in dark mode with higher opacity for static state */
-        background-color: rgba(255, 255, 255, 0.88);
+        background-color: var(
+          --sando-form-loading-overlayColor-dark-reducedMotion,
+          color-mix(
+            in oklch,
+            var(--sando-color-background-raised, oklch(1 0.005 60)) 88%,
+            transparent
+          )
+        );
       }
     }
   }

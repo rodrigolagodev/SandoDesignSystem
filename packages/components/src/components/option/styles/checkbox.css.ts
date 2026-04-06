@@ -37,14 +37,14 @@ export const checkboxStyles = css`
   /* Small/Medium option - smaller checkbox */
   :host([size='sm']) .option-checkbox,
   :host([size='md']) .option-checkbox {
-    width: var(--sando-checkbox-size-small, 16px);
-    height: var(--sando-checkbox-size-small, 16px);
+    width: var(--sando-checkbox-size-small, var(--sando-sizing-control-xs));
+    height: var(--sando-checkbox-size-small, var(--sando-sizing-control-xs));
   }
 
   /* Large option - medium checkbox */
   :host([size='lg']) .option-checkbox {
-    width: var(--sando-checkbox-size-medium, 20px);
-    height: var(--sando-checkbox-size-medium, 20px);
+    width: var(--sando-checkbox-size-medium, var(--sando-sizing-control-sm));
+    height: var(--sando-checkbox-size-medium, var(--sando-sizing-control-sm));
   }
 
   /* Checkbox hover state (when option is hovered) */
@@ -67,12 +67,12 @@ export const checkboxStyles = css`
   /* Small/Medium option - smaller icon */
   :host([size='sm']) .option-checkbox sando-icon,
   :host([size='md']) .option-checkbox sando-icon {
-    --sando-icon-size: 12px;
+    --sando-icon-size: var(--sando-sizing-icon-xs);
   }
 
   /* Large option - larger icon */
   :host([size='lg']) .option-checkbox sando-icon {
-    --sando-icon-size: 16px;
+    --sando-icon-size: var(--sando-sizing-icon-sm);
   }
 
   /* Disabled state */
