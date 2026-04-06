@@ -247,6 +247,16 @@ export type {
   SandoSkeletonMediaCardProps
 } from './components/skeleton-media-card/index.js';
 
+export { SandoAvatar } from './components/avatar/index.js';
+export type {
+  AvatarSize,
+  AvatarShape,
+  AvatarPresence,
+  AvatarPresencePosition,
+  AvatarTarget,
+  SandoAvatarProps
+} from './components/avatar/index.js';
+
 export { SandoDivider } from './components/divider/index.js';
 export type {
   DividerOrientation,
