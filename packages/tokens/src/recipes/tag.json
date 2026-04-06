@@ -192,7 +192,7 @@
     "compact": {
       "sm": {
         "paddingInline": {
-          "value": "{space.stack.none.value}",
+          "value": "{space.stack.tight.value}",
           "type": "dimension"
         },
         "paddingBlock": {
