@@ -148,8 +148,8 @@ export const baseStyles = css`
 
     /* Absolute positioning — top-inline-end corner of panel */
     position: absolute;
-    inset-block-start: var(--sando-dialog-header-paddingBlock);
-    inset-inline-end: var(--sando-dialog-header-paddingInline);
+    inset-block-start: var(--sando-dialog-closeButton-insetBlockStart);
+    inset-inline-end: var(--sando-dialog-closeButton-insetInlineEnd);
 
     /* Visual */
     color: var(--sando-dialog-header-titleColor);

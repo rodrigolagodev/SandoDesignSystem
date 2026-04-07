@@ -222,6 +222,16 @@
         "value": "{color.action.ghost.background.hover.value}",
         "type": "color",
         "description": "Close button hover background — ghost button hover treatment"
+      },
+      "insetBlockStart": {
+        "value": "{space.3.value}",
+        "type": "dimension",
+        "description": "Close button top offset — 12px aligns visually with single-line header"
+      },
+      "insetInlineEnd": {
+        "value": "{space.3.value}",
+        "type": "dimension",
+        "description": "Close button end offset — 12px aligns to panel edge consistently"
       }
     },
     "size": {
