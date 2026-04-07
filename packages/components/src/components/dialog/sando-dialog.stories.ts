@@ -259,19 +259,89 @@ const DOCS_ONLY = ['!dev', '!autodocs'];
 // ============================================================================
 
 /**
- * Simplest possible dialog — open=true, basic title + content.
- * This is the minimal configuration needed for a functional dialog.
+ * Simplest possible dialog — trigger button opens it with full backdrop.
+ * Click "Open Dialog" to see the dialog with the backdrop overlay.
  */
-export const Default: Story = {};
+export const Default: Story = {
+  args: {
+    open: false
+  },
+  render: (args) => html`
+    <sando-button
+      @click=${() => {
+        const d = document.getElementById('dialog-default') as any;
+        d?.show();
+      }}
+    >
+      Open Dialog
+    </sando-button>
+
+    <sando-dialog
+      id="dialog-default"
+      ?open=${args.open}
+      type=${args.type}
+      size=${args.size}
+      variant=${args.variant}
+      ?no-header=${args.noHeader}
+      ?dismissible=${args.dismissible}
+      confirm-label=${args.confirmLabel}
+      confirm-variant=${args.confirmVariant}
+      confirm-status=${args.confirmStatus}
+      ?show-confirm=${args.showConfirm}
+      cancel-label=${args.cancelLabel}
+      cancel-variant=${args.cancelVariant}
+      cancel-status=${args.cancelStatus}
+      ?show-cancel=${args.showCancel}
+    >
+      <span slot="title">${args.title}</span>
+      ${args.description ? html`<span slot="description">${args.description}</span>` : nothing}
+      <p>${args.content}</p>
+    </sando-dialog>
+  `
+};
 
 /**
  * Interactive playground — all controls exposed for exploration.
+ * Click "Open Dialog" to open the dialog with the full backdrop.
  * Use the controls panel to customize type, size, dismissibility, and content.
  */
 export const Playground: Story = {
   args: {
+    open: false,
     content: 'Customize me! Use the controls panel to change type, size, dismissible, and content.'
-  }
+  },
+  render: (args) => html`
+    <sando-button
+      @click=${() => {
+        const d = document.getElementById('dialog-playground') as any;
+        d?.show();
+      }}
+    >
+      Open Dialog
+    </sando-button>
+
+    <sando-dialog
+      id="dialog-playground"
+      ?open=${args.open}
+      type=${args.type}
+      size=${args.size}
+      variant=${args.variant}
+      ?no-header=${args.noHeader}
+      ?dismissible=${args.dismissible}
+      confirm-label=${args.confirmLabel}
+      confirm-variant=${args.confirmVariant}
+      confirm-status=${args.confirmStatus}
+      ?show-confirm=${args.showConfirm}
+      cancel-label=${args.cancelLabel}
+      cancel-variant=${args.cancelVariant}
+      cancel-status=${args.cancelStatus}
+      ?show-cancel=${args.showCancel}
+    >
+      <span slot="title">${args.title}</span>
+      ${args.description ? html`<span slot="description">${args.description}</span>` : nothing}
+      <p>${args.content}</p>
+    </sando-dialog>
+  `
 };
 
 // ============================================================================

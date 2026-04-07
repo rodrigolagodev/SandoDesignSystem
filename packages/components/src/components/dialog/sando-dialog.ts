@@ -590,8 +590,13 @@ export class SandoDialog extends FlavorableMixin(LitElement) implements SandoDia
   private _renderFooter() {
     const hasBuiltInButtons = this.showConfirm || this.showCancel;
     const isVisible = hasBuiltInButtons || this._hasActions;
+    const footerClass = isVisible
+      ? hasBuiltInButtons
+        ? ''
+        : 'footer--slot-only'
+      : 'footer-hidden';
     return html`
-      <div part="footer" class=${isVisible ? '' : 'footer-hidden'}>
+      <div part="footer" class=${footerClass}>
         ${hasBuiltInButtons
           ? html`
               ${this.showCancel
@@ -601,6 +606,8 @@ export class SandoDialog extends FlavorableMixin(LitElement) implements SandoDia
                       variant=${this.cancelVariant}
                       status=${this.cancelStatus}
                       size="md"
+                      radius="none"
+                      full-width
                       @click=${this._handleCancelButtonClick}
                       >${this.cancelLabel}</sando-button
                     >
@@ -613,6 +620,8 @@ export class SandoDialog extends FlavorableMixin(LitElement) implements SandoDia
                       variant=${this.confirmVariant}
                       status=${this.confirmStatus}
                       size="md"
+                      radius="none"
+                      full-width
                       @click=${this._handleConfirmButtonClick}
                       >${this.confirmLabel}</sando-button
                     >

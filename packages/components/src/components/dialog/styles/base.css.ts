@@ -178,6 +178,7 @@ export const baseStyles = css`
     flex: 1;
     overflow-y: auto;
     padding-block: var(--sando-dialog-body-paddingBlock);
+    padding-block-start: calc(var(--sando-dialog-body-paddingBlock) / 2);
     padding-inline: var(--sando-dialog-body-paddingInline);
     color: var(--sando-dialog-body-textColor);
     font-size: var(--sando-dialog-body-fontSize);
@@ -185,17 +186,49 @@ export const baseStyles = css`
   }
 
   /* ========================================
-     FOOTER
+     FOOTER — built-in buttons (50/50 layout)
      ======================================== */
   [part='footer'] {
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: flex-end;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 0;
+    padding: 0;
+    flex-shrink: 0;
+    background-color: var(--sando-dialog-footer-backgroundColor);
+    border-top: var(--sando-dialog-footer-dividerWidth) solid
+      var(--sando-dialog-footer-dividerColor);
+    border-bottom-left-radius: var(--sando-dialog-borderRadius);
+    border-bottom-right-radius: var(--sando-dialog-borderRadius);
+    overflow: hidden;
+  }
+
+  /* Built-in buttons: each takes 50% width */
+  [part='footer'] sando-button[part='cancel-button'],
+  [part='footer'] sando-button[part='confirm-button'] {
+    flex: 1;
+  }
+
+  /* Cancel button: right border acts as divider between buttons */
+  [part='footer'] sando-button[part='cancel-button'] {
+    border-inline-end: var(--sando-dialog-footer-dividerWidth) solid
+      var(--sando-dialog-footer-dividerColor);
+  }
+
+  /* Single button: takes full width, no divider */
+  [part='footer'] sando-button:only-child {
+    flex: 1;
+    border-inline-end: none;
+  }
+
+  /* Slot-only footer: restore normal padding/gap layout */
+  [part='footer'].footer--slot-only {
     gap: var(--sando-dialog-footer-gap);
     padding-block: var(--sando-dialog-footer-paddingBlock);
     padding-inline: var(--sando-dialog-footer-paddingInline);
-    flex-shrink: 0;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    align-items: center;
   }
 
   .footer-hidden {

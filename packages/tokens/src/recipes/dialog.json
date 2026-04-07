@@ -185,6 +185,21 @@
         "value": "{space.stack.muted.value}",
         "type": "dimension",
         "description": "Dialog footer action button gap — spacing between buttons"
+      },
+      "backgroundColor": {
+        "value": "{color.background.surface.value}",
+        "type": "color",
+        "description": "Dialog footer background — subtle differentiation from body"
+      },
+      "dividerColor": {
+        "value": "{color.border.muted.value}",
+        "type": "color",
+        "description": "Dialog footer top divider color"
+      },
+      "dividerWidth": {
+        "value": "{border.width.default.value}",
+        "type": "dimension",
+        "description": "Dialog footer top divider width — 1px"
       }
     },
     "closeButton": {
