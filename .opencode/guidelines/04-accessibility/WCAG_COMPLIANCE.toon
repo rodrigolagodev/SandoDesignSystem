@@ -208,11 +208,11 @@ automated_testing:
       });
   testing_all_flavors:
     lang: "typescript"
-    code: |
-      // All production flavors — keep this list in sync with THEMING_STRATEGY.toon
-      const flavors = ["sando", "original", "strawberry", "brutalist", "egg-salad", "kiwi", "tonkatsu"];
+     code: |
+       // All production flavors — keep this list in sync with THEMING_STRATEGY.toon
+       const flavors = ["sando", "original", "strawberry", "nori", "egg-salad", "kiwi", "tonkatsu"];
 
-      describe.each(flavors)("flavor: %s", (flavor) => {
+       describe.each(flavors)("flavor: %s", (flavor) => {
         it("meets accessibility standards", async () => {
           const el = await fixture(`
             <div flavor="${flavor}">
@@ -419,10 +419,10 @@ testing_coverage:
     coverage_100_percent_for:
       - "All public components"
       - "All component states (default, hover, focus, active, disabled, loading, error, success)"
-      - "All variants (solid, outline, ghost, etc.)"
-      - "All sizes (small, medium, large)"
-      - "All flavors (sando, original, strawberry, brutalist, egg-salad, kiwi, tonkatsu)"
-      - "All modes (light, dark, high-contrast, forced-colors, reduced-motion)"
+       - "All variants (solid, outline, ghost, etc.)"
+       - "All sizes (small, medium, large)"
+       - "All flavors (sando, original, strawberry, nori, egg-salad, kiwi, tonkatsu)"
+       - "All modes (light, dark, high-contrast, forced-colors, reduced-motion)"
   test_file_structure:
     tree:
       "sando-button/":

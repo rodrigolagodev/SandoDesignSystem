@@ -284,6 +284,15 @@ export type { LabelSize, LabelWeight, SandoLabelProps } from './components/label
 export { SandoHelpText } from './components/help-text/index.js';
 export type { HelpTextVariant, SandoHelpTextProps } from './components/help-text/index.js';
 
+export { SandoTooltip } from './components/tooltip/index.js';
+export type {
+  TooltipPlacement,
+  SandoTooltipProps,
+  TooltipVisibilityEventDetail,
+  TooltipShowEvent,
+  TooltipHideEvent
+} from './components/tooltip/index.js';
+
 // ========================================
 // Common Types
 // ========================================

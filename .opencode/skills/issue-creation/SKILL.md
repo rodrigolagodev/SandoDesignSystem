@@ -104,7 +104,7 @@ Use these scopes in issue titles to match conventional commit scopes:
 | Component (specific) | component name: `button`, `input`, `checkbox` |
 | All components       | `components`                                  |
 | Token system         | `tokens`                                      |
-| Specific flavor      | `flavor-sando`, `flavor-brutalist`, etc.      |
+| Specific flavor      | `flavor-sando`, `flavor-nori`, etc.           |
 | Storybook            | `storybook`                                   |
 | VitePress docs       | `docs`                                        |
 | AI agents            | `agents`                                      |

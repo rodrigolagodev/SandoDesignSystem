@@ -124,10 +124,10 @@ core_rules:
         - context: "API Reference"
           tone: "Precise, concise"
           warmth: "Low"
-          formality: "High"
-          culinary_metaphor: "Rare"
-          example: "flavor: string — Sets the active theme. Accepted values: 'sando', 'original', 'strawberry', 'brutalist', 'egg-salad', 'kiwi', 'tonkatsu'. Default: 'sando'."
-        - context: "Error Messages"
+           formality: "High"
+           culinary_metaphor: "Rare"
+           example: "flavor: string — Sets the active theme. Accepted values: 'sando', 'original', 'strawberry', 'nori', 'egg-salad', 'kiwi', 'tonkatsu'. Default: 'sando'."
+         - context: "Error Messages"
           tone: "Empathetic, actionable"
           warmth: "High"
           formality: "Low"
@@ -685,10 +685,10 @@ standards:
         - type: "MUST"
           note: "Primary language is US English (color, not colour; customize, not customise)."
         - type: "MUST"
-          note: "System terminology does NOT translate: Ingredients, Flavors, and Recipes remain in English in all languages. They are proper nouns within the Sando brand."
-        - type: "MUST"
-          note: "Flavor names do NOT translate: 'sando', 'original', 'strawberry', 'brutalist', 'egg-salad', 'kiwi', 'tonkatsu' are brand identifiers, not descriptive words."
-        - type: "SHOULD"
+           note: "System terminology does NOT translate: Ingredients, Flavors, and Recipes remain in English in all languages. They are proper nouns within the Sando brand."
+         - type: "MUST"
+           note: "Flavor names do NOT translate: 'sando', 'original', 'strawberry', 'nori', 'egg-salad', 'kiwi', 'tonkatsu' are brand identifiers, not descriptive words."
+         - type: "SHOULD"
           note: "Avoid idioms and culturally specific references that do not translate. 'Hit the ground running' or 'piece of cake' do not translate well."
         - type: "SHOULD"
           note: "Keep sentences short and structurally simple for translation. Subject-verb-object order. Avoid nested clauses."
@@ -743,10 +743,10 @@ detailed_examples:
       solution:
         lang: "text"
         code: |
-          We couldn't find that flavor. Did you mean 'tonkatsu'?
+           We couldn't find that flavor. Did you mean 'tonkatsu'?
 
-          Accepted values: 'sando', 'original', 'strawberry', 'brutalist',
-          'egg-salad', 'kiwi', 'tonkatsu'.
+           Accepted values: 'sando', 'original', 'strawberry', 'nori',
+           'egg-salad', 'kiwi', 'tonkatsu'.
       key_aspects:
         - "Empathetic opener: 'We couldn't find' not 'Invalid value'"
         - "Suggests a likely correction (fuzzy match)"
@@ -797,11 +797,11 @@ detailed_examples:
           for WCAG AA contrast in both light and dark modes. Every token is
           available as CSS custom properties and JavaScript constants.
 
-          Features:
-          - 8 curated OKLCH palettes with perceptually uniform scales
-          - 7 handcrafted Flavors: sando, original, strawberry, brutalist, egg-salad, kiwi, tonkatsu
-          - Automatic light and dark mode support
-          - CSS custom properties and JS exports
+           Features:
+           - 8 curated OKLCH palettes with perceptually uniform scales
+           - 7 handcrafted Flavors: sando, original, strawberry, nori, egg-salad, kiwi, tonkatsu
+           - Automatic light and dark mode support
+           - CSS custom properties and JS exports
           - Under 5KB gzipped
       key_aspects:
         - "Culinary metaphor in intro ('ingredient pantry') — appropriate for README context"
@@ -905,9 +905,9 @@ anti_patterns:
           ❌ "Error: Invalid flavor attribute. You provided an unsupported value."
       why_wrong: "'Invalid' and 'You provided' place blame on the user. 'Error:' prefix is cold and unhelpful. No suggestion for correction."
       correct_approach:
-        lang: "text"
-        code: |
-          ✅ "We couldn't find that flavor. Did you mean 'tonkatsu'? Accepted values: 'sando', 'original', 'strawberry', 'brutalist', 'egg-salad', 'kiwi', 'tonkatsu'."
+         lang: "text"
+         code: |
+           ✅ "We couldn't find that flavor. Did you mean 'tonkatsu'? Accepted values: 'sando', 'original', 'strawberry', 'nori', 'egg-salad', 'kiwi', 'tonkatsu'."
 
     - id: "VT-AP-5"
       title: "Vague Descriptions"
