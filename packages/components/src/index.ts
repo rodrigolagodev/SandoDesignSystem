@@ -293,6 +293,18 @@ export type {
   TooltipHideEvent
 } from './components/tooltip/index.js';
 
+export { SandoAlert } from './components/alert/index.js';
+export type {
+  AlertStatus,
+  AlertAppearance,
+  AlertRole,
+  SandoAlertProps,
+  AlertDismissEventDetail,
+  AlertDismissEvent,
+  AlertOpenChangeEventDetail,
+  AlertOpenChangeEvent
+} from './components/alert/index.js';
+
 // ========================================
 // Common Types
 // ========================================
