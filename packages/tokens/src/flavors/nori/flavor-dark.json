@@ -82,22 +82,42 @@
       "destructive": {
         "background": { "value": "{color.red.900.value}", "type": "color" },
         "text": { "value": "{color.red.300.value}", "type": "color" },
-        "border": { "value": "{color.red.700.value}", "type": "color" }
+        "border": { "value": "{color.red.700.value}", "type": "color" },
+        "solidBackground": {
+          "value": "{color.red.500.value}",
+          "type": "color"
+        },
+        "solidText": { "value": "{color.utility.white.value}", "type": "color" }
       },
       "success": {
         "background": { "value": "{color.green.900.value}", "type": "color" },
         "text": { "value": "{color.green.300.value}", "type": "color" },
-        "border": { "value": "{color.green.700.value}", "type": "color" }
+        "border": { "value": "{color.green.700.value}", "type": "color" },
+        "solidBackground": {
+          "value": "{color.green.500.value}",
+          "type": "color"
+        },
+        "solidText": { "value": "{color.utility.white.value}", "type": "color" }
       },
       "warning": {
         "background": { "value": "{color.yellow.900.value}", "type": "color" },
         "text": { "value": "{color.yellow.300.value}", "type": "color" },
-        "border": { "value": "{color.yellow.700.value}", "type": "color" }
+        "border": { "value": "{color.yellow.700.value}", "type": "color" },
+        "solidBackground": {
+          "value": "{color.yellow.400.value}",
+          "type": "color"
+        },
+        "solidText": { "value": "{color.neutral.950.value}", "type": "color" }
       },
       "info": {
         "background": { "value": "{color.blue.900.value}", "type": "color" },
         "text": { "value": "{color.blue.300.value}", "type": "color" },
-        "border": { "value": "{color.blue.700.value}", "type": "color" }
+        "border": { "value": "{color.blue.700.value}", "type": "color" },
+        "solidBackground": {
+          "value": "{color.blue.400.value}",
+          "type": "color"
+        },
+        "solidText": { "value": "{color.utility.white.value}", "type": "color" }
       }
     },
     "selection": {
