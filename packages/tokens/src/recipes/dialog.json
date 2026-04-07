@@ -1,0 +1,232 @@
+{
+  "dialog": {
+    "backgroundColor": {
+      "value": "{color.background.raised.value}",
+      "type": "color",
+      "description": "Dialog panel background — elevated surface"
+    },
+    "borderRadius": {
+      "value": "{border.radius.emphasis.value}",
+      "type": "dimension",
+      "description": "Dialog panel border radius — 12px container radius"
+    },
+    "boxShadow": {
+      "value": "{elevation.emphasis.value}",
+      "type": "shadow",
+      "description": "Dialog panel shadow — elevated overlay depth"
+    },
+    "maxHeight": {
+      "value": "90vh",
+      "type": "dimension",
+      "description": "Dialog max height — 90% viewport height"
+    },
+    "zIndex": {
+      "value": "{z-index.overlay.value}",
+      "type": "number",
+      "description": "Dialog z-index — modal layer"
+    },
+    "backdrop": {
+      "backgroundColor": {
+        "value": "{color.background.overlay.value}",
+        "type": "color",
+        "description": "Dialog backdrop — semi-transparent overlay behind dialog"
+      },
+      "opacity": {
+        "value": "0.5",
+        "type": "number",
+        "description": "Backdrop opacity — 50% transparency"
+      }
+    },
+    "header": {
+      "paddingInline": {
+        "value": "{space.inset.emphasis.value}",
+        "type": "dimension",
+        "description": "Dialog header horizontal padding"
+      },
+      "paddingBlock": {
+        "value": "{space.inset.emphasis.value}",
+        "type": "dimension",
+        "description": "Dialog header vertical padding"
+      },
+      "borderBottomColor": {
+        "value": "{color.border.muted.value}",
+        "type": "color",
+        "description": "Dialog header border-bottom — subtle divider"
+      },
+      "borderBottomWidth": {
+        "value": "{border.width.default.value}",
+        "type": "dimension",
+        "description": "Dialog header border-bottom width — 1px"
+      },
+      "titleFontSize": {
+        "value": "{font.size.heading-200.value}",
+        "type": "dimension",
+        "description": "Dialog title font size — large heading"
+      },
+      "titleFontWeight": {
+        "value": "{font.weight.heading.value}",
+        "type": "fontWeight",
+        "description": "Dialog title font weight — bold"
+      },
+      "titleLineHeight": {
+        "value": "{font.lineHeight.heading.value}",
+        "type": "number",
+        "description": "Dialog title line height — tight for headings"
+      },
+      "titleColor": {
+        "value": "{color.text.heading.value}",
+        "type": "color",
+        "description": "Dialog title text color"
+      },
+      "descriptionFontSize": {
+        "value": "{font.size.caption.value}",
+        "type": "dimension",
+        "description": "Dialog description font size — small supporting text"
+      },
+      "descriptionColor": {
+        "value": "{color.text.caption.value}",
+        "type": "color",
+        "description": "Dialog description text color — muted"
+      }
+    },
+    "body": {
+      "paddingInline": {
+        "value": "{space.inset.emphasis.value}",
+        "type": "dimension",
+        "description": "Dialog body horizontal padding"
+      },
+      "paddingBlock": {
+        "value": "{space.inset.emphasis.value}",
+        "type": "dimension",
+        "description": "Dialog body vertical padding"
+      },
+      "textColor": {
+        "value": "{color.text.body.value}",
+        "type": "color",
+        "description": "Dialog body text color"
+      },
+      "fontSize": {
+        "value": "{font.size.body.value}",
+        "type": "dimension",
+        "description": "Dialog body font size"
+      },
+      "lineHeight": {
+        "value": "{font.lineHeight.body.value}",
+        "type": "number",
+        "description": "Dialog body line height"
+      }
+    },
+    "footer": {
+      "paddingInline": {
+        "value": "{space.inset.emphasis.value}",
+        "type": "dimension",
+        "description": "Dialog footer horizontal padding"
+      },
+      "paddingBlock": {
+        "value": "{space.inset.emphasis.value}",
+        "type": "dimension",
+        "description": "Dialog footer vertical padding"
+      },
+      "borderTopColor": {
+        "value": "{color.border.muted.value}",
+        "type": "color",
+        "description": "Dialog footer border-top — subtle divider"
+      },
+      "borderTopWidth": {
+        "value": "{border.width.default.value}",
+        "type": "dimension",
+        "description": "Dialog footer border-top width — 1px"
+      },
+      "gap": {
+        "value": "{space.stack.muted.value}",
+        "type": "dimension",
+        "description": "Dialog footer action button gap — spacing between buttons"
+      }
+    },
+    "closeButton": {
+      "size": {
+        "value": "{sizing.control.md.value}",
+        "type": "dimension",
+        "description": "Close button container size — 32px"
+      },
+      "iconSize": {
+        "value": "{sizing.icon.md.value}",
+        "type": "dimension",
+        "description": "Close button icon size — 16px"
+      }
+    },
+    "size": {
+      "sm": {
+        "width": {
+          "value": "400px",
+          "type": "dimension",
+          "description": "Small dialog width"
+        }
+      },
+      "md": {
+        "width": {
+          "value": "560px",
+          "type": "dimension",
+          "description": "Medium dialog width (default)"
+        }
+      },
+      "lg": {
+        "width": {
+          "value": "720px",
+          "type": "dimension",
+          "description": "Large dialog width"
+        }
+      },
+      "full": {
+        "width": {
+          "value": "calc(100% - {space.inset.emphasis.value} * 2)",
+          "type": "dimension",
+          "description": "Full-width dialog with margins"
+        }
+      }
+    },
+    "animation": {
+      "duration": {
+        "enter": {
+          "value": "{animation.duration.normal.value}",
+          "type": "duration",
+          "description": "Dialog entry animation duration — 300ms"
+        },
+        "exit": {
+          "value": "{animation.duration.fast.value}",
+          "type": "duration",
+          "description": "Dialog exit animation duration — 200ms"
+        }
+      },
+      "easing": {
+        "enter": {
+          "value": "{animation.easing.entrance.value}",
+          "type": "cubicBezier",
+          "description": "Dialog entry easing — ease-out"
+        },
+        "exit": {
+          "value": "{animation.easing.exit.value}",
+          "type": "cubicBezier",
+          "description": "Dialog exit easing — ease-in"
+        }
+      }
+    },
+    "focusRing": {
+      "color": {
+        "value": "{color.focus.ring.value}",
+        "type": "color",
+        "description": "Focus ring color — kohaku gold"
+      },
+      "width": {
+        "value": "{border.width.emphasis.value}",
+        "type": "dimension",
+        "description": "Focus ring width — 2px"
+      },
+      "offset": {
+        "value": "{space.stack.tight.value}",
+        "type": "dimension",
+        "description": "Focus ring offset — 4px from edge"
+      }
+    }
+  }
+}
