@@ -82,8 +82,12 @@ export const baseStyles = css`
     align-items: center;
     padding-block: var(--sando-dialog-header-paddingBlock);
     padding-inline: var(--sando-dialog-header-paddingInline);
+    /* Reserve space so title doesn't run under the close button */
+    padding-inline-end: calc(
+      var(--sando-dialog-header-paddingInline) + var(--sando-dialog-closeButton-size) +
+        var(--sando-dialog-header-paddingInline)
+    );
     flex-shrink: 0;
-    gap: var(--sando-dialog-header-paddingInline);
   }
 
   :host([no-header]) [part='header'] {
@@ -142,6 +146,11 @@ export const baseStyles = css`
     width: var(--sando-dialog-closeButton-size);
     height: var(--sando-dialog-closeButton-size);
 
+    /* Absolute positioning — top-inline-end corner of panel */
+    position: absolute;
+    inset-block-start: var(--sando-dialog-header-paddingBlock);
+    inset-inline-end: var(--sando-dialog-header-paddingInline);
+
     /* Visual */
     color: var(--sando-dialog-header-titleColor);
     background-color: var(--sando-dialog-closeButton-backgroundColor);
@@ -168,7 +177,8 @@ export const baseStyles = css`
   [part='body'] {
     flex: 1;
     overflow-y: auto;
-    padding-block: var(--sando-dialog-body-paddingBlock);
+    padding-block-start: 0;
+    padding-block-end: var(--sando-dialog-body-paddingBlock);
     padding-inline: var(--sando-dialog-body-paddingInline);
     color: var(--sando-dialog-body-textColor);
     font-size: var(--sando-dialog-body-fontSize);

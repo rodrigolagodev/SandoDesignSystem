@@ -583,23 +583,6 @@ export class SandoDialog extends FlavorableMixin(LitElement) implements SandoDia
             <slot name="description" @slotchange=${this._handleDescriptionSlotChange}></slot>
           </div>
         </div>
-        ${this._showCloseButton
-          ? html`
-              <button
-                type="button"
-                part="close-button"
-                aria-label="Close dialog"
-                @click=${this._handleCloseButtonClick}
-              >
-                <sando-icon
-                  name="x"
-                  decorative
-                  inherit-color
-                  custom-size="var(--sando-dialog-closeButton-iconSize)"
-                ></sando-icon>
-              </button>
-            `
-          : nothing}
       </div>
     `;
   }
@@ -670,6 +653,23 @@ export class SandoDialog extends FlavorableMixin(LitElement) implements SandoDia
         tabindex="-1"
       >
         ${this._renderHeader()}
+        ${this._showCloseButton
+          ? html`
+              <button
+                type="button"
+                part="close-button"
+                aria-label="Close dialog"
+                @click=${this._handleCloseButtonClick}
+              >
+                <sando-icon
+                  name="x"
+                  decorative
+                  inherit-color
+                  custom-size="var(--sando-dialog-closeButton-iconSize)"
+                ></sando-icon>
+              </button>
+            `
+          : nothing}
 
         <div part="body">
           <slot></slot>

@@ -88,7 +88,7 @@
         "description": "Dialog header horizontal padding"
       },
       "paddingBlock": {
-        "value": "{space.inset.emphasis.value}",
+        "value": "{space.3.value}",
         "type": "dimension",
         "description": "Dialog header vertical padding"
       },

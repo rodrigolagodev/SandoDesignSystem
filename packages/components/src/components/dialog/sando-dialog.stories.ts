@@ -235,7 +235,7 @@ const meta: Meta = {
     noHeader: false,
     dismissible: true,
     title: 'Confirm Action',
-    description: '',
+    description: 'This action will permanently remove the selected items.',
     content: 'Are you sure you want to proceed with this action?',
     showConfirm: true,
     confirmLabel: 'Confirm',
