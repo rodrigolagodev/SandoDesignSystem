@@ -86,7 +86,7 @@ export const baseStyles = css`
     font-size: var(--sando-alert-titleFontSize);
     font-weight: var(--sando-alert-titleFontWeight);
     color: var(--_alert-title-color);
-    margin: 0 0 0.25em 0;
+    margin: var(--sando-alert-titleMarginBottom);
   }
 
   .alert-description {
@@ -101,8 +101,8 @@ export const baseStyles = css`
   .alert-actions {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5em;
-    margin-block-start: 0.75em;
+    gap: var(--sando-alert-actionsGap);
+    margin-block-start: var(--sando-alert-actionsMarginTop);
   }
 
   /* ========================================
@@ -138,8 +138,8 @@ export const baseStyles = css`
   }
 
   .alert-close:focus-visible {
-    outline: 2px solid var(--_alert-icon-color);
-    outline-offset: 2px;
+    outline: var(--sando-alert-focusOutlineWidth) solid var(--sando-alert-focusOutlineColor);
+    outline-offset: var(--sando-alert-focusOutlineOffset);
     opacity: 1;
   }
 

@@ -233,6 +233,30 @@
         "value": "{animation.easing.entrance.value}",
         "type": "cubicBezier"
       }
+    },
+    "titleMarginBottom": {
+      "value": "{space.stack.tight.value}",
+      "type": "dimension"
+    },
+    "actionsGap": {
+      "value": "{space.stack.muted.value}",
+      "type": "dimension"
+    },
+    "actionsMarginTop": {
+      "value": "{space.3.value}",
+      "type": "dimension"
+    },
+    "focusOutlineColor": {
+      "value": "{color.focus.ring.value}",
+      "type": "color"
+    },
+    "focusOutlineWidth": {
+      "value": "{border.width.emphasis.value}",
+      "type": "dimension"
+    },
+    "focusOutlineOffset": {
+      "value": "{space.stack.tight.value}",
+      "type": "dimension"
     }
   }
 }

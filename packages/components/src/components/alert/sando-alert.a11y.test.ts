@@ -185,16 +185,17 @@ describe('sando-alert Accessibility', () => {
       expect(iconWrapper?.getAttribute('aria-hidden')).toBe('true');
     });
 
-    it('should have aria-hidden on inline SVG icons (focusable=false)', () => {
+    it('should render sando-icon as the default status icon', () => {
       const iconWrapper = element.shadowRoot?.querySelector('.alert-icon-wrapper');
-      const svg = iconWrapper?.querySelector('svg');
-      expect(svg?.getAttribute('aria-hidden')).toBe('true');
+      const icon = iconWrapper?.querySelector('sando-icon');
+      expect(icon).toBeDefined();
     });
 
-    it('should have focusable="false" on inline SVG icons to prevent IE focus', () => {
+    it('should mark the default status icon as decorative (hidden from AT)', () => {
       const iconWrapper = element.shadowRoot?.querySelector('.alert-icon-wrapper');
-      const svg = iconWrapper?.querySelector('svg');
-      expect(svg?.getAttribute('focusable')).toBe('false');
+      const icon = iconWrapper?.querySelector('sando-icon');
+      // sando-icon with `decorative` attribute hides the icon from assistive technology
+      expect(icon?.hasAttribute('decorative')).toBe(true);
     });
   });
 
