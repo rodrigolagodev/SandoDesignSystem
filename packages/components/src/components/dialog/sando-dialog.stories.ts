@@ -28,9 +28,10 @@
  */
 
 import type { Meta, StoryObj } from '@storybook/web-components';
-import { html } from 'lit';
+import { html, nothing } from 'lit';
 
 import './sando-dialog.js';
+import '../button/sando-button.js';
 
 /**
  * Meta configuration for Storybook — includes:
@@ -45,27 +46,24 @@ const meta: Meta = {
 
   render: (args) => html`
     <sando-dialog
-      ?open="${args.open}"
-      type="${args.type}"
-      size="${args.size}"
-      ?no-header="${args.noHeader}"
-      ?dismissible="${args.dismissible}"
+      ?open=${args.open}
+      type=${args.type}
+      size=${args.size}
+      variant=${args.variant}
+      ?no-header=${args.noHeader}
+      ?dismissible=${args.dismissible}
+      confirm-label=${args.confirmLabel}
+      confirm-variant=${args.confirmVariant}
+      confirm-status=${args.confirmStatus}
+      ?show-confirm=${args.showConfirm}
+      cancel-label=${args.cancelLabel}
+      cancel-variant=${args.cancelVariant}
+      cancel-status=${args.cancelStatus}
+      ?show-cancel=${args.showCancel}
     >
       <span slot="title">${args.title}</span>
-      ${args.description ? html`<span slot="description">${args.description}</span>` : ''}
+      ${args.description ? html`<span slot="description">${args.description}</span>` : nothing}
       <p>${args.content}</p>
-      ${args.actions
-        ? html`
-            <div slot="actions" style="display: flex; gap: 0.75rem;">
-              <button style="padding: 0.5rem 1rem;">Cancel</button>
-              <button
-                style="padding: 0.5rem 1rem; background: var(--sando-color-interactive-danger, #ef4444);"
-              >
-                Confirm
-              </button>
-            </div>
-          `
-        : ''}
     </sando-dialog>
   `,
 
@@ -98,6 +96,16 @@ const meta: Meta = {
         category: 'Appearance',
         type: { summary: "'sm' | 'md' | 'lg' | 'full'" },
         defaultValue: { summary: 'md' }
+      }
+    },
+    variant: {
+      control: 'select',
+      options: ['elevated', 'outlined'],
+      description: 'Surface variant — elevated (with shadow) or outlined (with border)',
+      table: {
+        category: 'Appearance',
+        type: { summary: "'elevated' | 'outlined'" },
+        defaultValue: { summary: 'elevated' }
       }
     },
     noHeader: {
@@ -141,13 +149,80 @@ const meta: Meta = {
         category: 'Content'
       }
     },
-    actions: {
+    showConfirm: {
       control: 'boolean',
-      description: 'Show action buttons in footer (actions slot)',
+      description: 'Whether to show the built-in confirm button',
       table: {
-        category: 'Content',
+        category: 'Actions',
         type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' }
+        defaultValue: { summary: 'true' }
+      }
+    },
+    confirmLabel: {
+      control: 'text',
+      description: 'Label for the built-in confirm button',
+      table: {
+        category: 'Actions',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'Confirm' }
+      }
+    },
+    confirmVariant: {
+      control: 'select',
+      options: ['solid', 'outline', 'ghost', 'text'],
+      description: 'Variant for the built-in confirm button',
+      table: {
+        category: 'Actions',
+        type: { summary: "'solid' | 'outline' | 'ghost' | 'text'" },
+        defaultValue: { summary: 'solid' }
+      }
+    },
+    confirmStatus: {
+      control: 'select',
+      options: ['default', 'success', 'destructive'],
+      description: 'Status/color for the built-in confirm button',
+      table: {
+        category: 'Actions',
+        type: { summary: "'default' | 'success' | 'destructive'" },
+        defaultValue: { summary: 'default' }
+      }
+    },
+    showCancel: {
+      control: 'boolean',
+      description: 'Whether to show the built-in cancel button',
+      table: {
+        category: 'Actions',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'true' }
+      }
+    },
+    cancelLabel: {
+      control: 'text',
+      description: 'Label for the built-in cancel button',
+      table: {
+        category: 'Actions',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'Cancel' }
+      }
+    },
+    cancelVariant: {
+      control: 'select',
+      options: ['solid', 'outline', 'ghost', 'text'],
+      description: 'Variant for the built-in cancel button',
+      table: {
+        category: 'Actions',
+        type: { summary: "'solid' | 'outline' | 'ghost' | 'text'" },
+        defaultValue: { summary: 'outline' }
+      }
+    },
+    cancelStatus: {
+      control: 'select',
+      options: ['default', 'success', 'destructive'],
+      description: 'Status/color for the built-in cancel button',
+      table: {
+        category: 'Actions',
+        type: { summary: "'default' | 'success' | 'destructive'" },
+        defaultValue: { summary: 'default' }
       }
     }
   },
@@ -156,12 +231,20 @@ const meta: Meta = {
     open: true,
     type: 'dialog',
     size: 'md',
+    variant: 'elevated',
     noHeader: false,
     dismissible: true,
     title: 'Confirm Action',
     description: '',
     content: 'Are you sure you want to proceed with this action?',
-    actions: false
+    showConfirm: true,
+    confirmLabel: 'Confirm',
+    confirmVariant: 'solid',
+    confirmStatus: 'default',
+    showCancel: true,
+    cancelLabel: 'Cancel',
+    cancelVariant: 'outline',
+    cancelStatus: 'default'
   }
 };
 
@@ -189,6 +272,46 @@ export const Playground: Story = {
   args: {
     content: 'Customize me! Use the controls panel to change type, size, dismissible, and content.'
   }
+};
+
+// ============================================================================
+// VARIANTS
+// ============================================================================
+
+/**
+ * All 2 variant types (elevated, outlined) shown side-by-side with labels.
+ * Demonstrates the surface styling differences.
+ */
+export const Variants: Story = {
+  tags: DOCS_ONLY,
+  render: () => html`
+    <div style="display: flex; flex-direction: column; gap: 2rem;">
+      <div>
+        <h4
+          style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: var(--sando-color-text-muted);"
+        >
+          Elevated (elevated)
+        </h4>
+        <sando-dialog open variant="elevated" size="md">
+          <span slot="title">Elevated Dialog</span>
+          <p>This dialog uses the elevated variant with shadow.</p>
+        </sando-dialog>
+      </div>
+
+      <div>
+        <h4
+          style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: var(--sando-color-text-muted);"
+        >
+          Outlined (outlined)
+        </h4>
+        <sando-dialog open variant="outlined" size="md">
+          <span slot="title">Outlined Dialog</span>
+          <p>This dialog uses the outlined variant with border.</p>
+        </sando-dialog>
+      </div>
+    </div>
+  `,
+  parameters: { controls: { disable: true } }
 };
 
 // ============================================================================
@@ -267,23 +390,17 @@ export const Sizes: Story = {
 export const AlertDialog: Story = {
   tags: DOCS_ONLY,
   render: () => html`
-    <sando-dialog open type="alert">
+    <sando-dialog
+      open
+      type="alert"
+      confirm-label="Delete"
+      confirm-status="destructive"
+      cancel-label="Keep"
+    >
       <span slot="title">Confirm Delete</span>
       <p style="margin-bottom: 1rem;">
         Are you sure you want to delete this item? This action cannot be undone.
       </p>
-      <div slot="actions" style="display: flex; gap: 0.75rem;">
-        <button
-          style="padding: 0.5rem 1rem; background: var(--sando-color-interactive-base, #0ea5e9);"
-        >
-          Cancel
-        </button>
-        <button
-          style="padding: 0.5rem 1rem; background: var(--sando-color-interactive-danger, #ef4444); color: white;"
-        >
-          Delete
-        </button>
-      </div>
     </sando-dialog>
   `,
   parameters: { controls: { disable: true } }
@@ -300,21 +417,13 @@ export const AlertDialog: Story = {
 export const WithDescription: Story = {
   tags: DOCS_ONLY,
   render: () => html`
-    <sando-dialog open size="lg">
+    <sando-dialog open size="lg" confirm-label="Confirm Payment" confirm-status="success">
       <span slot="title">Payment Confirmation</span>
       <span slot="description">Please review the details before confirming your payment</span>
       <div style="margin: 1rem 0;">
         <p><strong>Amount:</strong> $99.99</p>
         <p><strong>Card:</strong> •••• •••• •••• 4242</p>
         <p><strong>Date:</strong> March 15, 2024</p>
-      </div>
-      <div slot="actions" style="display: flex; gap: 0.75rem;">
-        <button style="padding: 0.5rem 1rem;">Cancel</button>
-        <button
-          style="padding: 0.5rem 1rem; background: var(--sando-color-interactive-success, #10b981); color: white;"
-        >
-          Confirm Payment
-        </button>
       </div>
     </sando-dialog>
   `,
@@ -328,53 +437,39 @@ export const WithDescription: Story = {
 /**
  * Dialog with action buttons in the footer slot.
  * Shows typical button patterns (Cancel + Primary action).
+ * Uses sando-button in the slot with custom configurations.
  */
 export const WithActions: Story = {
   tags: DOCS_ONLY,
   render: () => html`
     <div style="display: flex; flex-direction: column; gap: 2rem;">
-      <!-- Basic actions -->
+      <!-- Basic Save/Cancel with custom buttons -->
       <div>
         <h4 style="margin: 0 0 1rem 0; font-size: 0.875rem; color: var(--sando-color-text-muted);">
-          Basic Save/Cancel
+          Basic Save/Cancel with Slotted Actions
         </h4>
-        <sando-dialog open size="md">
+        <sando-dialog open size="md" ?show-confirm=${false} ?show-cancel=${false}>
           <span slot="title">Save Changes</span>
           <p>Do you want to save your changes before leaving?</p>
-          <div slot="actions" style="display: flex; gap: 0.75rem;">
-            <button style="padding: 0.5rem 1rem;">Don't Save</button>
-            <button
-              style="padding: 0.5rem 1rem; background: var(--sando-color-interactive-base, #0ea5e9); color: white;"
-            >
-              Save
-            </button>
-          </div>
+          <sando-button slot="actions" variant="outline">Don't Save</sando-button>
+          <sando-button slot="actions" variant="solid">Save</sando-button>
         </sando-dialog>
       </div>
 
-      <!-- Multiple actions -->
+      <!-- Multiple custom actions -->
       <div>
         <h4 style="margin: 0 0 1rem 0; font-size: 0.875rem; color: var(--sando-color-text-muted);">
-          Multiple Actions
+          Multiple Custom Actions
         </h4>
-        <sando-dialog open size="lg">
+        <sando-dialog open size="lg" ?show-confirm=${false} ?show-cancel=${false}>
           <span slot="title">Delete Account</span>
           <p style="margin-bottom: 1rem;">
             Deleting your account will permanently remove all data. Choose an action:
           </p>
-          <div slot="actions" style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-            <button style="padding: 0.5rem 1rem;">Keep Account</button>
-            <button
-              style="padding: 0.5rem 1rem; background: var(--sando-color-interactive-warning, #f59e0b); color: white;"
-            >
-              Deactivate
-            </button>
-            <button
-              style="padding: 0.5rem 1rem; background: var(--sando-color-interactive-danger, #ef4444); color: white;"
-            >
-              Permanently Delete
-            </button>
-          </div>
+          <sando-button slot="actions" variant="outline">Keep Account</sando-button>
+          <sando-button slot="actions" variant="solid" status="destructive">
+            Permanently Delete
+          </sando-button>
         </sando-dialog>
       </div>
     </div>
@@ -394,13 +489,16 @@ export const WithActions: Story = {
 export const NotDismissible: Story = {
   tags: DOCS_ONLY,
   render: () => html`
-    <sando-dialog open ?dismissible="${false}" size="md">
+    <sando-dialog
+      open
+      ?dismissible="${false}"
+      size="md"
+      confirm-label="I Understand"
+      ?show-cancel=${false}
+    >
       <span slot="title">Important Notice</span>
       <p>This dialog cannot be dismissed by pressing Escape or clicking the backdrop.</p>
       <p>You must click a button to proceed.</p>
-      <div slot="actions" style="display: flex; gap: 0.75rem;">
-        <button style="padding: 0.5rem 1rem;">I Understand</button>
-      </div>
     </sando-dialog>
   `,
   parameters: { controls: { disable: true } }
@@ -417,7 +515,13 @@ export const NotDismissible: Story = {
 export const NoHeader: Story = {
   tags: DOCS_ONLY,
   render: () => html`
-    <sando-dialog open ?no-header="${true}" aria-label="Sign up for newsletter" size="md">
+    <sando-dialog
+      open
+      ?no-header="${true}"
+      aria-label="Sign up for newsletter"
+      size="md"
+      confirm-label="Subscribe"
+    >
       <div style="text-align: center;">
         <h3 style="margin: 0 0 0.5rem 0;">Stay Updated</h3>
         <p style="margin: 0 0 1rem 0; color: var(--sando-color-text-muted);">
@@ -428,14 +532,6 @@ export const NoHeader: Story = {
           placeholder="your@email.com"
           style="width: 100%; padding: 0.5rem; margin-bottom: 1rem;"
         />
-        <div slot="actions" style="display: flex; gap: 0.75rem;">
-          <button style="padding: 0.5rem 1rem;">Cancel</button>
-          <button
-            style="padding: 0.5rem 1rem; background: var(--sando-color-interactive-base, #0ea5e9); color: white;"
-          >
-            Subscribe
-          </button>
-        </div>
       </div>
     </sando-dialog>
   `,
@@ -453,7 +549,7 @@ export const NoHeader: Story = {
 export const LongContent: Story = {
   tags: DOCS_ONLY,
   render: () => html`
-    <sando-dialog open size="lg">
+    <sando-dialog open size="lg" confirm-label="Accept" cancel-label="Decline">
       <span slot="title">Terms and Conditions</span>
       <div>
         <h4 style="margin: 1rem 0 0.5rem 0; font-weight: 600;">1. Acceptance of Terms</h4>
@@ -505,14 +601,6 @@ export const LongContent: Story = {
           contained on our service at any time without notice.
         </p>
       </div>
-      <div slot="actions" style="display: flex; gap: 0.75rem;">
-        <button style="padding: 0.5rem 1rem;">Decline</button>
-        <button
-          style="padding: 0.5rem 1rem; background: var(--sando-color-interactive-base, #0ea5e9); color: white;"
-        >
-          Accept
-        </button>
-      </div>
     </sando-dialog>
   `,
   parameters: { controls: { disable: true } }
@@ -534,31 +622,23 @@ export const ControlledOpen: Story = {
         This dialog is initially closed. Click the button to open it via show() method.
       </p>
 
-      <button
-        id="trigger-btn"
-        style="padding: 0.75rem 1.5rem; cursor: pointer; margin-bottom: 1rem;"
-      >
-        Open Dialog
-      </button>
+      <sando-button id="trigger-btn">Open Dialog</sando-button>
 
-      <sando-dialog id="programmatic-dialog" size="md">
+      <sando-dialog id="programmatic-dialog" size="md" ?show-cancel=${false} confirm-label="Close">
         <span slot="title">Programmatically Opened</span>
         <p>This dialog was opened via the show() method.</p>
-        <div slot="actions">
-          <button id="close-btn" style="padding: 0.5rem 1rem; cursor: pointer;">Close</button>
-        </div>
       </sando-dialog>
 
       <script>
         const dialog = document.getElementById('programmatic-dialog');
         const triggerBtn = document.getElementById('trigger-btn');
-        const closeBtn = document.getElementById('close-btn');
 
-        if (dialog && triggerBtn && closeBtn) {
+        if (dialog && triggerBtn) {
           triggerBtn.addEventListener('click', () => {
             dialog.show();
           });
-          closeBtn.addEventListener('click', () => {
+
+          dialog.addEventListener('sando-confirm', () => {
             dialog.hide();
           });
         }
@@ -585,24 +665,19 @@ export const RequestCloseIntercept: Story = {
         event.preventDefault().
       </p>
 
-      <sando-dialog id="intercept-dialog" open size="md">
+      <sando-dialog
+        id="intercept-dialog"
+        open
+        size="md"
+        confirm-label="Save & Close"
+        cancel-label="Discard"
+      >
         <span slot="title">Unsaved Changes</span>
         <p>You have unsaved changes. Are you sure you want to close?</p>
-        <div slot="actions" style="display: flex; gap: 0.75rem;">
-          <button id="discard-btn" style="padding: 0.5rem 1rem; cursor: pointer;">Discard</button>
-          <button
-            id="save-btn"
-            style="padding: 0.5rem 1rem; background: var(--sando-color-interactive-base, #0ea5e9); color: white; cursor: pointer;"
-          >
-            Save & Close
-          </button>
-        </div>
       </sando-dialog>
 
       <script>
         const dialog = document.getElementById('intercept-dialog');
-        const discardBtn = document.getElementById('discard-btn');
-        const saveBtn = document.getElementById('save-btn');
 
         if (dialog) {
           dialog.addEventListener('sando-request-close', (e) => {
@@ -612,16 +687,13 @@ export const RequestCloseIntercept: Story = {
             }
           });
 
-          if (discardBtn) {
-            discardBtn.addEventListener('click', () => {
-              dialog.hide();
-            });
-          }
-          if (saveBtn) {
-            saveBtn.addEventListener('click', () => {
-              dialog.hide();
-            });
-          }
+          dialog.addEventListener('sando-confirm', () => {
+            dialog.hide();
+          });
+
+          dialog.addEventListener('sando-close', () => {
+            dialog.hide();
+          });
         }
       </script>
     </div>
@@ -634,24 +706,24 @@ export const RequestCloseIntercept: Story = {
 // ============================================================================
 
 /**
- * Complete matrix of type × size combinations.
+ * Complete matrix of variant × size combinations.
  * Useful for visual testing and design review.
  */
 export const AllCombinations: Story = {
   tags: DOCS_ONLY,
   render: () => {
-    const types = ['dialog', 'alert'] as const;
+    const variants = ['elevated', 'outlined'] as const;
     const sizes = ['sm', 'md', 'lg', 'full'] as const;
 
     return html`
       <div style="display: flex; flex-direction: column; gap: 2rem;">
-        ${types.map(
-          (type) => html`
+        ${variants.map(
+          (variant) => html`
             <div>
               <h4
                 style="margin: 0 0 1rem 0; font-size: 0.875rem; color: var(--sando-color-text-muted); text-transform: capitalize;"
               >
-                type="${type}"
+                variant="${variant}"
               </h4>
               <div style="display: flex; flex-direction: column; gap: 1.5rem;">
                 ${sizes.map(
@@ -662,9 +734,9 @@ export const AllCombinations: Story = {
                       >
                         size="${size}"
                       </p>
-                      <sando-dialog open type="${type}" size="${size}">
-                        <span slot="title">${type} - ${size}</span>
-                        <p>Dialog with type="${type}" and size="${size}"</p>
+                      <sando-dialog open variant="${variant}" size="${size}">
+                        <span slot="title">${variant} - ${size}</span>
+                        <p>Dialog with variant="${variant}" and size="${size}"</p>
                       </sando-dialog>
                     </div>
                   `
@@ -695,18 +767,17 @@ export const UseCases: Story = {
         <h4 style="margin: 0 0 1rem 0; font-size: 1rem; color: var(--sando-color-text-body);">
           Delete Confirmation
         </h4>
-        <sando-dialog open type="alert" size="md">
+        <sando-dialog
+          open
+          type="alert"
+          size="md"
+          confirm-label="Delete Project"
+          confirm-status="destructive"
+          cancel-label="Cancel"
+        >
           <span slot="title">Delete Project</span>
           <span slot="description">This action cannot be undone</span>
           <p>Are you sure you want to delete the project "Summer Campaign 2024"?</p>
-          <div slot="actions" style="display: flex; gap: 0.75rem;">
-            <button style="padding: 0.5rem 1rem;">Cancel</button>
-            <button
-              style="padding: 0.5rem 1rem; background: var(--sando-color-interactive-danger, #ef4444); color: white;"
-            >
-              Delete Project
-            </button>
-          </div>
         </sando-dialog>
       </div>
 
@@ -715,7 +786,7 @@ export const UseCases: Story = {
         <h4 style="margin: 0 0 1rem 0; font-size: 1rem; color: var(--sando-color-text-body);">
           Form Dialog
         </h4>
-        <sando-dialog open size="lg">
+        <sando-dialog open size="lg" confirm-label="Create Team" cancel-label="Cancel">
           <span slot="title">Create New Team</span>
           <form style="display: flex; flex-direction: column; gap: 1rem;">
             <div>
@@ -738,14 +809,6 @@ export const UseCases: Story = {
               ></textarea>
             </div>
           </form>
-          <div slot="actions" style="display: flex; gap: 0.75rem;">
-            <button style="padding: 0.5rem 1rem;">Cancel</button>
-            <button
-              style="padding: 0.5rem 1rem; background: var(--sando-color-interactive-base, #0ea5e9); color: white;"
-            >
-              Create Team
-            </button>
-          </div>
         </sando-dialog>
       </div>
 
@@ -754,19 +817,17 @@ export const UseCases: Story = {
         <h4 style="margin: 0 0 1rem 0; font-size: 1rem; color: var(--sando-color-text-body);">
           Session Expiration Alert
         </h4>
-        <sando-dialog open type="alert" size="md">
+        <sando-dialog
+          open
+          type="alert"
+          size="md"
+          confirm-label="Extend Session"
+          cancel-label="Log Out"
+        >
           <span slot="title">Session Expiring</span>
           <p>
             Your session will expire in 5 minutes due to inactivity. Would you like to extend it?
           </p>
-          <div slot="actions" style="display: flex; gap: 0.75rem;">
-            <button
-              style="padding: 0.5rem 1rem; background: var(--sando-color-interactive-base, #0ea5e9); color: white;"
-            >
-              Extend Session
-            </button>
-            <button style="padding: 0.5rem 1rem;">Log Out</button>
-          </div>
         </sando-dialog>
       </div>
     </div>
