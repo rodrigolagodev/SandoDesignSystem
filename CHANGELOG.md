@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Alert Component** (`sando-alert`) — Inline alert component with `info`, `success`, `warning`, and `destructive` status variants, `solid` and `outline` appearances, optional title, dismissible close button, icon/actions slots, animated enter/exit, and WCAG 2.1 AA accessibility (role="status"/"alert", aria-live, Escape to dismiss)
 - **Tooltip Component** (`sando-tooltip`) — simple non-interactive tooltip with hover/focus trigger, 4 placements (top/right/bottom/left), Popover API support with auto-flip, skip-delay behavior, and WCAG 1.4.13 compliance (tooltip stays open when pointer moves from trigger into bubble)
 - **Card Component** (`sando-card`) — versatile surface container with `elevated`/`outlined`/`filled` variants, configurable `padding`/`radius`/`orientation`, clickable and link (`href`) interaction modes via the Pseudo-Interactive Surface pattern, skeleton loading state, and full WCAG 2.1 AA accessibility support
 - **Divider Component** (`sando-divider`) - Visual separator with horizontal/vertical orientation, three weights, three line styles (solid/dashed/dotted), configurable spacing, and optional centered label. Renders semantic `<hr>` for horizontal and `<div role="separator" aria-orientation="vertical">` for vertical.
