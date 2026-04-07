@@ -5,7 +5,7 @@
  * - Host display and visibility management
  * - Backdrop overlay
  * - Panel surface (fixed, centered)
- * - Header zone (title + description — close button is now a panel sibling)
+ * - Header zone (title + description + close button in flex row)
  * - Body scrollable area
  * - Footer / actions zone
  * - Enter/exit animations (panel + backdrop)
@@ -78,15 +78,12 @@ export const baseStyles = css`
      ======================================== */
   [part='header'] {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    align-items: center;
     padding-block: var(--sando-dialog-header-paddingBlock);
     padding-inline: var(--sando-dialog-header-paddingInline);
-    /* Reserve inline-end space so title text doesn't run under the close button */
-    padding-inline-end: calc(
-      var(--sando-dialog-header-paddingInline) + var(--sando-dialog-closeButton-size) +
-        var(--sando-dialog-header-paddingInline)
-    );
     flex-shrink: 0;
+    gap: var(--sando-dialog-header-paddingInline);
   }
 
   :host([no-header]) [part='header'] {
@@ -125,8 +122,7 @@ export const baseStyles = css`
 
   /* ========================================
      CLOSE BUTTON
-     Absolutely positioned relative to [part='panel'] (position: fixed
-     also creates a containing block for absolutely-positioned children).
+     Inline-flex element inside [part='header'] flex row — sits at the end.
      ======================================== */
   [part='close-button'] {
     /* Reset */
@@ -145,11 +141,6 @@ export const baseStyles = css`
     flex-shrink: 0;
     width: var(--sando-dialog-closeButton-size);
     height: var(--sando-dialog-closeButton-size);
-
-    /* Absolute positioning — top-inline-end corner of panel */
-    position: absolute;
-    inset-block-start: var(--sando-dialog-header-paddingBlock);
-    inset-inline-end: var(--sando-dialog-header-paddingInline);
 
     /* Visual */
     color: var(--sando-dialog-header-titleColor);
@@ -184,6 +175,11 @@ export const baseStyles = css`
     line-height: var(--sando-dialog-body-lineHeight);
   }
 
+  /* Reset browser margins on slotted content (e.g. <p> margin-block) */
+  [part='body'] ::slotted(*) {
+    margin: 0;
+  }
+
   /* ========================================
      FOOTER — built-in buttons (flex row, space-between)
      ======================================== */
@@ -209,8 +205,9 @@ export const baseStyles = css`
   }
 
   /* Single button: ocupa todo el ancho */
-  [part='footer'] sando-button:only-child {
+  [part='footer'].footer--single sando-button {
     flex: 1;
+    width: 100%;
   }
 
   /* Slot-only footer: restore normal padding/gap layout */

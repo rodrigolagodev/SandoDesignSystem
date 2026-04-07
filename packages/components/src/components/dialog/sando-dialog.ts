@@ -583,6 +583,23 @@ export class SandoDialog extends FlavorableMixin(LitElement) implements SandoDia
             <slot name="description" @slotchange=${this._handleDescriptionSlotChange}></slot>
           </div>
         </div>
+        ${this._showCloseButton
+          ? html`
+              <button
+                type="button"
+                part="close-button"
+                aria-label="Close dialog"
+                @click=${this._handleCloseButtonClick}
+              >
+                <sando-icon
+                  name="x"
+                  decorative
+                  inherit-color
+                  custom-size="var(--sando-dialog-closeButton-iconSize)"
+                ></sando-icon>
+              </button>
+            `
+          : nothing}
       </div>
     `;
   }
@@ -595,8 +612,11 @@ export class SandoDialog extends FlavorableMixin(LitElement) implements SandoDia
         ? ''
         : 'footer--slot-only'
       : 'footer-hidden';
+    const visibleButtonCount = (this.showCancel ? 1 : 0) + (this.showConfirm ? 1 : 0);
+    const singleButton = visibleButtonCount === 1;
+    const builtInClass = hasBuiltInButtons && singleButton ? 'footer--single' : '';
     return html`
-      <div part="footer" class=${footerClass}>
+      <div part="footer" class=${[footerClass, builtInClass].filter(Boolean).join(' ') || nothing}>
         ${hasBuiltInButtons
           ? html`
               ${this.showCancel
@@ -650,23 +670,6 @@ export class SandoDialog extends FlavorableMixin(LitElement) implements SandoDia
         tabindex="-1"
       >
         ${this._renderHeader()}
-        ${this._showCloseButton
-          ? html`
-              <button
-                type="button"
-                part="close-button"
-                aria-label="Close dialog"
-                @click=${this._handleCloseButtonClick}
-              >
-                <sando-icon
-                  name="x"
-                  decorative
-                  inherit-color
-                  custom-size="var(--sando-dialog-closeButton-iconSize)"
-                ></sando-icon>
-              </button>
-            `
-          : nothing}
 
         <div part="body">
           <slot></slot>
