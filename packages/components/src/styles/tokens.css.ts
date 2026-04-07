@@ -66,6 +66,7 @@ import recipeSelect from '@sando/tokens/css/recipes/select.css?inline';
 import recipeSkeleton from '@sando/tokens/css/recipes/skeleton.css?inline';
 import recipeSpinner from '@sando/tokens/css/recipes/spinner.css?inline';
 import recipeTag from '@sando/tokens/css/recipes/tag.css?inline';
+import recipeDialog from '@sando/tokens/css/recipes/dialog.css?inline';
 import recipeHelpText from '@sando/tokens/css/recipes/help-text.css?inline';
 
 /**
@@ -100,6 +101,7 @@ export const tokenStyles = css`
   ${unsafeCSS(recipeBadge)}
   ${unsafeCSS(recipeButton)}
   ${unsafeCSS(recipeCheckbox)}
+  ${unsafeCSS(recipeDialog)}
   ${unsafeCSS(recipeFormGroup)}
   ${unsafeCSS(recipeIcon)}
   ${unsafeCSS(recipeInput)}
