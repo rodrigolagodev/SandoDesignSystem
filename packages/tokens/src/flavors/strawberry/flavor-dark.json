@@ -112,11 +112,11 @@
         },
         "text": { "value": "{color.red.300.value}", "type": "color" },
         "border": { "value": "{color.red.600.value}", "type": "color" },
-        "solidBackground": {
+        "fill": {
           "value": "{color.red.500.value}",
           "type": "color"
         },
-        "solidText": { "value": "{color.utility.white.value}", "type": "color" }
+        "on-fill": { "value": "{color.utility.white.value}", "type": "color" }
       },
       "success": {
         "background": {
@@ -128,11 +128,11 @@
           "value": "{color.green.600.value}",
           "type": "color"
         },
-        "solidBackground": {
+        "fill": {
           "value": "{color.green.500.value}",
           "type": "color"
         },
-        "solidText": { "value": "{color.utility.white.value}", "type": "color" }
+        "on-fill": { "value": "{color.utility.white.value}", "type": "color" }
       },
       "warning": {
         "background": {
@@ -141,11 +141,11 @@
         },
         "text": { "value": "{color.yellow.300.value}", "type": "color" },
         "border": { "value": "{color.yellow.600.value}", "type": "color" },
-        "solidBackground": {
+        "fill": {
           "value": "{color.yellow.400.value}",
           "type": "color"
         },
-        "solidText": {
+        "on-fill": {
           "value": "{color.neutralWarm.950.value}",
           "type": "color"
         }
@@ -157,11 +157,11 @@
         },
         "text": { "value": "{color.blue.300.value}", "type": "color" },
         "border": { "value": "{color.blue.600.value}", "type": "color" },
-        "solidBackground": {
+        "fill": {
           "value": "{color.blue.400.value}",
           "type": "color"
         },
-        "solidText": { "value": "{color.utility.white.value}", "type": "color" }
+        "on-fill": { "value": "{color.utility.white.value}", "type": "color" }
       }
     },
     "selection": {

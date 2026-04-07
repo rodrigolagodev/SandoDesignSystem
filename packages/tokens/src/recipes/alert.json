@@ -93,7 +93,7 @@
     "solid": {
       "info": {
         "backgroundColor": {
-          "value": "{color.state.info.solidBackground.value}",
+          "value": "{color.state.info.fill.value}",
           "type": "color"
         },
         "borderColor": {
@@ -101,21 +101,21 @@
           "type": "color"
         },
         "iconColor": {
-          "value": "{color.state.info.solidText.value}",
+          "value": "{color.state.info.on-fill.value}",
           "type": "color"
         },
         "titleColor": {
-          "value": "{color.state.info.solidText.value}",
+          "value": "{color.state.info.on-fill.value}",
           "type": "color"
         },
         "textColor": {
-          "value": "{color.state.info.solidText.value}",
+          "value": "{color.state.info.on-fill.value}",
           "type": "color"
         }
       },
       "success": {
         "backgroundColor": {
-          "value": "{color.state.success.solidBackground.value}",
+          "value": "{color.state.success.fill.value}",
           "type": "color"
         },
         "borderColor": {
@@ -123,21 +123,21 @@
           "type": "color"
         },
         "iconColor": {
-          "value": "{color.state.success.solidText.value}",
+          "value": "{color.state.success.on-fill.value}",
           "type": "color"
         },
         "titleColor": {
-          "value": "{color.state.success.solidText.value}",
+          "value": "{color.state.success.on-fill.value}",
           "type": "color"
         },
         "textColor": {
-          "value": "{color.state.success.solidText.value}",
+          "value": "{color.state.success.on-fill.value}",
           "type": "color"
         }
       },
       "warning": {
         "backgroundColor": {
-          "value": "{color.state.warning.solidBackground.value}",
+          "value": "{color.state.warning.fill.value}",
           "type": "color"
         },
         "borderColor": {
@@ -145,21 +145,21 @@
           "type": "color"
         },
         "iconColor": {
-          "value": "{color.state.warning.solidText.value}",
+          "value": "{color.state.warning.on-fill.value}",
           "type": "color"
         },
         "titleColor": {
-          "value": "{color.state.warning.solidText.value}",
+          "value": "{color.state.warning.on-fill.value}",
           "type": "color"
         },
         "textColor": {
-          "value": "{color.state.warning.solidText.value}",
+          "value": "{color.state.warning.on-fill.value}",
           "type": "color"
         }
       },
       "destructive": {
         "backgroundColor": {
-          "value": "{color.state.destructive.solidBackground.value}",
+          "value": "{color.state.destructive.fill.value}",
           "type": "color"
         },
         "borderColor": {
@@ -167,15 +167,15 @@
           "type": "color"
         },
         "iconColor": {
-          "value": "{color.state.destructive.solidText.value}",
+          "value": "{color.state.destructive.on-fill.value}",
           "type": "color"
         },
         "titleColor": {
-          "value": "{color.state.destructive.solidText.value}",
+          "value": "{color.state.destructive.on-fill.value}",
           "type": "color"
         },
         "textColor": {
-          "value": "{color.state.destructive.solidText.value}",
+          "value": "{color.state.destructive.on-fill.value}",
           "type": "color"
         }
       }
