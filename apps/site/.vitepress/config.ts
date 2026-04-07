@@ -98,8 +98,8 @@ export default defineConfig({
           text: "Flavor Profiles",
           items: [
             {
-              text: "Brutalist",
-              link: "/docs/design-system/flavors/brutalist",
+              text: "Nori",
+              link: "/docs/design-system/flavors/nori",
             },
           ],
         },

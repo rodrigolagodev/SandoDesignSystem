@@ -114,19 +114,19 @@ packages/tokens/
 │   │   ├── scale.json        # Sizing scale
 │   │   └── z-index.json      # Z-index scale
 │   │
-│   ├── flavors/              # Layer 2: Themes
-│   │   ├── sando/            # Warm Precision (default)
-│   │   │   ├── flavor.json              # Base semantic tokens
-│   │   │   ├── flavor-dark.json         # Dark mode overrides
-│   │   │   ├── flavor-high-contrast.json
-│   │   │   ├── flavor-motion-reduce.json
-│   │   │   └── flavor-forced-colors.json
-│   │   ├── brutalist/        # Raw Brutalism
-│   │   ├── egg-salad/        # Retro Playful
-│   │   ├── kiwi/             # Fresh Nature
-│   │   ├── original/         # Classic Minimal
-│   │   ├── strawberry/       # Sweet Vibrant
-│   │   └── tonkatsu/         # Warm Earthy
+    │   ├── flavors/              # Layer 2: Themes
+    │   │   ├── sando/            # Warm Precision (default)
+    │   │   │   ├── flavor.json              # Base semantic tokens
+    │   │   │   ├── flavor-dark.json         # Dark mode overrides
+    │   │   │   ├── flavor-high-contrast.json
+    │   │   │   ├── flavor-motion-reduce.json
+    │   │   │   └── flavor-forced-colors.json
+    │   │   ├── nori/             # Raw Brutalism
+    │   │   ├── egg-salad/        # Retro Playful
+    │   │   ├── kiwi/             # Fresh Nature
+    │   │   ├── original/         # Classic Minimal
+    │   │   ├── strawberry/       # Sweet Vibrant
+    │   │   └── tonkatsu/         # Warm Earthy
 │   │
 │   └── recipes/              # Layer 3: Component Tokens
 │       ├── button.json
@@ -319,7 +319,7 @@ Only override values that differ from the base:
 | Flavor       | Personality              | Primary Accent      |
 | ------------ | ------------------------ | ------------------- |
 | `sando`      | Warm Precision (default) | Amber               |
-| `brutalist`  | Raw Brutalism            | High-contrast black |
+| `nori`       | Raw Brutalism            | High-contrast black |
 | `egg-salad`  | Retro Playful            | Warm yellow         |
 | `kiwi`       | Fresh Nature             | Green               |
 | `original`   | Classic Minimal          | Neutral             |

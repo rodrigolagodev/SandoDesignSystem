@@ -1,11 +1,11 @@
 ---
 title: Nori Flavor
-description: Japanese brutalist design meets modern web aesthetics. Pure neutrals, electric vermillion accents, sharp edges, and bold typography for maximum visual impact.
+description: High-contrast minimalism with Japanese design influences. Pure neutrals, electric vermillion accents, sharp edges, and bold typography for maximum visual impact.
 ---
 
 # Nori Flavor
 
-The Nori flavor embodies modern Japanese brutalist design principles: stark contrasts, bold typography, sharp edges, and purposeful minimalism. Inspired by contemporary Japanese web design trends and brutalist architecture, it delivers maximum visual impact through intentional restraint.
+The Nori flavor embodies stark minimalism with Japanese design principles: high contrast, bold typography, sharp edges, and purposeful minimalism. Inspired by contemporary Japanese web design trends and brutalist architecture, it delivers maximum visual impact through intentional restraint.
 
 ## Design Philosophy
 

@@ -169,11 +169,11 @@ core_rules:
     summary: "Validate contrast in light mode, dark mode, high-contrast mode, and all flavors."
     pattern:
       lang: "javascript"
-      code: |
-        // Test matrix from contrast.test.js
-        describe.each(["sando", "original", "strawberry", "brutalist", "egg-salad", "kiwi", "tonkatsu"])("Flavor: %s", (flavor) => {
-          it("validates all text/background pairs", () => {
-            const tokens = loadFlavorTokens(flavor);
+       code: |
+         // Test matrix from contrast.test.js
+         describe.each(["sando", "original", "strawberry", "nori", "egg-salad", "kiwi", "tonkatsu"])("Flavor: %s", (flavor) => {
+           it("validates all text/background pairs", () => {
+             const tokens = loadFlavorTokens(flavor);
             validateContrastPairs(tokens);
           });
         });
@@ -184,11 +184,11 @@ core_rules:
       - "Forced colors: @media (forced-colors: active)"
     flavors_to_test:
       - "sando (default)"
-      - "original"
-      - "strawberry"
-      - "brutalist"
-      - "egg-salad"
-      - "kiwi"
+       - "original"
+       - "strawberry"
+       - "nori"
+       - "egg-salad"
+       - "kiwi"
       - "tonkatsu"
     why: "Contrast ratios change dramatically in dark mode. A color pair that works in light mode may fail in dark mode. Automated tests must cover all combinations"
     reference:
@@ -388,10 +388,10 @@ tools_and_testing:
     - number: 3
       note: "Verify threshold: Confirm ≥4.5:1 (AA) or ≥7:1 (AAA)"
     - number: 4
-      note: "Test all modes: Repeat for dark mode, high contrast, forced colors"
-    - number: 5
-        note: "Test all flavors: sando, original, strawberry, brutalist, egg-salad, kiwi, tonkatsu"
-    - number: 6
+       note: "Test all modes: Repeat for dark mode, high contrast, forced colors"
+     - number: 5
+         note: "Test all flavors: sando, original, strawberry, nori, egg-salad, kiwi, tonkatsu"
+     - number: 6
       note: "Document: Record ratios in component documentation"
   spot_check_frequency: "Monthly for existing components, always for new tokens"
 

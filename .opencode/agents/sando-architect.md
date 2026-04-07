@@ -98,13 +98,13 @@ packages/tokens/src/ingredients/
 LAYER 2: FLAVORS (Themes)
 ─────────────────────────
 packages/tokens/src/flavors/
-├── sando/          # Default identity
-├── original/       # Clean baseline
-├── strawberry/     # Warm reds/pinks
-├── brutalist/      # High contrast, raw
-├── egg-salad/      # Soft yellows
-├── kiwi/           # Fresh greens
-└── tonkatsu/       # Deep browns/neutrals
+    ├── sando/          # Default identity
+    ├── original/       # Clean baseline
+    ├── strawberry/     # Warm reds/pinks
+    ├── nori/           # High contrast, raw
+    ├── egg-salad/      # Soft yellows
+    ├── kiwi/           # Fresh greens
+    └── tonkatsu/       # Deep browns/neutrals
     # Each flavor has 5 files:
     # flavor.json, flavor-dark.json,
     # flavor-high-contrast.json,
@@ -235,26 +235,28 @@ For maximum flexibility:
 
 ### Flavors vs Modes
 
-```
-FLAVORS (Brand identity) — applied via `flavor` HTML attribute
-──────────────────────────────────────────────────────────────
-- sando      (default identity)
-- original   (clean baseline)
-- strawberry (warm reds/pinks)
-- brutalist  (high contrast, raw)
-- egg-salad  (soft yellows)
-- kiwi       (fresh greens)
-- tonkatsu   (deep browns/neutrals)
-→ Different brand colors, developer-controlled
+     ```
+     FLAVORS (Brand identity) — applied via `flavor` HTML attribute
+     ──────────────────────────────────────────────────────────────
+     - sando      (default identity)
+     - original   (clean baseline)
+     - strawberry (warm reds/pinks)
+     - nori       (high contrast, raw)
+     - egg-salad  (soft yellows)
+     - kiwi       (fresh greens)
+     - tonkatsu   (deep browns/neutrals)
+     → Different brand colors, developer-controlled
 
 MODES (User preference) — automatic via CSS @media queries
 ──────────────────────────────────────────────────────────
-- dark           (prefers-color-scheme: dark)
-- high-contrast  (prefers-contrast: high)
-- forced-colors  (forced-colors: active)
-- motion-reduce  (prefers-reduced-motion: reduce)
-→ Same brand, different accessibility variant, user-controlled
-```
+
+- dark (prefers-color-scheme: dark)
+- high-contrast (prefers-contrast: high)
+- forced-colors (forced-colors: active)
+- motion-reduce (prefers-reduced-motion: reduce)
+  → Same brand, different accessibility variant, user-controlled
+
+````
 
 ### Flavor Inheritance
 
@@ -276,7 +278,7 @@ MODES (User preference) — automatic via CSS @media queries
     <!-- All components inherit original flavor -->
   </body>
 </html>
-```
+````
 
 > ⚠️ There is NO `<sando-provider>` component. Flavor inheritance is achieved
 > via the `flavor` HTML attribute on any element — powered by `FlavorableMixin`.

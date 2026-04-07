@@ -121,10 +121,10 @@ Base unit: **14px (0.875rem)** — body text. This is smaller than the current `
 | ------------------ | ---------- | ------------------------------------------------------------------- | -------------------------------------------------- |
 | **400 (Regular)**  | Body       | Body text, descriptions, paragraphs, form values                    | Headings, labels, navigation items                 |
 | **500 (Medium)**   | Emphasis   | Labels, nav items, table headers, button text, emphasis within body | Body text, headings                                |
-| **600 (Semibold)** | _Reserved_ | Only for specific flavor overrides (e.g., brutalist)                | General use — skip this weight in the Sando flavor |
+| **600 (Semibold)** | _Reserved_ | Only for specific flavor overrides (e.g., nori)                     | General use — skip this weight in the Sando flavor |
 | **700 (Bold)**     | Heading    | Headings (h1-h6), card titles, section headers, pricing             | Body text, form labels, buttons                    |
 
-**Rule**: In the Sando flagship flavor, only three weights appear in any given screen: 400, 500, 700. The 600 weight exists in ingredients for flavors that want a denser weight stack (e.g., brutalist, tonkatsu) but the Sando flavor explicitly skips it.
+**Rule**: In the Sando flagship flavor, only three weights appear in any given screen: 400, 500, 700. The 600 weight exists in ingredients for flavors that want a denser weight stack (e.g., nori, tonkatsu) but the Sando flavor explicitly skips it.
 
 ### 2.4 Line Height Rules
 

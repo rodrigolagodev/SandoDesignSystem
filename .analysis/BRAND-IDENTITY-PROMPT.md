@@ -87,7 +87,7 @@ El referenciado es estrictamente unidireccional: Recipes → Flavors → Ingredi
 | **strawberry** | pink.600       | neutral-cool | Fresco, moderno                |
 | **egg-salad**  | yellow.600     | neutral-warm | Luminoso, amigable             |
 | **kiwi**       | green.600      | neutral-cool | Natural, crecimiento           |
-| **brutalist**  | vermillion.600 | ink          | Stark, impactante, sin sombras |
+| **nori**       | vermillion.600 | ink          | Stark, impactante, sin sombras |
 
 Cada flavor se entrega con 5 archivos de modo (base, dark, high-contrast, forced-colors, motion-reduce). 7 flavors × 5 modos = 35 archivos de tema.
 
@@ -196,7 +196,7 @@ Preguntas:
 
 Actualmente: orange(38°), blue(230°), green(145°), red(15°), purple(290°), pink(350°), yellow(90°), brown(50°).
 
-Más las adiciones especiales: vermillion(25°) para brutalist, ink(acromático) como gris puro.
+Más las adiciones especiales: vermillion(25°) para nori, ink(acromático) como gris puro.
 
 Preguntas:
 
@@ -260,7 +260,7 @@ Cualquier recomendación DEBE cumplir:
 3. **WCAG AA mínimo**: 4.5:1 para texto normal, 3:1 para texto grande. En todos los modos (light, dark, high-contrast).
 4. **5 modos de accesibilidad**: Cada decisión de color debe funcionar en base, dark, high-contrast, forced-colors, y motion-reduce.
 5. **3 capas de tokens**: Las decisiones visuales se implementan como Ingredients → Flavors → Recipes. No hay atajos.
-6. **7 flavors existentes**: Las decisiones deben funcionar para los 7 flavors (original, sando, tonkatsu, strawberry, egg-salad, kiwi, brutalist). No se puede hacer algo que solo funcione para tonkatsu.
+6. **7 flavors existentes**: Las decisiones deben funcionar para los 7 flavors (original, sando, tonkatsu, strawberry, egg-salad, kiwi, nori). No se puede hacer algo que solo funcione para tonkatsu.
 7. **CSS custom properties**: Todo se distribuye como variables CSS. No CSS-in-JS, no Tailwind classes.
 8. **Web Components con Shadow DOM**: Los estilos están encapsulados. No hay cascada CSS global dentro de componentes.
 9. **Compatibilidad con el generador algorítmico**: La curva de luminosidad y los ajustes de chroma deben poder expresarse como función (no solo valores hardcodeados por paleta).

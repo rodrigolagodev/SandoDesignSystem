@@ -475,10 +475,10 @@ focus_visible_styles:
           outline: 2px solid var(--sando-color-action-focus);
           outline-offset: 2px;
         }
-    verify_in_all_themes:
-      - "Original flavor"
-      - "All flavors: sando, original, strawberry, brutalist, egg-salad, kiwi, tonkatsu"
-      - "Light mode, dark mode, high-contrast mode"
+     verify_in_all_themes:
+       - "Original flavor"
+       - "All flavors: sando, original, strawberry, nori, egg-salad, kiwi, tonkatsu"
+       - "Light mode, dark mode, high-contrast mode"
 
 testing:
   id: "KN-TST"

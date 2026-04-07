@@ -198,19 +198,19 @@ Pre-digested rules per skill. Delegators copy matching blocks into sub-agent pro
 
 ## Project Conventions
 
-| File                   | Path                                                               | Notes                                                                        |
-| ---------------------- | ------------------------------------------------------------------ | ---------------------------------------------------------------------------- |
-| Agent instructions     | `.opencode/agents/`                                                | All Sando AI agents — orchestrator + 8 specialists                           |
-| Guidelines index       | `.opencode/guidelines/GUIDELINES_INDEX.toon`                       | Master index — 32 guidelines across 7 categories                             |
-| Token architecture     | `.opencode/guidelines/01-design-system/TOKEN_ARCHITECTURE.toon`    | 3-layer system: Ingredients → Flavors → Recipes                              |
-| Component architecture | `.opencode/guidelines/02-architecture/COMPONENT_ARCHITECTURE.toon` | 7-file pattern, Lit 3+, Shadow DOM                                           |
-| Naming conventions     | `.opencode/guidelines/03-development/NAMING_CONVENTIONS.toon`      | sando-\* prefix, camelCase tokens                                            |
-| WCAG compliance        | `.opencode/guidelines/04-accessibility/WCAG_COMPLIANCE.toon`       | AA minimum, axe-core validation                                              |
-| Test coverage          | `.opencode/guidelines/05-quality/TEST_COVERAGE.toon`               | 80% unit + 100% a11y on interactive                                          |
-| Voice & tone           | `.opencode/guidelines/07-communication/VOICE_AND_TONE.toon`        | Copy and microcopy standards                                                 |
-| PR template            | `.github/PULL_REQUEST_TEMPLATE.md`                                 | Use for every PR body                                                        |
-| Main components index  | `packages/components/src/index.ts`                                 | Update when adding new components                                            |
-| Token recipes dir      | `packages/tokens/src/recipes/`                                     | One JSON file per component                                                  |
-| Flavors dir            | `packages/tokens/src/flavors/`                                     | 7 flavors: sando, brutalist, egg-salad, kiwi, original, strawberry, tonkatsu |
+| File                   | Path                                                               | Notes                                                                   |
+| ---------------------- | ------------------------------------------------------------------ | ----------------------------------------------------------------------- |
+| Agent instructions     | `.opencode/agents/`                                                | All Sando AI agents — orchestrator + 8 specialists                      |
+| Guidelines index       | `.opencode/guidelines/GUIDELINES_INDEX.toon`                       | Master index — 32 guidelines across 7 categories                        |
+| Token architecture     | `.opencode/guidelines/01-design-system/TOKEN_ARCHITECTURE.toon`    | 3-layer system: Ingredients → Flavors → Recipes                         |
+| Component architecture | `.opencode/guidelines/02-architecture/COMPONENT_ARCHITECTURE.toon` | 7-file pattern, Lit 3+, Shadow DOM                                      |
+| Naming conventions     | `.opencode/guidelines/03-development/NAMING_CONVENTIONS.toon`      | sando-\* prefix, camelCase tokens                                       |
+| WCAG compliance        | `.opencode/guidelines/04-accessibility/WCAG_COMPLIANCE.toon`       | AA minimum, axe-core validation                                         |
+| Test coverage          | `.opencode/guidelines/05-quality/TEST_COVERAGE.toon`               | 80% unit + 100% a11y on interactive                                     |
+| Voice & tone           | `.opencode/guidelines/07-communication/VOICE_AND_TONE.toon`        | Copy and microcopy standards                                            |
+| PR template            | `.github/PULL_REQUEST_TEMPLATE.md`                                 | Use for every PR body                                                   |
+| Main components index  | `packages/components/src/index.ts`                                 | Update when adding new components                                       |
+| Token recipes dir      | `packages/tokens/src/recipes/`                                     | One JSON file per component                                             |
+| Flavors dir            | `packages/tokens/src/flavors/`                                     | 7 flavors: sando, nori, egg-salad, kiwi, original, strawberry, tonkatsu |
 
 Read the convention files listed above for project-specific patterns and rules.

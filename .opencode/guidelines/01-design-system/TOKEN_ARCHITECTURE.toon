@@ -117,11 +117,11 @@ core_rules:
     concepts:
       - id: "TA-CR-R4-C1"
         title: "Flavors (Manual brand themes)"
-        characteristics:
-          - "Selected via `flavor='name'` attribute"
-          - "Examples: `sando`, `original`, `strawberry`, `brutalist`, `egg-salad`, `kiwi`, `tonkatsu`"
-          - "**Developer chooses** which flavor to apply"
-          - "Created by adding Flavor files: `src/flavors/{name}/flavor.json`"
+         characteristics:
+           - "Selected via `flavor='name'` attribute"
+           - "Examples: `sando`, `original`, `strawberry`, `nori`, `egg-salad`, `kiwi`, `tonkatsu`"
+           - "**Developer chooses** which flavor to apply"
+           - "Created by adding Flavor files: `src/flavors/{name}/flavor.json`"
       - id: "TA-CR-R4-C2"
         title: "Modes (Automatic accessibility)"
         characteristics:
@@ -684,10 +684,10 @@ design_language_notes:
       - weight: 500
         name: "Medium"
         use: "Labels, nav items, table headers, button text, emphasis within body"
-      - weight: 600
-        name: "Semibold (RESERVED)"
-        use: "Only for specific flavor overrides (e.g., brutalist, tonkatsu). NEVER used in Sando flavor."
-      - weight: 700
+       - weight: 600
+         name: "Semibold (RESERVED)"
+         use: "Only for specific flavor overrides (e.g., nori, tonkatsu). NEVER used in Sando flavor."
+       - weight: 700
         name: "Bold"
         use: "Headings (h1-h6), card titles, section headers"
     rules:

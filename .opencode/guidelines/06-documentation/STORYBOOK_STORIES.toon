@@ -166,11 +166,11 @@ core_rules:
         const meta: Meta = {
           title: "Components/Button",
           argTypes: {
-            flavor: {
-              control: "select",
-              options: ["sando", "original", "strawberry", "brutalist", "egg-salad", "kiwi", "tonkatsu"],
-              description: "Theme flavor (inherited from ancestor)",
-            },
+             flavor: {
+               control: "select",
+               options: ["sando", "original", "strawberry", "nori", "egg-salad", "kiwi", "tonkatsu"],
+               description: "Theme flavor (inherited from ancestor)",
+             },
             // ❌ DO NOT add flavorMode control - it's automatic
           },
         };
@@ -381,11 +381,11 @@ common_patterns:
     lang: "typescript"
     code: |
       export const AllFlavors: Story = {
-        render: () => html`
-          <div style="display: grid; gap: 24px;">
-            ${["sando", "original", "strawberry", "brutalist", "egg-salad", "kiwi", "tonkatsu"].map(flavor => html`
-              <div flavor="${flavor}">
-                <sando-button>Solid</sando-button>
+         render: () => html`
+           <div style="display: grid; gap: 24px;">
+             ${["sando", "original", "strawberry", "nori", "egg-salad", "kiwi", "tonkatsu"].map(flavor => html`
+               <div flavor="${flavor}">
+                 <sando-button>Solid</sando-button>
               </div>
             `)}
           </div>
