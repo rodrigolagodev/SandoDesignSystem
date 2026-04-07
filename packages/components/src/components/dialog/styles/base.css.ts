@@ -190,6 +190,11 @@ export const baseStyles = css`
     margin: 0;
   }
 
+  /* When no-header: body recovers its top padding (header is hidden) */
+  :host([no-header]) [part='body'] {
+    padding-block-start: var(--sando-dialog-body-paddingBlock);
+  }
+
   /* ========================================
      FOOTER — built-in buttons (flex row, space-between)
      ======================================== */
