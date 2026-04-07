@@ -51,15 +51,15 @@ const meta: Meta = {
       size=${args.size}
       variant=${args.variant}
       ?no-header=${args.noHeader}
-      ?dismissible=${args.dismissible}
+      .dismissible=${args.dismissible}
       confirm-label=${args.confirmLabel}
       confirm-variant=${args.confirmVariant}
       confirm-status=${args.confirmStatus}
-      ?show-confirm=${args.showConfirm}
+      .showConfirm=${args.showConfirm}
       cancel-label=${args.cancelLabel}
       cancel-variant=${args.cancelVariant}
       cancel-status=${args.cancelStatus}
-      ?show-cancel=${args.showCancel}
+      .showCancel=${args.showCancel}
     >
       <span slot="title">${args.title}</span>
       ${args.description ? html`<span slot="description">${args.description}</span>` : nothing}
@@ -228,7 +228,7 @@ const meta: Meta = {
   },
 
   args: {
-    open: true,
+    open: false,
     type: 'dialog',
     size: 'md',
     variant: 'elevated',
@@ -283,15 +283,15 @@ export const Default: Story = {
       size=${args.size}
       variant=${args.variant}
       ?no-header=${args.noHeader}
-      ?dismissible=${args.dismissible}
+      .dismissible=${args.dismissible}
       confirm-label=${args.confirmLabel}
       confirm-variant=${args.confirmVariant}
       confirm-status=${args.confirmStatus}
-      ?show-confirm=${args.showConfirm}
+      .showConfirm=${args.showConfirm}
       cancel-label=${args.cancelLabel}
       cancel-variant=${args.cancelVariant}
       cancel-status=${args.cancelStatus}
-      ?show-cancel=${args.showCancel}
+      .showCancel=${args.showCancel}
     >
       <span slot="title">${args.title}</span>
       ${args.description ? html`<span slot="description">${args.description}</span>` : nothing}
@@ -327,15 +327,15 @@ export const Playground: Story = {
       size=${args.size}
       variant=${args.variant}
       ?no-header=${args.noHeader}
-      ?dismissible=${args.dismissible}
+      .dismissible=${args.dismissible}
       confirm-label=${args.confirmLabel}
       confirm-variant=${args.confirmVariant}
       confirm-status=${args.confirmStatus}
-      ?show-confirm=${args.showConfirm}
+      .showConfirm=${args.showConfirm}
       cancel-label=${args.cancelLabel}
       cancel-variant=${args.cancelVariant}
       cancel-status=${args.cancelStatus}
-      ?show-cancel=${args.showCancel}
+      .showCancel=${args.showCancel}
     >
       <span slot="title">${args.title}</span>
       ${args.description ? html`<span slot="description">${args.description}</span>` : nothing}
@@ -518,7 +518,7 @@ export const WithActions: Story = {
         <h4 style="margin: 0 0 1rem 0; font-size: 0.875rem; color: var(--sando-color-text-muted);">
           Basic Save/Cancel with Slotted Actions
         </h4>
-        <sando-dialog open size="md" ?show-confirm=${false} ?show-cancel=${false}>
+        <sando-dialog open size="md" .showConfirm=${false} .showCancel=${false}>
           <span slot="title">Save Changes</span>
           <p>Do you want to save your changes before leaving?</p>
           <sando-button slot="actions" variant="outline">Don't Save</sando-button>
@@ -531,7 +531,7 @@ export const WithActions: Story = {
         <h4 style="margin: 0 0 1rem 0; font-size: 0.875rem; color: var(--sando-color-text-muted);">
           Multiple Custom Actions
         </h4>
-        <sando-dialog open size="lg" ?show-confirm=${false} ?show-cancel=${false}>
+        <sando-dialog open size="lg" .showConfirm=${false} .showCancel=${false}>
           <span slot="title">Delete Account</span>
           <p style="margin-bottom: 1rem;">
             Deleting your account will permanently remove all data. Choose an action:
@@ -561,10 +561,10 @@ export const NotDismissible: Story = {
   render: () => html`
     <sando-dialog
       open
-      ?dismissible="${false}"
+      .dismissible=${false}
       size="md"
       confirm-label="I Understand"
-      ?show-cancel=${false}
+      .showCancel=${false}
     >
       <span slot="title">Important Notice</span>
       <p>This dialog cannot be dismissed by pressing Escape or clicking the backdrop.</p>
@@ -694,7 +694,7 @@ export const ControlledOpen: Story = {
 
       <sando-button id="trigger-btn">Open Dialog</sando-button>
 
-      <sando-dialog id="programmatic-dialog" size="md" ?show-cancel=${false} confirm-label="Close">
+      <sando-dialog id="programmatic-dialog" size="md" .showCancel=${false} confirm-label="Close">
         <span slot="title">Programmatically Opened</span>
         <p>This dialog was opened via the show() method.</p>
       </sando-dialog>
