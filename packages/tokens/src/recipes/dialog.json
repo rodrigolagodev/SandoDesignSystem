@@ -83,14 +83,14 @@
     },
     "header": {
       "paddingInline": {
-        "value": "{space.inset.emphasis.value}",
+        "value": "{space.4.value}",
         "type": "dimension",
-        "description": "Dialog header horizontal padding"
+        "description": "Dialog header horizontal padding — 16px consistent padding"
       },
       "paddingBlock": {
-        "value": "{space.3.value}",
+        "value": "{space.4.value}",
         "type": "dimension",
-        "description": "Dialog header vertical padding"
+        "description": "Dialog header vertical padding — 16px consistent padding"
       },
       "borderBottomColor": {
         "value": "transparent",
@@ -135,14 +135,14 @@
     },
     "body": {
       "paddingInline": {
-        "value": "{space.inset.emphasis.value}",
+        "value": "{space.4.value}",
         "type": "dimension",
-        "description": "Dialog body horizontal padding"
+        "description": "Dialog body horizontal padding — 16px consistent padding"
       },
       "paddingBlock": {
-        "value": "{space.inset.emphasis.value}",
+        "value": "{space.4.value}",
         "type": "dimension",
-        "description": "Dialog body vertical padding"
+        "description": "Dialog body vertical padding — 16px consistent padding"
       },
       "textColor": {
         "value": "{color.text.body.value}",
