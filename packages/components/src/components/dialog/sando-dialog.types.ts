@@ -6,19 +6,36 @@
 export type DialogType = 'dialog' | 'alert';
 
 /**
+ * Dialog surface variant
+ * - `elevated`: shadow-based depth (default)
+ * - `outlined`: border-based separation
+ */
+export type DialogVariant = 'elevated' | 'outlined';
+
+/**
  * Dialog size variants
  */
 export type DialogSize = 'sm' | 'md' | 'lg' | 'full';
 
 /**
+ * Button variant options available in the built-in action buttons
+ */
+export type DialogButtonVariant = 'solid' | 'outline' | 'ghost' | 'text';
+
+/**
+ * Button status options available in the built-in action buttons
+ */
+export type DialogButtonStatus = 'default' | 'success' | 'destructive';
+
+/**
  * Source of a close action
  */
-export type DialogCloseSource = 'escape' | 'backdrop' | 'close-button' | 'api';
+export type DialogCloseSource = 'escape' | 'backdrop' | 'close-button' | 'cancel-button' | 'api';
 
 /**
  * Source of a request-close action (only user-initiated)
  */
-export type DialogRequestCloseSource = 'escape' | 'backdrop' | 'close-button';
+export type DialogRequestCloseSource = 'escape' | 'backdrop' | 'close-button' | 'cancel-button';
 
 /**
  * Detail payload for sando-open event
@@ -91,10 +108,28 @@ export interface SandoDialogProps {
   open?: boolean;
   /** ARIA role: dialog (dismissible) vs alertdialog (not) */
   type?: DialogType;
+  /** Surface variant: elevated (shadow) or outlined (border) */
+  variant?: DialogVariant;
   /** Width size variant */
   size?: DialogSize;
   /** Hides header visually — requires aria-label for a11y */
   noHeader?: boolean;
   /** Whether Escape / backdrop click close the dialog. Forced false when type="alert" */
   dismissible?: boolean;
+  /** Label for the built-in confirm button */
+  confirmLabel?: string;
+  /** Variant for the built-in confirm button */
+  confirmVariant?: DialogButtonVariant;
+  /** Status for the built-in confirm button */
+  confirmStatus?: DialogButtonStatus;
+  /** Whether to show the built-in confirm button */
+  showConfirm?: boolean;
+  /** Label for the built-in cancel button */
+  cancelLabel?: string;
+  /** Variant for the built-in cancel button */
+  cancelVariant?: DialogButtonVariant;
+  /** Status for the built-in cancel button */
+  cancelStatus?: DialogButtonStatus;
+  /** Whether to show the built-in cancel button */
+  showCancel?: boolean;
 }

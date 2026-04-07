@@ -1,9 +1,53 @@
 {
   "dialog": {
+    "elevated": {
+      "backgroundColor": {
+        "value": "{color.background.raised.value}",
+        "type": "color",
+        "description": "Elevated variant background — clean raised surface"
+      },
+      "borderColor": {
+        "value": "{color.border.default.value}",
+        "type": "color",
+        "description": "Elevated variant border color (structural definition)"
+      },
+      "borderWidth": {
+        "value": "0px",
+        "type": "dimension",
+        "description": "Elevated variant — no visible border, defined only for consistency"
+      },
+      "boxShadow": {
+        "value": "{elevation.emphasis.value}",
+        "type": "shadow",
+        "description": "Elevated variant shadow — strong depth for floating modal"
+      }
+    },
+    "outlined": {
+      "backgroundColor": {
+        "value": "{color.background.raised.value}",
+        "type": "color",
+        "description": "Outlined variant background — clean raised surface"
+      },
+      "borderColor": {
+        "value": "{color.border.default.value}",
+        "type": "color",
+        "description": "Outlined variant border — visible 1px border"
+      },
+      "borderWidth": {
+        "value": "{border.width.default.value}",
+        "type": "dimension",
+        "description": "Outlined variant — 1px visible border"
+      },
+      "boxShadow": {
+        "value": "{elevation.muted.value}",
+        "type": "shadow",
+        "description": "Outlined variant — no shadow, border-only definition"
+      }
+    },
     "backgroundColor": {
       "value": "{color.background.raised.value}",
       "type": "color",
-      "description": "Dialog panel background — elevated surface"
+      "description": "Dialog panel background — elevated surface (fallback for elevated variant)"
     },
     "borderRadius": {
       "value": "{border.radius.emphasis.value}",
@@ -13,7 +57,7 @@
     "boxShadow": {
       "value": "{elevation.emphasis.value}",
       "type": "shadow",
-      "description": "Dialog panel shadow — elevated overlay depth"
+      "description": "Dialog panel shadow — elevated overlay depth (fallback for elevated variant)"
     },
     "maxHeight": {
       "value": "90vh",
@@ -49,14 +93,14 @@
         "description": "Dialog header vertical padding"
       },
       "borderBottomColor": {
-        "value": "{color.border.muted.value}",
+        "value": "transparent",
         "type": "color",
-        "description": "Dialog header border-bottom — subtle divider"
+        "description": "Dialog header border-bottom — removed divider (transparent)"
       },
       "borderBottomWidth": {
-        "value": "{border.width.default.value}",
+        "value": "0px",
         "type": "dimension",
-        "description": "Dialog header border-bottom width — 1px"
+        "description": "Dialog header border-bottom width — 0px (no divider)"
       },
       "titleFontSize": {
         "value": "{font.size.heading-200.value}",
@@ -128,14 +172,14 @@
         "description": "Dialog footer vertical padding"
       },
       "borderTopColor": {
-        "value": "{color.border.muted.value}",
+        "value": "transparent",
         "type": "color",
-        "description": "Dialog footer border-top — subtle divider"
+        "description": "Dialog footer border-top — removed divider (transparent)"
       },
       "borderTopWidth": {
-        "value": "{border.width.default.value}",
+        "value": "0px",
         "type": "dimension",
-        "description": "Dialog footer border-top width — 1px"
+        "description": "Dialog footer border-top width — 0px (no divider)"
       },
       "gap": {
         "value": "{space.stack.muted.value}",
@@ -153,6 +197,16 @@
         "value": "{sizing.icon.md.value}",
         "type": "dimension",
         "description": "Close button icon size — 16px"
+      },
+      "backgroundColor": {
+        "value": "transparent",
+        "type": "color",
+        "description": "Close button default background — transparent"
+      },
+      "backgroundColorHover": {
+        "value": "{color.action.ghost.background.hover.value}",
+        "type": "color",
+        "description": "Close button hover background — ghost button hover treatment"
       }
     },
     "size": {

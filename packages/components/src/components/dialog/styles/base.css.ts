@@ -62,9 +62,10 @@ export const baseStyles = css`
     max-height: var(--sando-dialog-maxHeight);
     width: var(--_dialog-width);
 
-    background-color: var(--sando-dialog-backgroundColor);
+    background-color: var(--_dialog-backgroundColor);
+    border: var(--_dialog-borderWidth) solid var(--_dialog-borderColor);
     border-radius: var(--sando-dialog-borderRadius);
-    box-shadow: var(--sando-dialog-boxShadow);
+    box-shadow: var(--_dialog-boxShadow);
     outline: none;
 
     /* Entry animation */
@@ -85,8 +86,6 @@ export const baseStyles = css`
       var(--sando-dialog-header-paddingInline) + var(--sando-dialog-closeButton-size) +
         var(--sando-dialog-header-paddingInline)
     );
-    border-bottom: var(--sando-dialog-header-borderBottomWidth) solid
-      var(--sando-dialog-header-borderBottomColor);
     flex-shrink: 0;
   }
 
@@ -154,20 +153,22 @@ export const baseStyles = css`
 
     /* Visual */
     color: var(--sando-dialog-header-titleColor);
+    background-color: var(--sando-dialog-closeButton-backgroundColor);
     border-radius: var(--sando-dialog-borderRadius);
-    opacity: 0.7;
-    transition: opacity var(--sando-dialog-animation-duration-exit)
-      var(--sando-dialog-animation-easing-exit);
+    transition:
+      background-color var(--sando-dialog-animation-duration-exit)
+        var(--sando-dialog-animation-easing-exit),
+      color var(--sando-dialog-animation-duration-exit) var(--sando-dialog-animation-easing-exit);
   }
 
   [part='close-button']:hover {
-    opacity: 1;
+    background-color: var(--sando-dialog-closeButton-backgroundColorHover);
   }
 
   [part='close-button']:focus-visible {
     outline: var(--sando-dialog-focusRing-width) solid var(--sando-dialog-focusRing-color);
     outline-offset: var(--sando-dialog-focusRing-offset);
-    opacity: 1;
+    background-color: var(--sando-dialog-closeButton-backgroundColorHover);
   }
 
   /* ========================================
@@ -194,8 +195,6 @@ export const baseStyles = css`
     gap: var(--sando-dialog-footer-gap);
     padding-block: var(--sando-dialog-footer-paddingBlock);
     padding-inline: var(--sando-dialog-footer-paddingInline);
-    border-top: var(--sando-dialog-footer-borderTopWidth) solid
-      var(--sando-dialog-footer-borderTopColor);
     flex-shrink: 0;
   }
 
@@ -256,18 +255,6 @@ export const baseStyles = css`
     }
     to {
       opacity: 0;
-    }
-  }
-
-  /* ========================================
-     REDUCED MOTION
-     ======================================== */
-  @media (prefers-reduced-motion: reduce) {
-    [part='panel'],
-    [part='backdrop'],
-    :host([data-exiting]) [part='panel'],
-    :host([data-exiting]) [part='backdrop'] {
-      animation-duration: 0.01ms !important;
     }
   }
 `;

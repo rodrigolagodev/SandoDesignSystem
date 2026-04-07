@@ -22,6 +22,7 @@
  * @fires sando-close - When dialog starts closing, detail: { source }
  * @fires sando-after-close - After exit animation completes, detail: { source }
  * @fires sando-request-close - Cancelable event before closing (user-initiated only), detail: { source }
+ * @fires sando-confirm - When the built-in confirm button is clicked
  *
  * @csspart backdrop - The overlay behind the dialog
  * @csspart panel - The dialog surface container
@@ -31,6 +32,8 @@
  * @csspart close-button - The × close button
  * @csspart body - Scrollable content area
  * @csspart footer - Footer/actions zone
+ * @csspart cancel-button - The built-in cancel button
+ * @csspart confirm-button - The built-in confirm button
  *
  * @example Basic dialog
  * ```html
@@ -64,7 +67,10 @@ import { customElement, property, query, state } from 'lit/decorators.js';
 
 import type {
   DialogType,
+  DialogVariant,
   DialogSize,
+  DialogButtonVariant,
+  DialogButtonStatus,
   DialogCloseSource,
   DialogRequestCloseSource,
   SandoDialogProps,
@@ -77,6 +83,7 @@ import { resetStyles } from '../../styles/reset.css.js';
 import { tokenStyles } from '../../styles/tokens.css.js';
 import { baseStyles, variantStyles } from './styles/index.js';
 import '../icon/sando-icon.js';
+import '../button/sando-button.js';
 
 // ============================================================================
 // Component
@@ -153,6 +160,13 @@ export class SandoDialog extends FlavorableMixin(LitElement) implements SandoDia
   size: DialogSize = 'md';
 
   /**
+   * Surface variant: elevated (shadow) or outlined (border)
+   * @default 'elevated'
+   */
+  @property({ reflect: true })
+  variant: DialogVariant = 'elevated';
+
+  /**
    * Hides header visually. Requires aria-label on the element for a11y.
    * @default false
    */
@@ -166,6 +180,66 @@ export class SandoDialog extends FlavorableMixin(LitElement) implements SandoDia
    */
   @property({ type: Boolean, reflect: true })
   dismissible = true;
+
+  // ----------------------------------------
+  // Action button props
+  // ----------------------------------------
+
+  /**
+   * Label for the built-in confirm button
+   * @default 'Confirm'
+   */
+  @property({ attribute: 'confirm-label' })
+  confirmLabel = 'Confirm';
+
+  /**
+   * Variant for the built-in confirm button
+   * @default 'solid'
+   */
+  @property({ attribute: 'confirm-variant' })
+  confirmVariant: DialogButtonVariant = 'solid';
+
+  /**
+   * Status for the built-in confirm button
+   * @default 'default'
+   */
+  @property({ attribute: 'confirm-status' })
+  confirmStatus: DialogButtonStatus = 'default';
+
+  /**
+   * Whether to show the built-in confirm button
+   * @default true
+   */
+  @property({ type: Boolean, attribute: 'show-confirm' })
+  showConfirm = true;
+
+  /**
+   * Label for the built-in cancel button
+   * @default 'Cancel'
+   */
+  @property({ attribute: 'cancel-label' })
+  cancelLabel = 'Cancel';
+
+  /**
+   * Variant for the built-in cancel button
+   * @default 'outline'
+   */
+  @property({ attribute: 'cancel-variant' })
+  cancelVariant: DialogButtonVariant = 'outline';
+
+  /**
+   * Status for the built-in cancel button
+   * @default 'default'
+   */
+  @property({ attribute: 'cancel-status' })
+  cancelStatus: DialogButtonStatus = 'default';
+
+  /**
+   * Whether to show the built-in cancel button
+   * @default true
+   */
+  @property({ type: Boolean, attribute: 'show-cancel' })
+  showCancel = true;
 
   // ========================================
   // Computed helpers
@@ -438,6 +512,14 @@ export class SandoDialog extends FlavorableMixin(LitElement) implements SandoDia
     this._requestClose('close-button');
   };
 
+  private _handleCancelButtonClick = (): void => {
+    this._requestClose('cancel-button');
+  };
+
+  private _handleConfirmButtonClick = (): void => {
+    this._emit('sando-confirm', {});
+  };
+
   // ========================================
   // Slot change handlers
   // ========================================
@@ -506,8 +588,38 @@ export class SandoDialog extends FlavorableMixin(LitElement) implements SandoDia
   }
 
   private _renderFooter() {
+    const hasBuiltInButtons = this.showConfirm || this.showCancel;
+    const isVisible = hasBuiltInButtons || this._hasActions;
     return html`
-      <div part="footer" class=${this._hasActions ? '' : 'footer-hidden'}>
+      <div part="footer" class=${isVisible ? '' : 'footer-hidden'}>
+        ${hasBuiltInButtons
+          ? html`
+              ${this.showCancel
+                ? html`
+                    <sando-button
+                      part="cancel-button"
+                      variant=${this.cancelVariant}
+                      status=${this.cancelStatus}
+                      size="md"
+                      @click=${this._handleCancelButtonClick}
+                      >${this.cancelLabel}</sando-button
+                    >
+                  `
+                : nothing}
+              ${this.showConfirm
+                ? html`
+                    <sando-button
+                      part="confirm-button"
+                      variant=${this.confirmVariant}
+                      status=${this.confirmStatus}
+                      size="md"
+                      @click=${this._handleConfirmButtonClick}
+                      >${this.confirmLabel}</sando-button
+                    >
+                  `
+                : nothing}
+            `
+          : nothing}
         <slot name="actions" @slotchange=${this._handleActionsSlotChange}></slot>
       </div>
     `;
