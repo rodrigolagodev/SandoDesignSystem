@@ -107,6 +107,21 @@ export class SandoTooltip extends FlavorableMixin(LitElement) implements SandoTo
   private _tooltipId = `sando-tooltip-${Math.random().toString(36).substring(2, 11)}`;
 
   /**
+   * Preserves the user-declared placement so flip logic always starts from it.
+   * Never mutated by _positionTooltip() — only updated when this.placement changes.
+   * @private
+   */
+  private _requestedPlacement: TooltipPlacement = 'top';
+
+  /**
+   * The computed placement after flip logic — drives CSS arrow direction via
+   * the data-effective-placement host attribute. Never overwrites this.placement.
+   * @private
+   */
+  @state()
+  private _effectivePlacement: TooltipPlacement = 'top';
+
+  /**
    * Tracks whether the pointer is over the trigger element
    * @private
    */
@@ -234,6 +249,19 @@ export class SandoTooltip extends FlavorableMixin(LitElement) implements SandoTo
 
   protected updated(changedProperties: Map<string, unknown>): void {
     super.updated(changedProperties);
+
+    // Sync requested/effective placement whenever the public prop changes
+    if (changedProperties.has('placement')) {
+      this._requestedPlacement = this.placement;
+      this._effectivePlacement = this.placement;
+    }
+
+    // Sync host attribute for CSS arrow selectors whenever effective placement changes.
+    // Uses data-effective-placement to avoid a feedback loop with the reflected
+    // `placement` property — setAttribute('placement') would re-trigger Lit's setter.
+    if (changedProperties.has('_effectivePlacement')) {
+      this.setAttribute('data-effective-placement', this._effectivePlacement);
+    }
 
     if (changedProperties.has('open')) {
       if (this.open) {
@@ -490,7 +518,7 @@ export class SandoTooltip extends FlavorableMixin(LitElement) implements SandoTo
     const vp = { w: window.innerWidth, h: window.innerHeight };
     const viewportPadding = 8;
 
-    let effectivePlacement = this.placement;
+    let effectivePlacement = this._requestedPlacement;
 
     // Auto-flip logic
     const fits = {
@@ -584,10 +612,8 @@ export class SandoTooltip extends FlavorableMixin(LitElement) implements SandoTo
       left: `${left}px`
     });
 
-    // Reflect effective placement so CSS arrows render correctly
-    if (effectivePlacement !== this.placement) {
-      this.placement = effectivePlacement;
-    }
+    // Update reactive state for CSS arrow rendering — NEVER mutate this.placement
+    this._effectivePlacement = effectivePlacement;
   }
 
   /**

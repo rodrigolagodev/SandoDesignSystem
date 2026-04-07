@@ -18,18 +18,18 @@ export const placementStyles = css`
      Arrow points DOWN toward trigger.
      Initial state: slides from slightly below.
      ======================================== */
-  :host([placement='top']) .tooltip-bubble:not([popover]),
-  :host([placement='top']) .tooltip-bubble[popover]:not(:popover-open) {
+  :host([data-effective-placement='top']) .tooltip-bubble:not([popover]),
+  :host([data-effective-placement='top']) .tooltip-bubble[popover]:not(:popover-open) {
     transform: translateY(4px);
   }
 
-  :host([placement='top']) .tooltip-bubble.is-open:not([popover]),
-  :host([placement='top']) .tooltip-bubble[popover]:popover-open {
+  :host([data-effective-placement='top']) .tooltip-bubble.is-open:not([popover]),
+  :host([data-effective-placement='top']) .tooltip-bubble[popover]:popover-open {
     transform: translateY(0);
   }
 
   /* Arrow: points down */
-  :host([placement='top']) .tooltip-bubble::before {
+  :host([data-effective-placement='top']) .tooltip-bubble::before {
     border-left: var(--sando-tooltip-arrow-size) solid transparent;
     border-right: var(--sando-tooltip-arrow-size) solid transparent;
     border-top: var(--sando-tooltip-arrow-size) solid var(--sando-tooltip-backgroundColor);
@@ -44,18 +44,18 @@ export const placementStyles = css`
      Arrow points UP toward trigger.
      Initial state: slides from slightly above.
      ======================================== */
-  :host([placement='bottom']) .tooltip-bubble:not([popover]),
-  :host([placement='bottom']) .tooltip-bubble[popover]:not(:popover-open) {
+  :host([data-effective-placement='bottom']) .tooltip-bubble:not([popover]),
+  :host([data-effective-placement='bottom']) .tooltip-bubble[popover]:not(:popover-open) {
     transform: translateY(-4px);
   }
 
-  :host([placement='bottom']) .tooltip-bubble.is-open:not([popover]),
-  :host([placement='bottom']) .tooltip-bubble[popover]:popover-open {
+  :host([data-effective-placement='bottom']) .tooltip-bubble.is-open:not([popover]),
+  :host([data-effective-placement='bottom']) .tooltip-bubble[popover]:popover-open {
     transform: translateY(0);
   }
 
   /* Arrow: points up */
-  :host([placement='bottom']) .tooltip-bubble::before {
+  :host([data-effective-placement='bottom']) .tooltip-bubble::before {
     border-left: var(--sando-tooltip-arrow-size) solid transparent;
     border-right: var(--sando-tooltip-arrow-size) solid transparent;
     border-bottom: var(--sando-tooltip-arrow-size) solid var(--sando-tooltip-backgroundColor);
@@ -70,18 +70,18 @@ export const placementStyles = css`
      Arrow points LEFT toward trigger.
      Initial state: slides from slightly left.
      ======================================== */
-  :host([placement='right']) .tooltip-bubble:not([popover]),
-  :host([placement='right']) .tooltip-bubble[popover]:not(:popover-open) {
+  :host([data-effective-placement='right']) .tooltip-bubble:not([popover]),
+  :host([data-effective-placement='right']) .tooltip-bubble[popover]:not(:popover-open) {
     transform: translateX(-4px);
   }
 
-  :host([placement='right']) .tooltip-bubble.is-open:not([popover]),
-  :host([placement='right']) .tooltip-bubble[popover]:popover-open {
+  :host([data-effective-placement='right']) .tooltip-bubble.is-open:not([popover]),
+  :host([data-effective-placement='right']) .tooltip-bubble[popover]:popover-open {
     transform: translateX(0);
   }
 
   /* Arrow: points left */
-  :host([placement='right']) .tooltip-bubble::before {
+  :host([data-effective-placement='right']) .tooltip-bubble::before {
     border-top: var(--sando-tooltip-arrow-size) solid transparent;
     border-bottom: var(--sando-tooltip-arrow-size) solid transparent;
     border-right: var(--sando-tooltip-arrow-size) solid var(--sando-tooltip-backgroundColor);
@@ -96,18 +96,18 @@ export const placementStyles = css`
      Arrow points RIGHT toward trigger.
      Initial state: slides from slightly right.
      ======================================== */
-  :host([placement='left']) .tooltip-bubble:not([popover]),
-  :host([placement='left']) .tooltip-bubble[popover]:not(:popover-open) {
+  :host([data-effective-placement='left']) .tooltip-bubble:not([popover]),
+  :host([data-effective-placement='left']) .tooltip-bubble[popover]:not(:popover-open) {
     transform: translateX(4px);
   }
 
-  :host([placement='left']) .tooltip-bubble.is-open:not([popover]),
-  :host([placement='left']) .tooltip-bubble[popover]:popover-open {
+  :host([data-effective-placement='left']) .tooltip-bubble.is-open:not([popover]),
+  :host([data-effective-placement='left']) .tooltip-bubble[popover]:popover-open {
     transform: translateX(0);
   }
 
   /* Arrow: points right */
-  :host([placement='left']) .tooltip-bubble::before {
+  :host([data-effective-placement='left']) .tooltip-bubble::before {
     border-top: var(--sando-tooltip-arrow-size) solid transparent;
     border-bottom: var(--sando-tooltip-arrow-size) solid transparent;
     border-left: var(--sando-tooltip-arrow-size) solid var(--sando-tooltip-backgroundColor);
@@ -121,18 +121,18 @@ export const placementStyles = css`
      Bubble above, ends at trigger center.
      Arrow at bottom-RIGHT edge (points to trigger center).
      ======================================== */
-  :host([placement='top-start']) .tooltip-bubble:not([popover]),
-  :host([placement='top-start']) .tooltip-bubble[popover]:not(:popover-open) {
+  :host([data-effective-placement='top-start']) .tooltip-bubble:not([popover]),
+  :host([data-effective-placement='top-start']) .tooltip-bubble[popover]:not(:popover-open) {
     transform: translateY(4px);
   }
 
-  :host([placement='top-start']) .tooltip-bubble.is-open:not([popover]),
-  :host([placement='top-start']) .tooltip-bubble[popover]:popover-open {
+  :host([data-effective-placement='top-start']) .tooltip-bubble.is-open:not([popover]),
+  :host([data-effective-placement='top-start']) .tooltip-bubble[popover]:popover-open {
     transform: translateY(0);
   }
 
   /* Arrow at bottom-right inner corner */
-  :host([placement='top-start']) .tooltip-bubble::before {
+  :host([data-effective-placement='top-start']) .tooltip-bubble::before {
     border-left: var(--sando-tooltip-arrow-size) solid transparent;
     border-right: var(--sando-tooltip-arrow-size) solid transparent;
     border-top: var(--sando-tooltip-arrow-size) solid var(--sando-tooltip-backgroundColor);
@@ -146,18 +146,18 @@ export const placementStyles = css`
      Bubble above, starts at trigger center.
      Arrow at bottom-LEFT edge (points to trigger center).
      ======================================== */
-  :host([placement='top-end']) .tooltip-bubble:not([popover]),
-  :host([placement='top-end']) .tooltip-bubble[popover]:not(:popover-open) {
+  :host([data-effective-placement='top-end']) .tooltip-bubble:not([popover]),
+  :host([data-effective-placement='top-end']) .tooltip-bubble[popover]:not(:popover-open) {
     transform: translateY(4px);
   }
 
-  :host([placement='top-end']) .tooltip-bubble.is-open:not([popover]),
-  :host([placement='top-end']) .tooltip-bubble[popover]:popover-open {
+  :host([data-effective-placement='top-end']) .tooltip-bubble.is-open:not([popover]),
+  :host([data-effective-placement='top-end']) .tooltip-bubble[popover]:popover-open {
     transform: translateY(0);
   }
 
   /* Arrow at bottom-left inner corner */
-  :host([placement='top-end']) .tooltip-bubble::before {
+  :host([data-effective-placement='top-end']) .tooltip-bubble::before {
     border-left: var(--sando-tooltip-arrow-size) solid transparent;
     border-right: var(--sando-tooltip-arrow-size) solid transparent;
     border-top: var(--sando-tooltip-arrow-size) solid var(--sando-tooltip-backgroundColor);
@@ -171,18 +171,18 @@ export const placementStyles = css`
      Bubble below, ends at trigger center.
      Arrow at top-RIGHT edge (points to trigger center).
      ======================================== */
-  :host([placement='bottom-start']) .tooltip-bubble:not([popover]),
-  :host([placement='bottom-start']) .tooltip-bubble[popover]:not(:popover-open) {
+  :host([data-effective-placement='bottom-start']) .tooltip-bubble:not([popover]),
+  :host([data-effective-placement='bottom-start']) .tooltip-bubble[popover]:not(:popover-open) {
     transform: translateY(-4px);
   }
 
-  :host([placement='bottom-start']) .tooltip-bubble.is-open:not([popover]),
-  :host([placement='bottom-start']) .tooltip-bubble[popover]:popover-open {
+  :host([data-effective-placement='bottom-start']) .tooltip-bubble.is-open:not([popover]),
+  :host([data-effective-placement='bottom-start']) .tooltip-bubble[popover]:popover-open {
     transform: translateY(0);
   }
 
   /* Arrow at top-right inner corner */
-  :host([placement='bottom-start']) .tooltip-bubble::before {
+  :host([data-effective-placement='bottom-start']) .tooltip-bubble::before {
     border-left: var(--sando-tooltip-arrow-size) solid transparent;
     border-right: var(--sando-tooltip-arrow-size) solid transparent;
     border-bottom: var(--sando-tooltip-arrow-size) solid var(--sando-tooltip-backgroundColor);
@@ -196,18 +196,18 @@ export const placementStyles = css`
      Bubble below, starts at trigger center.
      Arrow at top-LEFT edge (points to trigger center).
      ======================================== */
-  :host([placement='bottom-end']) .tooltip-bubble:not([popover]),
-  :host([placement='bottom-end']) .tooltip-bubble[popover]:not(:popover-open) {
+  :host([data-effective-placement='bottom-end']) .tooltip-bubble:not([popover]),
+  :host([data-effective-placement='bottom-end']) .tooltip-bubble[popover]:not(:popover-open) {
     transform: translateY(-4px);
   }
 
-  :host([placement='bottom-end']) .tooltip-bubble.is-open:not([popover]),
-  :host([placement='bottom-end']) .tooltip-bubble[popover]:popover-open {
+  :host([data-effective-placement='bottom-end']) .tooltip-bubble.is-open:not([popover]),
+  :host([data-effective-placement='bottom-end']) .tooltip-bubble[popover]:popover-open {
     transform: translateY(0);
   }
 
   /* Arrow at top-left inner corner */
-  :host([placement='bottom-end']) .tooltip-bubble::before {
+  :host([data-effective-placement='bottom-end']) .tooltip-bubble::before {
     border-left: var(--sando-tooltip-arrow-size) solid transparent;
     border-right: var(--sando-tooltip-arrow-size) solid transparent;
     border-bottom: var(--sando-tooltip-arrow-size) solid var(--sando-tooltip-backgroundColor);
@@ -221,8 +221,8 @@ export const placementStyles = css`
      When no placement attribute is set,
      default to top behavior.
      ======================================== */
-  :host(:not([placement])) .tooltip-bubble:not([popover]),
-  :host([placement='top']) .tooltip-bubble:not([popover]) {
+  :host(:not([data-effective-placement])) .tooltip-bubble:not([popover]),
+  :host([data-effective-placement='top']) .tooltip-bubble:not([popover]) {
     transform: translateY(4px);
   }
 `;
