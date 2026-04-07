@@ -189,22 +189,52 @@ describe('sando-dialog', () => {
       `);
       await element.updateComplete;
 
+      // For type="alert", _showCloseButton = false → button is not rendered in DOM at all
       const closeBtn = element.shadowRoot?.querySelector('[part="close-button"]');
-      // For type="alert", _showCloseButton = false → class is close-button-hidden
-      expect(closeBtn?.classList.contains('close-button-hidden')).toBe(true);
+      expect(closeBtn).toBeNull();
     });
 
     it('should hide close button when dismissible=false', async () => {
       element = await fixture<SandoDialog>(html`
-        <sando-dialog dismissible="false" open>
+        <sando-dialog open>
           <span slot="title">Title</span>
         </sando-dialog>
       `);
       element.dismissible = false;
       await element.updateComplete;
 
+      // dismissible=false → _showCloseButton = false → button is not rendered in DOM at all
       const closeBtn = element.shadowRoot?.querySelector('[part="close-button"]');
-      expect(closeBtn?.classList.contains('close-button-hidden')).toBe(true);
+      expect(closeBtn).toBeNull();
+    });
+
+    it('should render close button when noHeader=true and dismissible=true', async () => {
+      element = await fixture<SandoDialog>(html`
+        <sando-dialog no-header dismissible open aria-label="Regression test dialog">
+          <p>Body content</p>
+        </sando-dialog>
+      `);
+      await element.updateComplete;
+
+      // Regression: close button must be in DOM even when noHeader=true
+      const closeBtn = element.shadowRoot?.querySelector('[part="close-button"]');
+      expect(closeBtn).not.toBeNull();
+
+      // The button must not be hidden inside a visually-hidden container
+      const visHidden = closeBtn?.closest('.sr-only, .visually-hidden, [aria-hidden="true"]');
+      expect(visHidden).toBeNull();
+
+      // Clicking the close button fires sando-request-close
+      let requestCloseDetail: DialogRequestCloseEventDetail | null = null;
+      element.addEventListener('sando-request-close', (e: Event) => {
+        requestCloseDetail = (e as CustomEvent<DialogRequestCloseEventDetail>).detail;
+      });
+
+      (closeBtn as HTMLButtonElement)?.click();
+      await element.updateComplete;
+
+      expect(requestCloseDetail).not.toBeNull();
+      expect(requestCloseDetail!.source).toBe('close-button');
     });
 
     it('should be accessible by default', async () => {

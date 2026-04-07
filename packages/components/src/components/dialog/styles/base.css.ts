@@ -5,7 +5,7 @@
  * - Host display and visibility management
  * - Backdrop overlay
  * - Panel surface (fixed, centered)
- * - Header zone (title + description + close button)
+ * - Header zone (title + description — close button is now a panel sibling)
  * - Body scrollable area
  * - Footer / actions zone
  * - Enter/exit animations (panel + backdrop)
@@ -77,11 +77,14 @@ export const baseStyles = css`
      ======================================== */
   [part='header'] {
     display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    gap: var(--sando-dialog-body-paddingInline);
+    flex-direction: column;
     padding-block: var(--sando-dialog-header-paddingBlock);
     padding-inline: var(--sando-dialog-header-paddingInline);
+    /* Reserve inline-end space so title text doesn't run under the close button */
+    padding-inline-end: calc(
+      var(--sando-dialog-header-paddingInline) + var(--sando-dialog-closeButton-size) +
+        var(--sando-dialog-header-paddingInline)
+    );
     border-bottom: var(--sando-dialog-header-borderBottomWidth) solid
       var(--sando-dialog-header-borderBottomColor);
     flex-shrink: 0;
@@ -123,6 +126,8 @@ export const baseStyles = css`
 
   /* ========================================
      CLOSE BUTTON
+     Absolutely positioned relative to [part='panel'] (position: fixed
+     also creates a containing block for absolutely-positioned children).
      ======================================== */
   [part='close-button'] {
     /* Reset */
@@ -142,15 +147,17 @@ export const baseStyles = css`
     width: var(--sando-dialog-closeButton-size);
     height: var(--sando-dialog-closeButton-size);
 
+    /* Absolute positioning — top-inline-end corner of panel */
+    position: absolute;
+    inset-block-start: var(--sando-dialog-header-paddingBlock);
+    inset-inline-end: var(--sando-dialog-header-paddingInline);
+
     /* Visual */
     color: var(--sando-dialog-header-titleColor);
     border-radius: var(--sando-dialog-borderRadius);
     opacity: 0.7;
     transition: opacity var(--sando-dialog-animation-duration-exit)
       var(--sando-dialog-animation-easing-exit);
-    align-self: flex-start;
-    margin-block-start: -0.125rem; /* micro-align with title */
-    margin-inline-end: -0.25rem;
   }
 
   [part='close-button']:hover {
@@ -161,10 +168,6 @@ export const baseStyles = css`
     outline: var(--sando-dialog-focusRing-width) solid var(--sando-dialog-focusRing-color);
     outline-offset: var(--sando-dialog-focusRing-offset);
     opacity: 1;
-  }
-
-  .close-button-hidden {
-    display: none;
   }
 
   /* ========================================

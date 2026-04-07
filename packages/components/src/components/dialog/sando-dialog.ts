@@ -176,7 +176,7 @@ export class SandoDialog extends FlavorableMixin(LitElement) implements SandoDia
     return this.type !== 'alert' && this.dismissible;
   }
 
-  /** Whether the close button should be visible */
+  /** Whether the close button should be rendered */
   private get _showCloseButton(): boolean {
     return this._effectiveDismissible;
   }
@@ -501,20 +501,6 @@ export class SandoDialog extends FlavorableMixin(LitElement) implements SandoDia
             <slot name="description" @slotchange=${this._handleDescriptionSlotChange}></slot>
           </div>
         </div>
-        <button
-          type="button"
-          part="close-button"
-          class=${this._showCloseButton ? '' : 'close-button-hidden'}
-          aria-label="Close dialog"
-          @click=${this._handleCloseButtonClick}
-        >
-          <sando-icon
-            name="x"
-            decorative
-            inherit-color
-            custom-size="var(--sando-dialog-closeButton-iconSize)"
-          ></sando-icon>
-        </button>
       </div>
     `;
   }
@@ -547,6 +533,23 @@ export class SandoDialog extends FlavorableMixin(LitElement) implements SandoDia
         tabindex="-1"
       >
         ${this._renderHeader()}
+        ${this._showCloseButton
+          ? html`
+              <button
+                type="button"
+                part="close-button"
+                aria-label="Close dialog"
+                @click=${this._handleCloseButtonClick}
+              >
+                <sando-icon
+                  name="x"
+                  decorative
+                  inherit-color
+                  custom-size="var(--sando-dialog-closeButton-iconSize)"
+                ></sando-icon>
+              </button>
+            `
+          : nothing}
 
         <div part="body">
           <slot></slot>
