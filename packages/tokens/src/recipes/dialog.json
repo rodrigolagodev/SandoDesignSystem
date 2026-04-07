@@ -162,12 +162,12 @@
     },
     "footer": {
       "paddingInline": {
-        "value": "{space.inset.emphasis.value}",
+        "value": "{space.4.value}",
         "type": "dimension",
         "description": "Dialog footer horizontal padding"
       },
       "paddingBlock": {
-        "value": "{space.inset.emphasis.value}",
+        "value": "{space.4.value}",
         "type": "dimension",
         "description": "Dialog footer vertical padding"
       },

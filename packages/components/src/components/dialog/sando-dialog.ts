@@ -606,8 +606,6 @@ export class SandoDialog extends FlavorableMixin(LitElement) implements SandoDia
                       variant=${this.cancelVariant}
                       status=${this.cancelStatus}
                       size="md"
-                      radius="none"
-                      full-width
                       @click=${this._handleCancelButtonClick}
                       >${this.cancelLabel}</sando-button
                     >
@@ -620,8 +618,6 @@ export class SandoDialog extends FlavorableMixin(LitElement) implements SandoDia
                       variant=${this.confirmVariant}
                       status=${this.confirmStatus}
                       size="md"
-                      radius="none"
-                      full-width
                       @click=${this._handleConfirmButtonClick}
                       >${this.confirmLabel}</sando-button
                     >

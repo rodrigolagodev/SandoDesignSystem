@@ -178,7 +178,6 @@ export const baseStyles = css`
     flex: 1;
     overflow-y: auto;
     padding-block: var(--sando-dialog-body-paddingBlock);
-    padding-block-start: calc(var(--sando-dialog-body-paddingBlock) / 2);
     padding-inline: var(--sando-dialog-body-paddingInline);
     color: var(--sando-dialog-body-textColor);
     font-size: var(--sando-dialog-body-fontSize);
@@ -186,14 +185,11 @@ export const baseStyles = css`
   }
 
   /* ========================================
-     FOOTER — built-in buttons (50/50 layout)
+     FOOTER — built-in buttons (flex row, space-between)
      ======================================== */
   [part='footer'] {
-    display: flex;
-    flex-direction: row;
-    align-items: stretch;
-    gap: 0;
-    padding: 0;
+    padding-block: var(--sando-dialog-footer-paddingBlock);
+    padding-inline: var(--sando-dialog-footer-paddingInline);
     flex-shrink: 0;
     background-color: var(--sando-dialog-footer-backgroundColor);
     border-top: var(--sando-dialog-footer-dividerWidth) solid
@@ -203,22 +199,18 @@ export const baseStyles = css`
     overflow: hidden;
   }
 
-  /* Built-in buttons: each takes 50% width */
-  [part='footer'] sando-button[part='cancel-button'],
-  [part='footer'] sando-button[part='confirm-button'] {
-    flex: 1;
+  /* Footer built-in: flex row, espacio entre botones */
+  [part='footer']:not(.footer--slot-only):not(.footer-hidden) {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sando-dialog-footer-gap);
   }
 
-  /* Cancel button: right border acts as divider between buttons */
-  [part='footer'] sando-button[part='cancel-button'] {
-    border-inline-end: var(--sando-dialog-footer-dividerWidth) solid
-      var(--sando-dialog-footer-dividerColor);
-  }
-
-  /* Single button: takes full width, no divider */
+  /* Single button: ocupa todo el ancho */
   [part='footer'] sando-button:only-child {
     flex: 1;
-    border-inline-end: none;
   }
 
   /* Slot-only footer: restore normal padding/gap layout */
