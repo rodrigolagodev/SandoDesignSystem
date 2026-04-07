@@ -1,0 +1,64 @@
+{
+  "tooltip": {
+    "backgroundColor": {
+      "value": "{color.background.tooltip.value}",
+      "type": "color"
+    },
+    "textColor": {
+      "value": "{color.text.tooltip.value}",
+      "type": "color"
+    },
+    "borderRadius": {
+      "value": "{border.radius.default.value}",
+      "type": "dimension"
+    },
+    "paddingBlock": {
+      "value": "{space.inset.muted.value}",
+      "type": "dimension"
+    },
+    "paddingInline": {
+      "value": "{space.inset.default.value}",
+      "type": "dimension"
+    },
+    "maxWidth": {
+      "value": "15rem",
+      "type": "dimension"
+    },
+    "boxShadow": {
+      "value": "{elevation.emphasis.value}",
+      "type": "shadow"
+    },
+    "fontSize": {
+      "value": "{font.size.caption.value}",
+      "type": "dimension"
+    },
+    "fontWeight": {
+      "value": "{font.weight.body.value}",
+      "type": "fontWeight"
+    },
+    "lineHeight": {
+      "value": "{font.lineHeight.body.value}",
+      "type": "number"
+    },
+    "arrow": {
+      "size": {
+        "value": "{space.inset.muted.value}",
+        "type": "dimension"
+      }
+    },
+    "transition": {
+      "duration": {
+        "value": "{animation.duration.fast.value}",
+        "type": "duration"
+      },
+      "timing": {
+        "value": "{animation.easing.entrance.value}",
+        "type": "cubicBezier"
+      }
+    },
+    "zIndex": {
+      "value": "{z-index.popover.value}",
+      "type": "number"
+    }
+  }
+}

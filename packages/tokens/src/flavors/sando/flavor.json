@@ -18,6 +18,10 @@
         "value": "{color.neutral.950.value}",
         "type": "color"
       },
+      "tooltip": {
+        "value": "{color.neutral.950.value}",
+        "type": "color"
+      },
       "emphasis": {
         "value": "{color.neutralWarm.200.value}",
         "type": "color"
@@ -68,6 +72,10 @@
         "type": "color"
       },
       "on-solid": {
+        "value": "{color.utility.white.value}",
+        "type": "color"
+      },
+      "tooltip": {
         "value": "{color.utility.white.value}",
         "type": "color"
       },
