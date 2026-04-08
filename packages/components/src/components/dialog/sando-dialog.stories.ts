@@ -33,6 +33,7 @@ import { html, nothing } from 'lit';
 
 import './sando-dialog.js';
 import '../button/sando-button.js';
+import type { SandoDialog } from './sando-dialog.js';
 
 /**
  * Meta configuration for Storybook — includes:
@@ -270,7 +271,7 @@ export const Default: Story = {
   render: (args) => html`
     <sando-button
       @click=${() => {
-        const d = document.getElementById('dialog-default') as any;
+        const d = document.getElementById('dialog-default') as SandoDialog | null;
         d?.show();
       }}
     >
@@ -314,7 +315,7 @@ export const Playground: Story = {
   render: (args) => html`
     <sando-button
       @click=${() => {
-        const d = document.getElementById('dialog-playground') as any;
+        const d = document.getElementById('dialog-playground') as SandoDialog | null;
         d?.show();
       }}
     >
@@ -496,7 +497,7 @@ export const BottomSheet: Story = {
       </p>
       <sando-button
         @click=${() => {
-          const dialog = document.getElementById('sheet-dialog') as any;
+          const dialog = document.getElementById('sheet-dialog') as SandoDialog | null;
           dialog?.show();
         }}
       >
