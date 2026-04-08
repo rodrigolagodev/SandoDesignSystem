@@ -109,6 +109,9 @@ export class SandoDialog extends FlavorableMixin(LitElement) implements SandoDia
   @query('[part="panel"]')
   private _panelElement!: HTMLElement;
 
+  @query('.dialog-popover')
+  private _popoverElement?: HTMLElement;
+
   // ========================================
   // Internal state
   // ========================================
@@ -255,6 +258,11 @@ export class SandoDialog extends FlavorableMixin(LitElement) implements SandoDia
     return this._effectiveDismissible;
   }
 
+  /** Whether the browser supports the Popover API */
+  private get _supportsPopover(): boolean {
+    return 'popover' in HTMLElement.prototype;
+  }
+
   // ========================================
   // Lifecycle
   // ========================================
@@ -330,6 +338,15 @@ export class SandoDialog extends FlavorableMixin(LitElement) implements SandoDia
 
     // Wait for render, then manage focus and emit after-open
     this.updateComplete.then(() => {
+      // Show via Popover API if supported (enters top layer)
+      if (this._supportsPopover && this._popoverElement) {
+        try {
+          this._popoverElement.showPopover();
+        } catch {
+          // Fallback: already visible via :host([open]) CSS
+        }
+      }
+
       this._manageFocusOnOpen();
 
       // Listen for panel animation end to emit after-open
@@ -377,6 +394,16 @@ export class SandoDialog extends FlavorableMixin(LitElement) implements SandoDia
     this.removeAttribute('data-exiting');
     this._isExiting = false;
     this.open = false; // triggers updated() → _handleOpenChange(false)
+
+    // Hide via Popover API if supported — called AFTER animation finishes
+    if (this._supportsPopover && this._popoverElement) {
+      try {
+        this._popoverElement.hidePopover();
+      } catch {
+        // Already hidden or not supported
+      }
+    }
+
     this._cleanupAfterClose(source);
   }
 
@@ -642,40 +669,42 @@ export class SandoDialog extends FlavorableMixin(LitElement) implements SandoDia
     const ariaDescribedBy = this._hasDescription ? 'dialog-desc' : nothing;
 
     return html`
-      <div part="backdrop" @click=${this._handleBackdropClick}></div>
+      <div class="dialog-popover" popover=${this._supportsPopover ? 'manual' : nothing}>
+        <div part="backdrop" @click=${this._handleBackdropClick}></div>
 
-      <div
-        part="panel"
-        role=${role}
-        aria-modal="true"
-        aria-labelledby="dialog-title"
-        aria-describedby=${ariaDescribedBy}
-        tabindex="-1"
-      >
-        ${this._renderHeader()}
-        ${this._showCloseButton
-          ? html`
-              <button
-                type="button"
-                part="close-button"
-                aria-label="Close dialog"
-                @click=${this._handleCloseButtonClick}
-              >
-                <sando-icon
-                  name="x"
-                  decorative
-                  inherit-color
-                  custom-size="var(--sando-dialog-closeButton-iconSize)"
-                ></sando-icon>
-              </button>
-            `
-          : nothing}
+        <div
+          part="panel"
+          role=${role}
+          aria-modal="true"
+          aria-labelledby="dialog-title"
+          aria-describedby=${ariaDescribedBy}
+          tabindex="-1"
+        >
+          ${this._renderHeader()}
+          ${this._showCloseButton
+            ? html`
+                <button
+                  type="button"
+                  part="close-button"
+                  aria-label="Close dialog"
+                  @click=${this._handleCloseButtonClick}
+                >
+                  <sando-icon
+                    name="x"
+                    decorative
+                    inherit-color
+                    custom-size="var(--sando-dialog-closeButton-iconSize)"
+                  ></sando-icon>
+                </button>
+              `
+            : nothing}
 
-        <div part="body">
-          <slot></slot>
+          <div part="body">
+            <slot></slot>
+          </div>
+
+          ${this._renderFooter()}
         </div>
-
-        ${this._renderFooter()}
       </div>
     `;
   }

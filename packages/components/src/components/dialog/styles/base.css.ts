@@ -22,9 +22,61 @@ export const baseStyles = css`
     display: contents;
   }
 
-  :host(:not([open])),
-  :host([open='false']) {
+  /* ========================================
+     POPOVER WRAPPER
+     When Popover API is supported, this element
+     enters the browser top layer via showPopover(),
+     escaping all stacking contexts and overflow containers.
+     ======================================== */
+  .dialog-popover {
+    /* Reset all browser popover defaults */
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    overflow: visible;
+    inset: unset;
+    max-width: none;
+    max-height: none;
+    outline: none;
+    box-shadow: none;
+    /* Cover the full viewport */
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    /* Wrapper itself is not interactive — children opt-in */
+    pointer-events: none;
+  }
+
+  /* Non-popover fallback: same full-screen coverage */
+  .dialog-popover:not([popover]) {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Fallback hide when popover not supported */
+  :host(:not([open])) .dialog-popover:not([popover]) {
     display: none;
+  }
+
+  /* Closed state — popover not open */
+  .dialog-popover[popover]:not(:popover-open) {
+    display: none;
+  }
+
+  /* Open state — restore block display, keep pointer-events none on wrapper */
+  .dialog-popover[popover]:popover-open {
+    display: block;
+    pointer-events: none;
+  }
+
+  /* Reset browser ::backdrop on the popover wrapper — we render our own div */
+  .dialog-popover::backdrop {
+    background: transparent;
+    pointer-events: none;
   }
 
   /* ========================================
@@ -37,6 +89,7 @@ export const baseStyles = css`
     opacity: var(--sando-dialog-backdrop-opacity);
     z-index: calc(var(--sando-dialog-zIndex) - 1);
     cursor: pointer;
+    pointer-events: auto;
 
     /* Entry animation */
     animation: backdropIn var(--sando-dialog-animation-duration-enter)
@@ -56,6 +109,7 @@ export const baseStyles = css`
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: var(--sando-dialog-zIndex);
+    pointer-events: auto;
 
     display: flex;
     flex-direction: column;
