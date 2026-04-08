@@ -113,18 +113,21 @@ IF TEMPTED TO DO IT YOURSELF → YOU ARE IN DOUBT → ASK
 
 ## Skill Injection Reference
 
-When delegating, always inject compact rules from `.atl/skill-registry.md`:
+When delegating, inject skills from `.opencode/skills/` (all skills are local to the project):
 
-| If delegating to...                       | Inject these skills                                                       |
-| ----------------------------------------- | ------------------------------------------------------------------------- |
-| **Any agent (always)**                    | `agent-guidelines-compact` (SHARED + role block), `verification-protocol` |
-| `sando-developer` for a **new component** | + `component-creator`, `component-development-workflow`                   |
-| `sando-developer` for a **loading state** | + `skeleton-creator`                                                      |
-| `sando-developer` for any component work  | + `component-creator` (structural rules always useful)                    |
-| Any agent creating a **PR**               | + `branch-pr`                                                             |
-| Any agent creating a **GitHub issue**     | + `issue-creation`                                                        |
+| If delegating to...                             | Inject these skills                                                                          |
+| ----------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| **Any agent (always)**                          | `agent-guidelines-compact` (SHARED + role block), `verification-protocol`, `engram-protocol` |
+| `sando-developer` for a **new component**       | + `component-creator`, `component-development-workflow`                                      |
+| `sando-developer` for a **loading state**       | + `skeleton-creator`                                                                         |
+| `sando-developer` for any component work        | + `component-creator` (structural rules always useful)                                       |
+| `sando-architect` for an **architectural task** | + `sdd-architectural-workflow` (if SDD gate fires) OR advisor mode (no extra skill needed)   |
+| Any agent creating a **PR**                     | + `branch-pr`                                                                                |
+| Any agent creating a **GitHub issue**           | + `issue-creation`                                                                           |
 
 **Judgment Day:** inject compact rules for ALL skills relevant to the files being reviewed.
+
+> All skills live at `.opencode/skills/{skill-name}/SKILL.md`. Never reference `.atl/` — that path does not exist in this project.
 
 ---
 
@@ -214,6 +217,8 @@ Implementation.
 
 - Load this skill once per session BEFORE any delegation
 - Check SDD Architectural Gate for every ARCHITECTURE-classified request
-- Inject `agent-guidelines-compact` + `verification-protocol` into EVERY sub-agent prompt
+- Inject `agent-guidelines-compact` + `verification-protocol` + `engram-protocol` into EVERY sub-agent prompt
 - Use Ask Protocol template verbatim when unclear — no improvising
 - Use `delegate` tool (async) for parallel work, `task` tool (sync) for sequential
+- NEVER route implementation tasks to `sdd-apply` — use the correct Sando specialist (sando-developer, sando-tokens, etc.)
+- All skills are local: `.opencode/skills/{name}/SKILL.md` — no global fallback needed

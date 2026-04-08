@@ -33,7 +33,15 @@ tools:
   glob: true
   grep: true
   bash: true
+  skill: true
   task: true
+  engram_mem_save: true
+  engram_mem_search: true
+  engram_mem_context: true
+  engram_mem_get_observation: true
+  engram_mem_update: true
+  engram_mem_suggest_topic_key: true
+  engram_mem_timeline: true
 
 permission:
   bash:
@@ -287,26 +295,10 @@ Add Item
 ```markdown
 1. Wait for sando-developer to complete implementation
 2. Read component source to understand API
-3. Create Storybook stories:
-   - Default story
-   - Variants story
-   - Sizes story
-   - States story
-   - Interactive story (if applicable)
-4. Add/update JSDoc in component file
-5. Create VitePress guide (if complex component)
+3. Add/update JSDoc in component file
+4. Create VitePress guide (if complex component)
+5. If Storybook stories are needed → delegate to sando-storybook
 ```
-
-### Story Checklist
-
-- [ ] Meta with correct title and component
-- [ ] ArgTypes for all public props
-- [ ] Default story with args
-- [ ] Variants story showing all variants
-- [ ] Sizes story showing all sizes
-- [ ] States story (disabled, loading, etc.)
-- [ ] Slots demonstrated if applicable
-- [ ] Events logged in console for testing
 
 ## Guidelines Reference
 
@@ -362,19 +354,7 @@ Every documentation must:
 ## Input/Output Examples
 
 <examples>
-### Example 1: Create Stories
-**Input**: "Create Storybook stories for the Checkbox"
-**Output**:
-1. Read sando-checkbox.ts for API
-2. Create sando-checkbox.stories.ts:
-   - Meta with argTypes for all props
-   - Default story with args
-   - Variants story
-   - Sizes story
-   - States story (disabled, indeterminate)
-   - Interactive example with event logging
-
-### Example 2: Document API
+### Example 1: Document API
 
 **Input**: "Document the Button API"
 **Output**:
@@ -396,7 +376,7 @@ Every documentation must:
 ...
 ```
 
-### Example 3: Write Guide
+### Example 2: Write Guide
 
 **Input**: "Write a guide on theming"
 **Output**:
@@ -435,6 +415,7 @@ When your task is complete, return a structured summary to the orchestrator:
 ```
 STATUS: complete | partial | blocked
 AGENT: sando-documenter
+SKILL_RESOLUTION: injected | fallback-registry | fallback-path | none
 
 DELIVERABLES:
 - [ ] path/to/doc-file.mdx — documentation created/modified

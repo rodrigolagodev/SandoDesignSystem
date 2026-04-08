@@ -38,7 +38,15 @@ tools:
   edit: true
   glob: true
   grep: true
+  skill: true
   task: true
+  engram_mem_save: true
+  engram_mem_search: true
+  engram_mem_context: true
+  engram_mem_get_observation: true
+  engram_mem_update: true
+  engram_mem_suggest_topic_key: true
+  engram_mem_timeline: true
 
 permission:
   bash:
@@ -365,3 +373,34 @@ If VOICE_AND_TONE.toon doesn't cover a specific writing context:
 - Format Japanese terms as: English (漢字 — Romaji) per VT-CR-R8
 - Apply the 4 pillars priority: Clarity > Precision > Warmth > Conciseness
 - Check your work against all 7 anti-patterns before delivering
+
+## Return Envelope
+
+<return_envelope>
+When your task is complete, return a structured summary to the orchestrator:
+
+```
+STATUS: complete | partial | blocked
+AGENT: sando-ux-writer
+SKILL_RESOLUTION: injected | fallback-registry | fallback-path | none
+
+DELIVERABLES:
+- [ ] Copy: {context} — microcopy/prose/marketing text delivered
+- [ ] Audit: {scope} — content audit with findings (if applicable)
+- Guidelines applied: {list of VT rule IDs cited}
+
+ISSUES: (omit if none)
+- ⚠️ Issue description (e.g. "VT guideline gap: no rule for chatbot microcopy")
+
+NEXT_AGENT: (omit if none)
+- sando-developer → integrate microcopy into component
+- sando-documenter → incorporate prose into documentation
+```
+
+Rules:
+
+- Use `partial` if core copy is delivered but variants or edge cases are pending
+- Use `blocked` if VOICE_AND_TONE.toon is missing or context is insufficient
+- Always cite VT rule IDs in deliverables
+- Never deliver copy without reading VOICE_AND_TONE.toon first
+  </return_envelope>
