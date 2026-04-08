@@ -64,11 +64,11 @@
 
 import { LitElement, html, nothing } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
+import { styleMap } from 'lit/directives/style-map.js';
 
 import type {
   DialogType,
   DialogVariant,
-  DialogSize,
   DialogButtonVariant,
   DialogButtonStatus,
   DialogCloseSource,
@@ -156,11 +156,13 @@ export class SandoDialog extends FlavorableMixin(LitElement) implements SandoDia
   type: DialogType = 'dialog';
 
   /**
-   * Width size variant
-   * @default 'md'
+   * Custom width for the dialog panel. Accepts any valid CSS value.
+   * Defaults to the token --sando-dialog-width (clamp(320px, 90vw, 560px)).
+   * On mobile viewports (< 640px) the dialog renders as a bottom sheet regardless of this value.
+   * @default ''
    */
   @property({ reflect: true })
-  size: DialogSize = 'md';
+  width = '';
 
   /**
    * Surface variant: elevated (shadow) or outlined (border)
@@ -676,6 +678,7 @@ export class SandoDialog extends FlavorableMixin(LitElement) implements SandoDia
   render() {
     const role = this.type === 'alert' ? 'alertdialog' : 'dialog';
     const ariaDescribedBy = this._hasDescription ? 'dialog-desc' : nothing;
+    const panelStyles = this.width ? { '--sando-dialog-width': this.width } : {};
 
     return html`
       <div class="dialog-popover" popover=${this._supportsPopover ? 'manual' : nothing}>
@@ -683,6 +686,7 @@ export class SandoDialog extends FlavorableMixin(LitElement) implements SandoDia
 
         <div
           part="panel"
+          style=${styleMap(panelStyles)}
           role=${role}
           aria-modal="true"
           aria-labelledby="dialog-title"

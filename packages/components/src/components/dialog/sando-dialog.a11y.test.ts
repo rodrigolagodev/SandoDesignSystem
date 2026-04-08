@@ -90,10 +90,10 @@ describe('sando-dialog Accessibility', () => {
       expect(results).toHaveNoViolations();
     });
 
-    it('should have no violations for size="sm"', async () => {
+    it('should have no violations with custom width="400px"', async () => {
       element = await fixture<SandoDialog>(html`
-        <sando-dialog size="sm" open>
-          <span slot="title">Small dialog</span>
+        <sando-dialog width="400px" open>
+          <span slot="title">Narrow dialog</span>
           <p>Compact content.</p>
         </sando-dialog>
       `);
@@ -102,10 +102,10 @@ describe('sando-dialog Accessibility', () => {
       expect(results).toHaveNoViolations();
     });
 
-    it('should have no violations for size="md"', async () => {
+    it('should have no violations with custom width="800px"', async () => {
       element = await fixture<SandoDialog>(html`
-        <sando-dialog size="md" open>
-          <span slot="title">Medium dialog</span>
+        <sando-dialog width="800px" open>
+          <span slot="title">Wide dialog</span>
           <p>Standard content.</p>
         </sando-dialog>
       `);
@@ -114,10 +114,10 @@ describe('sando-dialog Accessibility', () => {
       expect(results).toHaveNoViolations();
     });
 
-    it('should have no violations for size="lg"', async () => {
+    it('should have no violations with custom width="90vw"', async () => {
       element = await fixture<SandoDialog>(html`
-        <sando-dialog size="lg" open>
-          <span slot="title">Large dialog</span>
+        <sando-dialog width="90vw" open>
+          <span slot="title">Viewport-relative dialog</span>
           <p>Expanded content area.</p>
         </sando-dialog>
       `);
@@ -126,10 +126,10 @@ describe('sando-dialog Accessibility', () => {
       expect(results).toHaveNoViolations();
     });
 
-    it('should have no violations for size="full"', async () => {
+    it('should have no violations with custom width="100%"', async () => {
       element = await fixture<SandoDialog>(html`
-        <sando-dialog size="full" open>
-          <span slot="title">Full-screen dialog</span>
+        <sando-dialog width="100%" open>
+          <span slot="title">Full-width dialog</span>
           <p>Immersive content.</p>
         </sando-dialog>
       `);

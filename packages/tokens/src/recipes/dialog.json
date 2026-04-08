@@ -234,35 +234,10 @@
         "description": "Close button end offset — 12px aligns to panel edge consistently"
       }
     },
-    "size": {
-      "sm": {
-        "width": {
-          "value": "400px",
-          "type": "dimension",
-          "description": "Small dialog width"
-        }
-      },
-      "md": {
-        "width": {
-          "value": "560px",
-          "type": "dimension",
-          "description": "Medium dialog width (default)"
-        }
-      },
-      "lg": {
-        "width": {
-          "value": "720px",
-          "type": "dimension",
-          "description": "Large dialog width"
-        }
-      },
-      "full": {
-        "width": {
-          "value": "calc(100% - {space.inset.emphasis.value} * 2)",
-          "type": "dimension",
-          "description": "Full-width dialog with margins"
-        }
-      }
+    "width": {
+      "value": "clamp(320px, 90vw, 560px)",
+      "type": "dimension",
+      "description": "Dialog default width — responsive clamp value. Consumers can override via the `width` CSS custom property or the component's `width` property."
     },
     "animation": {
       "duration": {

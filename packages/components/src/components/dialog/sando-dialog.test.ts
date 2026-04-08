@@ -83,17 +83,17 @@ describe('sando-dialog', () => {
       expect(element.hasAttribute('open')).toBe(true);
     });
 
-    it('should render all size variants', async () => {
-      for (const size of ['sm', 'md', 'lg', 'full'] as const) {
-        element = await fixture<SandoDialog>(html`
-          <sando-dialog size=${size} open>
-            <span slot="title">Size ${size}</span>
-          </sando-dialog>
-        `);
-        await element.updateComplete;
-        expect(element.size).toBe(size);
-        expect(element.getAttribute('size')).toBe(size);
-      }
+    it('should reflect width as attribute and apply --sando-dialog-width on panel', async () => {
+      element = await fixture<SandoDialog>(html`
+        <sando-dialog width="600px" open>
+          <span slot="title">Custom width dialog</span>
+        </sando-dialog>
+      `);
+      await element.updateComplete;
+      expect(element.width).toBe('600px');
+      expect(element.getAttribute('width')).toBe('600px');
+      const panel = element.shadowRoot?.querySelector('[part="panel"]') as HTMLElement;
+      expect(panel.style.getPropertyValue('--sando-dialog-width')).toBe('600px');
     });
 
     it('should render title slot content', async () => {
@@ -257,7 +257,7 @@ describe('sando-dialog', () => {
     it('should have default props', () => {
       expect(element.open).toBe(false);
       expect(element.type).toBe('dialog');
-      expect(element.size).toBe('md');
+      expect(element.width).toBe('');
       expect(element.noHeader).toBe(false);
       expect(element.dismissible).toBe(true);
     });
@@ -312,14 +312,11 @@ describe('sando-dialog', () => {
       expect(panel?.getAttribute('aria-modal')).toBe('true');
     });
 
-    it.each(['sm', 'md', 'lg', 'full'] as const)(
-      'should reflect size="%s" as attribute',
-      async (size: 'sm' | 'md' | 'lg' | 'full') => {
-        element.size = size;
-        await element.updateComplete;
-        expect(element.getAttribute('size')).toBe(size);
-      }
-    );
+    it('should reflect width as attribute', async () => {
+      element.width = '800px';
+      await element.updateComplete;
+      expect(element.getAttribute('width')).toBe('800px');
+    });
 
     it('should reflect type as attribute', async () => {
       element.type = 'alert';

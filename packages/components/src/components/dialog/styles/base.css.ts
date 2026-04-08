@@ -114,7 +114,7 @@ export const baseStyles = css`
     display: flex;
     flex-direction: column;
     max-height: var(--sando-dialog-maxHeight);
-    width: var(--_dialog-width);
+    width: var(--sando-dialog-width);
 
     background-color: var(--_dialog-backgroundColor);
     border: var(--_dialog-borderWidth) solid var(--_dialog-borderColor);
@@ -346,6 +346,71 @@ export const baseStyles = css`
     }
     to {
       opacity: 0;
+    }
+  }
+
+  /* ========================================
+     MOBILE — BOTTOM SHEET
+     En viewports < 640px el dialog se transforma
+     automáticamente en un bottom sheet.
+     ======================================== */
+  @media (max-width: 639px) {
+    [part='panel'] {
+      /* Reposition: bottom of viewport, full width */
+      top: auto;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      transform: none;
+      width: 100%;
+      max-width: 100%;
+      max-height: 85vh;
+
+      /* Rounded top corners only */
+      border-radius: var(--sando-dialog-borderRadius) var(--sando-dialog-borderRadius) 0 0;
+    }
+
+    /* Override animations for bottom sheet */
+    [part='panel'] {
+      animation: sheetIn var(--sando-dialog-animation-duration-enter)
+        var(--sando-dialog-animation-easing-enter) both;
+    }
+
+    :host([data-exiting]) [part='panel'] {
+      animation: sheetOut var(--sando-dialog-animation-duration-exit)
+        var(--sando-dialog-animation-easing-exit) both;
+    }
+
+    @keyframes sheetIn {
+      from {
+        opacity: 0;
+        transform: translateY(100%);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes sheetOut {
+      from {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      to {
+        opacity: 0;
+        transform: translateY(100%);
+      }
+    }
+  }
+
+  /* ========================================
+     REDUCED MOTION
+     ======================================== */
+  @media (prefers-reduced-motion: reduce) {
+    [part='panel'],
+    [part='backdrop'] {
+      animation: none !important;
     }
   }
 `;

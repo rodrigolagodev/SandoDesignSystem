@@ -13,11 +13,6 @@ export type DialogType = 'dialog' | 'alert';
 export type DialogVariant = 'elevated' | 'outlined';
 
 /**
- * Dialog size variants
- */
-export type DialogSize = 'sm' | 'md' | 'lg' | 'full';
-
-/**
  * Button variant options available in the built-in action buttons
  */
 export type DialogButtonVariant = 'solid' | 'outline' | 'ghost' | 'text';
@@ -116,8 +111,8 @@ export interface SandoDialogProps {
   type?: DialogType;
   /** Surface variant: elevated (shadow) or outlined (border) */
   variant?: DialogVariant;
-  /** Width size variant */
-  size?: DialogSize;
+  /** Custom dialog width — any valid CSS value. Defaults to token --sando-dialog-width (clamp(320px, 90vw, 560px)) */
+  width?: string;
   /** Hides header visually — requires aria-label for a11y */
   noHeader?: boolean;
   /** Whether Escape / backdrop click close the dialog. Forced false when type="alert" */

@@ -1,7 +1,6 @@
 export { SandoDialog } from './sando-dialog.js';
 export type {
   DialogType,
-  DialogSize,
   DialogCloseSource,
   DialogRequestCloseSource,
   SandoDialogProps,

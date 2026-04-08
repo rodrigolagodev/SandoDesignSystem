@@ -10,7 +10,8 @@
  * - Keyboard dismissal (Escape)
  *
  * ## Features
- * - **4 size variants**: sm, md, lg, full for flexible layouts
+ * - **Custom width**: Flexible width prop accepting any valid CSS value
+ * - **Responsive mobile**: Automatically renders as bottom sheet on mobile (< 640px)
  * - **2 dialog types**: dialog (dismissible) and alert (non-dismissible)
  * - **Rich content**: slots for title, description, body, and actions
  * - **Dismissible**: Close via Escape key, backdrop click, or × button
@@ -48,7 +49,7 @@ const meta: Meta = {
     <sando-dialog
       ?open=${args.open}
       type=${args.type}
-      size=${args.size}
+      .width=${args.width}
       variant=${args.variant}
       ?no-header=${args.noHeader}
       .dismissible=${args.dismissible}
@@ -88,14 +89,14 @@ const meta: Meta = {
         defaultValue: { summary: 'dialog' }
       }
     },
-    size: {
-      control: 'select',
-      options: ['sm', 'md', 'lg', 'full'],
-      description: 'Width size variant — sm (small), md (medium), lg (large), full (100% width)',
+    width: {
+      control: 'text',
+      description:
+        'Custom dialog width — any valid CSS value. Leave empty to use default (clamp(320px, 90vw, 560px)). On mobile the dialog renders as a bottom sheet regardless of this value.',
       table: {
         category: 'Appearance',
-        type: { summary: "'sm' | 'md' | 'lg' | 'full'" },
-        defaultValue: { summary: 'md' }
+        type: { summary: 'string' },
+        defaultValue: { summary: '' }
       }
     },
     variant: {
@@ -230,7 +231,7 @@ const meta: Meta = {
   args: {
     open: false,
     type: 'dialog',
-    size: 'md',
+    width: '',
     variant: 'elevated',
     noHeader: false,
     dismissible: true,
@@ -280,7 +281,7 @@ export const Default: Story = {
       id="dialog-default"
       ?open=${args.open}
       type=${args.type}
-      size=${args.size}
+      .width=${args.width}
       variant=${args.variant}
       ?no-header=${args.noHeader}
       .dismissible=${args.dismissible}
@@ -308,7 +309,7 @@ export const Default: Story = {
 export const Playground: Story = {
   args: {
     open: false,
-    content: 'Customize me! Use the controls panel to change type, size, dismissible, and content.'
+    content: 'Customize me! Use the controls panel to change type, width, dismissible, and content.'
   },
   render: (args) => html`
     <sando-button
@@ -324,7 +325,7 @@ export const Playground: Story = {
       id="dialog-playground"
       ?open=${args.open}
       type=${args.type}
-      size=${args.size}
+      .width=${args.width}
       variant=${args.variant}
       ?no-header=${args.noHeader}
       .dismissible=${args.dismissible}
@@ -362,7 +363,7 @@ export const Variants: Story = {
         >
           Elevated (elevated)
         </h4>
-        <sando-dialog open variant="elevated" size="md">
+        <sando-dialog open variant="elevated">
           <span slot="title">Elevated Dialog</span>
           <p>This dialog uses the elevated variant with shadow.</p>
         </sando-dialog>
@@ -374,7 +375,7 @@ export const Variants: Story = {
         >
           Outlined (outlined)
         </h4>
-        <sando-dialog open variant="outlined" size="md">
+        <sando-dialog open variant="outlined">
           <span slot="title">Outlined Dialog</span>
           <p>This dialog uses the outlined variant with border.</p>
         </sando-dialog>
@@ -385,14 +386,14 @@ export const Variants: Story = {
 };
 
 // ============================================================================
-// SIZE VARIANTS
+// CUSTOM WIDTHS
 // ============================================================================
 
 /**
- * All 4 size variants (sm, md, lg, full) shown side-by-side with labels.
- * Demonstrates the width range from small to full-screen.
+ * Custom width examples showing flexible width prop.
+ * Demonstrates different CSS values accepted by the width prop.
  */
-export const Sizes: Story = {
+export const CustomWidths: Story = {
   tags: DOCS_ONLY,
   render: () => html`
     <div style="display: flex; flex-direction: column; gap: 2rem;">
@@ -400,11 +401,11 @@ export const Sizes: Story = {
         <h4
           style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: var(--sando-color-text-muted);"
         >
-          Small (sm)
+          Default Width (empty — uses clamp)
         </h4>
-        <sando-dialog open size="sm">
-          <span slot="title">Small Dialog</span>
-          <p>This dialog has a sm size variant.</p>
+        <sando-dialog open>
+          <span slot="title">Default Dialog</span>
+          <p>No width prop specified — uses default clamp(320px, 90vw, 560px).</p>
         </sando-dialog>
       </div>
 
@@ -412,11 +413,11 @@ export const Sizes: Story = {
         <h4
           style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: var(--sando-color-text-muted);"
         >
-          Medium (md) — default
+          Narrow (width="400px")
         </h4>
-        <sando-dialog open size="md">
-          <span slot="title">Medium Dialog</span>
-          <p>This dialog has a md size variant (default).</p>
+        <sando-dialog open .width=${'400px'}>
+          <span slot="title">Narrow Dialog</span>
+          <p>This dialog has a fixed narrow width of 400px.</p>
         </sando-dialog>
       </div>
 
@@ -424,11 +425,11 @@ export const Sizes: Story = {
         <h4
           style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: var(--sando-color-text-muted);"
         >
-          Large (lg)
+          Wide (width="700px")
         </h4>
-        <sando-dialog open size="lg">
-          <span slot="title">Large Dialog</span>
-          <p>This dialog has a lg size variant.</p>
+        <sando-dialog open .width=${'700px'}>
+          <span slot="title">Wide Dialog</span>
+          <p>This dialog has a fixed wide width of 700px.</p>
         </sando-dialog>
       </div>
 
@@ -436,11 +437,11 @@ export const Sizes: Story = {
         <h4
           style="margin: 0 0 0.75rem 0; font-size: 0.875rem; color: var(--sando-color-text-muted);"
         >
-          Full (full)
+          Full Width (width="100%")
         </h4>
-        <sando-dialog open size="full">
+        <sando-dialog open .width=${'100%'}>
           <span slot="title">Full Width Dialog</span>
-          <p>This dialog has a full size variant (100% width).</p>
+          <p>This dialog uses 100% width.</p>
         </sando-dialog>
       </div>
     </div>
@@ -477,6 +478,44 @@ export const AlertDialog: Story = {
 };
 
 // ============================================================================
+// BOTTOM SHEET (MOBILE RESPONSIVE)
+// ============================================================================
+
+/**
+ * Bottom Sheet behavior on mobile viewports.
+ * On viewports < 640px, the dialog automatically transforms into a bottom sheet
+ * without any additional props needed. Resize your viewport to see the effect.
+ */
+export const BottomSheet: Story = {
+  tags: DOCS_ONLY,
+  name: 'Bottom Sheet (Mobile)',
+  render: () => html`
+    <div>
+      <p style="font-size: 0.875rem; color: #888; margin-bottom: 1rem;">
+        ℹ️ Resize the viewport to &lt; 640px to see the bottom sheet behavior automatically.
+      </p>
+      <sando-button
+        @click=${() => {
+          const dialog = document.getElementById('sheet-dialog') as any;
+          dialog?.show();
+        }}
+      >
+        Open Dialog
+      </sando-button>
+
+      <sando-dialog id="sheet-dialog" confirm-label="Got it" ?show-cancel=${false}>
+        <span slot="title">Bottom Sheet</span>
+        <p>
+          On mobile viewports (&lt; 640px) this dialog transforms automatically into a bottom sheet
+          — no extra props needed.
+        </p>
+      </sando-dialog>
+    </div>
+  `,
+  parameters: { controls: { disable: true } }
+};
+
+// ============================================================================
 // WITH DESCRIPTION
 // ============================================================================
 
@@ -487,7 +526,7 @@ export const AlertDialog: Story = {
 export const WithDescription: Story = {
   tags: DOCS_ONLY,
   render: () => html`
-    <sando-dialog open size="lg" confirm-label="Confirm Payment" confirm-status="success">
+    <sando-dialog open .width=${'700px'} confirm-label="Confirm Payment" confirm-status="success">
       <span slot="title">Payment Confirmation</span>
       <span slot="description">Please review the details before confirming your payment</span>
       <div style="margin: 1rem 0;">
@@ -518,7 +557,7 @@ export const WithActions: Story = {
         <h4 style="margin: 0 0 1rem 0; font-size: 0.875rem; color: var(--sando-color-text-muted);">
           Basic Save/Cancel with Slotted Actions
         </h4>
-        <sando-dialog open size="md" .showConfirm=${false} .showCancel=${false}>
+        <sando-dialog open .showConfirm=${false} .showCancel=${false}>
           <span slot="title">Save Changes</span>
           <p>Do you want to save your changes before leaving?</p>
           <sando-button slot="actions" variant="outline">Don't Save</sando-button>
@@ -531,7 +570,7 @@ export const WithActions: Story = {
         <h4 style="margin: 0 0 1rem 0; font-size: 0.875rem; color: var(--sando-color-text-muted);">
           Multiple Custom Actions
         </h4>
-        <sando-dialog open size="lg" .showConfirm=${false} .showCancel=${false}>
+        <sando-dialog open .width=${'700px'} .showConfirm=${false} .showCancel=${false}>
           <span slot="title">Delete Account</span>
           <p style="margin-bottom: 1rem;">
             Deleting your account will permanently remove all data. Choose an action:
@@ -559,13 +598,7 @@ export const WithActions: Story = {
 export const NotDismissible: Story = {
   tags: DOCS_ONLY,
   render: () => html`
-    <sando-dialog
-      open
-      .dismissible=${false}
-      size="md"
-      confirm-label="I Understand"
-      .showCancel=${false}
-    >
+    <sando-dialog open .dismissible=${false} confirm-label="I Understand" .showCancel=${false}>
       <span slot="title">Important Notice</span>
       <p>This dialog cannot be dismissed by pressing Escape or clicking the backdrop.</p>
       <p>You must click a button to proceed.</p>
@@ -589,7 +622,6 @@ export const NoHeader: Story = {
       open
       ?no-header="${true}"
       aria-label="Sign up for newsletter"
-      size="md"
       confirm-label="Subscribe"
     >
       <div style="text-align: center;">
@@ -619,7 +651,7 @@ export const NoHeader: Story = {
 export const LongContent: Story = {
   tags: DOCS_ONLY,
   render: () => html`
-    <sando-dialog open size="lg" confirm-label="Accept" cancel-label="Decline">
+    <sando-dialog open .width=${'700px'} confirm-label="Accept" cancel-label="Decline">
       <span slot="title">Terms and Conditions</span>
       <div>
         <h4 style="margin: 1rem 0 0.5rem 0; font-weight: 600;">1. Acceptance of Terms</h4>
@@ -694,7 +726,7 @@ export const ControlledOpen: Story = {
 
       <sando-button id="trigger-btn">Open Dialog</sando-button>
 
-      <sando-dialog id="programmatic-dialog" size="md" .showCancel=${false} confirm-label="Close">
+      <sando-dialog id="programmatic-dialog" .showCancel=${false} confirm-label="Close">
         <span slot="title">Programmatically Opened</span>
         <p>This dialog was opened via the show() method.</p>
       </sando-dialog>
@@ -735,13 +767,7 @@ export const RequestCloseIntercept: Story = {
         event.preventDefault().
       </p>
 
-      <sando-dialog
-        id="intercept-dialog"
-        open
-        size="md"
-        confirm-label="Save & Close"
-        cancel-label="Discard"
-      >
+      <sando-dialog id="intercept-dialog" open confirm-label="Save & Close" cancel-label="Discard">
         <span slot="title">Unsaved Changes</span>
         <p>You have unsaved changes. Are you sure you want to close?</p>
       </sando-dialog>
@@ -776,14 +802,19 @@ export const RequestCloseIntercept: Story = {
 // ============================================================================
 
 /**
- * Complete matrix of variant × size combinations.
+ * Complete matrix of variant × width combinations.
  * Useful for visual testing and design review.
  */
 export const AllCombinations: Story = {
   tags: DOCS_ONLY,
   render: () => {
     const variants = ['elevated', 'outlined'] as const;
-    const sizes = ['sm', 'md', 'lg', 'full'] as const;
+    const widths = [
+      { label: 'default (empty)', value: '' },
+      { label: '400px', value: '400px' },
+      { label: '700px', value: '700px' },
+      { label: '100%', value: '100%' }
+    ] as const;
 
     return html`
       <div style="display: flex; flex-direction: column; gap: 2rem;">
@@ -796,17 +827,17 @@ export const AllCombinations: Story = {
                 variant="${variant}"
               </h4>
               <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-                ${sizes.map(
-                  (size) => html`
+                ${widths.map(
+                  (width) => html`
                     <div>
                       <p
                         style="margin: 0 0 0.5rem 0; font-size: 0.75rem; color: var(--sando-color-text-muted);"
                       >
-                        size="${size}"
+                        width="${width.label}"
                       </p>
-                      <sando-dialog open variant="${variant}" size="${size}">
-                        <span slot="title">${variant} - ${size}</span>
-                        <p>Dialog with variant="${variant}" and size="${size}"</p>
+                      <sando-dialog open variant="${variant}" .width=${width.value}>
+                        <span slot="title">${variant} - ${width.label}</span>
+                        <p>Dialog with variant="${variant}" and width="${width.label}"</p>
                       </sando-dialog>
                     </div>
                   `
@@ -840,7 +871,6 @@ export const UseCases: Story = {
         <sando-dialog
           open
           type="alert"
-          size="md"
           confirm-label="Delete Project"
           confirm-status="destructive"
           cancel-label="Cancel"
@@ -856,7 +886,7 @@ export const UseCases: Story = {
         <h4 style="margin: 0 0 1rem 0; font-size: 1rem; color: var(--sando-color-text-body);">
           Form Dialog
         </h4>
-        <sando-dialog open size="lg" confirm-label="Create Team" cancel-label="Cancel">
+        <sando-dialog open .width=${'700px'} confirm-label="Create Team" cancel-label="Cancel">
           <span slot="title">Create New Team</span>
           <form style="display: flex; flex-direction: column; gap: 1rem;">
             <div>
@@ -887,13 +917,7 @@ export const UseCases: Story = {
         <h4 style="margin: 0 0 1rem 0; font-size: 1rem; color: var(--sando-color-text-body);">
           Session Expiration Alert
         </h4>
-        <sando-dialog
-          open
-          type="alert"
-          size="md"
-          confirm-label="Extend Session"
-          cancel-label="Log Out"
-        >
+        <sando-dialog open type="alert" confirm-label="Extend Session" cancel-label="Log Out">
           <span slot="title">Session Expiring</span>
           <p>
             Your session will expire in 5 minutes due to inactivity. Would you like to extend it?

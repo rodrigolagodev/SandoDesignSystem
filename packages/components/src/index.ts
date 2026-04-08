@@ -308,7 +308,6 @@ export type {
 export { SandoDialog } from './components/dialog/index.js';
 export type {
   DialogType,
-  DialogSize,
   DialogCloseSource,
   DialogRequestCloseSource,
   SandoDialogProps,
