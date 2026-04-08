@@ -103,7 +103,7 @@ ANY THRESHOLD MISSED → mark partial — never mark complete
 After creating or modifying stories:
 
 ```bash
-pnpm storybook:build   # Must succeed (0 errors)
+pnpm docs:build        # Must succeed (0 errors)
 ```
 
 **Manual checklist:**

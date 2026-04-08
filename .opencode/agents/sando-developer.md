@@ -31,6 +31,13 @@ tools:
   bash: true
   skill: true
   task: true
+  engram_mem_save: true
+  engram_mem_search: true
+  engram_mem_context: true
+  engram_mem_get_observation: true
+  engram_mem_update: true
+  engram_mem_suggest_topic_key: true
+  engram_mem_timeline: true
 
 permission:
   bash:
@@ -441,6 +448,7 @@ When your task is complete, return a structured summary to the orchestrator:
 ```
 STATUS: complete | partial | blocked
 AGENT: sando-developer
+SKILL_RESOLUTION: injected | fallback-registry | fallback-path | none
 
 DELIVERABLES:
 - [ ] path/to/sando-{name}.ts — component implementation

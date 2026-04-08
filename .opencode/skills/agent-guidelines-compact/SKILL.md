@@ -206,3 +206,4 @@ LENGTH: UI copy → as short as possible. Docs → as long as needed.
 - This replaces the full guidelines_protocol block in each agent — saves 2000-5000 tokens/workflow
 - Sub-agents that receive these digests SKIP reading .toon files unless the task is explicitly ambiguous
 - The digest is NOT a substitute for reading guidelines when implementing a NEW pattern or making architectural decisions
+- Always inject alongside `verification-protocol` and `engram-protocol` — the three travel together

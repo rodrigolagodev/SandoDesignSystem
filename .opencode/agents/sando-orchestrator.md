@@ -35,6 +35,15 @@ tools:
   delegation_list: true
   todoread: true
   todowrite: true
+  engram_mem_save: true
+  engram_mem_search: true
+  engram_mem_get_observation: true
+  engram_mem_context: true
+  engram_mem_update: true
+  engram_mem_session_summary: true
+  engram_mem_suggest_topic_key: true
+  engram_mem_session_start: true
+  engram_mem_session_end: true
 
 permission:
   bash:
@@ -131,17 +140,25 @@ Load the `orchestration-routing` skill at the start of every session. It contain
 
 ### Skill Resolver Steps
 
+All skills are local to the project at `.opencode/skills/`. No global fallback needed.
+
 1. Already cached this session? → use cache
 2. Search engram: `mem_search("skill-registry", project: "sandodesignsystem")` → `mem_get_observation(id)`
-3. Fallback: read `.atl/skill-registry.md`
+3. Fallback: read `.opencode/skills/skill-registry/SKILL.md`
 4. Not found? → warn user, proceed without project skills
 
 **Before EACH delegation:** match files + task context to the skill registry and inject compact rules
 into the sub-agent's prompt under a `## Project Standards (auto-resolved)` block placed BEFORE the
 task instructions.
 
+**Always inject these three skills into every sub-agent delegation:**
+
+1. `agent-guidelines-compact` (SHARED + agent role block)
+2. `verification-protocol` (matching agent role section)
+3. `engram-protocol` (memory search + save protocol)
+
 **After each delegation:** check the Return Envelope's `**Skill Resolution**` field. If `fallback-*`
-or `none` → re-read `.atl/skill-registry.md` and inject in all subsequent delegations.
+or `none` → re-read `.opencode/skills/skill-registry/SKILL.md` and inject in all subsequent delegations.
 
 ---
 
@@ -305,6 +322,9 @@ Index: `.opencode/guidelines/GUIDELINES_INDEX.toon`
 
 Inject `agent-guidelines-compact` compact rules (SHARED + agent role block) in every delegation.
 Each specialist already knows which guidelines apply via the skill — do NOT list individual .toon paths.
+
+All skills are local to this project at `.opencode/skills/{name}/SKILL.md`.
+There is no `.atl/` directory. Never reference it.
 
 ---
 

@@ -31,15 +31,23 @@ description: >-
   </example>
 
 mode: subagent
-model: github-copilot/claude-opus-4.5
+model: github-copilot/claude-sonnet-4.6
 tools:
   read: true
   write: false
   edit: false
   glob: true
   grep: true
+  skill: true
   webfetch: true
   task: true
+  engram_mem_save: true
+  engram_mem_search: true
+  engram_mem_context: true
+  engram_mem_get_observation: true
+  engram_mem_update: true
+  engram_mem_suggest_topic_key: true
+  engram_mem_timeline: true
 
 permission:
   bash:
@@ -421,6 +429,7 @@ When your task is complete, return a structured summary to the orchestrator:
 ```
 STATUS: complete | partial | blocked
 AGENT: sando-ux-designer
+SKILL_RESOLUTION: injected | fallback-registry | fallback-path | none
 
 DELIVERABLES:
 - [ ] UX spec: {component} — states, behaviors, and interactions defined

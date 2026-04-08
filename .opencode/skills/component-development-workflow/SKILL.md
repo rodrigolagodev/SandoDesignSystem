@@ -178,7 +178,7 @@ Guide agents through a **complete component creation workflow** ensuring all del
 - Export component from `packages/components/src/index.ts`
 - Verify TypeScript types are exported
 - Run full test suite: `pnpm test`
-- Run Storybook build: `pnpm storybook:build`
+- Run Storybook build: `pnpm docs:build`
 - Verify no linting errors: `pnpm lint`
 
 **Consult Guidelines:**

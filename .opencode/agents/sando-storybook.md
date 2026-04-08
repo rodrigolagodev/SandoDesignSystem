@@ -26,7 +26,7 @@ description: >-
   </example>
 
 mode: subagent
-model: github-copilot/claude-haiku-4.5
+model: github-copilot/claude-sonnet-4.6
 
 tools:
   read: true
@@ -35,9 +35,17 @@ tools:
   glob: true
   grep: true
   bash: true
+  skill: true
   webfetch: true
   todoread: true
   todowrite: true
+  engram_mem_save: true
+  engram_mem_search: true
+  engram_mem_context: true
+  engram_mem_get_observation: true
+  engram_mem_update: true
+  engram_mem_suggest_topic_key: true
+  engram_mem_timeline: true
 
 permission:
   bash:
@@ -702,6 +710,7 @@ When your task is complete, return a structured summary to the orchestrator:
 ```
 STATUS: complete | partial | blocked
 AGENT: sando-storybook
+SKILL_RESOLUTION: injected | fallback-registry | fallback-path | none
 
 DELIVERABLES:
 - [ ] path/to/sando-{name}.stories.ts — stories created/modified
