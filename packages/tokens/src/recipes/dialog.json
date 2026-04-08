@@ -1,0 +1,286 @@
+{
+  "dialog": {
+    "elevated": {
+      "backgroundColor": {
+        "value": "{color.background.raised.value}",
+        "type": "color",
+        "description": "Elevated variant background — clean raised surface"
+      },
+      "borderColor": {
+        "value": "{color.border.default.value}",
+        "type": "color",
+        "description": "Elevated variant border color (structural definition)"
+      },
+      "borderWidth": {
+        "value": "0px",
+        "type": "dimension",
+        "description": "Elevated variant — no visible border, defined only for consistency"
+      },
+      "boxShadow": {
+        "value": "{elevation.emphasis.value}",
+        "type": "shadow",
+        "description": "Elevated variant shadow — strong depth for floating modal"
+      }
+    },
+    "outlined": {
+      "backgroundColor": {
+        "value": "{color.background.raised.value}",
+        "type": "color",
+        "description": "Outlined variant background — clean raised surface"
+      },
+      "borderColor": {
+        "value": "{color.border.default.value}",
+        "type": "color",
+        "description": "Outlined variant border — visible 1px border"
+      },
+      "borderWidth": {
+        "value": "{border.width.default.value}",
+        "type": "dimension",
+        "description": "Outlined variant — 1px visible border"
+      },
+      "boxShadow": {
+        "value": "{elevation.muted.value}",
+        "type": "shadow",
+        "description": "Outlined variant — no shadow, border-only definition"
+      }
+    },
+    "backgroundColor": {
+      "value": "{color.background.raised.value}",
+      "type": "color",
+      "description": "Dialog panel background — elevated surface (fallback for elevated variant)"
+    },
+    "borderRadius": {
+      "value": "{border.radius.emphasis.value}",
+      "type": "dimension",
+      "description": "Dialog panel border radius — 12px container radius"
+    },
+    "boxShadow": {
+      "value": "{elevation.emphasis.value}",
+      "type": "shadow",
+      "description": "Dialog panel shadow — elevated overlay depth (fallback for elevated variant)"
+    },
+    "maxHeight": {
+      "value": "90vh",
+      "type": "dimension",
+      "description": "Dialog max height — 90% viewport height"
+    },
+    "zIndex": {
+      "value": "{z-index.overlay.value}",
+      "type": "number",
+      "description": "Dialog z-index — modal layer"
+    },
+    "backdrop": {
+      "backgroundColor": {
+        "value": "{color.background.overlay.value}",
+        "type": "color",
+        "description": "Dialog backdrop — semi-transparent overlay behind dialog"
+      },
+      "opacity": {
+        "value": "0.5",
+        "type": "number",
+        "description": "Backdrop opacity — 50% transparency"
+      }
+    },
+    "header": {
+      "paddingInline": {
+        "value": "{space.4.value}",
+        "type": "dimension",
+        "description": "Dialog header horizontal padding — 16px consistent padding"
+      },
+      "paddingBlock": {
+        "value": "{space.4.value}",
+        "type": "dimension",
+        "description": "Dialog header vertical padding — 16px consistent padding"
+      },
+      "borderBottomColor": {
+        "value": "transparent",
+        "type": "color",
+        "description": "Dialog header border-bottom — removed divider (transparent)"
+      },
+      "borderBottomWidth": {
+        "value": "0px",
+        "type": "dimension",
+        "description": "Dialog header border-bottom width — 0px (no divider)"
+      },
+      "titleFontSize": {
+        "value": "{font.size.heading-200.value}",
+        "type": "dimension",
+        "description": "Dialog title font size — large heading"
+      },
+      "titleFontWeight": {
+        "value": "{font.weight.heading.value}",
+        "type": "fontWeight",
+        "description": "Dialog title font weight — bold"
+      },
+      "titleLineHeight": {
+        "value": "{font.lineHeight.heading.value}",
+        "type": "number",
+        "description": "Dialog title line height — tight for headings"
+      },
+      "titleColor": {
+        "value": "{color.text.heading.value}",
+        "type": "color",
+        "description": "Dialog title text color"
+      },
+      "descriptionFontSize": {
+        "value": "{font.size.caption.value}",
+        "type": "dimension",
+        "description": "Dialog description font size — small supporting text"
+      },
+      "descriptionColor": {
+        "value": "{color.text.caption.value}",
+        "type": "color",
+        "description": "Dialog description text color — muted"
+      }
+    },
+    "body": {
+      "paddingInline": {
+        "value": "{space.4.value}",
+        "type": "dimension",
+        "description": "Dialog body horizontal padding — 16px consistent padding"
+      },
+      "paddingBlock": {
+        "value": "{space.4.value}",
+        "type": "dimension",
+        "description": "Dialog body vertical padding — 16px consistent padding"
+      },
+      "textColor": {
+        "value": "{color.text.body.value}",
+        "type": "color",
+        "description": "Dialog body text color"
+      },
+      "fontSize": {
+        "value": "{font.size.body.value}",
+        "type": "dimension",
+        "description": "Dialog body font size"
+      },
+      "lineHeight": {
+        "value": "{font.lineHeight.body.value}",
+        "type": "number",
+        "description": "Dialog body line height"
+      }
+    },
+    "footer": {
+      "paddingInline": {
+        "value": "{space.4.value}",
+        "type": "dimension",
+        "description": "Dialog footer horizontal padding"
+      },
+      "paddingBlock": {
+        "value": "{space.4.value}",
+        "type": "dimension",
+        "description": "Dialog footer vertical padding"
+      },
+      "borderTopColor": {
+        "value": "transparent",
+        "type": "color",
+        "description": "Dialog footer border-top — removed divider (transparent)"
+      },
+      "borderTopWidth": {
+        "value": "0px",
+        "type": "dimension",
+        "description": "Dialog footer border-top width — 0px (no divider)"
+      },
+      "gap": {
+        "value": "{space.stack.muted.value}",
+        "type": "dimension",
+        "description": "Dialog footer action button gap — spacing between buttons"
+      },
+      "backgroundColor": {
+        "value": "{color.background.surface.value}",
+        "type": "color",
+        "description": "Dialog footer background — subtle differentiation from body"
+      },
+      "dividerColor": {
+        "value": "{color.border.muted.value}",
+        "type": "color",
+        "description": "Dialog footer top divider color"
+      },
+      "dividerWidth": {
+        "value": "{border.width.default.value}",
+        "type": "dimension",
+        "description": "Dialog footer top divider width — 1px"
+      }
+    },
+    "closeButton": {
+      "size": {
+        "value": "{sizing.control.md.value}",
+        "type": "dimension",
+        "description": "Close button container size — 32px"
+      },
+      "iconSize": {
+        "value": "{sizing.icon.md.value}",
+        "type": "dimension",
+        "description": "Close button icon size — 16px"
+      },
+      "backgroundColor": {
+        "value": "transparent",
+        "type": "color",
+        "description": "Close button default background — transparent"
+      },
+      "backgroundColorHover": {
+        "value": "{color.action.ghost.background.hover.value}",
+        "type": "color",
+        "description": "Close button hover background — ghost button hover treatment"
+      },
+      "insetBlockStart": {
+        "value": "{space.3.value}",
+        "type": "dimension",
+        "description": "Close button top offset — 12px aligns visually with single-line header"
+      },
+      "insetInlineEnd": {
+        "value": "{space.3.value}",
+        "type": "dimension",
+        "description": "Close button end offset — 12px aligns to panel edge consistently"
+      }
+    },
+    "width": {
+      "value": "clamp(320px, 90vw, 560px)",
+      "type": "dimension",
+      "description": "Dialog default width — responsive clamp value. Consumers can override via the `width` CSS custom property or the component's `width` property."
+    },
+    "animation": {
+      "duration": {
+        "enter": {
+          "value": "{animation.duration.normal.value}",
+          "type": "duration",
+          "description": "Dialog entry animation duration — 300ms"
+        },
+        "exit": {
+          "value": "{animation.duration.fast.value}",
+          "type": "duration",
+          "description": "Dialog exit animation duration — 200ms"
+        }
+      },
+      "easing": {
+        "enter": {
+          "value": "{animation.easing.entrance.value}",
+          "type": "cubicBezier",
+          "description": "Dialog entry easing — ease-out"
+        },
+        "exit": {
+          "value": "{animation.easing.exit.value}",
+          "type": "cubicBezier",
+          "description": "Dialog exit easing — ease-in"
+        }
+      }
+    },
+    "focusRing": {
+      "color": {
+        "value": "{color.focus.ring.value}",
+        "type": "color",
+        "description": "Focus ring color — kohaku gold"
+      },
+      "width": {
+        "value": "{border.width.emphasis.value}",
+        "type": "dimension",
+        "description": "Focus ring width — 2px"
+      },
+      "offset": {
+        "value": "{space.stack.tight.value}",
+        "type": "dimension",
+        "description": "Focus ring offset — 4px from edge"
+      }
+    }
+  }
+}

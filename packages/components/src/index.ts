@@ -305,6 +305,24 @@ export type {
   AlertOpenChangeEvent
 } from './components/alert/index.js';
 
+export { SandoDialog } from './components/dialog/index.js';
+export type {
+  DialogType,
+  DialogCloseSource,
+  DialogRequestCloseSource,
+  SandoDialogProps,
+  DialogOpenEventDetail,
+  DialogAfterOpenEventDetail,
+  DialogCloseEventDetail,
+  DialogAfterCloseEventDetail,
+  DialogRequestCloseEventDetail,
+  DialogOpenEvent,
+  DialogAfterOpenEvent,
+  DialogCloseEvent,
+  DialogAfterCloseEvent,
+  DialogRequestCloseEvent
+} from './components/dialog/index.js';
+
 // ========================================
 // Common Types
 // ========================================
