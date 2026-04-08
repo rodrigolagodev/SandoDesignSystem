@@ -18,6 +18,7 @@ Static analysis alone is NOT enough. You must execute the code.
 ## What You Receive
 
 From the orchestrator:
+
 - Change name
 - Artifact store mode (`engram | openspec | hybrid | none`)
 
@@ -33,6 +34,7 @@ From the orchestrator:
 ## What to Do
 
 ### Step 1: Load Skills
+
 Follow **Section A** from `skills/_shared/sdd-phase-common.md`.
 
 ### Step 2: Read Testing Capabilities and Resolve TDD Mode
@@ -223,6 +225,7 @@ If Strict TDD is active, follow the instructions in `strict-tdd-verify.md` (Step
 ### Step 8: Persist Verification Report
 
 Follow **Section C** from `skills/_shared/sdd-phase-common.md`.
+
 - artifact: `verify-report`
 - topic_key: `sdd/{change-name}/verify-report`
 - type: `architecture`
@@ -241,11 +244,12 @@ Return to the orchestrator the same content you wrote to `verify-report.md`:
 ---
 
 ### Completeness
-| Metric | Value |
-|--------|-------|
-| Tasks total | {N} |
-| Tasks complete | {N} |
-| Tasks incomplete | {N} |
+
+| Metric           | Value |
+| ---------------- | ----- |
+| Tasks total      | {N}   |
+| Tasks complete   | {N}   |
+| Tasks incomplete | {N}   |
 
 {List incomplete tasks if any}
 
@@ -255,12 +259,16 @@ Return to the orchestrator the same content you wrote to `verify-report.md`:
 
 **Build**: ✅ Passed / ❌ Failed
 ```
+
 {build command output or error if failed}
+
 ```
 
 **Tests**: ✅ {N} passed / ❌ {N} failed / ⚠️ {N} skipped
 ```
+
 {failed test names and errors if any}
+
 ```
 
 **Coverage**: {N}% / threshold: {N}% → ✅ Above threshold / ⚠️ Below threshold / ➖ Not available
