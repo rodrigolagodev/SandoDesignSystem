@@ -30,7 +30,13 @@ export type DialogButtonStatus = 'default' | 'success' | 'destructive';
 /**
  * Source of a close action
  */
-export type DialogCloseSource = 'escape' | 'backdrop' | 'close-button' | 'cancel-button' | 'api';
+export type DialogCloseSource =
+  | 'escape'
+  | 'backdrop'
+  | 'close-button'
+  | 'cancel-button'
+  | 'confirm-button'
+  | 'api';
 
 /**
  * Source of a request-close action (only user-initiated)

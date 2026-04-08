@@ -22,7 +22,7 @@
  * @fires sando-close - When dialog starts closing, detail: { source }
  * @fires sando-after-close - After exit animation completes, detail: { source }
  * @fires sando-request-close - Cancelable event before closing (user-initiated only), detail: { source }
- * @fires sando-confirm - When the built-in confirm button is clicked
+ * @fires sando-confirm - Cancelable. Fired when the built-in confirm button is clicked. Call event.preventDefault() to keep the dialog open (e.g. for form validation).
  *
  * @csspart backdrop - The overlay behind the dialog
  * @csspart panel - The dialog surface container
@@ -544,7 +544,16 @@ export class SandoDialog extends FlavorableMixin(LitElement) implements SandoDia
   };
 
   private _handleConfirmButtonClick = (): void => {
-    this._emit('sando-confirm', {});
+    const event = new CustomEvent('sando-confirm', {
+      bubbles: true,
+      composed: true,
+      cancelable: true,
+      detail: {}
+    });
+    const notCanceled = this.dispatchEvent(event);
+    if (notCanceled) {
+      this._closeWithAnimation('confirm-button');
+    }
   };
 
   // ========================================
