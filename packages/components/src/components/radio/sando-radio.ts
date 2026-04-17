@@ -52,11 +52,14 @@
  */
 
 import { LitElement, html, nothing } from 'lit';
-import { customElement, property, query, state } from 'lit/decorators.js';
+import { customElement, property, query } from 'lit/decorators.js';
 
 import type { RadioVariant, RadioSize, RadioChangeEventDetail } from './sando-radio.types.js';
 
-import { FlavorableMixin } from '../../mixins/index.js';
+import { FlavorableMixin } from '../../mixins/flavorable.js';
+import { FormResetMixin } from '../../mixins/form-reset.js';
+import { FocusTrackMixin } from '../../mixins/focus-track.js';
+import { FormFieldMixin } from '../../mixins/form-field.js';
 import { resetStyles } from '../../styles/reset.css.js';
 import { tokenStyles } from '../../styles/tokens.css.js';
 import { baseStyles, variantStyles, sizeStyles, stateStyles } from './styles/index.js';
@@ -65,7 +68,9 @@ import { baseStyles, variantStyles, sizeStyles, stateStyles } from './styles/ind
 import '../help-text/sando-help-text.js';
 
 @customElement('sando-radio')
-export class SandoRadio extends FlavorableMixin(LitElement) {
+export class SandoRadio extends FormFieldMixin(
+  FormResetMixin(FocusTrackMixin(FlavorableMixin(LitElement)))
+) {
   /**
    * Shadow DOM focus delegation for proper keyboard navigation.
    * Required per KEYBOARD_NAVIGATION.toon (KN-CR-R5)
@@ -88,27 +93,16 @@ export class SandoRadio extends FlavorableMixin(LitElement) {
     stateStyles // Checked, disabled, error
   ];
 
+  protected override get _componentPrefix(): string {
+    return 'sando-radio';
+  }
+
   /**
    * Reference to the native input element
    * @private
    */
   @query('input')
   private _inputElement!: HTMLInputElement;
-
-  /**
-   * Internal: unique ID for label/input association (generated once)
-   * @private
-   */
-  @state()
-  private _inputId = `sando-radio-${Math.random().toString(36).substring(2, 11)}`;
-
-  /**
-   * Internal: tracks whether input is currently focused
-   * Used to apply .focused class for reliable focus ring visibility
-   * @private
-   */
-  @state()
-  private _focused = false;
 
   /**
    * Whether the radio is checked
@@ -173,90 +167,20 @@ export class SandoRadio extends FlavorableMixin(LitElement) {
   label?: string;
 
   /**
-   * Helper text displayed below the radio
-   */
-  @property({ reflect: true, attribute: 'helper-text' })
-  helperText?: string;
-
-  /**
-   * Error message displayed when error=true
-   */
-  @property({ reflect: true, attribute: 'error-text' })
-  errorText?: string;
-
-  /**
-   * Whether to reserve space for error messages to prevent layout shift.
-   * When true, a minimum height is maintained even when no message is shown.
-   * @default true
-   */
-  @property({ type: Boolean, attribute: 'reserve-error-space' })
-  reserveErrorSpace = true;
-
-  /**
    * Tabindex for roving tabindex pattern in radio groups.
    * Managed by sando-radio-group to implement WAI-ARIA radio group navigation.
-   * - tabindex="0": This radio is focusable via Tab
-   * - tabindex="-1": This radio is not in tab order (only arrow key accessible)
-   *
-   * Note: This controls the HOST element's tab order. When the host receives focus,
-   * the focus() override forwards focus to the internal input. The internal input
-   * always has tabindex="-1" and is never directly tabbable.
    * @default 0
    */
   @property({ type: Number, reflect: true })
   override tabIndex = 0;
 
-  /**
-   * Lifecycle: Called when component is added to DOM
-   */
-  connectedCallback(): void {
-    super.connectedCallback();
-    this._attachFormListeners();
-  }
-
-  /**
-   * Lifecycle: Called when component is removed from DOM
-   */
-  disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._detachFormListeners();
-  }
-
-  /**
-   * Attach form reset listener
-   * @private
-   */
-  private _attachFormListeners(): void {
-    const form = this.closest('form');
-    if (form) {
-      form.addEventListener('reset', this._handleFormReset);
-    }
-  }
-
-  /**
-   * Detach form reset listener
-   * @private
-   */
-  private _detachFormListeners(): void {
-    const form = this.closest('form');
-    if (form) {
-      form.removeEventListener('reset', this._handleFormReset);
-    }
-  }
-
-  /**
-   * Handle form reset event
-   * @private
-   */
-  private _handleFormReset = (): void => {
+  protected override _handleFormReset = (): void => {
     this.checked = false;
     this.error = false;
   };
 
   /**
    * Handle native input change event
-   * This is the ONLY handler for state changes - triggered by label click or direct input click
-   * Radio buttons only fire on selection (when being checked), not on deselection
    * @private
    */
   private _handleInputChange = (e: Event): void => {
@@ -273,8 +197,6 @@ export class SandoRadio extends FlavorableMixin(LitElement) {
 
   /**
    * Handle keyboard events for accessibility
-   * Supports Space and Enter key activation
-   * Note: Arrow key navigation is handled by the browser for native radio groups
    * @private
    */
   private _handleKeyDown = (e: KeyboardEvent): void => {
@@ -284,24 +206,6 @@ export class SandoRadio extends FlavorableMixin(LitElement) {
       e.preventDefault();
       this.select();
     }
-  };
-
-  /**
-   * Handle focus event on native input
-   * Tracks focus state for reliable focus ring visibility
-   * @private
-   */
-  private _handleFocus = (): void => {
-    this._focused = true;
-  };
-
-  /**
-   * Handle blur event on native input
-   * Clears focus state
-   * @private
-   */
-  private _handleBlur = (): void => {
-    this._focused = false;
   };
 
   /**
@@ -323,12 +227,7 @@ export class SandoRadio extends FlavorableMixin(LitElement) {
 
   render() {
     const hasLabel = this.label || this.querySelector('[slot=""]') !== null;
-    // Determine text content for sando-help-text
-    const hasHelperText = Boolean(this.helperText && !this.error);
-    const hasErrorText = Boolean(this.errorText && this.error);
-    const hasMessage = hasHelperText || hasErrorText;
-    const messageText = hasErrorText ? this.errorText : this.helperText;
-    const describedBy = hasMessage ? `${this._inputId}-description` : undefined;
+    const { describedBy } = this._getHelpTextContext();
 
     return html`
       <div class="radio-wrapper">
@@ -368,14 +267,7 @@ export class SandoRadio extends FlavorableMixin(LitElement) {
         </label>
 
         <!-- Helper/Error text using sando-help-text -->
-        <sando-help-text
-          id="${this._inputId}-description"
-          variant=${this.error ? 'error' : 'default'}
-          ?show-icon=${this.error}
-          reserve-space=${this.reserveErrorSpace ? 'true' : 'false'}
-        >
-          ${messageText || nothing}
-        </sando-help-text>
+        ${this._renderHelpText()}
       </div>
     `;
   }
@@ -396,7 +288,6 @@ export class SandoRadio extends FlavorableMixin(LitElement) {
 
   /**
    * Public API: Select the radio (set checked to true)
-   * Unlike checkbox toggle(), radio can only be selected, not deselected
    */
   select(): void {
     if (!this.disabled && !this.checked) {
@@ -407,7 +298,6 @@ export class SandoRadio extends FlavorableMixin(LitElement) {
 
   /**
    * Public API: Check validity of radio
-   * Delegates to native input validation API
    */
   checkValidity(): boolean {
     return this._inputElement?.checkValidity() ?? true;
@@ -415,7 +305,6 @@ export class SandoRadio extends FlavorableMixin(LitElement) {
 
   /**
    * Public API: Report validity with browser UI
-   * Delegates to native input validation API
    */
   reportValidity(): boolean {
     return this._inputElement?.reportValidity() ?? true;
@@ -423,7 +312,6 @@ export class SandoRadio extends FlavorableMixin(LitElement) {
 
   /**
    * Public API: Set custom validity message
-   * Delegates to native input validation API
    */
   setCustomValidity(message: string): void {
     this._inputElement?.setCustomValidity(message);
@@ -431,7 +319,6 @@ export class SandoRadio extends FlavorableMixin(LitElement) {
 
   /**
    * Public API: Get validity state
-   * Delegates to native input validation API
    */
   get validity(): ValidityState | undefined {
     return this._inputElement?.validity;
@@ -439,7 +326,6 @@ export class SandoRadio extends FlavorableMixin(LitElement) {
 
   /**
    * Public API: Get validation message
-   * Delegates to native input validation API
    */
   get validationMessage(): string {
     return this._inputElement?.validationMessage ?? '';
