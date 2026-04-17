@@ -102,7 +102,9 @@ import '../spinner/sando-spinner.js';
 // Import sando-help-text for helper/error text rendering
 import '../help-text/sando-help-text.js';
 
-import { FlavorableMixin } from '../../mixins/index.js';
+import { FlavorableMixin } from '../../mixins/flavorable.js';
+import { FormResetMixin } from '../../mixins/form-reset.js';
+import { FormFieldMixin } from '../../mixins/form-field.js';
 import { resetStyles } from '../../styles/reset.css.js';
 import { tokenStyles } from '../../styles/tokens.css.js';
 import {
@@ -115,7 +117,10 @@ import {
 } from './styles/index.js';
 
 @customElement('sando-select')
-export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSelectProps {
+export class SandoSelect
+  extends FormFieldMixin(FormResetMixin(FlavorableMixin(LitElement)))
+  implements SandoSelectProps
+{
   /**
    * Shadow DOM focus delegation for proper keyboard navigation
    * Required per KEYBOARD_NAVIGATION.toon (KN-CR-R5)
@@ -124,6 +129,10 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
     ...LitElement.shadowRootOptions,
     delegatesFocus: true
   };
+
+  protected override get _componentPrefix(): string {
+    return 'sando-select';
+  }
 
   /**
    * Component styles - modular CSS imports
@@ -160,13 +169,6 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
    */
   @query('.scroll-sentinel')
   private _scrollSentinel!: HTMLElement;
-
-  /**
-   * Internal: unique ID for ARIA associations (generated once)
-   * @private
-   */
-  @state()
-  private _inputId = `sando-select-${Math.random().toString(36).substring(2, 11)}`;
 
   /**
    * Internal: currently highlighted option index for keyboard navigation
@@ -290,18 +292,6 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
   error = false;
 
   /**
-   * Error message displayed when error is true
-   */
-  @property({ reflect: true, attribute: 'error-text' })
-  errorText?: string;
-
-  /**
-   * Helper text displayed below the select
-   */
-  @property({ reflect: true, attribute: 'helper-text' })
-  helperText?: string;
-
-  /**
    * Accessible label for the select
    */
   @property({ reflect: true })
@@ -371,20 +361,11 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
   loading = false;
 
   /**
-   * Whether to reserve space for error messages to prevent layout shift.
-   * When true, a minimum height is maintained even when no message is shown.
-   * @default true
-   */
-  @property({ type: Boolean, attribute: 'reserve-error-space' })
-  reserveErrorSpace = true;
-
-  /**
    * Lifecycle: Called when component is added to DOM
    */
   connectedCallback(): void {
     super.connectedCallback();
     this._attachEventListeners();
-    this._attachFormListeners();
   }
 
   /**
@@ -393,7 +374,6 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
   disconnectedCallback(): void {
     super.disconnectedCallback();
     this._removeEventListeners();
-    this._detachFormListeners();
     this._destroyScrollObserver();
     this._removePositionListeners();
     this._removePopoverListeners();
@@ -491,32 +471,10 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
   };
 
   /**
-   * Attach form reset listener
-   * @private
+   * Handle form reset event — component-specific reset logic
+   * @protected
    */
-  private _attachFormListeners(): void {
-    const form = this.closest('form');
-    if (form) {
-      form.addEventListener('reset', this._handleFormReset);
-    }
-  }
-
-  /**
-   * Detach form reset listener
-   * @private
-   */
-  private _detachFormListeners(): void {
-    const form = this.closest('form');
-    if (form) {
-      form.removeEventListener('reset', this._handleFormReset);
-    }
-  }
-
-  /**
-   * Handle form reset event
-   * @private
-   */
-  private _handleFormReset = (): void => {
+  protected override _handleFormReset = (): void => {
     this.value = '';
     this.values = [];
     this.error = false;
@@ -1219,12 +1177,7 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
   }
 
   render() {
-    // Determine text content and whether we have any message to show
-    const hasHelperText = Boolean(this.helperText && !this.error);
-    const hasErrorText = Boolean(this.errorText && this.error);
-    const hasMessage = hasHelperText || hasErrorText;
-    const messageText = hasErrorText ? this.errorText : this.helperText;
-    const describedBy = hasMessage ? `${this._inputId}-description` : undefined;
+    const { describedBy } = this._getHelpTextContext();
 
     // Get aria-activedescendant for highlighted option
     const highlightedOption =
@@ -1323,14 +1276,7 @@ export class SandoSelect extends FlavorableMixin(LitElement) implements SandoSel
           <div class="scroll-sentinel" aria-hidden="true"></div>
         </div>
 
-        <sando-help-text
-          id="${this._inputId}-description"
-          variant=${this.error ? 'error' : 'default'}
-          ?show-icon=${this.error}
-          reserve-space=${this.reserveErrorSpace ? 'true' : 'false'}
-        >
-          ${messageText || nothing}
-        </sando-help-text>
+        ${this._renderHelpText()}
       </div>
     `;
   }

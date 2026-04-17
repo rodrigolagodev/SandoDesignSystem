@@ -56,7 +56,7 @@
  */
 
 import { LitElement, html, nothing } from 'lit';
-import { customElement, property, query, state } from 'lit/decorators.js';
+import { customElement, property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 
 import type {
@@ -65,7 +65,10 @@ import type {
   CheckboxChangeEventDetail
 } from './sando-checkbox.types.js';
 
-import { FlavorableMixin } from '../../mixins/index.js';
+import { FlavorableMixin } from '../../mixins/flavorable.js';
+import { FormResetMixin } from '../../mixins/form-reset.js';
+import { FocusTrackMixin } from '../../mixins/focus-track.js';
+import { FormFieldMixin } from '../../mixins/form-field.js';
 import { resetStyles } from '../../styles/reset.css.js';
 import { tokenStyles } from '../../styles/tokens.css.js';
 import { baseStyles, variantStyles, sizeStyles, stateStyles } from './styles/index.js';
@@ -77,7 +80,9 @@ import '../icon/sando-icon.js';
 import '../help-text/sando-help-text.js';
 
 @customElement('sando-checkbox')
-export class SandoCheckbox extends FlavorableMixin(LitElement) {
+export class SandoCheckbox extends FormFieldMixin(
+  FormResetMixin(FocusTrackMixin(FlavorableMixin(LitElement)))
+) {
   /**
    * Shadow DOM focus delegation for proper keyboard navigation
    * Required per KEYBOARD_NAVIGATION.toon (KN-CR-R5)
@@ -100,14 +105,12 @@ export class SandoCheckbox extends FlavorableMixin(LitElement) {
     stateStyles // Checked, indeterminate, disabled, error
   ];
 
+  protected override get _componentPrefix(): string {
+    return 'sando-checkbox';
+  }
+
   @query('input')
   private _inputElement!: HTMLInputElement;
-
-  @state()
-  private _inputId = `sando-checkbox-${Math.random().toString(36).substring(2, 11)}`;
-
-  @state()
-  private _focused = false;
 
   /**
    * Whether the checkbox is checked
@@ -178,46 +181,10 @@ export class SandoCheckbox extends FlavorableMixin(LitElement) {
   label?: string;
 
   /**
-   * Helper text displayed below the checkbox
-   */
-  @property({ reflect: true, attribute: 'helper-text' })
-  helperText?: string;
-
-  /**
-   * Error message displayed when error=true
-   */
-  @property({ reflect: true, attribute: 'error-text' })
-  errorText?: string;
-
-  /**
-   * Whether to reserve space for error messages to prevent layout shift.
-   * When true, a minimum height is maintained even when no message is shown.
-   * @default true
-   */
-  @property({ type: Boolean, attribute: 'reserve-error-space' })
-  reserveErrorSpace = true;
-
-  /**
-   * Lifecycle: Called when component is added to DOM
-   */
-  connectedCallback(): void {
-    super.connectedCallback();
-    this._attachFormListeners();
-  }
-
-  /**
-   * Lifecycle: Called when component is removed from DOM
-   */
-  disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._detachFormListeners();
-  }
-
-  /**
    * Lifecycle: Called when properties change
    * Syncs indeterminate state with native input
    */
-  protected updated(changedProperties: Map<string, unknown>): void {
+  protected override updated(changedProperties: Map<string, unknown>): void {
     super.updated(changedProperties);
 
     // Sync indeterminate state to native input (can't be set via attribute)
@@ -226,21 +193,7 @@ export class SandoCheckbox extends FlavorableMixin(LitElement) {
     }
   }
 
-  private _attachFormListeners(): void {
-    const form = this.closest('form');
-    if (form) {
-      form.addEventListener('reset', this._handleFormReset);
-    }
-  }
-
-  private _detachFormListeners(): void {
-    const form = this.closest('form');
-    if (form) {
-      form.removeEventListener('reset', this._handleFormReset);
-    }
-  }
-
-  private _handleFormReset = (): void => {
+  protected override _handleFormReset = (): void => {
     this.checked = false;
     this.indeterminate = false;
     this.error = false;
@@ -264,14 +217,6 @@ export class SandoCheckbox extends FlavorableMixin(LitElement) {
       e.preventDefault();
       this.toggle();
     }
-  };
-
-  private _handleFocus = (): void => {
-    this._focused = true;
-  };
-
-  private _handleBlur = (): void => {
-    this._focused = false;
   };
 
   private _emitChangeEvent(): void {
@@ -304,12 +249,7 @@ export class SandoCheckbox extends FlavorableMixin(LitElement) {
   }
 
   render() {
-    // Determine text content and whether we have any message to show
-    const hasHelperText = Boolean(this.helperText && !this.error);
-    const hasErrorText = Boolean(this.errorText && this.error);
-    const hasMessage = hasHelperText || hasErrorText;
-    const messageText = hasErrorText ? this.errorText : this.helperText;
-    const describedBy = hasMessage ? `${this._inputId}-description` : undefined;
+    const { describedBy } = this._getHelpTextContext();
     const ariaChecked = this.indeterminate ? 'mixed' : this.checked ? 'true' : 'false';
 
     const boxClasses = classMap({
@@ -347,14 +287,7 @@ export class SandoCheckbox extends FlavorableMixin(LitElement) {
           </span>
         </label>
 
-        <sando-help-text
-          id="${this._inputId}-description"
-          variant=${this.error ? 'error' : 'default'}
-          ?show-icon=${this.error}
-          reserve-space=${this.reserveErrorSpace ? 'true' : 'false'}
-        >
-          ${messageText || nothing}
-        </sando-help-text>
+        ${this._renderHelpText()}
       </div>
     `;
   }

@@ -9,7 +9,10 @@ import type {
   SandoInputProps
 } from './sando-input.types.js';
 
-import { FlavorableMixin } from '../../mixins/index.js';
+import { FlavorableMixin } from '../../mixins/flavorable.js';
+import { FormResetMixin } from '../../mixins/form-reset.js';
+import { FocusTrackMixin } from '../../mixins/focus-track.js';
+import { FormFieldMixin } from '../../mixins/form-field.js';
 import { resetStyles } from '../../styles/reset.css.js';
 import { tokenStyles } from '../../styles/tokens.css.js';
 import { baseStyles, variantStyles, sizeStyles, stateStyles } from './styles/index.js';
@@ -108,7 +111,10 @@ import '../help-text/sando-help-text.js';
  * ```
  */
 @customElement('sando-input')
-export class SandoInput extends FlavorableMixin(LitElement) implements SandoInputProps {
+export class SandoInput
+  extends FormFieldMixin(FormResetMixin(FocusTrackMixin(FlavorableMixin(LitElement))))
+  implements SandoInputProps
+{
   /**
    * Shadow DOM focus delegation for proper keyboard navigation
    * Required per KEYBOARD_NAVIGATION.toon (KN-CR-R5)
@@ -132,19 +138,9 @@ export class SandoInput extends FlavorableMixin(LitElement) implements SandoInpu
   @state()
   private _touched = false;
 
-  /**
-   * Internal: tracks whether input is currently focused
-   * @private
-   */
-  @state()
-  private _focused = false;
-
-  /**
-   * Internal: unique ID for label/input association (generated once)
-   * @private
-   */
-  @state()
-  private _inputId = `sando-input-${Math.random().toString(36).substring(2, 11)}`;
+  protected override get _componentPrefix(): string {
+    return 'sando-input';
+  }
 
   /**
    * Visual style variant of the input
@@ -187,18 +183,6 @@ export class SandoInput extends FlavorableMixin(LitElement) implements SandoInpu
   label?: string;
 
   /**
-   * Helper text displayed below the input
-   */
-  @property({ reflect: true, attribute: 'helper-text' })
-  helperText?: string;
-
-  /**
-   * Error message displayed when error is true
-   */
-  @property({ reflect: true, attribute: 'error-text' })
-  errorText?: string;
-
-  /**
    * Whether the input is disabled
    * @default false
    */
@@ -227,14 +211,6 @@ export class SandoInput extends FlavorableMixin(LitElement) implements SandoInpu
   error = false;
 
   /**
-   * Whether to reserve space for error messages to prevent layout shift.
-   * When true, a minimum height is maintained even when no message is shown.
-   * @default true
-   */
-  @property({ type: Boolean, attribute: 'reserve-error-space' })
-  reserveErrorSpace = true;
-
-  /**
    * Name of the input (for form submission)
    */
   @property({ reflect: true })
@@ -249,30 +225,10 @@ export class SandoInput extends FlavorableMixin(LitElement) implements SandoInpu
   static styles = [resetStyles, tokenStyles, baseStyles, variantStyles, sizeStyles, stateStyles];
 
   /**
-   * Lifecycle: Called when component is added to DOM
-   */
-  connectedCallback(): void {
-    super.connectedCallback();
-
-    // Find parent form and listen for reset events
-    this._attachFormListeners();
-  }
-
-  /**
-   * Lifecycle: Called when component is removed from DOM
-   */
-  disconnectedCallback(): void {
-    super.disconnectedCallback();
-
-    // Cleanup form listeners
-    this._detachFormListeners();
-  }
-
-  /**
    * Lifecycle: Called when properties change
    * Syncs component value with native input
    */
-  protected updated(changedProperties: Map<string, unknown>): void {
+  protected override updated(changedProperties: Map<string, unknown>): void {
     super.updated(changedProperties);
 
     if (changedProperties.has('value') && this._inputElement) {
@@ -284,33 +240,10 @@ export class SandoInput extends FlavorableMixin(LitElement) implements SandoInpu
   }
 
   /**
-   * Attach form reset listener
-   * @private
+   * Handle form reset event — component-specific reset logic
+   * @protected
    */
-  private _attachFormListeners(): void {
-    const form = this.closest('form');
-    if (form) {
-      form.addEventListener('reset', this._handleFormReset);
-    }
-  }
-
-  /**
-   * Detach form reset listener
-   * @private
-   */
-  private _detachFormListeners(): void {
-    const form = this.closest('form');
-    if (form) {
-      form.removeEventListener('reset', this._handleFormReset);
-    }
-  }
-
-  /**
-   * Handle form reset event
-   * @private
-   */
-  private _handleFormReset = (): void => {
-    // Reset to empty string (native input behavior)
+  protected override _handleFormReset = (): void => {
     this.value = '';
     this._touched = false;
     this.error = false;
@@ -318,7 +251,6 @@ export class SandoInput extends FlavorableMixin(LitElement) implements SandoInpu
 
   /**
    * Handle input event
-   * Updates value property and re-dispatches event for composition
    * @private
    */
   private _handleInput = (e: Event): void => {
@@ -326,9 +258,7 @@ export class SandoInput extends FlavorableMixin(LitElement) implements SandoInpu
     const oldValue = this.value;
     this.value = target.value;
 
-    // Only dispatch if value actually changed (optimization)
     if (oldValue !== this.value) {
-      // Event already bubbles from native input, just ensure it crosses shadow boundary
       this.dispatchEvent(
         new Event('input', {
           bubbles: true,
@@ -339,14 +269,12 @@ export class SandoInput extends FlavorableMixin(LitElement) implements SandoInpu
   };
 
   /**
-   * Handle change event (fired on blur with changed value)
-   * Re-dispatches with custom event detail
+   * Handle change event
    * @private
    */
   private _handleChange = (e: Event): void => {
     const target = e.target as HTMLInputElement;
 
-    // Dispatch custom event with detail
     this.dispatchEvent(
       new CustomEvent<InputChangeEventDetail>('change', {
         detail: { value: target.value },
@@ -357,15 +285,13 @@ export class SandoInput extends FlavorableMixin(LitElement) implements SandoInpu
   };
 
   /**
-   * Handle focus event
-   * Tracks focus state and interaction state
-   * @private
+   * Handle focus event — extends mixin with _touched tracking and event dispatch
+   * @protected
    */
-  private _handleFocus = (): void => {
+  protected override _handleFocus = (): void => {
     this._touched = true;
     this._focused = true;
 
-    // Re-dispatch to cross shadow boundary
     this.dispatchEvent(
       new FocusEvent('focus', {
         bubbles: true,
@@ -375,14 +301,12 @@ export class SandoInput extends FlavorableMixin(LitElement) implements SandoInpu
   };
 
   /**
-   * Handle blur event
-   * Clears focus state
-   * @private
+   * Handle blur event — extends mixin with event dispatch
+   * @protected
    */
-  private _handleBlur = (): void => {
+  protected override _handleBlur = (): void => {
     this._focused = false;
 
-    // Re-dispatch to cross shadow boundary
     this.dispatchEvent(
       new FocusEvent('blur', {
         bubbles: true,
@@ -393,7 +317,6 @@ export class SandoInput extends FlavorableMixin(LitElement) implements SandoInpu
 
   /**
    * Get CSS classes for input wrapper
-   * Uses computed state flags for dynamic styling
    * @private
    */
   private _getWrapperClasses(): string {
@@ -419,12 +342,7 @@ export class SandoInput extends FlavorableMixin(LitElement) implements SandoInpu
   }
 
   render() {
-    // Determine text content and whether we have any message to show
-    const hasHelperText = Boolean(this.helperText && !this.error);
-    const hasErrorText = Boolean(this.errorText && this.error);
-    const hasMessage = hasHelperText || hasErrorText;
-    const messageText = hasErrorText ? this.errorText : this.helperText;
-    const describedBy = hasMessage ? `${this._inputId}-description` : undefined;
+    const { describedBy } = this._getHelpTextContext();
 
     return html`
       ${this.label
@@ -459,14 +377,7 @@ export class SandoInput extends FlavorableMixin(LitElement) implements SandoInpu
         <slot name="suffix"></slot>
       </div>
 
-      <sando-help-text
-        id="${this._inputId}-description"
-        variant=${this.error ? 'error' : 'default'}
-        ?show-icon=${this.error}
-        reserve-space=${this.reserveErrorSpace ? 'true' : 'false'}
-      >
-        ${messageText || nothing}
-      </sando-help-text>
+      ${this._renderHelpText()}
     `;
   }
 
@@ -493,7 +404,6 @@ export class SandoInput extends FlavorableMixin(LitElement) implements SandoInpu
 
   /**
    * Public API: Check validity of input
-   * Delegates to native input validation API
    */
   checkValidity(): boolean {
     return this._inputElement?.checkValidity() ?? true;
@@ -501,7 +411,6 @@ export class SandoInput extends FlavorableMixin(LitElement) implements SandoInpu
 
   /**
    * Public API: Report validity with browser UI
-   * Delegates to native input validation API
    */
   reportValidity(): boolean {
     return this._inputElement?.reportValidity() ?? true;
@@ -509,7 +418,6 @@ export class SandoInput extends FlavorableMixin(LitElement) implements SandoInpu
 
   /**
    * Public API: Set custom validity message
-   * Delegates to native input validation API
    */
   setCustomValidity(message: string): void {
     this._inputElement?.setCustomValidity(message);
@@ -517,7 +425,6 @@ export class SandoInput extends FlavorableMixin(LitElement) implements SandoInpu
 
   /**
    * Public API: Get validity state
-   * Delegates to native input validation API
    */
   get validity(): ValidityState | undefined {
     return this._inputElement?.validity;
@@ -525,7 +432,6 @@ export class SandoInput extends FlavorableMixin(LitElement) implements SandoInpu
 
   /**
    * Public API: Get validation message
-   * Delegates to native input validation API
    */
   get validationMessage(): string {
     return this._inputElement?.validationMessage ?? '';
