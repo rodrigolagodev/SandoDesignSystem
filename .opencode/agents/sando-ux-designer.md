@@ -150,7 +150,7 @@ Reference: `COMPONENT_DESIGN.toon` (variant_taxonomy, naming_conventions)
 | Create token JSON files          | `sando-tokens`     | Recommend which tokens to create |
 | Write a11y tests (axe-core)      | `sando-quality`    | Define UX success criteria       |
 | Create Storybook stories         | `sando-storybook`  | Suggest story scenarios          |
-| Write JSDoc/VitePress guides     | `sando-documenter` | Provide copy and messaging       |
+| Write JSDoc/MDX guides           | `sando-documenter` | Provide copy and messaging       |
 | Technical architecture decisions | `sando-architect`  | Inform with UX requirements      |
 | New patterns not in guidelines   | `sando-architect`  | Propose for guideline addition   |
 

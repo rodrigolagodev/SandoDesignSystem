@@ -159,7 +159,7 @@ When producing `tasks.md`, tag each task with the responsible Sando specialist:
 
 ## Phase 4: Documentation
 
-- [ ] 4.1 [sando-documenter] Update JSDoc / VitePress docs (if applicable)
+- [ ] 4.1 [sando-documenter] Update JSDoc / Storybook MDX docs (if applicable)
 - [ ] 4.2 Update CHANGELOG.md
 ```
 

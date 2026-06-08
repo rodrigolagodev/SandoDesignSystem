@@ -31,7 +31,7 @@ Scan the user request for keywords and route immediately:
 | `implement`, `component`, `fix bug`, `add feature`, `refactor`, `Lit`, `render`, `@property`        | COMPONENT_CODE | `sando-developer`   |
 | `test`, `coverage`, `a11y`, `accessibility`, `axe`, `WCAG`, `audit`, `quality`, `validate`          | QUALITY_WORK   | `sando-quality`     |
 | `story`, `stories`, `storybook`, `argTypes`, `controls`, `addon`, `CSF`, `preview.ts`               | STORYBOOK_WORK | `sando-storybook`   |
-| `document`, `docs`, `JSDoc`, `VitePress`, `README`, `API reference`, `guide`                        | DOCUMENTATION  | `sando-documenter`  |
+| `document`, `docs`, `JSDoc`, `MDX`, `README`, `API reference`, `guide`                              | DOCUMENTATION  | `sando-documenter`  |
 | `architecture`, `pattern`, `structure`, `breaking change`, `decision`, `RFC`, `ADR`, `build system` | ARCHITECTURE   | `sando-architect`   |
 | `UX`, `user experience`, `states`, `behavior`, `flow`, `empty state`, `error message`, `motion`     | UX_DESIGN      | `sando-ux-designer` |
 | `copy`, `microcopy`, `write text`, `tagline`, `changelog entry`, `content audit`, `tone`            | UX_WRITING     | `sando-ux-writer`   |

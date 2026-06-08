@@ -106,7 +106,7 @@ Use these scopes in issue titles to match conventional commit scopes:
 | Token system         | `tokens`                                      |
 | Specific flavor      | `flavor-sando`, `flavor-nori`, etc.           |
 | Storybook            | `storybook`                                   |
-| VitePress docs       | `docs`                                        |
+| Documentation (MDX)  | `docs`                                        |
 | AI agents            | `agents`                                      |
 | Build / CI           | `build`, `ci`                                 |
 

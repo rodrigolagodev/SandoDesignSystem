@@ -19,7 +19,7 @@
 - [ ] Accessibility tests pass (jest-axe)
 - [ ] Manual testing completed
 - [ ] Storybook stories added/updated (if component changes)
-- [ ] VitePress docs updated (if public API changes)
+- [ ] Storybook MDX docs updated (if public API changes)
 
 ## Changeset
 
@@ -37,7 +37,7 @@
 
 **Skip changeset for:**
 
-- Documentation only (Storybook stories, VitePress guides)
+- Documentation only (Storybook stories and MDX guides)
 - Internal implementation (no API changes)
 - Test files
 - Development tooling

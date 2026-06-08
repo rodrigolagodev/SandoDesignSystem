@@ -161,8 +161,8 @@ COMPOUND COMPONENTS: use slots + parts pattern — no tight coupling via propert
 API DOCS: JSDoc on every public @property, event, slot, CSS part.
 FORMAT: @property with type + default + description. @fires for events. @slot for slots.
 README: component name, description, installation, usage (HTML + JS), API table.
-VITEPRESS: docs live in docs/components/{name}.md — follow existing structure.
-NEVER: write Storybook stories (→ sando-storybook handles those).
+MDX DOCS: guides/references live in apps/docs/stories/<section>/*.mdx (single docs source). Use <Meta title> + GFM tables + blockquote callouts; no VitePress ::: containers.
+NEVER: write component *.stories.ts (→ sando-storybook handles those).
 ```
 
 **Key guideline files (read only if task is ambiguous):**

@@ -110,7 +110,7 @@ refactor(checkbox): extract interaction logic to mixin
 docs(api): add JSDoc to sando-select properties
 chore(tokens): update amber scale to match new brand
 test(badge): add a11y tests for status variant
-style(storybook): align preview colors with VitePress theme
+style(storybook): align preview colors with sando flavor tokens
 ```
 
 ---

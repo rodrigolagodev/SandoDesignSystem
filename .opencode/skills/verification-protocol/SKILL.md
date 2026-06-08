@@ -156,7 +156,7 @@ pnpm typecheck   # JSDoc types must be valid
 - [ ] `@fires` documented for all custom events
 - [ ] `@slot` documented for all named slots
 - [ ] `@csspart` documented for all CSS parts
-- [ ] No broken links in VitePress docs
+- [ ] No broken links in Storybook MDX docs (`?path=/docs/<id>--docs`)
 
 ---
 

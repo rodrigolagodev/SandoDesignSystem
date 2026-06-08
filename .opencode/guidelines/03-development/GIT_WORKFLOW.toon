@@ -197,9 +197,7 @@ conventional_commits:
       - name: "tokens"
         note: "@sando/tokens"
       - name: "docs"
-        note: "@sando/docs (Storybook)"
-      - name: "site"
-        note: "@sando/site (VitePress)"
+        note: "@sando/docs (Storybook — single docs source)"
     feature_level:
       - "button, input, card - Specific components"
       - "theming, accessibility, build - Cross-cutting concerns"
@@ -225,7 +223,7 @@ changesets_workflow:
       - "Build output or distribution format"
       - "Peer dependency requirements"
     skip_changeset_when:
-      - "Documentation (Storybook stories, VitePress guides)"
+      - "Documentation (Storybook stories and MDX guides)"
       - "Internal implementation (no API changes)"
       - "Test files"
       - "Development tooling"
@@ -360,7 +358,7 @@ github_flow:
       - number: 1
         note: "Merge PR - Squash and merge to `master`"
       - number: 2
-        note: "CI builds - Tokens → Components → Storybook → VitePress"
+        note: "CI builds - Tokens → Components → Storybook"
       - number: 3
         note: "Deploy to GitHub Pages - Automated deployment with health checks"
       - number: 4
@@ -401,7 +399,7 @@ branching_strategy:
       - name: "fix/*"
         note: "Bug fixes (accessibility, rendering, tokens)"
       - name: "docs/*"
-        note: "Documentation (Storybook, VitePress, inline)"
+        note: "Documentation (Storybook MDX, inline JSDoc)"
       - name: "refactor/*"
         note: "Code improvements (no behavior change)"
       - name: "perf/*"

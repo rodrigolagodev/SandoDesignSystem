@@ -110,6 +110,13 @@ import { Meta } from "@storybook/blocks";
   `}
 </style>
 
+{/*
+  Internal links use Storybook's `?path=/docs/<slug>--docs` deep-link format.
+  The slug is derived from each page's `<Meta title="...">` — renaming a title
+  (e.g. "Getting Started/Introduction") silently breaks these links with no
+  build-time check. Keep titles and these hrefs in sync.
+*/}
+
 <div className="welcome-container">
 
 <div className="welcome-hero">
@@ -117,11 +124,9 @@ import { Meta } from "@storybook/blocks";
   <p className="tagline">The perfect recipe for building delicious UIs</p>
   <a
     className="docs-link"
-    href="https://rodrigolagodev.github.io/SandoDesignSystem/docs/"
-    target="_blank"
-    rel="noopener noreferrer"
+    href="?path=/docs/getting-started-introduction--docs"
   >
-    Full Documentation
+    Get Started
   </a>
 </div>
 
@@ -188,12 +193,8 @@ import { Meta } from "@storybook/blocks";
     Start with quality ingredients, season with distinctive flavors, follow
     proven recipes.
     <br />
-    <a
-      href="https://rodrigolagodev.github.io/SandoDesignSystem/docs/"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      Read the full documentation
+    <a href="?path=/docs/getting-started-introduction--docs">
+      Read the documentation
     </a>{" "}
     for guides, architecture, and best practices.
   </p>

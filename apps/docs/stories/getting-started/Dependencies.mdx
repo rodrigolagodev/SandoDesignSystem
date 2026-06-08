@@ -1,0 +1,571 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Getting Started/Dependencies" />
+
+# Dependencies
+
+Every great recipe starts with knowing your ingredients. This page covers everything Sando needs to run—from system requirements to the exact packages under the hood.
+
+## System Requirements
+
+Before installing Sando, make sure your kitchen is properly equipped:
+
+### Required
+
+- **Node.js**: `>=20.0.0`
+- **Package Manager**: `pnpm@>=8.15.0` (recommended) or `npm@>=9.0.0`
+
+### Verify Installation
+
+```bash
+# Check Node version
+node --version  # Should be 20.0.0 or higher
+
+# Check pnpm version
+pnpm --version  # Should be 8.15.0 or higher
+```
+
+### Install pnpm
+
+If you don't have pnpm installed:
+
+```bash
+npm install -g pnpm
+```
+
+> **💡 Why pnpm?**
+>
+> The Sando monorepo uses pnpm workspaces for efficient dependency management. While you can use npm or yarn to install `@sando/tokens` and `@sando/components` in your own project, pnpm is required if you're contributing to the design system itself.
+
+---
+
+## Production Dependencies
+
+These are the only dependencies your project needs when using Sando. We keep the ingredient list short on purpose.
+
+### `@sando/tokens`
+
+The tokens package has **zero runtime dependencies**. It produces pure CSS custom properties and JSON token files—no JavaScript runtime required.
+
+```json
+{
+  "devDependencies": {
+    "style-dictionary": "^4.0.0"
+  }
+}
+```
+
+<details>
+<summary>Build-time Only</summary>
+
+Style Dictionary is used at build time to transform token JSON files into CSS custom properties. It's never shipped to your users.
+
+</details>
+
+### `@sando/components`
+
+The components package depends on Lit for Web Components rendering and on `@sando/tokens` for design tokens:
+
+```json
+{
+  "dependencies": {
+    "lit": "^3.1.0",
+    "@sando/tokens": "workspace:*"
+  }
+}
+```
+
+Lit is lightweight (~7KB minified+gzipped) and provides reactive properties, declarative templates, and Shadow DOM encapsulation—the essentials for framework-agnostic Web Components.
+
+---
+
+## Development Dependencies
+
+These packages are used for developing the Sando Design System monorepo. You don't need these in your project.
+
+### Build Tools
+
+<table>
+  <thead>
+    <tr>
+      <th>Package</th>
+      <th>Version</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`turbo`</td>
+      <td>`2.5.8`</td>
+      <td>Monorepo build orchestration</td>
+    </tr>
+    <tr>
+      <td>`vite`</td>
+      <td>`6.4.1`</td>
+      <td>Development server and bundler</td>
+    </tr>
+    <tr>
+      <td>`style-dictionary`</td>
+      <td>`4.0.0`</td>
+      <td>Token transformation</td>
+    </tr>
+    <tr>
+      <td>`typescript`</td>
+      <td>`5.9.3`</td>
+      <td>Type checking and compilation</td>
+    </tr>
+  </tbody>
+</table>
+
+### Testing
+
+<table>
+  <thead>
+    <tr>
+      <th>Package</th>
+      <th>Version</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`vitest`</td>
+      <td>`3.2.4`</td>
+      <td>Unit testing framework</td>
+    </tr>
+    <tr>
+      <td>`@vitest/coverage-v8`</td>
+      <td>`3.2.4`</td>
+      <td>Code coverage</td>
+    </tr>
+    <tr>
+      <td>`@vitest/ui`</td>
+      <td>`3.2.4`</td>
+      <td>Test UI</td>
+    </tr>
+    <tr>
+      <td>`@playwright/test`</td>
+      <td>`1.55.1`</td>
+      <td>E2E testing</td>
+    </tr>
+    <tr>
+      <td>`@web/test-runner`</td>
+      <td>`0.18.0`</td>
+      <td>Web Component testing</td>
+    </tr>
+    <tr>
+      <td>`@web/test-runner-playwright`</td>
+      <td>`0.11.0`</td>
+      <td>Playwright integration</td>
+    </tr>
+    <tr>
+      <td>`@open-wc/testing`</td>
+      <td>`4.0.0`</td>
+      <td>Web Component test utilities</td>
+    </tr>
+    <tr>
+      <td>`jsdom`</td>
+      <td>`23.0.0`</td>
+      <td>DOM implementation for Node</td>
+    </tr>
+  </tbody>
+</table>
+
+### Linting & Formatting
+
+<table>
+  <thead>
+    <tr>
+      <th>Package</th>
+      <th>Version</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`eslint`</td>
+      <td>`8.56.0`</td>
+      <td>JavaScript/TypeScript linting</td>
+    </tr>
+    <tr>
+      <td>`@typescript-eslint/eslint-plugin`</td>
+      <td>`6.15.0`</td>
+      <td>TypeScript ESLint rules</td>
+    </tr>
+    <tr>
+      <td>`@typescript-eslint/parser`</td>
+      <td>`6.15.0`</td>
+      <td>TypeScript parser for ESLint</td>
+    </tr>
+    <tr>
+      <td>`eslint-plugin-lit`</td>
+      <td>`1.11.0`</td>
+      <td>Lit-specific linting rules</td>
+    </tr>
+    <tr>
+      <td>`eslint-plugin-wc`</td>
+      <td>`2.0.4`</td>
+      <td>Web Components linting</td>
+    </tr>
+    <tr>
+      <td>`eslint-config-prettier`</td>
+      <td>`9.1.0`</td>
+      <td>Prettier integration</td>
+    </tr>
+    <tr>
+      <td>`prettier`</td>
+      <td>`3.6.2`</td>
+      <td>Code formatting</td>
+    </tr>
+  </tbody>
+</table>
+
+### Storybook
+
+<table>
+  <thead>
+    <tr>
+      <th>Package</th>
+      <th>Version</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`storybook`</td>
+      <td>`8.6.14`</td>
+      <td>Component documentation</td>
+    </tr>
+    <tr>
+      <td>`@storybook/web-components`</td>
+      <td>`8.6.14`</td>
+      <td>Web Components support</td>
+    </tr>
+    <tr>
+      <td>`@storybook/web-components-vite`</td>
+      <td>`8.6.14`</td>
+      <td>Vite integration</td>
+    </tr>
+    <tr>
+      <td>`@storybook/addon-essentials`</td>
+      <td>`8.6.14`</td>
+      <td>Core addons</td>
+    </tr>
+    <tr>
+      <td>`@storybook/addon-a11y`</td>
+      <td>`8.6.14`</td>
+      <td>Accessibility testing</td>
+    </tr>
+    <tr>
+      <td>`@storybook/addon-links`</td>
+      <td>`8.6.14`</td>
+      <td>Story linking</td>
+    </tr>
+    <tr>
+      <td>`@storybook/blocks`</td>
+      <td>`8.6.14`</td>
+      <td>Documentation blocks</td>
+    </tr>
+  </tbody>
+</table>
+
+### Version Management
+
+<table>
+  <thead>
+    <tr>
+      <th>Package</th>
+      <th>Version</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`@changesets/cli`</td>
+      <td>`2.29.7`</td>
+      <td>Version & changelog management</td>
+    </tr>
+    <tr>
+      <td>`husky`</td>
+      <td>`8.0.3`</td>
+      <td>Git hooks</td>
+    </tr>
+    <tr>
+      <td>`lint-staged`</td>
+      <td>`15.2.0`</td>
+      <td>Pre-commit linting</td>
+    </tr>
+  </tbody>
+</table>
+
+### Component Development
+
+<table>
+  <thead>
+    <tr>
+      <th>Package</th>
+      <th>Version</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`lit`</td>
+      <td>`3.3.1`</td>
+      <td>Web Components framework</td>
+    </tr>
+    <tr>
+      <td>`@custom-elements-manifest/analyzer`</td>
+      <td>`0.9.0`</td>
+      <td>Generate component metadata</td>
+    </tr>
+    <tr>
+      <td>`react`</td>
+      <td>`18.2.0`</td>
+      <td>Storybook dependency</td>
+    </tr>
+    <tr>
+      <td>`react-dom`</td>
+      <td>`18.2.0`</td>
+      <td>Storybook dependency</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+## Browser Support
+
+Sando is built for modern browsers with native Web Components and OKLCH color support:
+
+### Supported Browsers
+
+- **Chrome/Edge**: 111+ (OKLCH support)
+- **Firefox**: 113+ (OKLCH support)
+- **Safari**: 15.4+ (OKLCH support)
+- **Opera**: 97+
+
+> **⚠️ OKLCH Color Space**
+>
+> Sando uses the OKLCH color space for perceptual uniformity. Browsers that don't support OKLCH (released before 2023) won't render colors correctly. All modern evergreen browsers support OKLCH.
+
+---
+
+## Peer Dependencies
+
+When using Sando components in frameworks, you may need these additional dependencies in your project:
+
+### React / Next.js
+
+```json
+{
+  "dependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
+  }
+}
+```
+
+No additional configuration needed—Web Components work natively in React 19+. For React 18, wrap event handlers manually for custom events.
+
+### Vue 3
+
+```json
+{
+  "dependencies": {
+    "vue": ">=3.0.0"
+  }
+}
+```
+
+Configure Vue to recognize Sando custom elements:
+
+```ts
+// vite.config.ts
+export default defineConfig({
+  plugins: [
+    vue({
+      template: {
+        compilerOptions: {
+          isCustomElement: (tag) => tag.startsWith("sando-"),
+        },
+      },
+    }),
+  ],
+});
+```
+
+### Angular
+
+```json
+{
+  "dependencies": {
+    "@angular/core": ">=14.0.0"
+  }
+}
+```
+
+Enable custom elements schema:
+
+```ts
+import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+
+@NgModule({
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+})
+export class AppModule {}
+```
+
+### Svelte
+
+```json
+{
+  "dependencies": {
+    "svelte": ">=3.0.0"
+  }
+}
+```
+
+No additional configuration needed. Svelte handles custom elements natively.
+
+---
+
+## Package Exports
+
+### `@sando/tokens`
+
+```json
+{
+  "exports": {
+    "./css": "./dist/sando-tokens/css/index.css",
+    "./css/ingredients": "./dist/sando-tokens/css/ingredients/index.css",
+    "./css/ingredients/*": "./dist/sando-tokens/css/ingredients/*.css",
+    "./css/flavors": "./dist/sando-tokens/css/flavors/index.css",
+    "./css/flavors/*": "./dist/sando-tokens/css/flavors/*.css",
+    "./css/recipes": "./dist/sando-tokens/css/recipes/index.css",
+    "./css/recipes/*": "./dist/sando-tokens/css/recipes/*.css"
+  }
+}
+```
+
+**Usage:**
+
+```ts
+// Import all tokens
+import "@sando/tokens/css";
+
+// Import specific layers
+import "@sando/tokens/css/ingredients";
+import "@sando/tokens/css/flavors";
+import "@sando/tokens/css/recipes";
+
+// Import specific files
+import "@sando/tokens/css/ingredients/color";
+import "@sando/tokens/css/flavors/original";
+```
+
+### `@sando/components`
+
+```json
+{
+  "exports": {
+    ".": "./dist/index.js",
+    "./button": "./dist/components/button/sando-button.js",
+    "./utils": "./dist/utils/index.js",
+    "./types": "./dist/types/index.js"
+  }
+}
+```
+
+**Usage:**
+
+```ts
+// Import all components (auto-registers custom elements)
+import "@sando/components";
+
+// Import only the button (tree-shakeable)
+import "@sando/components/button";
+```
+
+> **💡 Selective Imports**
+>
+> Currently, only `./button` has a dedicated export path. All other components are available through the main `@sando/components` entry point. More individual exports will be added as the library matures.
+
+---
+
+## Updating Dependencies
+
+```bash
+# Check outdated packages
+pnpm outdated
+
+# Interactive update
+pnpm update -i
+
+# Update all dependencies to latest
+pnpm update --latest
+
+# Update specific package
+pnpm update <package-name>
+
+# Update to specific version
+pnpm add <package-name>@<version> -D
+```
+
+---
+
+## Security
+
+```bash
+# Check for security vulnerabilities
+pnpm audit
+
+# Fix vulnerabilities automatically
+pnpm audit --fix
+
+# Verify dependency integrity
+pnpm install --frozen-lockfile
+```
+
+---
+
+## Troubleshooting
+
+### Node Version Issues
+
+```bash
+# Using nvm (Node Version Manager)
+nvm install 20
+nvm use 20
+
+# Verify version
+node --version  # Should output v20.x.x or higher
+```
+
+### pnpm Issues
+
+```bash
+# Clear pnpm cache
+pnpm store prune
+
+# Reinstall dependencies
+rm -rf node_modules pnpm-lock.yaml
+pnpm install
+```
+
+### Build Errors
+
+```bash
+# Clean and rebuild
+pnpm clean
+pnpm install
+pnpm build
+```
+
+---
+
+## Next Steps
+
+- **[Installation Guide](?path=/docs/getting-started-installation--docs)** — Install Sando in your project
+- **[Quick Start](?path=/docs/getting-started-quick-start--docs)** — Build your first component
+- **[Contributing](?path=/docs/guides-contributing--docs)** — Contribute to Sando

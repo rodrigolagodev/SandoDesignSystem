@@ -1,4 +1,4 @@
-name: Deploy Storybook & Documentation
+name: Deploy Storybook
 
 on:
   push:
@@ -61,83 +61,24 @@ jobs:
       - name: Build Storybook
         run: pnpm docs:build
 
-      - name: Build VitePress site
-        run: pnpm site:build
-
       - name: Prepare deployment directory
         run: |
           mkdir -p _site
-          cp -r apps/docs/storybook-static _site/storybook
-          cp -r apps/site/.vitepress/dist _site/docs
+          cp -r apps/docs/storybook-static/. _site/
 
-      - name: Create index redirect
-        run: |
-          cat > _site/index.html << 'EOF'
+          # Redirects for legacy paths (pre-migration bookmarks): the old site
+          # served Storybook under /storybook/ and VitePress under /docs/.
+          # Both now resolve to the Storybook root.
+          for legacy in storybook docs; do
+            mkdir -p "_site/$legacy"
+            cat > "_site/$legacy/index.html" <<'EOF'
           <!DOCTYPE html>
-          <html lang="es">
-          <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Sando Design System</title>
-            <style>
-              body {
-                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-                max-width: 800px;
-                margin: 80px auto;
-                padding: 0 20px;
-                line-height: 1.6;
-              }
-              h1 {
-                color: #333;
-                margin-bottom: 1rem;
-              }
-              .links {
-                display: flex;
-                gap: 20px;
-                margin-top: 40px;
-              }
-              .link-card {
-                flex: 1;
-                padding: 30px;
-                border: 2px solid #e0e0e0;
-                border-radius: 8px;
-                text-decoration: none;
-                color: #333;
-                transition: all 0.3s ease;
-              }
-              .link-card:hover {
-                border-color: #007bff;
-                transform: translateY(-2px);
-                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-              }
-              .link-card h2 {
-                margin: 0 0 10px 0;
-                color: #007bff;
-              }
-              .link-card p {
-                margin: 0;
-                color: #666;
-              }
-            </style>
-          </head>
-          <body>
-            <h1>🎨 Sando Design System</h1>
-            <p>Sistema de diseño moderno, accesible y basado en tokens</p>
-
-            <div class="links">
-              <a href="/SandoDesignSystem/storybook/" class="link-card">
-                <h2>📚 Storybook</h2>
-                <p>Explora los componentes interactivos y su documentación</p>
-              </a>
-
-              <a href="/SandoDesignSystem/docs/" class="link-card">
-                <h2>📖 Documentación</h2>
-                <p>Guías, arquitectura y mejores prácticas</p>
-              </a>
-            </div>
-          </body>
-          </html>
+          <meta charset="utf-8">
+          <title>Sando Design System</title>
+          <meta http-equiv="refresh" content="0; url=/SandoDesignSystem/">
+          <link rel="canonical" href="/SandoDesignSystem/">
           EOF
+          done
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
@@ -185,36 +126,29 @@ jobs:
           echo "Performing health check..."
           max_attempts=5
           attempt=1
+          base="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}"
+          # iframe.html is emitted by every Storybook build; it's a real static
+          # asset, so a 200 here proves the build was published correctly
+          # (the root index.html alone can 200 from a stale prior deploy).
+          probes=("$base/" "$base/iframe.html")
 
           while [ $attempt -le $max_attempts ]; do
             echo "Health check attempt $attempt of $max_attempts..."
 
-            # Check Storybook
-            storybook_status=$(curl -s -o /dev/null -w "%{http_code}" "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/storybook/" || echo "000")
-            if [ "$storybook_status" = "200" ]; then
-              echo "✅ Storybook is accessible (HTTP $storybook_status)"
-              storybook_ok=true
-            else
-              echo "❌ Storybook check failed (HTTP $storybook_status)"
-              storybook_ok=false
-            fi
+            all_ok=true
+            for probe in "${probes[@]}"; do
+              status=$(curl -s -o /dev/null -w "%{http_code}" "$probe" || echo "000")
+              if [ "$status" = "200" ]; then
+                echo "✅ $probe (HTTP $status)"
+              else
+                echo "❌ $probe (HTTP $status)"
+                all_ok=false
+              fi
+            done
 
-            # Check VitePress
-            vitepress_status=$(curl -s -o /dev/null -w "%{http_code}" "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/docs/" || echo "000")
-            if [ "$vitepress_status" = "200" ]; then
-              echo "✅ VitePress is accessible (HTTP $vitepress_status)"
-              vitepress_ok=true
-            else
-              echo "❌ VitePress check failed (HTTP $vitepress_status)"
-              vitepress_ok=false
-            fi
-
-            if [ "$storybook_ok" = true ] && [ "$vitepress_ok" = true ]; then
-              echo "🎉 Deployment health check passed!"
-              echo ""
-              echo "📍 Deployment URLs:"
-              echo "   - Storybook: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/storybook/"
-              echo "   - VitePress: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/docs/"
+            if [ "$all_ok" = true ]; then
+              echo "🎉 Storybook deployment verified"
+              echo "📍 Deployment URL: $base/"
               exit 0
             fi
 
@@ -228,7 +162,5 @@ jobs:
           done
 
           echo "⚠️ Health check did not pass after $max_attempts attempts"
-          echo "Deployment may still be propagating. Check manually at:"
-          echo "- Storybook: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/storybook/"
-          echo "- VitePress: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/docs/"
+          echo "Deployment may still be propagating. Check manually at: $base/"
           exit 1

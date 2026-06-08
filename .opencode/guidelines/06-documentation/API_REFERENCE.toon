@@ -18,7 +18,7 @@ targets:
 
 scope:
   id: "API-SC"
-  note: "JSDoc comments, VitePress API tables, TypeScript types, usage examples"
+  note: "JSDoc comments, Storybook MDX API tables, TypeScript types, usage examples"
 
 enforcement:
   id: "API-ENF"
@@ -105,10 +105,10 @@ core_rules:
         note: "JSDoc standards"
 
   - id: "API-CR-R2"
-    title: "Complete Property Tables in VitePress (Required)"
-    summary: "Every component guide in VitePress MUST include a comprehensive Properties table with columns: Property, Type, Default, Description."
+    title: "Complete Property Tables in MDX Docs (Required)"
+    summary: "Every component guide in Storybook MDX MUST include a comprehensive Properties table with columns: Property, Type, Default, Description."
     api_specification:
-      title: "VitePress property table structure"
+      title: "MDX property table structure"
       summary: "API Reference"
       properties:
         - name: "propertyName"
@@ -155,7 +155,7 @@ core_rules:
     why: "Tables provide scannable reference format. Developers can quickly find property types, defaults, and usage without reading full documentation."
     reference:
       type: "source_file"
-      path: "apps/site/components/button.md"
+      path: "apps/docs/stories/components/Button.mdx"
       lines: "254-278"
       note: "Complete property table example"
 
@@ -218,7 +218,7 @@ core_rules:
 
   - id: "API-CR-R4"
     title: "Slots, Events, and CSS Properties Documentation (Required)"
-    summary: "Components MUST document slots, events, and CSS custom properties in both JSDoc header and VitePress API tables."
+    summary: "Components MUST document slots, events, and CSS custom properties in both JSDoc header and Storybook MDX API tables."
     api_slots_pattern:
       title: "Slots Pattern"
       slots:
@@ -276,7 +276,7 @@ core_rules:
     why: "Complete API reference requires slots, events, and CSS properties. Developers need to know customization points and interaction patterns."
     references:
       - type: "source_file"
-        path: "apps/site/components/button.md"
+        path: "apps/docs/stories/components/Button.mdx"
         lines: "279-299"
         note: "Complete API tables"
       - type: "source_file"
@@ -349,12 +349,16 @@ core_rules:
         file: "../03-development/NAMING_CONVENTIONS.toon"
         note: "TypeScript conventions"
 
-vitepress_structure:
-  id: "API-VPS"
+mdx_doc_structure:
+  id: "API-MDX"
   standard_template:
-    id: "API-VPS-ST"
-    lang: "markdown"
+    id: "API-MDX-ST"
+    lang: "mdx"
     code: |
+      import { Meta } from "@storybook/blocks";
+
+      <Meta title="Components/Component Name/Guide" />
+
       # Component Name
 
       Brief one-sentence description of the component.
@@ -499,7 +503,7 @@ vitepress_structure:
   why: "Consistent structure helps developers find information quickly. Template ensures all components document the same sections in the same order."
   reference:
     type: "source_file"
-    path: "apps/site/components/button.md"
+    path: "apps/docs/stories/components/Button.mdx"
     note: "Complete structure example"
 
 property_patterns:
@@ -515,7 +519,7 @@ property_patterns:
          */
         @property({ reflect: true })
         variant: 'solid' | 'outline' | 'ghost' = 'solid';
-    vitepress_table:
+    mdx_table:
       lang: "markdown"
       code: |
         | `variant` | `'solid' \| 'outline' \| 'ghost'` | `'solid'` | Visual style variant |
@@ -530,7 +534,7 @@ property_patterns:
          */
         @property({ type: Boolean, reflect: true })
         disabled = false;
-    vitepress_table:
+    mdx_table:
       lang: "markdown"
       code: |
         | `disabled` | `boolean` | `false` | Whether the button is disabled |
@@ -544,7 +548,7 @@ property_patterns:
          */
         @property({ reflect: true })
         href?: string;
-    vitepress_table:
+    mdx_table:
       lang: "markdown"
       code: |
         | `href` | `string` | `undefined` | URL (renders as `<a>` instead of `<button>`) |
@@ -560,7 +564,7 @@ property_patterns:
          */
         @property({ type: Number, reflect: true })
         tabindex = 0;
-    vitepress_table:
+    mdx_table:
       lang: "markdown"
       code: |
         | `tabindex` | `number` | `0` | Tab index for keyboard navigation |
@@ -575,7 +579,7 @@ property_patterns:
          */
         @property({ type: Object })
         config?: ComponentConfig;
-    vitepress_table:
+    mdx_table:
       lang: "markdown"
       code: |
         | `config` | `ComponentConfig` | `undefined` | Configuration object (see [ComponentConfig](#componentconfig)) |
@@ -617,7 +621,7 @@ event_patterns:
          * @fires change - Fired when selection changes
          * @fires change.detail - { value: string } - The new value
          */
-    vitepress_table:
+    mdx_table:
       lang: "markdown"
       code: |
         ### Events
@@ -633,7 +637,7 @@ event_patterns:
         /**
          * @fires click - Native click event (fired unless disabled or loading)
          */
-    vitepress_table:
+    mdx_table:
       lang: "markdown"
       code: |
         | `click` | `MouseEvent` | Native click event (only fires when not disabled or loading) |
@@ -705,7 +709,7 @@ slot_patterns:
         /**
          * @slot - Default slot for button content (text, icons, HTML)
          */
-    vitepress_table:
+    mdx_table:
       lang: "markdown"
       code: |
         | Default | Button content (text, icons, HTML elements) |
@@ -718,7 +722,7 @@ slot_patterns:
          * @slot icon-start - Icon or content before the button text
          * @slot icon-end - Icon or content after the button text
          */
-    vitepress_table:
+    mdx_table:
       lang: "markdown"
       code: |
         | `icon-start` | Icon or content before the button text |
@@ -856,11 +860,7 @@ related_guidelines:
   - type: "guideline"
     doc_id: "SBS"
     file: "./STORYBOOK_STORIES.toon"
-    note: "Interactive documentation in Storybook"
-  - type: "guideline"
-    doc_id: "VPG"
-    file: "./VITEPRESS_GUIDES.toon"
-    note: "Long-form tutorial writing"
+    note: "Interactive documentation and long-form MDX guides in Storybook"
   - type: "guideline"
     doc_id: "NC"
     file: "../03-development/NAMING_CONVENTIONS.toon"
@@ -879,10 +879,12 @@ external_references:
         note: "TypeDoc - TypeScript documentation generator"
       - url: "httpss://custom-elements-manifest.open-wc.org/"
         note: "Custom Elements Manifest - Web Components analyzer"
-  - category: "VitePress"
+  - category: "Storybook Docs (MDX)"
     references:
-      - url: "httpsVitePress://vitepress.dev/guide/markdown"
-        note: " Markdown - Markdown features"
+      - url: "httpss://storybook.js.org/docs/writing-docs/mdx"
+        note: "Storybook MDX - Authoring docs pages"
+      - url: "httpss://storybook.js.org/docs/writing-docs/autodocs"
+        note: "Storybook Autodocs - Auto-generated component API"
       - url: "httpss://www.markdownguide.org/extended-syntax/#tables"
         note: "Markdown Tables - Table syntax"
   - category: "Web Components"

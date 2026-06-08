@@ -21,7 +21,7 @@ core_rules:
       - number: 2
         note: "@sando/components (build)"
       - number: 3
-        note: "@sando/docs + @sando/site (dev/build)"
+        note: "@sando/docs (dev/build)"
     why: "Components consume generated token files (CSS + TS). Building components before tokens fails. Apps import components, so components must be built first."
     turborepo_config:
       lang: "json"
@@ -55,8 +55,7 @@ core_rules:
             - "tokens" # @sando/tokens
             - "components" # @sando/components
           apps: # Deployable applications
-            - "docs" # @sando/docs (Storybook)
-            - "site" # @sando/site (VitePress)
+            - "docs" # @sando/docs (Storybook — single docs source)
     naming_convention:
       - "All packages use `@sando/` scope"
       - "Package names: kebab-case matching folder name"
@@ -216,37 +215,21 @@ package_responsibilities:
 
   - name: "@sando/docs"
     location: "apps/docs"
-    purpose: "Storybook documentation for components. Interactive component explorer."
+    purpose: "Storybook — the single documentation source. Interactive component explorer plus MDX guides, token references, and API docs."
     key_files:
-      - ".storybook/main.ts" # Storybook config
-      - "stories/" # Component stories
+      - ".storybook/main.js" # Storybook config
+      - "stories/" # Component stories + MDX docs (getting-started/, guides/, ingredients/, flavors/, recipes/)
       - "public/" # Static assets
       - "storybook-static/" # Build output
     commands:
       - "pnpm --filter @sando/docs dev"
       - "pnpm --filter @sando/docs build"
+      - "pnpm --filter @sando/docs preview"
     dependencies:
       - "@sando/components (workspace)"
       - "@sando/tokens (workspace)"
       - "storybook"
     port: "6006 (default, configurable in .env.local)"
-
-  - name: "@sando/site"
-    location: "apps/site"
-    purpose: "VitePress documentation site. Guides, tutorials, API reference."
-    key_files:
-      - ".vitepress/config.ts" # VitePress config
-      - "components/" # Component docs (Markdown)
-      - "guides/" # Tutorial guides
-      - ".vitepress/dist/" # Build output
-    commands:
-      - "pnpm --filter @sando/site dev"
-      - "pnpm --filter @sando/site build"
-      - "pnpm --filter @sando/site preview"
-    dependencies:
-      - "@sando/components (workspace)"
-      - "vitepress"
-    port: "3000 (default, configurable in .env.local)"
 
 build_order_visualization:
   id: "MS-BOV"
@@ -262,11 +245,7 @@ build_order_visualization:
       depends_on: "@sando/tokens"
     - step: 3
       package: "@sando/docs (Storybook)"
-      purpose: "Layer 3: Document components"
-      depends_on: "@sando/components"
-    - step: 4
-      package: "@sando/site (VitePress)"
-      purpose: "Layer 3: Document components"
+      purpose: "Layer 3: Document components (single docs source)"
       depends_on: "@sando/components"
   enforcement: "Turborepo enforces this via `dependsOn: ['^build']` - Each package's build waits for dependencies to finish."
 
@@ -278,7 +257,7 @@ common_commands:
     - name: "pnpm build"
       description: "Build all packages (respects build order)"
     - name: "pnpm dev"
-      description: "Development mode (parallel: Storybook + VitePress)"
+      description: "Development mode (Storybook)"
     - name: "pnpm test"
       description: "Run all tests across all packages"
     - name: "pnpm lint"
@@ -300,10 +279,7 @@ common_commands:
     storybook:
       - "pnpm --filter @sando/docs dev"
       - "pnpm --filter @sando/docs build"
-    vitepress:
-      - "pnpm --filter @sando/site dev"
-      - "pnpm --filter @sando/site build"
-      - "pnpm --filter @sando/site preview"
+      - "pnpm --filter @sando/docs preview"
   shorter_aliases:
     description: "From root package.json"
     commands:
@@ -317,12 +293,8 @@ common_commands:
         description: "Start Storybook"
       - name: "pnpm docs:build"
         description: "Build Storybook"
-      - name: "pnpm site:dev"
-        description: "Start VitePress"
-      - name: "pnpm site:build"
-        description: "Build VitePress"
-      - name: "pnpm site:preview"
-        description: "Preview VitePress"
+      - name: "pnpm docs:preview"
+        description: "Preview built Storybook"
 
 turborepo_configuration:
   id: "MS-TC"
@@ -341,7 +313,6 @@ turborepo_configuration:
             - ".next/**"
             - "!.next/cache/**"
             - "storybook-static/**"
-            - ".vitepress/dist/**"
           env:
             - "NODE_ENV" # Invalidate cache if NODE_ENV changes
         test:
@@ -430,14 +401,18 @@ cross_package_imports:
         // Storybook story
         import "@sando/components/button"; // Auto-registers <sando-button>
         import type { SandoButton } from "@sando/components/button";
-    vitepress:
-      lang: "vue"
+    storybook_mdx:
+      lang: "mdx"
       code: |
-        <script setup>
-        import "@sando/components/button";
-        </script>
+        import { Meta } from "@storybook/blocks";
 
+        <Meta title="Getting Started/Quick Start" />
+
+        # Quick Start
+
+        ```html
         <sando-button>Click me</sando-button>
+        ```
 
 adding_new_packages:
   id: "MS-ANP"
@@ -513,7 +488,7 @@ validation:
     - status: "required"
       note: "`pnpm build` builds in correct order"
     - status: "required"
-      note: "`pnpm dev` starts Storybook + VitePress"
+      note: "`pnpm dev` starts Storybook"
     - status: "required"
       note: "`pnpm test` runs all tests"
     - status: "required"
@@ -542,10 +517,11 @@ faq:
 
         Solution: Build tokens first, or use `pnpm build` (Turborepo handles order).
     - id: "MS-FAQ-Q3"
-      q: "Can I run multiple dev servers simultaneously?"
+      q: "Where does documentation live?"
       a: |
-        YES. `pnpm dev` runs Storybook (port 6006) and VitePress (port 3000) in parallel.
-        Turborepo uses `--parallel` flag for dev tasks (no dependency waiting).
+        Storybook (`@sando/docs`, port 6006) is the single documentation source. It hosts
+        component stories plus MDX docs under stories/ (getting-started/, guides/, ingredients/,
+        flavors/, recipes/). There is no separate documentation site.
     - id: "MS-FAQ-Q4"
       q: "How do I know if cache is being used?"
       a: |

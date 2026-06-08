@@ -226,16 +226,16 @@ Before reporting ANY workflow as complete:
 
 ## Agent Fleet Reference
 
-| Agent               | Domain                               | Invoke For                                                   |
-| ------------------- | ------------------------------------ | ------------------------------------------------------------ |
-| `sando-architect`   | Architecture, patterns, build config | New patterns, architectural decisions, breaking changes      |
-| `sando-tokens`      | Token system, Style Dictionary       | New tokens, flavors, Recipe creation                         |
-| `sando-developer`   | Component implementation             | Component creation, features, bug fixes                      |
-| `sando-quality`     | Tests, accessibility, validation     | Testing, a11y audit, guideline compliance                    |
-| `sando-storybook`   | Storybook config, stories, addons    | Stories, Storybook config, troubleshooting                   |
-| `sando-documenter`  | API docs, JSDoc, VitePress guides    | API reference, JSDoc, VitePress content (NOT stories)        |
-| `sando-ux-designer` | UX patterns, behavior, microcopy     | UX decisions, states, flows, error messages, motion design   |
-| `sando-ux-writer`   | Copy, microcopy, marketing, content  | All user/developer-facing text, README prose, content audits |
+| Agent               | Domain                                | Invoke For                                                   |
+| ------------------- | ------------------------------------- | ------------------------------------------------------------ |
+| `sando-architect`   | Architecture, patterns, build config  | New patterns, architectural decisions, breaking changes      |
+| `sando-tokens`      | Token system, Style Dictionary        | New tokens, flavors, Recipe creation                         |
+| `sando-developer`   | Component implementation              | Component creation, features, bug fixes                      |
+| `sando-quality`     | Tests, accessibility, validation      | Testing, a11y audit, guideline compliance                    |
+| `sando-storybook`   | Storybook config, stories, addons     | Stories, Storybook config, troubleshooting                   |
+| `sando-documenter`  | API docs, JSDoc, Storybook MDX guides | API reference, JSDoc, MDX docs/guides (NOT \*.stories.ts)    |
+| `sando-ux-designer` | UX patterns, behavior, microcopy      | UX decisions, states, flows, error messages, motion design   |
+| `sando-ux-writer`   | Copy, microcopy, marketing, content   | All user/developer-facing text, README prose, content audits |
 
 ---
 

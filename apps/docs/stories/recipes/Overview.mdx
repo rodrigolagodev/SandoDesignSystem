@@ -1,0 +1,281 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Recipes/Overview" />
+
+# Recipes (Component Tokens)
+
+The final dish, plated and ready to serve. Recipes are the top layer of the token system — consumed directly by components. They reference **flavors only**, never ingredients. This is what makes theming work: swap a flavor, and every recipe updates automatically.
+
+## How Recipes Fit the System
+
+```
+Ingredients → Flavors → Recipes → Components
+                        (you are here)
+```
+
+Recipes answer the question: _"What does this specific part of this specific component look like in this specific state?"_
+
+## Token Naming Pattern
+
+Every recipe token follows a predictable convention:
+
+```
+--sando-{component}-{variant}-{property}-{state}
+```
+
+**Examples:**
+
+```css
+--sando-button-solid-backgroundColor-default
+--sando-button-outline-borderColor-hover
+--sando-checkbox-solid-backgroundColor-checked
+--sando-input-outlined-borderColor-focus
+--sando-badge-neutral-solid-backgroundColor
+```
+
+## All 25 Recipes
+
+Sando provides recipe tokens for every component in the system, organized by category.
+
+### Form Controls
+
+#### Button
+
+Four visual variants (solid, outline, ghost, text) with full state coverage.
+
+```json
+{
+  "button": {
+    "solid": {
+      "backgroundColor": {
+        "default": { "value": "{color.action.solid.background.default.value}" },
+        "hover": { "value": "{color.action.solid.background.hover.value}" },
+        "active": { "value": "{color.action.solid.background.hover.value}" },
+        "disabled": { "value": "{color.action.disabled.background.value}" }
+      },
+      "textColor": {
+        "default": { "value": "{color.action.solid.text.default.value}" },
+        "disabled": { "value": "{color.action.disabled.text.value}" }
+      }
+    },
+    "outline": {
+      /* borderColor, textColor, backgroundColor for all states */
+    },
+    "ghost": {
+      /* textColor, backgroundColor for hover/active/disabled */
+    }
+  }
+}
+```
+
+**CSS usage:**
+
+```css
+.button--solid {
+  background-color: var(--sando-button-solid-backgroundColor-default);
+  color: var(--sando-button-solid-textColor-default);
+}
+
+.button--solid:hover {
+  background-color: var(--sando-button-solid-backgroundColor-hover);
+}
+
+.button--solid:disabled {
+  background-color: var(--sando-button-solid-backgroundColor-disabled);
+  color: var(--sando-button-solid-textColor-disabled);
+}
+```
+
+[View button recipe →](https://github.com/rodrigolagodev/SandoDesignSystem/blob/master/packages/tokens/src/recipes/button.json)
+
+#### Input, Textarea, Select
+
+Outlined variants with validation states for form feedback. **States:** default, disabled, placeholder, hover, focus, error.
+
+#### Checkbox
+
+Rich state model including checked, indeterminate, and error states.
+
+```json
+{
+  "checkbox": {
+    "solid": {
+      "backgroundColor": {
+        "default": { "value": "{color.background.raised.value}" },
+        "checked": { "value": "{color.action.solid.background.default.value}" },
+        "indeterminate": {
+          "value": "{color.action.solid.background.default.value}"
+        },
+        "disabled": { "value": "{color.action.disabled.background.value}" },
+        "error": { "value": "{color.state.destructive.background.value}" }
+      },
+      "borderColor": {
+        "default": { "value": "{color.border.default.value}" },
+        "focus": { "value": "{color.focus.ring.value}" },
+        "checked": { "value": "{color.action.solid.background.default.value}" },
+        "error": { "value": "{color.state.destructive.border.value}" }
+      }
+    }
+  }
+}
+```
+
+#### Radio, Radio Group, Option, Option Group, Switch
+
+Single/grouped selection controls and toggle. Switch covers track and thumb tokens with **states:** default, hover, checked, checkedHover, disabled, error.
+
+### Form Structure
+
+- **Label** — Sized label tokens (sm, md, lg) with fontSize and lineHeight
+- **Form Group** — Layout tokens for grouping label, control, and help text together
+- **Help Text** — Descriptive text tokens for form control context and error messages
+
+### Feedback & Status
+
+- **Spinner** — Loading indicator tokens with 5 size variants (xs, sm, md, lg, xl)
+- **Badge** — Status indicator with semantic variants (neutral, success, error, warning, info) × style variants (solid, soft, outline, surface)
+- **Tag** — Interactive label tokens with solid and outline variants (default, hover, active, disabled)
+
+### Media & Loading
+
+- **Icon** — Icon tokens with 5 size variants and color references
+- **Skeleton** — Loading placeholder tokens for color, animation, and border radius
+
+[Browse all recipe sources on GitHub →](https://github.com/rodrigolagodev/SandoDesignSystem/tree/master/packages/tokens/src/recipes)
+
+## How Recipes Reference Flavors
+
+The key principle: recipes never contain raw values. They always reference flavor tokens using the `{path.to.value}` syntax:
+
+```json
+// ✅ CORRECT — Recipe references a flavor
+{
+  "button": {
+    "solid": {
+      "backgroundColor": {
+        "default": {
+          "value": "{color.action.solid.background.default.value}",
+          "type": "color"
+        }
+      }
+    }
+  }
+}
+```
+
+```json
+// ❌ WRONG — Recipe contains a raw value
+{
+  "button": {
+    "solid": {
+      "backgroundColor": {
+        "default": {
+          "value": "oklch(0.65 0.12 38)",
+          "type": "color"
+        }
+      }
+    }
+  }
+}
+```
+
+This indirection is what makes theming work. When you switch from the Original flavor to Strawberry, the flavor token `{color.action.solid.background.default.value}` resolves to a different ingredient — and every recipe that references it updates automatically.
+
+## Using Recipes in Components
+
+Inside a Lit component, recipe tokens become CSS custom properties:
+
+```css
+/* Button component styles */
+:host([variant="solid"]) .button {
+  background-color: var(--sando-button-solid-backgroundColor-default);
+  color: var(--sando-button-solid-textColor-default);
+  border: var(--sando-border-width-50) solid transparent;
+  border-radius: var(--sando-button-borderRadius);
+}
+
+:host([variant="solid"]) .button:hover {
+  background-color: var(--sando-button-solid-backgroundColor-hover);
+}
+
+:host([variant="solid"]) .button:disabled {
+  background-color: var(--sando-button-solid-backgroundColor-disabled);
+  color: var(--sando-button-solid-textColor-disabled);
+}
+```
+
+## Customizing Recipes
+
+Override any recipe token from the outside to customize a specific component:
+
+```css
+/* Make all solid buttons green */
+sando-button {
+  --sando-button-solid-backgroundColor-default: oklch(0.65 0.1 145);
+  --sando-button-solid-backgroundColor-hover: oklch(0.56 0.1 145);
+}
+```
+
+> **💡 Tip**
+>
+> Recipe tokens give you surgical control over individual component states. For broader changes, consider creating a custom flavor instead.
+
+## Creating a New Recipe
+
+1. Create a JSON file in `packages/tokens/src/recipes/{component}.json`
+2. Reference flavor tokens only — never raw values
+3. Cover all visual variants and interactive states
+4. Build and test: `pnpm build && pnpm test`
+
+```json
+{
+  "myComponent": {
+    "backgroundColor": {
+      "default": {
+        "value": "{color.background.surface.value}",
+        "type": "color"
+      },
+      "hover": {
+        "value": "{color.background.hover.value}",
+        "type": "color"
+      }
+    },
+    "textColor": {
+      "default": {
+        "value": "{color.text.body.value}",
+        "type": "color"
+      }
+    },
+    "borderColor": {
+      "default": {
+        "value": "{color.border.default.value}",
+        "type": "color"
+      }
+    }
+  }
+}
+```
+
+## Best Practices
+
+**DO:**
+
+- Reference flavor tokens only — never ingredients directly
+- Use component-specific token names (`button.solid.backgroundColor`, not `primary-bg`)
+- Include all interactive states (default, hover, active, focus, disabled)
+- Include validation states where applicable (error, success)
+- Follow the naming convention: `{component}-{variant}-{property}-{state}`
+
+**DON'T:**
+
+- Put raw color values in recipes
+- Create generic tokens (that's what flavors are for)
+- Skip disabled states — they're essential for accessibility
+- Forget to test with multiple flavors after creating a recipe
+
+## Next Steps
+
+- **[Ingredients](?path=/docs/ingredients-overview--docs)** — The raw values recipes ultimately resolve to
+- **[Flavors](?path=/docs/flavors-overview--docs)** — The semantic layer recipes reference
+- **[Token Architecture](?path=/docs/guides-architecture--docs)** — Understand the full three-layer system
+- **[Token Testing](?path=/docs/recipes-testing--docs)** — How tokens are validated

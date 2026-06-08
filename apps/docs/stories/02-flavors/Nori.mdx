@@ -1,0 +1,453 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Flavors/Nori" />
+
+# Nori Flavor
+
+The Nori flavor embodies stark minimalism with Japanese design principles: high contrast, bold typography, sharp edges, and purposeful minimalism. Inspired by contemporary Japanese web design trends and brutalist architecture, it delivers maximum visual impact through intentional restraint.
+
+## Design Philosophy
+
+Nori is the most opinionated flavor in the Sando system, making bold choices that prioritize clarity and impact over softness:
+
+- **Pure Neutrals**: Zero-chroma `ink` palette for absolute clarity — no warm or cool bias
+- **Electric Accent**: High-impact `vermillion` (hue 25°) for maximum visual punch
+- **Sharp Geometry**: Minimal border-radius (0-4px max) — brutalist aesthetic
+- **Bold Typography**: Condensed headings with extra-bold weight for impactful headlines
+- **No Shadows**: Surfaces defined by borders, not depth — flat, honest design
+- **Snappy Motion**: Fast, linear animations (100ms default) — no leisurely transitions
+
+> **💡 Inspired by Japanese Brutalism**
+>
+> Nori draws from the stark beauty of Japanese brutalist architecture and contemporary web design trends from Tokyo studios. It's designed for tech products, developer tools, and brands that want to make a bold statement.
+
+## Color Palette
+
+### Ink (Neutrals)
+
+The `ink` palette has **zero chroma** (`oklch(L 0 0)`), producing absolutely neutral grays with no warm or cool undertones. This creates maximum contrast and pairs cleanly with the electric vermillion accent.
+
+<table>
+  <thead>
+    <tr>
+      <th>Token</th>
+      <th>Light Mode</th>
+      <th>Dark Mode</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Base</td>
+      <td>`ink.50` `oklch(0.98 0 0)`</td>
+      <td>`ink.950` `oklch(0.22 0 0)`</td>
+      <td>Page background</td>
+    </tr>
+    <tr>
+      <td>Surface</td>
+      <td>`ink.100` `oklch(0.95 0 0)`</td>
+      <td>`ink.900` `oklch(0.30 0 0)`</td>
+      <td>Card/panel background</td>
+    </tr>
+    <tr>
+      <td>Raised</td>
+      <td>`utility.white`</td>
+      <td>`ink.800` `oklch(0.38 0 0)`</td>
+      <td>Elevated surfaces</td>
+    </tr>
+    <tr>
+      <td>Text</td>
+      <td>`ink.950` `oklch(0.22 0 0)`</td>
+      <td>`ink.50` `oklch(0.98 0 0)`</td>
+      <td>Primary text</td>
+    </tr>
+    <tr>
+      <td>Body</td>
+      <td>`ink.800` `oklch(0.38 0 0)`</td>
+      <td>`ink.200` `oklch(0.90 0 0)`</td>
+      <td>Body text</td>
+    </tr>
+    <tr>
+      <td>Muted</td>
+      <td>`ink.500` `oklch(0.64 0 0)`</td>
+      <td>`ink.400` `oklch(0.73 0 0)`</td>
+      <td>De-emphasized text</td>
+    </tr>
+    <tr>
+      <td>Border</td>
+      <td>`ink.300` `oklch(0.82 0 0)`</td>
+      <td>`ink.600` `oklch(0.56 0 0)`</td>
+      <td>Default borders</td>
+    </tr>
+  </tbody>
+</table>
+
+### Vermillion (Accent)
+
+Electric red-orange with **maximum chroma** for high visual impact. The vermillion hue (25°) sits between red and orange, creating an energetic, attention-grabbing accent that cuts through the neutral backdrop.
+
+<table>
+  <thead>
+    <tr>
+      <th>Token</th>
+      <th>Value</th>
+      <th>OKLCH</th>
+      <th>Usage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Primary</td>
+      <td>`vermillion.600`</td>
+      <td>`oklch(0.56 0.22 25)`</td>
+      <td>Buttons, links, focus</td>
+    </tr>
+    <tr>
+      <td>Hover</td>
+      <td>`vermillion.700`</td>
+      <td>`oklch(0.47 0.20 25)`</td>
+      <td>Hover states</td>
+    </tr>
+    <tr>
+      <td>Active</td>
+      <td>`vermillion.800`</td>
+      <td>`oklch(0.38 0.16 25)`</td>
+      <td>Active/pressed states</td>
+    </tr>
+    <tr>
+      <td>Subtle</td>
+      <td>`vermillion.100`</td>
+      <td>`oklch(0.95 0.06 25)`</td>
+      <td>Emphasis backgrounds</td>
+    </tr>
+  </tbody>
+</table>
+
+> **⚠️ High Chroma Accent**
+>
+> Vermillion uses chroma values up to `0.22` — significantly higher than most flavors. This creates the "electric" visual impact but should be used purposefully. The flavor already constrains accent usage to action elements and links.
+
+## When to Use
+
+Choose Nori when you want:
+
+- **Modern, contemporary aesthetic** — tech-forward and cutting-edge
+- **Maximum contrast and clarity** — zero-chroma neutrals eliminate ambiguity
+- **Bold, attention-grabbing design** — high-impact headlines and CTAs
+- **Japanese-inspired minimalism** — purposeful restraint, every element earns its place
+- **Professional, tech-forward appearance** — developer tools, SaaS, documentation sites
+
+### Ideal Use Cases
+
+- Developer tools and documentation
+- Tech startups and SaaS products
+- Portfolio sites for designers/developers
+- Editorial and blog platforms
+- Admin dashboards and internal tools
+
+## When NOT to Use
+
+Consider other flavors when:
+
+- **You need a warm, approachable feel** — use `sando` or `tonkatsu` instead
+- **Accessibility requires softer contrasts** — the stark black/white may be intense for some users
+- **Brand colors don't align with red-orange** — vermillion is non-negotiable in this flavor
+- **You want a softer, more organic aesthetic** — try `kiwi` for wellness or `strawberry` for elegance
+
+## Usage
+
+### HTML
+
+Apply the nori flavor at any level of your DOM:
+
+```html
+<!-- Page-level flavor -->
+<body flavor="nori">
+  <sando-button>Bold Action</sando-button>
+</body>
+```
+
+### Scoped Sections
+
+Mix nori with other flavors on the same page:
+
+```html
+<body flavor="original">
+  <header>
+    <!-- Uses original flavor -->
+    <sando-button variant="solid">Primary</sando-button>
+  </header>
+
+  <section flavor="nori">
+    <!-- Nori section for impact -->
+    <h2>Featured Content</h2>
+    <sando-button variant="solid">View Project</sando-button>
+  </section>
+</body>
+```
+
+### Individual Component Override
+
+Override a single component without affecting its context:
+
+```html
+<div flavor="sando">
+  <sando-button>Sando Button</sando-button>
+  <sando-button flavor="nori">Nori CTA</sando-button>
+</div>
+```
+
+### With Dark Mode
+
+Dark mode is automatic via CSS media queries — no additional attributes needed:
+
+```html
+<body flavor="nori">
+  <!-- Components automatically adapt to system preference -->
+  <sando-button variant="solid">Always Accessible</sando-button>
+</body>
+```
+
+To force a specific mode, use the `flavor-mode` attribute:
+
+```html
+<div flavor="nori" flavor-mode="dark">
+  <!-- Forces dark mode regardless of system preference -->
+  <sando-button>Dark Mode Button</sando-button>
+</div>
+```
+
+## Comparison with Other Flavors
+
+<table>
+  <thead>
+    <tr>
+      <th>Aspect</th>
+      <th>Nori</th>
+      <th>Sando</th>
+      <th>Original</th>
+      <th>Tonkatsu</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>**Neutrals**</td>
+      <td>Pure ink (0 chroma)</td>
+      <td>Warm neutrals</td>
+      <td>Warm neutrals</td>
+      <td>Warm neutrals</td>
+    </tr>
+    <tr>
+      <td>**Accent**</td>
+      <td>Vermillion (25°)</td>
+      <td>Brown (50°)</td>
+      <td>Orange (38°)</td>
+      <td>Brown (50°)</td>
+    </tr>
+    <tr>
+      <td>**Radius**</td>
+      <td>0-4px (sharp)</td>
+      <td>6-8px (soft)</td>
+      <td>4-8px (moderate)</td>
+      <td>2-4px (tight)</td>
+    </tr>
+    <tr>
+      <td>**Shadows**</td>
+      <td>None</td>
+      <td>Soft</td>
+      <td>Subtle</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <td>**Typography**</td>
+      <td>Condensed Bold</td>
+      <td>Space Grotesk</td>
+      <td>Inter</td>
+      <td>Space Grotesk</td>
+    </tr>
+    <tr>
+      <td>**Motion**</td>
+      <td>100ms linear</td>
+      <td>200ms ease</td>
+      <td>200ms ease</td>
+      <td>150ms ease</td>
+    </tr>
+    <tr>
+      <td>**Personality**</td>
+      <td>Stark, modern</td>
+      <td>Artisanal, warm</td>
+      <td>Clean, versatile</td>
+      <td>Bold, rugged</td>
+    </tr>
+  </tbody>
+</table>
+
+## Design Token Details
+
+### Typography
+
+Nori uses a bold, condensed heading typeface for maximum impact:
+
+```css
+/* Heading */
+--sando-font-family-heading: var(
+  --sando-font-family-condensed
+); /* Barlow Condensed */
+--sando-font-weight-heading: var(--sando-font-weight-800); /* Extra bold */
+--sando-font-lineHeight-heading: var(--sando-font-lineHeight-120); /* Tight */
+
+/* Body */
+--sando-font-family-body: var(--sando-font-family-inter); /* Inter */
+--sando-font-weight-body: var(--sando-font-weight-400); /* Regular */
+
+/* Code */
+--sando-font-family-mono: var(
+  --sando-font-family-jetbrains-mono
+); /* JetBrains Mono */
+```
+
+### Shape and Borders
+
+Sharp corners and defined borders — no soft edges or shadows:
+
+```css
+/* Border Radius */
+--sando-border-radius-muted: var(--sando-border-radius-0); /* 0px - sharp */
+--sando-border-radius-default: var(
+  --sando-border-radius-50
+); /* 2px - minimal */
+--sando-border-radius-emphasis: var(--sando-border-radius-100); /* 4px - max */
+
+/* Elevation (no shadows) */
+--sando-elevation-muted: var(--sando-elevation-0); /* none */
+--sando-elevation-default: var(--sando-elevation-0); /* none */
+--sando-elevation-emphasis: var(--sando-elevation-0); /* none */
+```
+
+### Animation
+
+Fast, linear transitions — snappy and decisive:
+
+```css
+/* Duration */
+--sando-animation-duration-fast: var(
+  --sando-animation-duration-100
+); /* 100ms */
+--sando-animation-duration-normal: var(
+  --sando-animation-duration-100
+); /* 100ms */
+--sando-animation-duration-slow: var(
+  --sando-animation-duration-200
+); /* 200ms */
+
+/* Easing */
+--sando-animation-easing-default: var(
+  --sando-animation-easing-linear
+); /* linear */
+```
+
+### Action Colors
+
+Primary action tokens using the vermillion palette:
+
+```css
+/* Solid variant */
+--sando-color-action-solid-background-default: var(
+  --sando-color-vermillion-600
+);
+--sando-color-action-solid-background-hover: var(--sando-color-vermillion-700);
+--sando-color-action-solid-text-default: var(--sando-color-utility-white);
+
+/* Outline variant */
+--sando-color-action-outline-border-default: var(--sando-color-ink-300);
+--sando-color-action-outline-text-default: var(--sando-color-ink-800);
+
+/* Ghost variant */
+--sando-color-action-ghost-background-hover: var(--sando-color-ink-100);
+--sando-color-action-ghost-text-default: var(--sando-color-ink-800);
+
+/* Focus */
+--sando-color-focus-ring: var(--sando-color-vermillion-600);
+```
+
+## Mode Variants
+
+Like all Sando flavors, Nori ships with 5 mode variants that respond automatically to user preferences:
+
+<table>
+  <thead>
+    <tr>
+      <th>Mode</th>
+      <th>Trigger</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>**Light**</td>
+      <td>Default</td>
+      <td>White background, dark text — maximum clarity</td>
+    </tr>
+    <tr>
+      <td>**Dark**</td>
+      <td>`@media (prefers-color-scheme: dark)`</td>
+      <td>Inverted ink palette for low-light environments</td>
+    </tr>
+    <tr>
+      <td>**High Contrast**</td>
+      <td>`@media (prefers-contrast: more)`</td>
+      <td>Maximum contrast for WCAG AAA compliance</td>
+    </tr>
+    <tr>
+      <td>**Forced Colors**</td>
+      <td>`@media (forced-colors: active)`</td>
+      <td>Windows High Contrast using system colors</td>
+    </tr>
+    <tr>
+      <td>**Motion Reduce**</td>
+      <td>`@media (prefers-reduced-motion: reduce)`</td>
+      <td>All animation durations set to `0ms`</td>
+    </tr>
+  </tbody>
+</table>
+
+## Best Practices
+
+### DO
+
+- **Use for impact sections** — Nori works great for hero sections, CTAs, and featured content
+- **Pair with neutral content** — Let the vermillion accent do the heavy lifting
+- **Leverage the typography** — Condensed bold headings are a key feature; use them prominently
+- **Trust the borders** — Without shadows, borders define your surfaces; use them intentionally
+- **Test both modes** — The stark contrast shift between light and dark is dramatic; verify both
+
+### DON'T
+
+- **Don't overuse the accent** — Vermillion is powerful; too much dilutes its impact
+- **Don't add shadows** — The flavor intentionally removes them; adding shadows breaks the aesthetic
+- **Don't mix with warm flavors in the same section** — The temperature clash is jarring
+- **Don't use for soft, approachable contexts** — Nori is intentionally stark
+
+## Accessibility Considerations
+
+Nori maintains WCAG AA compliance while pursuing its stark aesthetic:
+
+- **Contrast ratios**: The zero-chroma ink palette ensures maximum text contrast
+- **Focus indicators**: Vermillion focus rings are highly visible against neutral backgrounds
+- **Color independence**: State colors (error, success, warning, info) use semantic palettes, not just the vermillion accent
+- **Motion**: Respects `prefers-reduced-motion` automatically
+
+> **💡 High Contrast Mode**
+>
+> In high contrast mode, Nori increases the vermillion chroma even further and ensures all interactive elements meet WCAG AAA contrast ratios. The stark aesthetic actually benefits accessibility.
+
+## Related Resources
+
+- **[Flavors Overview](?path=/docs/flavors-overview--docs)** — Explore all available flavors
+- **[Theming Guide](?path=/docs/getting-started-theming--docs)** — Learn how to apply and customize flavors
+- **[Token Architecture](?path=/docs/guides-architecture--docs)** — Understand the Ingredients → Flavors → Recipes system
+- **[Accessibility Guide](?path=/docs/guides-accessibility--docs)** — Deep dive into WCAG compliance
+
+---
+
+[View nori flavor source](https://github.com/rodrigolagodev/SandoDesignSystem/tree/master/packages/tokens/src/flavors/nori)

@@ -49,7 +49,6 @@ assignees: ""
 - [ ] @sando/tokens
 - [ ] @sando/components
 - [ ] @sando/docs (Storybook)
-- [ ] @sando/site (VitePress)
 
 ## Breaking Changes
 

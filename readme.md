@@ -27,7 +27,7 @@ Start with the basics, season with meaning, and serve with style.
 - **Monorepo Structure** - Turborepo-powered with optimized caching and parallel builds
 - **Type-Safe** - Full TypeScript support with strict mode enabled
 - **Well-Tested** - Comprehensive unit, E2E, and accessibility tests
-- **Fully Documented** - Interactive Storybook playground and VitePress guides
+- **Fully Documented** - Interactive Storybook playground with guides, token references, and component API docs
 - **AI-Powered Workflow** - 7 specialized agents with orchestrated workflows for development automation
 
 ## AI-Powered Development
@@ -69,7 +69,7 @@ The system uses an **orchestrated multi-agent architecture** where a central orc
 | **sando-developer**    | Components    | Implements Web Components with Lit 3+, styling, interactivity                  |
 | **sando-quality**      | Testing       | Unit tests, accessibility tests, WCAG compliance, security validation          |
 | **sando-storybook**    | Storybook     | Stories, configuration, addons, troubleshooting                                |
-| **sando-documenter**   | Documentation | API docs, JSDoc, VitePress guides, README files                                |
+| **sando-documenter**   | Documentation | API docs, JSDoc, Storybook MDX guides, README files                            |
 
 ### How Agents Work Together
 
@@ -135,10 +135,9 @@ pnpm build
 pnpm dev
 ```
 
-**Development servers will be available at:**
+**Development server will be available at:**
 
 - Storybook: http://localhost:6006
-- VitePress: http://localhost:3000
 
 ## Tech Stack
 
@@ -150,16 +149,16 @@ Built with modern tools for maximum developer experience:
 | **Components** | Lit 3.3.1 (Web Components)        |
 | **Tokens**     | Style Dictionary 4.0.0            |
 | **Testing**    | Vitest 3.2.4 + Playwright 1.55.1  |
-| **Docs**       | Storybook 8.6.14 + VitePress      |
+| **Docs**       | Storybook 8.6.14                  |
 | **Language**   | TypeScript 5.9.3                  |
 | **Build**      | Vite 6.4.1                        |
 
 ## Documentation
 
-For detailed guides, API references, and interactive examples:
+For detailed guides, API references, and interactive examples, Storybook is the single source of truth:
 
-- **[Storybook](http://localhost:6006)** - Component playground and visual documentation
-- **[VitePress](http://localhost:3000)** - Full guides on installation, theming, and architecture
+- **[Storybook](http://localhost:6006)** - Component playground, guides (Getting Started, Theming, Accessibility), token references (Ingredients, Flavors, Recipes), and component API docs
+- **[Live Storybook](https://rodrigolagodev.github.io/SandoDesignSystem/)** - Published documentation
 
 ## Packages
 
@@ -169,8 +168,7 @@ This monorepo contains:
 | ---------------------------------------------- | --------------------------------------------- |
 | **[@sando/tokens](./packages/tokens)**         | Design tokens (Ingredients, Flavors, Recipes) |
 | **[@sando/components](./packages/components)** | Web Components library                        |
-| **[@sando/docs](./apps/docs)**                 | Storybook documentation                       |
-| **[@sando/site](./apps/site)**                 | VitePress documentation site                  |
+| **[@sando/docs](./apps/docs)**                 | Storybook documentation (single source)       |
 
 ## Three-Layer Token Architecture
 
@@ -209,8 +207,7 @@ sando-design-system/
 │   ├── tokens/          # Design tokens (Ingredients, Flavors, Recipes)
 │   └── components/      # Web Components library
 ├── apps/
-│   ├── docs/            # Storybook documentation
-│   └── site/            # VitePress documentation site
+│   └── docs/            # Storybook documentation (single source)
 └── .opencode/
     ├── agents/          # 7 specialized AI agents
     ├── skills/          # 4 reusable skills (2 are git submodules)
