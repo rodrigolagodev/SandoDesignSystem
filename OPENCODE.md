@@ -146,8 +146,8 @@ file: pr.yml
 purpose: Runs tests lint build on PRs
 behavior: Tests/lint informational only - Build blocks merge if fails
 deployment:
-  platform: Cloudflare Pages (auto-builds on push to master)
-  source_dir: apps/docs/storybook-static
+platform: Cloudflare Pages (auto-builds on push to master)
+source_dir: apps/docs/storybook-static
 deployment_urls: - service: Storybook
 url: https://sando.rlago.com
 development_phase: - setting: PR approval

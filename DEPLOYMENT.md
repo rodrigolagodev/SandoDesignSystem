@@ -18,20 +18,20 @@ These steps need to be done once in the Cloudflare dashboard.
 
 Cloudflare deploys via Wrangler (Workers + Static Assets). The `wrangler.jsonc` lives in `apps/docs/` because Wrangler refuses to run from the pnpm workspace root.
 
-| Setting           | Value                                                                                              |
-| ----------------- | -------------------------------------------------------------------------------------------------- |
-| Production branch | `master`                                                                                           |
-| Framework preset  | None                                                                                               |
-| Build command     | `pnpm install --frozen-lockfile && pnpm tokens:build && pnpm components:build && pnpm docs:build`  |
-| Deploy command    | `cd apps/docs && npx wrangler deploy`                                                              |
-| Root directory    | _(leave empty)_                                                                                    |
+| Setting           | Value                                                                                             |
+| ----------------- | ------------------------------------------------------------------------------------------------- |
+| Production branch | `master`                                                                                          |
+| Framework preset  | None                                                                                              |
+| Build command     | `pnpm install --frozen-lockfile && pnpm tokens:build && pnpm components:build && pnpm docs:build` |
+| Deploy command    | `cd apps/docs && npx wrangler deploy`                                                             |
+| Root directory    | _(leave empty)_                                                                                   |
 
 Environment variables (Production + Preview):
 
-| Variable          | Value     |
-| ----------------- | --------- |
-| `NODE_VERSION`    | `20`      |
-| `PNPM_VERSION`    | `8.15.0`  |
+| Variable       | Value    |
+| -------------- | -------- |
+| `NODE_VERSION` | `20`     |
+| `PNPM_VERSION` | `8.15.0` |
 
 ### 3. Custom domain
 
