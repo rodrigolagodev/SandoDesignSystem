@@ -2,17 +2,31 @@
 # Docs: https://developers.cloudflare.com/pages/configuration/headers/
 
 # Hashed build assets are immutable — cache aggressively.
+# /assets/* is the only directory Storybook content-hashes; /sb-manager
+# and /sb-addons use stable filenames that change content between deploys,
+# so they must revalidate.
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 
-/sb-*
-  Cache-Control: public, max-age=31536000, immutable
-
-# HTML entry points should revalidate so deploys propagate quickly.
+# HTML entry points and the Storybook chrome (manager + addons) use
+# stable filenames whose contents change deploy-to-deploy. Force
+# revalidation so users always pick up the latest build.
 /*.html
   Cache-Control: public, max-age=0, must-revalidate
 
 /
+  Cache-Control: public, max-age=0, must-revalidate
+
+/sb-manager/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/sb-addons/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/sb-common-assets/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/sb-preview/*
   Cache-Control: public, max-age=0, must-revalidate
 
 # Security headers for all responses.
