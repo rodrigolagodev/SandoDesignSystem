@@ -71,7 +71,8 @@ const config = {
 
     return {
       ...config,
-      base: "/SandoDesignSystem/",
+      // Served from the root of sando.rlago.com (Cloudflare Pages).
+      base: "/",
       resolve: {
         ...config.resolve,
         alias: [

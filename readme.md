@@ -158,7 +158,7 @@ Built with modern tools for maximum developer experience:
 For detailed guides, API references, and interactive examples, Storybook is the single source of truth:
 
 - **[Storybook](http://localhost:6006)** - Component playground, guides (Getting Started, Theming, Accessibility), token references (Ingredients, Flavors, Recipes), and component API docs
-- **[Live Storybook](https://rodrigolagodev.github.io/SandoDesignSystem/)** - Published documentation
+- **[Live Storybook](https://sando.rlago.com)** - Published documentation
 
 ## Packages
 
