@@ -1,6 +1,4 @@
 import { addons } from "@storybook/manager-api";
-import { defaultConfig } from "storybook-addon-tag-badges";
+import theme from "./theme";
 
-addons.setConfig({
-  tagBadges: defaultConfig,
-});
+addons.setConfig({ theme });

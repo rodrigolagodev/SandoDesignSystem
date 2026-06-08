@@ -1,20 +1,18 @@
 /**
  * Sando Design System — Storybook Preview Configuration
  *
- * Customizations:
- * - Flavor switcher in the toolbar (sets data-flavor on <html>)
- * - storybook-dark-mode toggle (sets data-color-mode on <html>)
+ * Two independent toolbar switchers, each implemented as a globalType +
+ * a decorator that writes a data attribute on <html>:
  *
- * The dark/light toggle uses the addon's default themes so the iframe
- * canvas background follows it automatically (stylePreview: true).
+ *   - Color mode → data-color-mode ("light" | "dark")
+ *   - Flavor     → data-flavor (one of the 7 flavor slugs, empty for "original")
+ *
+ * The token CSS (imported below) reacts to those attributes via
+ * :root[data-color-mode="..."] and :root[data-flavor="..."] selectors,
+ * so theming "just works" without listeners or external addons.
  *
  * @type { import('@storybook/web-components').Preview }
  */
-
-import { addons } from "@storybook/preview-api";
-import { GLOBALS_UPDATED } from "@storybook/core-events";
-import { DARK_MODE_EVENT_NAME } from "storybook-dark-mode";
-import { themes } from "@storybook/theming";
 
 // Design token CSS — Ingredients (primitives)
 import "../../../packages/tokens/dist/sando-tokens/css/ingredients/color.css";
@@ -68,32 +66,28 @@ import "../../../packages/tokens/dist/sando-tokens/css/flavors/nori/flavor-dark.
 import "../../../packages/tokens/dist/sando-tokens/css/flavors/nori/flavor-high-contrast.css";
 import "../../../packages/tokens/dist/sando-tokens/css/flavors/nori/flavor-motion-reduce.css";
 
-const channel = addons.getChannel();
+const FLAVORS = [
+  "sando",
+  "nori",
+  "original",
+  "strawberry",
+  "tonkatsu",
+  "kiwi",
+  "egg-salad",
+];
 
-// Sync dark-mode addon → data-color-mode on <html>
-channel.on(DARK_MODE_EVENT_NAME, (isDark) => {
-  document.documentElement.setAttribute(
-    "data-color-mode",
-    isDark ? "dark" : "light",
-  );
-});
-
-// Apply default flavor on load so MDX docs (which don't run decorators) get it too
-const DEFAULT_FLAVOR = "sando";
-if (typeof document !== "undefined") {
-  document.documentElement.setAttribute("data-flavor", DEFAULT_FLAVOR);
-}
-
-// Sync flavor toolbar → data-flavor on <html> (covers MDX docs as well as stories)
-channel.on(GLOBALS_UPDATED, ({ globals }) => {
-  if (globals?.flavor === undefined) return;
-  const flavor = globals.flavor;
-  if (flavor === "original") {
-    document.documentElement.removeAttribute("data-flavor");
+const setAttr = (name, value) => {
+  if (typeof document === "undefined") return;
+  if (value) {
+    document.documentElement.setAttribute(name, value);
   } else {
-    document.documentElement.setAttribute("data-flavor", flavor);
+    document.documentElement.removeAttribute(name);
   }
-});
+};
+
+// Apply defaults immediately so MDX docs pages (which don't run decorators) get them too.
+setAttr("data-color-mode", "light");
+setAttr("data-flavor", "sando");
 
 const preview = {
   tags: ["autodocs"],
@@ -107,19 +101,6 @@ const preview = {
     },
 
     docs: { toc: true },
-
-    // Dark-mode addon: provide the toggle button + event, but keep the
-    // Manager UI (sidebar/toolbar) on the default light theme always by
-    // pointing both modes at the same theme. The iframe canvas background
-    // is handled via CSS in preview-head.html that reacts to data-color-mode.
-    darkMode: {
-      dark: themes.light,
-      light: themes.light,
-      stylePreview: false,
-      classTarget: "html",
-      darkClass: "dark",
-      lightClass: "light",
-    },
 
     options: {
       storySort: {
@@ -175,24 +156,31 @@ const preview = {
     ref: { table: { disable: true } },
     class: { table: { disable: true } },
     style: { table: { disable: true } },
-    flavor: { table: { disable: true } },
   },
 
   globalTypes: {
+    colorMode: {
+      name: "Mode",
+      description: "Light or dark color mode",
+      defaultValue: "light",
+      toolbar: {
+        title: "Mode",
+        icon: "circlehollow",
+        items: [
+          { value: "light", title: "Light", icon: "sun" },
+          { value: "dark", title: "Dark", icon: "moon" },
+        ],
+        dynamicTitle: true,
+      },
+    },
     flavor: {
       name: "Flavor",
-      description: "Design system flavor/theme",
+      description: "Design system flavor / theme",
+      defaultValue: "sando",
       toolbar: {
         title: "Flavor",
-        items: [
-          { value: "sando", title: "Sando" },
-          { value: "nori", title: "Nori" },
-          { value: "original", title: "Original" },
-          { value: "strawberry", title: "Strawberry" },
-          { value: "tonkatsu", title: "Tonkatsu" },
-          { value: "kiwi", title: "Kiwi" },
-          { value: "egg-salad", title: "Egg Salad" },
-        ],
+        icon: "paintbrush",
+        items: FLAVORS.map((f) => ({ value: f, title: f })),
         dynamicTitle: true,
       },
     },
@@ -200,17 +188,16 @@ const preview = {
 
   decorators: [
     (storyFn, context) => {
+      setAttr("data-color-mode", context.globals.colorMode || "light");
       const flavor = context.globals.flavor || "sando";
-      if (flavor === "original") {
-        document.documentElement.removeAttribute("data-flavor");
-      } else {
-        document.documentElement.setAttribute("data-flavor", flavor);
-      }
+      // "original" uses :root defaults — remove the attribute entirely.
+      setAttr("data-flavor", flavor === "original" ? "" : flavor);
       return storyFn();
     },
   ],
 
   initialGlobals: {
+    colorMode: "light",
     flavor: "sando",
   },
 };

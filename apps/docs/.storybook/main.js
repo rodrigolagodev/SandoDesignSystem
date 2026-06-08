@@ -20,11 +20,13 @@ const config = {
   addons: [
     "@storybook/addon-links",
     "@storybook/addon-a11y",
-    "storybook-dark-mode",
     "storybook-addon-tag-badges",
     {
       name: "@storybook/addon-essentials",
       options: {
+        // "Change the background of the preview" dropdown — we control the
+        // canvas background through the Mode (light/dark) toolbar instead.
+        backgrounds: false,
         docs: {
           mdxPluginOptions: {
             mdxCompileOptions: {
