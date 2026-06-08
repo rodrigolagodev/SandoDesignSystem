@@ -1,19 +1,18 @@
 /**
  * Sando Design System — Storybook Preview Configuration
  *
- * Customization is intentionally limited to two toolbar switchers, both
- * wired through @storybook/addon-themes:
+ * Two independent toolbar switchers, each implemented as a globalType +
+ * a decorator that writes a data attribute on <html>:
  *
- *   - Color mode → data-color-mode on <html> ("light" | "dark")
- *   - Flavor    → data-flavor    on <html> (one of the 7 flavor slugs)
+ *   - Color mode → data-color-mode ("light" | "dark")
+ *   - Flavor     → data-flavor (one of the 7 flavor slugs, empty for "original")
  *
- * The token CSS (imported below) reacts to those attributes. There is
- * no manual event listener, no custom theme files, no preview-styles.css.
+ * The token CSS (imported below) reacts to those attributes via
+ * :root[data-color-mode="..."] and :root[data-flavor="..."] selectors,
+ * so theming "just works" without listeners or external addons.
  *
  * @type { import('@storybook/web-components').Preview }
  */
-
-import { withThemeByDataAttribute } from "@storybook/addon-themes";
 
 // Design token CSS — Ingredients (primitives)
 import "../../../packages/tokens/dist/sando-tokens/css/ingredients/color.css";
@@ -66,6 +65,29 @@ import "../../../packages/tokens/dist/sando-tokens/css/flavors/nori/flavor.css";
 import "../../../packages/tokens/dist/sando-tokens/css/flavors/nori/flavor-dark.css";
 import "../../../packages/tokens/dist/sando-tokens/css/flavors/nori/flavor-high-contrast.css";
 import "../../../packages/tokens/dist/sando-tokens/css/flavors/nori/flavor-motion-reduce.css";
+
+const FLAVORS = [
+  "sando",
+  "nori",
+  "original",
+  "strawberry",
+  "tonkatsu",
+  "kiwi",
+  "egg-salad",
+];
+
+const setAttr = (name, value) => {
+  if (typeof document === "undefined") return;
+  if (value) {
+    document.documentElement.setAttribute(name, value);
+  } else {
+    document.documentElement.removeAttribute(name);
+  }
+};
+
+// Apply defaults immediately so MDX docs pages (which don't run decorators) get them too.
+setAttr("data-color-mode", "light");
+setAttr("data-flavor", "sando");
 
 const preview = {
   tags: ["autodocs"],
@@ -136,31 +158,48 @@ const preview = {
     style: { table: { disable: true } },
   },
 
+  globalTypes: {
+    colorMode: {
+      name: "Mode",
+      description: "Light or dark color mode",
+      defaultValue: "light",
+      toolbar: {
+        title: "Mode",
+        icon: "circlehollow",
+        items: [
+          { value: "light", title: "Light", icon: "sun" },
+          { value: "dark", title: "Dark", icon: "moon" },
+        ],
+        dynamicTitle: true,
+      },
+    },
+    flavor: {
+      name: "Flavor",
+      description: "Design system flavor / theme",
+      defaultValue: "sando",
+      toolbar: {
+        title: "Flavor",
+        icon: "paintbrush",
+        items: FLAVORS.map((f) => ({ value: f, title: f })),
+        dynamicTitle: true,
+      },
+    },
+  },
+
   decorators: [
-    withThemeByDataAttribute({
-      attributeName: "data-color-mode",
-      defaultTheme: "light",
-      themes: {
-        light: "light",
-        dark: "dark",
-      },
-      parentSelector: "html",
-    }),
-    withThemeByDataAttribute({
-      attributeName: "data-flavor",
-      defaultTheme: "sando",
-      themes: {
-        sando: "sando",
-        nori: "nori",
-        original: "",
-        strawberry: "strawberry",
-        tonkatsu: "tonkatsu",
-        kiwi: "kiwi",
-        "egg-salad": "egg-salad",
-      },
-      parentSelector: "html",
-    }),
+    (storyFn, context) => {
+      setAttr("data-color-mode", context.globals.colorMode || "light");
+      const flavor = context.globals.flavor || "sando";
+      // "original" uses :root defaults — remove the attribute entirely.
+      setAttr("data-flavor", flavor === "original" ? "" : flavor);
+      return storyFn();
+    },
   ],
+
+  initialGlobals: {
+    colorMode: "light",
+    flavor: "sando",
+  },
 };
 
 export default preview;
