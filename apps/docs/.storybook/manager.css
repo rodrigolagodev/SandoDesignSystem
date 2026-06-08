@@ -1,0 +1,6 @@
+/* Shrink the sidebar brand image; Storybook's default is ~150px max-width. */
+.sidebar-container header img,
+.sidebar-header img,
+[class*="StyledBrand"] img {
+  max-width: 120px !important;
+}
