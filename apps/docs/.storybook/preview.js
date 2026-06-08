@@ -608,13 +608,30 @@ const preview = {
     },
 
     // Story ordering configuration
-    // Matches simplified structure: Welcome → Ingredients → Flavors → Components
+    // Structure: Welcome → Getting Started → Guides → Ingredients → Flavors → Recipes → Components
     options: {
       storySort: {
         order: [
           "Welcome",
+          "Getting Started",
+          [
+            "Introduction",
+            "Installation",
+            "Quick Start",
+            "Theming",
+            "Dependencies",
+          ],
+          "Guides",
+          [
+            "Architecture",
+            "Flavor Philosophy",
+            "Accessibility",
+            "Browser Support",
+            "Contributing",
+          ],
           "Ingredients",
           [
+            "Overview",
             "Color",
             "Typography",
             "Spacing",
@@ -625,7 +642,15 @@ const preview = {
             "Z-Index",
           ],
           "Flavors",
-          ["Color Roles", "Spacing Roles", "Typography Roles"],
+          [
+            "Overview",
+            "Color Roles",
+            "Spacing Roles",
+            "Typography Roles",
+            "Nori",
+          ],
+          "Recipes",
+          ["Overview", "Testing"],
           "Components",
           ["Status", "Button", "Input", "Icon", "Form Group", "*"],
           "*",

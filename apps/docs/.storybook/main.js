@@ -71,7 +71,7 @@ const config = {
 
     return {
       ...config,
-      base: "/SandoDesignSystem/storybook/",
+      base: "/SandoDesignSystem/",
       resolve: {
         ...config.resolve,
         alias: [

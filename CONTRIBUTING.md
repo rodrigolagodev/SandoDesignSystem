@@ -50,8 +50,7 @@ pnpm dev
 
 This will start:
 
-- **Storybook** on http://localhost:6006
-- **VitePress docs** on http://localhost:3000
+- **Storybook** on http://localhost:6006 (components, guides, token references, and API docs)
 
 ## GitHub Flow
 
@@ -175,8 +174,7 @@ sando-design-system/
 │   ├── tokens/          # Design tokens (Style Dictionary)
 │   └── components/      # Web Components (Lit)
 ├── apps/
-│   ├── docs/           # Storybook documentation
-│   └── site/           # VitePress site
+│   └── docs/           # Storybook documentation (single source)
 ├── .github/            # GitHub workflows
 └── README.md
 ```
@@ -428,7 +426,7 @@ Sando includes **7 specialized AI agents** that can help you contribute more eff
 | **sando-developer**    | Components    | Implementing components, features, bug fixes   |
 | **sando-quality**      | Testing       | Unit tests, a11y tests, WCAG compliance        |
 | **sando-storybook**    | Storybook     | Stories, configuration, troubleshooting        |
-| **sando-documenter**   | Documentation | API docs, JSDoc, VitePress guides              |
+| **sando-documenter**   | Documentation | API docs, JSDoc, Storybook MDX guides          |
 
 ### Skills & Commands
 

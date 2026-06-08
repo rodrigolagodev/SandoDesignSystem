@@ -27,11 +27,6 @@ test-results/
 .cache/
 *.cache
 
-# VitePress cache
-.vitepress/cache/
-.vitepress/dist/
-.vitepress/.temp/
-
 # Storybook cache
 .storybook-cache/
 node_modules/.cache/
@@ -102,9 +97,6 @@ $RECYCLE.BIN/
 
 # Optional stylelint cache
 .stylelintcache
-
-# VitePress specific cache (apps/site)
-apps/site/.vitepress/cache/
 
 # Vitest
 .vitest/

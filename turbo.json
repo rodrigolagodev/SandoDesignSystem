@@ -4,13 +4,7 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [
-        "dist/**",
-        ".next/**",
-        "!.next/cache/**",
-        "storybook-static/**",
-        ".vitepress/dist/**"
-      ],
+      "outputs": ["dist/**", ".next/**", "!.next/cache/**", "storybook-static/**"],
       "env": ["NODE_ENV"]
     },
     "test": {

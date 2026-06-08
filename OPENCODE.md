@@ -41,9 +41,9 @@ tech_stack:
   version: "4.0.4 + 1.55.1"
   note: Unit + E2E (@vitest/ui @vitest/coverage-v8)
 - category: Docs
-  tool: Storybook + VitePress
-  version: "8.6.14 + 1.6.4"
-  note: Component docs + guides
+  tool: Storybook
+  version: "8.6.14"
+  note: Single source — components, guides, token references, API docs (MDX)
 - category: Language
   tool: TypeScript
   version: "5.9.3"
@@ -66,7 +66,7 @@ files: - COMPONENT_ARCHITECTURE.toon - FRAMEWORK_INTEGRATION.toon - MONOREPO_STR
 files: - CODE_STYLE.toon - GIT_WORKFLOW.toon - NAMING_CONVENTIONS.toon - TESTING_STRATEGY.toon - category: 04-accessibility
 files: - COLOR_CONTRAST.toon - KEYBOARD_NAVIGATION.toon - SCREEN_READER_SUPPORT.toon - WCAG_COMPLIANCE.toon - category: 05-quality
 files: - PERFORMANCE_BUDGETS.toon - SECURITY_STANDARDS.toon - TEST_COVERAGE.toon - category: 06-documentation
-files: - API_REFERENCE.toon - INLINE_CODE_DOCS.toon - STORYBOOK_STORIES.toon - TOON_FORMAT.toon - VITEPRESS_GUIDES.toon
+files: - API_REFERENCE.toon - INLINE_CODE_DOCS.toon - STORYBOOK_STORIES.toon - TOON_FORMAT.toon
 
 agents:
 location: .opencode/agents/
@@ -103,8 +103,8 @@ agents:
   description: Storybook configuration, stories, addons, troubleshooting with Web Components and Vite
   invoke_for: Creating stories, Storybook config, addon setup, HMR/build issues
 - name: sando-documenter
-  description: API documentation, JSDoc, VitePress guides, README files (NOT Storybook stories)
-  invoke_for: API reference, JSDoc comments, VitePress content, package documentation
+  description: API documentation, JSDoc, Storybook MDX guides, README files
+  invoke_for: API reference, JSDoc comments, MDX docs/guides, package documentation
 
 commands:
 location: .opencode/commands/
@@ -134,8 +134,7 @@ node_version: Requires Node.js >=20.0.0 (specified in package.json engines)
 env_variables:
 optional: Copy .env.example to .env.local to customize ports
 default_ports: - service: Storybook
-port: 6006 - service: VitePress
-port: 3000
+port: 6006
 build_caching:
 system: Turborepo caches build outputs
 force_rebuild: - pnpm clean && pnpm build - pnpm build -- --force
@@ -147,11 +146,10 @@ file: pr.yml
 purpose: Runs tests lint build on PRs
 behavior: Tests/lint informational only - Build blocks merge if fails - name: Documentation Deployment
 file: deploy.yml
-purpose: Deploys Storybook + VitePress to GitHub Pages
+purpose: Deploys Storybook to GitHub Pages (single docs source)
 behavior: Runs automatically on push to master
 deployment_urls: - service: Storybook
-url: https://rodrigolagodev.github.io/SandoDesignSystem/storybook/ - service: Docs
-url: https://rodrigolagodev.github.io/SandoDesignSystem/docs/
+url: https://rodrigolagodev.github.io/SandoDesignSystem/
 development_phase: - setting: PR approval
 status: Not required (can self-merge) - setting: Tests/lint
 status: Informational (don't block) - setting: Build failures

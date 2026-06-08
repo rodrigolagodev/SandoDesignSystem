@@ -99,7 +99,7 @@ All templates are located in `assets/templates/`:
 | `a11y.test.ts.template` | `sando-{name}.a11y.test.ts` | Accessibility tests     |
 | `stories.ts.template`   | `sando-{name}.stories.ts`   | Storybook stories       |
 | `index.ts.template`     | `index.ts`                  | Barrel export           |
-| `docs.md.template`      | `{name}.md`                 | VitePress documentation |
+| `docs.mdx.template`     | `{Name}.mdx`                | Storybook MDX guide (optional; Autodocs covers the API table) |
 
 ## Workflow
 

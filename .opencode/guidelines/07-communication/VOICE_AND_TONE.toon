@@ -716,7 +716,7 @@ detailed_examples:
   use_cases:
     - id: "VT-DE-UC1"
       title: "Use Case 1: Writing a New Component Introduction"
-      scenario: "The sando-documenter agent needs to write the introduction paragraph for a new sando-card component in VitePress documentation."
+      scenario: "The sando-documenter agent needs to write the introduction paragraph for a new sando-card component in a Storybook MDX guide."
       solution:
         lang: "text"
         code: |
@@ -1007,10 +1007,10 @@ related_guidelines:
       category: "06-documentation"
       note: "API reference tone (precise, concise, formal) defined in VT-ST-C4. Vocabulary registry relaxed for technical terms in this context."
     - type: "guideline"
-      doc_id: "VPG"
-      file: "../06-documentation/VITEPRESS_GUIDES.toon"
+      doc_id: "SBS"
+      file: "../06-documentation/STORYBOOK_STORIES.toon"
       category: "06-documentation"
-      note: "Guide introductions, tutorial tone, and conceptual documentation follow VT-ST-C4. Culinary metaphor encouraged per VT-CR-R7."
+      note: "Guide introductions, tutorial tone, and conceptual MDX documentation follow VT-ST-C4. Culinary metaphor encouraged per VT-CR-R7."
     - type: "guideline"
       doc_id: "WC"
       file: "../04-accessibility/WCAG_COMPLIANCE.toon"

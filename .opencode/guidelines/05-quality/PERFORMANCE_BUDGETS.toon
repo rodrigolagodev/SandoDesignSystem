@@ -77,7 +77,7 @@ core_rules:
 
   - id: "PB-CR-R2"
     title: "Core Web Vitals Targets (Non-Negotiable)"
-    summary: "Documentation sites (Storybook, VitePress) MUST meet Core Web Vitals thresholds for 'Good' rating."
+    summary: "The Storybook documentation site MUST meet Core Web Vitals thresholds for 'Good' rating."
     targets:
       - name: "LCP"
         unit: "Largest Contentful Paint"
@@ -124,7 +124,7 @@ core_rules:
 
   - id: "PB-CR-R3"
     title: "Lighthouse Performance Score ≥90 (Required)"
-    summary: "Storybook and VitePress sites MUST score ≥90 in Lighthouse Performance audits."
+    summary: "The Storybook documentation site MUST score ≥90 in Lighthouse Performance audits."
     pattern:
       lang: "toon"
       title: "Lighthouse CI configuration (.lighthouserc.json)"
@@ -296,12 +296,7 @@ bundle_size_budgets:
         initial_load: "<500KB"
         gzipped: "<150KB"
         lcp_target: "<2.0s"
-        note: "Component showcase"
-      - name: "VitePress (@sando/site)"
-        initial_load: "<300KB"
-        gzipped: "<100KB"
-        lcp_target: "<1.8s"
-        note: "Marketing/docs"
+        note: "Single docs source — component showcase + MDX guides"
     storybook_note: "Storybook bundles are large by nature (~3MB). Focus on component iframe performance, not Storybook shell."
 
 core_web_vitals:
@@ -384,7 +379,6 @@ lighthouse_ci:
           collect:
             url:
               - "http://localhost:6006"
-              - "http://localhost:3000"
             numberOfRuns: 3
             settings:
               preset: "desktop"
@@ -530,12 +524,14 @@ performance_optimization:
     id: "PB-PO-CS"
     route_based_splitting:
       lang: "javascript"
-      site: "VitePress"
+      site: "Storybook (Vite)"
       code: |
-        // .vitepress/config.js
-        export default {
-          vite: {
+        // .storybook/main.js — viteFinal
+        async viteFinal(config) {
+          return {
+            ...config,
             build: {
+              ...config.build,
               rollupOptions: {
                 output: {
                   manualChunks(id) {
@@ -549,8 +545,8 @@ performance_optimization:
                 }
               }
             }
-          }
-        };
+          };
+        }
   lazy_loading:
     id: "PB-PO-LL"
     component_lazy_loading:

@@ -1,0 +1,312 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Guides/Browser Support" />
+
+# Browser Support
+
+Sando is built on modern web standards — Web Components, CSS Custom Properties, and the OKLCH color space. Like choosing the freshest ingredients for your sando, we target browsers that support the full set of features needed for a great experience.
+
+## Supported Browsers
+
+### Desktop
+
+<table>
+  <thead>
+    <tr>
+      <th>Browser</th>
+      <th>Minimum Version</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>**Chrome**</td>
+      <td>111+</td>
+      <td>✅ Fully Supported</td>
+    </tr>
+    <tr>
+      <td>**Edge**</td>
+      <td>111+</td>
+      <td>✅ Fully Supported</td>
+    </tr>
+    <tr>
+      <td>**Firefox**</td>
+      <td>113+</td>
+      <td>✅ Fully Supported</td>
+    </tr>
+    <tr>
+      <td>**Safari**</td>
+      <td>15.4+</td>
+      <td>✅ Fully Supported</td>
+    </tr>
+    <tr>
+      <td>**Opera**</td>
+      <td>97+</td>
+      <td>✅ Fully Supported</td>
+    </tr>
+  </tbody>
+</table>
+
+### Mobile
+
+<table>
+  <thead>
+    <tr>
+      <th>Browser</th>
+      <th>Minimum Version</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>**Chrome Mobile**</td>
+      <td>111+</td>
+      <td>✅ Fully Supported</td>
+    </tr>
+    <tr>
+      <td>**Safari iOS**</td>
+      <td>15.4+</td>
+      <td>✅ Fully Supported</td>
+    </tr>
+    <tr>
+      <td>**Samsung Internet**</td>
+      <td>22+</td>
+      <td>✅ Fully Supported</td>
+    </tr>
+    <tr>
+      <td>**Firefox Mobile**</td>
+      <td>113+</td>
+      <td>✅ Fully Supported</td>
+    </tr>
+  </tbody>
+</table>
+
+> **💡 Why These Versions?**
+>
+> The minimum versions are driven by **OKLCH color support**. Sando uses `oklch()` for all color definitions — it's the ingredient that makes our contrast guarantees and flavor system possible. These are the first browser versions with full OKLCH support.
+
+## Required Web Platform Features
+
+Sando components rely on these modern capabilities. Think of them as the essential kitchen equipment — without them, you can't prepare the dish.
+
+### OKLCH Color Space
+
+The defining feature of Sando's token system. Every color is defined in OKLCH for perceptual uniformity:
+
+```css
+/* Lightness, Chroma, Hue — perceptually uniform */
+--sando-color-brown-500: oklch(0.65 0.08 50);
+```
+
+<table>
+  <thead>
+    <tr>
+      <th>Browser</th>
+      <th>First Version with OKLCH</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Chrome</td>
+      <td>111</td>
+    </tr>
+    <tr>
+      <td>Firefox</td>
+      <td>113</td>
+    </tr>
+    <tr>
+      <td>Safari</td>
+      <td>15.4</td>
+    </tr>
+    <tr>
+      <td>Edge</td>
+      <td>111</td>
+    </tr>
+  </tbody>
+</table>
+
+### Web Components
+
+- **Custom Elements v1** — For defining `<sando-button>`, `<sando-input>`, and all other components
+- **Shadow DOM v1** — For style encapsulation (your styles don't leak in, ours don't leak out)
+- **HTML Templates** — For efficient DOM cloning
+
+### CSS Features
+
+- **CSS Custom Properties** — The backbone of the token system and flavor switching
+- **CSS Grid & Flexbox** — For internal component layouts
+- **`gap` property** — For spacing within components
+- **`:focus-visible`** — For accessible focus indicators that only appear on keyboard navigation
+- **`@media (prefers-color-scheme)`** — For automatic dark mode
+- **`@media (prefers-contrast)`** — For high contrast mode
+- **`@media (prefers-reduced-motion)`** — For motion-safe animations
+
+### Modern JavaScript
+
+- **ES Modules** — Native `import` / `export`
+- **ES2020+** — Optional chaining (`?.`), nullish coalescing (`??`), dynamic `import()`
+- **Decorators** — Used internally by Lit 3 (transpiled at build time)
+
+## Polyfills
+
+Sando does **not** include polyfills. The supported browser versions all have native support for every feature Sando requires — Web Components, OKLCH, CSS Custom Properties, and ES Modules.
+
+If you need to support older browsers, you'll need to provide your own polyfills for Web Components:
+
+```bash
+npm install @webcomponents/webcomponentsjs
+```
+
+```html
+<script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+<script type="module" src="./your-app.js"></script>
+```
+
+> **⚠️ OKLCH Cannot Be Polyfilled**
+>
+> While Web Components can be polyfilled, OKLCH colors cannot. Browsers that don't support `oklch()` will ignore those color declarations entirely. There is no JavaScript polyfill for a CSS color function. This is the primary reason Sando requires modern browser versions.
+
+## Testing Matrix
+
+Sando runs automated tests across multiple browsers using Playwright:
+
+- ✅ **Chromium** (latest 2 versions)
+- ✅ **Firefox** (latest 2 versions)
+- ✅ **WebKit** (latest 2 versions)
+
+```typescript
+// playwright.config.ts
+export default {
+  projects: [
+    { name: "chromium", use: { ...devices["Desktop Chrome"] } },
+    { name: "firefox", use: { ...devices["Desktop Firefox"] } },
+    { name: "webkit", use: { ...devices["Desktop Safari"] } },
+  ],
+};
+```
+
+## Performance Targets
+
+We aim for these metrics on supported browsers:
+
+<table>
+  <thead>
+    <tr>
+      <th>Metric</th>
+      <th>Target</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>First Contentful Paint</td>
+      <td>&lt; 1.5s</td>
+    </tr>
+    <tr>
+      <td>Time to Interactive</td>
+      <td>&lt; 3.5s</td>
+    </tr>
+    <tr>
+      <td>Component Mount Time</td>
+      <td>&lt; 100ms</td>
+    </tr>
+    <tr>
+      <td>Bundle Size per Component</td>
+      <td>&lt; 15KB gzip</td>
+    </tr>
+  </tbody>
+</table>
+
+## Accessibility Across Browsers
+
+All supported browsers pass Sando's accessibility requirements:
+
+- ✅ Keyboard navigation works consistently
+- ✅ Screen readers properly announce components
+- ✅ ARIA attributes are respected
+- ✅ Focus management works correctly
+- ✅ `@media` queries for dark mode, high contrast, and reduced motion respond correctly
+
+### Tested Screen Readers
+
+<table>
+  <thead>
+    <tr>
+      <th>Platform</th>
+      <th>Screen Reader</th>
+      <th>Browser</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Windows</td>
+      <td>NVDA</td>
+      <td>Firefox, Chrome</td>
+    </tr>
+    <tr>
+      <td>Windows</td>
+      <td>JAWS</td>
+      <td>Chrome, Edge</td>
+    </tr>
+    <tr>
+      <td>macOS</td>
+      <td>VoiceOver</td>
+      <td>Safari</td>
+    </tr>
+    <tr>
+      <td>iOS</td>
+      <td>VoiceOver</td>
+      <td>Safari</td>
+    </tr>
+    <tr>
+      <td>Android</td>
+      <td>TalkBack</td>
+      <td>Chrome</td>
+    </tr>
+  </tbody>
+</table>
+
+## Feature Detection
+
+Use feature detection for progressive enhancement:
+
+```javascript
+// Check for all required features
+const sandoSupported = {
+  customElements: "customElements" in window,
+  shadowDOM: "attachShadow" in Element.prototype,
+  cssVariables: CSS.supports("(--a: 0)"),
+  oklch: CSS.supports("color", "oklch(0.5 0.1 200)"),
+  esModules: "noModule" in HTMLScriptElement.prototype,
+};
+
+if (Object.values(sandoSupported).every(Boolean)) {
+  // All features supported — load Sando components
+  import("@sando/components/button");
+} else {
+  console.warn("Browser missing required features for Sando:", sandoSupported);
+}
+```
+
+## Unsupported Browsers
+
+We **do not** support:
+
+- ❌ Internet Explorer (all versions)
+- ❌ Edge Legacy (pre-Chromium)
+- ❌ Safari < 15.4 (no OKLCH support)
+- ❌ Chrome < 111 (no OKLCH support)
+- ❌ Firefox < 113 (no OKLCH support)
+
+## Deprecation Policy
+
+- We support the **latest 2 major versions** of each browser
+- Minimum browser versions may increase as new CSS features are adopted
+- Breaking changes to browser support are communicated in release notes
+- We provide at least **6 months notice** before dropping support for a browser version
+
+## Resources
+
+- [Can I Use: OKLCH](https://caniuse.com/mdn-css_types_color_oklch) — Check OKLCH browser support
+- [Can I Use: Web Components](https://caniuse.com/custom-elementsv1) — Check Custom Elements support
+- [GitHub Issues](https://github.com/rodrigolagodev/SandoDesignSystem/issues) — Report browser-specific issues
+- [GitHub Discussions](https://github.com/rodrigolagodev/SandoDesignSystem/discussions) — Ask questions about compatibility

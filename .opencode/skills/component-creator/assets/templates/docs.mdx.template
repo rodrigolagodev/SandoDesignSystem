@@ -1,0 +1,80 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Components/{{COMPONENT_CLASS}}/Guide" />
+
+# {{COMPONENT_CLASS}} Component
+
+{{COMPONENT_DESCRIPTION}}
+
+> Note: the component API table (props, events, slots, CSS props) is generated automatically
+> by Storybook Autodocs from JSDoc + argTypes. Use this MDX guide for conceptual usage,
+> examples, and accessibility notes that Autodocs does not cover.
+
+## Installation
+
+```bash
+npm install @sando/components
+```
+
+## Basic Usage
+
+```html
+<sando-{{COMPONENT_NAME}}> Content </sando-{{COMPONENT_NAME}}>
+```
+
+## Examples
+
+### Basic Example
+
+```html
+<!-- TODO: Add basic usage example -->
+<sando-{{COMPONENT_NAME}}> Example content </sando-{{COMPONENT_NAME}}>
+```
+
+## Accessibility
+
+<!-- TODO: Document accessibility features -->
+
+- [ ] Keyboard navigation
+- [ ] Screen reader support
+- [ ] ARIA attributes
+- [ ] Focus management
+- [ ] Color contrast compliance
+
+## Framework Integration
+
+### React
+
+```tsx
+import "@sando/components/{{COMPONENT_NAME}}";
+
+function App() {
+  return <sando-{{COMPONENT_NAME}}>Content</sando-{{COMPONENT_NAME}}>;
+}
+```
+
+### Vue 3
+
+```vue
+<template>
+  <sando-{{COMPONENT_NAME}}>Content</sando-{{COMPONENT_NAME}}>
+</template>
+
+<script setup>
+import "@sando/components/{{COMPONENT_NAME}}";
+</script>
+```
+
+## TODO: Complete Documentation
+
+- [ ] Add all usage examples
+- [ ] Document props with realistic examples
+- [ ] Document events with examples
+- [ ] Add accessibility notes
+- [ ] Add best practices section
+- [ ] Add "Do's and Don'ts" section
+
+## Related
+
+- [Component Status](?path=/docs/components-status--docs)
+- [Button](?path=/docs/components-button--docs) (reference example)

@@ -159,11 +159,6 @@ jobs:
         env:
           CI: true
 
-      - name: Build VitePress
-        run: pnpm --filter @sando/site build
-        env:
-          CI: true
-
       - name: Upload build artifacts
         if: always()
         uses: actions/upload-artifact@v4

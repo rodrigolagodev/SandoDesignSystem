@@ -1,0 +1,652 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Ingredients/Overview" />
+
+# Ingredients (Primitives)
+
+Like pantry staples — always available, never change. Ingredients are the most basic tokens in Sando. They have **no semantic meaning** and **never reference other tokens**. Think of them as the raw ingredients you'd buy at the market before assembling your sandwich.
+
+## How Ingredients Fit the System
+
+```
+Ingredients → Flavors → Recipes → Components
+(you are here)
+```
+
+Ingredients should **never** be used directly in components. They flow through the system:
+
+1. **Ingredients** define raw values (e.g., `color.orange.500`)
+2. **Flavors** give them meaning (e.g., `color.action.solid.background.default`)
+3. **Recipes** assign them to components (e.g., `button.solid.backgroundColor.default`)
+
+> **⚠️ Never Skip Layers**
+>
+> Components should never reference ingredients directly. Always go through flavors and recipes — that's how theming works.
+
+## Color Palettes
+
+All colors are built using the **OKLCH color space** — a perceptually uniform color model that ensures consistent lightness across hues and guarantees accessibility (WCAG AA). No HSL, no RGB — just scientifically precise color.
+
+> **💡 Why OKLCH?**
+>
+> OKLCH ensures that two colors at the same lightness value _actually look_ the same brightness to human eyes. This means our 500-step across all palettes shares visual weight — something impossible with HSL or RGB.
+
+For interactive color swatches and the full palette, see the **[Color playground](?path=/docs/ingredients-color--docs)**.
+
+### Brand Colors (8 palettes)
+
+<table>
+  <thead>
+    <tr>
+      <th>Palette</th>
+      <th>Hue</th>
+      <th>Base (500)</th>
+      <th>Personality</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>**Orange**</td>
+      <td>38</td>
+      <td>`oklch(0.65 0.12 38)`</td>
+      <td>Energetic, friendly, approachable</td>
+    </tr>
+    <tr>
+      <td>**Blue**</td>
+      <td>230</td>
+      <td>`oklch(0.65 0.11 230)`</td>
+      <td>Trust, professional, calm</td>
+    </tr>
+    <tr>
+      <td>**Green**</td>
+      <td>145</td>
+      <td>`oklch(0.65 0.10 145)`</td>
+      <td>Growth, success, natural</td>
+    </tr>
+    <tr>
+      <td>**Red**</td>
+      <td>15</td>
+      <td>`oklch(0.65 0.14 15)`</td>
+      <td>Urgent, important, bold</td>
+    </tr>
+    <tr>
+      <td>**Purple**</td>
+      <td>290</td>
+      <td>`oklch(0.65 0.10 290)`</td>
+      <td>Creative, premium, sophisticated</td>
+    </tr>
+    <tr>
+      <td>**Pink**</td>
+      <td>350</td>
+      <td>`oklch(0.65 0.11 350)`</td>
+      <td>Playful, modern, vibrant</td>
+    </tr>
+    <tr>
+      <td>**Yellow**</td>
+      <td>90</td>
+      <td>`oklch(0.75 0.10 90)`</td>
+      <td>Warm, optimistic, attention</td>
+    </tr>
+    <tr>
+      <td>**Brown**</td>
+      <td>50</td>
+      <td>`oklch(0.65 0.08 50)`</td>
+      <td>Earthy, organic, grounded</td>
+    </tr>
+  </tbody>
+</table>
+
+Each palette provides 11 steps from `50` (lightest) to `950` (darkest):
+
+```css
+--sando-color-orange-50: oklch(0.985 0.02 38);
+--sando-color-orange-500: oklch(0.65 0.12 38); /* Base */
+--sando-color-orange-950: oklch(0.22 0.06 38);
+```
+
+### Neutral Colors (3 variants)
+
+Choose the neutral that complements your brand palette. Each provides 11 steps from 50 to 950.
+
+- **Neutral** (Pure Gray) — true neutral with minimal chroma. Pairs with any brand color. Hue 0, chroma 0.005.
+- **Neutral Warm** (Slight Warmth) — warm-tinted gray that pairs with orange, red, and brown. Hue 30, chroma 0.018.
+- **Neutral Cool** (Slight Blue Tint) — cool-tinted gray for sophistication. Pairs with blue, purple, and green. Hue 220, chroma 0.018.
+
+```css
+--sando-color-neutral-500: oklch(0.64 0.005 0);
+--sando-color-neutralWarm-500: oklch(0.64 0.018 30);
+--sando-color-neutralCool-500: oklch(0.64 0.018 220);
+```
+
+### State Colors
+
+Semantic colors for communicating status. Each includes multiple steps for backgrounds, text, and borders.
+
+<table>
+  <thead>
+    <tr>
+      <th>State</th>
+      <th>Hue</th>
+      <th>Sample (500)</th>
+      <th>Use Case</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>**Error**</td>
+      <td>15</td>
+      <td>`oklch(0.62 0.18 15)`</td>
+      <td>Validation errors, destructive actions</td>
+    </tr>
+    <tr>
+      <td>**Warning**</td>
+      <td>85/90</td>
+      <td>`oklch(0.82 0.14 90)`</td>
+      <td>Caution messages, attention needed</td>
+    </tr>
+    <tr>
+      <td>**Success**</td>
+      <td>145</td>
+      <td>`oklch(0.60 0.11 145)`</td>
+      <td>Confirmations, completed actions</td>
+    </tr>
+    <tr>
+      <td>**Info**</td>
+      <td>250</td>
+      <td>`oklch(0.60 0.13 250)`</td>
+      <td>Informational messages, tips</td>
+    </tr>
+  </tbody>
+</table>
+
+<details>
+<summary>State color steps (Error, Success, Warning, Info)</summary>
+
+```css
+/* Error */
+--sando-color-state-error-100: oklch(0.92 0.04 15); /* Background */
+--sando-color-state-error-500: oklch(0.62 0.18 15); /* Default */
+--sando-color-state-error-900: oklch(0.36 0.1 15); /* Dark text */
+
+/* Success */
+--sando-color-state-success-100: oklch(0.92 0.03 145);
+--sando-color-state-success-500: oklch(0.6 0.11 145);
+--sando-color-state-success-900: oklch(0.34 0.06 145);
+
+/* Warning */
+--sando-color-state-warning-100: oklch(0.94 0.06 85);
+--sando-color-state-warning-500: oklch(0.82 0.14 90);
+--sando-color-state-warning-700: oklch(0.68 0.14 60);
+
+/* Info */
+--sando-color-state-info-100: oklch(0.96 0.02 250);
+--sando-color-state-info-500: oklch(0.6 0.13 250);
+--sando-color-state-info-700: oklch(0.48 0.1 250);
+```
+
+</details>
+
+### Utility Colors
+
+```css
+--sando-color-utility-white: oklch(1 0 0);
+--sando-color-utility-black: oklch(0 0 0);
+--sando-color-utility-transparent: transparent;
+```
+
+[View all color ingredients →](https://github.com/rodrigolagodev/SandoDesignSystem/blob/master/packages/tokens/src/ingredients/color.json)
+
+## Spacing
+
+A numeric scale based on `0.25rem` (4px) increments. Linear from 0–13, then larger jumps for layout spacing.
+
+<table>
+  <thead>
+    <tr>
+      <th>Token</th>
+      <th>Value</th>
+      <th>Pixels</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`--sando-space-0`</td>
+      <td>`0rem`</td>
+      <td>0px</td>
+    </tr>
+    <tr>
+      <td>`--sando-space-1`</td>
+      <td>`0.25rem`</td>
+      <td>4px</td>
+    </tr>
+    <tr>
+      <td>`--sando-space-2`</td>
+      <td>`0.5rem`</td>
+      <td>8px</td>
+    </tr>
+    <tr>
+      <td>`--sando-space-4`</td>
+      <td>`1rem`</td>
+      <td>16px</td>
+    </tr>
+    <tr>
+      <td>`--sando-space-8`</td>
+      <td>`2rem`</td>
+      <td>32px</td>
+    </tr>
+    <tr>
+      <td>`--sando-space-12`</td>
+      <td>`3rem`</td>
+      <td>48px</td>
+    </tr>
+    <tr>
+      <td>`--sando-space-16`</td>
+      <td>`4rem`</td>
+      <td>64px</td>
+    </tr>
+    <tr>
+      <td>`--sando-space-24`</td>
+      <td>`6rem`</td>
+      <td>96px</td>
+    </tr>
+    <tr>
+      <td>`--sando-space-32`</td>
+      <td>`8rem`</td>
+      <td>128px</td>
+    </tr>
+    <tr>
+      <td>`--sando-space-48`</td>
+      <td>`12rem`</td>
+      <td>192px</td>
+    </tr>
+    <tr>
+      <td>`--sando-space-64`</td>
+      <td>`16rem`</td>
+      <td>256px</td>
+    </tr>
+  </tbody>
+</table>
+
+See the **[Spacing playground](?path=/docs/ingredients-spacing--docs)** for the full scale with visual previews.
+
+[View all spacing ingredients →](https://github.com/rodrigolagodev/SandoDesignSystem/blob/master/packages/tokens/src/ingredients/space.json)
+
+## Typography
+
+### Font Families
+
+A curated collection of 20 font families — from system defaults to premium web fonts for different brand personalities. Categories include System Stacks (`sans`, `serif`, `mono`), Display Fonts (`display`, `display-serif`, `rounded`, `condensed`, `handwritten`, `slab`), Premium Sans-Serif (`inter`, `plus-jakarta`, `dm-sans`, `space-grotesk`), Premium Serifs (`cormorant`, `literata`, `newsreader`, `merriweather`), and Premium Monospace (`jetbrains-mono`, `fira-code`).
+
+### Font Sizes
+
+<table>
+  <thead>
+    <tr>
+      <th>Token</th>
+      <th>Value</th>
+      <th>Pixels</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`--sando-font-size-50`</td>
+      <td>`0.625rem`</td>
+      <td>10px</td>
+    </tr>
+    <tr>
+      <td>`--sando-font-size-100`</td>
+      <td>`0.75rem`</td>
+      <td>12px</td>
+    </tr>
+    <tr>
+      <td>`--sando-font-size-200`</td>
+      <td>`0.875rem`</td>
+      <td>14px</td>
+    </tr>
+    <tr>
+      <td>`--sando-font-size-300`</td>
+      <td>`1rem`</td>
+      <td>16px (base)</td>
+    </tr>
+    <tr>
+      <td>`--sando-font-size-400`</td>
+      <td>`1.125rem`</td>
+      <td>18px</td>
+    </tr>
+    <tr>
+      <td>`--sando-font-size-500`</td>
+      <td>`1.25rem`</td>
+      <td>20px</td>
+    </tr>
+    <tr>
+      <td>`--sando-font-size-600`</td>
+      <td>`1.5rem`</td>
+      <td>24px</td>
+    </tr>
+    <tr>
+      <td>`--sando-font-size-700`</td>
+      <td>`2rem`</td>
+      <td>32px</td>
+    </tr>
+    <tr>
+      <td>`--sando-font-size-800`</td>
+      <td>`2.5rem`</td>
+      <td>40px</td>
+    </tr>
+    <tr>
+      <td>`--sando-font-size-900`</td>
+      <td>`3rem`</td>
+      <td>48px</td>
+    </tr>
+  </tbody>
+</table>
+
+### Font Weights
+
+Font weights use numeric values (100–900): Thin (100), Extra Light (200), Light (300), Regular (400), Medium (500), Semibold (600), Bold (700), Extra Bold (800), Black (900).
+
+> **ℹ️ Use the numeric scale**
+>
+> Use 400 for regular text, 500 for medium emphasis, 600 for semibold UI elements, and 700 for bold headings.
+
+### Line Heights & Letter Spacing
+
+```css
+--sando-font-lineHeight-100: 1;
+--sando-font-lineHeight-150: 1.5;
+--sando-font-lineHeight-200: 2;
+
+--sando-font-letterSpacing-0: 0em;
+--sando-font-letterSpacing-50: 0.05em;
+--sando-font-letterSpacing-100: 0.1em;
+```
+
+See the **[Typography playground](?path=/docs/ingredients-typography--docs)** for live specimens.
+
+[View all font ingredients →](https://github.com/rodrigolagodev/SandoDesignSystem/blob/master/packages/tokens/src/ingredients/font.json)
+
+## Border
+
+### Border Radius
+
+<table>
+  <thead>
+    <tr>
+      <th>Token</th>
+      <th>Value</th>
+      <th>Pixels</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`--sando-border-radius-0`</td>
+      <td>`0rem`</td>
+      <td>0px</td>
+      <td>Sharp corners</td>
+    </tr>
+    <tr>
+      <td>`--sando-border-radius-50`</td>
+      <td>`0.125rem`</td>
+      <td>2px</td>
+      <td>Barely rounded</td>
+    </tr>
+    <tr>
+      <td>`--sando-border-radius-100`</td>
+      <td>`0.25rem`</td>
+      <td>4px</td>
+      <td>Subtle</td>
+    </tr>
+    <tr>
+      <td>`--sando-border-radius-200`</td>
+      <td>`0.5rem`</td>
+      <td>8px</td>
+      <td>Standard</td>
+    </tr>
+    <tr>
+      <td>`--sando-border-radius-300`</td>
+      <td>`0.75rem`</td>
+      <td>12px</td>
+      <td>Rounded</td>
+    </tr>
+    <tr>
+      <td>`--sando-border-radius-400`</td>
+      <td>`1rem`</td>
+      <td>16px</td>
+      <td>Very rounded</td>
+    </tr>
+    <tr>
+      <td>`--sando-border-radius-600`</td>
+      <td>`1.5rem`</td>
+      <td>24px</td>
+      <td>Maximum rounded</td>
+    </tr>
+    <tr>
+      <td>`--sando-border-radius-circle`</td>
+      <td>`50%`</td>
+      <td>—</td>
+      <td>Perfect circle</td>
+    </tr>
+    <tr>
+      <td>`--sando-border-radius-pill`</td>
+      <td>`9999px`</td>
+      <td>—</td>
+      <td>Pill / capsule shape</td>
+    </tr>
+  </tbody>
+</table>
+
+### Border Width
+
+```css
+--sando-border-width-0: 0px;
+--sando-border-width-50: 1px;
+--sando-border-width-100: 2px;
+--sando-border-width-200: 4px;
+--sando-border-width-400: 8px;
+```
+
+[View all border ingredients →](https://github.com/rodrigolagodev/SandoDesignSystem/blob/master/packages/tokens/src/ingredients/border.json)
+
+## Animation
+
+### Duration
+
+<table>
+  <thead>
+    <tr>
+      <th>Token</th>
+      <th>Value</th>
+      <th>Use Case</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`--sando-animation-duration-0`</td>
+      <td>`0ms`</td>
+      <td>No animation</td>
+    </tr>
+    <tr>
+      <td>`--sando-animation-duration-100`</td>
+      <td>`100ms`</td>
+      <td>Micro-interactions (hover, focus)</td>
+    </tr>
+    <tr>
+      <td>`--sando-animation-duration-200`</td>
+      <td>`200ms`</td>
+      <td>Quick transitions</td>
+    </tr>
+    <tr>
+      <td>`--sando-animation-duration-300`</td>
+      <td>`300ms`</td>
+      <td>Standard transitions</td>
+    </tr>
+    <tr>
+      <td>`--sando-animation-duration-500`</td>
+      <td>`500ms`</td>
+      <td>Moderate animations</td>
+    </tr>
+    <tr>
+      <td>`--sando-animation-duration-1000`</td>
+      <td>`1000ms`</td>
+      <td>Slow, dramatic</td>
+    </tr>
+  </tbody>
+</table>
+
+### Easing
+
+<table>
+  <thead>
+    <tr>
+      <th>Token</th>
+      <th>Value</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`linear`</td>
+      <td>`linear`</td>
+      <td>Constant speed</td>
+    </tr>
+    <tr>
+      <td>`ease-in`</td>
+      <td>`cubic-bezier(0.4, 0, 1, 1)`</td>
+      <td>Accelerate</td>
+    </tr>
+    <tr>
+      <td>`ease-out`</td>
+      <td>`cubic-bezier(0, 0, 0.2, 1)`</td>
+      <td>Decelerate</td>
+    </tr>
+    <tr>
+      <td>`ease-in-out`</td>
+      <td>`cubic-bezier(0.4, 0, 0.2, 1)`</td>
+      <td>Accelerate then decelerate</td>
+    </tr>
+    <tr>
+      <td>`bounce`</td>
+      <td>`cubic-bezier(0.68, -0.55, 0.265, 1.55)`</td>
+      <td>Playful overshoot</td>
+    </tr>
+    <tr>
+      <td>`smooth`</td>
+      <td>`cubic-bezier(0.45, 0.05, 0.55, 0.95)`</td>
+      <td>Gradual, smooth</td>
+    </tr>
+    <tr>
+      <td>`energetic`</td>
+      <td>`cubic-bezier(0.2, 0.8, 0.2, 1)`</td>
+      <td>Snappy, energetic</td>
+    </tr>
+  </tbody>
+</table>
+
+[View all animation ingredients →](https://github.com/rodrigolagodev/SandoDesignSystem/blob/master/packages/tokens/src/ingredients/animation.json)
+
+## Opacity
+
+A linear scale from fully transparent (`--sando-opacity-0` = `0`) to fully opaque (`--sando-opacity-1000` = `1`) in increments of `0.1`. See the **[Opacity playground](?path=/docs/ingredients-opacity--docs)**.
+
+## Z-Index
+
+A structured layering hierarchy to prevent z-index wars.
+
+<table>
+  <thead>
+    <tr>
+      <th>Token</th>
+      <th>Value</th>
+      <th>Use Case</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`--sando-zIndex-hide`</td>
+      <td>`-1`</td>
+      <td>Hidden elements</td>
+    </tr>
+    <tr>
+      <td>`--sando-zIndex-base`</td>
+      <td>`0`</td>
+      <td>Default layer</td>
+    </tr>
+    <tr>
+      <td>`--sando-zIndex-dropdown`</td>
+      <td>`1000`</td>
+      <td>Dropdown menus</td>
+    </tr>
+    <tr>
+      <td>`--sando-zIndex-sticky`</td>
+      <td>`1100`</td>
+      <td>Sticky headers</td>
+    </tr>
+    <tr>
+      <td>`--sando-zIndex-overlay`</td>
+      <td>`1300`</td>
+      <td>Overlays, backdrops</td>
+    </tr>
+    <tr>
+      <td>`--sando-zIndex-modal`</td>
+      <td>`1400`</td>
+      <td>Modal dialogs</td>
+    </tr>
+    <tr>
+      <td>`--sando-zIndex-popover`</td>
+      <td>`1500`</td>
+      <td>Popovers</td>
+    </tr>
+    <tr>
+      <td>`--sando-zIndex-toast`</td>
+      <td>`1600`</td>
+      <td>Toast notifications</td>
+    </tr>
+    <tr>
+      <td>`--sando-zIndex-tooltip`</td>
+      <td>`1700`</td>
+      <td>Tooltips</td>
+    </tr>
+    <tr>
+      <td>`--sando-zIndex-max`</td>
+      <td>`9999`</td>
+      <td>Nuclear option</td>
+    </tr>
+  </tbody>
+</table>
+
+## Elevation (Shadows)
+
+Box shadows for creating depth. Each level adds more visual separation from the background — from `--sando-elevation-0` (`none`) up to `--sando-elevation-500` (`0 25px 50px -12px rgba(0,0,0,0.25)`). See the **[Elevation playground](?path=/docs/ingredients-elevation--docs)**.
+
+## Adding New Ingredients
+
+1. **Identify the need** — Do you need a new primitive value that doesn't exist?
+2. **Choose the category** — Color, spacing, typography, border, animation, opacity, z-index, or elevation.
+3. **Follow the naming convention** — `{category}-{variant}-{scale}`
+4. **Add to the JSON file** — `packages/tokens/src/ingredients/{category}.json`
+5. **Build and test** — `pnpm build && pnpm test`
+
+```json
+{
+  "color": {
+    "teal": {
+      "500": {
+        "value": "oklch(0.65 0.10 180)",
+        "type": "color",
+        "description": "teal 500"
+      }
+    }
+  }
+}
+```
+
+> **💡 Remember: OKLCH Only**
+>
+> All color values must use the OKLCH format: `oklch(lightness chroma hue)`. No HSL, no RGB, no hex. This ensures perceptual uniformity across the entire system.
+
+## Next Steps
+
+- **[Flavors](?path=/docs/flavors-overview--docs)** — Learn how ingredients get semantic meaning
+- **[Recipes](?path=/docs/recipes-overview--docs)** — See how components consume tokens
+- **[Token Architecture](?path=/docs/guides-architecture--docs)** — Understand the three-layer system
