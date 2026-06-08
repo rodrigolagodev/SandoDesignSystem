@@ -15,6 +15,8 @@ export default create({
   base: "light",
   brandTitle: "Sando Design System",
   brandUrl: "https://sando.rlago.com",
+  brandImage: "/sando-logo.svg",
+  brandTarget: "_self",
   colorPrimary: "#b45600",
   colorSecondary: "#b45600",
   fontBase: '"Source Sans 3", system-ui, sans-serif',
