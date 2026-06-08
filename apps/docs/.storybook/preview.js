@@ -14,6 +14,7 @@
 import { addons } from "@storybook/preview-api";
 import { GLOBALS_UPDATED } from "@storybook/core-events";
 import { DARK_MODE_EVENT_NAME } from "storybook-dark-mode";
+import { themes } from "@storybook/theming";
 
 // Design token CSS — Ingredients (primitives)
 import "../../../packages/tokens/dist/sando-tokens/css/ingredients/color.css";
@@ -107,9 +108,14 @@ const preview = {
 
     docs: { toc: true },
 
-    // Apply the active dark/light theme to the preview canvas background
+    // Dark-mode addon: provide the toggle button + event, but keep the
+    // Manager UI (sidebar/toolbar) on the default light theme always by
+    // pointing both modes at the same theme. The iframe canvas background
+    // is handled via CSS in preview-head.html that reacts to data-color-mode.
     darkMode: {
-      stylePreview: true,
+      dark: themes.light,
+      light: themes.light,
+      stylePreview: false,
       classTarget: "html",
       darkClass: "dark",
       lightClass: "light",
