@@ -15,8 +15,9 @@
 
 <!--
   Preview iframe canvas background.
-  Light is the default; dark applies when the dark-mode addon sets
-  data-color-mode="dark" on the <html> element (see preview.js listener).
+  @storybook/addon-themes sets data-color-mode on <html>; these rules
+  pick that up so the canvas (and embedded story previews in MDX docs)
+  match the active mode.
 -->
 <style>
   html,
