@@ -4,200 +4,210 @@ import { Meta } from "@storybook/blocks";
 
 <style>
   {`
-    .welcome-container {
-      max-width: 720px;
+    .sando-welcome {
+      max-width: 880px;
       margin: 0 auto;
-      font-family: var(--sando-font-family-body, 'Inter', sans-serif);
+      padding: var(--sando-space-12, 4rem) var(--sando-space-6, 1.5rem);
+      font-family: var(--sando-font-family-body, system-ui, sans-serif);
+      color: var(--sando-color-text-body, #1e1a15);
     }
 
-    .welcome-hero {
+    .sando-welcome__brand {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--sando-space-6, 1.5rem);
       text-align: center;
-      padding: 2.5rem 1.5rem;
-      background: linear-gradient(135deg, var(--sb-docs-bg-surface) 0%, var(--sb-docs-bg-emphasis) 100%);
-      border-radius: 16px;
-      margin-bottom: 2rem;
     }
 
-    .welcome-hero h1 {
-      font-size: 2.5rem;
-      margin: 0 0 0.5rem 0;
-      color: var(--sb-docs-text-heading);
+    .sando-welcome__logo {
+      width: 100%;
+      max-width: 280px;
+      height: auto;
     }
 
-    .welcome-hero .tagline {
+    html[data-color-mode="dark"] .sando-welcome__logo {
+      filter: invert(1) hue-rotate(180deg);
+    }
+
+    .sando-welcome__tagline {
+      max-width: 540px;
+      margin: 0;
       font-size: 1.125rem;
-      color: var(--sb-docs-text-muted);
-      margin: 0 0 1.5rem 0;
+      line-height: 1.6;
+      color: var(--sando-color-text-caption, #5f5a54);
     }
 
-    .welcome-hero .docs-link {
+    .sando-welcome__cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--sando-space-3, 0.75rem);
+      justify-content: center;
+      margin-top: var(--sando-space-4, 1rem);
+    }
+
+    .sando-welcome__cta {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      padding: 0.75rem 1.5rem;
-      background: var(--sb-docs-link);
-      color: white;
-      text-decoration: none;
-      border-radius: 8px;
+      padding: 0.625rem 1.25rem;
+      border-radius: var(--sando-border-radius-default, 6px);
+      font-family: inherit;
+      font-size: 0.9375rem;
       font-weight: 500;
-      transition: opacity 0.2s ease;
+      text-decoration: none;
+      transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
     }
 
-    .welcome-hero .docs-link:hover {
-      opacity: 0.9;
+    .sando-welcome__cta--primary {
+      background: var(--sando-color-action-solid-background-default, #b45600);
+      color: var(--sando-color-action-solid-text-default, #ffffff);
     }
 
-    .section-title {
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--sb-docs-text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin: 0 0 1rem 0;
+    .sando-welcome__cta--primary:hover {
+      background: var(--sando-color-action-solid-background-hover, #973b00);
     }
 
-    .quick-links {
+    .sando-welcome__cta--secondary {
+      background: transparent;
+      color: var(--sando-color-action-outline-text-default, #1e1a15);
+      border: 1px solid var(--sando-color-border-default, #cbc3b9);
+    }
+
+    .sando-welcome__cta--secondary:hover {
+      border-color: var(--sando-color-action-outline-border-hover, #b45600);
+      color: var(--sando-color-action-outline-border-hover, #b45600);
+    }
+
+    .sando-welcome__divider {
+      margin: var(--sando-space-12, 4rem) 0 var(--sando-space-8, 2rem);
+      border: 0;
+      border-top: 1px solid var(--sando-color-border-muted, #e6dcd2);
+    }
+
+    .sando-welcome__layers {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
-      margin-bottom: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: var(--sando-space-4, 1rem);
     }
 
-    .quick-link {
+    .sando-welcome__layer {
+      padding: var(--sando-space-5, 1.25rem) var(--sando-space-5, 1.25rem);
+      border: 1px solid var(--sando-color-border-muted, #e6dcd2);
+      border-radius: var(--sando-border-radius-default, 6px);
+      background: var(--sando-color-background-surface, transparent);
+    }
+
+    .sando-welcome__layer-eyebrow {
       display: block;
-      padding: 1rem 1.25rem;
-      background: var(--sb-docs-bg-emphasis);
-      border: 1px solid var(--sb-docs-border);
-      border-radius: 10px;
-      text-decoration: none;
-      color: inherit;
-      transition: all 0.2s ease;
+      margin-bottom: var(--sando-space-2, 0.5rem);
+      font-family: var(--sando-font-family-mono, monospace);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--sando-color-text-muted, #928b83);
     }
 
-    .quick-link:hover {
-      border-color: var(--sb-docs-link);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    .sando-welcome__layer-title {
+      margin: 0 0 var(--sando-space-2, 0.5rem);
+      font-family: var(--sando-font-family-heading, var(--sando-font-family-body, system-ui));
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--sando-color-text-heading, #1e1a15);
     }
 
-    .quick-link h3 {
-      font-size: 1rem;
-      margin: 0 0 0.25rem 0;
-      color: var(--sb-docs-text-heading);
-    }
-
-    .quick-link p {
-      font-size: 0.8125rem;
-      color: var(--sb-docs-text-muted);
+    .sando-welcome__layer-text {
       margin: 0;
+      font-size: 0.9375rem;
+      line-height: 1.55;
+      color: var(--sando-color-text-body, #47413c);
     }
 
-    .welcome-footer {
+    .sando-welcome__footer {
+      margin-top: var(--sando-space-10, 3rem);
       text-align: center;
-      padding: 1.5rem;
-      color: var(--sb-docs-text-muted);
       font-size: 0.875rem;
+      color: var(--sando-color-text-muted, #928b83);
     }
 
-    .welcome-footer a {
-      color: var(--sb-docs-link);
-      text-decoration: none;
-    }
-
-    .welcome-footer a:hover {
+    .sando-welcome__footer a {
+      color: inherit;
       text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .sando-welcome__footer a:hover {
+      color: var(--sando-color-text-link, #b45600);
     }
   `}
 </style>
 
-{/*
-  Internal links use Storybook's `?path=/docs/<slug>--docs` deep-link format.
-  The slug is derived from each page's `<Meta title="...">` — renaming a title
-  (e.g. "Getting Started/Introduction") silently breaks these links with no
-  build-time check. Keep titles and these hrefs in sync.
-*/}
+<div className="sando-welcome">
 
-<div className="welcome-container">
+  <div className="sando-welcome__brand">
+    <img
+      className="sando-welcome__logo"
+      src="./sando-logo.svg"
+      alt="Sando Design System"
+    />
+    <p className="sando-welcome__tagline">
+      A modern, accessible, token-based design system built on Web Components.
+      Three layers of design tokens — Ingredients, Flavors, Recipes — keep
+      theming predictable and components consistent.
+    </p>
+    <div className="sando-welcome__cta-row">
+      <a
+        className="sando-welcome__cta sando-welcome__cta--primary"
+        href="?path=/docs/getting-started-introduction--docs"
+      >
+        Get started
+      </a>
+      <a
+        className="sando-welcome__cta sando-welcome__cta--secondary"
+        href="?path=/docs/components-status--docs"
+      >
+        Components
+      </a>
+      <a
+        className="sando-welcome__cta sando-welcome__cta--secondary"
+        href="https://github.com/rodrigolagodev/SandoDesignSystem"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        GitHub →
+      </a>
+    </div>
+  </div>
 
-<div className="welcome-hero">
-  <h1>Sando Design System</h1>
-  <p className="tagline">The perfect recipe for building delicious UIs</p>
-  <a
-    className="docs-link"
-    href="?path=/docs/getting-started-introduction--docs"
-  >
-    Get Started
-  </a>
-</div>
+  <hr className="sando-welcome__divider" />
 
-<p className="section-title">Token Playgrounds</p>
+  <div className="sando-welcome__layers">
+    <div className="sando-welcome__layer">
+      <span className="sando-welcome__layer-eyebrow">Layer 1</span>
+      <h3 className="sando-welcome__layer-title">Ingredients</h3>
+      <p className="sando-welcome__layer-text">
+        Raw primitives — color scales, spacing, typography, motion. The pantry.
+      </p>
+    </div>
+    <div className="sando-welcome__layer">
+      <span className="sando-welcome__layer-eyebrow">Layer 2</span>
+      <h3 className="sando-welcome__layer-title">Flavors</h3>
+      <p className="sando-welcome__layer-text">
+        Semantic roles — action, surface, text, border. The seasoning that
+        defines a theme.
+      </p>
+    </div>
+    <div className="sando-welcome__layer">
+      <span className="sando-welcome__layer-eyebrow">Layer 3</span>
+      <h3 className="sando-welcome__layer-title">Recipes</h3>
+      <p className="sando-welcome__layer-text">
+        Component-scoped tokens — button, input, checkbox. The plated dish.
+      </p>
+    </div>
+  </div>
 
-<div className="quick-links">
-  <a className="quick-link" href="/?path=/docs/ingredients-color--docs">
-    <h3>Color</h3>
-    <p>8 curated OKLCH palettes</p>
-  </a>
-
-<a className="quick-link" href="/?path=/docs/ingredients-typography--docs">
-  <h3>Typography</h3>
-  <p>Font scales and weights</p>
-</a>
-
-<a className="quick-link" href="/?path=/docs/ingredients-spacing--docs">
-  <h3>Spacing</h3>
-  <p>4px base unit scale</p>
-</a>
-
-<a className="quick-link" href="/?path=/docs/ingredients-border--docs">
-  <h3>Border</h3>
-  <p>Radii and widths</p>
-</a>
-
-<a className="quick-link" href="/?path=/docs/ingredients-elevation--docs">
-  <h3>Elevation</h3>
-  <p>Shadow system</p>
-</a>
-
-  <a className="quick-link" href="/?path=/docs/flavors-color-roles--docs">
-    <h3>Color Roles</h3>
-    <p>Semantic mappings</p>
-  </a>
-</div>
-
-<p className="section-title">Component Demos</p>
-
-<div className="quick-links">
-  <a className="quick-link" href="/?path=/docs/components-button--docs">
-    <h3>Button</h3>
-    <p>Solid, outline, ghost variants</p>
-  </a>
-
-<a className="quick-link" href="/?path=/docs/components-input--docs">
-  <h3>Input</h3>
-  <p>Text fields with validation</p>
-</a>
-
-<a className="quick-link" href="/?path=/docs/components-icon--docs">
-  <h3>Icon</h3>
-  <p>1,637 Lucide icons</p>
-</a>
-
-  <a className="quick-link" href="/?path=/docs/components-status--docs">
-    <h3>Status</h3>
-    <p>Component roadmap</p>
-  </a>
-</div>
-
-<div className="welcome-footer">
-  <p>
-    Start with quality ingredients, season with distinctive flavors, follow
-    proven recipes.
-    <br />
-    <a href="?path=/docs/getting-started-introduction--docs">
-      Read the documentation
-    </a>{" "}
-    for guides, architecture, and best practices.
+  <p className="sando-welcome__footer">
+    Try the <strong>Flavor</strong> and <strong>Mode</strong> switchers in the
+    toolbar above to see the system adapt in real time.
   </p>
-</div>
 
 </div>
