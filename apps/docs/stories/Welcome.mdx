@@ -41,45 +41,50 @@ import { Meta } from "@storybook/blocks";
     .sando-welcome__cta-row {
       display: flex;
       flex-wrap: wrap;
-      gap: var(--sando-space-3, 0.75rem);
+      gap: var(--sando-space-7, 2.5rem);
       justify-content: center;
-      margin-top: var(--sando-space-4, 1rem);
+      margin-top: var(--sando-space-3, 0.75rem);
     }
 
     .sando-welcome__cta {
+      position: relative;
       display: inline-flex;
-      align-items: center;
-      padding: 0.625rem 1.25rem;
-      border-radius: var(--sando-border-radius-default, 6px);
+      align-items: baseline;
+      gap: 0.4em;
+      padding: 0.25rem 0;
       font-family: inherit;
       font-size: 0.9375rem;
       font-weight: 500;
+      color: var(--sando-color-text-body, #1e1a15);
       text-decoration: none;
-      transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+      letter-spacing: 0.01em;
+      border-bottom: 1px solid transparent;
+      transition: color 0.18s ease, border-color 0.18s ease;
+    }
+
+    .sando-welcome__cta::after {
+      content: "→";
+      display: inline-block;
+      font-weight: 400;
+      transition: transform 0.18s ease;
+    }
+
+    .sando-welcome__cta:hover {
+      color: var(--sando-color-text-link, #b45600);
+      border-bottom-color: currentColor;
+    }
+
+    .sando-welcome__cta:hover::after {
+      transform: translateX(2px);
     }
 
     .sando-welcome__cta--primary {
-      background: var(--sando-color-action-solid-background-default, #b45600);
-      color: var(--sando-color-action-solid-text-default, #ffffff);
-    }
-
-    .sando-welcome__cta--primary:hover {
-      background: var(--sando-color-action-solid-background-hover, #973b00);
-    }
-
-    .sando-welcome__cta--secondary {
-      background: transparent;
-      color: var(--sando-color-action-outline-text-default, #1e1a15);
-      border: 1px solid var(--sando-color-border-default, #cbc3b9);
-    }
-
-    .sando-welcome__cta--secondary:hover {
-      border-color: var(--sando-color-action-outline-border-hover, #b45600);
-      color: var(--sando-color-action-outline-border-hover, #b45600);
+      color: var(--sando-color-text-link, #b45600);
+      border-bottom-color: currentColor;
     }
 
     .sando-welcome__divider {
-      margin: var(--sando-space-12, 4rem) 0 var(--sando-space-8, 2rem);
+      margin: var(--sando-space-13, 5rem) 0 var(--sando-space-10, 3rem);
       border: 0;
       border-top: 1px solid var(--sando-color-border-muted, #e6dcd2);
     }
@@ -87,39 +92,42 @@ import { Meta } from "@storybook/blocks";
     .sando-welcome__layers {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: var(--sando-space-4, 1rem);
+      gap: var(--sando-space-8, 2rem) var(--sando-space-10, 3rem);
     }
 
     .sando-welcome__layer {
-      padding: var(--sando-space-5, 1.25rem) var(--sando-space-5, 1.25rem);
-      border: 1px solid var(--sando-color-border-muted, #e6dcd2);
-      border-radius: var(--sando-border-radius-default, 6px);
-      background: var(--sando-color-background-surface, transparent);
+      padding: 0;
+      border: 0;
+      background: transparent;
     }
 
     .sando-welcome__layer-eyebrow {
       display: block;
-      margin-bottom: var(--sando-space-2, 0.5rem);
+      margin-bottom: var(--sando-space-3, 0.75rem);
       font-family: var(--sando-font-family-mono, monospace);
-      font-size: 0.75rem;
+      font-size: 0.6875rem;
+      font-weight: 500;
       text-transform: uppercase;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.12em;
       color: var(--sando-color-text-muted, #928b83);
     }
 
     .sando-welcome__layer-title {
       margin: 0 0 var(--sando-space-2, 0.5rem);
+      padding-top: var(--sando-space-3, 0.75rem);
+      border-top: 1px solid var(--sando-color-border-default, #cbc3b9);
       font-family: var(--sando-font-family-heading, var(--sando-font-family-body, system-ui));
-      font-size: 1.125rem;
+      font-size: 1rem;
       font-weight: 600;
+      letter-spacing: -0.005em;
       color: var(--sando-color-text-heading, #1e1a15);
     }
 
     .sando-welcome__layer-text {
       margin: 0;
-      font-size: 0.9375rem;
-      line-height: 1.55;
-      color: var(--sando-color-text-body, #47413c);
+      font-size: 0.875rem;
+      line-height: 1.6;
+      color: var(--sando-color-text-caption, #5f5a54);
     }
 
     .sando-welcome__footer {
@@ -162,18 +170,18 @@ import { Meta } from "@storybook/blocks";
         Get started
       </a>
       <a
-        className="sando-welcome__cta sando-welcome__cta--secondary"
+        className="sando-welcome__cta"
         href="?path=/docs/components-status--docs"
       >
         Components
       </a>
       <a
-        className="sando-welcome__cta sando-welcome__cta--secondary"
+        className="sando-welcome__cta"
         href="https://github.com/rodrigolagodev/SandoDesignSystem"
         target="_blank"
         rel="noopener noreferrer"
       >
-        GitHub →
+        GitHub
       </a>
     </div>
   </div>
