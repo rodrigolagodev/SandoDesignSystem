@@ -91,14 +91,14 @@ Replace these placeholders in all templates:
 
 All templates are located in `assets/templates/`:
 
-| Template                | Output File                 | Purpose                 |
-| ----------------------- | --------------------------- | ----------------------- |
-| `component.ts.template` | `sando-{name}.ts`           | Main Lit component      |
-| `types.ts.template`     | `sando-{name}.types.ts`     | TypeScript definitions  |
-| `test.ts.template`      | `sando-{name}.test.ts`      | Vitest unit tests       |
-| `a11y.test.ts.template` | `sando-{name}.a11y.test.ts` | Accessibility tests     |
-| `stories.ts.template`   | `sando-{name}.stories.ts`   | Storybook stories       |
-| `index.ts.template`     | `index.ts`                  | Barrel export           |
+| Template                | Output File                 | Purpose                                                       |
+| ----------------------- | --------------------------- | ------------------------------------------------------------- |
+| `component.ts.template` | `sando-{name}.ts`           | Main Lit component                                            |
+| `types.ts.template`     | `sando-{name}.types.ts`     | TypeScript definitions                                        |
+| `test.ts.template`      | `sando-{name}.test.ts`      | Vitest unit tests                                             |
+| `a11y.test.ts.template` | `sando-{name}.a11y.test.ts` | Accessibility tests                                           |
+| `stories.ts.template`   | `sando-{name}.stories.ts`   | Storybook stories                                             |
+| `index.ts.template`     | `index.ts`                  | Barrel export                                                 |
 | `docs.mdx.template`     | `{Name}.mdx`                | Storybook MDX guide (optional; Autodocs covers the API table) |
 
 ## Workflow
