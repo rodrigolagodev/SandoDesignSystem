@@ -1,10 +1,21 @@
 meta:
   doc_id: "FI"
   category: "02-architecture"
-  version: "1.0.0"
+  version: "1.1.0"
   status: "Active"
-  last_updated: "2025-11-09"
+  last_updated: "2026-06-08"
   owner: "Ecosystem Integration Agent"
+  changelog:
+    - version: "1.1.0"
+      date: "2026-06-08"
+      changes:
+        - "Added FI-CR-R1-EX exception for official convenience wrappers (React, Angular)"
+        - "Explicitly excluded Vue, Svelte, Astro from wrapper packages (they handle WCs natively)"
+        - "Documents Shoelace/Spectrum/Carbon/Fluent industry precedent"
+    - version: "1.0.0"
+      date: "2025-11-09"
+      changes:
+        - "Initial guideline establishing framework-agnostic Web Components as the canonical approach"
 
 purpose:
   id: "FI-PU"
@@ -36,13 +47,85 @@ core_rules:
         <sando-button variant="solid">Click me</sando-button>
 
         <sando-button variant="solid">Click me</sando-button>
+    exception:
+      id: "FI-CR-R1-EX"
+      title: "Optional convenience wrappers (React, Angular)"
+      summary: |
+        Framework-agnostic Web Components remain the primary, canonical API.
+        However, two frameworks have ergonomic gaps significant enough to justify
+        official, optional wrapper packages that the design system maintains:
+        @sando/react and @sando/angular.
+      allowed_wrappers:
+        - name: "@sando/react"
+          rationale: |
+            React (especially 18 and below) does not pass CustomEvent through JSX
+            event handlers. Consumers otherwise need useRef + addEventListener +
+            cleanup for every event-bearing component. Object/array props can't be
+            set as attributes. JSX IntrinsicElements must be augmented per consumer.
+            A @lit/react-generated wrapper resolves all three for ~1KB / component.
+          required_qualities:
+            - "Auto-generated or near-auto-generated from CEM (#77) — minimal hand maintenance"
+            - "Built on @lit/react — zero runtime layer beyond what Lit blesses"
+            - "Per-component subpath exports — wrapper tree-shakes per consumer use"
+            - "Wrapper events surfaced as React-style on* handlers"
+            - "TypeScript types derived from the underlying SandoX class"
+          industry_precedent: |
+            Shoelace (@shoelace-style/shoelace-react), Adobe Spectrum,
+            IBM Carbon (@carbon/react), Microsoft Fluent UI (@fluentui/react-components)
+            — every major WC-based design system ships an official React wrapper.
+            The Lit team maintains @lit/react explicitly to enable this pattern.
+        - name: "@sando/angular"
+          rationale: |
+            Angular forms require ControlValueAccessor implementation for [(ngModel)]
+            and reactive forms. CUSTOM_ELEMENTS_SCHEMA must otherwise be declared in
+            consumer bootstrap. Wrapper handles both transparently and adds typed
+            @Input/@Output bindings.
+          required_qualities:
+            - "Standalone components only (no NgModule)"
+            - "Form components implement ControlValueAccessor"
+            - "Built with ng-packagr"
+            - "Side-effect import per wrapper to register the underlying element"
+      excluded_frameworks:
+        - name: "Vue"
+          reason: |
+            Vue 3 handles Web Components elegantly via the isCustomElement compiler option.
+            Custom events bind with @event-name. Properties bind with .prop. A wrapper
+            would add pure duplication for negligible DX gain.
+        - name: "Svelte"
+          reason: |
+            Svelte handles Web Components natively. Custom events bind with on:event-name.
+            Properties bind directly. A wrapper would add pure duplication.
+        - name: "Astro"
+          reason: |
+            Astro handles Web Components through hydration directives (client:load,
+            client:visible, etc.). A wrapper provides cosmetic-only DX over direct usage.
+            See apps/docs/stories/02-flavors/AstroIntegration.mdx for the documented
+            integration pattern instead of a package.
+      decision_record:
+        date: "2026-06-08"
+        decided_by: "Design System Owner"
+        roadmap_issues: "#120, #121, #122"
+        summary: |
+          React + Angular: ship official wrappers as M7-PR2 and M7-PR3.
+          Astro: docs-only integration guide (M7-PR4 recast).
+          Vue / Svelte: explicitly NOT supported as wrapper packages.
+      rules_for_authoring_a_wrapper:
+        - "MUST be optional — the underlying WC remains the primary documented API"
+        - "MUST be auto-generated from CEM where the tooling allows"
+        - "MUST list the underlying @sando/components as a peerDependency, not a runtime dep"
+        - "MUST set sideEffects to preserve custom-element registration"
+        - "MUST NOT diverge in feature support — every prop/event of the WC reaches the wrapper"
+        - "MUST ship its own CHANGELOG and version independently"
     anti_pattern:
       lang: "typescript"
       code: |
-        // WRONG: Framework-specific components
-        @sando/react     // Separate React wrappers
-        @sando/vue       // Separate Vue wrappers
-        // Maintenance nightmare, duplication
+        // WRONG: Framework wrapper for a framework that handles WCs natively
+        @sando/vue     // Vue has isCustomElement — no wrapper needed
+        @sando/svelte  // Svelte handles WC events natively — no wrapper needed
+
+        // WRONG: Wrapper that diverges from the underlying WC's API
+        // (e.g., renames props, drops events, adds framework-only features)
+        // The wrapper is a thin binding layer, never a fork.
 
   - id: "FI-CR-R2"
     title: "Import Before Use"
