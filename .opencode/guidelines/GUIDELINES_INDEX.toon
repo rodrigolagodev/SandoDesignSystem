@@ -113,8 +113,8 @@ architecture:
       owner: "sando-tokens"
     - id: "FI"
       file: "FRAMEWORK_INTEGRATION.toon"
-      ver: "1.0.0"
-      desc: "Framework-agnostic Web Components (React, Vue, Angular, Svelte)"
+      ver: "1.1.0"
+      desc: "Framework-agnostic Web Components + optional convenience wrappers (React, Angular)"
       owner: "sando-architect"
   agents: "sando-architect, sando-tokens, sando-developer"
 
