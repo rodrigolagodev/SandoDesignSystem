@@ -4,7 +4,7 @@ contact_links:
     url: https://github.com/rodrigolagodev/sandodesignsystem
     about: Read the full documentation and guides
   - name: Storybook (Component Library)
-    url: https://rodrigolagodev.github.io/sandodesignsystem
+    url: https://sando.rlago.com
     about: Browse all components and design tokens
   - name: Guidelines (Development)
     url: https://github.com/rodrigolagodev/sandodesignsystem/tree/master/.claude/guidelines

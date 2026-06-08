@@ -1,0 +1,9 @@
+# Cloudflare Pages redirects
+# Docs: https://developers.cloudflare.com/pages/configuration/redirects/
+
+# Legacy GitHub Pages base paths — both Storybook and the old VitePress site
+# used to live under /storybook/ and /docs/ respectively. Redirect to root.
+/storybook/*  /:splat  301
+/docs/*       /:splat  301
+/storybook    /        301
+/docs         /        301

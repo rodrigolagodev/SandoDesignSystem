@@ -144,12 +144,12 @@ platform: GitHub Actions
 workflows: - name: PR Validation
 file: pr.yml
 purpose: Runs tests lint build on PRs
-behavior: Tests/lint informational only - Build blocks merge if fails - name: Documentation Deployment
-file: deploy.yml
-purpose: Deploys Storybook to GitHub Pages (single docs source)
-behavior: Runs automatically on push to master
+behavior: Tests/lint informational only - Build blocks merge if fails
+deployment:
+platform: Cloudflare Pages (auto-builds on push to master)
+source_dir: apps/docs/storybook-static
 deployment_urls: - service: Storybook
-url: https://rodrigolagodev.github.io/SandoDesignSystem/
+url: https://sando.rlago.com
 development_phase: - setting: PR approval
 status: Not required (can self-merge) - setting: Tests/lint
 status: Informational (don't block) - setting: Build failures
