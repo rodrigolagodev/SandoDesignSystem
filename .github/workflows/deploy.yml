@@ -66,6 +66,20 @@ jobs:
           mkdir -p _site
           cp -r apps/docs/storybook-static/. _site/
 
+          # Redirects for legacy paths (pre-migration bookmarks): the old site
+          # served Storybook under /storybook/ and VitePress under /docs/.
+          # Both now resolve to the Storybook root.
+          for legacy in storybook docs; do
+            mkdir -p "_site/$legacy"
+            cat > "_site/$legacy/index.html" <<'EOF'
+          <!DOCTYPE html>
+          <meta charset="utf-8">
+          <title>Sando Design System</title>
+          <meta http-equiv="refresh" content="0; url=/SandoDesignSystem/">
+          <link rel="canonical" href="/SandoDesignSystem/">
+          EOF
+          done
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
@@ -112,19 +126,31 @@ jobs:
           echo "Performing health check..."
           max_attempts=5
           attempt=1
-          url="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/"
+          base="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}"
+          # iframe.html is emitted by every Storybook build; it's a real static
+          # asset, so a 200 here proves the build was published correctly
+          # (the root index.html alone can 200 from a stale prior deploy).
+          probes=("$base/" "$base/iframe.html")
 
           while [ $attempt -le $max_attempts ]; do
             echo "Health check attempt $attempt of $max_attempts..."
 
-            status=$(curl -s -o /dev/null -w "%{http_code}" "$url" || echo "000")
-            if [ "$status" = "200" ]; then
-              echo "🎉 Storybook is accessible (HTTP $status)"
-              echo "📍 Deployment URL: $url"
+            all_ok=true
+            for probe in "${probes[@]}"; do
+              status=$(curl -s -o /dev/null -w "%{http_code}" "$probe" || echo "000")
+              if [ "$status" = "200" ]; then
+                echo "✅ $probe (HTTP $status)"
+              else
+                echo "❌ $probe (HTTP $status)"
+                all_ok=false
+              fi
+            done
+
+            if [ "$all_ok" = true ]; then
+              echo "🎉 Storybook deployment verified"
+              echo "📍 Deployment URL: $base/"
               exit 0
             fi
-
-            echo "❌ Health check failed (HTTP $status)"
 
             if [ $attempt -lt $max_attempts ]; then
               wait_time=$((30 * attempt))
@@ -136,5 +162,5 @@ jobs:
           done
 
           echo "⚠️ Health check did not pass after $max_attempts attempts"
-          echo "Deployment may still be propagating. Check manually at: $url"
+          echo "Deployment may still be propagating. Check manually at: $base/"
           exit 1

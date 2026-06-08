@@ -82,7 +82,7 @@ All guidelines copied - no transformation needed, just path updates in agents.
 - [x] `INLINE_CODE_DOCS.toon`
 - [x] `STORYBOOK_STORIES.toon`
 - [x] `TOON_FORMAT.toon`
-- [~] `VITEPRESS_GUIDES.toon` (removed — docs migrated to Storybook MDX)
+- [x] ~~`VITEPRESS_GUIDES.toon`~~ (removed — docs migrated to Storybook MDX)
 
 ---
 

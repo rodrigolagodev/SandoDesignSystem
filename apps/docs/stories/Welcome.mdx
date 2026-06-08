@@ -110,6 +110,13 @@ import { Meta } from "@storybook/blocks";
   `}
 </style>
 
+{/*
+  Internal links use Storybook's `?path=/docs/<slug>--docs` deep-link format.
+  The slug is derived from each page's `<Meta title="...">` — renaming a title
+  (e.g. "Getting Started/Introduction") silently breaks these links with no
+  build-time check. Keep titles and these hrefs in sync.
+*/}
+
 <div className="welcome-container">
 
 <div className="welcome-hero">
