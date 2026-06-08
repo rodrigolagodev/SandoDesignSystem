@@ -13,7 +13,7 @@ import { create } from "@storybook/theming";
 
 export default create({
   base: "light",
-  brandTitle: "Sando Design System",
+  brandTitle: "Sando Design System - Storybook",
   brandUrl: "https://sando.rlago.com",
   brandImage: "/sando-logo.svg",
   brandTarget: "_self",
