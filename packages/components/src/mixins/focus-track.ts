@@ -27,6 +27,21 @@ import { state } from 'lit/decorators.js';
 type Constructor<T = object> = new (...args: any[]) => T;
 
 /**
+ * Public interface for FocusTrack mixin consumers.
+ * Protected members are exposed here for clean declaration emit (no TS4094).
+ *
+ * @internal Members prefixed with `_` are internal use only.
+ */
+export interface FocusTrackInterface {
+  /** @internal Whether the native input is currently focused */
+  _focused: boolean;
+  /** @internal Native input focus handler — subclasses may override */
+  _handleFocus: () => void;
+  /** @internal Native input blur handler — subclasses may override */
+  _handleBlur: () => void;
+}
+
+/**
  * FocusTrack Mixin
  *
  * Provides reactive focus state tracking with `_focused`, `_handleFocus`,
@@ -63,7 +78,7 @@ export const FocusTrackMixin = <T extends Constructor<LitElement>>(Base: T) => {
     };
   }
 
-  return FocusTrack;
+  return FocusTrack as unknown as Constructor<FocusTrackInterface> & T;
 };
 
 export type FocusTrackMixinReturn = ReturnType<typeof FocusTrackMixin>;

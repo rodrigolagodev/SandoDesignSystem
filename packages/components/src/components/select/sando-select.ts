@@ -130,7 +130,7 @@ export class SandoSelect
     delegatesFocus: true
   };
 
-  protected override get _componentPrefix(): string {
+  override get _componentPrefix(): string {
     return 'sando-select';
   }
 
@@ -472,9 +472,9 @@ export class SandoSelect
 
   /**
    * Handle form reset event — component-specific reset logic
-   * @protected
+   * @internal
    */
-  protected override _handleFormReset = (): void => {
+  override _handleFormReset = (): void => {
     this.value = '';
     this.values = [];
     this.error = false;

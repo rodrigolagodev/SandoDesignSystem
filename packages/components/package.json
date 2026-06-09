@@ -34,8 +34,9 @@
   },
   "files": ["dist", "src"],
   "scripts": {
-    "build": "tsc && vite build",
-    "build:watch": "tsc && vite build --watch",
+    "build": "vite build && tsc -p tsconfig.build.json",
+    "build:watch": "vite build --watch",
+    "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:ui": "vitest --ui",
     "test:watch": "vitest",

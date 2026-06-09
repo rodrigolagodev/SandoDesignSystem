@@ -26,11 +26,35 @@
  * ```
  */
 
-import { LitElement, html, nothing } from 'lit';
+import { LitElement, html, nothing, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Constructor<T = object> = new (...args: any[]) => T;
+
+/**
+ * Public interface for FormField mixin consumers.
+ * Protected members are exposed as public in the interface
+ * to enable clean TypeScript declaration emit (avoiding TS4094).
+ * They are prefixed with `_` and tagged `@internal` to signal internal use.
+ */
+export interface FormFieldInterface {
+  helperText?: string;
+  errorText?: string;
+  reserveErrorSpace: boolean;
+  /** @internal Component prefix for unique ID generation — subclasses override this */
+  _componentPrefix: string;
+  /** @internal Unique ID for label/input association and ARIA describedby */
+  _inputId: string;
+  /** @internal Compute messaging state for render() */
+  _getHelpTextContext(): {
+    messageText: string | undefined;
+    describedBy: string | undefined;
+    hasMessage: boolean;
+  };
+  /** @internal Render the <sando-help-text> element */
+  _renderHelpText(): TemplateResult<1>;
+}
 
 /**
  * FormField Mixin
@@ -62,7 +86,9 @@ export const FormFieldMixin = <T extends Constructor<LitElement>>(Base: T) => {
      */
     protected get _inputId(): string {
       if (!this._inputIdValue) {
-        this._inputIdValue = `${this._componentPrefix}-${Math.random().toString(36).substring(2, 11)}`;
+        this._inputIdValue = `${this._componentPrefix}-${Math.random()
+          .toString(36)
+          .substring(2, 11)}`;
       }
       return this._inputIdValue;
     }
@@ -128,7 +154,7 @@ export const FormFieldMixin = <T extends Constructor<LitElement>>(Base: T) => {
     }
   }
 
-  return FormField;
+  return FormField as unknown as Constructor<FormFieldInterface> & T;
 };
 
 export type FormFieldMixinReturn = ReturnType<typeof FormFieldMixin>;

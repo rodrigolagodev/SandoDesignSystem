@@ -105,7 +105,7 @@ export class SandoCheckbox extends FormFieldMixin(
     stateStyles // Checked, indeterminate, disabled, error
   ];
 
-  protected override get _componentPrefix(): string {
+  override get _componentPrefix(): string {
     return 'sando-checkbox';
   }
 
@@ -193,7 +193,7 @@ export class SandoCheckbox extends FormFieldMixin(
     }
   }
 
-  protected override _handleFormReset = (): void => {
+  override _handleFormReset = (): void => {
     this.checked = false;
     this.indeterminate = false;
     this.error = false;

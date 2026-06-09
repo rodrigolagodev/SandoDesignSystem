@@ -93,7 +93,7 @@ export class SandoRadio extends FormFieldMixin(
     stateStyles // Checked, disabled, error
   ];
 
-  protected override get _componentPrefix(): string {
+  override get _componentPrefix(): string {
     return 'sando-radio';
   }
 
@@ -174,7 +174,7 @@ export class SandoRadio extends FormFieldMixin(
   @property({ type: Number, reflect: true })
   override tabIndex = 0;
 
-  protected override _handleFormReset = (): void => {
+  override _handleFormReset = (): void => {
     this.checked = false;
     this.error = false;
   };
