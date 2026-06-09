@@ -84,7 +84,12 @@ function resolveFlavorColor(flavorToken, ingredients) {
 function deepMerge(target, source) {
   const result = { ...target };
   for (const key of Object.keys(source)) {
-    if (source[key] && typeof source[key] === "object" && !Array.isArray(source[key]) && key in result) {
+    if (
+      source[key] &&
+      typeof source[key] === "object" &&
+      !Array.isArray(source[key]) &&
+      key in result
+    ) {
       result[key] = deepMerge(result[key], source[key]);
     } else {
       result[key] = source[key];
@@ -123,9 +128,10 @@ function loadFlavorTokens(flavor, modeName) {
 
   if (modeName === "light") return base;
 
-  const modeFile = modeName === "dark"
-    ? path.join(flavorDir, "flavor-dark.json")
-    : path.join(flavorDir, "flavor-high-contrast.json");
+  const modeFile =
+    modeName === "dark"
+      ? path.join(flavorDir, "flavor-dark.json")
+      : path.join(flavorDir, "flavor-high-contrast.json");
 
   if (fs.existsSync(modeFile)) {
     const modeOverlay = JSON.parse(fs.readFileSync(modeFile, "utf8"));
@@ -145,7 +151,15 @@ const flavorsRoot = path.join(tokensRoot, "flavors");
 const originalFile = path.join(flavorsRoot, "original/flavor.json");
 const flavors = JSON.parse(fs.readFileSync(originalFile, "utf8"));
 
-const FLAVORS = ["sando", "original", "strawberry", "nori", "egg-salad", "kiwi", "tonkatsu"];
+const FLAVORS = [
+  "sando",
+  "original",
+  "strawberry",
+  "nori",
+  "egg-salad",
+  "kiwi",
+  "tonkatsu",
+];
 
 // CC-CR-R5 lists four modes (light, dark, high-contrast, forced-colors).
 // forced-colors is intentionally excluded from this matrix: those flavor files
@@ -469,26 +483,86 @@ describe("Accessibility - Contrast Report", () => {
 // ---------------------------------------------------------------------------
 
 const TEXT_PAIRS = [
-  { label: "text-body on background-base", textPath: ["color", "text", "body"], bgPath: ["color", "background", "base"], minRatio: 4.5 },
-  { label: "text-heading on background-base", textPath: ["color", "text", "heading"], bgPath: ["color", "background", "base"], minRatio: 4.5 },
-  { label: "text-link on background-base", textPath: ["color", "text", "link", "default"], bgPath: ["color", "background", "base"], minRatio: 4.5 },
+  {
+    label: "text-body on background-base",
+    textPath: ["color", "text", "body"],
+    bgPath: ["color", "background", "base"],
+    minRatio: 4.5,
+  },
+  {
+    label: "text-heading on background-base",
+    textPath: ["color", "text", "heading"],
+    bgPath: ["color", "background", "base"],
+    minRatio: 4.5,
+  },
+  {
+    label: "text-link on background-base",
+    textPath: ["color", "text", "link", "default"],
+    bgPath: ["color", "background", "base"],
+    minRatio: 4.5,
+  },
   // border-default intentionally omitted — documented design decision for decorative borders (~2.02:1).
   // See original test's .skip on this pair. Use border.emphasis for accessibility-relevant borders (3:1).
-  { label: "action-solid-text on action-solid-background", textPath: ["color", "action", "solid", "text", "default"], bgPath: ["color", "action", "solid", "background", "default"], minRatio: 4.5 },
-  { label: "success-text on background-base", textPath: ["color", "state", "success", "text"], bgPath: ["color", "background", "base"], minRatio: 4.5 },
-  { label: "destructive-text on background-base", textPath: ["color", "state", "destructive", "text"], bgPath: ["color", "background", "base"], minRatio: 4.5 },
+  {
+    label: "action-solid-text on action-solid-background",
+    textPath: ["color", "action", "solid", "text", "default"],
+    bgPath: ["color", "action", "solid", "background", "default"],
+    minRatio: 4.5,
+  },
+  {
+    label: "success-text on background-base",
+    textPath: ["color", "state", "success", "text"],
+    bgPath: ["color", "background", "base"],
+    minRatio: 4.5,
+  },
+  {
+    label: "destructive-text on background-base",
+    textPath: ["color", "state", "destructive", "text"],
+    bgPath: ["color", "background", "base"],
+    minRatio: 4.5,
+  },
 ];
 
 const UI_PAIRS = [
-  { label: "border-emphasis on background-base", textPath: ["color", "border", "emphasis"], bgPath: ["color", "background", "base"], minRatio: 3.0 },
-  { label: "focus-ring on background-base", textPath: ["color", "focus", "ring"], bgPath: ["color", "background", "base"], minRatio: 3.0 },
+  {
+    label: "border-emphasis on background-base",
+    textPath: ["color", "border", "emphasis"],
+    bgPath: ["color", "background", "base"],
+    minRatio: 3.0,
+  },
+  {
+    label: "focus-ring on background-base",
+    textPath: ["color", "focus", "ring"],
+    bgPath: ["color", "background", "base"],
+    minRatio: 3.0,
+  },
 ];
 
 const EXTRA_TEXT_PAIRS = [
-  { label: "text-body on background-surface", textPath: ["color", "text", "body"], bgPath: ["color", "background", "surface"], minRatio: 4.5 },
-  { label: "text-body on background-raised", textPath: ["color", "text", "body"], bgPath: ["color", "background", "raised"], minRatio: 4.5 },
-  { label: "success-text on success-background", textPath: ["color", "state", "success", "text"], bgPath: ["color", "state", "success", "background"], minRatio: 4.5 },
-  { label: "destructive-text on destructive-background", textPath: ["color", "state", "destructive", "text"], bgPath: ["color", "state", "destructive", "background"], minRatio: 4.5 },
+  {
+    label: "text-body on background-surface",
+    textPath: ["color", "text", "body"],
+    bgPath: ["color", "background", "surface"],
+    minRatio: 4.5,
+  },
+  {
+    label: "text-body on background-raised",
+    textPath: ["color", "text", "body"],
+    bgPath: ["color", "background", "raised"],
+    minRatio: 4.5,
+  },
+  {
+    label: "success-text on success-background",
+    textPath: ["color", "state", "success", "text"],
+    bgPath: ["color", "state", "success", "background"],
+    minRatio: 4.5,
+  },
+  {
+    label: "destructive-text on destructive-background",
+    textPath: ["color", "state", "destructive", "text"],
+    bgPath: ["color", "state", "destructive", "background"],
+    minRatio: 4.5,
+  },
 ];
 
 describe("Extended Contrast Matrix — All Flavors × All Modes (CC-CR-R5)", () => {
@@ -505,7 +579,9 @@ describe("Extended Contrast Matrix — All Flavors × All Modes (CC-CR-R5)", () 
             const bgColor = resolveColor(tokens, bgPath, ingredients);
 
             if (!textColor || !bgColor) {
-              console.warn(`  [SKIP] ${flavor}/${mode}: Could not resolve colors for ${label}`);
+              console.warn(
+                `  [SKIP] ${flavor}/${mode}: Could not resolve colors for ${label}`,
+              );
               return;
             }
 
@@ -513,7 +589,9 @@ describe("Extended Contrast Matrix — All Flavors × All Modes (CC-CR-R5)", () 
             const pass = ratio >= minRatio;
             const status = pass ? "PASS" : "FAIL";
 
-            console.log(`  [${status}] ${flavor}/${mode}: ${label} = ${ratio.toFixed(2)}:1 (min: ${minRatio}:1)`);
+            console.log(
+              `  [${status}] ${flavor}/${mode}: ${label} = ${ratio.toFixed(2)}:1 (min: ${minRatio}:1)`,
+            );
 
             if (!pass) {
               const msg = `${flavor}/${mode}: ${label} (${textColor} on ${bgColor}) = ${ratio.toFixed(2)}:1 — FAILS ${minRatio}:1 AA`;
@@ -531,7 +609,9 @@ describe("Extended Contrast Matrix — All Flavors × All Modes (CC-CR-R5)", () 
             const bgColor = resolveColor(tokens, bgPath, ingredients);
 
             if (!textColor || !bgColor) {
-              console.warn(`  [SKIP] ${flavor}/${mode}: Could not resolve colors for ${label}`);
+              console.warn(
+                `  [SKIP] ${flavor}/${mode}: Could not resolve colors for ${label}`,
+              );
               return;
             }
 
@@ -539,7 +619,9 @@ describe("Extended Contrast Matrix — All Flavors × All Modes (CC-CR-R5)", () 
             const pass = ratio >= minRatio;
             const status = pass ? "PASS" : "FAIL";
 
-            console.log(`  [${status}] ${flavor}/${mode}: ${label} = ${ratio.toFixed(2)}:1 (min: ${minRatio}:1)`);
+            console.log(
+              `  [${status}] ${flavor}/${mode}: ${label} = ${ratio.toFixed(2)}:1 (min: ${minRatio}:1)`,
+            );
 
             if (!pass) {
               const msg = `${flavor}/${mode}: ${label} (${textColor} on ${bgColor}) = ${ratio.toFixed(2)}:1 — FAILS ${minRatio}:1 AA`;
@@ -557,7 +639,9 @@ describe("Extended Contrast Matrix — All Flavors × All Modes (CC-CR-R5)", () 
             const bgColor = resolveColor(tokens, bgPath, ingredients);
 
             if (!textColor || !bgColor) {
-              console.warn(`  [SKIP] ${flavor}/${mode}: Could not resolve colors for ${label}`);
+              console.warn(
+                `  [SKIP] ${flavor}/${mode}: Could not resolve colors for ${label}`,
+              );
               return;
             }
 
@@ -565,7 +649,9 @@ describe("Extended Contrast Matrix — All Flavors × All Modes (CC-CR-R5)", () 
             const pass = ratio >= minRatio;
             const status = pass ? "PASS" : "FAIL";
 
-            console.log(`  [${status}] ${flavor}/${mode}: ${label} = ${ratio.toFixed(2)}:1 (min: ${minRatio}:1)`);
+            console.log(
+              `  [${status}] ${flavor}/${mode}: ${label} = ${ratio.toFixed(2)}:1 (min: ${minRatio}:1)`,
+            );
 
             if (!pass) {
               const msg = `${flavor}/${mode}: ${label} (${textColor} on ${bgColor}) = ${ratio.toFixed(2)}:1 — FAILS ${minRatio}:1 AA`;

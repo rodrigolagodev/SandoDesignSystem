@@ -13,6 +13,7 @@
 Post-M0 audit: the full CSS bundle (`dist/sando-tokens/css/index.css` via `@import` cascade) gzipped measures ~195 KB, violating **PB-CR-R1** which mandates <100 KB for the full library.
 
 The token build system uses **Style Dictionary 4.0** and produces per-file CSS output at:
+
 - `dist/sando-tokens/css/ingredients/{name}.css` (10 files)
 - `dist/sando-tokens/css/flavors/{flavor}/{mode}.css` (7 flavors × 5 modes = 35 files)
 - `dist/sando-tokens/css/recipes/{component}.css` (25 files)
@@ -22,13 +23,13 @@ Component packages (`packages/components/`) import individual recipe CSS files d
 
 ### Current Measurements (gzipped)
 
-| Layer | Files | Raw (total) | Gzip (total) |
-|---|---|---|---|
-| Ingredients | 10 | 22.32 KB | 5.94 KB |
-| Flavors (1 flavor, 5 modes) | 5 | 36.53 KB | 5.66 KB |
-| Flavors (all 7 flavors, 35 modes) | 35 | 255.70 KB | 36.82 KB |
-| Recipes (all 25) | 25 | 2,070.38 KB | 187.23 KB |
-| **Full bundle** (1 flavor + all recipes) | 40 | **2,129 KB** | **198.8 KB** |
+| Layer                                    | Files | Raw (total)  | Gzip (total) |
+| ---------------------------------------- | ----- | ------------ | ------------ |
+| Ingredients                              | 10    | 22.32 KB     | 5.94 KB      |
+| Flavors (1 flavor, 5 modes)              | 5     | 36.53 KB     | 5.66 KB      |
+| Flavors (all 7 flavors, 35 modes)        | 35    | 255.70 KB    | 36.82 KB     |
+| Recipes (all 25)                         | 25    | 2,070.38 KB  | 187.23 KB    |
+| **Full bundle** (1 flavor + all recipes) | 40    | **2,129 KB** | **198.8 KB** |
 
 ### Root Cause: Recipe Filter Bug
 
@@ -44,6 +45,7 @@ filter: (token) => {
 The `|| token.filePath?.includes('/recipes/')` clause is overly broad: every recipe token has `filePath` containing `/recipes/`, so the filter always returns `true` for all recipe tokens regardless of `componentName`. This means each recipe file emits every component's tokens.
 
 **Impact of fixing the bug alone:**
+
 - Each recipe would drop from ~82.83 KB raw / ~7.5 KB gzip to ~200-800 B gzip (only its own tokens)
 - Total recipe gzip: ~187 KB → **~10-12 KB**
 - Full bundle gzip: ~199 KB → **~22-24 KB** — already under the 100 KB threshold without any chunking
@@ -56,12 +58,12 @@ The `|| token.filePath?.includes('/recipes/')` clause is overly broad: every rec
 
 Expose `@sando-ds/tokens/css/sando.css`, `@sando-ds/tokens/css/original.css`, etc. Each flavor CSS includes its ingredients + flavor modes + all recipes.
 
-| Metric | Value |
-|---|---|
-| Main entry (1 flavor + all recipes) | ~16.5 KB gzip |
-| Single recipe | ~500 B gzip |
-| New package.json exports | 7 per-flavor entries |
-| Recipe duplication | Yes — each flavor re-exports all recipes under a different selector |
+| Metric                              | Value                                                               |
+| ----------------------------------- | ------------------------------------------------------------------- |
+| Main entry (1 flavor + all recipes) | ~16.5 KB gzip                                                       |
+| Single recipe                       | ~500 B gzip                                                         |
+| New package.json exports            | 7 per-flavor entries                                                |
+| Recipe duplication                  | Yes — each flavor re-exports all recipes under a different selector |
 
 Precedence: P3 decision (ADR-003) noted this as the fallback option.
 
@@ -69,13 +71,13 @@ Precedence: P3 decision (ADR-003) noted this as the fallback option.
 
 Consumers import exactly what they need from three separate layers.
 
-| Metric | Value |
-|---|---|
-| Ingredients only | 5.9 KB gzip |
-| 1 flavor all modes | 5.7 KB gzip |
-| 1 recipe | ~500 B gzip |
-| New package.json exports | 0 (already exists) |
-| Consumer ergonomics | Poor — must import 3+ files manually |
+| Metric                   | Value                                |
+| ------------------------ | ------------------------------------ |
+| Ingredients only         | 5.9 KB gzip                          |
+| 1 flavor all modes       | 5.7 KB gzip                          |
+| 1 recipe                 | ~500 B gzip                          |
+| New package.json exports | 0 (already exists)                   |
+| Consumer ergonomics      | Poor — must import 3+ files manually |
 
 ### Option C — Hybrid (recommended)
 
@@ -84,23 +86,23 @@ Consumers import exactly what they need from three separate layers.
 - `@sando-ds/tokens/css/recipes/{component}.css` — per-recipe, standalone (already exists)
 - `@sando-ds/tokens/css/index.css` — remains as deprecated re-export of `theme.css`
 
-| Metric | Value |
-|---|---|
-| theme.css (all ingredients + all 7 flavors) | ~42.8 KB gzip |
-| Single flavor entry | ~5.7 KB gzip |
-| Single recipe entry | ~500 B gzip |
-| New package.json exports | 9 (theme + 7 flavors) |
-| Consumer ergonomics | Excellent — progressive enhancement |
+| Metric                                      | Value                               |
+| ------------------------------------------- | ----------------------------------- |
+| theme.css (all ingredients + all 7 flavors) | ~42.8 KB gzip                       |
+| Single flavor entry                         | ~5.7 KB gzip                        |
+| Single recipe entry                         | ~500 B gzip                         |
+| New package.json exports                    | 9 (theme + 7 flavors)               |
+| Consumer ergonomics                         | Excellent — progressive enhancement |
 
 ### Option D — Fix bug only, no new entry points
 
 Fix the `|| token.filePath?.includes('/recipes/')` bug. Existing imports remain valid and drop to ~22 KB automatically.
 
-| Metric | Value |
-|---|---|
-| Full bundle (existing index.css) | ~22.5 KB gzip |
-| Changes required | 1 line in recipes.config.js |
-| Effort | Minimal |
+| Metric                           | Value                       |
+| -------------------------------- | --------------------------- |
+| Full bundle (existing index.css) | ~22.5 KB gzip               |
+| Changes required                 | 1 line in recipes.config.js |
+| Effort                           | Minimal                     |
 
 ---
 
@@ -168,32 +170,32 @@ A deprecation comment is added. After the next major version, it can be removed.
 
 ### Estimated Post-Fix Sizes
 
-| Entry point | Gzip size | Description |
-|---|---|---|
-| `index.css` (deprecated → theme.css) | ~42.8 KB | All ingredients + all 7 flavors |
-| `theme.css` | ~42.8 KB | All ingredients + all 7 flavors |
-| `original.css` | ~11.6 KB | Ingredients + original (5 modes) |
-| `sando.css` | ~11.8 KB | Ingredients + sando (5 modes) |
-| `strawberry.css` | ~11.7 KB | Ingredients + strawberry (5 modes) |
-| `nori.css` | ~12.2 KB | Ingredients + nori (5 modes) |
-| `egg-salad.css` | ~11.5 KB | Ingredients + egg-salad (5 modes) |
-| `kiwi.css` | ~11.5 KB | Ingredients + kiwi (5 modes) |
-| `tonkatsu.css` | ~11.6 KB | Ingredients + tonkatsu (5 modes) |
-| `recipes/{component}.css` | ~200-800 B | Single component tokens |
-| `ingredients/{name}.css` | ~200-800 B | Single ingredient category |
+| Entry point                          | Gzip size  | Description                        |
+| ------------------------------------ | ---------- | ---------------------------------- |
+| `index.css` (deprecated → theme.css) | ~42.8 KB   | All ingredients + all 7 flavors    |
+| `theme.css`                          | ~42.8 KB   | All ingredients + all 7 flavors    |
+| `original.css`                       | ~11.6 KB   | Ingredients + original (5 modes)   |
+| `sando.css`                          | ~11.8 KB   | Ingredients + sando (5 modes)      |
+| `strawberry.css`                     | ~11.7 KB   | Ingredients + strawberry (5 modes) |
+| `nori.css`                           | ~12.2 KB   | Ingredients + nori (5 modes)       |
+| `egg-salad.css`                      | ~11.5 KB   | Ingredients + egg-salad (5 modes)  |
+| `kiwi.css`                           | ~11.5 KB   | Ingredients + kiwi (5 modes)       |
+| `tonkatsu.css`                       | ~11.6 KB   | Ingredients + tonkatsu (5 modes)   |
+| `recipes/{component}.css`            | ~200-800 B | Single component tokens            |
+| `ingredients/{name}.css`             | ~200-800 B | Single ingredient category         |
 
 All estimates include the recipe filter bug fix. Without the fix, the `theme.css` entry would be ~231 KB gzip.
 
 ### Estimated Effort
 
-| Task | Files changed | Effort |
-|---|---|---|
-| Fix recipe filter bug | 1 | XS |
-| Generate per-flavor CSS barrels in barrel-generator.js | 1 | S |
-| Generate theme.css in barrel-generator.js | 1 | S |
-| Update package.json exports map | 1 | XS |
-| Mark index.css as deprecated | 1 | XS |
-| Update component imports (optional — no breakage) | 0 | None |
+| Task                                                   | Files changed | Effort |
+| ------------------------------------------------------ | ------------- | ------ |
+| Fix recipe filter bug                                  | 1             | XS     |
+| Generate per-flavor CSS barrels in barrel-generator.js | 1             | S      |
+| Generate theme.css in barrel-generator.js              | 1             | S      |
+| Update package.json exports map                        | 1             | XS     |
+| Mark index.css as deprecated                           | 1             | XS     |
+| Update component imports (optional — no breakage)      | 0             | None   |
 
 ---
 
@@ -230,16 +232,16 @@ All estimates include the recipe filter bug fix. Without the fix, the `theme.css
 Change the file mapping filter:
 
 ```js
-const files = recipeFiles.map(filename => ({
+const files = recipeFiles.map((filename) => ({
   destination: `recipes/${filename}.css`,
-  format: 'css/recipes',
+  format: "css/recipes",
   filter: (token) => {
     const componentName = getComponentName(filename);
-    return token.path[0] === componentName;  // REMOVED: || token.filePath?.includes('/recipes/')
+    return token.path[0] === componentName; // REMOVED: || token.filePath?.includes('/recipes/')
   },
   options: {
-    outputReferences: true
-  }
+    outputReferences: true,
+  },
 }));
 ```
 
@@ -253,30 +255,30 @@ Add two new functions and update the root barrel:
 const ALL_FLAVORS = null; // detected dynamically
 
 function generateFlavorEntries(cssDir) {
-  const flavorsDir = path.join(cssDir, 'flavors');
+  const flavorsDir = path.join(cssDir, "flavors");
   const flavorFolders = discoverSubdirectories(flavorsDir);
-  
+
   for (const flavor of flavorFolders) {
     const content = [
       `@import "./ingredients/index.css";`,
-      `@import "./flavors/${flavor}/index.css";`
-    ].join('\n');
+      `@import "./flavors/${flavor}/index.css";`,
+    ].join("\n");
     const outputPath = path.join(cssDir, `${flavor}.css`);
     writeBarrelFile(outputPath, content, `${flavor} Flavor Entry Point`);
     console.log(`   🎨 ${flavor}.css`);
   }
-  
+
   return flavorFolders;
 }
 
 function generateThemeBarrel(cssDir, flavorFolders) {
   const imports = [
     '@import "./ingredients/index.css";',
-    ...flavorFolders.map(f => `@import "./flavors/${f}/index.css";`)
+    ...flavorFolders.map((f) => `@import "./flavors/${f}/index.css";`),
   ];
-  const content = imports.join('\n');
-  const outputPath = path.join(cssDir, 'theme.css');
-  writeBarrelFile(outputPath, content, 'Full Theme Bundle');
+  const content = imports.join("\n");
+  const outputPath = path.join(cssDir, "theme.css");
+  writeBarrelFile(outputPath, content, "Full Theme Bundle");
   console.log(`   🎨 theme.css (all flavors)`);
 }
 ```
@@ -286,13 +288,13 @@ Update `generateRootBarrel` to re-export `theme.css`:
 ```js
 function generateRootBarrel(cssDir) {
   const content = [
-    '/**',
-    ' * @deprecated Use @sando-ds/tokens/css/theme.css instead.',
-    ' * This file will be removed in the next major version.',
-    ' */',
-    '',
-    '@import "./theme.css";'
-  ].join('\n');
+    "/**",
+    " * @deprecated Use @sando-ds/tokens/css/theme.css instead.",
+    " * This file will be removed in the next major version.",
+    " */",
+    "",
+    '@import "./theme.css";',
+  ].join("\n");
   // ...
 }
 ```
@@ -317,7 +319,7 @@ Add to `exports`:
     "./css/tonkatsu": "./dist/sando-tokens/css/tonkatsu.css",
     "./css/theme/*": null,
     "./css/original/*": null,
-    "./css/sando/*": null,
+    "./css/sando/*": null
     // ... (wildcard overrides for per-flavor subpaths not mapped)
   }
 }
