@@ -11,16 +11,15 @@
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
-    "./button": {
-      "import": "./dist/components/button/sando-button.js",
-      "types": "./dist/components/button/sando-button.d.ts"
-    },
     "./utils": {
       "import": "./dist/utils/index.js",
       "types": "./dist/utils/index.d.ts"
     },
+    "./mixins": {
+      "import": "./dist/mixins/index.js",
+      "types": "./dist/mixins/index.d.ts"
+    },
     "./types": {
-      "import": "./dist/types/index.js",
       "types": "./dist/types/index.d.ts"
     },
     "./styles/tokens": {
@@ -30,6 +29,10 @@
     "./styles/shared": {
       "import": "./dist/styles/shared/index.js",
       "types": "./dist/styles/shared/index.d.ts"
+    },
+    "./*": {
+      "import": "./dist/components/*/sando-*.js",
+      "types": "./dist/components/*/sando-*.d.ts"
     }
   },
   "files": ["dist", "src"],

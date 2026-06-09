@@ -8,10 +8,13 @@ export default defineConfig({
   },
   build: {
     lib: {
-      entry: resolve(__dirname, 'src/index.ts'),
-      name: 'SandoComponents',
-      formats: ['es'],
-      fileName: 'index'
+      entry: {
+        index: resolve(__dirname, 'src/index.ts'),
+        'utils/index': resolve(__dirname, 'src/utils/index.ts'),
+        'mixins/index': resolve(__dirname, 'src/mixins/index.ts'),
+        'styles/shared/index': resolve(__dirname, 'src/styles/shared/index.ts')
+      },
+      formats: ['es']
     },
     rollupOptions: {
       external: [
