@@ -237,7 +237,7 @@ describe("Duration Values", () => {
       expect(numericPart).toBeGreaterThanOrEqual(0);
     });
 
-    it(`${path} should be reasonable duration (0-3000ms)`, () => {
+    it(`${path} should be reasonable duration (0-2000ms)`, () => {
       let milliseconds;
 
       if (value.endsWith("ms")) {
@@ -246,7 +246,12 @@ describe("Duration Values", () => {
         milliseconds = parseFloat(value) * 1000;
       }
 
-      expect(milliseconds).toBeLessThanOrEqual(3000);
+      // animation.duration.2500 is the only ingredient above the 2000ms cap;
+      // it backs `animation.duration.continuous` (skeleton shimmer loops).
+      // Adding more long durations should require an explicit exception here.
+      const longDurationException = path === "animation.duration.2500";
+      const cap = longDurationException ? 3000 : 2000;
+      expect(milliseconds).toBeLessThanOrEqual(cap);
     });
   });
 });

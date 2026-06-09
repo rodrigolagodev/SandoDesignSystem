@@ -357,11 +357,14 @@ describe('CSS Output - File Sizes', () => {
   // Total size is expected to grow as new components and flavors are added.
 
   it('should have reasonable file sizes', () => {
+    // Budgets are set at ~1.2× the current measured size so the test catches
+    // unexpected bloat without becoming theater. Bump deliberately when adding
+    // legitimate new tokens; do not raise to "make it pass" without measuring.
     const maxSizes = {
-      'ingredients/color.css': 15000, // ~15KB (includes all color palettes)
-      'ingredients/font.css': 3000,   // ~3KB
-      'flavors/original/flavor.css': 15000, // ~15KB per flavor (grows with semantic token coverage)
-      'recipes/button.css': 90000     // ~90KB (button is the largest recipe, includes all variants/states/sizes)
+      'ingredients/color.css': 16000, // measured ~12.6KB
+      'ingredients/font.css': 3000,
+      'flavors/original/flavor.css': 15000, // measured ~12.2KB
+      'recipes/button.css': 102000 // measured ~83KB (largest recipe, all variants/states/sizes)
     };
 
     Object.entries(maxSizes).forEach(([file, maxSize]) => {
@@ -392,6 +395,6 @@ describe('CSS Output - File Sizes', () => {
     countDirSize(distPath);
 
     console.log(`\n📦 Total CSS bundle size: ${(totalSize / 1024).toFixed(2)} KB`);
-    expect(totalSize).toBeLessThan(3000000); // Less than 3MB total (multiple flavors with all variants and recipes)
+    expect(totalSize).toBeLessThan(2900000); // measured ~2.3MB (7 flavors × 5 mode variants + ingredients + recipes)
   });
 });

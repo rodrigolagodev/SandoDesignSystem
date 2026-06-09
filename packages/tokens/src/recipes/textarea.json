@@ -287,19 +287,19 @@
     "resize": {
       "default": {
         "value": "vertical",
-        "type": "string"
+        "type": "other"
       },
       "none": {
         "value": "none",
-        "type": "string"
+        "type": "other"
       },
       "both": {
         "value": "both",
-        "type": "string"
+        "type": "other"
       },
       "horizontal": {
         "value": "horizontal",
-        "type": "string"
+        "type": "other"
       }
     },
     "fontFamily": {

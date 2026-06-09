@@ -17,9 +17,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const tokensRoot = path.resolve(__dirname, "../../src");
 
-// Valid DTCG token types, plus extensions for values without a DTCG-canonical type.
-// "other" covers CSS values like aspect-ratios ("16 / 9") and transforms ("translateY(-2px)").
-// "string" covers CSS keyword values like "vertical", "none", "both".
+// Valid DTCG token types. "other" is the spec's escape hatch for values
+// without a canonical type — CSS keywords ("vertical", "none", "both"),
+// aspect ratios ("16 / 9"), transforms ("translateY(-2px)").
 const VALID_TYPES = [
   "color",
   "dimension",
@@ -30,7 +30,6 @@ const VALID_TYPES = [
   "number",
   "shadow",
   "other",
-  "string",
 ];
 
 /**
