@@ -21,6 +21,17 @@ import { LitElement } from 'lit';
 type Constructor<T = object> = new (...args: any[]) => T;
 
 /**
+ * Public interface for FormReset mixin consumers.
+ * Protected members are exposed here for clean declaration emit (no TS4094).
+ *
+ * @internal Members prefixed with `_` are internal use only.
+ */
+export interface FormResetInterface {
+  /** @internal Handle form reset event — subclasses override with reset logic */
+  _handleFormReset: () => void;
+}
+
+/**
  * FormReset Mixin
  *
  * Provides automatic form reset listener wiring.
@@ -61,7 +72,7 @@ export const FormResetMixin = <T extends Constructor<LitElement>>(Base: T) => {
     }
   }
 
-  return FormReset;
+  return FormReset as unknown as Constructor<FormResetInterface> & T;
 };
 
 export type FormResetMixinReturn = ReturnType<typeof FormResetMixin>;

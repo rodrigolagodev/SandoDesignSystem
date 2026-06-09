@@ -138,7 +138,7 @@ export class SandoInput
   @state()
   private _touched = false;
 
-  protected override get _componentPrefix(): string {
+  override get _componentPrefix(): string {
     return 'sando-input';
   }
 
@@ -241,9 +241,9 @@ export class SandoInput
 
   /**
    * Handle form reset event — component-specific reset logic
-   * @protected
+   * @internal
    */
-  protected override _handleFormReset = (): void => {
+  override _handleFormReset = (): void => {
     this.value = '';
     this._touched = false;
     this.error = false;
@@ -286,9 +286,9 @@ export class SandoInput
 
   /**
    * Handle focus event — extends mixin with _touched tracking and event dispatch
-   * @protected
+   * @internal
    */
-  protected override _handleFocus = (): void => {
+  override _handleFocus = (): void => {
     this._touched = true;
     this._focused = true;
 
@@ -302,9 +302,9 @@ export class SandoInput
 
   /**
    * Handle blur event — extends mixin with event dispatch
-   * @protected
+   * @internal
    */
-  protected override _handleBlur = (): void => {
+  override _handleBlur = (): void => {
     this._focused = false;
 
     this.dispatchEvent(
