@@ -49,7 +49,7 @@
     "url": "git+https://github.com/rodrigolagodev/SandoDesignSystem.git",
     "directory": "packages/components"
   },
-  "homepage": "https://github.com/rodrigolagodev/SandoDesignSystem#readme",
+  "homepage": "https://sando.rlago.com",
   "bugs": {
     "url": "https://github.com/rodrigolagodev/SandoDesignSystem/issues"
   },
