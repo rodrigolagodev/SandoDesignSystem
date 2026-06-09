@@ -143,7 +143,11 @@ describe("Dimension Token Values", () => {
     it(`${path} should have numeric value`, () => {
       const numericPart = parseFloat(value);
       expect(isNaN(numericPart)).toBe(false);
-      expect(numericPart).toBeGreaterThanOrEqual(0);
+      // Letter-spacing can legitimately be negative (tight tracking for headlines).
+      // Other dimensions must be non-negative.
+      if (!path.startsWith("font.letterSpacing.")) {
+        expect(numericPart).toBeGreaterThanOrEqual(0);
+      }
     });
   });
 
@@ -242,7 +246,12 @@ describe("Duration Values", () => {
         milliseconds = parseFloat(value) * 1000;
       }
 
-      expect(milliseconds).toBeLessThanOrEqual(2000);
+      // animation.duration.2500 is the only ingredient above the 2000ms cap;
+      // it backs `animation.duration.continuous` (skeleton shimmer loops).
+      // Adding more long durations should require an explicit exception here.
+      const longDurationException = path === "animation.duration.2500";
+      const cap = longDurationException ? 3000 : 2000;
+      expect(milliseconds).toBeLessThanOrEqual(cap);
     });
   });
 });
@@ -393,9 +402,9 @@ describe("Shadow Values", () => {
       });
     } else {
       it(`${path} should have valid box-shadow syntax`, () => {
-        // Basic check: should contain numbers and rgba
+        // Basic check: should contain numbers and a color function (rgba, hsl, oklch, etc.)
         expect(value).toMatch(/\d+/);
-        expect(value).toMatch(/rgba?\(/);
+        expect(value).toMatch(/(rgba?|hsla?|oklch|oklab|color)\(/);
       });
     }
   });

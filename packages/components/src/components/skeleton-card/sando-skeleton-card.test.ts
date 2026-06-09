@@ -13,7 +13,7 @@ describe('sando-skeleton-card', () => {
         html`<sando-skeleton-card></sando-skeleton-card>`
       );
       expect(el).to.exist;
-      expect(el.showAvatar).to.be.true;
+      expect(el.showAvatar).to.be.false;
       expect(el.showImage).to.be.false;
       expect(el.showActions).to.be.false;
       expect(el.lines).to.equal(3);
@@ -54,22 +54,22 @@ describe('sando-skeleton-card', () => {
   });
 
   describe('showAvatar prop', () => {
-    it('shows avatar by default', async () => {
+    it('hides avatar by default', async () => {
       const el = await fixture<SandoSkeletonCard>(
         html`<sando-skeleton-card></sando-skeleton-card>`
       );
-      const avatar = el.shadowRoot?.querySelector('sando-skeleton-avatar');
-      expect(avatar).to.exist;
-    });
-
-    it('hides avatar when show-avatar is false', async () => {
-      const el = await fixture<SandoSkeletonCard>(
-        html`<sando-skeleton-card></sando-skeleton-card>`
-      );
-      el.showAvatar = false;
-      await el.updateComplete;
       const avatar = el.shadowRoot?.querySelector('sando-skeleton-avatar');
       expect(avatar).to.not.exist;
+    });
+
+    it('shows avatar when show-avatar is added at runtime', async () => {
+      const el = await fixture<SandoSkeletonCard>(
+        html`<sando-skeleton-card></sando-skeleton-card>`
+      );
+      el.showAvatar = true;
+      await el.updateComplete;
+      const avatar = el.shadowRoot?.querySelector('sando-skeleton-avatar');
+      expect(avatar).to.exist;
     });
 
     it('shows avatar when show-avatar is true', async () => {

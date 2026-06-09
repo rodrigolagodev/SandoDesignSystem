@@ -83,12 +83,12 @@
     },
     "header": {
       "paddingInline": {
-        "value": "{space.4.value}",
+        "value": "{space.inset.default.value}",
         "type": "dimension",
         "description": "Dialog header horizontal padding — 16px consistent padding"
       },
       "paddingBlock": {
-        "value": "{space.4.value}",
+        "value": "{space.inset.default.value}",
         "type": "dimension",
         "description": "Dialog header vertical padding — 16px consistent padding"
       },
@@ -135,12 +135,12 @@
     },
     "body": {
       "paddingInline": {
-        "value": "{space.4.value}",
+        "value": "{space.inset.default.value}",
         "type": "dimension",
         "description": "Dialog body horizontal padding — 16px consistent padding"
       },
       "paddingBlock": {
-        "value": "{space.4.value}",
+        "value": "{space.inset.default.value}",
         "type": "dimension",
         "description": "Dialog body vertical padding — 16px consistent padding"
       },
@@ -162,12 +162,12 @@
     },
     "footer": {
       "paddingInline": {
-        "value": "{space.4.value}",
+        "value": "{space.inset.default.value}",
         "type": "dimension",
         "description": "Dialog footer horizontal padding"
       },
       "paddingBlock": {
-        "value": "{space.4.value}",
+        "value": "{space.inset.default.value}",
         "type": "dimension",
         "description": "Dialog footer vertical padding"
       },
@@ -224,12 +224,12 @@
         "description": "Close button hover background — ghost button hover treatment"
       },
       "insetBlockStart": {
-        "value": "{space.3.value}",
+        "value": "{space.inset.muted.value}",
         "type": "dimension",
         "description": "Close button top offset — 12px aligns visually with single-line header"
       },
       "insetInlineEnd": {
-        "value": "{space.3.value}",
+        "value": "{space.inset.muted.value}",
         "type": "dimension",
         "description": "Close button end offset — 12px aligns to panel edge consistently"
       }

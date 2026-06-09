@@ -31,7 +31,7 @@
       },
       "borderColor": {
         "default": {
-          "value": "{color.orange.700.value}",
+          "value": "{color.border.brandEmphasis.value}",
           "type": "color",
           "description": "Slightly darker than solid background (orange.600/400) — subtle depth, not accent"
         }

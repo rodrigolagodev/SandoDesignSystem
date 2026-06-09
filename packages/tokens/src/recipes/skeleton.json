@@ -14,7 +14,7 @@
     },
     "animation": {
       "duration": {
-        "value": "{animation.duration.2000.value}",
+        "value": "{animation.duration.continuous.value}",
         "type": "duration",
         "description": "Duration of shimmer/pulse animation cycle (slower for loading perception)"
       },

@@ -275,7 +275,7 @@
           "type": "color"
         },
         "hover": {
-          "value": "{color.orange.500.value}",
+          "value": "{color.text.selection.default.value}",
           "type": "color"
         },
         "focus": {
@@ -283,11 +283,11 @@
           "type": "color"
         },
         "selected": {
-          "value": "{color.orange.500.value}",
+          "value": "{color.text.selection.default.value}",
           "type": "color"
         },
         "selectedHover": {
-          "value": "{color.orange.500.value}",
+          "value": "{color.text.selection.default.value}",
           "type": "color"
         },
         "disabled": {
