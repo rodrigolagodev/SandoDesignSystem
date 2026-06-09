@@ -12,6 +12,7 @@ build/
 out/
 storybook-static/
 *.tsbuildinfo
+packages/components/custom-elements.json
 
 # Testing
 coverage/
