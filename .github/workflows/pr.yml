@@ -1,4 +1,4 @@
-name: PR Validation (Informational)
+name: PR Validation
 
 on:
   pull_request:
@@ -17,12 +17,11 @@ permissions:
   issues: write
 
 jobs:
-  # Job 1: Run all tests (unit + E2E + a11y) - INFORMATIONAL ONLY
+  # Job 1: Run all tests (unit + E2E + a11y)
   test:
-    name: Test (Node 20.x) - Informational
+    name: Test (Node 20.x)
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    continue-on-error: true
 
     steps:
       - name: Checkout code
@@ -64,7 +63,6 @@ jobs:
 
       - name: Run unit tests with coverage
         run: pnpm test:coverage
-        continue-on-error: true
         env:
           CI: true
 
@@ -87,12 +85,11 @@ jobs:
         run: |
           echo "✅ Coverage thresholds met (80% minimum)"
 
-  # Job 2: Lint code (ESLint + Prettier) - INFORMATIONAL ONLY
+  # Job 2: Lint code (ESLint + Prettier)
   lint:
-    name: Lint (ESLint + Prettier) - Informational
+    name: Lint (ESLint + Prettier)
     runs-on: ubuntu-latest
     timeout-minutes: 5
-    continue-on-error: true
 
     steps:
       - name: Checkout code
@@ -221,7 +218,7 @@ jobs:
               body: '⚠️ **No changeset detected**\n\nIf this PR changes public APIs (components, tokens, or build output), please create a changeset:\n\n```bash\npnpm changeset\n```\n\nIf this is a docs-only or internal change, you can ignore this warning.'
             })
 
-  # Summary job - Only blocks on build failures
+  # Summary job - Blocks merge if test, lint, or build fails
   pr-validation:
     name: PR Validation Summary
     runs-on: ubuntu-latest
@@ -233,30 +230,33 @@ jobs:
         run: |
           echo "📊 PR Validation Results:"
           echo "========================"
+          fail=0
 
-          # Test results (informational only)
           if [[ "${{ needs.test.result }}" == "success" ]]; then
             echo "✅ Tests: PASSED"
           else
-            echo "⚠️  Tests: FAILED (informational - does not block merge)"
+            echo "❌ Tests: FAILED"
+            fail=1
           fi
 
-          # Lint results (informational only)
           if [[ "${{ needs.lint.result }}" == "success" ]]; then
             echo "✅ Lint: PASSED"
           else
-            echo "⚠️  Lint: FAILED (informational - does not block merge)"
+            echo "❌ Lint: FAILED"
+            fail=1
           fi
 
-          # Build results (required)
-          if [[ "${{ needs.build.result }}" != "success" ]]; then
-            echo "❌ Build: FAILED (blocks merge)"
-            echo ""
-            echo "Build must pass before merging. Please fix build errors."
-            exit 1
-          else
+          if [[ "${{ needs.build.result }}" == "success" ]]; then
             echo "✅ Build: PASSED"
+          else
+            echo "❌ Build: FAILED"
+            fail=1
           fi
 
           echo ""
-          echo "✅ PR validation complete - Build passed, merge allowed"
+          if [[ $fail -eq 0 ]]; then
+            echo "✅ PR validation complete - all required checks passed"
+          else
+            echo "❌ PR validation failed - fix the failing checks above before merging"
+          fi
+          exit $fail
