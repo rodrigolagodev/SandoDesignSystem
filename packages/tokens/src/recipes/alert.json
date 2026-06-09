@@ -217,7 +217,7 @@
       "type": "dimension"
     },
     "textFontWeight": {
-      "value": "{font.weight.400.value}",
+      "value": "{font.weight.body.value}",
       "type": "fontWeight"
     },
     "lineHeight": {
@@ -243,7 +243,7 @@
       "type": "dimension"
     },
     "actionsMarginTop": {
-      "value": "{space.3.value}",
+      "value": "{space.stack.default.value}",
       "type": "dimension"
     },
     "focusOutlineColor": {

@@ -201,8 +201,8 @@ describe('sando-skeleton-table-row', () => {
     const checkboxSkeleton = el.shadowRoot?.querySelector('.checkbox sando-skeleton');
     expect(checkboxSkeleton).to.exist;
     expect(checkboxSkeleton?.getAttribute('shape')).to.equal('rounded');
-    expect(checkboxSkeleton?.getAttribute('width')).to.equal('16px');
-    expect(checkboxSkeleton?.getAttribute('height')).to.equal('16px');
+    expect(checkboxSkeleton?.getAttribute('width')).to.equal('var(--sando-space-4)');
+    expect(checkboxSkeleton?.getAttribute('height')).to.equal('var(--sando-space-4)');
   });
 
   // ============================================

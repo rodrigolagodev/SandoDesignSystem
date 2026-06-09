@@ -129,11 +129,14 @@ exports[`sando-spinner > Snapshot Tests > Arc Snapshots > should match arc=0.5 s
   
   
   
+  
 
   /* ========================================
      RECIPES LAYER - Component Tokens
      Reference Flavor tokens from Light DOM
      ======================================== */
+  
+  
   
   
   
@@ -420,11 +423,14 @@ exports[`sando-spinner > Snapshot Tests > Arc Snapshots > should match arc=0.25 
   
   
   
+  
 
   /* ========================================
      RECIPES LAYER - Component Tokens
      Reference Flavor tokens from Light DOM
      ======================================== */
+  
+  
   
   
   
@@ -711,11 +717,14 @@ exports[`sando-spinner > Snapshot Tests > Arc Snapshots > should match arc=0.75 
   
   
   
+  
 
   /* ========================================
      RECIPES LAYER - Component Tokens
      Reference Flavor tokens from Light DOM
      ======================================== */
+  
+  
   
   
   
@@ -1002,11 +1011,14 @@ exports[`sando-spinner > Snapshot Tests > Arc Snapshots > should match arc=1 sna
   
   
   
+  
 
   /* ========================================
      RECIPES LAYER - Component Tokens
      Reference Flavor tokens from Light DOM
      ======================================== */
+  
+  
   
   
   
@@ -1293,11 +1305,14 @@ exports[`sando-spinner > Snapshot Tests > Size Snapshots > should match lg size 
   
   
   
+  
 
   /* ========================================
      RECIPES LAYER - Component Tokens
      Reference Flavor tokens from Light DOM
      ======================================== */
+  
+  
   
   
   
@@ -1584,11 +1599,14 @@ exports[`sando-spinner > Snapshot Tests > Size Snapshots > should match md size 
   
   
   
+  
 
   /* ========================================
      RECIPES LAYER - Component Tokens
      Reference Flavor tokens from Light DOM
      ======================================== */
+  
+  
   
   
   
@@ -1875,11 +1893,14 @@ exports[`sando-spinner > Snapshot Tests > Size Snapshots > should match sm size 
   
   
   
+  
 
   /* ========================================
      RECIPES LAYER - Component Tokens
      Reference Flavor tokens from Light DOM
      ======================================== */
+  
+  
   
   
   
@@ -2166,11 +2187,14 @@ exports[`sando-spinner > Snapshot Tests > Size Snapshots > should match xl size 
   
   
   
+  
 
   /* ========================================
      RECIPES LAYER - Component Tokens
      Reference Flavor tokens from Light DOM
      ======================================== */
+  
+  
   
   
   
@@ -2457,11 +2481,14 @@ exports[`sando-spinner > Snapshot Tests > Size Snapshots > should match xs size 
   
   
   
+  
 
   /* ========================================
      RECIPES LAYER - Component Tokens
      Reference Flavor tokens from Light DOM
      ======================================== */
+  
+  
   
   
   
@@ -2748,11 +2775,14 @@ exports[`sando-spinner > Snapshot Tests > Variant Snapshots > should match defau
   
   
   
+  
 
   /* ========================================
      RECIPES LAYER - Component Tokens
      Reference Flavor tokens from Light DOM
      ======================================== */
+  
+  
   
   
   
@@ -3039,11 +3069,14 @@ exports[`sando-spinner > Snapshot Tests > Variant Snapshots > should match inver
   
   
   
+  
 
   /* ========================================
      RECIPES LAYER - Component Tokens
      Reference Flavor tokens from Light DOM
      ======================================== */
+  
+  
   
   
   
@@ -3330,11 +3363,14 @@ exports[`sando-spinner > Snapshot Tests > should match custom label snapshot 1`]
   
   
   
+  
 
   /* ========================================
      RECIPES LAYER - Component Tokens
      Reference Flavor tokens from Light DOM
      ======================================== */
+  
+  
   
   
   
@@ -3621,11 +3657,14 @@ exports[`sando-spinner > Snapshot Tests > should match default state snapshot 1`
   
   
   
+  
 
   /* ========================================
      RECIPES LAYER - Component Tokens
      Reference Flavor tokens from Light DOM
      ======================================== */
+  
+  
   
   
   

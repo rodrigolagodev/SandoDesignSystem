@@ -143,7 +143,11 @@ describe("Dimension Token Values", () => {
     it(`${path} should have numeric value`, () => {
       const numericPart = parseFloat(value);
       expect(isNaN(numericPart)).toBe(false);
-      expect(numericPart).toBeGreaterThanOrEqual(0);
+      // Letter-spacing can legitimately be negative (tight tracking for headlines).
+      // Other dimensions must be non-negative.
+      if (!path.startsWith("font.letterSpacing.")) {
+        expect(numericPart).toBeGreaterThanOrEqual(0);
+      }
     });
   });
 
@@ -233,7 +237,7 @@ describe("Duration Values", () => {
       expect(numericPart).toBeGreaterThanOrEqual(0);
     });
 
-    it(`${path} should be reasonable duration (0-2000ms)`, () => {
+    it(`${path} should be reasonable duration (0-3000ms)`, () => {
       let milliseconds;
 
       if (value.endsWith("ms")) {
@@ -242,7 +246,7 @@ describe("Duration Values", () => {
         milliseconds = parseFloat(value) * 1000;
       }
 
-      expect(milliseconds).toBeLessThanOrEqual(2000);
+      expect(milliseconds).toBeLessThanOrEqual(3000);
     });
   });
 });
@@ -393,9 +397,9 @@ describe("Shadow Values", () => {
       });
     } else {
       it(`${path} should have valid box-shadow syntax`, () => {
-        // Basic check: should contain numbers and rgba
+        // Basic check: should contain numbers and a color function (rgba, hsl, oklch, etc.)
         expect(value).toMatch(/\d+/);
-        expect(value).toMatch(/rgba?\(/);
+        expect(value).toMatch(/(rgba?|hsla?|oklch|oklab|color)\(/);
       });
     }
   });

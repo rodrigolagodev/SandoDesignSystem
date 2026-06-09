@@ -125,11 +125,14 @@ exports[`sando-skeleton-text > snapshots > matches snapshot for custom width 1`]
   
   
   
+  
 
   /* ========================================
      RECIPES LAYER - Component Tokens
      Reference Flavor tokens from Light DOM
      ======================================== */
+  
+  
   
   
   
@@ -280,11 +283,14 @@ exports[`sando-skeleton-text > snapshots > matches snapshot for default state 1`
   
   
   
+  
 
   /* ========================================
      RECIPES LAYER - Component Tokens
      Reference Flavor tokens from Light DOM
      ======================================== */
+  
+  
   
   
   
@@ -435,11 +441,14 @@ exports[`sando-skeleton-text > snapshots > matches snapshot for pulse effect 1`]
   
   
   
+  
 
   /* ========================================
      RECIPES LAYER - Component Tokens
      Reference Flavor tokens from Light DOM
      ======================================== */
+  
+  
   
   
   
@@ -590,11 +599,14 @@ exports[`sando-skeleton-text > snapshots > matches snapshot for size="lg" 1`] = 
   
   
   
+  
 
   /* ========================================
      RECIPES LAYER - Component Tokens
      Reference Flavor tokens from Light DOM
      ======================================== */
+  
+  
   
   
   
@@ -745,11 +757,14 @@ exports[`sando-skeleton-text > snapshots > matches snapshot for size="sm" 1`] = 
   
   
   
+  
 
   /* ========================================
      RECIPES LAYER - Component Tokens
      Reference Flavor tokens from Light DOM
      ======================================== */
+  
+  
   
   
   

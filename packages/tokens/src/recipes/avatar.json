@@ -3,12 +3,12 @@
     "size": {
       "xs": {
         "dimension": {
-          "value": "{space.6.value}",
+          "value": "{sizing.avatar.xs.dimension.value}",
           "type": "dimension",
           "description": "24px - extra small avatar"
         },
         "fontSize": {
-          "value": "{font.size.50.value}",
+          "value": "{sizing.avatar.xs.fontSize.value}",
           "type": "dimension",
           "description": "10px - initials font size for xs avatar"
         },
@@ -18,19 +18,19 @@
           "description": "Fallback icon size for xs avatar"
         },
         "presenceDot": {
-          "value": "{space.2.value}",
+          "value": "{sizing.avatar.xs.presenceDot.value}",
           "type": "dimension",
           "description": "8px - presence indicator dot for xs avatar"
         }
       },
       "sm": {
         "dimension": {
-          "value": "{space.8.value}",
+          "value": "{sizing.avatar.sm.dimension.value}",
           "type": "dimension",
           "description": "32px - small avatar"
         },
         "fontSize": {
-          "value": "{font.size.100.value}",
+          "value": "{sizing.avatar.sm.fontSize.value}",
           "type": "dimension",
           "description": "12px - initials font size for sm avatar"
         },
@@ -40,19 +40,19 @@
           "description": "Fallback icon size for sm avatar"
         },
         "presenceDot": {
-          "value": "{space.2.value}",
+          "value": "{sizing.avatar.sm.presenceDot.value}",
           "type": "dimension",
           "description": "8px - presence indicator dot for sm avatar"
         }
       },
       "md": {
         "dimension": {
-          "value": "{space.10.value}",
+          "value": "{sizing.avatar.md.dimension.value}",
           "type": "dimension",
           "description": "40px - medium avatar (default)"
         },
         "fontSize": {
-          "value": "{font.size.200.value}",
+          "value": "{sizing.avatar.md.fontSize.value}",
           "type": "dimension",
           "description": "14px - initials font size for md avatar"
         },
@@ -62,19 +62,19 @@
           "description": "Fallback icon size for md avatar"
         },
         "presenceDot": {
-          "value": "{space.3.value}",
+          "value": "{sizing.avatar.md.presenceDot.value}",
           "type": "dimension",
           "description": "12px - presence indicator dot for md avatar"
         }
       },
       "lg": {
         "dimension": {
-          "value": "{space.12.value}",
+          "value": "{sizing.avatar.lg.dimension.value}",
           "type": "dimension",
           "description": "48px - large avatar"
         },
         "fontSize": {
-          "value": "{font.size.300.value}",
+          "value": "{sizing.avatar.lg.fontSize.value}",
           "type": "dimension",
           "description": "16px - initials font size for lg avatar"
         },
@@ -84,19 +84,19 @@
           "description": "Fallback icon size for lg avatar"
         },
         "presenceDot": {
-          "value": "{space.3.value}",
+          "value": "{sizing.avatar.lg.presenceDot.value}",
           "type": "dimension",
           "description": "12px - presence indicator dot for lg avatar"
         }
       },
       "xl": {
         "dimension": {
-          "value": "{space.16.value}",
+          "value": "{sizing.avatar.xl.dimension.value}",
           "type": "dimension",
           "description": "64px - extra large avatar"
         },
         "fontSize": {
-          "value": "{font.size.400.value}",
+          "value": "{sizing.avatar.xl.fontSize.value}",
           "type": "dimension",
           "description": "18px - initials font size for xl avatar"
         },
@@ -106,7 +106,7 @@
           "description": "Fallback icon size for xl avatar"
         },
         "presenceDot": {
-          "value": "{space.4.value}",
+          "value": "{sizing.avatar.xl.presenceDot.value}",
           "type": "dimension",
           "description": "16px - presence indicator dot for xl avatar"
         }
@@ -160,7 +160,7 @@
       "description": "Semi-bold for initials legibility"
     },
     "lineHeight": {
-      "value": "{font.lineHeight.100.value}",
+      "value": "{font.lineHeight.tight.value}",
       "type": "number",
       "description": "Line-height 1 for initials centered in avatar"
     },
@@ -205,7 +205,7 @@
         "description": "Border around presence dot to separate from avatar"
       },
       "borderWidth": {
-        "value": "{border.width.50.value}",
+        "value": "{sizing.avatar.presenceBorderWidth.value}",
         "type": "dimension",
         "description": "2px border around presence dot"
       },

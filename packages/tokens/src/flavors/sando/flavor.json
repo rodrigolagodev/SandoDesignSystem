@@ -100,6 +100,13 @@
           "value": "{color.orange.600.value}",
           "type": "color"
         }
+      },
+      "selection": {
+        "default": {
+          "value": "{color.orange.500.value}",
+          "type": "color",
+          "description": "Brand text color for selected/hovered options on tinted background"
+        }
       }
     },
     "icon": {
@@ -141,6 +148,11 @@
       "on-solid": {
         "value": "{color.orange.400.value}",
         "type": "color"
+      },
+      "brandEmphasis": {
+        "value": "{color.orange.700.value}",
+        "type": "color",
+        "description": "Border slightly darker than the solid brand background (subtle depth)"
       }
     },
     "action": {
@@ -415,6 +427,11 @@
       "caption": {
         "value": "{font.lineHeight.140.value}",
         "type": "number"
+      },
+      "tight": {
+        "value": "{font.lineHeight.100.value}",
+        "type": "number",
+        "description": "Tight line-height (1.0) for single-line elements"
       }
     }
   },
@@ -639,6 +656,98 @@
         "value": "{space.1.value}",
         "type": "dimension",
         "description": "Toggle thumb offset from track edge (4px)"
+      }
+    },
+    "avatar": {
+      "xs": {
+        "dimension": {
+          "value": "{space.6.value}",
+          "type": "dimension",
+          "description": "Avatar xs container — 24px"
+        },
+        "fontSize": {
+          "value": "{font.size.50.value}",
+          "type": "dimension",
+          "description": "Avatar xs initials — 10px"
+        },
+        "presenceDot": {
+          "value": "{space.2.value}",
+          "type": "dimension",
+          "description": "Avatar xs presence dot — 8px"
+        }
+      },
+      "sm": {
+        "dimension": {
+          "value": "{space.8.value}",
+          "type": "dimension",
+          "description": "Avatar sm container — 32px"
+        },
+        "fontSize": {
+          "value": "{font.size.100.value}",
+          "type": "dimension",
+          "description": "Avatar sm initials — 12px"
+        },
+        "presenceDot": {
+          "value": "{space.2.value}",
+          "type": "dimension",
+          "description": "Avatar sm presence dot — 8px"
+        }
+      },
+      "md": {
+        "dimension": {
+          "value": "{space.10.value}",
+          "type": "dimension",
+          "description": "Avatar md container — 40px"
+        },
+        "fontSize": {
+          "value": "{font.size.200.value}",
+          "type": "dimension",
+          "description": "Avatar md initials — 14px"
+        },
+        "presenceDot": {
+          "value": "{space.3.value}",
+          "type": "dimension",
+          "description": "Avatar md presence dot — 12px"
+        }
+      },
+      "lg": {
+        "dimension": {
+          "value": "{space.12.value}",
+          "type": "dimension",
+          "description": "Avatar lg container — 48px"
+        },
+        "fontSize": {
+          "value": "{font.size.300.value}",
+          "type": "dimension",
+          "description": "Avatar lg initials — 16px"
+        },
+        "presenceDot": {
+          "value": "{space.3.value}",
+          "type": "dimension",
+          "description": "Avatar lg presence dot — 12px"
+        }
+      },
+      "xl": {
+        "dimension": {
+          "value": "{space.16.value}",
+          "type": "dimension",
+          "description": "Avatar xl container — 64px"
+        },
+        "fontSize": {
+          "value": "{font.size.400.value}",
+          "type": "dimension",
+          "description": "Avatar xl initials — 18px"
+        },
+        "presenceDot": {
+          "value": "{space.4.value}",
+          "type": "dimension",
+          "description": "Avatar xl presence dot — 16px"
+        }
+      },
+      "presenceBorderWidth": {
+        "value": "{border.width.50.value}",
+        "type": "dimension",
+        "description": "Avatar presence dot border — 2px"
       }
     }
   },
