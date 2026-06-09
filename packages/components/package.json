@@ -35,9 +35,10 @@
       "types": "./dist/components/*/sando-*.d.ts"
     }
   },
-  "files": ["dist", "src"],
+  "files": ["dist", "src", "custom-elements.json"],
+  "customElements": "./custom-elements.json",
   "scripts": {
-    "build": "vite build && tsc -p tsconfig.build.json",
+    "build": "vite build && tsc -p tsconfig.build.json && custom-elements-manifest analyze",
     "build:watch": "vite build --watch",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
