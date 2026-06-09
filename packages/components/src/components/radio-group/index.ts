@@ -5,8 +5,8 @@
  *
  * @example
  * ```typescript
- * import { SandoRadioGroup } from '@sando/components/radio-group';
- * import type { RadioGroupOrientation, RadioGroupChangeEventDetail } from '@sando/components/radio-group';
+ * import { SandoRadioGroup } from '@sando-ds/components/radio-group';
+ * import type { RadioGroupOrientation, RadioGroupChangeEventDetail } from '@sando-ds/components/radio-group';
  * ```
  *
  * @module radio-group

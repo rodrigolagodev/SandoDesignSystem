@@ -24,13 +24,13 @@ Sando has two packages — **tokens** (the design language) and **components** (
 
 ```bash
 # pnpm
-pnpm add @sando/tokens @sando/components
+pnpm add @sando-ds/tokens @sando-ds/components
 
 # npm
-npm install @sando/tokens @sando/components
+npm install @sando-ds/tokens @sando-ds/components
 
 # yarn
-yarn add @sando/tokens @sando/components
+yarn add @sando-ds/tokens @sando-ds/components
 ```
 
 <details>
@@ -39,14 +39,14 @@ yarn add @sando/tokens @sando/components
 If you're building your own components and just want the design tokens:
 
 ```bash
-pnpm add @sando/tokens
+pnpm add @sando-ds/tokens
 ```
 
 </details>
 
 ## What's in the Box
 
-### `@sando/tokens`
+### `@sando-ds/tokens`
 
 The design language — your pantry of raw ingredients, flavor profiles, and component recipes:
 
@@ -56,7 +56,7 @@ The design language — your pantry of raw ingredients, flavor profiles, and com
 - **22 OKLCH color palettes** — 17 chromatic + 4 neutral + 1 utility, perceptually uniform, accessible by default
 - **Automatic accessibility modes** — dark, high contrast, reduced motion, forced colors
 
-### `@sando/components`
+### `@sando-ds/components`
 
 Framework-agnostic Web Components built with [Lit](https://lit.dev):
 
@@ -71,20 +71,20 @@ Load the design tokens CSS in your application entry point:
 
 ```ts
 // Vite / Webpack — main.ts or App.tsx
-import "@sando/tokens/css";
+import "@sando-ds/tokens/css";
 ```
 
 ```html
 <!-- HTML -->
 <link
   rel="stylesheet"
-  href="node_modules/@sando/tokens/dist/sando-tokens/css/index.css"
+  href="node_modules/@sando-ds/tokens/dist/sando-tokens/css/index.css"
 />
 ```
 
 ```css
 /* CSS — styles.css */
-@import "@sando/tokens/css";
+@import "@sando-ds/tokens/css";
 ```
 
 ## Import Components
@@ -93,7 +93,7 @@ Import components individually — they self-register as custom elements:
 
 ```ts
 // Import the components you need
-import "@sando/components/button";
+import "@sando-ds/components/button";
 
 // That's it! Use them in your HTML
 // <sando-button variant="solid">Click me</sando-button>
@@ -105,11 +105,11 @@ Flavors are loaded globally so they can cascade into component Shadow DOMs. Impo
 
 ```ts
 // Load a flavor (global, Light DOM)
-import "@sando/tokens/css/flavors/original/flavor.css";
+import "@sando-ds/tokens/css/flavors/original/flavor.css";
 
 // Or try a different one
-import "@sando/tokens/css/flavors/tonkatsu/flavor.css";
-import "@sando/tokens/css/flavors/strawberry/flavor.css";
+import "@sando-ds/tokens/css/flavors/tonkatsu/flavor.css";
+import "@sando-ds/tokens/css/flavors/strawberry/flavor.css";
 ```
 
 > **💡 Flavors inherit automatically**
@@ -122,8 +122,8 @@ import "@sando/tokens/css/flavors/strawberry/flavor.css";
 
 ```tsx
 // App.tsx
-import "@sando/tokens/css";
-import "@sando/components/button";
+import "@sando-ds/tokens/css";
+import "@sando-ds/components/button";
 
 function App() {
   return <sando-button variant="solid">Click me</sando-button>;
@@ -135,7 +135,7 @@ function App() {
 > Add to your `vite-env.d.ts` or `global.d.ts`:
 >
 > ```ts
-> /// <reference types="@sando/components" />
+> /// <reference types="@sando-ds/components" />
 > ```
 >
 > This enables autocomplete and type checking for Sando components in JSX.
@@ -144,8 +144,8 @@ function App() {
 
 ```vue
 <script setup lang="ts">
-import "@sando/tokens/css";
-import "@sando/components/button";
+import "@sando-ds/tokens/css";
+import "@sando-ds/components/button";
 </script>
 
 <template>
@@ -176,7 +176,7 @@ import "@sando/components/button";
 ```ts
 // app.module.ts
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
-import "@sando/tokens/css";
+import "@sando-ds/tokens/css";
 
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -186,7 +186,7 @@ export class AppModule {}
 
 ```ts
 // component.ts
-import "@sando/components/button";
+import "@sando-ds/components/button";
 ```
 
 ```html
@@ -198,8 +198,8 @@ import "@sando/components/button";
 
 ```svelte
 <script>
-  import '@sando/tokens/css';
-  import '@sando/components/button';
+  import '@sando-ds/tokens/css';
+  import '@sando-ds/components/button';
 </script>
 
 <sando-button variant="solid">Click me</sando-button>
@@ -213,10 +213,10 @@ import "@sando/components/button";
   <head>
     <link
       rel="stylesheet"
-      href="node_modules/@sando/tokens/dist/sando-tokens/css/index.css"
+      href="node_modules/@sando-ds/tokens/dist/sando-tokens/css/index.css"
     />
     <script type="module">
-      import "@sando/components/button";
+      import "@sando-ds/components/button";
     </script>
   </head>
   <body>
@@ -231,14 +231,14 @@ Import only what you need for smaller bundles:
 
 ```ts
 // Import specific components
-import "@sando/components/button"; // <sando-button>
-// import '@sando/components/input';   // <sando-input> — not yet exported individually
-// import '@sando/components/checkbox'; // <sando-checkbox> — not yet exported individually
+import "@sando-ds/components/button"; // <sando-button>
+// import '@sando-ds/components/input';   // <sando-input> — not yet exported individually
+// import '@sando-ds/components/checkbox'; // <sando-checkbox> — not yet exported individually
 
 // Import specific token layers
-import "@sando/tokens/css/ingredients"; // Primitives only
-import "@sando/tokens/css/flavors"; // Semantic tokens
-import "@sando/tokens/css/recipes"; // Component tokens
+import "@sando-ds/tokens/css/ingredients"; // Primitives only
+import "@sando-ds/tokens/css/flavors"; // Semantic tokens
+import "@sando-ds/tokens/css/recipes"; // Component tokens
 ```
 
 ## CDN Usage
@@ -249,12 +249,12 @@ For quick prototyping or static sites:
 <!-- Load CSS tokens -->
 <link
   rel="stylesheet"
-  href="https://unpkg.com/@sando/tokens/dist/sando-tokens/css/index.css"
+  href="https://unpkg.com/@sando-ds/tokens/dist/sando-tokens/css/index.css"
 />
 
 <!-- Load components -->
 <script type="module">
-  import "@sando/components/button";
+  import "@sando-ds/components/button";
 </script>
 ```
 
@@ -268,7 +268,7 @@ Paste this into your HTML to confirm everything is wired up:
 
 ```html
 <script type="module">
-  import "@sando/components/button";
+  import "@sando-ds/components/button";
 </script>
 
 <sando-button variant="solid">It works! 🍱</sando-button>

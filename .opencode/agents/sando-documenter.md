@@ -236,7 +236,7 @@ Brief description of what this component does.
 ## Installation
 
 \`\`\`bash
-npm install @sando/components
+npm install @sando-ds/components
 \`\`\`
 
 ## Basic Usage

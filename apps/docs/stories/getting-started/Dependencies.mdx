@@ -35,7 +35,7 @@ npm install -g pnpm
 
 > **💡 Why pnpm?**
 >
-> The Sando monorepo uses pnpm workspaces for efficient dependency management. While you can use npm or yarn to install `@sando/tokens` and `@sando/components` in your own project, pnpm is required if you're contributing to the design system itself.
+> The Sando monorepo uses pnpm workspaces for efficient dependency management. While you can use npm or yarn to install `@sando-ds/tokens` and `@sando-ds/components` in your own project, pnpm is required if you're contributing to the design system itself.
 
 ---
 
@@ -43,7 +43,7 @@ npm install -g pnpm
 
 These are the only dependencies your project needs when using Sando. We keep the ingredient list short on purpose.
 
-### `@sando/tokens`
+### `@sando-ds/tokens`
 
 The tokens package has **zero runtime dependencies**. It produces pure CSS custom properties and JSON token files—no JavaScript runtime required.
 
@@ -62,15 +62,15 @@ Style Dictionary is used at build time to transform token JSON files into CSS cu
 
 </details>
 
-### `@sando/components`
+### `@sando-ds/components`
 
-The components package depends on Lit for Web Components rendering and on `@sando/tokens` for design tokens:
+The components package depends on Lit for Web Components rendering and on `@sando-ds/tokens` for design tokens:
 
 ```json
 {
   "dependencies": {
     "lit": "^3.1.0",
-    "@sando/tokens": "workspace:*"
+    "@sando-ds/tokens": "workspace:*"
   }
 }
 ```
@@ -432,7 +432,7 @@ No additional configuration needed. Svelte handles custom elements natively.
 
 ## Package Exports
 
-### `@sando/tokens`
+### `@sando-ds/tokens`
 
 ```json
 {
@@ -452,19 +452,19 @@ No additional configuration needed. Svelte handles custom elements natively.
 
 ```ts
 // Import all tokens
-import "@sando/tokens/css";
+import "@sando-ds/tokens/css";
 
 // Import specific layers
-import "@sando/tokens/css/ingredients";
-import "@sando/tokens/css/flavors";
-import "@sando/tokens/css/recipes";
+import "@sando-ds/tokens/css/ingredients";
+import "@sando-ds/tokens/css/flavors";
+import "@sando-ds/tokens/css/recipes";
 
 // Import specific files
-import "@sando/tokens/css/ingredients/color";
-import "@sando/tokens/css/flavors/original";
+import "@sando-ds/tokens/css/ingredients/color";
+import "@sando-ds/tokens/css/flavors/original";
 ```
 
-### `@sando/components`
+### `@sando-ds/components`
 
 ```json
 {
@@ -481,15 +481,15 @@ import "@sando/tokens/css/flavors/original";
 
 ```ts
 // Import all components (auto-registers custom elements)
-import "@sando/components";
+import "@sando-ds/components";
 
 // Import only the button (tree-shakeable)
-import "@sando/components/button";
+import "@sando-ds/components/button";
 ```
 
 > **💡 Selective Imports**
 >
-> Currently, only `./button` has a dedicated export path. All other components are available through the main `@sando/components` entry point. More individual exports will be added as the library matures.
+> Currently, only `./button` has a dedicated export path. All other components are available through the main `@sando-ds/components` entry point. More individual exports will be added as the library matures.
 
 ---
 

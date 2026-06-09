@@ -1,5 +1,5 @@
 {
-  "name": "@sando/components",
+  "name": "@sando-ds/components",
   "version": "0.1.0",
   "description": "Web Components library for Sando Design System built with Lit",
   "type": "module",
@@ -57,7 +57,7 @@
   "author": "Sando Design System Team",
   "license": "MIT",
   "dependencies": {
-    "@sando/tokens": "workspace:*",
+    "@sando-ds/tokens": "workspace:*",
     "lit": "^3.1.0"
   },
   "devDependencies": {

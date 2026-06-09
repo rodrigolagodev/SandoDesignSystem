@@ -180,12 +180,12 @@ core_rules:
       title: "✅ Tree-shakable import"
       code: |
         // Only button loaded
-        import { SandoButton } from "@sando/components/button";
+        import { SandoButton } from "@sando-ds/components/button";
     anti_pattern:
       lang: "javascript"
       title: "❌ Imports entire library"
       code: |
-        import { SandoButton } from "@sando/components";
+        import { SandoButton } from "@sando-ds/components";
     why: "Tree-shaking eliminates dead code. A user importing 1 button should not download 50 components."
     reference:
       type: "source_file"
@@ -200,7 +200,7 @@ core_rules:
       lang: "bash"
       code: |
         # Generate bundle analysis
-        pnpm --filter @sando/components build
+        pnpm --filter @sando-ds/components build
         pnpm exec vite-bundle-analyzer dist
 
         # Track sizes over time (CI)
@@ -265,12 +265,12 @@ bundle_size_budgets:
   library_level:
     id: "PB-BSB-LL"
     bundles:
-      - name: "Full library (@sando/components)"
+      - name: "Full library (@sando-ds/components)"
         uncompressed: "<300KB"
         gzipped: "<100KB"
         brotli: "<80KB"
         note: "All components"
-      - name: "Tokens (@sando/tokens CSS)"
+      - name: "Tokens (@sando-ds/tokens CSS)"
         uncompressed: "<150KB"
         gzipped: "<40KB"
         brotli: "<30KB"
@@ -292,7 +292,7 @@ bundle_size_budgets:
   documentation_sites:
     id: "PB-BSB-DS"
     sites:
-      - name: "Storybook (@sando/docs)"
+      - name: "Storybook (@sando-ds/docs)"
         initial_load: "<500KB"
         gzipped: "<150KB"
         lcp_target: "<2.0s"
@@ -436,13 +436,13 @@ lighthouse_ci:
                 run: pnpm install
 
               - name: Build tokens
-                run: pnpm --filter @sando/tokens build
+                run: pnpm --filter @sando-ds/tokens build
 
               - name: Build components
-                run: pnpm --filter @sando/components build
+                run: pnpm --filter @sando-ds/components build
 
               - name: Build Storybook
-                run: pnpm --filter @sando/docs build
+                run: pnpm --filter @sando-ds/docs build
 
               - name: Run Lighthouse CI
                 run: |
@@ -469,7 +469,7 @@ bundle_analysis_tools:
         });
 
         # Generate report
-        pnpm --filter @sando/components build
+        pnpm --filter @sando-ds/components build
         # Opens interactive tree map in browser
   rollup_plugin_visualizer:
     id: "PB-BAT-RPV"
@@ -553,7 +553,7 @@ performance_optimization:
       lang: "javascript"
       code: |
         // Defer non-critical components
-        const SandoModal = () => import("@sando/components/modal");
+        const SandoModal = () => import("@sando-ds/components/modal");
   image_optimization:
     id: "PB-PO-IO"
     modern_formats:

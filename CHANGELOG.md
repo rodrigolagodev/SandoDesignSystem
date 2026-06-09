@@ -16,7 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Divider Component** (`sando-divider`) - Visual separator with horizontal/vertical orientation, three weights, three line styles (solid/dashed/dotted), configurable spacing, and optional centered label. Renders semantic `<hr>` for horizontal and `<div role="separator" aria-orientation="vertical">` for vertical.
 - **Checkbox Component** - Full accessibility support with keyboard navigation, indeterminate state, and ARIA attributes
 - **Installation Guide** - Comprehensive documentation for importing tokens with 4 different strategies
-- **CSS Barrel Files** - Auto-generated `index.css` files for convenient imports (`@sando/tokens/css`)
+- **CSS Barrel Files** - Auto-generated `index.css` files for convenient imports (`@sando-ds/tokens/css`)
 - **Flavor Control in Stories** - Added flavor switching to Checkbox, Input, and Icon Storybook stories
 - **Focus Ring Offset Token** - Improved button focus visibility with dedicated token
 
@@ -91,7 +91,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Infrastructure
 
 - Monorepo structure with Turborepo
-- Packages: `@sando/tokens`, `@sando/components`
+- Packages: `@sando-ds/tokens`, `@sando-ds/components`
 - Apps: `docs` (Storybook)
 - Node.js 20+ requirement
 - pnpm 8.15.0 package manager

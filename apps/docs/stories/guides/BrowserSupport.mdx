@@ -281,7 +281,7 @@ const sandoSupported = {
 
 if (Object.values(sandoSupported).every(Boolean)) {
   // All features supported — load Sando components
-  import("@sando/components/button");
+  import("@sando-ds/components/button");
 } else {
   console.warn("Browser missing required features for Sando:", sandoSupported);
 }

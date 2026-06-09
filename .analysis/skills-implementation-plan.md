@@ -772,7 +772,7 @@ allowed-tools: Read, Edit, Bash
 📦 NPM Release Preparation
 
 Version: 0.1.0 (tokens-first)
-Package: @sando/tokens
+Package: @sando-ds/tokens
 
 ✅ Pre-flight Checks:
    ✓ Git status clean
@@ -805,9 +805,9 @@ Package: @sando/tokens
 Ready to publish? (yes/no)
 > yes
 
-Publishing @sando/tokens@0.1.0...
+Publishing @sando-ds/tokens@0.1.0...
 ✅ Published successfully to npm
-🔗 https://www.npmjs.com/package/@sando/tokens
+🔗 https://www.npmjs.com/package/@sando-ds/tokens
 
 Next steps:
 1. Create GitHub release
@@ -946,7 +946,7 @@ The Button component is a fundamental interactive element...
 ## Installation
 
 \`\`\`bash
-npm install @sando/components
+npm install @sando-ds/components
 \`\`\`
 
 ## Usage
@@ -1039,7 +1039,7 @@ color: white; /_ 4.6:1 contrast - WCAG AA ✅ _/
 
 \`\`\`typescript
 // TypeScript import
-import { color } from '@sando/tokens/ingredients';
+import { color } from '@sando-ds/tokens/ingredients';
 
 console.log(color.orange[600]); // "oklch(0.58 0.17 45)"
 \`\`\`
@@ -1081,13 +1081,13 @@ allowed-tools: Bash
 
 ```bash
 # Build tokens
-pnpm --filter @sando/tokens build
+pnpm --filter @sando-ds/tokens build
 
 # Build components (requires tokens built first)
-pnpm --filter @sando/components build
+pnpm --filter @sando-ds/components build
 
 # Start Storybook
-pnpm --filter @sando/docs dev
+pnpm --filter @sando-ds/docs dev
 
 # Clean cache when things break
 rm -rf node_modules/.cache
@@ -1104,20 +1104,20 @@ Claude: [invoca monorepo-task-runner skill]
 
 🏗️  Sando Monorepo Build
 
-Step 1/3: Building @sando/tokens...
+Step 1/3: Building @sando-ds/tokens...
 ✅ Tokens built (3.2s)
    - Ingredients: 8 palettes
    - Flavors: 5 themes
    - Recipes: 2 components
    - Output: dist/sando-tokens/
 
-Step 2/3: Building @sando/components...
+Step 2/3: Building @sando-ds/components...
 ✅ Components built (12.8s)
    - Button: ✓
    - [Future components]
    - Output: dist/
 
-Step 3/3: Building @sando/docs (Storybook)...
+Step 3/3: Building @sando-ds/docs (Storybook)...
 ✅ Storybook built (45.3s)
    - Stories: 8
    - Output: storybook-static/
@@ -1131,9 +1131,9 @@ Step 3/3: Building @sando/docs (Storybook)...
 User: "Build components"
 Claude: [invoca monorepo-task-runner skill]
 
-❌ Build failed: @sando/components
+❌ Build failed: @sando-ds/components
 
-Error: Cannot find module '@sando/tokens/css'
+Error: Cannot find module '@sando-ds/tokens/css'
 Cause: Tokens not built yet
 
 🔧 Auto-fix: Building tokens first...

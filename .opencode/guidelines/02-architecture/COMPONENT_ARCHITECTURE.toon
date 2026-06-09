@@ -437,7 +437,7 @@ seven_file_pattern:
         code: |
           export { SandoExample } from "./sando-example.js";
           export type { ExampleVariant, ExampleSize } from "./sando-example.types.js";
-      why: "Allows `import { SandoExample } from '@sando/components/example'` instead of long paths."
+      why: "Allows `import { SandoExample } from '@sando-ds/components/example'` instead of long paths."
       reference:
         type: "template"
         path: ".opencode/skills/component-creator/assets/templates/index.ts.template"
@@ -573,7 +573,7 @@ component_registration:
           .: "./dist/index.js"
           ./button: "./dist/components/button/sando-button.js"
           ./card: "./dist/components/card/sando-card.js"
-    benefit: "Allows: `import '@sando/components/button'` instead of full path."
+    benefit: "Allows: `import '@sando-ds/components/button'` instead of full path."
 
 related_guidelines:
   - type: "guideline"

@@ -46,7 +46,7 @@ core_rules:
 
         # Example changeset file (.changeset/cool-pandas-jump.md):
         # ---
-        # "@sando/components": minor
+        # "@sando-ds/components": minor
         # ---
         #
         # Add sando-button component with solid/outline/ghost variants
@@ -193,11 +193,11 @@ conventional_commits:
   scopes:
     package_level:
       - name: "components"
-        note: "@sando/components"
+        note: "@sando-ds/components"
       - name: "tokens"
-        note: "@sando/tokens"
+        note: "@sando-ds/tokens"
       - name: "docs"
-        note: "@sando/docs (Storybook — single docs source)"
+        note: "@sando-ds/docs (Storybook — single docs source)"
     feature_level:
       - "button, input, card - Specific components"
       - "theming, accessibility, build - Cross-cutting concerns"
@@ -241,8 +241,8 @@ changesets_workflow:
       lang: "yaml"
       code: |
         ---
-        "@sando/components": minor
-        "@sando/tokens": patch
+        "@sando-ds/components": minor
+        "@sando-ds/tokens": patch
         ---
         Add sando-button component
 

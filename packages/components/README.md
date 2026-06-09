@@ -1,4 +1,4 @@
-# @sando/components
+# @sando-ds/components
 
 > Framework-agnostic Web Components library for Sando Design System built with Lit
 
@@ -22,21 +22,21 @@ A collection of production-ready, accessible, and themeable Web Components that 
 ### Installation
 
 ```bash
-npm install @sando/components @sando/tokens
+npm install @sando-ds/components @sando-ds/tokens
 # or
-pnpm add @sando/components @sando/tokens
+pnpm add @sando-ds/components @sando-ds/tokens
 # or
-yarn add @sando/components @sando/tokens
+yarn add @sando-ds/components @sando-ds/tokens
 ```
 
 ### Basic Usage
 
 ```typescript
 // 1. Import design tokens CSS (once in your app entry point)
-import '@sando/tokens/css';
+import '@sando-ds/tokens/css';
 
 // 2. Import components
-import '@sando/components/button';
+import '@sando-ds/components/button';
 
 // 3. Use in your HTML/JSX/Vue templates
 ```
@@ -53,13 +53,13 @@ import '@sando/components/button';
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="node_modules/@sando/tokens/dist/css/tokens.css" />
+    <link rel="stylesheet" href="node_modules/@sando-ds/tokens/dist/css/tokens.css" />
   </head>
   <body>
     <sando-button variant="solid">Click me</sando-button>
 
     <script type="module">
-      import '@sando/components/button';
+      import '@sando-ds/components/button';
 
       const button = document.querySelector('sando-button');
       button.addEventListener('click', (e) => {
@@ -73,8 +73,8 @@ import '@sando/components/button';
 ### React
 
 ```jsx
-import '@sando/components/button';
-import type { SandoButton } from '@sando/components';
+import '@sando-ds/components/button';
+import type { SandoButton } from '@sando-ds/components';
 
 function App() {
   const handleClick = (e: CustomEvent) => {
@@ -97,7 +97,7 @@ For better TypeScript support in React:
 
 ```typescript
 // types/jsx.d.ts
-import { SandoButton } from '@sando/components';
+import { SandoButton } from '@sando-ds/components';
 
 declare global {
   namespace JSX {
@@ -119,7 +119,7 @@ declare global {
 </template>
 
 <script setup lang="ts">
-import '@sando/components/button';
+import '@sando-ds/components/button';
 
 const handleClick = (e: CustomEvent) => {
   console.log('Clicked!', e.detail);
@@ -149,7 +149,7 @@ export default defineConfig({
 ```typescript
 // app.module.ts
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import '@sando/components/button';
+import '@sando-ds/components/button';
 
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
@@ -166,7 +166,7 @@ export class AppModule {}
 
 ```svelte
 <script>
-  import '@sando/components/button';
+  import '@sando-ds/components/button';
 
   function handleClick(e) {
     console.log('Clicked!', e.detail);
@@ -235,8 +235,8 @@ Fine-grained control via CSS custom properties:
 ### sando-button
 
 ```typescript
-import '@sando/components/button';
-import type { SandoButton, ButtonVariant, ButtonSize } from '@sando/components';
+import '@sando-ds/components/button';
+import type { SandoButton, ButtonVariant, ButtonSize } from '@sando-ds/components';
 ```
 
 **Properties:**
@@ -294,7 +294,7 @@ import {
   isValidEmail,
   isValidUrl,
   clamp
-} from '@sando/components/utils';
+} from '@sando-ds/components/utils';
 
 // Create debounced handler
 const handleInput = debounce((e) => {
@@ -311,7 +311,7 @@ import {
   focusVisible,
   transition,
   spinAnimation
-} from '@sando/components/styles/shared';
+} from '@sando-ds/components/styles/shared';
 
 class MyComponent extends LitElement {
   static styles = css`
@@ -332,8 +332,8 @@ class MyComponent extends LitElement {
 ### Token Consumption
 
 ```typescript
-import { token, tokenWithFallback } from '@sando/components/styles/tokens';
-import { tokens } from '@sando/tokens/recipes';
+import { token, tokenWithFallback } from '@sando-ds/components/styles/tokens';
+import { tokens } from '@sando-ds/tokens/recipes';
 import { css } from 'lit';
 
 const styles = css`
@@ -354,22 +354,22 @@ const styles = css`
 
 ```typescript
 // Main export - all components and utilities
-import { SandoButton } from '@sando/components';
+import { SandoButton } from '@sando-ds/components';
 
 // Individual component export (tree-shakeable)
-import { SandoButton } from '@sando/components/button';
+import { SandoButton } from '@sando-ds/components/button';
 
 // Utilities
-import { debounce, throttle } from '@sando/components/utils';
+import { debounce, throttle } from '@sando-ds/components/utils';
 
 // Types
-import type { ComponentSize, ComponentVariant } from '@sando/components/types';
+import type { ComponentSize, ComponentVariant } from '@sando-ds/components/types';
 
 // Token helpers
-import { token, tokenWithFallback } from '@sando/components/styles/tokens';
+import { token, tokenWithFallback } from '@sando-ds/components/styles/tokens';
 
 // Shared styles
-import { buttonReset, focusVisible } from '@sando/components/styles/shared';
+import { buttonReset, focusVisible } from '@sando-ds/components/styles/shared';
 ```
 
 ## Development
@@ -481,12 +481,12 @@ See the main repository [CONTRIBUTING.md](../../CONTRIBUTING.md) for:
 
 - **Architecture Guide**: [ARCHITECTURE.md](./ARCHITECTURE.md) - Detailed monolithic component architecture
 - **Component Template**: [COMPONENT_TEMPLATE.md](./docs/COMPONENT_TEMPLATE.md) - Step-by-step guide with all required files
-- **Storybook**: Run `pnpm --filter @sando/docs dev` to view interactive documentation
+- **Storybook**: Run `pnpm --filter @sando-ds/docs dev` to view interactive documentation
 
 ## Related Packages
 
-- [`@sando/tokens`](../tokens/README.md) - Design tokens with three-layer architecture
-- [`@sando/docs`](../../apps/docs/README.md) - Storybook documentation site
+- [`@sando-ds/tokens`](../tokens/README.md) - Design tokens with three-layer architecture
+- [`@sando-ds/docs`](../../apps/docs/README.md) - Storybook documentation site
 
 ## License
 

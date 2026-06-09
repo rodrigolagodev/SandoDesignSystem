@@ -21,7 +21,7 @@
     /* Paths */
     "baseUrl": ".",
     "paths": {
-      "@sando/tokens": ["../tokens/src"]
+      "@sando-ds/tokens": ["../tokens/src"]
     },
 
     /* Decorators for Lit */

@@ -13,7 +13,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "@sando/tokens": join(
+      "@sando-ds/tokens": join(
         __dirname,
         "..",
         "..",
@@ -22,7 +22,7 @@ export default defineConfig({
         "dist",
         "sando-tokens",
       ),
-      "@sando/components": join(
+      "@sando-ds/components": join(
         __dirname,
         "..",
         "..",

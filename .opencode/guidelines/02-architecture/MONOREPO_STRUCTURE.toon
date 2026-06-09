@@ -17,11 +17,11 @@ core_rules:
     summary: "Tokens MUST be built before components, components before apps. This dependency chain is enforced by Turborepo."
     build_chain:
       - number: 1
-        note: "@sando/tokens (build)"
+        note: "@sando-ds/tokens (build)"
       - number: 2
-        note: "@sando/components (build)"
+        note: "@sando-ds/components (build)"
       - number: 3
-        note: "@sando/docs (dev/build)"
+        note: "@sando-ds/docs (dev/build)"
     why: "Components consume generated token files (CSS + TS). Building components before tokens fails. Apps import components, so components must be built first."
     turborepo_config:
       lang: "json"
@@ -34,13 +34,13 @@ core_rules:
       lang: "bash"
       code: |
         # ❌ WRONG: Building components before tokens
-        pnpm --filter @sando/components build  # Fails - no token files exist yet
+        pnpm --filter @sando-ds/components build  # Fails - no token files exist yet
     pattern:
       lang: "bash"
       code: |
         # ✅ CORRECT: Build tokens first
-        pnpm --filter @sando/tokens build
-        pnpm --filter @sando/components build
+        pnpm --filter @sando-ds/tokens build
+        pnpm --filter @sando-ds/components build
 
         # ✅ BEST: Let Turborepo handle order
         pnpm build  # Turborepo builds in correct order automatically
@@ -52,18 +52,18 @@ core_rules:
       tree:
         sando-design-system:
           packages: # Shared libraries
-            - "tokens" # @sando/tokens
-            - "components" # @sando/components
+            - "tokens" # @sando-ds/tokens
+            - "components" # @sando-ds/components
           apps: # Deployable applications
-            - "docs" # @sando/docs (Storybook — single docs source)
+            - "docs" # @sando-ds/docs (Storybook — single docs source)
     naming_convention:
-      - "All packages use `@sando/` scope"
+      - "All packages use `@sando-ds/` scope"
       - "Package names: kebab-case matching folder name"
-      - "Example: packages/tokens/ → @sando/tokens"
+      - "Example: packages/tokens/ → @sando-ds/tokens"
     package_json_pattern:
       lang: "json"
       code:
-        name: "@sando/tokens"
+        name: "@sando-ds/tokens"
         version: "0.1.0"
         main: "./dist/index.js"
         exports:
@@ -73,7 +73,7 @@ core_rules:
       lang: "json"
       code:
         # ❌ WRONG: No scope, wrong name format
-        name: "sando_tokens" # Should be @sando/tokens
+        name: "sando_tokens" # Should be @sando-ds/tokens
         version: "0.1.0"
 
   - id: "MS-CR-R3"
@@ -84,14 +84,14 @@ core_rules:
       file: "packages/components/package.json"
       code:
         dependencies:
-          "@sando/tokens": "workspace:*" # ← Always use workspace version
+          "@sando-ds/tokens": "workspace:*" # ← Always use workspace version
     why: "Without `workspace:*`, pnpm might fetch from npm registry instead of using local package. This breaks local development and causes version mismatches."
     anti_pattern:
       - lang: "json"
         title: "❌ WRONG: Version number instead of workspace protocol"
         code:
           dependencies:
-            "@sando/tokens": "^0.1.0" # Might fetch from npm, not local
+            "@sando-ds/tokens": "^0.1.0" # Might fetch from npm, not local
       - lang: "json"
         title: "❌ WRONG: File path instead of package name"
         code:
@@ -147,7 +147,7 @@ core_rules:
       - number: 1
         note: "Create folder in `packages/` or `apps/`"
       - number: 2
-        note: "Add `package.json` with `@sando/{name}`"
+        note: "Add `package.json` with `@sando-ds/{name}`"
       - number: 3
         note: "No need to update `pnpm-workspace.yaml` (glob pattern covers it)"
       - number: 4
@@ -166,7 +166,7 @@ core_rules:
           - 'packages/*'  # Automatically includes all packages
 
 package_responsibilities:
-  - name: "@sando/tokens"
+  - name: "@sando-ds/tokens"
     location: "packages/tokens"
     purpose: "Design token source files (JSON) and build system (Style Dictionary). Generates CSS + TypeScript token files."
     key_files:
@@ -184,12 +184,12 @@ package_responsibilities:
           ./recipes/button: "./dist/sando-tokens/css/recipes/button.css"
           ./ts/ingredients: "./dist/sando-tokens/ts/ingredients/index.ts"
     commands:
-      - "pnpm --filter @sando/tokens build"
-      - "pnpm --filter @sando/tokens dev"
-      - "pnpm --filter @sando/tokens test"
+      - "pnpm --filter @sando-ds/tokens build"
+      - "pnpm --filter @sando-ds/tokens dev"
+      - "pnpm --filter @sando-ds/tokens test"
     dependencies: "None (leaf package in dependency graph)"
 
-  - name: "@sando/components"
+  - name: "@sando-ds/components"
     location: "packages/components"
     purpose: "Lit Web Components consuming tokens. Each component is self-contained in its own folder."
     key_files:
@@ -206,14 +206,14 @@ package_responsibilities:
           ./button: "./dist/components/button/index.js"
           ./input: "./dist/components/input/index.js"
     commands:
-      - "pnpm --filter @sando/components build"
-      - "pnpm --filter @sando/components test"
-      - "pnpm --filter @sando/components test:e2e"
+      - "pnpm --filter @sando-ds/components build"
+      - "pnpm --filter @sando-ds/components test"
+      - "pnpm --filter @sando-ds/components test:e2e"
     dependencies:
-      - "@sando/tokens (workspace)"
+      - "@sando-ds/tokens (workspace)"
       - "lit"
 
-  - name: "@sando/docs"
+  - name: "@sando-ds/docs"
     location: "apps/docs"
     purpose: "Storybook — the single documentation source. Interactive component explorer plus MDX guides, token references, and API docs."
     key_files:
@@ -222,12 +222,12 @@ package_responsibilities:
       - "public/" # Static assets
       - "storybook-static/" # Build output
     commands:
-      - "pnpm --filter @sando/docs dev"
-      - "pnpm --filter @sando/docs build"
-      - "pnpm --filter @sando/docs preview"
+      - "pnpm --filter @sando-ds/docs dev"
+      - "pnpm --filter @sando-ds/docs build"
+      - "pnpm --filter @sando-ds/docs preview"
     dependencies:
-      - "@sando/components (workspace)"
-      - "@sando/tokens (workspace)"
+      - "@sando-ds/components (workspace)"
+      - "@sando-ds/tokens (workspace)"
       - "storybook"
     port: "6006 (default, configurable in .env.local)"
 
@@ -236,17 +236,17 @@ build_order_visualization:
   summary: "Build dependency chain (Tokens → Components → Apps)."
   chain:
     - step: 1
-      package: "@sando/tokens"
+      package: "@sando-ds/tokens"
       purpose: "Layer 1: Build first (Generates CSS/TS)"
       depends_on: "None"
     - step: 2
-      package: "@sando/components"
+      package: "@sando-ds/components"
       purpose: "Layer 2: Consume tokens"
-      depends_on: "@sando/tokens"
+      depends_on: "@sando-ds/tokens"
     - step: 3
-      package: "@sando/docs (Storybook)"
+      package: "@sando-ds/docs (Storybook)"
       purpose: "Layer 3: Document components (single docs source)"
-      depends_on: "@sando/components"
+      depends_on: "@sando-ds/components"
   enforcement: "Turborepo enforces this via `dependsOn: ['^build']` - Each package's build waits for dependencies to finish."
 
 common_commands:
@@ -269,17 +269,17 @@ common_commands:
   package_specific_commands:
     syntax: "pnpm --filter <package-name> <command>"
     tokens:
-      - "pnpm --filter @sando/tokens build"
-      - "pnpm --filter @sando/tokens dev"
-      - "pnpm --filter @sando/tokens test"
+      - "pnpm --filter @sando-ds/tokens build"
+      - "pnpm --filter @sando-ds/tokens dev"
+      - "pnpm --filter @sando-ds/tokens test"
     components:
-      - "pnpm --filter @sando/components build"
-      - "pnpm --filter @sando/components test"
-      - "pnpm --filter @sando/components test:e2e"
+      - "pnpm --filter @sando-ds/components build"
+      - "pnpm --filter @sando-ds/components test"
+      - "pnpm --filter @sando-ds/components test:e2e"
     storybook:
-      - "pnpm --filter @sando/docs dev"
-      - "pnpm --filter @sando/docs build"
-      - "pnpm --filter @sando/docs preview"
+      - "pnpm --filter @sando-ds/docs dev"
+      - "pnpm --filter @sando-ds/docs build"
+      - "pnpm --filter @sando-ds/docs preview"
   shorter_aliases:
     description: "From root package.json"
     commands:
@@ -367,7 +367,7 @@ build_cache_management:
     location: "packages/tokens/.build-cache.json"
     force_rebuild:
       - command: "rm packages/tokens/.build-cache.json"
-      - command: "pnpm --filter @sando/tokens build -- --force"
+      - command: "pnpm --filter @sando-ds/tokens build -- --force"
 
 cross_package_imports:
   id: "MS-CPI"
@@ -384,23 +384,23 @@ cross_package_imports:
         import { css } from "lit";
 
         // Import generated token CSS
-        import ingredientsCss from "@sando/tokens/ingredients";
-        import flavorCss from "@sando/tokens/flavors/original";
-        import buttonRecipesCss from "@sando/tokens/recipes/button";
+        import ingredientsCss from "@sando-ds/tokens/ingredients";
+        import flavorCss from "@sando-ds/tokens/flavors/original";
+        import buttonRecipesCss from "@sando-ds/tokens/recipes/button";
 
         export const tokenStyles = css`
           ${ingredientsCss}
           ${flavorCss}
           ${buttonRecipesCss}
         `;
-    why: "`@sando/tokens` exports individual CSS files. Components import what they need."
+    why: "`@sando-ds/tokens` exports individual CSS files. Components import what they need."
   importing_components_in_apps:
     storybook:
       lang: "typescript"
       code: |
         // Storybook story
-        import "@sando/components/button"; // Auto-registers <sando-button>
-        import type { SandoButton } from "@sando/components/button";
+        import "@sando-ds/components/button"; // Auto-registers <sando-button>
+        import type { SandoButton } from "@sando-ds/components/button";
     storybook_mdx:
       lang: "mdx"
       code: |
@@ -425,7 +425,7 @@ adding_new_packages:
       example:
         lang: "json"
         code:
-          name: "@sando/new-package"
+          name: "@sando-ds/new-package"
           version: "0.1.0"
           type: "module"
           main: "./dist/index.js"
@@ -436,7 +436,7 @@ adding_new_packages:
             dev: "vite"
             test: "vitest"
           dependencies:
-            "@sando/tokens": "workspace:*"
+            "@sando-ds/tokens": "workspace:*"
     - number: 3
       title: "Add to workspace (automatic - glob pattern covers it)"
       command: "pnpm install"
@@ -445,8 +445,8 @@ adding_new_packages:
       command: "mkdir src && touch src/index.ts"
     - number: 5
       title: "Build and test"
-      command: "pnpm --filter @sando/new-package build"
-      command_2: "pnpm --filter @sando/new-package test"
+      command: "pnpm --filter @sando-ds/new-package build"
+      command_2: "pnpm --filter @sando-ds/new-package test"
 
 validation:
   id: "MS-V"
@@ -454,7 +454,7 @@ validation:
     - status: "required"
       note: "All packages in `packages/` or `apps/` folders"
     - status: "required"
-      note: "All packages use `@sando/` scope"
+      note: "All packages use `@sando-ds/` scope"
     - status: "required"
       note: "All packages have `package.json` with correct name"
     - status: "required"
@@ -470,9 +470,9 @@ validation:
     - status: "required"
       note: "Tokens package has no workspace dependencies"
     - status: "required"
-      note: "Components depend on tokens (`@sando/tokens: workspace:*`)"
+      note: "Components depend on tokens (`@sando-ds/tokens: workspace:*`)"
     - status: "required"
-      note: "Apps depend on components (`@sando/components: workspace:*`)"
+      note: "Apps depend on components (`@sando-ds/components: workspace:*`)"
     - status: "required"
       note: "`turbo.json` has `dependsOn: ['^build']`"
   turborepo_config_checklist:
@@ -492,7 +492,7 @@ validation:
     - status: "required"
       note: "`pnpm test` runs all tests"
     - status: "required"
-      note: "Package filters work: `pnpm --filter @sando/tokens build`"
+      note: "Package filters work: `pnpm --filter @sando-ds/tokens build`"
 
 faq:
   id: "MS-FAQ"
@@ -512,14 +512,14 @@ faq:
 
         Error:
         ```
-        Error: Cannot find module '@sando/tokens/ingredients'
+        Error: Cannot find module '@sando-ds/tokens/ingredients'
         ```
 
         Solution: Build tokens first, or use `pnpm build` (Turborepo handles order).
     - id: "MS-FAQ-Q3"
       q: "Where does documentation live?"
       a: |
-        Storybook (`@sando/docs`, port 6006) is the single documentation source. It hosts
+        Storybook (`@sando-ds/docs`, port 6006) is the single documentation source. It hosts
         component stories plus MDX docs under stories/ (getting-started/, guides/, ingredients/,
         flavors/, recipes/). There is no separate documentation site.
     - id: "MS-FAQ-Q4"
@@ -537,10 +537,10 @@ faq:
         YES:
         ```bash
         # Build only tokens
-        pnpm --filter @sando/tokens build
+        pnpm --filter @sando-ds/tokens build
 
         # Build tokens and everything that depends on it
-        pnpm --filter @sando/tokens... build
+        pnpm --filter @sando-ds/tokens... build
         ```
 
 related_guidelines:

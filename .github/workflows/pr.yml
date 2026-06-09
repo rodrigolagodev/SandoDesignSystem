@@ -69,7 +69,7 @@ jobs:
           CI: true
 
       - name: Run E2E tests (Playwright)
-        run: pnpm --filter @sando/components test:e2e
+        run: pnpm --filter @sando-ds/components test:e2e
         env:
           CI: true
 
@@ -145,17 +145,17 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build tokens (required first)
-        run: pnpm --filter @sando/tokens build
+        run: pnpm --filter @sando-ds/tokens build
         env:
           CI: true
 
       - name: Build components
-        run: pnpm --filter @sando/components build
+        run: pnpm --filter @sando-ds/components build
         env:
           CI: true
 
       - name: Build Storybook
-        run: pnpm --filter @sando/docs build
+        run: pnpm --filter @sando-ds/docs build
         env:
           CI: true
 

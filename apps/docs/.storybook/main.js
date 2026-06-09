@@ -78,9 +78,9 @@ const config = {
       resolve: {
         ...config.resolve,
         alias: [
-          { find: "@sando/tokens/dist", replacement: tokensDistPath },
-          { find: "@sando/tokens", replacement: tokensPath },
-          { find: "@sando/components", replacement: componentsPath },
+          { find: "@sando-ds/tokens/dist", replacement: tokensDistPath },
+          { find: "@sando-ds/tokens", replacement: tokensPath },
+          { find: "@sando-ds/components", replacement: componentsPath },
           ...(Array.isArray(config.resolve?.alias) ? config.resolve.alias : []),
         ],
       },

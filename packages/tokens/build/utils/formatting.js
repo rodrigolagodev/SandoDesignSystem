@@ -129,8 +129,8 @@ export function generateTokenJSDoc(options = {}) {
   const title = category ? `${layerName} - ${toTitleCase(category)} Tokens` : `${layerName} Layer Design Tokens`;
 
   const exampleImport = category
-    ? `import { tokens } from '@sando/tokens/${layerName.toLowerCase()}/${category.toLowerCase()}';`
-    : `import { tokens } from '@sando/tokens/${layerName.toLowerCase()}';`;
+    ? `import { tokens } from '@sando-ds/tokens/${layerName.toLowerCase()}/${category.toLowerCase()}';`
+    : `import { tokens } from '@sando-ds/tokens/${layerName.toLowerCase()}';`;
 
   return `/**
  * ${title}
@@ -140,7 +140,7 @@ export function generateTokenJSDoc(options = {}) {
  *
  * @example
  * ${exampleImport}
- * import { token } from '@sando/components/styles';
+ * import { token } from '@sando-ds/components/styles';
  *
  * static styles = css\`
  *   button {
@@ -170,10 +170,10 @@ export function generateIndexJSDoc(options = {}) {
  *
  * @example
  * // Import specific categories
- * import { ${categories.slice(0, 3).join(', ')} } from '@sando/tokens/${importPath}';
+ * import { ${categories.slice(0, 3).join(', ')} } from '@sando-ds/tokens/${importPath}';
  *
  * // Or import everything
- * import * as tokens from '@sando/tokens/${importPath}';
+ * import * as tokens from '@sando-ds/tokens/${importPath}';
  *
  * @generated Auto-generated - DO NOT EDIT
  * @categories ${categories.length} categories available: ${categoryList}

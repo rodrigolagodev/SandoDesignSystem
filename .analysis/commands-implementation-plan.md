@@ -116,10 +116,10 @@ Uncommitted changes: !`git diff --stat`
 
 Check build artifacts:
 
-- @sando/tokens: Check if dist/sando-tokens/ exists and is recent
-- @sando/components: Check if dist/ exists and is recent
-- @sando/docs: Check if storybook-static/ exists
-- @sando/site: Check if .vitepress/dist/ exists
+- @sando-ds/tokens: Check if dist/sando-tokens/ exists and is recent
+- @sando-ds/components: Check if dist/ exists and is recent
+- @sando-ds/docs: Check if storybook-static/ exists
+- @sando-ds/site: Check if .vitepress/dist/ exists
 
 Compare timestamps with source files to detect stale builds.
 
@@ -196,8 +196,8 @@ Read: coverage/lcov-report/index.html
    - Trend (improving/declining if history available)
 
 2. **By Package:**
-   - @sando/tokens: X%
-   - @sando/components: X%
+   - @sando-ds/tokens: X%
+   - @sando-ds/components: X%
    - Show which packages are below target
 
 3. **Files Needing Tests:**
@@ -228,8 +228,8 @@ Provide 3-5 actionable recommendations:
 Overall: 89.4% ✅ (target: >85%)
 
 By Package:
-@sando/tokens 95.2% ✅ (2,200+ tests)
-@sando/components 87.1% ✅ (234 tests)
+@sando-ds/tokens 95.2% ✅ (2,200+ tests)
+@sando-ds/components 87.1% ✅ (234 tests)
 
 Files Below Target (<85%):
 ❌ sando-modal.ts (76.3%)
@@ -1181,7 +1181,7 @@ Running tests... ❌ 3 failures detected (234 passing, 3 failing)
 
 FAILURE #1 (BLOCKER):
 Test: sando-button.test.ts → "should render with default properties"
-Error: Cannot find module '@sando/tokens/recipes'
+Error: Cannot find module '@sando-ds/tokens/recipes'
 
 Root Cause Analysis:
 ✗ Tokens package not built
@@ -1358,7 +1358,7 @@ Capture:
 
 2. **Incorrect Paths:**
    - Relative path wrong (../../ vs ../)
-   - Alias not configured (@sando/tokens)
+   - Alias not configured (@sando-ds/tokens)
    - Case sensitivity (Button.ts vs button.ts)
 
 3. **Circular Dependencies:**
@@ -1394,9 +1394,9 @@ Line: 3
 Current (BROKEN):
 
 ```typescript
-import { tokens } from "@sando/tokens/recipe";
+import { tokens } from "@sando-ds/tokens/recipe";
 //                                    ^^^^^^
-// ERROR: Cannot find module '@sando/tokens/recipe'
+// ERROR: Cannot find module '@sando-ds/tokens/recipe'
 ```
 
 Root Cause:
@@ -1406,7 +1406,7 @@ Root Cause:
 Fixed:
 
 ```typescript
-import { tokens } from "@sando/tokens/recipes";
+import { tokens } from "@sando-ds/tokens/recipes";
 //                                    ^^^^^^^
 ```
 

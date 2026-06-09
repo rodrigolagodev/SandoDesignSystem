@@ -46,9 +46,9 @@ assignees: ""
 
 <!-- Which packages would this affect? -->
 
-- [ ] @sando/tokens
-- [ ] @sando/components
-- [ ] @sando/docs (Storybook)
+- [ ] @sando-ds/tokens
+- [ ] @sando-ds/components
+- [ ] @sando-ds/docs (Storybook)
 
 ## Breaking Changes
 

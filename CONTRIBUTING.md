@@ -339,7 +339,7 @@ packages/components/src/components/my-component/
 
 3. **Implement the component**
    - Use Lit for Web Components
-   - Consume design tokens from `@sando/tokens`
+   - Consume design tokens from `@sando-ds/tokens`
    - Follow accessibility best practices
    - Add comprehensive documentation
 
@@ -389,7 +389,7 @@ When adding or modifying tokens:
 
 3. **Test accessibility**:
    - Ensure color contrast ratios meet WCAG standards
-   - Run `pnpm --filter @sando/tokens test:accessibility`
+   - Run `pnpm --filter @sando-ds/tokens test:accessibility`
 
 ## AI-Powered Development Workflow
 

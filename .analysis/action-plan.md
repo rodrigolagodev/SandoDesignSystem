@@ -99,13 +99,13 @@ Progressive Release Strategy - Publish tokens NOW (0.1.0), components in alpha (
 
 ```bash
 # Step 1: Install from npm
-pnpm add @sando/components @sando/tokens
+pnpm add @sando-ds/components @sando-ds/tokens
 
 # Step 2: Import CSS tokens (once, in entry point)
-import '@sando/tokens/css'
+import '@sando-ds/tokens/css'
 
 # Step 3: Import components as needed
-import '@sando/components/button'
+import '@sando-ds/components/button'
 
 # Step 4: Use in template
 <sando-button variant="solid">Click me</sando-button>
@@ -335,7 +335,7 @@ Wait 6 months → Build 20 components → Publish 1.0.0 → Hope people use it
 **Publish:**
 
 ```bash
-npm publish @sando/tokens@0.1.0
+npm publish @sando-ds/tokens@0.1.0
 ```
 
 **Why This Makes Sense:**
@@ -382,7 +382,7 @@ npm publish @sando/tokens@0.1.0
 **Publish:**
 
 ```bash
-npm publish @sando/components@0.2.0-alpha --tag alpha
+npm publish @sando-ds/components@0.2.0-alpha --tag alpha
 ```
 
 **Minimum Viable Component Set (5 components):**
@@ -404,7 +404,7 @@ npm publish @sando/components@0.2.0-alpha --tag alpha
 **Clear Communication:**
 
 ```markdown
-## ⚠️ Alpha Release - @sando/components@0.2.0-alpha
+## ⚠️ Alpha Release - @sando-ds/components@0.2.0-alpha
 
 ### Available Components
 
@@ -486,16 +486,16 @@ npm publish @sando/components@0.2.0-alpha --tag alpha
 
 ### Days 1-14: Tokens Release 🎯
 
-**Goal:** Publish `@sando/tokens@0.1.0` to npm
+**Goal:** Publish `@sando-ds/tokens@0.1.0` to npm
 
 **Tasks:**
 
 - [ ] **Day 1-2:** Verify package.json exports work correctly
   ```bash
   # Test imports work
-  import '@sando/tokens/css'
-  import { tokens } from '@sando/tokens/recipes'
-  import { values } from '@sando/tokens/ingredients/color'
+  import '@sando-ds/tokens/css'
+  import { tokens } from '@sando-ds/tokens/recipes'
+  import { values } from '@sando-ds/tokens/ingredients/color'
   ```
 - [ ] **Day 3-4:** Write tokens-only README
   - Installation
@@ -513,13 +513,13 @@ npm publish @sando/components@0.2.0-alpha --tag alpha
 - [ ] **Day 11:** Create npm organization (if needed)
 - [ ] **Day 12-13:** Publish to npm
   ```bash
-  npm publish @sando/tokens@0.1.0 --access public
+  npm publish @sando-ds/tokens@0.1.0 --access public
   ```
 - [ ] **Day 14:** Announce release (GitHub, Twitter, Reddit)
 
 **Deliverables:**
 
-- ✅ `@sando/tokens@0.1.0` on npm
+- ✅ `@sando-ds/tokens@0.1.0` on npm
 - ✅ Updated README with installation
 - ✅ 5 usage examples
 - ✅ "Build Your Own" guide
@@ -587,7 +587,7 @@ npm publish @sando/components@0.2.0-alpha --tag alpha
 
 ### Days 46-60: Alpha Components Release 🚀
 
-**Goal:** Publish `@sando/components@0.2.0-alpha`
+**Goal:** Publish `@sando-ds/components@0.2.0-alpha`
 
 **Week 8:**
 
@@ -622,7 +622,7 @@ npm publish @sando/components@0.2.0-alpha --tag alpha
   - Documentation accurate
 - [ ] **Day 56:** Publish to npm
   ```bash
-  npm publish @sando/components@0.2.0-alpha --tag alpha
+  npm publish @sando-ds/components@0.2.0-alpha --tag alpha
   ```
 - [ ] **Day 57-58:** Update documentation site
 - [ ] **Day 59:** Deploy Storybook to GitHub Pages
@@ -630,7 +630,7 @@ npm publish @sando/components@0.2.0-alpha --tag alpha
 
 **Deliverables:**
 
-- ✅ `@sando/components@0.2.0-alpha` on npm
+- ✅ `@sando-ds/components@0.2.0-alpha` on npm
 - ✅ 5 components available
 - ✅ 5 working examples
 - ✅ Framework integration docs
@@ -902,7 +902,7 @@ By following this progressive release approach, you'll learn:
 
 ### Next Week:
 
-1. [ ] Publish `@sando/tokens@0.1.0`
+1. [ ] Publish `@sando-ds/tokens@0.1.0`
 2. [ ] Announce on GitHub/Twitter
 3. [ ] Monitor initial feedback
 4. [ ] Start Input component development
