@@ -49,8 +49,8 @@
     "action": {
       "solid": {
         "background": {
-          "default": { "value": "{color.orange.600.value}", "type": "color" },
-          "hover": { "value": "{color.orange.500.value}", "type": "color" }
+          "default": { "value": "{color.orange.700.value}", "type": "color" },
+          "hover": { "value": "{color.orange.600.value}", "type": "color" }
         },
         "text": {
           "default": {

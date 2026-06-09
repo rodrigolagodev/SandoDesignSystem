@@ -54,7 +54,7 @@
         },
         "text": {
           "default": {
-            "value": "{color.utility.white.value}",
+            "value": "{color.neutralWarm.950.value}",
             "type": "color"
           }
         }

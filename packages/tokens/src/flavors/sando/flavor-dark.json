@@ -67,7 +67,10 @@
           "hover": { "value": "{color.orange.300.value}", "type": "color" }
         },
         "text": {
-          "default": { "value": "{color.utility.white.value}", "type": "color" }
+          "default": {
+            "value": "{color.neutralWarm.950.value}",
+            "type": "color"
+          }
         }
       },
       "outline": {
