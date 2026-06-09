@@ -86,7 +86,9 @@ export const FormFieldMixin = <T extends Constructor<LitElement>>(Base: T) => {
      */
     protected get _inputId(): string {
       if (!this._inputIdValue) {
-        this._inputIdValue = `${this._componentPrefix}-${Math.random().toString(36).substring(2, 11)}`;
+        this._inputIdValue = `${this._componentPrefix}-${Math.random()
+          .toString(36)
+          .substring(2, 11)}`;
       }
       return this._inputIdValue;
     }
