@@ -21,7 +21,7 @@ const files = recipeFiles.map(filename => ({
 	format: 'css/recipes',
 	filter: (token) => {
 		const componentName = getComponentName(filename);
-		return token.path[0] === componentName || token.filePath?.includes('/recipes/');
+		return token.path[0] === componentName;
 	},
 	options: {
 		outputReferences: true

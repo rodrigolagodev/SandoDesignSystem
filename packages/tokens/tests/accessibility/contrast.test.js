@@ -9,6 +9,10 @@
  * Uses culori library for accurate color parsing and WCAG contrast calculations.
  * This aligns with CC-CALC guideline: "Do NOT implement manually: Use existing test utilities"
  * and maintains consistency with palette-generator.js which also uses culori.
+ *
+ * Test matrix: 7 flavors × 3 modes = 21 combinations
+ * Flavors: sando, original, strawberry, nori, egg-salad, kiwi, tonkatsu
+ * Modes: light (flavor.json), dark (flavor-dark.json), high-contrast (flavor-high-contrast.json)
  */
 
 import { describe, it, expect } from "vitest";
@@ -24,11 +28,6 @@ const tokensRoot = path.resolve(__dirname, "../../src");
 /**
  * Calculate WCAG contrast ratio between two color strings.
  * Uses culori for accurate parsing of any CSS color format (OKLCH, HSL, RGB, etc.)
- *
- * @param {string} color1String - First color in any CSS format
- * @param {string} color2String - Second color in any CSS format
- * @returns {number} WCAG contrast ratio (1 to 21)
- * @throws {Error} If either color cannot be parsed
  */
 function getContrastRatio(color1String, color2String) {
   const color1 = parse(color1String);
@@ -45,28 +44,10 @@ function getContrastRatio(color1String, color2String) {
 }
 
 /**
- * Load tokens and resolve references
- */
-function loadTokens() {
-  const ingredientsPath = path.join(tokensRoot, "ingredients");
-  const flavorsPath = path.join(tokensRoot, "flavors");
-
-  // Load ingredients
-  const colorFile = path.join(ingredientsPath, "color.json");
-  const colors = JSON.parse(fs.readFileSync(colorFile, "utf8"));
-
-  // Load flavors
-  const originalFile = path.join(flavorsPath, "original/flavor.json");
-  const flavors = JSON.parse(fs.readFileSync(originalFile, "utf8"));
-
-  return { ingredients: colors, flavors };
-}
-
-/**
  * Get color value from ingredient tokens
  */
-function getIngredientColor(path, ingredients) {
-  const parts = path.replace(".value", "").split(".");
+function getIngredientColor(pathStr, ingredients) {
+  const parts = pathStr.replace(".value", "").split(".");
   let current = ingredients;
 
   for (const part of parts) {
@@ -78,12 +59,11 @@ function getIngredientColor(path, ingredients) {
 }
 
 /**
- * Resolve flavor color to actual color value (HSL or OKLCH)
+ * Resolve flavor color to actual color value
  */
 function resolveFlavorColor(flavorToken, ingredients) {
   if (!flavorToken?.value) return null;
 
-  // If it's a reference, resolve it
   if (
     typeof flavorToken.value === "string" &&
     flavorToken.value.includes("{")
@@ -95,11 +75,89 @@ function resolveFlavorColor(flavorToken, ingredients) {
     }
   }
 
-  // If it's already a color value (HSL or OKLCH)
   return flavorToken.value;
 }
 
-const { ingredients, flavors } = loadTokens();
+/**
+ * Deep merge for mode overlay tokens
+ */
+function deepMerge(target, source) {
+  const result = { ...target };
+  for (const key of Object.keys(source)) {
+    if (source[key] && typeof source[key] === "object" && !Array.isArray(source[key]) && key in result) {
+      result[key] = deepMerge(result[key], source[key]);
+    } else {
+      result[key] = source[key];
+    }
+  }
+  return result;
+}
+
+/**
+ * Get a nested token by path parts
+ */
+function getToken(tokens, pathParts) {
+  let current = tokens;
+  for (const part of pathParts) {
+    if (!current || typeof current !== "object") return null;
+    current = current[part];
+  }
+  return current;
+}
+
+/**
+ * Resolve a color from a token path
+ */
+function resolveColor(tokens, pathParts, ingredients) {
+  const token = getToken(tokens, pathParts);
+  return resolveFlavorColor(token, ingredients);
+}
+
+/**
+ * Load a flavor's tokens with optional mode overlay
+ */
+function loadFlavorTokens(flavor, modeName) {
+  const flavorDir = path.join(tokensRoot, "flavors", flavor);
+  const baseFile = path.join(flavorDir, "flavor.json");
+  const base = JSON.parse(fs.readFileSync(baseFile, "utf8"));
+
+  if (modeName === "light") return base;
+
+  const modeFile = modeName === "dark"
+    ? path.join(flavorDir, "flavor-dark.json")
+    : path.join(flavorDir, "flavor-high-contrast.json");
+
+  if (fs.existsSync(modeFile)) {
+    const modeOverlay = JSON.parse(fs.readFileSync(modeFile, "utf8"));
+    return deepMerge(base, modeOverlay);
+  }
+
+  return base;
+}
+
+// Load ingredients
+const ingredientsPath = path.join(tokensRoot, "ingredients");
+const colorFile = path.join(ingredientsPath, "color.json");
+const ingredients = JSON.parse(fs.readFileSync(colorFile, "utf8"));
+
+// Load original flavor for backward-compatible tests
+const flavorsRoot = path.join(tokensRoot, "flavors");
+const originalFile = path.join(flavorsRoot, "original/flavor.json");
+const flavors = JSON.parse(fs.readFileSync(originalFile, "utf8"));
+
+const FLAVORS = ["sando", "original", "strawberry", "nori", "egg-salad", "kiwi", "tonkatsu"];
+
+// CC-CR-R5 lists four modes (light, dark, high-contrast, forced-colors).
+// forced-colors is intentionally excluded from this matrix: those flavor files
+// use CSS system color keywords (Canvas, CanvasText, ButtonFace, etc.) which
+// are not real colors — they resolve to OS-defined values at runtime and
+// cannot be parsed by culori for WCAG contrast calculation. The user agent
+// guarantees contrast in forced-colors mode by design (per WCAG 1.4.1 spec).
+const MODES = ["light", "dark", "high-contrast"];
+
+// ---------------------------------------------------------------------------
+// ORIGINAL TESTS — kept for backward compatibility (original/light only)
+// ---------------------------------------------------------------------------
 
 describe("Accessibility - Text Contrast (WCAG AA)", () => {
   describe("Body Text on Backgrounds", () => {
@@ -226,11 +284,6 @@ describe("Accessibility - Text Contrast (WCAG AA)", () => {
 
 describe("Accessibility - UI Components (WCAG AA)", () => {
   describe("Borders and UI Elements", () => {
-    // NOTE: border.default is intentionally designed for subtle, decorative borders
-    // with a contrast of ~2.02:1. For accessibility-critical borders that require
-    // 3:1 contrast, use border.emphasis (6.10:1) instead.
-    // This is a design decision documented in COLOR_SYSTEM.toon
-    // TODO: Consider if border.default should be darker, or document this as intended
     it.skip("border-default on background-base should meet 3:1 contrast", () => {
       const borderColorValue = resolveFlavorColor(
         flavors.color.border.default,
@@ -407,7 +460,132 @@ describe("Accessibility - Contrast Report", () => {
     );
     console.log();
 
-    // All should pass
     expect(passCount).toBe(totalCount);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// EXTENDED MATRIX TESTS — 7 flavors × 3 modes = 21 combinations
+// ---------------------------------------------------------------------------
+
+const TEXT_PAIRS = [
+  { label: "text-body on background-base", textPath: ["color", "text", "body"], bgPath: ["color", "background", "base"], minRatio: 4.5 },
+  { label: "text-heading on background-base", textPath: ["color", "text", "heading"], bgPath: ["color", "background", "base"], minRatio: 4.5 },
+  { label: "text-link on background-base", textPath: ["color", "text", "link", "default"], bgPath: ["color", "background", "base"], minRatio: 4.5 },
+  // border-default intentionally omitted — documented design decision for decorative borders (~2.02:1).
+  // See original test's .skip on this pair. Use border.emphasis for accessibility-relevant borders (3:1).
+  { label: "action-solid-text on action-solid-background", textPath: ["color", "action", "solid", "text", "default"], bgPath: ["color", "action", "solid", "background", "default"], minRatio: 4.5 },
+  { label: "success-text on background-base", textPath: ["color", "state", "success", "text"], bgPath: ["color", "background", "base"], minRatio: 4.5 },
+  { label: "destructive-text on background-base", textPath: ["color", "state", "destructive", "text"], bgPath: ["color", "background", "base"], minRatio: 4.5 },
+];
+
+const UI_PAIRS = [
+  { label: "border-emphasis on background-base", textPath: ["color", "border", "emphasis"], bgPath: ["color", "background", "base"], minRatio: 3.0 },
+  { label: "focus-ring on background-base", textPath: ["color", "focus", "ring"], bgPath: ["color", "background", "base"], minRatio: 3.0 },
+];
+
+const EXTRA_TEXT_PAIRS = [
+  { label: "text-body on background-surface", textPath: ["color", "text", "body"], bgPath: ["color", "background", "surface"], minRatio: 4.5 },
+  { label: "text-body on background-raised", textPath: ["color", "text", "body"], bgPath: ["color", "background", "raised"], minRatio: 4.5 },
+  { label: "success-text on success-background", textPath: ["color", "state", "success", "text"], bgPath: ["color", "state", "success", "background"], minRatio: 4.5 },
+  { label: "destructive-text on destructive-background", textPath: ["color", "state", "destructive", "text"], bgPath: ["color", "state", "destructive", "background"], minRatio: 4.5 },
+];
+
+describe("Extended Contrast Matrix — All Flavors × All Modes (CC-CR-R5)", () => {
+  const failures = [];
+
+  FLAVORS.forEach((flavor) => {
+    MODES.forEach((mode) => {
+      describe(`Flavor: ${flavor}, Mode: ${mode}`, () => {
+        const tokens = loadFlavorTokens(flavor, mode);
+
+        TEXT_PAIRS.forEach(({ label, textPath, bgPath, minRatio }) => {
+          it(`${label} should meet ${minRatio}:1 contrast`, () => {
+            const textColor = resolveColor(tokens, textPath, ingredients);
+            const bgColor = resolveColor(tokens, bgPath, ingredients);
+
+            if (!textColor || !bgColor) {
+              console.warn(`  [SKIP] ${flavor}/${mode}: Could not resolve colors for ${label}`);
+              return;
+            }
+
+            const ratio = getContrastRatio(textColor, bgColor);
+            const pass = ratio >= minRatio;
+            const status = pass ? "PASS" : "FAIL";
+
+            console.log(`  [${status}] ${flavor}/${mode}: ${label} = ${ratio.toFixed(2)}:1 (min: ${minRatio}:1)`);
+
+            if (!pass) {
+              const msg = `${flavor}/${mode}: ${label} (${textColor} on ${bgColor}) = ${ratio.toFixed(2)}:1 — FAILS ${minRatio}:1 AA`;
+              failures.push(msg);
+              console.error(`  ** FAIL ** ${msg}`);
+            }
+
+            expect(ratio).toBeGreaterThanOrEqual(minRatio);
+          });
+        });
+
+        UI_PAIRS.forEach(({ label, textPath, bgPath, minRatio }) => {
+          it(`${label} should meet ${minRatio}:1 contrast`, () => {
+            const textColor = resolveColor(tokens, textPath, ingredients);
+            const bgColor = resolveColor(tokens, bgPath, ingredients);
+
+            if (!textColor || !bgColor) {
+              console.warn(`  [SKIP] ${flavor}/${mode}: Could not resolve colors for ${label}`);
+              return;
+            }
+
+            const ratio = getContrastRatio(textColor, bgColor);
+            const pass = ratio >= minRatio;
+            const status = pass ? "PASS" : "FAIL";
+
+            console.log(`  [${status}] ${flavor}/${mode}: ${label} = ${ratio.toFixed(2)}:1 (min: ${minRatio}:1)`);
+
+            if (!pass) {
+              const msg = `${flavor}/${mode}: ${label} (${textColor} on ${bgColor}) = ${ratio.toFixed(2)}:1 — FAILS ${minRatio}:1 AA`;
+              failures.push(msg);
+              console.error(`  ** FAIL ** ${msg}`);
+            }
+
+            expect(ratio).toBeGreaterThanOrEqual(minRatio);
+          });
+        });
+
+        EXTRA_TEXT_PAIRS.forEach(({ label, textPath, bgPath, minRatio }) => {
+          it(`${label} should meet ${minRatio}:1 contrast`, () => {
+            const textColor = resolveColor(tokens, textPath, ingredients);
+            const bgColor = resolveColor(tokens, bgPath, ingredients);
+
+            if (!textColor || !bgColor) {
+              console.warn(`  [SKIP] ${flavor}/${mode}: Could not resolve colors for ${label}`);
+              return;
+            }
+
+            const ratio = getContrastRatio(textColor, bgColor);
+            const pass = ratio >= minRatio;
+            const status = pass ? "PASS" : "FAIL";
+
+            console.log(`  [${status}] ${flavor}/${mode}: ${label} = ${ratio.toFixed(2)}:1 (min: ${minRatio}:1)`);
+
+            if (!pass) {
+              const msg = `${flavor}/${mode}: ${label} (${textColor} on ${bgColor}) = ${ratio.toFixed(2)}:1 — FAILS ${minRatio}:1 AA`;
+              failures.push(msg);
+              console.error(`  ** FAIL ** ${msg}`);
+            }
+
+            expect(ratio).toBeGreaterThanOrEqual(minRatio);
+          });
+        });
+      });
+    });
+  });
+
+  afterAll(() => {
+    if (failures.length > 0) {
+      console.error("\n  ===== CONTRAST FAILURES SUMMARY =====");
+      failures.forEach((f) => console.error(`  - ${f}`));
+      console.error(`  Total: ${failures.length} failure(s)`);
+      console.error("  =====================================\n");
+    }
   });
 });

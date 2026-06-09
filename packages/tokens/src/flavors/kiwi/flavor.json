@@ -37,7 +37,7 @@
     },
     "focus": {
       "ring": {
-        "value": "{color.green.500.value}",
+        "value": "{color.green.600.value}",
         "type": "color"
       },
       "ring-offset": {
@@ -68,23 +68,23 @@
       },
       "link": {
         "default": {
-          "value": "{color.green.600.value}",
+          "value": "{color.green.700.value}",
           "type": "color"
         },
         "hover": {
-          "value": "{color.green.700.value}",
-          "type": "color"
-        },
-        "active": {
           "value": "{color.green.800.value}",
           "type": "color"
         },
+        "active": {
+          "value": "{color.green.900.value}",
+          "type": "color"
+        },
         "visited": {
-          "value": "{color.green.700.value}",
+          "value": "{color.green.800.value}",
           "type": "color"
         },
         "focus": {
-          "value": "{color.green.600.value}",
+          "value": "{color.green.700.value}",
           "type": "color"
         }
       },
@@ -140,7 +140,7 @@
         "type": "color"
       },
       "emphasis": {
-        "value": "{color.green.500.value}",
+        "value": "{color.green.600.value}",
         "type": "color"
       },
       "on-solid": {
@@ -157,11 +157,11 @@
       "solid": {
         "background": {
           "default": {
-            "value": "{color.green.600.value}",
+            "value": "{color.green.700.value}",
             "type": "color"
           },
           "hover": {
-            "value": "{color.green.700.value}",
+            "value": "{color.green.800.value}",
             "type": "color"
           }
         },

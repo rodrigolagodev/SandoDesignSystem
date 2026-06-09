@@ -1,9 +1,9 @@
 meta:
   doc_id: "TA"
   category: "01-design-system"
-  version: "2.2.0"
+  version: "2.4.0"
   status: "Active"
-  last_updated: "2026-04-06"
+  last_updated: "2026-06-09"
   owner: "Design System Architect"
 
 purpose:
@@ -172,6 +172,17 @@ core_rules:
             primary:
               value: "{color.orange.700.value}" # What is "primary" used for?
     why: "Semantic naming enables brand-agnostic design. `color.action.solid.background` can map to ANY color—orange, purple, blue—without changing component code."
+    exception:
+      title: "Exception — Component-Named Sizing Tokens"
+      summary: "Component-named sizing tokens in the Flavor layer are permitted when the dimension is intrinsic to a specific component's physical geometry and no generic semantic equivalent exists."
+      criteria:
+        - "The dimension encodes a specific physical proportion that cannot be generalized (e.g., aspect ratio of a toggle track, circular diameter of an avatar)."
+        - "The dimension is part of a coordinated multi-property set (e.g., avatar container + font + presence dot) that must stay locked per size."
+        - "No existing `sizing.control.*` or other generic sizing token can express the same physical dimension."
+      existing_tokens:
+        - "`sizing.toggle.*` — track width/height, thumb size, offset"
+        - "`sizing.avatar.*` — container diameter, font size, presence dot per size"
+      review_gate: "NEW component-named sizing tokens MUST be reviewed against these criteria during PR review."
 
   - id: "TA-CR-R6"
     title: "Inner Radius Rule — Nested Elements Step Down One Semantic Level"
@@ -587,6 +598,18 @@ related_guidelines:
     note: "Complete token specifications (165 colors, all scales)"
 
 changelog:
+  - version: "2.4.0"
+    date: "2026-06-09"
+    changes:
+      - type: "CHANGED"
+        note: "TA-DLN-R1 — Deferred Kohaku Gold migration per founder decision. Sando flavor keeps orange/amber accent (color.orange.600) for now. Kohaku Gold target remains aspirational in SANDO_DESIGN_LANGUAGE.md."
+  - version: "2.3.0"
+    date: "2026-06-09"
+    changes:
+      - type: "NEW"
+        note: "ADR-003 — Added TA-CR-R5 exception for component-named sizing tokens (sizing.toggle.*, sizing.avatar.*) when dimensions are intrinsic to physical geometry and no generic semantic equivalent exists"
+      - type: "IMPROVED"
+        note: "TA-CR-R5 now includes exception block with criteria, existing tokens list, and PR review gate"
   - version: "2.2.0"
     date: "2026-04-06"
     changes:
@@ -626,19 +649,29 @@ design_language_notes:
   last_synced: "2026-04-06"
 
   - id: "TA-DLN-R1"
-    title: "Sando Flavor Accent — Kohaku Gold (Not Pure Amber)"
-    summary: "The sando flavor MUST use Kohaku Gold (hue 40-55° OKLCH) as its accent, not pure amber."
+    title: "Sando Flavor Accent — Kohaku Gold (Aspirational)"
+    summary: |
+      The sando flavor was originally intended to use Kohaku Gold (hue 40-55° OKLCH)
+      as its accent, but this change has been deferred. The sando flavor currently uses
+      the orange/amber accent (color.orange.600).
+    status: "Deferred"
     specification: |
-      The Kohaku Gold direction is warmer (lower hue angle) and slightly less saturated
-      than the previous amber. The target feeling is "burnished gold" — like toasted sesame
-      or craft whiskey, not "notification yellow" or "construction warning."
+      Kohaku Gold (hue 40-55°, medium chroma, same lightness scale) is documented
+      in SANDO_DESIGN_LANGUAGE.md §3.2 as the target accent. When ready to implement,
+      see the design language doc for the full specification. The orange/amber tokens
+      remain as the current implementation.
     token_impact:
       - layer: "Ingredients"
-        note: "Kohaku Gold ingredient tokens at hue 40-55° with medium chroma profile"
+        note: "Kohaku Gold ingredient tokens NOT generated — deferred"
       - layer: "Flavors"
-        note: "The `sando` flavor maps `color.action.*` to Kohaku Gold ingredients instead of amber"
+        note: "The sando flavor continues to use orange/amber ingredients"
       - layer: "Recipes"
-        note: "No changes — Recipes reference Flavors, not Ingredients directly"
+        note: "No changes — Recipes reference Flavors, not Ingredients"
+    reference:
+      type: "source_document"
+      path: ".opencode/SANDO_DESIGN_LANGUAGE.md"
+      section: "§3.2 Accent Color Direction"
+      note: "Kohaku Gold specification (aspirational)"
     reference:
       type: "source_document"
       path: ".opencode/SANDO_DESIGN_LANGUAGE.md"

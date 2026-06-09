@@ -1,10 +1,18 @@
 meta:
   doc_id: "SEC"
   category: "05-quality"
-  version: "1.0.0"
+  version: "1.1.0"
   status: "Active"
-  last_updated: "2025-11-09"
+  last_updated: "2026-06-09"
   owner: "Security Compliance Auditor"
+
+changelog:
+  - version: "1.1.0"
+    date: "2026-06-09"
+    changes:
+      - "Updated SEC-CR-R3: Replaced Dependabot PR example with alerts-only posture rationale referencing 2024 supply-chain attacks (#135)"
+      - "Reframed dependency vulnerability scanning to document project's alerts-only approach with Dependabot as alternative"
+      - "Updated dependabot subsection (SEC-DS-DB) to reference alerts-only decision and contextualize as alternative workflow"
 
 purpose:
   id: "SEC-PU"
@@ -114,18 +122,27 @@ core_rules:
         # CI enforcement
         pnpm audit --audit-level=high
         # Exit code 1 if high/critical vulnerabilities found
-    github_dependabot:
-      lang: "yaml"
-      path: ".github/dependabot.yml"
-      code: |
-        version: 2
-        updates:
-          - package-ecosystem: "npm"
-            directory: "/"
-            schedule:
-              interval: "weekly"
-            open-pull-requests-limit: 10
-            versioning-strategy: increase
+    supply_chain_alerts:
+      title: "Alerts-Only (Current Project Posture)"
+      summary: "The project uses GitHub's Dependency Alerts + pnpm audit instead of Dependabot auto-PRs."
+      rationale: |
+        Since the 2024 supply-chain attacks (solana/web3.js, ua-parser-js, etc.),
+        the project has adopted an alerts-only posture. Automated PRs from Dependabot
+        represent a vector for malicious package updates that may pass CI if tests are
+        insufficient. Instead, `pnpm audit --audit-level=high` runs in CI, and
+        Dependency Alerts notify the team manually for triage.
+      alternative_approach: "Teams that prefer automated updates can configure Dependabot as follows:"
+      code:
+        lang: "yaml"
+        path: ".github/dependabot.yml"
+        code: |
+          version: 2
+          updates:
+            - package-ecosystem: "npm"
+              directory: "/"
+              schedule:
+                interval: "weekly"
+              open-pull-requests-limit: 10
     severity_levels:
       - name: "Critical"
         action: "Block merge, emergency patch"
@@ -366,7 +383,13 @@ dependency_security:
         # Review audit.json for severity/exploitability
   dependabot:
     id: "SEC-DS-DB"
-    summary: "Automatic PR creation for vulnerable dependencies"
+    status: "Alternative Approach"
+    summary: "The project uses alerts-only (see supply_chain_alerts in SEC-CR-R3). Dependabot is documented here as an alternative for teams that prefer automated PRs."
+    rationale: |
+      Since the 2024 supply-chain attacks (solana/web3.js, ua-parser-js, etc.),
+      the project adopted an alerts-only posture. Automated Dependabot PRs
+      may introduce malicious packages if CI tests are insufficient.
+      See SEC-CR-R3 supply_chain_alerts for the full rationale.
     config:
       lang: "yaml"
       path: ".github/dependabot.yml"
@@ -384,7 +407,7 @@ dependency_security:
             reviewers:
               - "security-team"
     benefits:
-      - "Automated vulnerability detection"
+      - "Automated vulnerability detection (alternative workflow)"
       - "PRs with fix suggestions"
       - "Configurable auto-merge (patch/minor only)"
   snyk_integration:

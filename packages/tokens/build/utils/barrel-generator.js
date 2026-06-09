@@ -202,22 +202,66 @@ function generateRecipesBarrel(cssDir) {
 }
 
 /**
- * Generate root index.css
- * Full bundle: ingredients + default flavor + recipes
+ * Generate per-flavor CSS entry points
+ * Creates {flavor}.css files at the root of cssDir
+ * Each imports ingredients + that flavor's modes
  * @param {string} cssDir - Base CSS output directory
+ * @returns {string[]} Array of flavor folder names
  */
-function generateRootBarrel(cssDir) {
+function generateFlavorEntryPoints(cssDir) {
+  const flavorsDir = path.join(cssDir, 'flavors');
+  const flavorFolders = discoverSubdirectories(flavorsDir);
+
+  for (const flavor of flavorFolders) {
+    const content = [
+      `@import "./ingredients/index.css";`,
+      `@import "./flavors/${flavor}/index.css";`
+    ].join('\n');
+    const outputPath = path.join(cssDir, `${flavor}.css`);
+    writeBarrelFile(outputPath, content, `${flavor} Flavor Entry Point`);
+    console.log(`   🎨 ${flavor}.css (ingredients + ${flavor} flavor)`);
+  }
+
+  return flavorFolders;
+}
+
+/**
+ * Generate theme.css
+ * Full bundle: ingredients + ALL flavors (no recipes)
+ * @param {string} cssDir - Base CSS output directory
+ * @param {string[]} flavorFolders - Array of flavor folder names
+ */
+function generateThemeBarrel(cssDir, flavorFolders) {
   const imports = [
     '@import "./ingredients/index.css";',
-    '@import "./flavors/index.css";',
-    '@import "./recipes/index.css";'
+    ...flavorFolders.map(f => `@import "./flavors/${f}/index.css";`)
   ];
 
   const content = imports.join('\n');
+  const outputPath = path.join(cssDir, 'theme.css');
+
+  writeBarrelFile(outputPath, content, 'Full Theme Bundle');
+  console.log(`   🎨 theme.css (${flavorFolders.length} flavors)`);
+}
+
+/**
+ * Generate root index.css (deprecated)
+ * Re-exports theme.css with deprecation notice
+ * @param {string} cssDir - Base CSS output directory
+ */
+function generateRootBarrel(cssDir) {
+  const content = [
+    '/**',
+    ' * @deprecated Use @sando-ds/tokens/css/theme.css instead.',
+    ' * Will be removed in the next major version.',
+    ' */',
+    '',
+    '@import "./theme.css";'
+  ].join('\n');
   const outputPath = path.join(cssDir, 'index.css');
 
-  writeBarrelFile(outputPath, content, 'Full Bundle');
-  console.log(`   📋 index.css (full bundle)`);
+  writeBarrelFile(outputPath, content, 'Full Bundle (deprecated — use theme.css)');
+  console.log(`   📋 index.css (deprecated — re-exports theme.css)`);
 }
 
 /**
@@ -242,7 +286,13 @@ export async function generateCssBarrels(distDir) {
     const { flavors, totalModes } = generateFlavorsBarrel(cssDir);
     const recipesCount = generateRecipesBarrel(cssDir);
 
-    // Generate root barrel
+    // Generate per-flavor entry points
+    const flavorFolders = generateFlavorEntryPoints(cssDir);
+
+    // Generate theme.css (ingredients + all flavors)
+    generateThemeBarrel(cssDir, flavorFolders);
+
+    // Generate root barrel (deprecated — re-exports theme.css)
     generateRootBarrel(cssDir);
 
     console.log('');
