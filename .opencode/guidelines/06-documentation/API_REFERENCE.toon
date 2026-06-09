@@ -375,7 +375,7 @@ mdx_doc_structure:
 
       ```html
       <script type="module">
-        import "@sando/components/component-name";
+        import "@sando-ds/components/component-name";
       </script>
 
       <component-name attribute="value">
@@ -486,7 +486,7 @@ mdx_doc_structure:
       ### React
 
       ```tsx
-      import "@sando/components/component-name";
+      import "@sando-ds/components/component-name";
 
       function App() {
         return <component-name attribute="value">Content</component-name>;
@@ -820,7 +820,7 @@ examples_documentation:
 
         ```tsx
         import { useRef } from 'react';
-        import '@sando/components/button';
+        import '@sando-ds/components/button';
 
         function App() {
           const buttonRef = useRef<HTMLElement>(null);

@@ -15,7 +15,7 @@
 <!-- Verify all applicable items -->
 
 - [ ] Unit tests pass (`pnpm test`)
-- [ ] E2E tests pass (`pnpm --filter @sando/components test:e2e`)
+- [ ] E2E tests pass (`pnpm --filter @sando-ds/components test:e2e`)
 - [ ] Accessibility tests pass (jest-axe)
 - [ ] Manual testing completed
 - [ ] Storybook stories added/updated (if component changes)

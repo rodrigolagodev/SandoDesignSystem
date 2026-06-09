@@ -446,16 +446,16 @@ export default {
 
 ```bash
 # Quick start
-npx @sando/token-generator init
+npx @sando-ds/token-generator init
 
 # Interactive wizard
-npx @sando/token-generator create
+npx @sando-ds/token-generator create
 
 # From config
-npx @sando/token-generator build --config sando.config.js
+npx @sando-ds/token-generator build --config sando.config.js
 
 # Validate existing tokens
-npx @sando/token-generator validate
+npx @sando-ds/token-generator validate
 ```
 
 ---
@@ -499,7 +499,7 @@ npx @sando/token-generator validate
 **Deliverable:**
 
 ```javascript
-import { generateColorScale } from "@sando/token-generator";
+import { generateColorScale } from "@sando-ds/token-generator";
 
 const scale = generateColorScale({
   base: "#FF6B00",
@@ -526,7 +526,7 @@ const scale = generateColorScale({
 **Deliverable:**
 
 ```bash
-npx @sando/token-generator build
+npx @sando-ds/token-generator build
 # Reads sando.config.js
 # Outputs packages/tokens/src/ingredients/generated/
 ```
@@ -548,7 +548,7 @@ npx @sando/token-generator build
 **Deliverable:**
 
 ```bash
-npx @sando/token-generator build --with-flavors
+npx @sando-ds/token-generator build --with-flavors
 # Outputs ingredients + flavors
 ```
 
@@ -569,7 +569,7 @@ npx @sando/token-generator build --with-flavors
 **Deliverable:**
 
 ```bash
-npx @sando/token-generator init
+npx @sando-ds/token-generator init
 ? What's your primary brand color? #FF6B00
 ? Generate neutrals automatically? Yes
 ✓ Generated 55 ingredient tokens
@@ -710,7 +710,7 @@ vim sando.config.js
 # Change primary: '#3B82F6' → '#A855F7'
 
 # 2. Regenerate
-npx @sando/token-generator build
+npx @sando-ds/token-generator build
 
 # 3. Review changes
 git diff packages/tokens/src/ingredients/
@@ -791,8 +791,8 @@ export default {
 
 **Options:**
 
-- A) Part of @sando/tokens (built-in)
-- B) Separate @sando/token-generator (install separately)
+- A) Part of @sando-ds/tokens (built-in)
+- B) Separate @sando-ds/token-generator (install separately)
 
 **Recommendation:** B) Separate package
 

@@ -255,14 +255,14 @@ ci_integration:
 commands:
   id: "TC-CMD"
   components:
-    - command: "pnpm --filter @sando/components test:coverage"
+    - command: "pnpm --filter @sando-ds/components test:coverage"
       description: "Run tests with coverage report"
-    - command: "pnpm --filter @sando/components test:coverage --reporter=html"
+    - command: "pnpm --filter @sando-ds/components test:coverage --reporter=html"
       description: "Generate HTML report only"
     - command: "open packages/components/coverage/index.html"
       description: "View HTML coverage report"
   tokens:
-    - command: "pnpm --filter @sando/tokens test:coverage"
+    - command: "pnpm --filter @sando-ds/tokens test:coverage"
       description: "Token package coverage"
   global:
     - command: "pnpm test:coverage"
@@ -274,7 +274,7 @@ viewing_coverage:
     id: "TC-VC-HR"
     steps:
       - number: 1
-        action: "Run: pnpm --filter @sando/components test:coverage"
+        action: "Run: pnpm --filter @sando-ds/components test:coverage"
       - number: 2
         action: "Open: packages/components/coverage/index.html"
       - number: 3

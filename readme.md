@@ -166,9 +166,9 @@ This monorepo contains:
 
 | Package                                        | Description                                   |
 | ---------------------------------------------- | --------------------------------------------- |
-| **[@sando/tokens](./packages/tokens)**         | Design tokens (Ingredients, Flavors, Recipes) |
-| **[@sando/components](./packages/components)** | Web Components library                        |
-| **[@sando/docs](./apps/docs)**                 | Storybook documentation (single source)       |
+| **[@sando-ds/tokens](./packages/tokens)**         | Design tokens (Ingredients, Flavors, Recipes) |
+| **[@sando-ds/components](./packages/components)** | Web Components library                        |
+| **[@sando-ds/docs](./apps/docs)**                 | Storybook documentation (single source)       |
 
 ## Three-Layer Token Architecture
 

@@ -1,5 +1,5 @@
 {
-  "name": "@sando/docs",
+  "name": "@sando-ds/docs",
   "version": "0.1.0",
   "private": true,
   "description": "Documentation and component playground for Sando Design System",
@@ -11,8 +11,8 @@
     "clean": "rm -rf storybook-static"
   },
   "dependencies": {
-    "@sando/components": "workspace:*",
-    "@sando/tokens": "workspace:*"
+    "@sando-ds/components": "workspace:*",
+    "@sando-ds/tokens": "workspace:*"
   },
   "devDependencies": {
     "@storybook/addon-a11y": "8.6.14",

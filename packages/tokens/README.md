@@ -1,13 +1,13 @@
-# @sando/tokens
+# @sando-ds/tokens
 
 Design tokens for Sando Design System built with Style Dictionary 4.0.
 
 ## 📦 Installation
 
 ```bash
-npm install @sando/tokens
+npm install @sando-ds/tokens
 # or
-pnpm add @sando/tokens
+pnpm add @sando-ds/tokens
 ```
 
 ## 🎨 Token Architecture
@@ -67,9 +67,9 @@ Three-layer architecture for scalable design tokens:
 
 ```css
 /* Import all tokens */
-@import "@sando/tokens/css/ingredients";
-@import "@sando/tokens/css/flavors";
-@import "@sando/tokens/css/recipes";
+@import "@sando-ds/tokens/css/ingredients";
+@import "@sando-ds/tokens/css/flavors";
+@import "@sando-ds/tokens/css/recipes";
 
 /* Use in your components */
 .my-button {
@@ -83,8 +83,8 @@ Three-layer architecture for scalable design tokens:
 ### TypeScript Usage (Type-Safe)
 
 ```typescript
-import { tokens } from "@sando/tokens/recipes";
-import { values } from "@sando/tokens/ingredients/color";
+import { tokens } from "@sando-ds/tokens/recipes";
+import { values } from "@sando-ds/tokens/ingredients/color";
 import { css, LitElement } from "lit";
 
 class MyButton extends LitElement {
@@ -218,10 +218,10 @@ npm run test:build          # CSS/TypeScript output validation
 
 ```bash
 # Run tests for tokens package only
-pnpm --filter @sando/tokens test
+pnpm --filter @sando-ds/tokens test
 
 # With coverage
-pnpm --filter @sando/tokens test:coverage
+pnpm --filter @sando-ds/tokens test:coverage
 ```
 
 **Reporter Options:**
@@ -249,11 +249,11 @@ pnpm --filter @sando/tokens test:coverage
 
 ```typescript
 // Absolute primitive values (ingredients)
-import { values } from "@sando/tokens/ingredients/color";
+import { values } from "@sando-ds/tokens/ingredients/color";
 values.brand[500]; // '#f97415'
 
 // CSS variable names (flavors/recipes)
-import { tokens } from "@sando/tokens/recipes";
+import { tokens } from "@sando-ds/tokens/recipes";
 tokens.button.solid.backgroundColor.default; // '--sando-button-solid-backgroundColor-default'
 ```
 

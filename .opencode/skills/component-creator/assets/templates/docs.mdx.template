@@ -13,7 +13,7 @@ import { Meta } from "@storybook/blocks";
 ## Installation
 
 ```bash
-npm install @sando/components
+npm install @sando-ds/components
 ```
 
 ## Basic Usage
@@ -46,7 +46,7 @@ npm install @sando/components
 ### React
 
 ```tsx
-import "@sando/components/{{COMPONENT_NAME}}";
+import "@sando-ds/components/{{COMPONENT_NAME}}";
 
 function App() {
   return <sando-{{COMPONENT_NAME}}>Content</sando-{{COMPONENT_NAME}}>;
@@ -61,7 +61,7 @@ function App() {
 </template>
 
 <script setup>
-import "@sando/components/{{COMPONENT_NAME}}";
+import "@sando-ds/components/{{COMPONENT_NAME}}";
 </script>
 ```
 

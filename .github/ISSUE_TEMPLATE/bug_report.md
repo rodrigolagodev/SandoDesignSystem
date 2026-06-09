@@ -26,7 +26,7 @@ assignees: ""
 
 ## Environment
 
-- **Package**: @sando/components | @sando/tokens
+- **Package**: @sando-ds/components | @sando-ds/tokens
 - **Version**: (e.g., 1.2.3)
 - **Browser**: (e.g., Chrome 120, Firefox 121)
 - **OS**: (e.g., macOS 14, Windows 11)

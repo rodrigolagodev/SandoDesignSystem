@@ -5,7 +5,7 @@
  *
  * @example
  * import { css } from 'lit';
- * import { tokens } from '@sando/tokens/recipes';
+ * import { tokens } from '@sando-ds/tokens/recipes';
  * import { token } from './token-helpers';
  *
  * static styles = css`

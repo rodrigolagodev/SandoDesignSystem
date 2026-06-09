@@ -196,7 +196,7 @@ core_rules:
         command: "rm packages/tokens/.build-cache.json && pnpm tokens:build"
         description: "Delete cache manually"
       - method: 3
-        command: "pnpm --filter @sando/tokens build:clean"
+        command: "pnpm --filter @sando-ds/tokens build:clean"
         description: "Use build:clean script"
     why: "Speeds up development. Changing one color shouldn't rebuild all 3 layers."
     reference:
@@ -407,11 +407,11 @@ build_commands:
     - name: "pnpm tokens:dev"
       description: "Watch mode (rebuild on file changes)"
   development_commands:
-    - name: "pnpm --filter @sando/tokens clean"
+    - name: "pnpm --filter @sando-ds/tokens clean"
       description: "Clean all outputs and cache"
-    - name: "pnpm --filter @sando/tokens build:clean"
+    - name: "pnpm --filter @sando-ds/tokens build:clean"
       description: "Clean + rebuild"
-    - name: "pnpm --filter @sando/tokens test"
+    - name: "pnpm --filter @sando-ds/tokens test"
       description: "Test tokens (validation tests)"
 
 output_structure:

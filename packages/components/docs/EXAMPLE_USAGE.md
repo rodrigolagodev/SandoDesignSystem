@@ -9,7 +9,7 @@ import { LitElement, css, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 // ✅ Import tokens con autocomplete
-import { tokens } from '@sando/tokens/recipes';
+import { tokens } from '@sando-ds/tokens/recipes';
 
 // ✅ Import helper para convertir a CSS vars
 import { token } from '../styles/tokens';
@@ -267,10 +267,10 @@ background: var(${tokens.button.backgroundColor.default});
 
 ```typescript
 // ✅ Tree-shakeable
-import { tokens } from '@sando/tokens/recipes';
+import { tokens } from '@sando-ds/tokens/recipes';
 
 // ⚠️ Importa todo (más pesado)
-import { recipes } from '@sando/tokens';
+import { recipes } from '@sando-ds/tokens';
 ```
 
 ### Usa `tokenWithFallback` para casos edge

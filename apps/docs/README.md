@@ -1,4 +1,4 @@
-# @sando/docs
+# @sando-ds/docs
 
 Documentation and component playground for Sando Design System using Storybook.
 
@@ -40,7 +40,7 @@ Example story:
 ```typescript
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import '@sando/components/button';
+import '@sando-ds/components/button';
 
 const meta: Meta = {
   title: 'Components/Button',
@@ -70,8 +70,8 @@ export const Primary: Story = {
 
 ## 🔗 Dependencies
 
-- `@sando/components` - Component library (workspace)
-- `@sando/tokens` - Design tokens (workspace)
+- `@sando-ds/components` - Component library (workspace)
+- `@sando-ds/tokens` - Design tokens (workspace)
 - `@storybook/web-components` - Storybook for Web Components
 
 ## 📖 License

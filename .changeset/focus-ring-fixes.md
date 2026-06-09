@@ -1,5 +1,5 @@
 ---
-"@sando/components": patch
+"@sando-ds/components": patch
 ---
 
 ### Accessibility Fixes

@@ -131,8 +131,8 @@ Two orthogonal systems:
 ### Monorepo & Build
 
 - **Tooling**: Turborepo + pnpm workspaces.
-- **Packages**: `@sando/tokens`, `@sando/components`.
-- **Apps**: `@sando/docs` (Storybook 8), `@sando/site` (VitePress).
+- **Packages**: `@sando-ds/tokens`, `@sando-ds/components`.
+- **Apps**: `@sando-ds/docs` (Storybook 8), `@sando-ds/site` (VitePress).
 - **Build chain**: tokens → components → apps (strict dependency order).
 - **Dependency protocol**: `workspace:*` for internal packages.
 

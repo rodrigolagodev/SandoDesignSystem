@@ -1,5 +1,5 @@
 {
-  "name": "@sando/tokens",
+  "name": "@sando-ds/tokens",
   "version": "0.1.0",
   "description": "Design tokens for Sando Design System - Ingredients, Flavors, and Recipes",
   "type": "module",

@@ -1,5 +1,5 @@
 /**
- * @sando/components
+ * @sando-ds/components
  * Web Components library for Sando Design System built with Lit
  *
  * This package provides framework-agnostic Web Components that work

@@ -54,9 +54,9 @@ core_rules:
         Framework-agnostic Web Components remain the primary, canonical API.
         However, two frameworks have ergonomic gaps significant enough to justify
         official, optional wrapper packages that the design system maintains:
-        @sando/react and @sando/angular.
+        @sando-ds/react and @sando-ds/angular.
       allowed_wrappers:
-        - name: "@sando/react"
+        - name: "@sando-ds/react"
           rationale: |
             React (especially 18 and below) does not pass CustomEvent through JSX
             event handlers. Consumers otherwise need useRef + addEventListener +
@@ -74,7 +74,7 @@ core_rules:
             IBM Carbon (@carbon/react), Microsoft Fluent UI (@fluentui/react-components)
             — every major WC-based design system ships an official React wrapper.
             The Lit team maintains @lit/react explicitly to enable this pattern.
-        - name: "@sando/angular"
+        - name: "@sando-ds/angular"
           rationale: |
             Angular forms require ControlValueAccessor implementation for [(ngModel)]
             and reactive forms. CUSTOM_ELEMENTS_SCHEMA must otherwise be declared in
@@ -112,7 +112,7 @@ core_rules:
       rules_for_authoring_a_wrapper:
         - "MUST be optional — the underlying WC remains the primary documented API"
         - "MUST be auto-generated from CEM where the tooling allows"
-        - "MUST list the underlying @sando/components as a peerDependency, not a runtime dep"
+        - "MUST list the underlying @sando-ds/components as a peerDependency, not a runtime dep"
         - "MUST set sideEffects to preserve custom-element registration"
         - "MUST NOT diverge in feature support — every prop/event of the WC reaches the wrapper"
         - "MUST ship its own CHANGELOG and version independently"
@@ -120,8 +120,8 @@ core_rules:
       lang: "typescript"
       code: |
         // WRONG: Framework wrapper for a framework that handles WCs natively
-        @sando/vue     // Vue has isCustomElement — no wrapper needed
-        @sando/svelte  // Svelte handles WC events natively — no wrapper needed
+        @sando-ds/vue     // Vue has isCustomElement — no wrapper needed
+        @sando-ds/svelte  // Svelte handles WC events natively — no wrapper needed
 
         // WRONG: Wrapper that diverges from the underlying WC's API
         // (e.g., renames props, drops events, adds framework-only features)
@@ -134,7 +134,7 @@ core_rules:
       lang: "typescript"
       code: |
         // Import component (registers custom element)
-        import "@sando/components/button";
+        import "@sando-ds/components/button";
 
         // Now <sando-button> is available in templates
     why: "Web Components must be registered before the browser can use them. Importing triggers registration."
@@ -240,7 +240,7 @@ react_integration:
       lang: "typescript"
       code: |
         // 1. Import component
-        import '@sando/components/button';
+        import '@sando-ds/components/button';
 
         // 2. Use in JSX
         function App() {
@@ -251,7 +251,7 @@ react_integration:
     pattern:
       lang: "typescript"
       code: |
-        import { SandoButton } from "@sando/components/button";
+        import { SandoButton } from "@sando-ds/components/button";
 
         declare global {
           namespace JSX {
@@ -342,7 +342,7 @@ vue_integration:
       lang: "vue"
       code: |
         <script setup lang="ts">
-        import "@sando/components/button";
+        import "@sando-ds/components/button";
 
         function handleClick(e: CustomEvent) {
           console.log("Clicked:", e.detail);
@@ -363,7 +363,7 @@ vue_integration:
     pattern:
       lang: "typescript"
       code: |
-        import { SandoButton } from "@sando/components/button";
+        import { SandoButton } from "@sando-ds/components/button";
 
         declare module "@vue/runtime-core" {
           interface GlobalComponents {
@@ -416,7 +416,7 @@ angular_integration:
       code: |
         // app.component.ts
         import { Component, OnInit } from "@angular/core";
-        import "@sando/components/button"; // ✓ Import for registration
+        import "@sando-ds/components/button"; // ✓ Import for registration
 
         @Component({
           selector: "app-root",
@@ -461,7 +461,7 @@ svelte_integration:
       lang: "svelte"
       code: |
         <script lang="ts">
-          import '@sando/components/button';
+          import '@sando-ds/components/button';
 
           function handleClick(e: CustomEvent) {
             console.log('Clicked:', e.detail);
@@ -498,7 +498,7 @@ svelte_integration:
       lang: "svelte"
       code: |
         <script>
-          import '@sando/components/input';
+          import '@sando-ds/components/input';
 
           let value = '';
         </script>
@@ -535,7 +535,7 @@ ssr_considerations:
 
           const SandoButton = dynamic(
             () =>
-              import("@sando/components/button").then(() => ({
+              import("@sando-ds/components/button").then(() => ({
                 default: "sando-button",
               })),
             { ssr: false }
@@ -558,7 +558,7 @@ common_patterns:
       code: |
         // Load component on demand
         async function loadButton() {
-          await import("@sando/components/button");
+          await import("@sando-ds/components/button");
           // <sando-button> now available
         }
   conditional_rendering:

@@ -200,8 +200,8 @@ import type { Preview } from "@storybook/web-components";
 import { html } from "lit";
 
 // Import global styles (tokens)
-import "@sando/tokens/css/ingredients.css";
-import "@sando/tokens/css/flavors/original.css";
+import "@sando-ds/tokens/css/ingredients.css";
+import "@sando-ds/tokens/css/flavors/original.css";
 
 const preview: Preview = {
   parameters: {
@@ -576,8 +576,8 @@ const button = component?.shadowRoot?.querySelector("button");
 **Fix**: Import token CSS in preview.ts
 
 ```typescript
-import "@sando/tokens/css/ingredients.css";
-import "@sando/tokens/css/flavors/original.css";
+import "@sando-ds/tokens/css/ingredients.css";
+import "@sando-ds/tokens/css/flavors/original.css";
 ```
 
 #### 5. Build Errors with TypeScript

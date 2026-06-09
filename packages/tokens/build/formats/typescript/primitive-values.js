@@ -51,8 +51,8 @@ function generateValuesJSDoc(options = {}) {
     : `${layerName} Layer Design Tokens - Primitive Values`;
 
   const exampleImport = category
-    ? `import { values } from '@sando/tokens/${layerName.toLowerCase()}/${category.toLowerCase()}';`
-    : `import { values } from '@sando/tokens/${layerName.toLowerCase()}';`;
+    ? `import { values } from '@sando-ds/tokens/${layerName.toLowerCase()}/${category.toLowerCase()}';`
+    : `import { values } from '@sando-ds/tokens/${layerName.toLowerCase()}';`;
 
   const exampleUsage = category
     ? `const brandColor = values.brand[500]; // '#f97415'`

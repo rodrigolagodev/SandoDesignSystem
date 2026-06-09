@@ -299,9 +299,9 @@ token_validation:
     - suite: "Comprehensive contrast report"
       lines: "301-334"
   commands:
-    - "pnpm --filter @sando/tokens test:accessibility"
-    - "pnpm --filter @sando/tokens test contrast.test.js"
-    - "pnpm --filter @sando/tokens test contrast.test.js --reporter=verbose"
+    - "pnpm --filter @sando-ds/tokens test:accessibility"
+    - "pnpm --filter @sando-ds/tokens test contrast.test.js"
+    - "pnpm --filter @sando-ds/tokens test contrast.test.js --reporter=verbose"
   ci_integration: "Tests run automatically on push. Failed contrast ratios block PR merge"
   reference:
     type: "source_file"

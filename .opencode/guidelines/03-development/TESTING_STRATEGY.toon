@@ -174,10 +174,10 @@ unit_testing:
         });
       });
   commands:
-    - "pnpm --filter @sando/components test"
-    - "pnpm --filter @sando/components test:watch"
-    - "pnpm --filter @sando/components test:coverage"
-    - "pnpm --filter @sando/components test:ui"
+    - "pnpm --filter @sando-ds/components test"
+    - "pnpm --filter @sando-ds/components test:watch"
+    - "pnpm --filter @sando-ds/components test:coverage"
+    - "pnpm --filter @sando-ds/components test:ui"
   reference:
     type: "source_file"
     path: "packages/components/src/components/button/sando-button.test.ts"
@@ -252,11 +252,11 @@ token_testing:
       note: "High contrast"
   formula: "(L1 + 0.05) / (L2 + 0.05) where L1 is lighter color"
   commands:
-    - "pnpm --filter @sando/tokens test"
-    - "pnpm --filter @sando/tokens test:structure"
-    - "pnpm --filter @sando/tokens test:accessibility"
-    - "pnpm --filter @sando/tokens test:build"
-    - "pnpm --filter @sando/tokens test:coverage"
+    - "pnpm --filter @sando-ds/tokens test"
+    - "pnpm --filter @sando-ds/tokens test:structure"
+    - "pnpm --filter @sando-ds/tokens test:accessibility"
+    - "pnpm --filter @sando-ds/tokens test:build"
+    - "pnpm --filter @sando-ds/tokens test:coverage"
 
 e2e_testing:
   id: "TST-E2E"
@@ -274,8 +274,8 @@ e2e_testing:
       - "Isolated components (use unit tests)"
   tool: "Playwright (packages/components/playwright.config.js)"
   commands:
-    - "pnpm --filter @sando/components test:e2e"
-    - "pnpm --filter @sando/components test:e2e:ui"
+    - "pnpm --filter @sando-ds/components test:e2e"
+    - "pnpm --filter @sando-ds/components test:e2e:ui"
   reference:
     type: "source_file"
     path: "packages/components/src/components/button/sando-button.spec.ts"
@@ -307,7 +307,7 @@ coverage_requirements:
     - "index.ts (Barrel exports)"
     - "*.spec.ts (E2E tests)"
   viewing_coverage:
-    command: "pnpm --filter @sando/components test:coverage"
+    command: "pnpm --filter @sando-ds/components test:coverage"
     view: "open packages/components/coverage/index.html"
 
 test_commands:
@@ -321,20 +321,20 @@ test_commands:
   components:
     location: "packages/components"
     commands:
-      - "pnpm --filter @sando/components test              # Unit + A11y"
-      - "pnpm --filter @sando/components test:watch        # Watch mode"
-      - "pnpm --filter @sando/components test:ui           # Vitest UI"
-      - "pnpm --filter @sando/components test:coverage     # Coverage"
-      - "pnpm --filter @sando/components test:e2e          # Playwright E2E"
-      - "pnpm --filter @sando/components test:e2e:ui       # Playwright UI"
+      - "pnpm --filter @sando-ds/components test              # Unit + A11y"
+      - "pnpm --filter @sando-ds/components test:watch        # Watch mode"
+      - "pnpm --filter @sando-ds/components test:ui           # Vitest UI"
+      - "pnpm --filter @sando-ds/components test:coverage     # Coverage"
+      - "pnpm --filter @sando-ds/components test:e2e          # Playwright E2E"
+      - "pnpm --filter @sando-ds/components test:e2e:ui       # Playwright UI"
   tokens:
     location: "packages/tokens"
     commands:
-      - "pnpm --filter @sando/tokens test                  # All token tests"
-      - "pnpm --filter @sando/tokens test:structure        # Structure validation"
-      - "pnpm --filter @sando/tokens test:accessibility    # Contrast tests"
-      - "pnpm --filter @sando/tokens test:build            # Build output tests"
-      - "pnpm --filter @sando/tokens test:coverage         # Coverage"
+      - "pnpm --filter @sando-ds/tokens test                  # All token tests"
+      - "pnpm --filter @sando-ds/tokens test:structure        # Structure validation"
+      - "pnpm --filter @sando-ds/tokens test:accessibility    # Contrast tests"
+      - "pnpm --filter @sando-ds/tokens test:build            # Build output tests"
+      - "pnpm --filter @sando-ds/tokens test:coverage         # Coverage"
 
 related_guidelines:
   - type: "guideline"

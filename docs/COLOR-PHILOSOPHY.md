@@ -203,7 +203,7 @@ Blue:   oklch(60% 0.25 250)  → Predictable contrast    ✅
 **Need exact brand colors (#FF6B00 from guidelines)?**
 
 ```bash
-npx @sando/flavor-generator create \
+npx @sando-ds/flavor-generator create \
   --name "myBrand" \
   --color "#FF6B00" \
   --neutral "warm"
@@ -448,7 +448,7 @@ When you need a new color (new brand color, rebrand, client work):
 **Path C: Generate Brand Colors**
 
 ```bash
-npx @sando/flavor-generator create --color "#FF6B00"
+npx @sando-ds/flavor-generator create --color "#FF6B00"
 ```
 
 ### 2. Build Your App

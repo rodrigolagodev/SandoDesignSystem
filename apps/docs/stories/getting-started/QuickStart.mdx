@@ -21,7 +21,7 @@ cd my-sando-app
 ## Step 2: Install Sando
 
 ```bash
-pnpm add @sando/tokens @sando/components
+pnpm add @sando-ds/tokens @sando-ds/components
 ```
 
 This gives you both the design tokens (colors, spacing, typography) and the Web Components (button, input, checkbox, and more).
@@ -30,8 +30,8 @@ This gives you both the design tokens (colors, spacing, typography) and the Web 
 
 ```ts
 // main.ts
-import "@sando/tokens/css";
-import "@sando/components/button";
+import "@sando-ds/tokens/css";
+import "@sando-ds/components/button";
 ```
 
 Two lines. That's all the setup you need.
@@ -66,8 +66,8 @@ Here's a complete project you can copy and run:
 
 ```ts
 // main.ts
-import "@sando/tokens/css";
-import "@sando/components/button";
+import "@sando-ds/tokens/css";
+import "@sando-ds/components/button";
 
 const app = document.querySelector("#app")!;
 
@@ -100,8 +100,8 @@ Let's build something more interesting — a simple sign-in form using real Sand
 
 ```ts
 // main.ts
-import "@sando/tokens/css";
-import "@sando/components"; // auto-registers all components: <sando-button>, <sando-input>, etc.
+import "@sando-ds/tokens/css";
+import "@sando-ds/components"; // auto-registers all components: <sando-button>, <sando-input>, etc.
 ```
 
 ```html
@@ -136,7 +136,7 @@ import "@sando/components"; // auto-registers all components: <sando-button>, <s
 
 > **💡 Import what you use**
 >
-> Each import auto-registers its custom element. Import `'@sando/components/checkbox'` to use `<sando-checkbox>`, import `'@sando/components/switch'` to use `<sando-switch>`, and so on.
+> Each import auto-registers its custom element. Import `'@sando-ds/components/checkbox'` to use `<sando-checkbox>`, import `'@sando-ds/components/switch'` to use `<sando-switch>`, and so on.
 
 ## Theming with Flavors
 
@@ -269,11 +269,11 @@ Enable full type safety and autocomplete:
 
 ```ts
 // vite-env.d.ts or global.d.ts
-/// <reference types="@sando/components" />
+/// <reference types="@sando-ds/components" />
 ```
 
 ```ts
-import { SandoButton } from "@sando/components/button";
+import { SandoButton } from "@sando-ds/components/button";
 
 // TypeScript knows all props and methods
 const button = new SandoButton();
@@ -288,8 +288,8 @@ button.size = "md"; // ✅ Type-checked
 Make sure you've imported both the CSS tokens **and** the component:
 
 ```ts
-import "@sando/tokens/css"; // ← Don't forget this!
-import "@sando/components/button"; // ← And this!
+import "@sando-ds/tokens/css"; // ← Don't forget this!
+import "@sando-ds/components/button"; // ← And this!
 ```
 
 ### TypeScript errors in JSX?
@@ -297,7 +297,7 @@ import "@sando/components/button"; // ← And this!
 Add the types reference:
 
 ```ts
-/// <reference types="@sando/components" />
+/// <reference types="@sando-ds/components" />
 ```
 
 ### Styles not applying?
