@@ -32,10 +32,7 @@
       "types": "./dist/styles/shared/index.d.ts"
     }
   },
-  "files": [
-    "dist",
-    "src"
-  ],
+  "files": ["dist", "src"],
   "scripts": {
     "build": "vite build && tsc -p tsconfig.build.json",
     "build:watch": "vite build --watch",
@@ -52,13 +49,7 @@
     "analyze": "custom-elements-manifest analyze",
     "clean": "rm -rf dist coverage .turbo"
   },
-  "keywords": [
-    "web-components",
-    "lit",
-    "design-system",
-    "ui-components",
-    "custom-elements"
-  ],
+  "keywords": ["web-components", "lit", "design-system", "ui-components", "custom-elements"],
   "author": "Sando Design System Team",
   "license": "MIT",
   "dependencies": {
