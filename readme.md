@@ -2,6 +2,8 @@
 
 **The perfect recipe for building delicious UIs.**
 
+🌐 **Live site & docs:** [sando.rlago.com](https://sando.rlago.com)
+
 Just like a perfectly crafted Japanese katsu sando combines quality **Ingredients**, balanced **Flavors**, and a proven **Recipe** to create something extraordinary, Sando Design System brings these three layers together to help you craft consistent, accessible, and beautiful user interfaces.
 
 We believe that great design systems, like great food, start with quality basics. Our three-layer token architecture gives you the foundation to build once and theme infinitely—whether you're serving light mode, dark mode, or your own custom flavor. Built with Web Components and powered by design tokens, Sando works seamlessly with React, Vue, Angular, or vanilla JavaScript.
@@ -157,8 +159,8 @@ Built with modern tools for maximum developer experience:
 
 For detailed guides, API references, and interactive examples, Storybook is the single source of truth:
 
-- **[Storybook](http://localhost:6006)** - Component playground, guides (Getting Started, Theming, Accessibility), token references (Ingredients, Flavors, Recipes), and component API docs
-- **[Live Storybook](https://sando.rlago.com)** - Published documentation
+- **[sando.rlago.com](https://sando.rlago.com)** — Published documentation: component playground, guides (Getting Started, Theming, Accessibility), token references (Ingredients, Flavors, Recipes), and component API docs
+- **[Local Storybook](http://localhost:6006)** — Same docs running against your working tree (start with `pnpm --filter @sando-ds/docs dev`)
 
 ## Packages
 

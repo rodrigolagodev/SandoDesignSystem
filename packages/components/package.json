@@ -36,11 +36,7 @@
     }
   },
   "files": ["dist", "custom-elements.json", "README.md", "LICENSE", "CHANGELOG.md"],
-  "sideEffects": [
-    "./dist/components/**/sando-*.js",
-    "./dist/index.js",
-    "**/*.css"
-  ],
+  "sideEffects": ["./dist/components/**/sando-*.js", "./dist/index.js", "**/*.css"],
   "engines": {
     "node": ">=20.0.0"
   },
