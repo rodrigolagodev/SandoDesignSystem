@@ -58,6 +58,16 @@ core_rules:
     why: "80% coverage balances thoroughness with pragmatism. Catches most bugs while avoiding diminishing returns of 100% coverage."
     enforcement: "CI fails if coverage drops below threshold"
 
+  - id: "TC-CR-R1-EX1"
+    title: "Data-Only Package Exception"
+    summary: "Packages whose tests validate static data (JSON structure, DTCG compliance, reference integrity) rather than application code are exempt from v8 coverage thresholds."
+    applies_to:
+      - "@sando-ds/tokens"
+    acceptable_strategies:
+      - "coverage.enabled: false in vitest.config.js"
+      - "Document thresholds as N/A in guideline"
+    rationale: "v8 measures test/build script execution, not data validation coverage. For data-only packages, the metric creates false negatives without improving quality."
+
   - id: "TC-CR-R2"
     title: "100% Accessibility Coverage (Non-Negotiable)"
     summary: "All public components MUST have dedicated accessibility test files with 100% coverage."
