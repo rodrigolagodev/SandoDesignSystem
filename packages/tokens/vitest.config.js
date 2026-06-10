@@ -10,6 +10,7 @@ export default defineConfig({
 
     // Coverage configuration
     coverage: {
+      enabled: false, // v8 structurally irrelevant for data-only package. See TC-CR-R1-EX1.
       provider: "v8",
       reporter: ["text", "html", "lcov", "json"],
       reportsDirectory: "./coverage",
