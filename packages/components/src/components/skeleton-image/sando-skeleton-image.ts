@@ -71,7 +71,9 @@ export class SandoSkeletonImage extends FlavorableMixin(LitElement) {
   connectedCallback() {
     super.connectedCallback();
     if (!SandoSkeletonImage._deprecationWarned) {
-      console.warn('[sando] <sando-skeleton-image> is deprecated and will be removed in the next major. Compose <sando-skeleton> and <sando-skeleton-paragraph> instead. See Storybook → Skeleton → Patterns.');
+      console.warn(
+        '[sando] <sando-skeleton-image> is deprecated and will be removed in the next major. Compose <sando-skeleton> and <sando-skeleton-paragraph> instead. See Storybook → Skeleton → Patterns.'
+      );
       SandoSkeletonImage._deprecationWarned = true;
     }
   }

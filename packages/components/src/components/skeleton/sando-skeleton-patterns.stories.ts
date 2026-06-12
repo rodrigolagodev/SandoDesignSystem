@@ -36,7 +36,9 @@ export default meta;
 type Story = StoryObj;
 
 const stack = (children: unknown) => html`
-  <div style="display: flex; flex-direction: column; gap: var(--sando-space-12, 0.75rem); max-width: 480px;">
+  <div
+    style="display: flex; flex-direction: column; gap: var(--sando-space-12, 0.75rem); max-width: 480px;"
+  >
     ${children}
   </div>
 `;
@@ -51,15 +53,31 @@ export const SimplePrimitives: Story = {
     <div style="display: grid; gap: var(--sando-space-24, 1.5rem); max-width: 480px;">
       <div>
         <strong>Button</strong>
-        <sando-skeleton flavor=${flavor} effect=${effect} shape="rounded" width="120px" height="36px"></sando-skeleton>
+        <sando-skeleton
+          flavor=${flavor}
+          effect=${effect}
+          shape="rounded"
+          width="120px"
+          height="36px"
+        ></sando-skeleton>
       </div>
       <div>
         <strong>Image</strong>
-        <sando-skeleton flavor=${flavor} effect=${effect} shape="rectangular" width="100%" height="200px"></sando-skeleton>
+        <sando-skeleton
+          flavor=${flavor}
+          effect=${effect}
+          shape="rectangular"
+          width="100%"
+          height="200px"
+        ></sando-skeleton>
       </div>
       <div>
         <strong>Stack (paragraph block)</strong>
-        <sando-skeleton-paragraph flavor=${flavor} effect=${effect} lines="6"></sando-skeleton-paragraph>
+        <sando-skeleton-paragraph
+          flavor=${flavor}
+          effect=${effect}
+          lines="6"
+        ></sando-skeleton-paragraph>
       </div>
     </div>
   `
@@ -69,18 +87,40 @@ export const SimplePrimitives: Story = {
 export const Article: Story = {
   render: ({ flavor, effect }) =>
     stack(html`
-      <sando-skeleton flavor=${flavor} effect=${effect} shape="rectangular" width="100%" height="200px"></sando-skeleton>
-      <sando-skeleton-paragraph flavor=${flavor} effect=${effect} lines="3"></sando-skeleton-paragraph>
+      <sando-skeleton
+        flavor=${flavor}
+        effect=${effect}
+        shape="rectangular"
+        width="100%"
+        height="200px"
+      ></sando-skeleton>
+      <sando-skeleton-paragraph
+        flavor=${flavor}
+        effect=${effect}
+        lines="3"
+      ></sando-skeleton-paragraph>
     `)
 };
 
 /** Avatar + name/subtitle. Replaces `sando-skeleton-avatar`. */
 export const AvatarBlock: Story = {
   render: ({ flavor, effect }) => html`
-    <div style="display: flex; gap: var(--sando-space-12, 0.75rem); align-items: center; max-width: 480px;">
-      <sando-skeleton flavor=${flavor} effect=${effect} shape="circular" width="40px" height="40px"></sando-skeleton>
+    <div
+      style="display: flex; gap: var(--sando-space-12, 0.75rem); align-items: center; max-width: 480px;"
+    >
+      <sando-skeleton
+        flavor=${flavor}
+        effect=${effect}
+        shape="circular"
+        width="40px"
+        height="40px"
+      ></sando-skeleton>
       <div style="flex: 1;">
-        <sando-skeleton-paragraph flavor=${flavor} effect=${effect} lines="2"></sando-skeleton-paragraph>
+        <sando-skeleton-paragraph
+          flavor=${flavor}
+          effect=${effect}
+          lines="2"
+        ></sando-skeleton-paragraph>
       </div>
     </div>
   `
@@ -90,8 +130,18 @@ export const AvatarBlock: Story = {
 export const Card: Story = {
   render: ({ flavor, effect }) =>
     stack(html`
-      <sando-skeleton flavor=${flavor} effect=${effect} shape="rectangular" width="100%" height="200px"></sando-skeleton>
-      <sando-skeleton-paragraph flavor=${flavor} effect=${effect} lines="2"></sando-skeleton-paragraph>
+      <sando-skeleton
+        flavor=${flavor}
+        effect=${effect}
+        shape="rectangular"
+        width="100%"
+        height="200px"
+      ></sando-skeleton>
+      <sando-skeleton-paragraph
+        flavor=${flavor}
+        effect=${effect}
+        lines="2"
+      ></sando-skeleton-paragraph>
     `)
 };
 
@@ -99,9 +149,19 @@ export const Card: Story = {
 export const Comment: Story = {
   render: ({ flavor, effect }) => html`
     <div style="display: flex; gap: var(--sando-space-12, 0.75rem); max-width: 480px;">
-      <sando-skeleton flavor=${flavor} effect=${effect} shape="circular" width="32px" height="32px"></sando-skeleton>
+      <sando-skeleton
+        flavor=${flavor}
+        effect=${effect}
+        shape="circular"
+        width="32px"
+        height="32px"
+      ></sando-skeleton>
       <div style="flex: 1;">
-        <sando-skeleton-paragraph flavor=${flavor} effect=${effect} lines="3"></sando-skeleton-paragraph>
+        <sando-skeleton-paragraph
+          flavor=${flavor}
+          effect=${effect}
+          lines="3"
+        ></sando-skeleton-paragraph>
       </div>
     </div>
   `
@@ -111,10 +171,28 @@ export const Comment: Story = {
 export const Composer: Story = {
   render: ({ flavor, effect }) =>
     stack(html`
-      <sando-skeleton flavor=${flavor} effect=${effect} shape="rounded" width="100%" height="80px"></sando-skeleton>
+      <sando-skeleton
+        flavor=${flavor}
+        effect=${effect}
+        shape="rounded"
+        width="100%"
+        height="80px"
+      ></sando-skeleton>
       <div style="display: flex; gap: var(--sando-space-8, 0.5rem);">
-        <sando-skeleton flavor=${flavor} effect=${effect} shape="rounded" width="80px" height="36px"></sando-skeleton>
-        <sando-skeleton flavor=${flavor} effect=${effect} shape="rounded" width="80px" height="36px"></sando-skeleton>
+        <sando-skeleton
+          flavor=${flavor}
+          effect=${effect}
+          shape="rounded"
+          width="80px"
+          height="36px"
+        ></sando-skeleton>
+        <sando-skeleton
+          flavor=${flavor}
+          effect=${effect}
+          shape="rounded"
+          width="80px"
+          height="36px"
+        ></sando-skeleton>
       </div>
     `)
 };
@@ -133,9 +211,19 @@ export const ListItem: Story = {
 export const MediaCard: Story = {
   render: ({ flavor, effect }) => html`
     <div style="display: flex; gap: var(--sando-space-12, 0.75rem); max-width: 480px;">
-      <sando-skeleton flavor=${flavor} effect=${effect} shape="rectangular" width="40%" height="150px"></sando-skeleton>
+      <sando-skeleton
+        flavor=${flavor}
+        effect=${effect}
+        shape="rectangular"
+        width="40%"
+        height="150px"
+      ></sando-skeleton>
       <div style="flex: 1;">
-        <sando-skeleton-paragraph flavor=${flavor} effect=${effect} lines="2"></sando-skeleton-paragraph>
+        <sando-skeleton-paragraph
+          flavor=${flavor}
+          effect=${effect}
+          lines="2"
+        ></sando-skeleton-paragraph>
       </div>
     </div>
   `
@@ -145,8 +233,18 @@ export const MediaCard: Story = {
 export const Profile: Story = {
   render: ({ flavor, effect }) =>
     stack(html`
-      <sando-skeleton flavor=${flavor} effect=${effect} shape="rectangular" width="100%" height="120px"></sando-skeleton>
-      <sando-skeleton-paragraph flavor=${flavor} effect=${effect} lines="4"></sando-skeleton-paragraph>
+      <sando-skeleton
+        flavor=${flavor}
+        effect=${effect}
+        shape="rectangular"
+        width="100%"
+        height="120px"
+      ></sando-skeleton>
+      <sando-skeleton-paragraph
+        flavor=${flavor}
+        effect=${effect}
+        lines="4"
+      ></sando-skeleton-paragraph>
     `)
 };
 
@@ -154,9 +252,27 @@ export const Profile: Story = {
 export const Row: Story = {
   render: ({ flavor, effect }) => html`
     <div style="display: flex; gap: var(--sando-space-12, 0.75rem); max-width: 480px;">
-      <sando-skeleton flavor=${flavor} effect=${effect} shape="rectangular" height="48px" style="flex: 1;"></sando-skeleton>
-      <sando-skeleton flavor=${flavor} effect=${effect} shape="rectangular" height="48px" style="flex: 1;"></sando-skeleton>
-      <sando-skeleton flavor=${flavor} effect=${effect} shape="rectangular" height="48px" style="flex: 1;"></sando-skeleton>
+      <sando-skeleton
+        flavor=${flavor}
+        effect=${effect}
+        shape="rectangular"
+        height="48px"
+        style="flex: 1;"
+      ></sando-skeleton>
+      <sando-skeleton
+        flavor=${flavor}
+        effect=${effect}
+        shape="rectangular"
+        height="48px"
+        style="flex: 1;"
+      ></sando-skeleton>
+      <sando-skeleton
+        flavor=${flavor}
+        effect=${effect}
+        shape="rectangular"
+        height="48px"
+        style="flex: 1;"
+      ></sando-skeleton>
     </div>
   `
 };
@@ -164,7 +280,9 @@ export const Row: Story = {
 /** Table row: four text cells in a grid. Replaces `sando-skeleton-table-row`. */
 export const TableRow: Story = {
   render: ({ flavor, effect }) => html`
-    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sando-space-12, 0.75rem); max-width: 480px;">
+    <div
+      style="display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sando-space-12, 0.75rem); max-width: 480px;"
+    >
       <sando-skeleton flavor=${flavor} effect=${effect} shape="text" width="20%"></sando-skeleton>
       <sando-skeleton flavor=${flavor} effect=${effect} shape="text" width="20%"></sando-skeleton>
       <sando-skeleton flavor=${flavor} effect=${effect} shape="text" width="20%"></sando-skeleton>

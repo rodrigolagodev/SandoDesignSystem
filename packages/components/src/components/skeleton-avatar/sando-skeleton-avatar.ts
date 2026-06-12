@@ -61,7 +61,9 @@ export class SandoSkeletonAvatar extends FlavorableMixin(LitElement) {
   connectedCallback() {
     super.connectedCallback();
     if (!SandoSkeletonAvatar._deprecationWarned) {
-      console.warn('[sando] <sando-skeleton-avatar> is deprecated and will be removed in the next major. Compose <sando-skeleton> and <sando-skeleton-paragraph> instead. See Storybook → Skeleton → Patterns.');
+      console.warn(
+        '[sando] <sando-skeleton-avatar> is deprecated and will be removed in the next major. Compose <sando-skeleton> and <sando-skeleton-paragraph> instead. See Storybook → Skeleton → Patterns.'
+      );
       SandoSkeletonAvatar._deprecationWarned = true;
     }
   }

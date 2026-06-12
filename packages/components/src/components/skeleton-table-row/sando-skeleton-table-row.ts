@@ -57,7 +57,9 @@ export class SandoSkeletonTableRow extends FlavorableMixin(LitElement) {
   connectedCallback() {
     super.connectedCallback();
     if (!SandoSkeletonTableRow._deprecationWarned) {
-      console.warn('[sando] <sando-skeleton-table-row> is deprecated and will be removed in the next major. Compose <sando-skeleton> and <sando-skeleton-paragraph> instead. See Storybook → Skeleton → Patterns.');
+      console.warn(
+        '[sando] <sando-skeleton-table-row> is deprecated and will be removed in the next major. Compose <sando-skeleton> and <sando-skeleton-paragraph> instead. See Storybook → Skeleton → Patterns.'
+      );
       SandoSkeletonTableRow._deprecationWarned = true;
     }
   }

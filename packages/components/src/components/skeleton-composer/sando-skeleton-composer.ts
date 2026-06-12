@@ -81,7 +81,9 @@ export class SandoSkeletonComposer extends FlavorableMixin(LitElement) {
   connectedCallback() {
     super.connectedCallback();
     if (!SandoSkeletonComposer._deprecationWarned) {
-      console.warn('[sando] <sando-skeleton-composer> is deprecated and will be removed in the next major. Compose <sando-skeleton> and <sando-skeleton-paragraph> instead. See Storybook → Skeleton → Patterns.');
+      console.warn(
+        '[sando] <sando-skeleton-composer> is deprecated and will be removed in the next major. Compose <sando-skeleton> and <sando-skeleton-paragraph> instead. See Storybook → Skeleton → Patterns.'
+      );
       SandoSkeletonComposer._deprecationWarned = true;
     }
     this._applyStagger();
