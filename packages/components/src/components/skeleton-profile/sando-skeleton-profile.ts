@@ -1,4 +1,8 @@
 /**
+ * @deprecated Will be removed in the next major. Compose `<sando-skeleton>` and
+ * `<sando-skeleton-paragraph>` instead. See Storybook → Components → Skeleton → Patterns
+ * for direct replacements. Tracked in #126.
+ *
  * Sando Skeleton Profile Component
  *
  * A preset skeleton for user profile card layouts with centered avatar,
@@ -44,6 +48,18 @@ const DEFAULT_BIO_LINES = 2;
 
 @customElement('sando-skeleton-profile')
 export class SandoSkeletonProfile extends FlavorableMixin(LitElement) {
+  private static _deprecationWarned = false;
+
+  connectedCallback() {
+    super.connectedCallback();
+    if (!SandoSkeletonProfile._deprecationWarned) {
+      console.warn(
+        '[sando] <sando-skeleton-profile> is deprecated and will be removed in the next major. Compose <sando-skeleton> and <sando-skeleton-paragraph> instead. See Storybook → Skeleton → Patterns.'
+      );
+      SandoSkeletonProfile._deprecationWarned = true;
+    }
+  }
+
   /**
    * Size of the avatar skeleton
    * @default 'xl'

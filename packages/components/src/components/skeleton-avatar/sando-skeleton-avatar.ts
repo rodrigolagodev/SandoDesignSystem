@@ -1,4 +1,8 @@
 /**
+ * @deprecated Will be removed in the next major. Compose `<sando-skeleton>` and
+ * `<sando-skeleton-paragraph>` instead. See Storybook → Components → Skeleton → Patterns
+ * for direct replacements. Tracked in #126.
+ *
  * Sando Skeleton Avatar Component
  *
  * A circular skeleton placeholder for avatar loading states.
@@ -52,6 +56,18 @@ const DEFAULT_EFFECT: SkeletonAvatarEffect = 'shimmer';
 
 @customElement('sando-skeleton-avatar')
 export class SandoSkeletonAvatar extends FlavorableMixin(LitElement) {
+  private static _deprecationWarned = false;
+
+  connectedCallback() {
+    super.connectedCallback();
+    if (!SandoSkeletonAvatar._deprecationWarned) {
+      console.warn(
+        '[sando] <sando-skeleton-avatar> is deprecated and will be removed in the next major. Compose <sando-skeleton> and <sando-skeleton-paragraph> instead. See Storybook → Skeleton → Patterns.'
+      );
+      SandoSkeletonAvatar._deprecationWarned = true;
+    }
+  }
+
   /**
    * Size of the avatar skeleton
    * Maps to predefined token-based dimensions:
