@@ -1,4 +1,8 @@
 /**
+ * @deprecated Will be removed in the next major. Compose `<sando-skeleton>` and
+ * `<sando-skeleton-paragraph>` instead. See Storybook → Components → Skeleton → Patterns
+ * for direct replacements. Tracked in #126.
+ *
  * Sando Skeleton Button Component
  *
  * A skeleton placeholder for button loading states.
@@ -46,6 +50,16 @@ import type { SkeletonButtonSize, SkeletonButtonWidth } from './sando-skeleton-b
 
 @customElement('sando-skeleton-button')
 export class SandoSkeletonButton extends FlavorableMixin(LitElement) {
+  private static _deprecationWarned = false;
+
+  connectedCallback() {
+    super.connectedCallback();
+    if (!SandoSkeletonButton._deprecationWarned) {
+      console.warn('[sando] <sando-skeleton-button> is deprecated and will be removed in the next major. Compose <sando-skeleton> and <sando-skeleton-paragraph> instead. See Storybook → Skeleton → Patterns.');
+      SandoSkeletonButton._deprecationWarned = true;
+    }
+  }
+
   static styles = [
     resetStyles,
     tokenStyles,

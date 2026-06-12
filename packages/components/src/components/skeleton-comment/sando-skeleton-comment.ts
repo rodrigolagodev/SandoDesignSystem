@@ -1,4 +1,8 @@
 /**
+ * @deprecated Will be removed in the next major. Compose `<sando-skeleton>` and
+ * `<sando-skeleton-paragraph>` instead. See Storybook → Components → Skeleton → Patterns
+ * for direct replacements. Tracked in #126.
+ *
  * Sando Skeleton Comment Component
  *
  * A preset skeleton for comment or review layouts with avatar on the side,
@@ -71,6 +75,16 @@ const TIMESTAMP_WIDTH = '15%';
 
 @customElement('sando-skeleton-comment')
 export class SandoSkeletonComment extends FlavorableMixin(LitElement) {
+  private static _deprecationWarned = false;
+
+  connectedCallback() {
+    super.connectedCallback();
+    if (!SandoSkeletonComment._deprecationWarned) {
+      console.warn('[sando] <sando-skeleton-comment> is deprecated and will be removed in the next major. Compose <sando-skeleton> and <sando-skeleton-paragraph> instead. See Storybook → Skeleton → Patterns.');
+      SandoSkeletonComment._deprecationWarned = true;
+    }
+  }
+
   /**
    * Size of the avatar skeleton
    * @default 'sm'

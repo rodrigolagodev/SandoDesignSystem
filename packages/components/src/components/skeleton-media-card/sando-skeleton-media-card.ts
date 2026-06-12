@@ -1,4 +1,8 @@
 /**
+ * @deprecated Will be removed in the next major. Compose `<sando-skeleton>` and
+ * `<sando-skeleton-paragraph>` instead. See Storybook → Components → Skeleton → Patterns
+ * for direct replacements. Tracked in #126.
+ *
  * Sando Skeleton Media Card Component
  *
  * A preset skeleton for media content cards (video, podcast, etc.) with
@@ -52,6 +56,16 @@ const DEFAULT_SHOW_ACTIONS = true;
 
 @customElement('sando-skeleton-media-card')
 export class SandoSkeletonMediaCard extends FlavorableMixin(LitElement) {
+  private static _deprecationWarned = false;
+
+  connectedCallback() {
+    super.connectedCallback();
+    if (!SandoSkeletonMediaCard._deprecationWarned) {
+      console.warn('[sando] <sando-skeleton-media-card> is deprecated and will be removed in the next major. Compose <sando-skeleton> and <sando-skeleton-paragraph> instead. See Storybook → Skeleton → Patterns.');
+      SandoSkeletonMediaCard._deprecationWarned = true;
+    }
+  }
+
   /**
    * Aspect ratio of the image/thumbnail skeleton
    * @default '16/9'

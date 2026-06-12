@@ -1,4 +1,8 @@
 /**
+ * @deprecated Will be removed in the next major. Compose `<sando-skeleton>` and
+ * `<sando-skeleton-paragraph>` instead. See Storybook → Components → Skeleton → Patterns
+ * for direct replacements. Tracked in #126.
+ *
  * Sando Skeleton Card Component
  *
  * A preset skeleton for card layouts that composes skeleton primitives
@@ -66,6 +70,16 @@ const DEFAULT_IMAGE_RATIO: SkeletonCardImageRatio = '16/9';
 
 @customElement('sando-skeleton-card')
 export class SandoSkeletonCard extends FlavorableMixin(LitElement) {
+  private static _deprecationWarned = false;
+
+  connectedCallback() {
+    super.connectedCallback();
+    if (!SandoSkeletonCard._deprecationWarned) {
+      console.warn('[sando] <sando-skeleton-card> is deprecated and will be removed in the next major. Compose <sando-skeleton> and <sando-skeleton-paragraph> instead. See Storybook → Skeleton → Patterns.');
+      SandoSkeletonCard._deprecationWarned = true;
+    }
+  }
+
   /**
    * Show avatar in header section
    * @default false

@@ -1,4 +1,8 @@
 /**
+ * @deprecated Will be removed in the next major. Compose `<sando-skeleton>` and
+ * `<sando-skeleton-paragraph>` instead. See Storybook → Components → Skeleton → Patterns
+ * for direct replacements. Tracked in #126.
+ *
  * Sando Skeleton Article Component
  *
  * A preset skeleton for blog post or article layouts that composes skeleton
@@ -89,6 +93,16 @@ const META_WIDTH_TOKEN_MAP: Record<SkeletonArticleSize, { date: string; author: 
 
 @customElement('sando-skeleton-article')
 export class SandoSkeletonArticle extends FlavorableMixin(LitElement) {
+  private static _deprecationWarned = false;
+
+  connectedCallback() {
+    super.connectedCallback();
+    if (!SandoSkeletonArticle._deprecationWarned) {
+      console.warn('[sando] <sando-skeleton-article> is deprecated and will be removed in the next major. Compose <sando-skeleton> and <sando-skeleton-paragraph> instead. See Storybook → Skeleton → Patterns.');
+      SandoSkeletonArticle._deprecationWarned = true;
+    }
+  }
+
   /**
    * Size of the paragraph text lines
    * Controls line height and spacing between lines
