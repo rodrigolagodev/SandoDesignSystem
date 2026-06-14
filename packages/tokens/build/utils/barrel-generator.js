@@ -10,6 +10,7 @@
  * - dist/sando-tokens/css/flavors/index.css (original flavor only - default)
  * - dist/sando-tokens/css/flavors/{flavor}/index.css (all modes for each flavor)
  * - dist/sando-tokens/css/recipes/index.css (all recipes)
+ * - dist/sando-tokens/css/base.css (preflight that wires semantic tokens to the document root)
  */
 
 import fs from 'fs';
@@ -245,6 +246,50 @@ function generateThemeBarrel(cssDir, flavorFolders) {
 }
 
 /**
+ * Generate base.css (preflight)
+ *
+ * Bridges Light DOM to flavor tokens. Without this layer the variables exist
+ * but no rule applies them to actual properties — so consumers see browser
+ * defaults for typography and color on non-component content (MDX, page shell).
+ *
+ * Targets `:where(:root, [data-flavor])` so:
+ * - The document root inherits the active flavor (or original by default).
+ * - Any subtree opted into a flavor via `data-flavor="..."` gets the same
+ *   wiring so nested flavor swaps work without extra rules.
+ * - `:where()` has zero specificity — any consumer rule wins trivially.
+ *
+ * @param {string} cssDir - Base CSS output directory
+ */
+function generateBaseBarrel(cssDir) {
+  const content = [
+    '/**',
+    ' * Base / Preflight — wires semantic flavor tokens to the document root.',
+    ' *',
+    ' * Load AFTER ingredients + at least one flavor file. Typically the consumer',
+    ' * imports `theme.css` or a single `<flavor>.css` before this file.',
+    ' *',
+    ' * Companion to `packages/components/src/styles/reset.css.ts`, which performs',
+    ' * the same wiring inside Shadow DOM. Together they ensure both light-DOM',
+    ' * content (MDX, app shell) and Web Component subtrees share the active',
+    ' * flavor\'s typography and color.',
+    ' */',
+    '',
+    ':where(:root, [data-flavor]) {',
+    '  font-family: var(--sando-font-family-body);',
+    '  font-size: var(--sando-font-size-body);',
+    '  font-weight: var(--sando-font-weight-body);',
+    '  line-height: var(--sando-font-lineHeight-body);',
+    '  color: var(--sando-color-text-body);',
+    '  background-color: var(--sando-color-background-base);',
+    '}'
+  ].join('\n');
+
+  const outputPath = path.join(cssDir, 'base.css');
+  writeBarrelFile(outputPath, content, 'Base / Preflight');
+  console.log(`   🩹 base.css (preflight — body typography + background)`);
+}
+
+/**
  * Generate root index.css (deprecated)
  * Re-exports theme.css with deprecation notice
  * @param {string} cssDir - Base CSS output directory
@@ -291,6 +336,9 @@ export async function generateCssBarrels(distDir) {
 
     // Generate theme.css (ingredients + all flavors)
     generateThemeBarrel(cssDir, flavorFolders);
+
+    // Generate preflight that wires semantic tokens to the document root
+    generateBaseBarrel(cssDir);
 
     // Generate root barrel (deprecated — re-exports theme.css)
     generateRootBarrel(cssDir);

@@ -15,8 +15,8 @@ import { css } from 'lit';
 export const baseStyles = css`
   :host {
     display: block;
-    font-family: var(--sando-select-fontFamily);
-    line-height: var(--sando-select-lineHeight);
+    font-family: var(--sando-option-fontFamily);
+    line-height: var(--sando-option-lineHeight);
   }
 
   .option {

@@ -1,5 +1,10 @@
 {
   "form": {
+    "fontFamily": {
+      "value": "{font.family.body.value}",
+      "type": "fontFamily",
+      "description": "Form font family — body font so unstyled slotted text (legends, paragraphs) renders consistently"
+    },
     "loading": {
       "overlay": {
         "backgroundColor": {

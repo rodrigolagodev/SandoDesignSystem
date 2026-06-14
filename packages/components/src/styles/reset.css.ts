@@ -30,14 +30,17 @@ export const resetStyles = css`
 
   /* ============================================
      2. HOST DEFAULTS
-     Common :host defaults for all components
+     Apply semantic flavor tokens directly on the host so Shadow DOM
+     descendants AND Light-DOM slot content (which inherits from the host)
+     share the active flavor typography. The inherit fallback preserves
+     prior behavior when no flavor is active.
      ============================================ */
   :host {
-    /* Font inheritance from light DOM */
-    font-family: inherit;
+    font-family: var(--sando-font-family-body, inherit);
+    line-height: var(--sando-font-lineHeight-body, inherit);
+    color: var(--sando-color-text-body, inherit);
+    /* font-size stays inherit so consumer rules on the host scope still win. */
     font-size: inherit;
-    line-height: inherit;
-    color: inherit;
   }
 
   :host([hidden]) {

@@ -122,6 +122,9 @@ export const baseStyles = css`
     box-shadow: var(--_dialog-boxShadow);
     outline: none;
 
+    /* Panel owns typography so body slot content inherits dialog font */
+    font-family: var(--sando-dialog-fontFamily);
+
     /* Entry animation */
     animation: dialogIn var(--sando-dialog-animation-duration-enter)
       var(--sando-dialog-animation-easing-enter) both;
@@ -166,6 +169,7 @@ export const baseStyles = css`
   }
 
   [part='title'] {
+    font-family: var(--sando-dialog-header-titleFontFamily);
     font-size: var(--sando-dialog-header-titleFontSize);
     font-weight: var(--sando-dialog-header-titleFontWeight);
     line-height: var(--sando-dialog-header-titleLineHeight);

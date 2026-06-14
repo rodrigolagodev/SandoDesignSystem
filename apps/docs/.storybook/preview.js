@@ -66,6 +66,12 @@ import "../../../packages/tokens/dist/sando-tokens/css/flavors/nori/flavor-dark.
 import "../../../packages/tokens/dist/sando-tokens/css/flavors/nori/flavor-high-contrast.css";
 import "../../../packages/tokens/dist/sando-tokens/css/flavors/nori/flavor-motion-reduce.css";
 
+// Base / Preflight — Light DOM bridge that wires the active flavor's semantic
+// tokens to <html> and any [data-flavor] subtree. Without it, MDX prose and
+// the Storybook canvas would fall back to browser default typography even
+// though the flavor variables are present. Companion of resetStyles (Shadow DOM).
+import "../../../packages/tokens/dist/sando-tokens/css/base.css";
+
 const FLAVORS = [
   "sando",
   "nori",

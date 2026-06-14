@@ -44,6 +44,7 @@ export const baseStyles = css`
     padding-block: var(--sando-tooltip-paddingBlock);
     padding-inline: var(--sando-tooltip-paddingInline);
     box-shadow: var(--sando-tooltip-boxShadow);
+    font-family: var(--sando-tooltip-fontFamily);
     font-size: var(--sando-tooltip-fontSize);
     font-weight: var(--sando-tooltip-fontWeight);
     line-height: var(--sando-tooltip-lineHeight);

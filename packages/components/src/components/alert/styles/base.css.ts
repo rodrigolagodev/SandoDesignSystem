@@ -78,6 +78,7 @@ export const baseStyles = css`
   .alert-content {
     flex: 1;
     min-width: 0;
+    font-family: var(--sando-alert-fontFamily);
     line-height: var(--sando-alert-lineHeight);
   }
 

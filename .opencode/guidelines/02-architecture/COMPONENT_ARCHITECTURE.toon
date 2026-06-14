@@ -1,9 +1,9 @@
 meta:
   doc_id: "CA"
   category: "02-architecture"
-  version: "2.1.0"
+  version: "2.2.0"
   status: "Active"
-  last_updated: "2026-04-06"
+  last_updated: "2026-06-14"
   owner: "Design System Architect"
 
 purpose:
@@ -186,13 +186,13 @@ core_rules:
 
   - id: "CA-CR-R6"
     title: "CSS Reset Import (Non-Negotiable)"
-    summary: "All components MUST import resetStyles as the FIRST style in the static styles array. This provides consistent baseline CSS across all components."
+    summary: "All components MUST import resetStyles as the FIRST style in the static styles array. This provides consistent baseline CSS across all components AND wires the active flavor's typography into Shadow DOM."
     pattern:
       lang: "typescript"
       code: |
         import { resetStyles } from '../../styles/reset.css.js';
         import { tokenStyles } from '../../styles/tokens.css.js';
-        
+
         @customElement('sando-example')
         export class SandoExample extends FlavorableMixin(LitElement) {
           static styles = [
@@ -203,7 +203,7 @@ core_rules:
         }
     what_reset_provides:
       - "box-sizing: border-box for all elements"
-      - "Font inheritance from light DOM"
+      - ":host applies flavor typography tokens (font-family, line-height, color) with `inherit` fallback"
       - ":host([hidden]) support"
       - "Button/input/select normalization"
       - "Typography reset (h1-h6, p margins)"
@@ -211,16 +211,50 @@ core_rules:
       - "prefers-reduced-motion support"
     why:
       - "Ensures consistent box model across all components"
+      - "Activates flavor typography automatically (slot content + shadow DOM share the active font)"
       - "Eliminates browser inconsistencies"
       - "Centralizes reset logic (DRY principle)"
       - "Provides automatic accessibility features"
+    host_typography_activation:
+      title: "Why :host applies flavor tokens directly"
+      summary: |
+        Before v2.2.0 the reset used `font-family: inherit` on :host. Custom
+        properties (e.g. `--sando-font-family-body`) cascaded into Shadow DOM
+        but nothing read them — components rendered with the browser's default
+        font. Slot content (light DOM under the host) shared the same fate.
+      mechanism: |
+        :host now reads the semantic Flavor tokens directly. Because slotted
+        nodes inherit from the host, that single declaration covers both
+        Shadow DOM descendants and light-DOM slot content.
+      pattern:
+        lang: "css"
+        code: |
+          :host {
+            font-family: var(--sando-font-family-body, inherit);
+            line-height: var(--sando-font-lineHeight-body, inherit);
+            color: var(--sando-color-text-body, inherit);
+            font-size: inherit;
+          }
+      notes:
+        - "The `inherit` fallback keeps prior behavior when no flavor is active (embedded without tokens)."
+        - "`font-size` stays `inherit` on purpose — overriding it would clobber consumer rules like `sando-button { font-size: 1.25rem }`."
+        - "Components that need a different font for inner regions (Button, Input, etc.) still override via their own Recipe tokens (e.g. `--sando-button-fontFamily`)."
+        - "Components that own font-family on the host (Card, Form) override resetStyles by listing baseStyles AFTER resetStyles in `static styles`."
+    related_layer:
+      summary: "Companion in Light DOM."
+      note: "The Shadow DOM bridge is `resetStyles`. The Light DOM bridge is `@sando-ds/tokens/css/base` (preflight). Consumers SHOULD load both — or use a build/framework that includes them — so slot content and page text share the active flavor."
+      reference:
+        type: "guideline"
+        doc_id: "TSYS"
+        file: "../01-design-system/TYPOGRAPHY_SYSTEM.toon"
+        note: "Light DOM activation pattern"
     anti_pattern:
       lang: "typescript"
       title: "❌ WRONG: Missing resetStyles or wrong order"
       code: |
         // WRONG: No resetStyles
         static styles = [tokenStyles, componentStyles];
-        
+
         // WRONG: resetStyles not first
         static styles = [tokenStyles, resetStyles, componentStyles];
     reference:

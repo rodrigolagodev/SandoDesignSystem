@@ -13,6 +13,7 @@ export const baseStyles = css`
   :host {
     display: block;
     position: relative;
+    font-family: var(--sando-form-fontFamily);
   }
 
   :host([hidden]) {
