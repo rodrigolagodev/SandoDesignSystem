@@ -252,11 +252,21 @@ function generateThemeBarrel(cssDir, flavorFolders) {
  * but no rule applies them to actual properties — so consumers see browser
  * defaults for typography and color on non-component content (MDX, page shell).
  *
- * Targets `:where(:root, [data-flavor])` so:
- * - The document root inherits the active flavor (or original by default).
- * - Any subtree opted into a flavor via `data-flavor="..."` gets the same
- *   wiring so nested flavor swaps work without extra rules.
- * - `:where()` has zero specificity — any consumer rule wins trivially.
+ * TWO rules, on purpose:
+ *
+ * 1. `:where(:root)` paints the page canvas:
+ *    - font/color/line-height: yes
+ *    - background-color: ONLY here, because `FlavorableMixin` sets
+ *      `data-flavor` on every component host. If we painted background on
+ *      `[data-flavor]` we would clobber `:host` backgrounds whenever the
+ *      host is partially visible (display: block, gaps in layout, etc.).
+ *
+ * 2. `:where([data-flavor])` propagates typography to flavor subtrees:
+ *    - Lets `<section data-flavor="strawberry">` (or a per-component
+ *      override via FlavorableMixin) restyle text without extra rules.
+ *    - NO background here — that paint is the page's job, not the subtree's.
+ *
+ * `:where()` keeps specificity at 0 so any consumer rule wins trivially.
  *
  * @param {string} cssDir - Base CSS output directory
  */
@@ -272,21 +282,33 @@ function generateBaseBarrel(cssDir) {
     ' * the same wiring inside Shadow DOM. Together they ensure both light-DOM',
     ' * content (MDX, app shell) and Web Component subtrees share the active',
     ' * flavor\'s typography and color.',
+    ' *',
+    ' * Background-color is intentionally scoped to :root only. Applying it to',
+    ' * [data-flavor] would paint component hosts (FlavorableMixin mirrors',
+    ' * data-flavor on every host) and clobber their :host backgrounds.',
     ' */',
     '',
-    ':where(:root, [data-flavor]) {',
+    ':where(:root) {',
     '  font-family: var(--sando-font-family-body);',
     '  font-size: var(--sando-font-size-body);',
     '  font-weight: var(--sando-font-weight-body);',
     '  line-height: var(--sando-font-lineHeight-body);',
     '  color: var(--sando-color-text-body);',
     '  background-color: var(--sando-color-background-base);',
+    '}',
+    '',
+    ':where([data-flavor]) {',
+    '  font-family: var(--sando-font-family-body);',
+    '  font-size: var(--sando-font-size-body);',
+    '  font-weight: var(--sando-font-weight-body);',
+    '  line-height: var(--sando-font-lineHeight-body);',
+    '  color: var(--sando-color-text-body);',
     '}'
   ].join('\n');
 
   const outputPath = path.join(cssDir, 'base.css');
   writeBarrelFile(outputPath, content, 'Base / Preflight');
-  console.log(`   🩹 base.css (preflight — body typography + background)`);
+  console.log(`   🩹 base.css (preflight — body typography + canvas bg)`);
 }
 
 /**

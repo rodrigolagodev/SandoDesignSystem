@@ -469,9 +469,17 @@ light_dom_activation:
 
         // Shadow DOM activation is automatic — every component imports resetStyles first.
   rule:
-    title: "TSYS-LDA-R1: Consumers MUST load `@sando-ds/tokens/css/base` (or equivalent)"
-    note: "Without the base layer, pages render typography from browser defaults even when Flavor variables are loaded. The Shadow DOM bridge alone does not fix MDX/HTML content outside components."
-    exception: "Consumers MAY substitute their own equivalent rule (e.g. when applying Sando tokens to an existing app theme), as long as it applies the four semantic properties listed above to the document root and any `[data-flavor]` subtrees."
+    title: "TSYS-LDA-R1: Consumers SHOULD load `@sando-ds/tokens/css/base` for flavor-driven typography"
+    summary: |
+      Required for: consumers that want page text and slot content to track the active Flavor.
+      Optional for: consumers that already apply their own global `font-family` / `color` rules
+      (the Shadow DOM bridge degrades gracefully via `inherit` — components will pick up the
+      consumer's typography instead of the Flavor's).
+    note: "Without the base layer AND without a consumer-provided global typography rule, pages fall back to browser defaults even when Flavor variables are loaded. The Shadow DOM bridge alone does not fix MDX/HTML content outside components, but it does inherit whatever Light DOM typography exists."
+    alternatives:
+      - "Load `@sando-ds/tokens/css/base` (recommended for new projects)."
+      - "Write an equivalent rule in the consumer's global CSS that applies the semantic properties (`font-family`, `font-size`, `font-weight`, `line-height`, `color`) on `:root` and `[data-flavor]` subtrees."
+      - "Skip both — components inherit the consumer's existing body typography via `font-family: inherit` in `resetStyles`. The Flavor toolbar won't change typography, but layouts remain functional."
   reference:
     - type: "guideline"
       doc_id: "CA"

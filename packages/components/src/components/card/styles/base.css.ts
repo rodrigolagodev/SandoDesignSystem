@@ -103,11 +103,15 @@ export const baseStyles = css`
   }
 
   /* Body section (default slot)
-   * Apply body typography so slotted content (e.g. <p>) inherits the
-   * card's font-size/weight/line-height/color from the host scope. */
+   *
+   * Apply body typography so slotted content (e.g. <p>) inherits the card's
+   * weight, line-height, and color. font-size is intentionally left to inherit:
+   * the host scope already provides it (via base.css preflight or the page),
+   * and forcing it here would shrink existing slotted text from the consumer's
+   * baseline (16px) to the design system's body size (14px) without warning.
+   */
   .card__body {
     flex: 1;
-    font-size: var(--sando-card-body-fontSize);
     font-weight: var(--sando-card-body-fontWeight);
     line-height: var(--sando-card-body-lineHeight);
     color: var(--sando-card-body-color);

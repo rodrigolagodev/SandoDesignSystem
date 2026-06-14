@@ -165,7 +165,7 @@
       "fontSize": {
         "value": "{font.size.body.value}",
         "type": "dimension",
-        "description": "Card body font size — baseline reading size for slot content"
+        "description": "Card body font size — exposed as a CSS variable for opt-in sizing. NOT applied by `.card__body` to preserve the consumer's baseline (typically 16px) for slotted content."
       },
       "fontWeight": {
         "value": "{font.weight.body.value}",
@@ -200,9 +200,9 @@
         "description": "Bold weight for card heading"
       },
       "lineHeight": {
-        "value": "{font.lineHeight.heading.value}",
+        "value": "{font.lineHeight.subheading.value}",
         "type": "number",
-        "description": "Card heading line height — tight for headings"
+        "description": "Card heading line height — DLD §2.4 subheading rule (1.3) for secondary headings"
       },
       "color": {
         "value": "{color.text.heading.value}",
