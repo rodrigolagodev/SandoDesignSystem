@@ -1,4 +1,8 @@
 /**
+ * @deprecated Will be removed in the next major. Compose `<sando-skeleton>` and
+ * `<sando-skeleton-paragraph>` instead. See Storybook → Components → Skeleton → Patterns
+ * for direct replacements. Tracked in #126.
+ *
  * Sando Skeleton List Item Component
  *
  * A preset skeleton for list item layouts. Provides a common pattern
@@ -60,6 +64,18 @@ const DEFAULT_AVATAR_SIZE: SkeletonListItemAvatarSize = 'md';
 
 @customElement('sando-skeleton-list-item')
 export class SandoSkeletonListItem extends FlavorableMixin(LitElement) {
+  private static _deprecationWarned = false;
+
+  connectedCallback() {
+    super.connectedCallback();
+    if (!SandoSkeletonListItem._deprecationWarned) {
+      console.warn(
+        '[sando] <sando-skeleton-list-item> is deprecated and will be removed in the next major. Compose <sando-skeleton> and <sando-skeleton-paragraph> instead. See Storybook → Skeleton → Patterns.'
+      );
+      SandoSkeletonListItem._deprecationWarned = true;
+    }
+  }
+
   /**
    * Show avatar/icon placeholder on the left
    * @default true

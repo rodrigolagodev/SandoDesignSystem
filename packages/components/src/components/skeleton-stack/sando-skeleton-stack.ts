@@ -1,4 +1,8 @@
 /**
+ * @deprecated Will be removed in the next major. Compose `<sando-skeleton>` and
+ * `<sando-skeleton-paragraph>` instead. See Storybook → Components → Skeleton → Patterns
+ * for direct replacements. Tracked in #126.
+ *
  * Sando Skeleton Stack Component
  *
  * A vertical layout helper for composing skeleton placeholders.
@@ -49,6 +53,18 @@ const DEFAULT_ALIGN: SkeletonStackAlign = 'stretch';
 
 @customElement('sando-skeleton-stack')
 export class SandoSkeletonStack extends FlavorableMixin(LitElement) {
+  private static _deprecationWarned = false;
+
+  connectedCallback() {
+    super.connectedCallback();
+    if (!SandoSkeletonStack._deprecationWarned) {
+      console.warn(
+        '[sando] <sando-skeleton-stack> is deprecated and will be removed in the next major. Compose <sando-skeleton> and <sando-skeleton-paragraph> instead. See Storybook → Skeleton → Patterns.'
+      );
+      SandoSkeletonStack._deprecationWarned = true;
+    }
+  }
+
   /**
    * Gap between child skeleton elements
    * @default 'md'

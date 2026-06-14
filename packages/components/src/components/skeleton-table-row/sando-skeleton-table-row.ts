@@ -1,4 +1,8 @@
 /**
+ * @deprecated Will be removed in the next major. Compose `<sando-skeleton>` and
+ * `<sando-skeleton-paragraph>` instead. See Storybook → Components → Skeleton → Patterns
+ * for direct replacements. Tracked in #126.
+ *
  * Sando Skeleton Table Row Component
  *
  * A preset skeleton for table row layouts. Provides a quick way to
@@ -48,6 +52,18 @@ const DEFAULT_COLUMNS = 4;
 
 @customElement('sando-skeleton-table-row')
 export class SandoSkeletonTableRow extends FlavorableMixin(LitElement) {
+  private static _deprecationWarned = false;
+
+  connectedCallback() {
+    super.connectedCallback();
+    if (!SandoSkeletonTableRow._deprecationWarned) {
+      console.warn(
+        '[sando] <sando-skeleton-table-row> is deprecated and will be removed in the next major. Compose <sando-skeleton> and <sando-skeleton-paragraph> instead. See Storybook → Skeleton → Patterns.'
+      );
+      SandoSkeletonTableRow._deprecationWarned = true;
+    }
+  }
+
   /**
    * Number of columns to display
    * @default 4

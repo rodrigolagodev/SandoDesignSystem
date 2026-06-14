@@ -1,4 +1,8 @@
 /**
+ * @deprecated Will be removed in the next major. Compose `<sando-skeleton>` and
+ * `<sando-skeleton-paragraph>` instead. See Storybook → Components → Skeleton → Patterns
+ * for direct replacements. Tracked in #126.
+ *
  * Sando Skeleton Image Component
  *
  * A skeleton placeholder for media/image content with aspect ratio support.
@@ -62,6 +66,18 @@ const RATIO_VALUE_MAP: Record<SkeletonImageRatio, string> = {
 
 @customElement('sando-skeleton-image')
 export class SandoSkeletonImage extends FlavorableMixin(LitElement) {
+  private static _deprecationWarned = false;
+
+  connectedCallback() {
+    super.connectedCallback();
+    if (!SandoSkeletonImage._deprecationWarned) {
+      console.warn(
+        '[sando] <sando-skeleton-image> is deprecated and will be removed in the next major. Compose <sando-skeleton> and <sando-skeleton-paragraph> instead. See Storybook → Skeleton → Patterns.'
+      );
+      SandoSkeletonImage._deprecationWarned = true;
+    }
+  }
+
   /**
    * Aspect ratio of the skeleton image
    * - 1/1: Square (thumbnails)

@@ -1,4 +1,8 @@
 /**
+ * @deprecated Will be removed in the next major. Compose `<sando-skeleton>` and
+ * `<sando-skeleton-paragraph>` instead. See Storybook → Components → Skeleton → Patterns
+ * for direct replacements. Tracked in #126.
+ *
  * Sando Skeleton Row Component
  *
  * A horizontal layout helper for composing skeleton placeholders.
@@ -48,6 +52,18 @@ const DEFAULT_ALIGN: SkeletonRowAlign = 'center';
 
 @customElement('sando-skeleton-row')
 export class SandoSkeletonRow extends FlavorableMixin(LitElement) {
+  private static _deprecationWarned = false;
+
+  connectedCallback() {
+    super.connectedCallback();
+    if (!SandoSkeletonRow._deprecationWarned) {
+      console.warn(
+        '[sando] <sando-skeleton-row> is deprecated and will be removed in the next major. Compose <sando-skeleton> and <sando-skeleton-paragraph> instead. See Storybook → Skeleton → Patterns.'
+      );
+      SandoSkeletonRow._deprecationWarned = true;
+    }
+  }
+
   /**
    * Gap between child skeleton elements
    * @default 'md'

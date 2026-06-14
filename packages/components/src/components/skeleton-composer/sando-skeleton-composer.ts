@@ -1,4 +1,8 @@
 /**
+ * @deprecated Will be removed in the next major. Compose `<sando-skeleton>` and
+ * `<sando-skeleton-paragraph>` instead. See Storybook → Components → Skeleton → Patterns
+ * for direct replacements. Tracked in #126.
+ *
  * Sando Skeleton Composer Component
  *
  * A container component that can apply staggered animation delays to child
@@ -43,6 +47,8 @@ const SKELETON_SELECTOR = [
 
 @customElement('sando-skeleton-composer')
 export class SandoSkeletonComposer extends FlavorableMixin(LitElement) {
+  private static _deprecationWarned = false;
+
   /**
    * Delay between each skeleton's animation start.
    * Creates a wave effect (e.g., '50ms', '100ms').
@@ -74,6 +80,12 @@ export class SandoSkeletonComposer extends FlavorableMixin(LitElement) {
    */
   connectedCallback() {
     super.connectedCallback();
+    if (!SandoSkeletonComposer._deprecationWarned) {
+      console.warn(
+        '[sando] <sando-skeleton-composer> is deprecated and will be removed in the next major. Compose <sando-skeleton> and <sando-skeleton-paragraph> instead. See Storybook → Skeleton → Patterns.'
+      );
+      SandoSkeletonComposer._deprecationWarned = true;
+    }
     this._applyStagger();
 
     // Watch for dynamically added skeleton children
