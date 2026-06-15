@@ -119,8 +119,9 @@ import type {
 import { FlavorableMixin } from '../../mixins/index.js';
 import { uniqueId } from '../../utils/index.js';
 
-// Import skeleton loading component
-import '../skeleton-card/sando-skeleton-card.js';
+// Import skeleton primitives for the loading state composition
+import '../skeleton/sando-skeleton.js';
+import '../skeleton-paragraph/sando-skeleton-paragraph.js';
 
 import { resetStyles } from '../../styles/reset.css.js';
 import { tokenStyles } from '../../styles/tokens.css.js';
@@ -268,7 +269,8 @@ export class SandoCard extends FlavorableMixin(LitElement) {
   disabled = false;
 
   /**
-   * When true, all card content is replaced with `<sando-skeleton-card>`.
+   * When true, all card content is replaced with a skeleton loading composition
+   * (one `<sando-skeleton>` block + one `<sando-skeleton-paragraph>`).
    * Sets `aria-busy="true"` on the host and removes the card from the tab order.
    * @default false
    */
@@ -495,9 +497,14 @@ export class SandoCard extends FlavorableMixin(LitElement) {
 
   /**
    * Renders the skeleton loading state, replacing all card content.
+   * Composes the two skeleton primitives (canonical "Card" pattern documented
+   * in Storybook → Components → Skeleton → Patterns).
    */
   private _renderSkeleton() {
-    return html`<sando-skeleton-card></sando-skeleton-card>`;
+    return html`
+      <sando-skeleton shape="rectangular" width="100%" height="200px"></sando-skeleton>
+      <sando-skeleton-paragraph lines="2"></sando-skeleton-paragraph>
+    `;
   }
 
   render() {

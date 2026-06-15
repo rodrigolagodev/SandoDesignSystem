@@ -20,7 +20,7 @@ description: >-
   Assistant: "I'll delegate to quality agent for comprehensive review."
   </example>
 
-model: github-copilot/claude-sonnet-4.6
+model: opencode/big-pickle
 mode: all
 tools:
   read: true

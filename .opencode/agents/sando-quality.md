@@ -20,7 +20,7 @@ description: >-
   </example>
 
 mode: subagent
-model: github-copilot/claude-sonnet-4.6
+model: opencode/big-pickle
 tools:
   read: true
   write: true

@@ -23,9 +23,9 @@ function getSurfaceAction(el: SandoCard): HTMLElement | null {
   return el.shadowRoot!.querySelector('.card__surface-action');
 }
 
-/** Returns the sando-skeleton-card element, or null */
+/** Returns the first sando-skeleton element rendered by the loading state, or null */
 function getSkeleton(el: SandoCard): HTMLElement | null {
-  return el.shadowRoot!.querySelector('sando-skeleton-card');
+  return el.shadowRoot!.querySelector('sando-skeleton');
 }
 
 /** Returns the heading element inside the shadow root (.card__heading), or null */
@@ -560,10 +560,12 @@ describe('sando-card', () => {
   // 12. Loading state
   // ──────────────────────────────────────────────────────────────────────────
   describe('Loading state', () => {
-    it('renders sando-skeleton-card when loading is true', async () => {
+    it('renders the skeleton composition when loading is true', async () => {
       const el = await fixture<SandoCard>(html`<sando-card loading>Body</sando-card>`);
       await el.updateComplete;
       expect(getSkeleton(el)).not.toBeNull();
+      // Loading state should also include a paragraph primitive for body lines
+      expect(el.shadowRoot!.querySelector('sando-skeleton-paragraph')).not.toBeNull();
     });
 
     it('sets aria-busy="true" on .card wrapper when loading', async () => {

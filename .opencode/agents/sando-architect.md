@@ -22,7 +22,7 @@ description: >-
   </example>
 
 mode: subagent
-model: github-copilot/claude-opus-4.6
+model: opencode/big-pickle
 tools:
   read: true
   write: true

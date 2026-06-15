@@ -334,8 +334,9 @@ export const LinkCard: Story = {
 };
 
 /**
- * Loading state — all card content is replaced with a `<sando-skeleton-card>`
- * and `aria-busy="true"` is applied to the host element.
+ * Loading state — all card content is replaced with a skeleton composition
+ * (`<sando-skeleton>` + `<sando-skeleton-paragraph>`) and `aria-busy="true"`
+ * is applied to the host element.
  */
 export const Loading: Story = {
   args: {

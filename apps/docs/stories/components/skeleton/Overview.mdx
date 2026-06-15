@@ -21,16 +21,15 @@ import { Meta } from "@storybook/blocks";
     }
 
     .skeleton-header p {
-      color: var(--sb-docs-text-muted);
+      color: var(--sb-docs-text-body);
       margin: 0;
-      font-size: 1rem;
       line-height: 1.6;
     }
 
     .skeleton-table {
       width: 100%;
       border-collapse: collapse;
-      margin-bottom: 2rem;
+      margin: 1.5rem 0;
     }
 
     .skeleton-table th,
@@ -41,96 +40,29 @@ import { Meta } from "@storybook/blocks";
     }
 
     .skeleton-table th {
-      background: var(--sb-docs-bg-emphasis);
+      background: var(--sb-docs-background-subtle);
       font-weight: 600;
-      color: var(--sb-docs-text-heading);
-      font-size: 0.875rem;
     }
 
-    .skeleton-table td {
-      font-size: 0.875rem;
-      color: var(--sb-docs-text-muted);
-    }
-
-    .skeleton-table tr:hover td {
-      background: var(--sb-docs-bg-emphasis);
-    }
-
-    .status-badge {
-      display: inline-flex;
-      align-items: center;
-      padding: 0.25rem 0.5rem;
-      border-radius: 4px;
-      font-size: 0.75rem;
-      font-weight: 500;
-    }
-
-    .status-stable {
-      background: var(--sb-docs-success-bg);
-      color: var(--sb-docs-success-text);
-    }
-
-    .status-beta {
-      background: var(--sb-docs-warning-bg);
-      color: var(--sb-docs-warning-text);
-    }
-
-    .legend {
-      display: flex;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-      margin-top: 1.5rem;
-      padding: 1rem;
-      background: var(--sb-docs-bg-emphasis);
-      border-radius: 8px;
-    }
-
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.75rem;
-      color: var(--sb-docs-text-muted);
+    .skeleton-table td code {
+      background: var(--sb-docs-background-code);
+      padding: 0.1rem 0.4rem;
+      border-radius: 3px;
+      font-size: 0.85em;
     }
 
     .quick-start {
-      margin-top: 2.5rem;
+      margin-top: 2rem;
     }
 
     .quick-start h2 {
-      font-size: 1.5rem;
-      margin: 0 0 1rem 0;
-      color: var(--sb-docs-text-heading);
-    }
-
-    .quick-start h3 {
-      font-size: 1rem;
-      margin: 1.5rem 0 0.5rem 0;
-      color: var(--sb-docs-text-heading);
+      margin-top: 0;
     }
 
     .quick-start p {
-      color: var(--sb-docs-text-muted);
-      margin: 0 0 1rem 0;
-      font-size: 0.875rem;
-    }
-
-    .code-block {
-      background: var(--sb-docs-code-bg);
-      border-radius: 8px;
-      padding: 1rem;
-      overflow-x: auto;
-      margin: 0.5rem 0 1rem 0;
-    }
-
-    .code-block code {
-      color: var(--sb-docs-code-text);
-      font-family: 'Fira Code', 'Monaco', monospace;
-      font-size: 0.8125rem;
+      color: var(--sb-docs-text-body);
       line-height: 1.6;
     }
-
-
   `}
 </style>
 
@@ -140,20 +72,18 @@ import { Meta } from "@storybook/blocks";
   <h1>Skeleton Components</h1>
   <p>
     Skeleton components provide visual placeholders that indicate content is
-    loading. They improve perceived performance by showing users where content
-    will appear, reducing frustration and creating a smoother loading
-    experience.
+    loading. Sando ships two small primitives plus a paragraph helper —
+    everything else is composition.
   </p>
 </div>
 
-## Component Status
+## Components
 
 <table className="skeleton-table">
   <thead>
     <tr>
       <th>Component</th>
-      <th>Status</th>
-      <th>Description</th>
+      <th>Purpose</th>
     </tr>
   </thead>
   <tbody>
@@ -163,278 +93,90 @@ import { Meta } from "@storybook/blocks";
           <a href="?path=/docs/components-skeleton-skeleton--docs">Skeleton</a>
         </strong>
       </td>
-      <td>
-        <span className="status-badge status-stable">Stable</span>
-      </td>
-      <td>Base building block with shape, effect, and dimensions</td>
+      <td>Base block — pick a <code>shape</code> (<code>rectangular</code>, <code>rounded</code>, <code>circle</code>) and dimensions.</td>
     </tr>
     <tr>
       <td>
         <strong>
-          <a href="?path=/docs/components-skeleton-skeletontext--docs">
-            SkeletonText
-          </a>
+          <a href="?path=/docs/components-skeleton-skeletontext--docs">SkeletonText</a>
         </strong>
       </td>
-      <td>
-        <span className="status-badge status-stable">Stable</span>
-      </td>
-      <td>Text line placeholder with token-based sizing</td>
+      <td>Single text line sized by token (<code>xs</code> → <code>xl</code>).</td>
     </tr>
     <tr>
       <td>
         <strong>
-          <a href="?path=/docs/components-skeleton-skeletonavatar--docs">
-            SkeletonAvatar
-          </a>
+          <a href="?path=/docs/components-skeleton-skeletonparagraph--docs">SkeletonParagraph</a>
         </strong>
       </td>
-      <td>
-        <span className="status-badge status-stable">Stable</span>
-      </td>
-      <td>Circular avatar placeholder</td>
-    </tr>
-    <tr>
-      <td>
-        <strong>
-          <a href="?path=/docs/components-skeleton-skeletonbutton--docs">
-            SkeletonButton
-          </a>
-        </strong>
-      </td>
-      <td>
-        <span className="status-badge status-stable">Stable</span>
-      </td>
-      <td>Button placeholder with size variants</td>
-    </tr>
-    <tr>
-      <td>
-        <strong>
-          <a href="?path=/docs/components-skeleton-skeletoncard--docs">
-            SkeletonCard
-          </a>
-        </strong>
-      </td>
-      <td>
-        <span className="status-badge status-stable">Stable</span>
-      </td>
-      <td>Pre-composed card loading state</td>
-    </tr>
-    <tr>
-      <td>
-        <strong>
-          <a href="?path=/docs/components-skeleton-skeletonarticle--docs">
-            SkeletonArticle
-          </a>
-        </strong>
-      </td>
-      <td>
-        <span className="status-badge status-stable">Stable</span>
-      </td>
-      <td>Article with optional image</td>
-    </tr>
-    <tr>
-      <td>
-        <strong>
-          <a href="?path=/docs/components-skeleton-skeletonparagraph--docs">
-            SkeletonParagraph
-          </a>
-        </strong>
-      </td>
-      <td>
-        <span className="status-badge status-stable">Stable</span>
-      </td>
-      <td>Multiple text lines</td>
-    </tr>
-    <tr>
-      <td>
-        <strong>
-          <a href="?path=/docs/components-skeleton-skeletoncomment--docs">
-            SkeletonComment
-          </a>
-        </strong>
-      </td>
-      <td>
-        <span className="status-badge status-stable">Stable</span>
-      </td>
-      <td>Comment with avatar and text</td>
-    </tr>
-    <tr>
-      <td>
-        <strong>
-          <a href="?path=/docs/components-skeleton-skeletonstack--docs">
-            SkeletonStack
-          </a>
-        </strong>
-      </td>
-      <td>
-        <span className="status-badge status-beta">Beta</span>
-      </td>
-      <td>Vertical stacking with gap</td>
-    </tr>
-    <tr>
-      <td>
-        <strong>
-          <a href="?path=/docs/components-skeleton-skeletonrow--docs">
-            SkeletonRow
-          </a>
-        </strong>
-      </td>
-      <td>
-        <span className="status-badge status-beta">Beta</span>
-      </td>
-      <td>Horizontal layout with gap</td>
-    </tr>
-    <tr>
-      <td>
-        <strong>
-          <a href="?path=/docs/components-skeleton-skeletoncomposer--docs">
-            SkeletonComposer
-          </a>
-        </strong>
-      </td>
-      <td>
-        <span className="status-badge status-beta">Beta</span>
-      </td>
-      <td>Animation synchronization container</td>
-    </tr>
-    <tr>
-      <td>
-        <strong>
-          <a href="?path=/docs/components-skeleton-skeletonimage--docs">
-            SkeletonImage
-          </a>
-        </strong>
-      </td>
-      <td>
-        <span className="status-badge status-beta">Beta</span>
-      </td>
-      <td>Image placeholder with aspect ratio</td>
-    </tr>
-    <tr>
-      <td>
-        <strong>
-          <a href="?path=/docs/components-skeleton-skeletonprofile--docs">
-            SkeletonProfile
-          </a>
-        </strong>
-      </td>
-      <td>
-        <span className="status-badge status-beta">Beta</span>
-      </td>
-      <td>User profile loading state</td>
-    </tr>
-    <tr>
-      <td>
-        <strong>
-          <a href="?path=/docs/components-skeleton-skeletonmediacard--docs">
-            SkeletonMediaCard
-          </a>
-        </strong>
-      </td>
-      <td>
-        <span className="status-badge status-beta">Beta</span>
-      </td>
-      <td>Media card with image and text</td>
-    </tr>
-    <tr>
-      <td>
-        <strong>
-          <a href="?path=/docs/components-skeleton-skeletonlistitem--docs">
-            SkeletonListItem
-          </a>
-        </strong>
-      </td>
-      <td>
-        <span className="status-badge status-beta">Beta</span>
-      </td>
-      <td>List item with icon/avatar</td>
-    </tr>
-    <tr>
-      <td>
-        <strong>
-          <a href="?path=/docs/components-skeleton-skeletontablerow--docs">
-            SkeletonTableRow
-          </a>
-        </strong>
-      </td>
-      <td>
-        <span className="status-badge status-beta">Beta</span>
-      </td>
-      <td>Table row placeholder</td>
+      <td>Multiple text lines with consistent spacing.</td>
     </tr>
   </tbody>
 </table>
 
-<div className="legend">
-  <div className="legend-item">
-    <span className="status-badge status-stable">Stable</span> Production-ready
-  </div>
-  <div className="legend-item">
-    <span className="status-badge status-beta">Beta</span> In testing, API may
-    change
-  </div>
-</div>
+<p>
+  Looking for layouts like a card, comment, article, or media tile? See{" "}
+  <a href="?path=/docs/components-skeleton-patterns--docs">
+    <strong>Patterns</strong>
+  </a>{" "}
+  — every common loading layout is a one-paragraph copy/paste recipe composed
+  from these three primitives.
+</p>
 
 <div className="quick-start">
   <h2>Quick Start</h2>
 
-<h3>1. Simple Primitive</h3>
-<p>Use the base Skeleton component with shape and dimensions:</p>
+<h3>1. Single placeholder</h3>
 
 ```html
-<!-- Rectangle skeleton -->
+<!-- Rectangle -->
 <sando-skeleton width="200px" height="20px"></sando-skeleton>
 
-<!-- Circle skeleton (avatar) -->
+<!-- Avatar circle -->
 <sando-skeleton shape="circle" width="48px" height="48px"></sando-skeleton>
 
 <!-- With animation effect -->
 <sando-skeleton effect="shimmer" width="100%" height="16px"></sando-skeleton>
 ```
 
-<h3>2. Pre-composed Preset</h3>
-<p>Drop in a preset for common patterns:</p>
+<h3>2. Multiple text lines</h3>
 
 ```html
-<!-- Card skeleton with image, title, and description -->
-<sando-skeleton-card></sando-skeleton-card>
-
-<!-- Comment skeleton with avatar and text lines -->
-<sando-skeleton-comment></sando-skeleton-comment>
-
-<!-- Paragraph with multiple lines -->
-<sando-skeleton-paragraph lines="4"></sando-skeleton-paragraph>
+<sando-skeleton-paragraph lines="3"></sando-skeleton-paragraph>
 ```
 
-<h3>3. Custom Composition with Layout</h3>
-<p>Build custom layouts using layout helpers:</p>
+<h3>3. Composed layout (card pattern)</h3>
 
 ```html
-<sando-skeleton-composer>
-  <sando-skeleton-row gap="md">
-    <sando-skeleton-avatar size="lg"></sando-skeleton-avatar>
-    <sando-skeleton-stack gap="sm" style="flex: 1;">
-      <sando-skeleton-text size="lg" width="60%"></sando-skeleton-text>
-      <sando-skeleton-text size="sm" width="40%"></sando-skeleton-text>
-    </sando-skeleton-stack>
-  </sando-skeleton-row>
-</sando-skeleton-composer>
+<div style="display: flex; flex-direction: column; gap: 0.75rem;">
+  <sando-skeleton shape="rectangular" width="100%" height="200px"></sando-skeleton>
+  <sando-skeleton-paragraph lines="2"></sando-skeleton-paragraph>
+</div>
 ```
+
+See <a href="?path=/docs/components-skeleton-patterns--docs">Patterns</a> for
+the canonical compositions (Card, Comment, Article, Profile, MediaCard,
+ListItem, TableRow, Row, Composer…).
 
 </div>
 
 ## Best Practices
 
-- **Match the content** — Skeleton shapes should approximate the actual content dimensions
-- **Consistent animation** — Wrap multiple skeletons in `SkeletonComposer` for synchronized effects
-- **Accessibility** — Skeletons include `aria-busy="true"` and `role="progressbar"` by default
-- **Reduce layout shift** — Use the same dimensions as your actual content to prevent CLS
+- **Match the content** — skeleton dimensions should approximate the real
+  content so the layout doesn't jump when it loads (prevents CLS).
+- **Pick the smallest set** — every layout in Patterns is one or two
+  primitives. Don't reach for a third unless it earns its keep.
+- **Accessibility** — primitives emit `role="progressbar"` and `aria-busy`
+  out of the box; no extra ARIA needed for typical use.
+- **Animation effect** — set `effect` on the outermost wrapper or on each
+  primitive. Keep them consistent within a single loading view.
 
 ## Related
 
-- [Skeleton (Primitive)](?path=/docs/components-skeleton-skeleton--docs) — Base skeleton element
-- [SkeletonCard (Preset)](?path=/docs/components-skeleton-skeletoncard--docs) — Card loading state
-- [Components Overview](?path=/docs/components-overview--docs) — All Sando components
+- [Skeleton (primitive)](?path=/docs/components-skeleton-skeleton--docs)
+- [SkeletonText (primitive)](?path=/docs/components-skeleton-skeletontext--docs)
+- [SkeletonParagraph (primitive)](?path=/docs/components-skeleton-skeletonparagraph--docs)
+- [Patterns (cookbook)](?path=/docs/components-skeleton-patterns--docs)
+- [Components Overview](?path=/docs/components-overview--docs)
 
 </div>
