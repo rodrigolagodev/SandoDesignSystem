@@ -25,8 +25,11 @@ const HEADER = `/**
 
 `;
 
-/** Default flavor used in the main flavors/index.css */
-const DEFAULT_FLAVOR = 'original';
+/** Core flavors included in the default bundle (@sando-ds/tokens/css) */
+const CORE_FLAVORS = ['original', 'neutral', 'sando'];
+
+/** Showcase flavors available as opt-in imports only */
+const SHOWCASE_FLAVORS = ['egg-salad', 'kiwi', 'nori', 'strawberry', 'tonkatsu'];
 
 /**
  * Discover CSS files in a directory (non-recursive)
@@ -165,14 +168,15 @@ function generateFlavorsBarrel(cssDir) {
     console.log(`   🎨 flavors/${flavor}/index.css (${modesCount} modes)`);
   }
 
-  // Generate main flavors/index.css (only default flavor)
-  if (flavorFolders.includes(DEFAULT_FLAVOR)) {
-    const content = `@import "./${DEFAULT_FLAVOR}/index.css";`;
+  // Generate main flavors/index.css (core flavors only)
+  const presentCoreFlavors = CORE_FLAVORS.filter(f => flavorFolders.includes(f));
+  if (presentCoreFlavors.length > 0) {
+    const content = presentCoreFlavors.map(f => `@import "./${f}/index.css";`).join('\n');
     const outputPath = path.join(flavorsDir, 'index.css');
-    writeBarrelFile(outputPath, content, `Flavors Bundle (default: ${DEFAULT_FLAVOR})`);
-    console.log(`   🎭 flavors/index.css (default: ${DEFAULT_FLAVOR})`);
+    writeBarrelFile(outputPath, content, `Flavors Bundle (core: ${presentCoreFlavors.join(', ')})`);
+    console.log(`   🎭 flavors/index.css (core: ${presentCoreFlavors.join(', ')})`);
   } else {
-    console.log(`   ⚠️  Default flavor "${DEFAULT_FLAVOR}" not found`);
+    console.log(`   ⚠️  No core flavors found in output`);
   }
 
   return { flavors: flavorFolders.length, totalModes };
@@ -312,23 +316,25 @@ function generateBaseBarrel(cssDir) {
 }
 
 /**
- * Generate root index.css (deprecated)
- * Re-exports theme.css with deprecation notice
+ * Generate root index.css
+ * Core bundle: ingredients + core flavors (original, neutral, sando)
  * @param {string} cssDir - Base CSS output directory
  */
 function generateRootBarrel(cssDir) {
-  const content = [
-    '/**',
-    ' * @deprecated Use @sando-ds/tokens/css/theme.css instead.',
-    ' * Will be removed in the next major version.',
-    ' */',
-    '',
-    '@import "./theme.css";'
-  ].join('\n');
+  const flavorsDir = path.join(cssDir, 'flavors');
+  const flavorFolders = discoverSubdirectories(flavorsDir);
+  const presentCoreFlavors = CORE_FLAVORS.filter(f => flavorFolders.includes(f));
+
+  const imports = [
+    '@import "./ingredients/index.css";',
+    ...presentCoreFlavors.map(f => `@import "./flavors/${f}/index.css";`)
+  ];
+
+  const content = imports.join('\n');
   const outputPath = path.join(cssDir, 'index.css');
 
-  writeBarrelFile(outputPath, content, 'Full Bundle (deprecated — use theme.css)');
-  console.log(`   📋 index.css (deprecated — re-exports theme.css)`);
+  writeBarrelFile(outputPath, content, `Core Bundle (${presentCoreFlavors.join(', ')})`);
+  console.log(`   📋 index.css (core bundle: ${presentCoreFlavors.join(', ')})`);
 }
 
 /**
