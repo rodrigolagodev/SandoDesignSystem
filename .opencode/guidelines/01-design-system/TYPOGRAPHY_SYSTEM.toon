@@ -1,9 +1,9 @@
 meta:
   doc_id: "TSYS"
   category: "01-design-system"
-  version: "3.0.0"
+  version: "3.1.0"
   status: "Active"
-  last_updated: "2026-04-05"
+  last_updated: "2026-06-14"
   owner: "UI Designer + Design System Architect"
 
 purpose:
@@ -427,6 +427,67 @@ component_implementation:
       note: "Use `{font.family.mono.value}` for code blocks and technical content"
     - name: "Different font stacks per flavor"
       note: "Override in `flavor.json` — but ALWAYS maintain the heading/body separation"
+
+light_dom_activation:
+  id: "TSYS-LDA"
+  summary: "Declaring Flavor typography tokens is necessary but not sufficient. SOMETHING must apply them as concrete CSS properties or the document renders with browser defaults."
+  problem: |
+    Flavors declare `--sando-font-family-body`, `--sando-color-text-body`, etc.
+    These cascade into Light DOM and Shadow DOM, but no rule reads them. Result:
+    `<body>` and slot content use browser defaults (typically Times); the toolbar
+    flavor switcher changes variables nobody consumes.
+  two_bridges:
+    summary: "Two CSS rules close the gap, one per DOM scope."
+    bridges:
+      - scope: "Light DOM"
+        file: "`@sando-ds/tokens/css/base` (auto-generated preflight)"
+        applies_to: ":where(:root, [data-flavor])"
+        properties:
+          - "font-family"
+          - "font-size"
+          - "font-weight"
+          - "line-height"
+          - "color"
+          - "background-color"
+        zero_specificity: "Uses `:where()` so any consumer rule trivially overrides it."
+        nested_flavors: "Targets `[data-flavor]` too so subtree flavor swaps re-apply typography automatically."
+      - scope: "Shadow DOM"
+        file: "`packages/components/src/styles/reset.css.ts` (resetStyles)"
+        applies_to: ":host"
+        properties:
+          - "font-family"
+          - "line-height"
+          - "color"
+        slot_inheritance: "Slot content is in Light DOM but inherits from the host — applying typography on :host covers both shadow descendants and slotted children with one declaration."
+        font_size_note: "font-size stays `inherit` to preserve consumer overrides like `sando-button { font-size: 1.25rem }`."
+    consumer_setup:
+      lang: "javascript"
+      code: |
+        // Light DOM activation
+        import '@sando-ds/tokens/css/theme'; // or a single flavor: '@sando-ds/tokens/css/sando'
+        import '@sando-ds/tokens/css/base';  // ← wires tokens to <body> / [data-flavor]
+
+        // Shadow DOM activation is automatic — every component imports resetStyles first.
+  rule:
+    title: "TSYS-LDA-R1: Consumers SHOULD load `@sando-ds/tokens/css/base` for flavor-driven typography"
+    summary: |
+      Required for: consumers that want page text and slot content to track the active Flavor.
+      Optional for: consumers that already apply their own global `font-family` / `color` rules
+      (the Shadow DOM bridge degrades gracefully via `inherit` — components will pick up the
+      consumer's typography instead of the Flavor's).
+    note: "Without the base layer AND without a consumer-provided global typography rule, pages fall back to browser defaults even when Flavor variables are loaded. The Shadow DOM bridge alone does not fix MDX/HTML content outside components, but it does inherit whatever Light DOM typography exists."
+    alternatives:
+      - "Load `@sando-ds/tokens/css/base` (recommended for new projects)."
+      - "Write an equivalent rule in the consumer's global CSS that applies the semantic properties (`font-family`, `font-size`, `font-weight`, `line-height`, `color`) on `:root` and `[data-flavor]` subtrees."
+      - "Skip both — components inherit the consumer's existing body typography via `font-family: inherit` in `resetStyles`. The Flavor toolbar won't change typography, but layouts remain functional."
+  reference:
+    - type: "guideline"
+      doc_id: "CA"
+      file: "../02-architecture/COMPONENT_ARCHITECTURE.toon"
+      note: "CA-CR-R6 — Shadow DOM bridge (resetStyles)"
+    - type: "adr"
+      path: ".opencode/decisions/ADR-005-typography-activation.md"
+      note: "Rationale for the two-bridge model"
 
 responsive_typography:
   id: "TSYS-RT"

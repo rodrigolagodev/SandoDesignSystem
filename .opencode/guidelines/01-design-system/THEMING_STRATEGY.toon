@@ -1,9 +1,9 @@
 meta:
   doc_id: "TS"
   category: "01-design-system"
-  version: "2.0.0"
+  version: "2.1.0"
   status: "Active"
-  last_updated: "2026-04-05"
+  last_updated: "2026-06-14"
   owner: "Design System Architect + Design Ops Specialist"
 
 purpose: |
@@ -25,6 +25,19 @@ core_principles:
   - id: "TS-CP-P5"
     title: "Developer Choice"
     note: "Developers choose flavors, users control modes via system preferences"
+  - id: "TS-CP-P6"
+    title: "Variables Are Not Enough — Two Bridges Activate Them"
+    note: |
+      Declaring `[data-flavor="..."]` rules only POPULATES custom properties.
+      Activation requires two CSS rules that read those properties: the Light
+      DOM preflight (`@sando-ds/tokens/css/base`) and the Shadow DOM reset
+      (`packages/components/src/styles/reset.css.ts`). Skipping either leaves
+      page text or slot content using browser defaults.
+    reference:
+      type: "guideline"
+      doc_id: "TSYS"
+      file: "TYPOGRAPHY_SYSTEM.toon"
+      note: "TSYS-LDA — Light DOM activation details"
 
 flavors_vs_modes:
   - id: "TS-FVM-F1"

@@ -423,6 +423,11 @@
         "value": "{font.lineHeight.140.value}",
         "type": "number"
       },
+      "subheading": {
+        "value": "{font.lineHeight.130.value}",
+        "type": "number",
+        "description": "DLD §2.4 subheading rule — card titles, section headers, smaller headings"
+      },
       "caption": {
         "value": "{font.lineHeight.150.value}",
         "type": "number"

@@ -25,7 +25,7 @@ description: >-
   </example>
 
 mode: subagent
-model: opencode-zen/big-pickle
+model: opencode/big-pickle
 tools:
   read: true
   write: true

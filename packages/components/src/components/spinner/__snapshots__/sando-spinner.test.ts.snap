@@ -20,14 +20,17 @@ exports[`sando-spinner > Snapshot Tests > Arc Snapshots > should match arc=0.5 s
 
   /* ============================================
      2. HOST DEFAULTS
-     Common :host defaults for all components
+     Apply semantic flavor tokens directly on the host so Shadow DOM
+     descendants AND Light-DOM slot content (which inherits from the host)
+     share the active flavor typography. The inherit fallback preserves
+     prior behavior when no flavor is active.
      ============================================ */
   :host {
-    /* Font inheritance from light DOM */
-    font-family: inherit;
+    font-family: var(--sando-font-family-body, inherit);
+    line-height: var(--sando-font-lineHeight-body, inherit);
+    color: var(--sando-color-text-body, inherit);
+    /* font-size stays inherit so consumer rules on the host scope still win. */
     font-size: inherit;
-    line-height: inherit;
-    color: inherit;
   }
 
   :host([hidden]) {
@@ -117,38 +120,6 @@ exports[`sando-spinner > Snapshot Tests > Arc Snapshots > should match arc=0.5 s
     }
   }
 </style><style>
-  /* ========================================
-     INGREDIENTS LAYER - Primitives
-     Base values that never change by flavor
-     ======================================== */
-  
-  
-  
-  
-  
-  
-  
-  
-  
-
-  /* ========================================
-     RECIPES LAYER - Component Tokens
-     Reference Flavor tokens from Light DOM
-     ======================================== */
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   
   
 </style><style>
@@ -314,14 +285,17 @@ exports[`sando-spinner > Snapshot Tests > Arc Snapshots > should match arc=0.25 
 
   /* ============================================
      2. HOST DEFAULTS
-     Common :host defaults for all components
+     Apply semantic flavor tokens directly on the host so Shadow DOM
+     descendants AND Light-DOM slot content (which inherits from the host)
+     share the active flavor typography. The inherit fallback preserves
+     prior behavior when no flavor is active.
      ============================================ */
   :host {
-    /* Font inheritance from light DOM */
-    font-family: inherit;
+    font-family: var(--sando-font-family-body, inherit);
+    line-height: var(--sando-font-lineHeight-body, inherit);
+    color: var(--sando-color-text-body, inherit);
+    /* font-size stays inherit so consumer rules on the host scope still win. */
     font-size: inherit;
-    line-height: inherit;
-    color: inherit;
   }
 
   :host([hidden]) {
@@ -411,38 +385,6 @@ exports[`sando-spinner > Snapshot Tests > Arc Snapshots > should match arc=0.25 
     }
   }
 </style><style>
-  /* ========================================
-     INGREDIENTS LAYER - Primitives
-     Base values that never change by flavor
-     ======================================== */
-  
-  
-  
-  
-  
-  
-  
-  
-  
-
-  /* ========================================
-     RECIPES LAYER - Component Tokens
-     Reference Flavor tokens from Light DOM
-     ======================================== */
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   
   
 </style><style>
@@ -608,14 +550,17 @@ exports[`sando-spinner > Snapshot Tests > Arc Snapshots > should match arc=0.75 
 
   /* ============================================
      2. HOST DEFAULTS
-     Common :host defaults for all components
+     Apply semantic flavor tokens directly on the host so Shadow DOM
+     descendants AND Light-DOM slot content (which inherits from the host)
+     share the active flavor typography. The inherit fallback preserves
+     prior behavior when no flavor is active.
      ============================================ */
   :host {
-    /* Font inheritance from light DOM */
-    font-family: inherit;
+    font-family: var(--sando-font-family-body, inherit);
+    line-height: var(--sando-font-lineHeight-body, inherit);
+    color: var(--sando-color-text-body, inherit);
+    /* font-size stays inherit so consumer rules on the host scope still win. */
     font-size: inherit;
-    line-height: inherit;
-    color: inherit;
   }
 
   :host([hidden]) {
@@ -705,38 +650,6 @@ exports[`sando-spinner > Snapshot Tests > Arc Snapshots > should match arc=0.75 
     }
   }
 </style><style>
-  /* ========================================
-     INGREDIENTS LAYER - Primitives
-     Base values that never change by flavor
-     ======================================== */
-  
-  
-  
-  
-  
-  
-  
-  
-  
-
-  /* ========================================
-     RECIPES LAYER - Component Tokens
-     Reference Flavor tokens from Light DOM
-     ======================================== */
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   
   
 </style><style>
@@ -902,14 +815,17 @@ exports[`sando-spinner > Snapshot Tests > Arc Snapshots > should match arc=1 sna
 
   /* ============================================
      2. HOST DEFAULTS
-     Common :host defaults for all components
+     Apply semantic flavor tokens directly on the host so Shadow DOM
+     descendants AND Light-DOM slot content (which inherits from the host)
+     share the active flavor typography. The inherit fallback preserves
+     prior behavior when no flavor is active.
      ============================================ */
   :host {
-    /* Font inheritance from light DOM */
-    font-family: inherit;
+    font-family: var(--sando-font-family-body, inherit);
+    line-height: var(--sando-font-lineHeight-body, inherit);
+    color: var(--sando-color-text-body, inherit);
+    /* font-size stays inherit so consumer rules on the host scope still win. */
     font-size: inherit;
-    line-height: inherit;
-    color: inherit;
   }
 
   :host([hidden]) {
@@ -999,38 +915,6 @@ exports[`sando-spinner > Snapshot Tests > Arc Snapshots > should match arc=1 sna
     }
   }
 </style><style>
-  /* ========================================
-     INGREDIENTS LAYER - Primitives
-     Base values that never change by flavor
-     ======================================== */
-  
-  
-  
-  
-  
-  
-  
-  
-  
-
-  /* ========================================
-     RECIPES LAYER - Component Tokens
-     Reference Flavor tokens from Light DOM
-     ======================================== */
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   
   
 </style><style>
@@ -1196,14 +1080,17 @@ exports[`sando-spinner > Snapshot Tests > Size Snapshots > should match lg size 
 
   /* ============================================
      2. HOST DEFAULTS
-     Common :host defaults for all components
+     Apply semantic flavor tokens directly on the host so Shadow DOM
+     descendants AND Light-DOM slot content (which inherits from the host)
+     share the active flavor typography. The inherit fallback preserves
+     prior behavior when no flavor is active.
      ============================================ */
   :host {
-    /* Font inheritance from light DOM */
-    font-family: inherit;
+    font-family: var(--sando-font-family-body, inherit);
+    line-height: var(--sando-font-lineHeight-body, inherit);
+    color: var(--sando-color-text-body, inherit);
+    /* font-size stays inherit so consumer rules on the host scope still win. */
     font-size: inherit;
-    line-height: inherit;
-    color: inherit;
   }
 
   :host([hidden]) {
@@ -1293,38 +1180,6 @@ exports[`sando-spinner > Snapshot Tests > Size Snapshots > should match lg size 
     }
   }
 </style><style>
-  /* ========================================
-     INGREDIENTS LAYER - Primitives
-     Base values that never change by flavor
-     ======================================== */
-  
-  
-  
-  
-  
-  
-  
-  
-  
-
-  /* ========================================
-     RECIPES LAYER - Component Tokens
-     Reference Flavor tokens from Light DOM
-     ======================================== */
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   
   
 </style><style>
@@ -1490,14 +1345,17 @@ exports[`sando-spinner > Snapshot Tests > Size Snapshots > should match md size 
 
   /* ============================================
      2. HOST DEFAULTS
-     Common :host defaults for all components
+     Apply semantic flavor tokens directly on the host so Shadow DOM
+     descendants AND Light-DOM slot content (which inherits from the host)
+     share the active flavor typography. The inherit fallback preserves
+     prior behavior when no flavor is active.
      ============================================ */
   :host {
-    /* Font inheritance from light DOM */
-    font-family: inherit;
+    font-family: var(--sando-font-family-body, inherit);
+    line-height: var(--sando-font-lineHeight-body, inherit);
+    color: var(--sando-color-text-body, inherit);
+    /* font-size stays inherit so consumer rules on the host scope still win. */
     font-size: inherit;
-    line-height: inherit;
-    color: inherit;
   }
 
   :host([hidden]) {
@@ -1587,38 +1445,6 @@ exports[`sando-spinner > Snapshot Tests > Size Snapshots > should match md size 
     }
   }
 </style><style>
-  /* ========================================
-     INGREDIENTS LAYER - Primitives
-     Base values that never change by flavor
-     ======================================== */
-  
-  
-  
-  
-  
-  
-  
-  
-  
-
-  /* ========================================
-     RECIPES LAYER - Component Tokens
-     Reference Flavor tokens from Light DOM
-     ======================================== */
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   
   
 </style><style>
@@ -1784,14 +1610,17 @@ exports[`sando-spinner > Snapshot Tests > Size Snapshots > should match sm size 
 
   /* ============================================
      2. HOST DEFAULTS
-     Common :host defaults for all components
+     Apply semantic flavor tokens directly on the host so Shadow DOM
+     descendants AND Light-DOM slot content (which inherits from the host)
+     share the active flavor typography. The inherit fallback preserves
+     prior behavior when no flavor is active.
      ============================================ */
   :host {
-    /* Font inheritance from light DOM */
-    font-family: inherit;
+    font-family: var(--sando-font-family-body, inherit);
+    line-height: var(--sando-font-lineHeight-body, inherit);
+    color: var(--sando-color-text-body, inherit);
+    /* font-size stays inherit so consumer rules on the host scope still win. */
     font-size: inherit;
-    line-height: inherit;
-    color: inherit;
   }
 
   :host([hidden]) {
@@ -1881,38 +1710,6 @@ exports[`sando-spinner > Snapshot Tests > Size Snapshots > should match sm size 
     }
   }
 </style><style>
-  /* ========================================
-     INGREDIENTS LAYER - Primitives
-     Base values that never change by flavor
-     ======================================== */
-  
-  
-  
-  
-  
-  
-  
-  
-  
-
-  /* ========================================
-     RECIPES LAYER - Component Tokens
-     Reference Flavor tokens from Light DOM
-     ======================================== */
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   
   
 </style><style>
@@ -2078,14 +1875,17 @@ exports[`sando-spinner > Snapshot Tests > Size Snapshots > should match xl size 
 
   /* ============================================
      2. HOST DEFAULTS
-     Common :host defaults for all components
+     Apply semantic flavor tokens directly on the host so Shadow DOM
+     descendants AND Light-DOM slot content (which inherits from the host)
+     share the active flavor typography. The inherit fallback preserves
+     prior behavior when no flavor is active.
      ============================================ */
   :host {
-    /* Font inheritance from light DOM */
-    font-family: inherit;
+    font-family: var(--sando-font-family-body, inherit);
+    line-height: var(--sando-font-lineHeight-body, inherit);
+    color: var(--sando-color-text-body, inherit);
+    /* font-size stays inherit so consumer rules on the host scope still win. */
     font-size: inherit;
-    line-height: inherit;
-    color: inherit;
   }
 
   :host([hidden]) {
@@ -2175,38 +1975,6 @@ exports[`sando-spinner > Snapshot Tests > Size Snapshots > should match xl size 
     }
   }
 </style><style>
-  /* ========================================
-     INGREDIENTS LAYER - Primitives
-     Base values that never change by flavor
-     ======================================== */
-  
-  
-  
-  
-  
-  
-  
-  
-  
-
-  /* ========================================
-     RECIPES LAYER - Component Tokens
-     Reference Flavor tokens from Light DOM
-     ======================================== */
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   
   
 </style><style>
@@ -2372,14 +2140,17 @@ exports[`sando-spinner > Snapshot Tests > Size Snapshots > should match xs size 
 
   /* ============================================
      2. HOST DEFAULTS
-     Common :host defaults for all components
+     Apply semantic flavor tokens directly on the host so Shadow DOM
+     descendants AND Light-DOM slot content (which inherits from the host)
+     share the active flavor typography. The inherit fallback preserves
+     prior behavior when no flavor is active.
      ============================================ */
   :host {
-    /* Font inheritance from light DOM */
-    font-family: inherit;
+    font-family: var(--sando-font-family-body, inherit);
+    line-height: var(--sando-font-lineHeight-body, inherit);
+    color: var(--sando-color-text-body, inherit);
+    /* font-size stays inherit so consumer rules on the host scope still win. */
     font-size: inherit;
-    line-height: inherit;
-    color: inherit;
   }
 
   :host([hidden]) {
@@ -2469,38 +2240,6 @@ exports[`sando-spinner > Snapshot Tests > Size Snapshots > should match xs size 
     }
   }
 </style><style>
-  /* ========================================
-     INGREDIENTS LAYER - Primitives
-     Base values that never change by flavor
-     ======================================== */
-  
-  
-  
-  
-  
-  
-  
-  
-  
-
-  /* ========================================
-     RECIPES LAYER - Component Tokens
-     Reference Flavor tokens from Light DOM
-     ======================================== */
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   
   
 </style><style>
@@ -2666,14 +2405,17 @@ exports[`sando-spinner > Snapshot Tests > Variant Snapshots > should match defau
 
   /* ============================================
      2. HOST DEFAULTS
-     Common :host defaults for all components
+     Apply semantic flavor tokens directly on the host so Shadow DOM
+     descendants AND Light-DOM slot content (which inherits from the host)
+     share the active flavor typography. The inherit fallback preserves
+     prior behavior when no flavor is active.
      ============================================ */
   :host {
-    /* Font inheritance from light DOM */
-    font-family: inherit;
+    font-family: var(--sando-font-family-body, inherit);
+    line-height: var(--sando-font-lineHeight-body, inherit);
+    color: var(--sando-color-text-body, inherit);
+    /* font-size stays inherit so consumer rules on the host scope still win. */
     font-size: inherit;
-    line-height: inherit;
-    color: inherit;
   }
 
   :host([hidden]) {
@@ -2763,38 +2505,6 @@ exports[`sando-spinner > Snapshot Tests > Variant Snapshots > should match defau
     }
   }
 </style><style>
-  /* ========================================
-     INGREDIENTS LAYER - Primitives
-     Base values that never change by flavor
-     ======================================== */
-  
-  
-  
-  
-  
-  
-  
-  
-  
-
-  /* ========================================
-     RECIPES LAYER - Component Tokens
-     Reference Flavor tokens from Light DOM
-     ======================================== */
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   
   
 </style><style>
@@ -2960,14 +2670,17 @@ exports[`sando-spinner > Snapshot Tests > Variant Snapshots > should match inver
 
   /* ============================================
      2. HOST DEFAULTS
-     Common :host defaults for all components
+     Apply semantic flavor tokens directly on the host so Shadow DOM
+     descendants AND Light-DOM slot content (which inherits from the host)
+     share the active flavor typography. The inherit fallback preserves
+     prior behavior when no flavor is active.
      ============================================ */
   :host {
-    /* Font inheritance from light DOM */
-    font-family: inherit;
+    font-family: var(--sando-font-family-body, inherit);
+    line-height: var(--sando-font-lineHeight-body, inherit);
+    color: var(--sando-color-text-body, inherit);
+    /* font-size stays inherit so consumer rules on the host scope still win. */
     font-size: inherit;
-    line-height: inherit;
-    color: inherit;
   }
 
   :host([hidden]) {
@@ -3057,38 +2770,6 @@ exports[`sando-spinner > Snapshot Tests > Variant Snapshots > should match inver
     }
   }
 </style><style>
-  /* ========================================
-     INGREDIENTS LAYER - Primitives
-     Base values that never change by flavor
-     ======================================== */
-  
-  
-  
-  
-  
-  
-  
-  
-  
-
-  /* ========================================
-     RECIPES LAYER - Component Tokens
-     Reference Flavor tokens from Light DOM
-     ======================================== */
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   
   
 </style><style>
@@ -3254,14 +2935,17 @@ exports[`sando-spinner > Snapshot Tests > should match custom label snapshot 1`]
 
   /* ============================================
      2. HOST DEFAULTS
-     Common :host defaults for all components
+     Apply semantic flavor tokens directly on the host so Shadow DOM
+     descendants AND Light-DOM slot content (which inherits from the host)
+     share the active flavor typography. The inherit fallback preserves
+     prior behavior when no flavor is active.
      ============================================ */
   :host {
-    /* Font inheritance from light DOM */
-    font-family: inherit;
+    font-family: var(--sando-font-family-body, inherit);
+    line-height: var(--sando-font-lineHeight-body, inherit);
+    color: var(--sando-color-text-body, inherit);
+    /* font-size stays inherit so consumer rules on the host scope still win. */
     font-size: inherit;
-    line-height: inherit;
-    color: inherit;
   }
 
   :host([hidden]) {
@@ -3351,38 +3035,6 @@ exports[`sando-spinner > Snapshot Tests > should match custom label snapshot 1`]
     }
   }
 </style><style>
-  /* ========================================
-     INGREDIENTS LAYER - Primitives
-     Base values that never change by flavor
-     ======================================== */
-  
-  
-  
-  
-  
-  
-  
-  
-  
-
-  /* ========================================
-     RECIPES LAYER - Component Tokens
-     Reference Flavor tokens from Light DOM
-     ======================================== */
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   
   
 </style><style>
@@ -3548,14 +3200,17 @@ exports[`sando-spinner > Snapshot Tests > should match default state snapshot 1`
 
   /* ============================================
      2. HOST DEFAULTS
-     Common :host defaults for all components
+     Apply semantic flavor tokens directly on the host so Shadow DOM
+     descendants AND Light-DOM slot content (which inherits from the host)
+     share the active flavor typography. The inherit fallback preserves
+     prior behavior when no flavor is active.
      ============================================ */
   :host {
-    /* Font inheritance from light DOM */
-    font-family: inherit;
+    font-family: var(--sando-font-family-body, inherit);
+    line-height: var(--sando-font-lineHeight-body, inherit);
+    color: var(--sando-color-text-body, inherit);
+    /* font-size stays inherit so consumer rules on the host scope still win. */
     font-size: inherit;
-    line-height: inherit;
-    color: inherit;
   }
 
   :host([hidden]) {
@@ -3645,38 +3300,6 @@ exports[`sando-spinner > Snapshot Tests > should match default state snapshot 1`
     }
   }
 </style><style>
-  /* ========================================
-     INGREDIENTS LAYER - Primitives
-     Base values that never change by flavor
-     ======================================== */
-  
-  
-  
-  
-  
-  
-  
-  
-  
-
-  /* ========================================
-     RECIPES LAYER - Component Tokens
-     Reference Flavor tokens from Light DOM
-     ======================================== */
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   
   
 </style><style>

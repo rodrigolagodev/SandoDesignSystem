@@ -15,6 +15,7 @@ export const baseStyles = css`
   :host {
     display: block;
     position: relative;
+    font-family: var(--sando-card-fontFamily);
   }
 
   :host([full-width]) {
@@ -94,18 +95,26 @@ export const baseStyles = css`
   /* Heading */
   .card__heading {
     margin: 0;
+    font-family: var(--sando-card-heading-fontFamily);
     font-size: var(--sando-card-heading-fontSize);
     font-weight: var(--sando-card-heading-fontWeight);
+    line-height: var(--sando-card-heading-lineHeight);
     color: var(--sando-card-heading-color);
-    /* NOTE: No recipe token for heading line-height exists in card.json.
-     * Using DLD §2.4 subheading rule (1.3) until --sando-card-heading-lineHeight
-     * is added to the recipe. */
-    line-height: 1.3;
   }
 
-  /* Body section (default slot) */
+  /* Body section (default slot)
+   *
+   * Apply body typography so slotted content (e.g. <p>) inherits the card's
+   * weight, line-height, and color. font-size is intentionally left to inherit:
+   * the host scope already provides it (via base.css preflight or the page),
+   * and forcing it here would shrink existing slotted text from the consumer's
+   * baseline (16px) to the design system's body size (14px) without warning.
+   */
   .card__body {
     flex: 1;
+    font-weight: var(--sando-card-body-fontWeight);
+    line-height: var(--sando-card-body-lineHeight);
+    color: var(--sando-card-body-color);
   }
 
   .card__body:empty,

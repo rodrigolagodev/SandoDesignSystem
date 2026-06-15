@@ -204,6 +204,11 @@
       "value": "{space.stack.default.value}",
       "type": "dimension"
     },
+    "fontFamily": {
+      "value": "{font.family.body.value}",
+      "type": "fontFamily",
+      "description": "Alert font family — uses body font (humanist readability for status messaging)"
+    },
     "titleFontSize": {
       "value": "{font.size.label.value}",
       "type": "dimension"

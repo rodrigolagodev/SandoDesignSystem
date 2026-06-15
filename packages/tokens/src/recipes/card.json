@@ -156,7 +156,39 @@
         "description": "Default aspect ratio for card media section — 16:9 widescreen"
       }
     },
+    "fontFamily": {
+      "value": "{font.family.body.value}",
+      "type": "fontFamily",
+      "description": "Default card font family — humanist body font; consumed by body slot content"
+    },
+    "body": {
+      "fontSize": {
+        "value": "{font.size.body.value}",
+        "type": "dimension",
+        "description": "Card body font size — exposed as a CSS variable for opt-in sizing. NOT applied by `.card__body` to preserve the consumer's baseline (typically 16px) for slotted content."
+      },
+      "fontWeight": {
+        "value": "{font.weight.body.value}",
+        "type": "fontWeight",
+        "description": "Card body font weight — regular"
+      },
+      "lineHeight": {
+        "value": "{font.lineHeight.body.value}",
+        "type": "number",
+        "description": "Card body line height — WCAG-compliant reading rhythm"
+      },
+      "color": {
+        "value": "{color.text.body.value}",
+        "type": "color",
+        "description": "Card body text color — applied so slotted text inherits the right tone"
+      }
+    },
     "heading": {
+      "fontFamily": {
+        "value": "{font.family.heading.value}",
+        "type": "fontFamily",
+        "description": "Card heading font family — geometric heading font (Outfit in default flavor)"
+      },
       "fontSize": {
         "value": "{font.size.heading-200.value}",
         "type": "dimension",
@@ -166,6 +198,11 @@
         "value": "{font.weight.heading.value}",
         "type": "fontWeight",
         "description": "Bold weight for card heading"
+      },
+      "lineHeight": {
+        "value": "{font.lineHeight.subheading.value}",
+        "type": "number",
+        "description": "Card heading line height — DLD §2.4 subheading rule (1.3) for secondary headings"
       },
       "color": {
         "value": "{color.text.heading.value}",

@@ -15,8 +15,8 @@ import { css } from 'lit';
 export const baseStyles = css`
   :host {
     display: block;
-    font-family: var(--sando-select-fontFamily);
-    line-height: var(--sando-select-lineHeight);
+    font-family: var(--sando-option-fontFamily);
+    line-height: var(--sando-option-lineHeight);
   }
 
   .option {
@@ -26,8 +26,8 @@ export const baseStyles = css`
     user-select: none;
     border-radius: var(--sando-option-borderRadius);
     transition-property: background-color, color;
-    transition-duration: var(--sando-select-transition-duration);
-    transition-timing-function: var(--sando-select-transition-timing);
+    transition-duration: var(--sando-option-transition-duration);
+    transition-timing-function: var(--sando-option-transition-timing);
   }
 
   /* Content layout - prefix/suffix wrappers */

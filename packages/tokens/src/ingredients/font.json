@@ -188,6 +188,11 @@
         "value": "1.2",
         "type": "number"
       },
+      "130": {
+        "value": "1.3",
+        "type": "number",
+        "description": "Subheading line-height — DLD §2.4 prescribes 1.3 for secondary headings (card titles, section headers)"
+      },
       "140": {
         "value": "1.4",
         "type": "number"

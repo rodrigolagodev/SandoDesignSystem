@@ -28,6 +28,11 @@
       "value": "{elevation.emphasis.value}",
       "type": "shadow"
     },
+    "fontFamily": {
+      "value": "{font.family.body.value}",
+      "type": "fontFamily",
+      "description": "Tooltip font family — body font for terse hover hints"
+    },
     "fontSize": {
       "value": "{font.size.caption.value}",
       "type": "dimension"

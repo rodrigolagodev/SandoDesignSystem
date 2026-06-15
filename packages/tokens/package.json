@@ -6,6 +6,7 @@
   "main": "./dist/index.js",
   "exports": {
     "./css": "./dist/sando-tokens/css/index.css",
+    "./css/base": "./dist/sando-tokens/css/base.css",
     "./css/theme": "./dist/sando-tokens/css/theme.css",
     "./css/original": "./dist/sando-tokens/css/original.css",
     "./css/sando": "./dist/sando-tokens/css/sando.css",

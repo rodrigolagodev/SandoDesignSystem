@@ -44,6 +44,11 @@
         "description": "Outlined variant — no shadow, border-only definition"
       }
     },
+    "fontFamily": {
+      "value": "{font.family.body.value}",
+      "type": "fontFamily",
+      "description": "Default dialog font family — humanist body font; applied to panel so slotted content inherits it"
+    },
     "backgroundColor": {
       "value": "{color.background.raised.value}",
       "type": "color",
@@ -101,6 +106,11 @@
         "value": "0px",
         "type": "dimension",
         "description": "Dialog header border-bottom width — 0px (no divider)"
+      },
+      "titleFontFamily": {
+        "value": "{font.family.heading.value}",
+        "type": "fontFamily",
+        "description": "Dialog title font family — geometric heading font"
       },
       "titleFontSize": {
         "value": "{font.size.heading-200.value}",
