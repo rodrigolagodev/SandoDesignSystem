@@ -213,7 +213,11 @@ Kiwi flavor:
 
 Same component. Same recipe. Different flavor. Entirely different look.
 
-### 7 Available Flavors
+### 8 Available Flavors
+
+Flavors are split into **Core** (bundled in `@sando-ds/tokens/css`) and **Showcase** (opt-in imports).
+
+**Core:**
 
 <table>
   <thead>
@@ -232,11 +236,32 @@ Same component. Same recipe. Different flavor. Entirely different look.
       <td>orange</td>
     </tr>
     <tr>
+      <td>`neutral`</td>
+      <td>B2B professional — cool slate grays</td>
+      <td>neutral (cool)</td>
+      <td>blue</td>
+    </tr>
+    <tr>
       <td>`sando`</td>
       <td>Brand identity — golden amber</td>
       <td>neutral-warm</td>
       <td>brown</td>
     </tr>
+  </tbody>
+</table>
+
+**Showcase:**
+
+<table>
+  <thead>
+    <tr>
+      <th>Flavor</th>
+      <th>Description</th>
+      <th>Neutral Base</th>
+      <th>Accent</th>
+    </tr>
+  </thead>
+  <tbody>
     <tr>
       <td>`tonkatsu`</td>
       <td>Craft kitchen — artisanal</td>
@@ -246,7 +271,7 @@ Same component. Same recipe. Different flavor. Entirely different look.
     <tr>
       <td>`strawberry`</td>
       <td>Fresh and vibrant</td>
-      <td>neutral</td>
+      <td>neutral-warm</td>
       <td>pink</td>
     </tr>
     <tr>
@@ -258,13 +283,13 @@ Same component. Same recipe. Different flavor. Entirely different look.
     <tr>
       <td>`kiwi`</td>
       <td>Natural and fresh</td>
-      <td>neutral</td>
+      <td>neutral-warm</td>
       <td>green</td>
     </tr>
     <tr>
       <td>`nori`</td>
       <td>Stark minimalism — electric red</td>
-      <td>neutral</td>
+      <td>neutral (cool)</td>
       <td>vermillion</td>
     </tr>
   </tbody>
@@ -559,18 +584,23 @@ packages/tokens/src/
 │   ├── z-index.json       # Stacking order
 │   └── elevation.json     # Box shadows
 ├── flavors/               # Layer 2: Semantic themes
-│   ├── original/          # Default flavor
+│   │
+│   │   # Core flavors — bundled in @sando-ds/tokens/css
+│   ├── original/          # Warm orange (default)
 │   │   ├── flavor.json
 │   │   ├── flavor-dark.json
 │   │   ├── flavor-high-contrast.json
 │   │   ├── flavor-forced-colors.json
 │   │   └── flavor-motion-reduce.json
-│   ├── sando/             # Brand identity flavor
-│   ├── tonkatsu/          # Craft kitchen flavor
-│   ├── strawberry/        # Fresh vibrant flavor
-│   ├── egg-salad/         # Sunny cheerful flavor
-│   ├── kiwi/              # Natural fresh flavor
-│   └── nori/              # Dark & modern flavor
+│   ├── neutral/           # Cool slate + blue (B2B/enterprise)
+│   ├── sando/             # Brand identity — golden amber
+│   │
+│   │   # Showcase flavors — opt-in imports
+│   ├── tonkatsu/          # Craft kitchen — rich brown
+│   ├── strawberry/        # Fresh vibrant — pink/rose
+│   ├── egg-salad/         # Sunny cheerful — yellow
+│   ├── kiwi/              # Natural fresh — green
+│   └── nori/              # Dark-first — electric vermillion
 └── recipes/               # Layer 3: Component tokens
     ├── button.json
     ├── input.json

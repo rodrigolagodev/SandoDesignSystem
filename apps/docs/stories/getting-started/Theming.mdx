@@ -50,7 +50,9 @@ Set the `flavor` attribute on any HTML element. Every Sando component inside it 
 </body>
 ```
 
-Sando ships with **7 curated flavors**:
+Sando ships with **8 curated flavors** in two tiers. **Core** flavors are always bundled with `@sando-ds/tokens/css`. **Showcase** flavors require an opt-in import.
+
+**Core** (default bundle):
 
 <table>
   <thead>
@@ -63,17 +65,38 @@ Sando ships with **7 curated flavors**:
   </thead>
   <tbody>
     <tr>
-      <td>🍱 **sando**</td>
-      <td>Brown</td>
-      <td>Warm, crafted, artisanal</td>
-      <td>Official brand, design system docs</td>
-    </tr>
-    <tr>
       <td>🍞 **original**</td>
       <td>Orange</td>
       <td>Clean, modern, versatile</td>
       <td>SaaS, tech products, content sites</td>
     </tr>
+    <tr>
+      <td>⬜ **neutral**</td>
+      <td>Blue + cool slate</td>
+      <td>Professional, zero brand personality</td>
+      <td>B2B, enterprise, internal tools</td>
+    </tr>
+    <tr>
+      <td>🍱 **sando**</td>
+      <td>Brown</td>
+      <td>Warm, crafted, artisanal</td>
+      <td>Official brand, design system docs</td>
+    </tr>
+  </tbody>
+</table>
+
+**Showcase** (opt-in: `import "@sando-ds/tokens/css/flavors/<name>"`):
+
+<table>
+  <thead>
+    <tr>
+      <th>Flavor</th>
+      <th>Primary</th>
+      <th>Personality</th>
+      <th>Best For</th>
+    </tr>
+  </thead>
+  <tbody>
     <tr>
       <td>🍓 **strawberry**</td>
       <td>Red (rose)</td>
@@ -107,7 +130,7 @@ Sando ships with **7 curated flavors**:
   </tbody>
 </table>
 
-> **💡 Explore All 7 Flavors**
+> **💡 Explore All 8 Flavors**
 >
 > Each flavor defines far more than colors — typography pairings, border radius, animation timing, and spacing rhythm are all included. See the **[Flavors reference](?path=/docs/flavors-overview--docs)** for the complete breakdown.
 
@@ -422,7 +445,7 @@ pnpm build
 
 ## Accessibility Compliance Across Modes
 
-All 7 built-in flavors meet these contrast standards in every mode:
+All 8 built-in flavors meet these contrast standards in every mode:
 
 <table>
   <thead>
@@ -485,7 +508,7 @@ All 7 built-in flavors meet these contrast standards in every mode:
 
 ## Next Steps
 
-- **[Flavors Reference](?path=/docs/flavors-overview--docs)** — Explore all 7 flavors in detail
+- **[Flavors Reference](?path=/docs/flavors-overview--docs)** — Explore all 8 flavors in detail
 - **[Ingredients](?path=/docs/ingredients-overview--docs)** — Understand the primitive tokens flavors are built from
 - **[Recipes](?path=/docs/recipes-overview--docs)** — See how components consume flavor tokens
 - **[Accessibility Guide](?path=/docs/guides-accessibility--docs)** — Deep dive into WCAG compliance and accessibility modes

@@ -72,9 +72,11 @@ Components never hardcode colors or spacing — they always reference recipes, w
 
 ## Key Features
 
-### 🎨 7 Handcrafted Flavors
+### 🎨 8 Handcrafted Flavors
 
-Each flavor is a complete brand identity, hand-tuned for harmony across light, dark, and high-contrast modes:
+Each flavor is a complete brand identity, hand-tuned for harmony across light, dark, and high-contrast modes. Flavors are split into **Core** (bundled by default) and **Showcase** (opt-in imports):
+
+**Core** — always included with `@sando-ds/tokens/css`:
 
 <table>
   <thead>
@@ -91,10 +93,29 @@ Each flavor is a complete brand identity, hand-tuned for harmony across light, d
       <td>Warm orange</td>
     </tr>
     <tr>
+      <td>`neutral`</td>
+      <td>Professional baseline</td>
+      <td>Cool slate + blue</td>
+    </tr>
+    <tr>
       <td>`sando`</td>
       <td>The Katsu Sando itself</td>
       <td>Golden amber</td>
     </tr>
+  </tbody>
+</table>
+
+**Showcase** — opt-in via `import "@sando-ds/tokens/css/flavors/<name>"`:
+
+<table>
+  <thead>
+    <tr>
+      <th>Flavor</th>
+      <th>Inspired By</th>
+      <th>Primary Vibe</th>
+    </tr>
+  </thead>
+  <tbody>
     <tr>
       <td>`tonkatsu`</td>
       <td>Craft kitchen</td>

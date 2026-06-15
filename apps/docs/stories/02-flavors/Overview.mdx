@@ -8,11 +8,13 @@ Every great sandwich starts with the same quality bread, but what makes each one
 
 Each flavor tells a different brand story, but they all share the same foundation: OKLCH-based color palettes, accessible contrast ratios, and consistent semantic structure.
 
-> **💡 7 Flavors, Infinite Possibilities**
+> **💡 8 Flavors, Infinite Possibilities**
 >
-> Sando ships with 7 curated flavors. Each one defines not just colors, but typography pairings, spacing rhythm, border radius personality, animation timing, and elevation style — a complete design language in a single `flavor` attribute.
+> Sando ships with 8 curated flavors split into two tiers. **Core** flavors are always bundled with `@sando-ds/tokens/css`. **Showcase** flavors are available as opt-in imports for projects that need them.
 
 ## The Flavor Menu
+
+### Core Flavors — included in the default bundle
 
 <table>
   <thead>
@@ -25,17 +27,47 @@ Each flavor tells a different brand story, but they all share the same foundatio
   </thead>
   <tbody>
     <tr>
-      <td>🍱 **Sando**</td>
-      <td>Brown (Tonkatsu Amber)</td>
-      <td>Warm, crafted, artisanal</td>
-      <td>Official brand, design system docs</td>
-    </tr>
-    <tr>
       <td>🍞 **Original**</td>
       <td>Orange</td>
       <td>Clean, modern, versatile</td>
       <td>SaaS, tech products, content sites</td>
     </tr>
+    <tr>
+      <td>⬜ **Neutral**</td>
+      <td>Blue (on cool slate grays)</td>
+      <td>Professional, zero brand personality</td>
+      <td>B2B, enterprise, internal tools, professional apps</td>
+    </tr>
+    <tr>
+      <td>🍱 **Sando**</td>
+      <td>Brown (Tonkatsu Amber)</td>
+      <td>Warm, crafted, artisanal</td>
+      <td>Official brand, design system docs</td>
+    </tr>
+  </tbody>
+</table>
+
+### Showcase Flavors — opt-in imports
+
+```ts
+// Import showcase flavors individually as needed
+import "@sando-ds/tokens/css/flavors/strawberry";
+import "@sando-ds/tokens/css/flavors/tonkatsu";
+import "@sando-ds/tokens/css/flavors/kiwi";
+import "@sando-ds/tokens/css/flavors/egg-salad";
+import "@sando-ds/tokens/css/flavors/nori";
+```
+
+<table>
+  <thead>
+    <tr>
+      <th>Flavor</th>
+      <th>Primary Color</th>
+      <th>Personality</th>
+      <th>Best For</th>
+    </tr>
+  </thead>
+  <tbody>
     <tr>
       <td>🍓 **Strawberry**</td>
       <td>Red (Deep Rose)</td>
@@ -122,6 +154,29 @@ The signature flavor — Sando's own brand identity. Warm, crafted aesthetic ins
 ```
 
 [View sando flavor source →](https://github.com/rodrigolagodev/SandoDesignSystem/tree/master/packages/tokens/src/flavors/sando)
+
+---
+
+### ⬜ Neutral
+
+Professional, zero-brand-personality baseline using cool slate grays and standard blue accent. Designed for B2B, enterprise, and internal tools where maximum readability matters more than brand expression.
+
+**Primary palette:** `blue` + `neutral` (cool slate, chroma 0.005)
+**Typography:** Inter (headings + body) + JetBrains Mono (code)
+**Personality:** Professional, restrained, high-readability
+
+```css
+--sando-color-action-solid-background-default: var(--sando-color-blue-600);
+--sando-color-background-base: var(--sando-color-neutral-50);
+--sando-color-text-body: var(--sando-color-neutral-800);
+--sando-color-focus-ring: var(--sando-color-blue-600);
+```
+
+> **ℹ️ `neutral` uses cool slate, not warm**
+>
+> The `neutral` flavor uses `color.neutral.*` (chroma 0.005, hue 0 — pure cool slate), not `color.neutralWarm.*` (hue 70). Mixing them breaks the B2B value proposition.
+
+[View neutral flavor source →](https://github.com/rodrigolagodev/SandoDesignSystem/tree/master/packages/tokens/src/flavors/neutral)
 
 ---
 
@@ -362,6 +417,31 @@ Flavors reference **ingredients only**, never recipes or other flavors. This kee
 ```
 
 Style Dictionary compiles these references into CSS custom properties that components consume. Components never know which flavor is active — they just use semantic tokens like `--sando-color-action-solid-background-default`.
+
+## Bundle Composition
+
+The `@sando-ds/tokens/css` import (the default bundle) includes only the **Core 3** flavors:
+
+```css
+/* What @sando-ds/tokens/css contains */
+@import "./ingredients/index.css";
+@import "./flavors/original/index.css";
+@import "./flavors/neutral/index.css";
+@import "./flavors/sando/index.css";
+```
+
+To use a Showcase flavor, add its import alongside the default bundle:
+
+```ts
+import "@sando-ds/tokens/css";                        // core 3
+import "@sando-ds/tokens/css/flavors/strawberry";     // opt-in
+```
+
+The `@sando-ds/tokens/css/theme` entry imports all 8 flavors (useful for Storybook or docs):
+
+```ts
+import "@sando-ds/tokens/css/theme"; // all 8 flavors
+```
 
 ## Creating a Custom Flavor
 
