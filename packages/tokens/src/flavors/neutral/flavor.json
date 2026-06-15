@@ -63,7 +63,7 @@
         "type": "color"
       },
       "caption": {
-        "value": "{color.neutral.600.value}",
+        "value": "{color.neutral.700.value}",
         "type": "color"
       },
       "link": {

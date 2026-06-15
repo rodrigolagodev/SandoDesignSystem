@@ -29,7 +29,8 @@ const HEADER = `/**
 const CORE_FLAVORS = ['original', 'neutral', 'sando'];
 
 /** Showcase flavors available as opt-in imports only */
-const SHOWCASE_FLAVORS = ['egg-salad', 'kiwi', 'nori', 'strawberry', 'tonkatsu'];
+// Exported for documentation and tooling; barrel generation uses auto-discovery
+export const SHOWCASE_FLAVORS = ['egg-salad', 'kiwi', 'nori', 'strawberry', 'tonkatsu'];
 
 /**
  * Discover CSS files in a directory (non-recursive)
@@ -368,7 +369,7 @@ export async function generateCssBarrels(distDir) {
     // Generate preflight that wires semantic tokens to the document root
     generateBaseBarrel(cssDir);
 
-    // Generate root barrel (deprecated — re-exports theme.css)
+    // Generate root barrel (core bundle: ingredients + core 3 flavors)
     generateRootBarrel(cssDir);
 
     console.log('');

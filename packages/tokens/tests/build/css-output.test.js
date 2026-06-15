@@ -79,6 +79,41 @@ describe('CSS Output - File Structure', () => {
       expect(fs.existsSync(filePath)).toBe(true);
     });
   });
+
+  describe('Bundle Composition', () => {
+    it('should have neutral.css entry point', () => {
+      const filePath = path.join(distPath, 'neutral.css');
+      expect(fs.existsSync(filePath)).toBe(true);
+    });
+
+    it('index.css (core bundle) should import exactly 3 core flavors', () => {
+      const filePath = path.join(distPath, 'index.css');
+      const content = fs.readFileSync(filePath, 'utf8');
+
+      // Count flavor @imports only (exclude ingredients)
+      const flavorImports = content.match(/@import\s+['"]\.\/flavors\/\w+\/index\.css['"]\s*;/g) || [];
+      expect(flavorImports).toHaveLength(3);
+
+      expect(content).toMatch(/@import\s+['"]\.\/flavors\/original\/index\.css['"]\s*;/);
+      expect(content).toMatch(/@import\s+['"]\.\/flavors\/neutral\/index\.css['"]\s*;/);
+      expect(content).toMatch(/@import\s+['"]\.\/flavors\/sando\/index\.css['"]\s*;/);
+    });
+
+    it('theme.css should import all 8 flavors', () => {
+      const filePath = path.join(distPath, 'theme.css');
+      const content = fs.readFileSync(filePath, 'utf8');
+
+      const expectedFlavors = [
+        'egg-salad', 'kiwi', 'neutral', 'nori',
+        'original', 'sando', 'strawberry', 'tonkatsu',
+      ];
+      expectedFlavors.forEach(flavor => {
+        expect(content).toMatch(
+          new RegExp(`@import\\s+['"]\\.\\/flavors\\/${flavor}\\/index\\.css['"]\\s*;`)
+        );
+      });
+    });
+  });
 });
 
 describe('CSS Output - Ingredients Layer', () => {
@@ -351,7 +386,7 @@ describe('CSS Output - Reference Chain Integrity', () => {
 
 describe('CSS Output - File Sizes', () => {
   // Note: These thresholds are guidelines, not strict limits.
-  // The project has 5 flavors (original, strawberry, tonkatsu, egg-salad, kiwi),
+  // The project has 8 flavors (original, strawberry, tonkatsu, egg-salad, kiwi, neutral, nori, sando),
   // each with 5 mode variants (light, dark, high-contrast, forced-colors, motion-reduce)
   // Plus ingredients and recipes for all components.
   // Total size is expected to grow as new components and flavors are added.
@@ -364,6 +399,7 @@ describe('CSS Output - File Sizes', () => {
       'ingredients/color.css': 16000, // measured ~12.6KB
       'ingredients/font.css': 3000,
       'flavors/original/flavor.css': 15000, // measured ~12.2KB
+      'flavors/neutral/flavor.css': 15000, // same budget as original
       'recipes/button.css': 102000 // measured ~83KB (largest recipe, all variants/states/sizes)
     };
 
@@ -395,6 +431,6 @@ describe('CSS Output - File Sizes', () => {
     countDirSize(distPath);
 
     console.log(`\n📦 Total CSS bundle size: ${(totalSize / 1024).toFixed(2)} KB`);
-    expect(totalSize).toBeLessThan(2900000); // measured ~2.3MB (7 flavors × 5 mode variants + ingredients + recipes)
+    expect(totalSize).toBeLessThan(2900000); // measured ~2.3MB (8 flavors × 5 mode variants + ingredients + recipes)
   });
 });
