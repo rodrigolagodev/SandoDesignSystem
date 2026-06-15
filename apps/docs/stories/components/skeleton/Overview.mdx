@@ -93,20 +93,29 @@ import { Meta } from "@storybook/blocks";
           <a href="?path=/docs/components-skeleton-skeleton--docs">Skeleton</a>
         </strong>
       </td>
-      <td>Base block — pick a <code>shape</code> (<code>rectangular</code>, <code>rounded</code>, <code>circle</code>) and dimensions.</td>
+      <td>
+        Base block — pick a <code>shape</code> (<code>rectangular</code>,{" "}
+        <code>rounded</code>, <code>circle</code>) and dimensions.
+      </td>
     </tr>
     <tr>
       <td>
         <strong>
-          <a href="?path=/docs/components-skeleton-skeletontext--docs">SkeletonText</a>
+          <a href="?path=/docs/components-skeleton-skeletontext--docs">
+            SkeletonText
+          </a>
         </strong>
       </td>
-      <td>Single text line sized by token (<code>xs</code> → <code>xl</code>).</td>
+      <td>
+        Single text line sized by token (<code>xs</code> → <code>xl</code>).
+      </td>
     </tr>
     <tr>
       <td>
         <strong>
-          <a href="?path=/docs/components-skeleton-skeletonparagraph--docs">SkeletonParagraph</a>
+          <a href="?path=/docs/components-skeleton-skeletonparagraph--docs">
+            SkeletonParagraph
+          </a>
         </strong>
       </td>
       <td>Multiple text lines with consistent spacing.</td>
@@ -149,7 +158,11 @@ import { Meta } from "@storybook/blocks";
 
 ```html
 <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-  <sando-skeleton shape="rectangular" width="100%" height="200px"></sando-skeleton>
+  <sando-skeleton
+    shape="rectangular"
+    width="100%"
+    height="200px"
+  ></sando-skeleton>
   <sando-skeleton-paragraph lines="2"></sando-skeleton-paragraph>
 </div>
 ```

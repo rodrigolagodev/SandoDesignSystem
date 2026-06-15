@@ -56,5 +56,12 @@ module.exports = {
       }
     }
   ],
-  ignorePatterns: ['dist', 'coverage', 'node_modules', '*.config.js', '*.config.ts', '**/scripts/**']
+  ignorePatterns: [
+    'dist',
+    'coverage',
+    'node_modules',
+    '*.config.js',
+    '*.config.ts',
+    '**/scripts/**'
+  ]
 };
