@@ -11,7 +11,10 @@
     },
     "focus": {
       "ring": { "value": "{color.utility.black.value}", "type": "color" },
-      "ring-offset": { "value": "{color.utility.white.value}", "type": "color" },
+      "ring-offset": {
+        "value": "{color.utility.white.value}",
+        "type": "color"
+      },
       "background": { "value": "{color.utility.white.value}", "type": "color" },
       "text": { "value": "{color.utility.black.value}", "type": "color" }
     },
@@ -44,7 +47,10 @@
     "action": {
       "solid": {
         "background": {
-          "default": { "value": "{color.utility.black.value}", "type": "color" },
+          "default": {
+            "value": "{color.utility.black.value}",
+            "type": "color"
+          },
           "hover": { "value": "{color.neutral.800.value}", "type": "color" }
         },
         "text": {
@@ -53,7 +59,10 @@
       },
       "outline": {
         "border": {
-          "default": { "value": "{color.utility.black.value}", "type": "color" },
+          "default": {
+            "value": "{color.utility.black.value}",
+            "type": "color"
+          },
           "hover": { "value": "{color.utility.black.value}", "type": "color" }
         },
         "text": {

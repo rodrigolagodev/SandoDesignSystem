@@ -114,10 +114,19 @@
     "control": {
       "surface": {
         "thumb": { "value": "{color.utility.white.value}", "type": "color" },
-        "trackInactive": { "value": "{color.neutral.600.value}", "type": "color" },
+        "trackInactive": {
+          "value": "{color.neutral.600.value}",
+          "type": "color"
+        },
         "trackActive": { "value": "{color.blue.500.value}", "type": "color" },
-        "trackDisabled": { "value": "{color.neutral.700.value}", "type": "color" },
-        "thumbDisabled": { "value": "{color.neutral.600.value}", "type": "color" }
+        "trackDisabled": {
+          "value": "{color.neutral.700.value}",
+          "type": "color"
+        },
+        "thumbDisabled": {
+          "value": "{color.neutral.600.value}",
+          "type": "color"
+        }
       }
     },
     "skeleton": {

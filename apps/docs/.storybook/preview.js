@@ -201,7 +201,11 @@ const preview = {
           { value: "egg-salad", title: "\uD83E\uDD5A egg-salad", type: "item" },
           { value: "kiwi", title: "\uD83E\uDD5D kiwi", type: "item" },
           { value: "nori", title: "\uD83D\uDDA4 nori", type: "item" },
-          { value: "strawberry", title: "\uD83C\uDF53 strawberry", type: "item" },
+          {
+            value: "strawberry",
+            title: "\uD83C\uDF53 strawberry",
+            type: "item",
+          },
           { value: "tonkatsu", title: "\uD83C\uDF56 tonkatsu", type: "item" },
         ],
         dynamicTitle: true,
