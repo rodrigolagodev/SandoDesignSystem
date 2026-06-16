@@ -689,13 +689,15 @@ describe('sando-form', () => {
       `);
 
       let submitted = false;
-      el.addEventListener('sando-submit', () => { submitted = true; });
+      el.addEventListener('sando-submit', () => {
+        submitted = true;
+      });
 
       const btn = el.querySelector('sando-button') as HTMLElement;
       btn.dispatchEvent(new Event('click', { bubbles: true }));
 
       // Wait a tick
-      await new Promise(r => setTimeout(r, 50));
+      await new Promise((r) => setTimeout(r, 50));
 
       expect(submitted).to.be.false;
     });
@@ -889,5 +891,4 @@ describe('sando-form', () => {
       SandoForm.additionalSelectors = [];
     });
   });
-
 });
