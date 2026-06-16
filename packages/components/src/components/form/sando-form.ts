@@ -82,6 +82,16 @@ export class SandoForm extends FlavorableMixin(LitElement) implements SandoFormP
   static styles = [resetStyles, tokenStyles, baseStyles];
 
   /**
+   * Additional CSS selectors for custom form controls.
+   * Append to this array to integrate third-party or future Sando controls
+   * with sando-form's discovery, validation, and loading propagation.
+   *
+   * @example
+   * SandoForm.additionalSelectors.push('my-input[name]');
+   */
+  static additionalSelectors: string[] = [];
+
+  /**
    * When true, disables all child form controls and shows a loading overlay
    * @default false
    */
@@ -481,7 +491,11 @@ export class SandoForm extends FlavorableMixin(LitElement) implements SandoFormP
    * @private
    */
   private _getFormControls(): HTMLElement[] {
-    return Array.from(this.querySelectorAll(FORM_CONTROL_SELECTORS));
+    const allSelectors = [
+      ...FORM_CONTROL_SELECTORS.split(', '),
+      ...SandoForm.additionalSelectors
+    ].join(', ');
+    return Array.from(this.querySelectorAll(allSelectors));
   }
 
   /**
@@ -696,7 +710,11 @@ export class SandoForm extends FlavorableMixin(LitElement) implements SandoFormP
     const target = event.target as HTMLElement;
 
     // Only handle form controls
-    if (!target.matches(FORM_CONTROL_SELECTORS)) return;
+    const allSelectors = [
+      ...FORM_CONTROL_SELECTORS.split(', '),
+      ...SandoForm.additionalSelectors
+    ].join(', ');
+    if (!target.matches(allSelectors)) return;
 
     // Mark as dirty
     if (!this._dirty) {
@@ -731,6 +749,21 @@ export class SandoForm extends FlavorableMixin(LitElement) implements SandoFormP
         (control as unknown as { errorText: string }).errorText = message;
       }
     }
+  }
+
+  /**
+   * Programmatically set a validation error on a named field.
+   * Useful for applying server-side errors after an async submit response,
+   * without depending on the sando-validate event lifecycle.
+   *
+   * @param name - The `name` attribute of the target field
+   * @param message - The error message to display
+   *
+   * @example
+   * form.addError('email', 'This email is already in use');
+   */
+  addError(name: string, message: string): void {
+    this._addCustomError(name, message);
   }
 
   render() {
