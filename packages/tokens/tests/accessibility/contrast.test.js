@@ -10,8 +10,8 @@
  * This aligns with CC-CALC guideline: "Do NOT implement manually: Use existing test utilities"
  * and maintains consistency with palette-generator.js which also uses culori.
  *
- * Test matrix: 7 flavors × 3 modes = 21 combinations
- * Flavors: sando, original, strawberry, nori, egg-salad, kiwi, tonkatsu
+ * Test matrix: 8 flavors × 3 modes = 24 combinations
+ * Flavors: sando, original, strawberry, nori, egg-salad, kiwi, neutral, tonkatsu
  * Modes: light (flavor.json), dark (flavor-dark.json), high-contrast (flavor-high-contrast.json)
  */
 
@@ -158,6 +158,7 @@ const FLAVORS = [
   "nori",
   "egg-salad",
   "kiwi",
+  "neutral",
   "tonkatsu",
 ];
 
@@ -479,7 +480,7 @@ describe("Accessibility - Contrast Report", () => {
 });
 
 // ---------------------------------------------------------------------------
-// EXTENDED MATRIX TESTS — 7 flavors × 3 modes = 21 combinations
+// EXTENDED MATRIX TESTS — 8 flavors × 3 modes = 24 combinations
 // ---------------------------------------------------------------------------
 
 const TEXT_PAIRS = [

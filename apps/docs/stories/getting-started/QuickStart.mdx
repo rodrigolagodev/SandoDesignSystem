@@ -143,29 +143,31 @@ import "@sando-ds/components"; // auto-registers all components: <sando-button>,
 
 ## Theming with Flavors
 
-Sando comes with 7 handcrafted flavors. Switch your entire UI's personality by setting the `flavor` attribute:
+Sando comes with 8 handcrafted flavors. Switch your entire UI's personality by setting the `flavor` attribute:
 
 ```html
 <!-- Default flavor (original) — warm orange tones -->
 <sando-button variant="solid">Original</sando-button>
 
-<!-- Strawberry flavor — pink/red tones -->
-<sando-button variant="solid" flavor="strawberry">Strawberry</sando-button>
+<!-- Neutral flavor — cool slate grays + blue (B2B/enterprise) -->
+<sando-button variant="solid" flavor="neutral">Neutral</sando-button>
 
-<!-- Tonkatsu flavor — rich brown tones -->
-<sando-button variant="solid" flavor="tonkatsu">Tonkatsu</sando-button>
+<!-- Strawberry flavor — pink/red tones (opt-in showcase) -->
+<sando-button variant="solid" flavor="strawberry">Strawberry</sando-button>
 ```
 
 Apply a flavor to an entire section — child components inherit it automatically:
 
 ```html
-<!-- Everything inside inherits the strawberry flavor -->
-<div flavor="strawberry">
-  <sando-button variant="solid">I'm strawberry</sando-button>
-  <sando-input label="Me too" placeholder="Pink theme!"></sando-input>
+<!-- Everything inside inherits the neutral flavor -->
+<div flavor="neutral">
+  <sando-button variant="solid">I'm neutral</sando-button>
+  <sando-input label="Me too" placeholder="Professional tone"></sando-input>
   <sando-checkbox label="Same here"></sando-checkbox>
 </div>
 ```
+
+**Core flavors** — always bundled with `@sando-ds/tokens/css`:
 
 <table>
   <thead>
@@ -182,10 +184,29 @@ Apply a flavor to an entire section — child components inherit it automaticall
       <td>Orange</td>
     </tr>
     <tr>
+      <td>`neutral`</td>
+      <td>Professional B2B — cool slate</td>
+      <td>Blue</td>
+    </tr>
+    <tr>
       <td>`sando`</td>
       <td>Brand identity — golden amber</td>
       <td>Brown</td>
     </tr>
+  </tbody>
+</table>
+
+**Showcase flavors** — opt-in via `import "@sando-ds/tokens/css/<name>"`:
+
+<table>
+  <thead>
+    <tr>
+      <th>Flavor</th>
+      <th>Vibe</th>
+      <th>Primary Hue</th>
+    </tr>
+  </thead>
+  <tbody>
     <tr>
       <td>`tonkatsu`</td>
       <td>Craft kitchen — artisanal</td>
@@ -194,7 +215,7 @@ Apply a flavor to an entire section — child components inherit it automaticall
     <tr>
       <td>`strawberry`</td>
       <td>Fresh and vibrant — pink/red</td>
-      <td>Pink</td>
+      <td>Red</td>
     </tr>
     <tr>
       <td>`egg-salad`</td>

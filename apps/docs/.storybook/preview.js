@@ -65,6 +65,10 @@ import "../../../packages/tokens/dist/sando-tokens/css/flavors/nori/flavor.css";
 import "../../../packages/tokens/dist/sando-tokens/css/flavors/nori/flavor-dark.css";
 import "../../../packages/tokens/dist/sando-tokens/css/flavors/nori/flavor-high-contrast.css";
 import "../../../packages/tokens/dist/sando-tokens/css/flavors/nori/flavor-motion-reduce.css";
+import "../../../packages/tokens/dist/sando-tokens/css/flavors/neutral/flavor.css";
+import "../../../packages/tokens/dist/sando-tokens/css/flavors/neutral/flavor-dark.css";
+import "../../../packages/tokens/dist/sando-tokens/css/flavors/neutral/flavor-high-contrast.css";
+import "../../../packages/tokens/dist/sando-tokens/css/flavors/neutral/flavor-motion-reduce.css";
 
 // Base / Preflight — Light DOM bridge that wires the active flavor's semantic
 // tokens to <html> and any [data-flavor] subtree. Without it, MDX prose and
@@ -75,6 +79,7 @@ import "../../../packages/tokens/dist/sando-tokens/css/base.css";
 const FLAVORS = [
   "sando",
   "nori",
+  "neutral",
   "original",
   "strawberry",
   "tonkatsu",
@@ -186,7 +191,23 @@ const preview = {
       toolbar: {
         title: "Flavor",
         icon: "paintbrush",
-        items: FLAVORS.map((f) => ({ value: f, title: f })),
+        items: [
+          // Core 3
+          { value: "original", title: "\uD83C\uDF5E original", type: "item" },
+          { value: "neutral", title: "\u2B1C neutral", type: "item" },
+          { value: "sando", title: "\uD83C\uDF71 sando", type: "item" },
+          { type: "separator" },
+          // Showcase 5
+          { value: "egg-salad", title: "\uD83E\uDD5A egg-salad", type: "item" },
+          { value: "kiwi", title: "\uD83E\uDD5D kiwi", type: "item" },
+          { value: "nori", title: "\uD83D\uDDA4 nori", type: "item" },
+          {
+            value: "strawberry",
+            title: "\uD83C\uDF53 strawberry",
+            type: "item",
+          },
+          { value: "tonkatsu", title: "\uD83C\uDF56 tonkatsu", type: "item" },
+        ],
         dynamicTitle: true,
       },
     },

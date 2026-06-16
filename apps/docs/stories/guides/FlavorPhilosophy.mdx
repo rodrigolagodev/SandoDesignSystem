@@ -87,7 +87,7 @@ Inspired by the Japanese **katsu sando**, Sando uses a **flavor-based system** t
 Think of it like a sandwich shop:
 
 - **Ingredients** (the bread): Raw materials (OKLCH colors, spacing, typography)
-- **Flavors** (the filling): The brand identity (original, tonkatsu, strawberry, egg-salad, kiwi, sando)
+- **Flavors** (the filling): The brand identity (original, neutral, sando, tonkatsu, strawberry, egg-salad, kiwi, nori)
 - **Recipes** (the assembled dish): Final component styling
 
 ### How It Works
@@ -255,9 +255,11 @@ Flavors follow a **hierarchical inheritance model**, much like CSS cascading:
 
 ---
 
-## The Six Flavors
+## The Eight Flavors
 
-Sando ships with six curated flavors, each inspired by a real sando variety:
+Sando ships with 8 curated flavors split into two tiers: **Core** (bundled by default) and **Showcase** (opt-in). Each is inspired by a real sando variety.
+
+### Core Flavors
 
 <table>
   <thead>
@@ -271,13 +273,35 @@ Sando ships with six curated flavors, each inspired by a real sando variety:
     <tr>
       <td>`original`</td>
       <td>The classic katsu sando</td>
-      <td>Warm browns, amber tones—reliable and timeless</td>
+      <td>Warm orange tones—reliable and timeless</td>
+    </tr>
+    <tr>
+      <td>`neutral`</td>
+      <td>The professional baseline</td>
+      <td>
+        Cool slate grays + blue accent—zero brand personality, maximum
+        readability
+      </td>
     </tr>
     <tr>
       <td>`sando`</td>
       <td>The house special</td>
       <td>A refined take with distinctive personality</td>
     </tr>
+  </tbody>
+</table>
+
+### Showcase Flavors
+
+<table>
+  <thead>
+    <tr>
+      <th>Flavor</th>
+      <th>Inspiration</th>
+      <th>Character</th>
+    </tr>
+  </thead>
+  <tbody>
     <tr>
       <td>`tonkatsu`</td>
       <td>Deep-fried katsu</td>
@@ -298,17 +322,26 @@ Sando ships with six curated flavors, each inspired by a real sando variety:
       <td>Fruit sando (kiwi)</td>
       <td>Greens—natural and energizing</td>
     </tr>
+    <tr>
+      <td>`nori`</td>
+      <td>Japanese Brutalism</td>
+      <td>Stark black + vermillion—impactful and modern</td>
+    </tr>
   </tbody>
 </table>
 
 ```html
-<!-- Try them all -->
+<!-- Core flavors (always available with @sando-ds/tokens/css) -->
 <sando-button flavor="original">Original</sando-button>
+<sando-button flavor="neutral">Neutral</sando-button>
 <sando-button flavor="sando">Sando</sando-button>
+
+<!-- Showcase flavors (require opt-in import) -->
 <sando-button flavor="tonkatsu">Tonkatsu</sando-button>
 <sando-button flavor="strawberry">Strawberry</sando-button>
 <sando-button flavor="egg-salad">Egg Salad</sando-button>
 <sando-button flavor="kiwi">Kiwi</sando-button>
+<sando-button flavor="nori">Nori</sando-button>
 ```
 
 ---
