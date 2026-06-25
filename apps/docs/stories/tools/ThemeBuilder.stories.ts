@@ -30,18 +30,22 @@ import "./theme-builder-typography-panel.js";
 import "./theme-builder-shape-panel.js";
 import "./theme-builder-motion-panel.js";
 import "./theme-builder-elevation-panel.js";
+import "./theme-builder-preview-panel.js";
 
 // ---------------------------------------------------------------------------
 // Tab definitions
 // ---------------------------------------------------------------------------
 
-const TABS: Array<{ id: TabName; label: string }> = [
+type AnyTab = TabName | "preview";
+
+const TABS: Array<{ id: AnyTab; label: string }> = [
   { id: "info", label: "Flavor Info" },
   { id: "colors", label: "Colors" },
   { id: "typography", label: "Typography" },
   { id: "shape", label: "Shape" },
   { id: "motion", label: "Motion" },
   { id: "elevation", label: "Elevation" },
+  { id: "preview", label: "Preview" },
 ];
 
 // File names per tab for the ZIP
@@ -224,10 +228,10 @@ class SandoThemeBuilder extends LitElement {
     }
   `;
 
-  @state() private _activeTab: TabName = "info";
+  @state() private _activeTab: AnyTab = "info";
   @state() private _builderState: BuilderState = {};
 
-  private _onTabChange(tab: TabName) {
+  private _onTabChange(tab: AnyTab) {
     this._activeTab = tab;
   }
 
@@ -287,7 +291,8 @@ class SandoThemeBuilder extends LitElement {
     URL.revokeObjectURL(url);
   }
 
-  private _isTabReady(tab: TabName): boolean {
+  private _isTabReady(tab: AnyTab): boolean {
+    if (tab === "preview") return false;
     return this._builderState[tab]?.isReady === true;
   }
 
@@ -404,6 +409,18 @@ class SandoThemeBuilder extends LitElement {
             ?hidden="${this._activeTab !== "elevation"}"
           >
             <sando-tb-elevation-panel></sando-tb-elevation-panel>
+          </div>
+
+          <div
+            class="panel-wrapper"
+            id="panel-preview"
+            role="tabpanel"
+            aria-labelledby="tab-preview"
+            ?hidden="${this._activeTab !== "preview"}"
+          >
+            <sando-tb-preview-panel
+              .builderState="${this._builderState}"
+            ></sando-tb-preview-panel>
           </div>
         </div>
       </div>
