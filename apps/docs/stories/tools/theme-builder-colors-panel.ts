@@ -10,7 +10,9 @@ import { LitElement, html, css } from "lit";
 import { property, state } from "lit/decorators.js";
 import {
   generatePalette,
+  generateNeutralPalette,
   validatePaletteContrast,
+  NEUTRAL_PALETTES,
 } from "@sando-tokens/generators/palette-generator.js";
 import { parse, converter } from "culori";
 import type { PanelChangeDetail } from "./theme-builder-types.js";
@@ -392,6 +394,8 @@ export class SandoTbColorsPanel extends LitElement {
   @state() private _colorError: string | null = null;
   @state() private _result: GeneratedPalette | null = null;
   @state() private _contrast: ContrastResult | null = null;
+  @state() private _neutralKey = "neutralWarm";
+  @state() private _neutralResult: GeneratedPalette | null = null;
 
   private get _isValid(): boolean {
     return (
@@ -414,6 +418,24 @@ export class SandoTbColorsPanel extends LitElement {
     this._pickerColor = hex;
     this.colorInput = hex;
     this._colorError = validateColorInput(this.colorInput);
+  }
+
+  private _generateNeutral(): GeneratedPalette {
+    return generateNeutralPalette(
+      NEUTRAL_PALETTES[this._neutralKey],
+    ) as GeneratedPalette;
+  }
+
+  private _onNeutralChange(key: string) {
+    this._neutralKey = key;
+    if (this._result) {
+      this._neutralResult = this._generateNeutral();
+      const json = JSON.parse(this._buildJsonContent()) as Record<
+        string,
+        unknown
+      >;
+      this._emitChange(json, true);
+    }
   }
 
   private _onGenerate() {
@@ -444,6 +466,7 @@ export class SandoTbColorsPanel extends LitElement {
     }) as GeneratedPalette;
 
     this._result = generated;
+    this._neutralResult = this._generateNeutral();
     this._contrast = validatePaletteContrast(
       generated.palette,
     ) as ContrastResult;
@@ -485,6 +508,26 @@ export class SandoTbColorsPanel extends LitElement {
     });
   }
 
+  private _stepsFromPalette(
+    palette: GeneratedPalette,
+  ): Record<string, { value: string; type: string; description: string }> {
+    const steps: Record<
+      string,
+      { value: string; type: string; description: string }
+    > = {};
+    PALETTE_STEPS.forEach((step) => {
+      const entry = palette.palette[step];
+      if (!entry) return;
+      const { l, c, h } = entry.oklch;
+      steps[step] = {
+        value: h !== undefined ? `oklch(${l} ${c} ${h})` : `oklch(${l} ${c})`,
+        type: "color",
+        description: `${palette.name} ${step}`,
+      };
+    });
+    return steps;
+  }
+
   private _buildCssContent(): string {
     if (!this._result) return "";
     const lines = PALETTE_STEPS.map((step) => {
@@ -492,27 +535,30 @@ export class SandoTbColorsPanel extends LitElement {
       const { l, c, h } = entry.oklch;
       return `  --sando-color-${this._result!.name}-${step}: oklch(${l} ${c} ${h});`;
     });
-    return `:root {\n${lines.join("\n")}\n}\n`;
+    const neutralLines = this._neutralResult
+      ? PALETTE_STEPS.map((step) => {
+          const entry = this._neutralResult!.palette[step];
+          if (!entry) return "";
+          const { l, c, h } = entry.oklch;
+          const val =
+            h !== undefined ? `oklch(${l} ${c} ${h})` : `oklch(${l} ${c})`;
+          return `  --sando-color-${this._neutralResult!.name}-${step}: ${val};`;
+        }).filter(Boolean)
+      : [];
+    return `:root {\n${[...lines, ...neutralLines].join("\n")}\n}\n`;
   }
 
   private _buildJsonContent(): string {
     if (!this._result) return "{}";
-    const steps: Record<
-      string,
-      { value: string; type: string; description: string }
-    > = {};
-    PALETTE_STEPS.forEach((step) => {
-      const entry = this._result!.palette[step];
-      const { l, c, h } = entry.oklch;
-      steps[step] = {
-        value: `oklch(${l} ${c} ${h})`,
-        type: "color",
-        description: `${this._result!.name} ${step}`,
-      };
-    });
-    return (
-      JSON.stringify({ color: { [this._result!.name]: steps } }, null, 2) + "\n"
-    );
+    const colorBlock: Record<string, unknown> = {
+      [this._result.name]: this._stepsFromPalette(this._result),
+    };
+    if (this._neutralResult) {
+      colorBlock[this._neutralResult.name] = this._stepsFromPalette(
+        this._neutralResult,
+      );
+    }
+    return JSON.stringify({ color: colorBlock }, null, 2) + "\n";
   }
 
   private _downloadFile(content: string, filename: string, mimeType: string) {
@@ -584,6 +630,48 @@ export class SandoTbColorsPanel extends LitElement {
         <span class="field-error">${this._colorError ?? ""}</span>
       </div>
 
+      <!-- Neutral palette selector -->
+      <div class="field">
+        <label>Neutral Palette</label>
+        <div
+          style="display:flex;border:1px solid #ddd;border-radius:8px;overflow:hidden;"
+          role="group"
+          aria-label="Neutral palette"
+        >
+          ${(
+            [
+              { key: "neutral", label: "Gray" },
+              { key: "neutralWarm", label: "Warm" },
+              { key: "neutralCool", label: "Cool" },
+              { key: "sand", label: "Sand" },
+            ] as const
+          ).map(
+            (opt) => html`
+              <button
+                style="flex:1;padding:7px 4px;background:${this._neutralKey ===
+                opt.key
+                  ? "#1a1a1a"
+                  : "#fff"};color:${this._neutralKey === opt.key
+                  ? "#fff"
+                  : "#555"};border:none;border-right:1px solid #ddd;font-size:12px;font-weight:500;cursor:pointer;"
+                @click="${() => this._onNeutralChange(opt.key)}"
+                aria-pressed="${this._neutralKey === opt.key}"
+              >
+                ${opt.label}
+              </button>
+            `,
+          )}
+        </div>
+        <p style="font-size:11px;color:#aaa;margin:4px 0 0;line-height:1.5;">
+          ${{
+            neutral: "Pure achromatic gray — no color tint",
+            neutralWarm: "Washi paper warmth — hue 70°, adaptive chroma",
+            neutralCool: "Cool blue-gray — hue 220°, subtle tint",
+            sand: "Sandy warm — hue 60°, gentle warmth",
+          }[this._neutralKey]}
+        </p>
+      </div>
+
       <!-- Generate -->
       <button
         class="btn-generate"
@@ -626,7 +714,9 @@ export class SandoTbColorsPanel extends LitElement {
       `;
     }
     return html`
-      ${this._renderPalettePreview()} ${this._renderContrastTable()}
+      ${this._renderPalettePreview()}
+      ${this._neutralResult ? this._renderNeutralPreview() : html``}
+      ${this._renderContrastTable()}
     `;
   }
 
@@ -666,6 +756,37 @@ export class SandoTbColorsPanel extends LitElement {
               `;
             })}
           </div>
+        </div>
+      </div>
+    `;
+  }
+
+  private _renderNeutralPreview() {
+    if (!this._neutralResult) return html``;
+    const nr = this._neutralResult;
+    return html`
+      <div>
+        <p class="section-title">Neutral — ${nr.name}</p>
+        <div class="palette-grid">
+          ${PALETTE_STEPS.map((step) => {
+            const entry = nr.palette[step];
+            if (!entry) return html``;
+            const { l, c, h } = entry.oklch;
+            const oklchStr =
+              h !== undefined ? `oklch(${l} ${c} ${h})` : `oklch(${l} ${c})`;
+            return html`
+              <div class="palette-swatch">
+                <div
+                  class="swatch-color"
+                  style="background: ${oklchStr};"
+                  title="${step}: ${entry.value}"
+                ></div>
+                <span class="swatch-step">${step}</span>
+                <span class="swatch-hex">${entry.value}</span>
+                <span class="swatch-oklch">${oklchStr}</span>
+              </div>
+            `;
+          })}
         </div>
       </div>
     `;

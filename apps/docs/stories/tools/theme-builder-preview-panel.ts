@@ -21,6 +21,8 @@ import "@sando-ds/components";
 // CSS override builder
 // ---------------------------------------------------------------------------
 
+const NEUTRAL_KEYS = new Set(["neutral", "neutralWarm", "neutralCool", "sand"]);
+
 function buildOverrideVars(state: BuilderState): string {
   const vars: string[] = [];
 
@@ -29,10 +31,21 @@ function buildOverrideVars(state: BuilderState): string {
     | { color?: Record<string, Record<string, { value: string }>> }
     | undefined;
   if (colorsData?.color) {
-    const colorKey = Object.keys(colorsData.color)[0];
-    const p = colorsData.color[colorKey];
-    if (p) {
-      const v = (step: string) => p[step]?.value;
+    // Separate primary palette from neutral palette
+    let primaryPalette: Record<string, { value: string }> | null = null;
+    let neutralPalette: Record<string, { value: string }> | null = null;
+
+    for (const [key, palette] of Object.entries(colorsData.color)) {
+      if (NEUTRAL_KEYS.has(key)) {
+        neutralPalette = palette;
+      } else {
+        primaryPalette = palette;
+      }
+    }
+
+    // Primary → action / focus / brand colors
+    if (primaryPalette) {
+      const v = (step: string) => primaryPalette![step]?.value;
       if (v("50")) vars.push(`--sando-color-focus-background: ${v("50")}`);
       if (v("400")) vars.push(`--sando-color-border-on-solid: ${v("400")}`);
       if (v("500"))
@@ -54,6 +67,14 @@ function buildOverrideVars(state: BuilderState): string {
       if (v("900")) {
         vars.push(`--sando-color-focus-text: ${v("900")}`);
         vars.push(`--sando-color-text-link-active: ${v("900")}`);
+      }
+    }
+
+    // Neutral → override --sando-color-neutralWarm-* ingredient vars so that
+    // all flavor-level tokens that reference neutralWarm pick up the new values.
+    if (neutralPalette) {
+      for (const [step, entry] of Object.entries(neutralPalette)) {
+        vars.push(`--sando-color-neutralWarm-${step}: ${entry.value}`);
       }
     }
   }
