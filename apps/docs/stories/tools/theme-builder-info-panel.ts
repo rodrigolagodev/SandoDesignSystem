@@ -352,7 +352,7 @@ export class SandoTbInfoPanel extends LitElement {
         bubbles: true,
         composed: true,
         detail,
-      })
+      }),
     );
   }
 
@@ -363,7 +363,6 @@ export class SandoTbInfoPanel extends LitElement {
     return html`
       <div class="panel-layout">
         <aside class="panel-sidebar">
-
           <p class="section-title">Identity</p>
 
           <!-- Flavor Name -->
@@ -382,7 +381,9 @@ export class SandoTbInfoPanel extends LitElement {
               spellcheck="false"
             />
             <span class="field-error">${this._nameError ?? ""}</span>
-            <p class="field-hint">Kebab-case only. Used as the token key and ZIP filename.</p>
+            <p class="field-hint">
+              Kebab-case only. Used as the token key and ZIP filename.
+            </p>
           </div>
 
           <!-- Display Name -->
@@ -395,7 +396,9 @@ export class SandoTbInfoPanel extends LitElement {
               placeholder="e.g. Matcha Green"
               @input="${this._onDisplayNameInput}"
             />
-            <p class="field-hint">Human-readable label shown in UIs and docs.</p>
+            <p class="field-hint">
+              Human-readable label shown in UIs and docs.
+            </p>
           </div>
 
           <p class="section-title">Authorship</p>
@@ -450,53 +453,71 @@ export class SandoTbInfoPanel extends LitElement {
           </div>
 
           <!-- Status -->
-          <div class="${this._isReady ? "status-badge ready" : "status-badge pending"}">
+          <div
+            class="${this._isReady
+              ? "status-badge ready"
+              : "status-badge pending"}"
+          >
             ${this._isReady
               ? html`&#10003; Flavor identity set`
               : html`Enter a flavor name to continue`}
           </div>
-
         </aside>
 
         <main class="panel-main" aria-live="polite">
-
           <!-- Passport card -->
           <div class="passport">
             <div class="passport-header">
-              <p class="passport-label">Sando Design System — Flavor Workshop</p>
+              <p class="passport-label">
+                Sando Design System — Flavor Workshop
+              </p>
               <h2 class="passport-name">${nameValue}</h2>
               ${this._displayName.trim()
-                ? html`<p class="passport-display-name">${this._displayName.trim()}</p>`
+                ? html`<p class="passport-display-name">
+                    ${this._displayName.trim()}
+                  </p>`
                 : html``}
             </div>
 
             <div class="passport-body">
               <div class="passport-row">
                 <span class="passport-row-label">Author</span>
-                <span class="passport-row-value ${!this._author.trim() ? "empty" : ""}">
+                <span
+                  class="passport-row-value ${!this._author.trim()
+                    ? "empty"
+                    : ""}"
+                >
                   ${this._author.trim() || "—"}
                 </span>
               </div>
 
               <div class="passport-row">
                 <span class="passport-row-label">Description</span>
-                <span class="passport-row-value ${!this._description.trim() ? "empty" : ""}">
+                <span
+                  class="passport-row-value ${!this._description.trim()
+                    ? "empty"
+                    : ""}"
+                >
                   ${this._description.trim() || "No description provided."}
                 </span>
               </div>
 
               ${this._website.trim()
                 ? html`
-                  <div class="passport-row">
-                    <span class="passport-row-label">Website</span>
-                    <span class="passport-row-value">${this._website.trim()}</span>
-                  </div>
-                `
+                    <div class="passport-row">
+                      <span class="passport-row-label">Website</span>
+                      <span class="passport-row-value"
+                        >${this._website.trim()}</span
+                      >
+                    </div>
+                  `
                 : html``}
             </div>
 
             <div class="passport-footer">
-              <span class="passport-version">v${this._version.trim() || "1.0.0"}</span>
+              <span class="passport-version"
+                >v${this._version.trim() || "1.0.0"}</span
+              >
               <span class="passport-ds-label">FLAVOR WORKSHOP</span>
             </div>
           </div>
@@ -512,11 +533,10 @@ export class SandoTbInfoPanel extends LitElement {
             </ul>
             <div class="reserved-list">
               ${[...SYSTEM_FLAVORS].map(
-                (name) => html`<span class="reserved-chip">${name}</span>`
+                (name) => html`<span class="reserved-chip">${name}</span>`,
               )}
             </div>
           </div>
-
         </main>
       </div>
     `;

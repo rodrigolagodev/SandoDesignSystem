@@ -50,7 +50,17 @@ interface ContrastResult {
 // ---------------------------------------------------------------------------
 
 const PALETTE_STEPS = [
-  "50", "100", "200", "300", "400", "500", "600", "700", "800", "900", "950",
+  "50",
+  "100",
+  "200",
+  "300",
+  "400",
+  "500",
+  "600",
+  "700",
+  "800",
+  "900",
+  "950",
 ] as const;
 
 // ---------------------------------------------------------------------------
@@ -319,7 +329,9 @@ export class SandoTbColorsPanel extends LitElement {
       font-weight: 600;
       cursor: pointer;
       width: 100%;
-      transition: background 0.15s, opacity 0.15s;
+      transition:
+        background 0.15s,
+        opacity 0.15s;
     }
 
     .btn-generate:hover:not(:disabled) {
@@ -347,7 +359,9 @@ export class SandoTbColorsPanel extends LitElement {
       font-size: 13px;
       font-weight: 500;
       cursor: pointer;
-      transition: background 0.15s, border-color 0.15s;
+      transition:
+        background 0.15s,
+        border-color 0.15s;
     }
 
     .btn-export:hover:not(:disabled) {
@@ -409,7 +423,8 @@ export class SandoTbColorsPanel extends LitElement {
 
     const parsed = parse(this.colorInput);
     if (!parsed) {
-      this._colorError = "Enter a valid CSS color (e.g. #3b82f6, rgb(59,130,246))";
+      this._colorError =
+        "Enter a valid CSS color (e.g. #3b82f6, rgb(59,130,246))";
       return;
     }
 
@@ -429,12 +444,17 @@ export class SandoTbColorsPanel extends LitElement {
     }) as GeneratedPalette;
 
     this._result = generated;
-    this._contrast = validatePaletteContrast(generated.palette) as ContrastResult;
+    this._contrast = validatePaletteContrast(
+      generated.palette,
+    ) as ContrastResult;
 
     this._applyPaletteToHost(generated);
 
     // Emit tb-panel-change
-    const json = JSON.parse(this._buildJsonContent()) as Record<string, unknown>;
+    const json = JSON.parse(this._buildJsonContent()) as Record<
+      string,
+      unknown
+    >;
     this._emitChange(json, true);
   }
 
@@ -445,13 +465,13 @@ export class SandoTbColorsPanel extends LitElement {
         bubbles: true,
         composed: true,
         detail,
-      })
+      }),
     );
   }
 
   private _applyPaletteToHost(generated: GeneratedPalette) {
     const preview = this.shadowRoot?.querySelector(
-      ".palette-preview-wrapper"
+      ".palette-preview-wrapper",
     ) as HTMLElement | null;
     if (!preview) return;
     PALETTE_STEPS.forEach((step) => {
@@ -460,7 +480,7 @@ export class SandoTbColorsPanel extends LitElement {
       const { l, c, h } = entry.oklch;
       preview.style.setProperty(
         `--sando-color-${generated.name}-${step}`,
-        `oklch(${l} ${c} ${h})`
+        `oklch(${l} ${c} ${h})`,
       );
     });
   }
@@ -477,7 +497,10 @@ export class SandoTbColorsPanel extends LitElement {
 
   private _buildJsonContent(): string {
     if (!this._result) return "{}";
-    const steps: Record<string, { value: string; type: string; description: string }> = {};
+    const steps: Record<
+      string,
+      { value: string; type: string; description: string }
+    > = {};
     PALETTE_STEPS.forEach((step) => {
       const entry = this._result!.palette[step];
       const { l, c, h } = entry.oklch;
@@ -487,7 +510,9 @@ export class SandoTbColorsPanel extends LitElement {
         description: `${this._result!.name} ${step}`,
       };
     });
-    return JSON.stringify({ color: { [this._result!.name]: steps } }, null, 2) + "\n";
+    return (
+      JSON.stringify({ color: { [this._result!.name]: steps } }, null, 2) + "\n"
+    );
   }
 
   private _downloadFile(content: string, filename: string, mimeType: string) {
@@ -505,7 +530,7 @@ export class SandoTbColorsPanel extends LitElement {
     this._downloadFile(
       this._buildCssContent(),
       `sando-color-${this._result.name}.css`,
-      "text/css"
+      "text/css",
     );
   }
 
@@ -514,7 +539,7 @@ export class SandoTbColorsPanel extends LitElement {
     this._downloadFile(
       this._buildJsonContent(),
       `color-${this._result.name}.json`,
-      "application/json"
+      "application/json",
     );
   }
 
@@ -523,15 +548,19 @@ export class SandoTbColorsPanel extends LitElement {
     return html`
       ${!this.flavorName.trim()
         ? html`
-          <div style="padding:10px 12px;background:#fef9c3;border:1px solid #fde68a;border-radius:6px;font-size:12px;color:#92400e;line-height:1.5;">
-            Set a flavor name in the <strong>Flavor Info</strong> tab first.
-          </div>
-        `
+            <div
+              style="padding:10px 12px;background:#fef9c3;border:1px solid #fde68a;border-radius:6px;font-size:12px;color:#92400e;line-height:1.5;"
+            >
+              Set a flavor name in the <strong>Flavor Info</strong> tab first.
+            </div>
+          `
         : html`
-          <div style="padding:8px 12px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:6px;font-size:12px;color:#166534;">
-            Flavor: <strong>${this.flavorName}</strong>
-          </div>
-        `}
+            <div
+              style="padding:8px 12px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:6px;font-size:12px;color:#166534;"
+            >
+              Flavor: <strong>${this.flavorName}</strong>
+            </div>
+          `}
 
       <!-- Brand color input -->
       <div class="field">
@@ -566,18 +595,18 @@ export class SandoTbColorsPanel extends LitElement {
 
       ${this._result
         ? html`
-          <div>
-            <p class="section-title">Export</p>
-            <div class="export-row">
-              <button class="btn-export" @click="${this._onDownloadCss}">
-                Download CSS
-              </button>
-              <button class="btn-export" @click="${this._onDownloadJson}">
-                Download JSON
-              </button>
+            <div>
+              <p class="section-title">Export</p>
+              <div class="export-row">
+                <button class="btn-export" @click="${this._onDownloadCss}">
+                  Download CSS
+                </button>
+                <button class="btn-export" @click="${this._onDownloadJson}">
+                  Download JSON
+                </button>
+              </div>
             </div>
-          </div>
-        `
+          `
         : html``}
     `;
   }
@@ -597,20 +626,15 @@ export class SandoTbColorsPanel extends LitElement {
       `;
     }
     return html`
-      ${this._renderPalettePreview()}
-      ${this._renderContrastTable()}
+      ${this._renderPalettePreview()} ${this._renderContrastTable()}
     `;
   }
 
   override render() {
     return html`
       <div class="panel-layout">
-        <aside class="panel-sidebar">
-          ${this.renderSidebarControls()}
-        </aside>
-        <main class="panel-main">
-          ${this.renderMainPreview()}
-        </main>
+        <aside class="panel-sidebar">${this.renderSidebarControls()}</aside>
+        <main class="panel-main">${this.renderMainPreview()}</main>
       </div>
     `;
   }
@@ -652,7 +676,11 @@ export class SandoTbColorsPanel extends LitElement {
     return html`
       <div>
         <p class="section-title">WCAG AA Contrast (4.5:1 minimum)</p>
-        <div class="${this._contrast.valid ? "wcag-summary pass" : "wcag-summary fail"}">
+        <div
+          class="${this._contrast.valid
+            ? "wcag-summary pass"
+            : "wcag-summary fail"}"
+        >
           ${this._contrast.valid
             ? "All tests pass — WCAG AA compliant"
             : `${this._contrast.failures.length} test(s) failed`}
@@ -677,15 +705,21 @@ export class SandoTbColorsPanel extends LitElement {
                     <div
                       class="color-pair-preview"
                       style="background: ${bgEntry.value}; color: ${fgEntry.value};"
-                    >Aa</div>
+                    >
+                      Aa
+                    </div>
                   </td>
                   <td>
                     ${test.background}
-                    <span style="color:#aaa;font-size:11px;">${bgEntry.value}</span>
+                    <span style="color:#aaa;font-size:11px;"
+                      >${bgEntry.value}</span
+                    >
                   </td>
                   <td>
                     ${test.foreground}
-                    <span style="color:#aaa;font-size:11px;">${fgEntry.value}</span>
+                    <span style="color:#aaa;font-size:11px;"
+                      >${fgEntry.value}</span
+                    >
                   </td>
                   <td>${test.contrast}:1</td>
                   <td>

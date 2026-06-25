@@ -24,7 +24,7 @@ function buildShapeJson(
   sm: string,
   md: string,
   lg: string,
-  borderWidth: string
+  borderWidth: string,
 ): Record<string, unknown> {
   return {
     border: {
@@ -94,7 +94,9 @@ export class SandoTbShapePanel extends LitElement {
       font-weight: 500;
       cursor: pointer;
       color: #555;
-      transition: background 0.15s, color 0.15s;
+      transition:
+        background 0.15s,
+        color 0.15s;
     }
 
     .segment-btn:last-child {
@@ -227,7 +229,9 @@ export class SandoTbShapePanel extends LitElement {
       font-size: 13px;
       font-weight: 500;
       cursor: pointer;
-      transition: background 0.15s, border-color 0.15s;
+      transition:
+        background 0.15s,
+        border-color 0.15s;
     }
 
     .btn-export:hover {
@@ -362,13 +366,19 @@ export class SandoTbShapePanel extends LitElement {
   }
 
   private _emitChange() {
-    const json = buildShapeJson(this._xs, this._sm, this._md, this._lg, this._borderWidth);
+    const json = buildShapeJson(
+      this._xs,
+      this._sm,
+      this._md,
+      this._lg,
+      this._borderWidth,
+    );
     this.dispatchEvent(
       new CustomEvent<PanelChangeDetail>("tb-panel-change", {
         bubbles: true,
         composed: true,
         detail: { tab: "shape", json, isReady: true },
-      })
+      }),
     );
   }
 
@@ -394,15 +404,23 @@ export class SandoTbShapePanel extends LitElement {
   private _buildJsonContent(): string {
     return (
       JSON.stringify(
-        buildShapeJson(this._xs, this._sm, this._md, this._lg, this._borderWidth),
+        buildShapeJson(
+          this._xs,
+          this._sm,
+          this._md,
+          this._lg,
+          this._borderWidth,
+        ),
         null,
-        2
+        2,
       ) + "\n"
     );
   }
 
   private _downloadJson() {
-    const blob = new Blob([this._buildJsonContent()], { type: "application/json" });
+    const blob = new Blob([this._buildJsonContent()], {
+      type: "application/json",
+    });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
@@ -416,13 +434,28 @@ export class SandoTbShapePanel extends LitElement {
   }
 
   private _radiusOptions = [
-    "0rem", "0.125rem", "0.25rem", "0.375rem", "0.5rem",
-    "0.625rem", "0.75rem", "0.875rem", "1rem", "1.25rem",
-    "1.5rem", "2rem", "9999px",
+    "0rem",
+    "0.125rem",
+    "0.25rem",
+    "0.375rem",
+    "0.5rem",
+    "0.625rem",
+    "0.75rem",
+    "0.875rem",
+    "1rem",
+    "1.25rem",
+    "1.5rem",
+    "2rem",
+    "9999px",
   ];
 
   renderSidebarControls() {
-    const presets: ShapePreset[] = ["sharp", "precise", "rounded", "expressive"];
+    const presets: ShapePreset[] = [
+      "sharp",
+      "precise",
+      "rounded",
+      "expressive",
+    ];
     return html`
       <!-- Preset segmented control -->
       <div>
@@ -437,7 +470,7 @@ export class SandoTbShapePanel extends LitElement {
               >
                 ${p.charAt(0).toUpperCase() + p.slice(1)}
               </button>
-            `
+            `,
           )}
         </div>
       </div>
@@ -455,25 +488,37 @@ export class SandoTbShapePanel extends LitElement {
                   @change="${(e: Event) => this._onFineTuneChange(key, e)}"
                 >
                   ${this._radiusOptions.map(
-                    (opt) => html`<option value="${opt}" ?selected="${opt === this[`_${key}` as `_${typeof key}`]}">${opt}</option>`
+                    (opt) =>
+                      html`<option
+                        value="${opt}"
+                        ?selected="${opt ===
+                        this[`_${key}` as `_${typeof key}`]}"
+                      >
+                        ${opt}
+                      </option>`,
                   )}
                 </select>
               </div>
-            `
+            `,
           )}
         </div>
       </details>
 
       <!-- Border width -->
       <div class="field">
-        <label for="border-width" class="field-label" style="margin:0 0 8px;">Border Width</label>
+        <label for="border-width" class="field-label" style="margin:0 0 8px;"
+          >Border Width</label
+        >
         <select id="border-width" @change="${this._onBorderWidthChange}">
           ${BORDER_WIDTH_OPTIONS.map(
             (opt) => html`
-              <option value="${opt.value}" ?selected="${opt.value === this._borderWidth}">
+              <option
+                value="${opt.value}"
+                ?selected="${opt.value === this._borderWidth}"
+              >
                 ${opt.label}
               </option>
-            `
+            `,
           )}
         </select>
       </div>
@@ -501,24 +546,21 @@ export class SandoTbShapePanel extends LitElement {
       <div class="preview-root">
         <p class="preview-section-title">Shape Preview — ${this._preset}</p>
         <div class="shape-grid">
-
           <!-- 1. Button default -->
           <div class="shape-item">
             <span class="shape-label">Button</span>
-            <div
-              class="silhouette-button"
-              style="border-radius: ${sm};"
-            >Button</div>
+            <div class="silhouette-button" style="border-radius: ${sm};">
+              Button
+            </div>
             <span class="shape-caption">sm: ${sm}</span>
           </div>
 
           <!-- 2. Button pill -->
           <div class="shape-item">
             <span class="shape-label">Pill Button</span>
-            <div
-              class="silhouette-button"
-              style="border-radius: ${lg};"
-            >Button</div>
+            <div class="silhouette-button" style="border-radius: ${lg};">
+              Button
+            </div>
             <span class="shape-caption">lg: ${lg}</span>
           </div>
 
@@ -528,7 +570,9 @@ export class SandoTbShapePanel extends LitElement {
             <div
               class="silhouette-input"
               style="border-radius: ${sm}; border: ${bw} solid #999;"
-            >Placeholder text…</div>
+            >
+              Placeholder text…
+            </div>
             <span class="shape-caption">sm: ${sm}, border: ${bw}</span>
           </div>
 
@@ -538,17 +582,18 @@ export class SandoTbShapePanel extends LitElement {
             <div
               class="silhouette-card"
               style="border-radius: ${md}; border: ${bw} solid #e5e5e5; box-shadow: 0 2px 8px rgba(0,0,0,0.08);"
-            >Card</div>
+            >
+              Card
+            </div>
             <span class="shape-caption">md: ${md}</span>
           </div>
 
           <!-- 5. Badge -->
           <div class="shape-item">
             <span class="shape-label">Badge</span>
-            <div
-              class="silhouette-badge"
-              style="border-radius: ${xs};"
-            >Tag</div>
+            <div class="silhouette-badge" style="border-radius: ${xs};">
+              Tag
+            </div>
             <span class="shape-caption">xs: ${xs}</span>
           </div>
 
@@ -558,7 +603,6 @@ export class SandoTbShapePanel extends LitElement {
             <div class="silhouette-avatar"></div>
             <span class="shape-caption">fixed: 50%</span>
           </div>
-
         </div>
       </div>
     `;
@@ -567,12 +611,8 @@ export class SandoTbShapePanel extends LitElement {
   override render() {
     return html`
       <div class="panel-layout">
-        <aside class="panel-sidebar">
-          ${this.renderSidebarControls()}
-        </aside>
-        <main class="panel-main">
-          ${this.renderMainPreview()}
-        </main>
+        <aside class="panel-sidebar">${this.renderSidebarControls()}</aside>
+        <main class="panel-main">${this.renderMainPreview()}</main>
       </div>
     `;
   }

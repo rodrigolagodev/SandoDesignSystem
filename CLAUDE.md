@@ -30,6 +30,7 @@ sando-orchestrator (coordinator)
 ### Token Architecture
 
 Three-layer system:
+
 - **L1 Ingredients** — primitives (`packages/tokens/src/ingredients/`)
 - **L2 Flavors** — themes (`packages/tokens/src/flavors/`)
 - **L3 Recipes** — component tokens (`packages/tokens/src/recipes/`)
@@ -39,6 +40,7 @@ Components consume ONLY L3 Recipe tokens via CSS custom properties.
 ### Component Structure (7-File Pattern)
 
 Every component in `packages/components/src/components/{name}/`:
+
 ```
 sando-{name}.ts           # Lit 3 component (FlavorableMixin)
 sando-{name}.types.ts     # TypeScript types
@@ -52,6 +54,7 @@ styles/                   # Modular CSS (Recipe tokens only)
 ### Git Conventions
 
 Commit format: `type(scope): description`
+
 - No Co-Authored-By trailers
 - No AI attribution in commits or PRs
 - Git write commands require explicit user confirmation

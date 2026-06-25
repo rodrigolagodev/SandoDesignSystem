@@ -24,7 +24,13 @@ export interface BuilderState {
   elevation?: PanelChangeDetail;
 }
 
-export type TabName = "info" | "colors" | "typography" | "shape" | "motion" | "elevation";
+export type TabName =
+  | "info"
+  | "colors"
+  | "typography"
+  | "shape"
+  | "motion"
+  | "elevation";
 
 // ---------------------------------------------------------------------------
 // Flavor name validation — shared by Info panel and Colors panel
@@ -42,8 +48,10 @@ export const SYSTEM_FLAVORS = new Set([
 
 export function validateFlavorName(name: string): string | null {
   if (!name || name.trim() === "") return "Flavor name is required";
-  if (!/^[a-zA-Z0-9-]+$/.test(name)) return "Use only letters, numbers, and hyphens";
-  if (SYSTEM_FLAVORS.has(name.toLowerCase())) return "This name conflicts with a system flavor";
+  if (!/^[a-zA-Z0-9-]+$/.test(name))
+    return "Use only letters, numbers, and hyphens";
+  if (SYSTEM_FLAVORS.has(name.toLowerCase()))
+    return "This name conflicts with a system flavor";
   return null;
 }
 
@@ -59,12 +67,13 @@ export interface FontFamilyEntry {
 
 export const FONT_FAMILIES: Record<string, FontFamilyEntry> = {
   // Sans-serif
-  "sans": {
-    value: "system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+  sans: {
+    value:
+      "system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
     description: "System sans-serif stack",
     group: "sans-serif",
   },
-  "inter": {
+  inter: {
     value: "'Inter', system-ui, -apple-system, sans-serif",
     description: "Premium UI sans — for Original flavor",
     group: "sans-serif",
@@ -84,7 +93,7 @@ export const FONT_FAMILIES: Record<string, FontFamilyEntry> = {
     description: "Distinctive tech — craft/artisanal",
     group: "sans-serif",
   },
-  "outfit": {
+  outfit: {
     value: "'Outfit', system-ui, sans-serif",
     description: "Geometric sans-serif — warm precision for headings",
     group: "sans-serif",
@@ -94,33 +103,33 @@ export const FONT_FAMILIES: Record<string, FontFamilyEntry> = {
     description: "Adobe humanist sans — warm readability for body text",
     group: "sans-serif",
   },
-  "condensed": {
+  condensed: {
     value: "'Barlow Condensed', 'Arial Narrow', sans-serif",
     description: "Condensed sans-serif",
     group: "sans-serif",
   },
   // Serif
-  "serif": {
+  serif: {
     value: "Georgia, Cambria, 'Times New Roman', Times, serif",
     description: "System serif stack",
     group: "serif",
   },
-  "cormorant": {
+  cormorant: {
     value: "'Cormorant Garamond', Didot, Georgia, serif",
     description: "Elegant display serif — luxury",
     group: "serif",
   },
-  "literata": {
+  literata: {
     value: "'Literata', Georgia, serif",
     description: "Humanist serif — readable, warm",
     group: "serif",
   },
-  "newsreader": {
+  newsreader: {
     value: "'Newsreader', Georgia, serif",
     description: "Transitional serif — calm, editorial",
     group: "serif",
   },
-  "merriweather": {
+  merriweather: {
     value: "'Merriweather', Georgia, serif",
     description: "Robust slab-serif — craft feel",
     group: "serif",
@@ -130,14 +139,15 @@ export const FONT_FAMILIES: Record<string, FontFamilyEntry> = {
     description: "Elegant display serif",
     group: "serif",
   },
-  "slab": {
+  slab: {
     value: "'Roboto Slab', Rockwell, Georgia, serif",
     description: "Roboto Slab",
     group: "serif",
   },
   // Monospace
-  "mono": {
-    value: "'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace",
+  mono: {
+    value:
+      "'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace",
     description: "System monospace stack",
     group: "monospace",
   },
@@ -152,17 +162,18 @@ export const FONT_FAMILIES: Record<string, FontFamilyEntry> = {
     group: "monospace",
   },
   // Expressive
-  "display": {
-    value: "'Bebas Neue', Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif",
+  display: {
+    value:
+      "'Bebas Neue', Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif",
     description: "Bold display / headlines",
     group: "expressive",
   },
-  "rounded": {
+  rounded: {
     value: "'Nunito', Verdana, sans-serif",
     description: "Rounded, friendly",
     group: "expressive",
   },
-  "handwritten": {
+  handwritten: {
     value: "'Caveat', 'Brush Script MT', cursive",
     description: "Handwritten / casual",
     group: "expressive",
@@ -186,17 +197,17 @@ export interface ShapeValues {
 }
 
 export const SHAPE_PRESETS: Record<ShapePreset, ShapeValues> = {
-  sharp:      { xs: "0rem",    sm: "0.125rem", md: "0.25rem",  lg: "0.25rem"  },
-  precise:    { xs: "0.125rem",sm: "0.25rem",  md: "0.5rem",   lg: "0.75rem"  },
-  rounded:    { xs: "0.25rem", sm: "0.5rem",   md: "0.75rem",  lg: "1rem"     },
-  expressive: { xs: "0.5rem",  sm: "1rem",     md: "1.25rem",  lg: "9999px"   },
+  sharp: { xs: "0rem", sm: "0.125rem", md: "0.25rem", lg: "0.25rem" },
+  precise: { xs: "0.125rem", sm: "0.25rem", md: "0.5rem", lg: "0.75rem" },
+  rounded: { xs: "0.25rem", sm: "0.5rem", md: "0.75rem", lg: "1rem" },
+  expressive: { xs: "0.5rem", sm: "1rem", md: "1.25rem", lg: "9999px" },
 };
 
 export const BORDER_WIDTH_OPTIONS: Array<{ label: string; value: string }> = [
-  { label: "width-50 (1px)",  value: "1px"  },
-  { label: "width-100 (2px)", value: "2px"  },
-  { label: "width-150 (3px)", value: "3px"  },
-  { label: "width-200 (4px)", value: "4px"  },
+  { label: "width-50 (1px)", value: "1px" },
+  { label: "width-100 (2px)", value: "2px" },
+  { label: "width-150 (3px)", value: "3px" },
+  { label: "width-200 (4px)", value: "4px" },
 ];
 
 // ---------------------------------------------------------------------------
@@ -214,13 +225,13 @@ export type EasingName =
   | "bounce";
 
 export const EASING_VALUES: Record<EasingName, string> = {
-  "gentle":     "cubic-bezier(0.4,0.1,0.6,0.9)",
-  "ease-out":   "cubic-bezier(0,0,0.2,1)",
-  "smooth":     "cubic-bezier(0.45,0.05,0.55,0.95)",
-  "ease-in-out":"cubic-bezier(0.4,0,0.2,1)",
-  "energetic":  "cubic-bezier(0.2,0.8,0.2,1)",
-  "organic":    "cubic-bezier(0.42,0,0.58,1)",
-  "bounce":     "cubic-bezier(0.68,-0.55,0.265,1.55)",
+  gentle: "cubic-bezier(0.4,0.1,0.6,0.9)",
+  "ease-out": "cubic-bezier(0,0,0.2,1)",
+  smooth: "cubic-bezier(0.45,0.05,0.55,0.95)",
+  "ease-in-out": "cubic-bezier(0.4,0,0.2,1)",
+  energetic: "cubic-bezier(0.2,0.8,0.2,1)",
+  organic: "cubic-bezier(0.42,0,0.58,1)",
+  bounce: "cubic-bezier(0.68,-0.55,0.265,1.55)",
 };
 
 export interface MotionTier {
@@ -236,19 +247,19 @@ export interface MotionPresetValues {
 
 export const MOTION_PRESETS: Record<MotionPreset, MotionPresetValues> = {
   subtle: {
-    micro:      { duration: "100ms", easing: "gentle"     },
-    standard:   { duration: "200ms", easing: "ease-out"   },
-    expressive: { duration: "300ms", easing: "smooth"     },
+    micro: { duration: "100ms", easing: "gentle" },
+    standard: { duration: "200ms", easing: "ease-out" },
+    expressive: { duration: "300ms", easing: "smooth" },
   },
   standard: {
-    micro:      { duration: "100ms", easing: "ease-out"   },
-    standard:   { duration: "300ms", easing: "ease-in-out"},
-    expressive: { duration: "500ms", easing: "energetic"  },
+    micro: { duration: "100ms", easing: "ease-out" },
+    standard: { duration: "300ms", easing: "ease-in-out" },
+    expressive: { duration: "500ms", easing: "energetic" },
   },
   expressive: {
-    micro:      { duration: "200ms", easing: "energetic"  },
-    standard:   { duration: "500ms", easing: "organic"    },
-    expressive: { duration: "700ms", easing: "bounce"     },
+    micro: { duration: "200ms", easing: "energetic" },
+    standard: { duration: "500ms", easing: "organic" },
+    expressive: { duration: "700ms", easing: "bounce" },
   },
 };
 
@@ -259,9 +270,9 @@ export const MOTION_PRESETS: Record<MotionPreset, MotionPresetValues> = {
 export type ShadowIntensity = "light" | "default" | "deep";
 
 export const SHADOW_INTENSITY_MULTIPLIER: Record<ShadowIntensity, number> = {
-  light:   0.65,
+  light: 0.65,
   default: 1.0,
-  deep:    1.5,
+  deep: 1.5,
 };
 
 /** Shadow layer descriptors — opacities are multiplied by the intensity factor at runtime */
@@ -280,46 +291,115 @@ export interface ElevationLevel {
 }
 
 export const ELEVATION_LEVELS: ElevationLevel[] = [
-  { key: "0",   label: "elevation-0",   layers: [] },
+  { key: "0", label: "elevation-0", layers: [] },
   {
-    key: "100", label: "elevation-100",
+    key: "100",
+    label: "elevation-100",
     layers: [
-      { offsetY: "1px",  blur: "2px",  lightness: 0.25, chroma: 0.02, baseOpacity: 0.06 },
-      { offsetY: "1px",  blur: "3px",  lightness: 0.30, chroma: 0.02, baseOpacity: 0.08 },
+      {
+        offsetY: "1px",
+        blur: "2px",
+        lightness: 0.25,
+        chroma: 0.02,
+        baseOpacity: 0.06,
+      },
+      {
+        offsetY: "1px",
+        blur: "3px",
+        lightness: 0.3,
+        chroma: 0.02,
+        baseOpacity: 0.08,
+      },
     ],
   },
   {
-    key: "200", label: "elevation-200",
+    key: "200",
+    label: "elevation-200",
     layers: [
-      { offsetY: "2px",  blur: "4px",  lightness: 0.25, chroma: 0.02, baseOpacity: 0.06 },
-      { offsetY: "4px",  blur: "8px",  lightness: 0.30, chroma: 0.02, baseOpacity: 0.10 },
+      {
+        offsetY: "2px",
+        blur: "4px",
+        lightness: 0.25,
+        chroma: 0.02,
+        baseOpacity: 0.06,
+      },
+      {
+        offsetY: "4px",
+        blur: "8px",
+        lightness: 0.3,
+        chroma: 0.02,
+        baseOpacity: 0.1,
+      },
     ],
   },
   {
-    key: "300", label: "elevation-300",
+    key: "300",
+    label: "elevation-300",
     layers: [
-      { offsetY: "4px",  blur: "8px",  lightness: 0.20, chroma: 0.02, baseOpacity: 0.08 },
-      { offsetY: "12px", blur: "24px", lightness: 0.25, chroma: 0.02, baseOpacity: 0.12 },
+      {
+        offsetY: "4px",
+        blur: "8px",
+        lightness: 0.2,
+        chroma: 0.02,
+        baseOpacity: 0.08,
+      },
+      {
+        offsetY: "12px",
+        blur: "24px",
+        lightness: 0.25,
+        chroma: 0.02,
+        baseOpacity: 0.12,
+      },
     ],
   },
   {
-    key: "400", label: "elevation-400",
+    key: "400",
+    label: "elevation-400",
     layers: [
-      { offsetY: "8px",  blur: "16px", lightness: 0.20, chroma: 0.02, baseOpacity: 0.10 },
-      { offsetY: "20px", blur: "40px", lightness: 0.20, chroma: 0.02, baseOpacity: 0.14 },
+      {
+        offsetY: "8px",
+        blur: "16px",
+        lightness: 0.2,
+        chroma: 0.02,
+        baseOpacity: 0.1,
+      },
+      {
+        offsetY: "20px",
+        blur: "40px",
+        lightness: 0.2,
+        chroma: 0.02,
+        baseOpacity: 0.14,
+      },
     ],
   },
   {
-    key: "500", label: "elevation-500",
+    key: "500",
+    label: "elevation-500",
     layers: [
-      { offsetY: "12px", blur: "24px", lightness: 0.18, chroma: 0.02, baseOpacity: 0.12 },
-      { offsetY: "32px", blur: "64px", lightness: 0.18, chroma: 0.02, baseOpacity: 0.18 },
+      {
+        offsetY: "12px",
+        blur: "24px",
+        lightness: 0.18,
+        chroma: 0.02,
+        baseOpacity: 0.12,
+      },
+      {
+        offsetY: "32px",
+        blur: "64px",
+        lightness: 0.18,
+        chroma: 0.02,
+        baseOpacity: 0.18,
+      },
     ],
   },
 ];
 
 /** Build a CSS box-shadow string from an elevation level, hue, and intensity multiplier */
-export function buildShadowValue(level: ElevationLevel, hue: number, multiplier: number): string {
+export function buildShadowValue(
+  level: ElevationLevel,
+  hue: number,
+  multiplier: number,
+): string {
   if (level.layers.length === 0) return "none";
   return level.layers
     .map((layer) => {

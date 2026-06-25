@@ -84,7 +84,16 @@ const config = {
     );
 
     // Resolve culori from root node_modules (it is hoisted as a dependency of @sando-ds/tokens)
-    const culoriPath = resolve(dirname(dirname(dirname(__dirname))), "node_modules", ".pnpm", "culori@4.0.2", "node_modules", "culori", "bundled", "culori.min.mjs");
+    const culoriPath = resolve(
+      dirname(dirname(dirname(__dirname))),
+      "node_modules",
+      ".pnpm",
+      "culori@4.0.2",
+      "node_modules",
+      "culori",
+      "bundled",
+      "culori.min.mjs",
+    );
 
     return {
       ...config,

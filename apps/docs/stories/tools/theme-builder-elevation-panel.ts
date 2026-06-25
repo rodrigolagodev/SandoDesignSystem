@@ -19,7 +19,10 @@ import {
 // JSON builder
 // ---------------------------------------------------------------------------
 
-function buildElevationJson(hue: number, intensity: ShadowIntensity): Record<string, unknown> {
+function buildElevationJson(
+  hue: number,
+  intensity: ShadowIntensity,
+): Record<string, unknown> {
   const multiplier = SHADOW_INTENSITY_MULTIPLIER[intensity];
   const shadow: Record<string, unknown> = {};
   ELEVATION_LEVELS.forEach((level) => {
@@ -91,14 +94,14 @@ export class SandoTbElevationPanel extends LitElement {
 
     .slider-row input[type="number"]:focus {
       border-color: #3b82f6;
-      box-shadow: 0 0 0 2px rgba(59,130,246,0.2);
+      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
     }
 
     .hue-swatch {
       width: 28px;
       height: 28px;
       border-radius: 50%;
-      border: 1px solid rgba(0,0,0,0.1);
+      border: 1px solid rgba(0, 0, 0, 0.1);
       flex-shrink: 0;
     }
 
@@ -131,7 +134,9 @@ export class SandoTbElevationPanel extends LitElement {
       font-weight: 500;
       cursor: pointer;
       color: #555;
-      transition: background 0.15s, color 0.15s;
+      transition:
+        background 0.15s,
+        color 0.15s;
     }
 
     .segment-btn:last-child {
@@ -163,7 +168,9 @@ export class SandoTbElevationPanel extends LitElement {
       font-size: 13px;
       font-weight: 500;
       cursor: pointer;
-      transition: background 0.15s, border-color 0.15s;
+      transition:
+        background 0.15s,
+        border-color 0.15s;
     }
 
     .btn-export:hover {
@@ -254,7 +261,7 @@ export class SandoTbElevationPanel extends LitElement {
         bubbles: true,
         composed: true,
         detail: { tab: "elevation", json, isReady: true },
-      })
+      }),
     );
   }
 
@@ -277,11 +284,16 @@ export class SandoTbElevationPanel extends LitElement {
   }
 
   private _buildJsonContent(): string {
-    return JSON.stringify(buildElevationJson(this._hue, this._intensity), null, 2) + "\n";
+    return (
+      JSON.stringify(buildElevationJson(this._hue, this._intensity), null, 2) +
+      "\n"
+    );
   }
 
   private _downloadJson() {
-    const blob = new Blob([this._buildJsonContent()], { type: "application/json" });
+    const blob = new Blob([this._buildJsonContent()], {
+      type: "application/json",
+    });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
@@ -341,7 +353,7 @@ export class SandoTbElevationPanel extends LitElement {
               >
                 ${i.charAt(0).toUpperCase() + i.slice(1)}
               </button>
-            `
+            `,
           )}
         </div>
       </div>
@@ -391,12 +403,8 @@ export class SandoTbElevationPanel extends LitElement {
   override render() {
     return html`
       <div class="panel-layout">
-        <aside class="panel-sidebar">
-          ${this.renderSidebarControls()}
-        </aside>
-        <main class="panel-main">
-          ${this.renderMainPreview()}
-        </main>
+        <aside class="panel-sidebar">${this.renderSidebarControls()}</aside>
+        <main class="panel-main">${this.renderMainPreview()}</main>
       </div>
     `;
   }

@@ -14,13 +14,13 @@ The Theme Builder (`apps/docs/stories/tools/ThemeBuilder.stories.ts`) currently 
 
 The planned expansion adds four additional tabs, each generating a JSON artifact that matches the shape of a Sando ingredient file:
 
-| Tab       | Output JSON shape        | Ingredient file                              |
-|-----------|--------------------------|----------------------------------------------|
-| Colors    | `color.{name}.{step}`    | `packages/tokens/src/ingredients/color.json` |
-| Typography| `font.family.*` + config | `packages/tokens/src/ingredients/font.json`  |
-| Shape     | `border.radius.*`        | `packages/tokens/src/ingredients/border.json`|
-| Motion    | `animation.*`            | `packages/tokens/src/ingredients/animation.json` |
-| Elevation | `elevation.*`            | `packages/tokens/src/ingredients/elevation.json` |
+| Tab        | Output JSON shape        | Ingredient file                                  |
+| ---------- | ------------------------ | ------------------------------------------------ |
+| Colors     | `color.{name}.{step}`    | `packages/tokens/src/ingredients/color.json`     |
+| Typography | `font.family.*` + config | `packages/tokens/src/ingredients/font.json`      |
+| Shape      | `border.radius.*`        | `packages/tokens/src/ingredients/border.json`    |
+| Motion     | `animation.*`            | `packages/tokens/src/ingredients/animation.json` |
+| Elevation  | `elevation.*`            | `packages/tokens/src/ingredients/elevation.json` |
 
 The "Download All" action must produce a ZIP containing all five JSON files named after each ingredient file, ready to drop into the token pipeline.
 
@@ -57,13 +57,13 @@ Split into two files only: the Storybook story file and one companion panels fil
 
 ### Analysis
 
-| Criterion                          | A (one file) | B (one file/panel) | C (two files) |
-|------------------------------------|:------------:|:------------------:|:-------------:|
-| Each panel independently reviewable| No           | Yes                | Partial       |
-| File size manageable (< ~500 LOC)  | No (~1500+)  | Yes (~250 each)    | No (~1200)    |
-| Storybook only needs one entry     | Yes          | Yes                | Yes           |
-| Grep/search clarity per domain     | No           | Yes                | No            |
-| Import overhead                    | None         | Minimal            | Minimal       |
+| Criterion                           | A (one file) | B (one file/panel) | C (two files) |
+| ----------------------------------- | :----------: | :----------------: | :-----------: |
+| Each panel independently reviewable |      No      |        Yes         |    Partial    |
+| File size manageable (< ~500 LOC)   | No (~1500+)  |  Yes (~250 each)   |  No (~1200)   |
+| Storybook only needs one entry      |     Yes      |        Yes         |      Yes      |
+| Grep/search clarity per domain      |      No      |        Yes         |      No       |
+| Import overhead                     |     None     |      Minimal       |    Minimal    |
 
 Option A would produce a single file exceeding 1500 lines. Option C reduces the count but still produces a companion file that is difficult to navigate. Option B gives each panel a clear, independently readable file with a predictable naming convention.
 
@@ -102,7 +102,7 @@ Event shape:
 interface PanelChangeEvent {
   tab: "colors" | "typography" | "shape" | "motion" | "elevation";
   json: Record<string, unknown>; // matches ingredient file shape exactly
-  isReady: boolean;              // true when output is fully valid
+  isReady: boolean; // true when output is fully valid
 }
 ```
 
@@ -128,14 +128,14 @@ The Compression Streams API (`CompressionStream`) supports only `gzip` and `defl
 
 ### Analysis
 
-| Criterion                         | JSZip | fflate | Multi-Blob | Native |
-|-----------------------------------|:-----:|:------:|:----------:|:------:|
-| Single ZIP archive                | Yes   | Yes    | No         | No     |
-| Bundle size impact                | ~90KB | ~8KB   | 0          | 0      |
-| ESM / tree-shakeable              | No    | Yes    | N/A        | N/A    |
-| Storybook devDep only             | Yes   | Yes    | N/A        | N/A    |
-| UX: one click → one file          | Yes   | Yes    | No (5 dlg) | No     |
-| No transitive deps                | No    | Yes    | N/A        | N/A    |
+| Criterion                | JSZip | fflate | Multi-Blob | Native |
+| ------------------------ | :---: | :----: | :--------: | :----: |
+| Single ZIP archive       |  Yes  |  Yes   |     No     |   No   |
+| Bundle size impact       | ~90KB |  ~8KB  |     0      |   0    |
+| ESM / tree-shakeable     |  No   |  Yes   |    N/A     |  N/A   |
+| Storybook devDep only    |  Yes  |  Yes   |    N/A     |  N/A   |
+| UX: one click → one file |  Yes  |  Yes   | No (5 dlg) |   No   |
+| No transitive deps       |  No   |  Yes   |    N/A     |  N/A   |
 
 Multi-Blob (Option C) is acceptable as a fallback but creates five separate browser download dialogs in some configurations, which is poor UX. JSZip works but is 4x larger than fflate and ships CommonJS by default. `fflate` is the modern standard for pure-browser ZIP, used by Vite's build internals.
 
@@ -192,14 +192,14 @@ SandoThemeBuilder                    (ThemeBuilder.stories.ts)
 
 ### Custom element names
 
-| Class                      | Custom element name                   |
-|----------------------------|---------------------------------------|
-| SandoThemeBuilder          | `sando-theme-builder`                 |
-| SandoThemeColorsPanel      | `sando-tb-colors-panel`               |
-| SandoThemeTypographyPanel  | `sando-tb-typography-panel`           |
-| SandoThemeShapePanel       | `sando-tb-shape-panel`                |
-| SandoThemeMotionPanel      | `sando-tb-motion-panel`               |
-| SandoThemeElevationPanel   | `sando-tb-elevation-panel`            |
+| Class                     | Custom element name         |
+| ------------------------- | --------------------------- |
+| SandoThemeBuilder         | `sando-theme-builder`       |
+| SandoThemeColorsPanel     | `sando-tb-colors-panel`     |
+| SandoThemeTypographyPanel | `sando-tb-typography-panel` |
+| SandoThemeShapePanel      | `sando-tb-shape-panel`      |
+| SandoThemeMotionPanel     | `sando-tb-motion-panel`     |
+| SandoThemeElevationPanel  | `sando-tb-elevation-panel`  |
 
 All elements are registered only within `apps/docs` — none are exported from `packages/components`.
 
@@ -220,13 +220,13 @@ Download All click (root)
 
 Each panel's `json` payload must match the ingredient file shape exactly so files can be dropped into `packages/tokens/src/ingredients/` without transformation:
 
-| Panel      | Root key    | Output keys                                         |
-|------------|-------------|-----------------------------------------------------|
-| Colors     | `color`     | `{ [paletteName]: { [step]: { value, type, description } } }` |
+| Panel      | Root key    | Output keys                                                                              |
+| ---------- | ----------- | ---------------------------------------------------------------------------------------- |
+| Colors     | `color`     | `{ [paletteName]: { [step]: { value, type, description } } }`                            |
 | Typography | `font`      | `{ family: {...}, size: {...}, weight: {...}, lineHeight: {...}, letterSpacing: {...} }` |
-| Shape      | `border`    | `{ radius: { [step]: { value, type } }, width: {...} }` |
-| Motion     | `animation` | `{ duration: {...}, easing: {...} }`                |
-| Elevation  | `elevation` | `{ [step]: { value, type } }`                       |
+| Shape      | `border`    | `{ radius: { [step]: { value, type } }, width: {...} }`                                  |
+| Motion     | `animation` | `{ duration: {...}, easing: {...} }`                                                     |
+| Elevation  | `elevation` | `{ [step]: { value, type } }`                                                            |
 
 For Typography, Shape, Motion, and Elevation the approach is: the panel presents a **personality selector** (slider or radio group). The root key's full structure is output unchanged from the base ingredient, with only the designer-controlled subset of tokens overridden. This avoids requiring the builder to enumerate all 50+ token steps by hand — it selects a profile and the panel maps it to token overrides on top of the base ingredient template.
 
@@ -235,6 +235,7 @@ For Typography, Shape, Motion, and Elevation the approach is: the panel presents
 ## Consequences
 
 ### Positive
+
 - Each panel file is independently readable and under ~300 LOC.
 - Event-driven upward communication is consistent with existing component patterns.
 - `fflate` adds ~8 KB to the Storybook bundle (devDep only, never published).
@@ -243,11 +244,13 @@ For Typography, Shape, Motion, and Elevation the approach is: the panel presents
 - `sando-tb-*` prefix namespaces all tool elements away from `sando-*` component elements.
 
 ### Negative
+
 - Six new files instead of one (manageable; they share a directory and clear naming convention).
 - `fflate` is a new dependency in `apps/docs`, requiring a `pnpm add -D fflate` in that workspace.
 - Personality-to-token mapping logic (e.g., "rounded" shape profile → specific `border.radius.*` overrides) must be hand-authored in each panel — it cannot be derived automatically from ingredient JSON.
 
 ### Mitigations
+
 - Personality profiles are finite (3–4 per panel) and their token mappings are stable design decisions, not arbitrary runtime values.
 - `fflate` has zero transitive dependencies and is already used by Vite internals in this repo indirectly.
 

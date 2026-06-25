@@ -26,27 +26,38 @@ function buildMotionJson(
   stdDur: string,
   stdEase: string,
   exprDur: string,
-  exprEase: string
+  exprEase: string,
 ): Record<string, unknown> {
   return {
     animation: {
       duration: {
-        micro:      { value: microDur, type: "duration" },
-        standard:   { value: stdDur,   type: "duration" },
-        expressive: { value: exprDur,  type: "duration" },
+        micro: { value: microDur, type: "duration" },
+        standard: { value: stdDur, type: "duration" },
+        expressive: { value: exprDur, type: "duration" },
       },
       easing: {
-        micro:      { value: microEase, type: "cubicBezier" },
-        standard:   { value: stdEase,   type: "cubicBezier" },
-        expressive: { value: exprEase,  type: "cubicBezier" },
+        micro: { value: microEase, type: "cubicBezier" },
+        standard: { value: stdEase, type: "cubicBezier" },
+        expressive: { value: exprEase, type: "cubicBezier" },
       },
     },
   };
 }
 
 const DURATION_OPTIONS = [
-  "50ms", "75ms", "100ms", "150ms", "200ms", "250ms",
-  "300ms", "400ms", "500ms", "600ms", "700ms", "800ms", "1000ms",
+  "50ms",
+  "75ms",
+  "100ms",
+  "150ms",
+  "200ms",
+  "250ms",
+  "300ms",
+  "400ms",
+  "500ms",
+  "600ms",
+  "700ms",
+  "800ms",
+  "1000ms",
 ];
 
 const EASING_NAMES = Object.keys(EASING_VALUES) as EasingName[];
@@ -104,7 +115,9 @@ export class SandoTbMotionPanel extends LitElement {
       font-weight: 500;
       cursor: pointer;
       color: #555;
-      transition: background 0.15s, color 0.15s;
+      transition:
+        background 0.15s,
+        color 0.15s;
     }
 
     .segment-btn:last-child {
@@ -249,7 +262,9 @@ export class SandoTbMotionPanel extends LitElement {
       font-size: 13px;
       font-weight: 500;
       cursor: pointer;
-      transition: background 0.15s, border-color 0.15s;
+      transition:
+        background 0.15s,
+        border-color 0.15s;
     }
 
     .btn-export:hover {
@@ -360,7 +375,7 @@ export class SandoTbMotionPanel extends LitElement {
       height: 20px;
       background: #fff;
       border-radius: 50%;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
       transition: transform var(--tb-micro-dur) var(--tb-micro-ease);
     }
 
@@ -409,8 +424,9 @@ export class SandoTbMotionPanel extends LitElement {
       font-size: 13px;
       font-weight: 600;
       cursor: pointer;
-      transition: transform var(--tb-expr-dur) var(--tb-expr-ease),
-                  background var(--tb-expr-dur) var(--tb-expr-ease);
+      transition:
+        transform var(--tb-expr-dur) var(--tb-expr-ease),
+        background var(--tb-expr-dur) var(--tb-expr-ease);
       width: fit-content;
     }
 
@@ -454,14 +470,14 @@ export class SandoTbMotionPanel extends LitElement {
       this._stdDur,
       EASING_VALUES[this._stdEase],
       this._exprDur,
-      EASING_VALUES[this._exprEase]
+      EASING_VALUES[this._exprEase],
     );
     this.dispatchEvent(
       new CustomEvent<PanelChangeDetail>("tb-panel-change", {
         bubbles: true,
         composed: true,
         detail: { tab: "motion", json, isReady: true },
-      })
+      }),
     );
   }
 
@@ -470,8 +486,14 @@ export class SandoTbMotionPanel extends LitElement {
   }
 
   private _onFineTuneChange(
-    field: "microDur" | "microEase" | "stdDur" | "stdEase" | "exprDur" | "exprEase",
-    e: Event
+    field:
+      | "microDur"
+      | "microEase"
+      | "stdDur"
+      | "stdEase"
+      | "exprDur"
+      | "exprEase",
+    e: Event,
   ) {
     const val = (e.target as HTMLSelectElement).value;
     if (field === "microDur") this._microDur = val;
@@ -509,16 +531,18 @@ export class SandoTbMotionPanel extends LitElement {
           this._stdDur,
           EASING_VALUES[this._stdEase],
           this._exprDur,
-          EASING_VALUES[this._exprEase]
+          EASING_VALUES[this._exprEase],
         ),
         null,
-        2
+        2,
       ) + "\n"
     );
   }
 
   private _downloadJson() {
-    const blob = new Blob([this._buildJsonContent()], { type: "application/json" });
+    const blob = new Blob([this._buildJsonContent()], {
+      type: "application/json",
+    });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
@@ -554,7 +578,7 @@ export class SandoTbMotionPanel extends LitElement {
               >
                 ${p.charAt(0).toUpperCase() + p.slice(1)}
               </button>
-            `
+            `,
           )}
         </div>
       </div>
@@ -564,10 +588,30 @@ export class SandoTbMotionPanel extends LitElement {
         <summary>Fine-tune Timing</summary>
         <div class="fine-tune-body">
           ${(["micro", "standard", "expressive"] as const).map((tier) => {
-            const durKey = tier === "standard" ? "stdDur" : tier === "expressive" ? "exprDur" : "microDur";
-            const easeKey = tier === "standard" ? "stdEase" : tier === "expressive" ? "exprEase" : "microEase";
-            const durVal = tier === "micro" ? this._microDur : tier === "standard" ? this._stdDur : this._exprDur;
-            const easeVal = tier === "micro" ? this._microEase : tier === "standard" ? this._stdEase : this._exprEase;
+            const durKey =
+              tier === "standard"
+                ? "stdDur"
+                : tier === "expressive"
+                  ? "exprDur"
+                  : "microDur";
+            const easeKey =
+              tier === "standard"
+                ? "stdEase"
+                : tier === "expressive"
+                  ? "exprEase"
+                  : "microEase";
+            const durVal =
+              tier === "micro"
+                ? this._microDur
+                : tier === "standard"
+                  ? this._stdDur
+                  : this._exprDur;
+            const easeVal =
+              tier === "micro"
+                ? this._microEase
+                : tier === "standard"
+                  ? this._stdEase
+                  : this._exprEase;
             return html`
               <div class="fine-tune-tier">
                 <span class="fine-tune-tier-label">${tier}</span>
@@ -576,10 +620,17 @@ export class SandoTbMotionPanel extends LitElement {
                     <label for="${tier}-dur">Duration</label>
                     <select
                       id="${tier}-dur"
-                      @change="${(e: Event) => this._onFineTuneChange(durKey, e)}"
+                      @change="${(e: Event) =>
+                        this._onFineTuneChange(durKey, e)}"
                     >
                       ${DURATION_OPTIONS.map(
-                        (opt) => html`<option value="${opt}" ?selected="${opt === durVal}">${opt}</option>`
+                        (opt) =>
+                          html`<option
+                            value="${opt}"
+                            ?selected="${opt === durVal}"
+                          >
+                            ${opt}
+                          </option>`,
                       )}
                     </select>
                   </div>
@@ -587,10 +638,17 @@ export class SandoTbMotionPanel extends LitElement {
                     <label for="${tier}-ease">Easing</label>
                     <select
                       id="${tier}-ease"
-                      @change="${(e: Event) => this._onFineTuneChange(easeKey, e)}"
+                      @change="${(e: Event) =>
+                        this._onFineTuneChange(easeKey, e)}"
                     >
                       ${EASING_NAMES.map(
-                        (opt) => html`<option value="${opt}" ?selected="${opt === easeVal}">${opt}</option>`
+                        (opt) =>
+                          html`<option
+                            value="${opt}"
+                            ?selected="${opt === easeVal}"
+                          >
+                            ${opt}
+                          </option>`,
                       )}
                     </select>
                   </div>
@@ -606,7 +664,9 @@ export class SandoTbMotionPanel extends LitElement {
         <input
           type="checkbox"
           .checked="${this._reducedMotion}"
-          @change="${(e: Event) => { this._reducedMotion = (e.target as HTMLInputElement).checked; }}"
+          @change="${(e: Event) => {
+            this._reducedMotion = (e.target as HTMLInputElement).checked;
+          }}"
         />
         Preview with prefers-reduced-motion
       </label>
@@ -634,7 +694,6 @@ export class SandoTbMotionPanel extends LitElement {
         </div>
 
         <div class="demo-cards">
-
           <!-- Demo 1: Micro — Toggle switch -->
           <div class="demo-card">
             <span class="demo-card-title">Micro</span>
@@ -643,25 +702,54 @@ export class SandoTbMotionPanel extends LitElement {
               role="switch"
               aria-checked="${this._toggleOn}"
               tabindex="0"
-              @click="${() => { this._toggleOn = !this._toggleOn; }}"
-              @keydown="${(e: KeyboardEvent) => { if (e.key === ' ' || e.key === 'Enter') { this._toggleOn = !this._toggleOn; } }}"
+              @click="${() => {
+                this._toggleOn = !this._toggleOn;
+              }}"
+              @keydown="${(e: KeyboardEvent) => {
+                if (e.key === " " || e.key === "Enter") {
+                  this._toggleOn = !this._toggleOn;
+                }
+              }}"
             >
-              <div class="toggle-thumb" style="transition-duration: ${this._reducedMotion ? "0ms" : this._microDur}; transition-timing-function: ${EASING_VALUES[this._microEase]};"></div>
+              <div
+                class="toggle-thumb"
+                style="transition-duration: ${this._reducedMotion
+                  ? "0ms"
+                  : this
+                      ._microDur}; transition-timing-function: ${EASING_VALUES[
+                  this._microEase
+                ]};"
+              ></div>
             </div>
-            <span class="demo-card-label">${this._microDur} / ${this._microEase}</span>
+            <span class="demo-card-label"
+              >${this._microDur} / ${this._microEase}</span
+            >
           </div>
 
           <!-- Demo 2: Standard — Expand panel -->
           <div class="demo-card">
             <span class="demo-card-title">Standard</span>
-            <button class="expand-btn" @click="${() => { this._panelOpen = !this._panelOpen; }}">
+            <button
+              class="expand-btn"
+              @click="${() => {
+                this._panelOpen = !this._panelOpen;
+              }}"
+            >
               ${this._panelOpen ? "Hide panel" : "Show panel"}
             </button>
-            <div class="expand-panel ${this._panelOpen ? "open" : ""}"
-              style="transition-duration: ${this._reducedMotion ? "0ms" : this._stdDur}; transition-timing-function: ${EASING_VALUES[this._stdEase]};">
+            <div
+              class="expand-panel ${this._panelOpen ? "open" : ""}"
+              style="transition-duration: ${this._reducedMotion
+                ? "0ms"
+                : this._stdDur}; transition-timing-function: ${EASING_VALUES[
+                this._stdEase
+              ]};"
+            >
               <div class="expand-panel-inner">Panel content appears here.</div>
             </div>
-            <span class="demo-card-label">${this._stdDur} / ${this._stdEase}</span>
+            <span class="demo-card-label"
+              >${this._stdDur} / ${this._stdEase}</span
+            >
           </div>
 
           <!-- Demo 3: Expressive — Confirm button -->
@@ -669,14 +757,21 @@ export class SandoTbMotionPanel extends LitElement {
             <span class="demo-card-title">Expressive</span>
             <button
               class="confirm-btn ${this._confirmed ? "confirmed" : ""}"
-              style="transition-duration: ${this._reducedMotion ? "0ms" : this._exprDur}; transition-timing-function: ${EASING_VALUES[this._exprEase]};"
-              @click="${() => { this._confirmed = !this._confirmed; }}"
+              style="transition-duration: ${this._reducedMotion
+                ? "0ms"
+                : this._exprDur}; transition-timing-function: ${EASING_VALUES[
+                this._exprEase
+              ]};"
+              @click="${() => {
+                this._confirmed = !this._confirmed;
+              }}"
             >
               ${this._confirmed ? "Confirmed!" : "Confirm"}
             </button>
-            <span class="demo-card-label">${this._exprDur} / ${this._exprEase}</span>
+            <span class="demo-card-label"
+              >${this._exprDur} / ${this._exprEase}</span
+            >
           </div>
-
         </div>
       </div>
     `;
@@ -685,12 +780,8 @@ export class SandoTbMotionPanel extends LitElement {
   override render() {
     return html`
       <div class="panel-layout">
-        <aside class="panel-sidebar">
-          ${this.renderSidebarControls()}
-        </aside>
-        <main class="panel-main">
-          ${this.renderMainPreview()}
-        </main>
+        <aside class="panel-sidebar">${this.renderSidebarControls()}</aside>
+        <main class="panel-main">${this.renderMainPreview()}</main>
       </div>
     `;
   }

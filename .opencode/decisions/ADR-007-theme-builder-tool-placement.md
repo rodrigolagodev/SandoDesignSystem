@@ -21,8 +21,8 @@ Two decisions are required before implementation:
 
 ### Current Storybook section structure
 
-| Top-level section  | Source directory                      | Content                            |
-|--------------------|---------------------------------------|------------------------------------|
+| Top-level section  | Source directory                      | Content                             |
+| ------------------ | ------------------------------------- | ----------------------------------- |
 | `Getting Started/` | `apps/docs/stories/getting-started/`  | Installation, Introduction, Theming |
 | `Tokens/`          | `apps/docs/stories/01-ingredients/`   | Ingredient and Flavor token stories |
 | `Components/`      | `packages/components/src/components/` | Component stories                   |
@@ -48,7 +48,7 @@ Create a `Patterns/` top-level section containing both UX patterns and developer
 ### Analysis
 
 | Criterion                      | A (Tools/) | B (Guides/) | C (Patterns/) |
-|-------------------------------|------------|-------------|---------------|
+| ------------------------------ | ---------- | ----------- | ------------- |
 | Semantically accurate          | ✅         | ✗           | ✗             |
 | Extensible for future tools    | ✅         | ✗           | ~             |
 | Avoids conflating written docs | ✅         | ✗           | ~             |
@@ -61,6 +61,7 @@ Create a `Patterns/` top-level section containing both UX patterns and developer
 **Option A — `Tools/` as a new top-level Storybook section.**
 
 Implementation requires:
+
 1. Add `apps/docs/stories/tools/` directory.
 2. Add glob `"../stories/tools/**/*.stories.@(js|jsx|ts|tsx)"` to the `stories` array in `apps/docs/.storybook/main.js`.
 3. Add glob `"../stories/tools/**/*.mdx"` if MDX docs are included (the Theme Builder will have one).
@@ -81,6 +82,7 @@ The preview pane shows light mode only. Dark mode toggle is deferred to V2.
 ### Analysis
 
 The Theme Builder's primary value is palette generation — extracting OKLCH `{h, c}` from a brand color input and producing an 11-step palette. Dark mode preview requires additional work:
+
 - Generating a corresponding dark palette (inverted lightness curve)
 - Wiring Sando's `@media (prefers-color-scheme: dark)` flavor CSS correctly within a scoped preview wrapper
 - Ensuring the WCAG contrast table reflects both light and dark combinations
@@ -98,16 +100,19 @@ The V1 preview pane renders with light mode only. A `// TODO(v2): add light/dark
 ## Consequences
 
 ### Positive
+
 - `Tools/` section is extensible: future tools (Spacing Explorer, Icon Browser, etc.) have a clear, semantically correct home.
 - Clean separation between interactive tools and written documentation.
 - V1 is scoped to deliver the core palette generation workflow without dark-mode complexity.
 - No restructuring of existing Storybook sections.
 
 ### Negative
+
 - A fifth top-level section is added to the Storybook navigation — minor cognitive overhead for users who see an empty `Tools/` until more tools are added.
 - Light-mode-only V1 means the export does not show dark mode behavior; developers using the generated palette must manually verify dark mode after adding tokens to the system.
 
 ### Mitigations
+
 - The `Tools/Theme Builder` MDX doc will note that the export covers the light palette only and that dark mode variants follow Sando's `flavor-dark.json` pattern.
 - The `// TODO(v2)` comment in the story ensures the intent is not lost.
 

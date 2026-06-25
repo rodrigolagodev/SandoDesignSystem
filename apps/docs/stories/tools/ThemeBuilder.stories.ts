@@ -36,22 +36,22 @@ import "./theme-builder-elevation-panel.js";
 // ---------------------------------------------------------------------------
 
 const TABS: Array<{ id: TabName; label: string }> = [
-  { id: "info",       label: "Flavor Info" },
-  { id: "colors",     label: "Colors"      },
-  { id: "typography", label: "Typography"  },
-  { id: "shape",      label: "Shape"       },
-  { id: "motion",     label: "Motion"      },
-  { id: "elevation",  label: "Elevation"   },
+  { id: "info", label: "Flavor Info" },
+  { id: "colors", label: "Colors" },
+  { id: "typography", label: "Typography" },
+  { id: "shape", label: "Shape" },
+  { id: "motion", label: "Motion" },
+  { id: "elevation", label: "Elevation" },
 ];
 
 // File names per tab for the ZIP
 const TAB_FILENAMES: Record<TabName, string> = {
-  info:       "manifest.json",
-  colors:     "color-palette.json",
+  info: "manifest.json",
+  colors: "color-palette.json",
   typography: "font-families.json",
-  shape:      "border-shape.json",
-  motion:     "animation.json",
-  elevation:  "elevation.json",
+  shape: "border-shape.json",
+  motion: "animation.json",
+  elevation: "elevation.json",
 };
 
 // ---------------------------------------------------------------------------
@@ -139,7 +139,9 @@ class SandoThemeBuilder extends LitElement {
       font-weight: 500;
       color: #888;
       cursor: pointer;
-      transition: color 0.15s, border-color 0.15s;
+      transition:
+        color 0.15s,
+        border-color 0.15s;
       white-space: nowrap;
       display: flex;
       align-items: center;
@@ -185,7 +187,9 @@ class SandoThemeBuilder extends LitElement {
       font-size: 13px;
       font-weight: 600;
       cursor: pointer;
-      transition: background 0.15s, opacity 0.15s;
+      transition:
+        background 0.15s,
+        opacity 0.15s;
       white-space: nowrap;
     }
 
@@ -240,12 +244,16 @@ class SandoThemeBuilder extends LitElement {
   }
 
   private _getFlavorName(): string {
-    const infoJson = this._builderState.info?.json as { flavor?: { name?: string } } | undefined;
+    const infoJson = this._builderState.info?.json as
+      | { flavor?: { name?: string } }
+      | undefined;
     return infoJson?.flavor?.name ?? "my-flavor";
   }
 
   private get _currentFlavorName(): string {
-    const infoJson = this._builderState.info?.json as { flavor?: { name?: string } } | undefined;
+    const infoJson = this._builderState.info?.json as
+      | { flavor?: { name?: string } }
+      | undefined;
     return infoJson?.flavor?.name ?? "";
   }
 
@@ -255,7 +263,9 @@ class SandoThemeBuilder extends LitElement {
     const files: Record<string, Uint8Array> = {};
     const builderState = this._builderState;
 
-    const tabEntries = Object.entries(builderState) as Array<[TabName, PanelChangeDetail]>;
+    const tabEntries = Object.entries(builderState) as Array<
+      [TabName, PanelChangeDetail]
+    >;
     for (const [tab, detail] of tabEntries) {
       if (detail?.isReady && detail.json) {
         const filename = TAB_FILENAMES[tab];
@@ -284,7 +294,6 @@ class SandoThemeBuilder extends LitElement {
   override render() {
     return html`
       <div class="shell" @tb-panel-change="${this._onPanelChange}">
-
         <!-- Top bar: brand + tabs + download all -->
         <header class="top-bar">
           <div class="top-bar-brand">
@@ -305,10 +314,14 @@ class SandoThemeBuilder extends LitElement {
                 >
                   ${tab.label}
                   ${this._isTabReady(tab.id)
-                    ? html`<span class="tab-ready-dot" aria-label="ready" title="Ready"></span>`
+                    ? html`<span
+                        class="tab-ready-dot"
+                        aria-label="ready"
+                        title="Ready"
+                      ></span>`
                     : html``}
                 </button>
-              `
+              `,
             )}
           </nav>
 
@@ -331,7 +344,6 @@ class SandoThemeBuilder extends LitElement {
 
         <!-- Panel area: all panels always rendered, inactive ones hidden -->
         <div class="panels" aria-live="polite">
-
           <div
             class="panel-wrapper"
             id="panel-info"
@@ -349,7 +361,9 @@ class SandoThemeBuilder extends LitElement {
             aria-labelledby="tab-colors"
             ?hidden="${this._activeTab !== "colors"}"
           >
-            <sando-tb-colors-panel .flavorName="${this._currentFlavorName}"></sando-tb-colors-panel>
+            <sando-tb-colors-panel
+              .flavorName="${this._currentFlavorName}"
+            ></sando-tb-colors-panel>
           </div>
 
           <div
@@ -391,7 +405,6 @@ class SandoThemeBuilder extends LitElement {
           >
             <sando-tb-elevation-panel></sando-tb-elevation-panel>
           </div>
-
         </div>
       </div>
     `;

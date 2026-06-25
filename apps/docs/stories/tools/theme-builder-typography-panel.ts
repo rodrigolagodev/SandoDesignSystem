@@ -25,7 +25,7 @@ function fontValue(key: string): string {
 function buildFontFamilyJson(
   headingKey: string,
   bodyKey: string,
-  codeKey: string
+  codeKey: string,
 ): Record<string, unknown> {
   return {
     font: {
@@ -252,7 +252,9 @@ export class SandoTbTypographyPanel extends LitElement {
       font-size: 13px;
       font-weight: 500;
       cursor: pointer;
-      transition: background 0.15s, border-color 0.15s;
+      transition:
+        background 0.15s,
+        border-color 0.15s;
     }
 
     .btn-export:hover {
@@ -275,13 +277,17 @@ export class SandoTbTypographyPanel extends LitElement {
   @state() private _codeKey = "fira-code";
 
   private _onChange() {
-    const json = buildFontFamilyJson(this._headingKey, this._bodyKey, this._codeKey);
+    const json = buildFontFamilyJson(
+      this._headingKey,
+      this._bodyKey,
+      this._codeKey,
+    );
     this.dispatchEvent(
       new CustomEvent<PanelChangeDetail>("tb-panel-change", {
         bubbles: true,
         composed: true,
         detail: { tab: "typography", json, isReady: true },
-      })
+      }),
     );
   }
 
@@ -301,11 +307,13 @@ export class SandoTbTypographyPanel extends LitElement {
   }
 
   private _buildJsonContent(): string {
-    return JSON.stringify(
-      buildFontFamilyJson(this._headingKey, this._bodyKey, this._codeKey),
-      null,
-      2
-    ) + "\n";
+    return (
+      JSON.stringify(
+        buildFontFamilyJson(this._headingKey, this._bodyKey, this._codeKey),
+        null,
+        2,
+      ) + "\n"
+    );
   }
 
   private _downloadJson() {
@@ -328,7 +336,7 @@ export class SandoTbTypographyPanel extends LitElement {
     label: string,
     value: string,
     onChange: (e: Event) => void,
-    monoOnly = false
+    monoOnly = false,
   ) {
     type FontEntry = [string, FontFamilyEntry];
     type Groups = Record<string, FontEntry[]>;
@@ -339,9 +347,9 @@ export class SandoTbTypographyPanel extends LitElement {
       ? { monospace: allEntries.filter(([, v]) => v.group === "monospace") }
       : {
           "sans-serif": allEntries.filter(([, v]) => v.group === "sans-serif"),
-          serif:        allEntries.filter(([, v]) => v.group === "serif"),
-          monospace:    allEntries.filter(([, v]) => v.group === "monospace"),
-          expressive:   allEntries.filter(([, v]) => v.group === "expressive"),
+          serif: allEntries.filter(([, v]) => v.group === "serif"),
+          monospace: allEntries.filter(([, v]) => v.group === "monospace"),
+          expressive: allEntries.filter(([, v]) => v.group === "expressive"),
         };
 
     const monoFilter = monoOnly ? (MONO_FONT_KEYS as readonly string[]) : null;
@@ -350,23 +358,29 @@ export class SandoTbTypographyPanel extends LitElement {
       <div class="field">
         <label for="${id}">${label}</label>
         <select id="${id}" .value="${value}" @change="${onChange}">
-          ${Object.entries(groups).map(([groupLabel, entries]: [string, FontEntry[]]) => {
-            const filtered: FontEntry[] = monoFilter
-              ? entries.filter(([k]: [string, FontFamilyEntry]) => monoFilter.includes(k))
-              : entries;
-            if (filtered.length === 0) return html``;
-            return html`
-              <optgroup label="${groupLabel}">
-                ${filtered.map(
-                  ([key, entry]: [string, FontFamilyEntry]) => html`
-                    <option value="${key}" ?selected="${key === value}">
-                      ${key}${entry.description ? ` — ${entry.description}` : ""}
-                    </option>
-                  `
-                )}
-              </optgroup>
-            `;
-          })}
+          ${Object.entries(groups).map(
+            ([groupLabel, entries]: [string, FontEntry[]]) => {
+              const filtered: FontEntry[] = monoFilter
+                ? entries.filter(([k]: [string, FontFamilyEntry]) =>
+                    monoFilter.includes(k),
+                  )
+                : entries;
+              if (filtered.length === 0) return html``;
+              return html`
+                <optgroup label="${groupLabel}">
+                  ${filtered.map(
+                    ([key, entry]: [string, FontFamilyEntry]) => html`
+                      <option value="${key}" ?selected="${key === value}">
+                        ${key}${entry.description
+                          ? ` — ${entry.description}`
+                          : ""}
+                      </option>
+                    `,
+                  )}
+                </optgroup>
+              `;
+            },
+          )}
         </select>
       </div>
     `;
@@ -378,20 +392,20 @@ export class SandoTbTypographyPanel extends LitElement {
         "heading-family",
         "Heading Family",
         this._headingKey,
-        this._onHeadingChange.bind(this)
+        this._onHeadingChange.bind(this),
       )}
       ${this._renderFamilySelect(
         "body-family",
         "Body Family",
         this._bodyKey,
-        this._onBodyChange.bind(this)
+        this._onBodyChange.bind(this),
       )}
       ${this._renderFamilySelect(
         "code-family",
         "Code Family",
         this._codeKey,
         this._onCodeChange.bind(this),
-        true
+        true,
       )}
 
       <div>
@@ -415,26 +429,36 @@ export class SandoTbTypographyPanel extends LitElement {
       <div class="preview-root">
         <!-- Section A: Heading scale -->
         <div class="preview-section">
-          <p class="preview-section-title">A — Heading Scale (${this._headingKey})</p>
+          <p class="preview-section-title">
+            A — Heading Scale (${this._headingKey})
+          </p>
 
           <div class="type-row">
             <span class="type-label">Display</span>
-            <span class="type-display" style="font-family: ${headingFont};">${pangram}</span>
+            <span class="type-display" style="font-family: ${headingFont};"
+              >${pangram}</span
+            >
           </div>
 
           <div class="type-row">
             <span class="type-label">H1</span>
-            <span class="type-h1" style="font-family: ${headingFont};">${pangram}</span>
+            <span class="type-h1" style="font-family: ${headingFont};"
+              >${pangram}</span
+            >
           </div>
 
           <div class="type-row">
             <span class="type-label">H2</span>
-            <span class="type-h2" style="font-family: ${headingFont};">${pangram}</span>
+            <span class="type-h2" style="font-family: ${headingFont};"
+              >${pangram}</span
+            >
           </div>
 
           <div class="type-row">
             <span class="type-label">H3</span>
-            <span class="type-h3" style="font-family: ${headingFont};">${pangram}</span>
+            <span class="type-h3" style="font-family: ${headingFont};"
+              >${pangram}</span
+            >
           </div>
         </div>
 
@@ -444,29 +468,41 @@ export class SandoTbTypographyPanel extends LitElement {
 
           <div class="body-row">
             <span class="type-label">Body LG</span>
-            <span class="type-body-lg" style="font-family: ${bodyFont};">${pangram}</span>
+            <span class="type-body-lg" style="font-family: ${bodyFont};"
+              >${pangram}</span
+            >
           </div>
 
           <div class="body-row">
             <span class="type-label">Body</span>
-            <span class="type-body" style="font-family: ${bodyFont};">${pangram}</span>
+            <span class="type-body" style="font-family: ${bodyFont};"
+              >${pangram}</span
+            >
           </div>
 
           <div class="body-row">
             <span class="type-label">Body SM</span>
-            <span class="type-body-sm" style="font-family: ${bodyFont};">${pangram}</span>
+            <span class="type-body-sm" style="font-family: ${bodyFont};"
+              >${pangram}</span
+            >
           </div>
 
           <div class="body-row">
             <span class="type-label">Caption</span>
-            <span class="type-caption" style="font-family: ${bodyFont};">${pangram}</span>
+            <span class="type-caption" style="font-family: ${bodyFont};"
+              >${pangram}</span
+            >
           </div>
         </div>
 
         <!-- Section C: Code specimen -->
         <div class="preview-section">
-          <p class="preview-section-title">C — Code Specimen (${this._codeKey})</p>
-          <pre class="code-specimen" style="font-family: ${codeFont};">const theme = new SandoTheme({ flavor: 'sando' });</pre>
+          <p class="preview-section-title">
+            C — Code Specimen (${this._codeKey})
+          </p>
+          <pre class="code-specimen" style="font-family: ${codeFont};">
+const theme = new SandoTheme({ flavor: 'sando' });</pre
+          >
         </div>
       </div>
     `;
@@ -475,12 +511,8 @@ export class SandoTbTypographyPanel extends LitElement {
   override render() {
     return html`
       <div class="panel-layout">
-        <aside class="panel-sidebar">
-          ${this.renderSidebarControls()}
-        </aside>
-        <main class="panel-main">
-          ${this.renderMainPreview()}
-        </main>
+        <aside class="panel-sidebar">${this.renderSidebarControls()}</aside>
+        <main class="panel-main">${this.renderMainPreview()}</main>
       </div>
     `;
   }
