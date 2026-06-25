@@ -1,0 +1,49 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Accessibility/Option Group" />
+
+# Accessibility — sando-option-group
+
+> Source: [`packages/components/src/components/option-group/ACCESSIBILITY.md`](https://github.com/rodrigolagodev/SandoDesignSystem/blob/master/packages/components/src/components/option-group/ACCESSIBILITY.md)
+
+## ARIA pattern
+
+Follows the [WAI-ARIA Group](https://www.w3.org/WAI/ARIA/apg/patterns/) pattern for grouping options within a listbox.
+
+| Attribute | Value | Purpose |
+|---|---|---|
+| `role` | `group` | Groups related options under a common label |
+| `aria-label` | Group label text | Names the group for screen readers |
+| `aria-disabled` | `"true"` / `"false"` | Marks all options in the group as non-interactive when disabled |
+
+The options container inside the group uses `role="presentation"`. Designed to be used inside `sando-select`.
+
+## Keyboard map
+
+| Key | Behavior |
+|---|---|
+| ArrowUp / ArrowDown | Navigate through options across groups (managed by parent `sando-select`) |
+
+The group heading itself is not focusable.
+
+## Screen reader behavior
+
+When navigating into a group: "Fruits group" (VoiceOver) before the first option. Disabled group options: announced as "dimmed" or "unavailable".
+
+## Color contrast
+
+Verified via `jest-axe` against the `original` flavor in light and dark modes. Disabled state uses intentional reduced contrast.
+
+## Tested with
+
+- jest-axe (automated, runs in `sando-option-group.a11y.test.ts`)
+- VoiceOver (macOS Sequoia, Safari 18)
+- NVDA (Windows 11, Firefox 130)
+
+## Known limitations
+
+None identified.
+
+---
+
+[Back to Accessibility Statement](?path=/docs/accessibility-statement--docs)

@@ -1,0 +1,48 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Accessibility/Help Text" />
+
+# Accessibility — sando-help-text
+
+> Source: [`packages/components/src/components/help-text/ACCESSIBILITY.md`](https://github.com/rodrigolagodev/SandoDesignSystem/blob/master/packages/components/src/components/help-text/ACCESSIBILITY.md)
+
+## ARIA pattern
+
+Follows the [WAI-ARIA Live Region](https://www.w3.org/WAI/ARIA/apg/patterns/alert/) pattern.
+
+| Attribute | Value | Purpose |
+|---|---|---|
+| `role` | `status` (default/info/warning/success) / `alert` (error) | Determines announcement urgency |
+| `aria-live` | `polite` / `assertive` | Matches `role` — `error` variant uses `assertive` |
+
+The inner `<div>` carries the role and live region attributes.
+
+## Keyboard map
+
+| Key | Behavior |
+|---|---|
+| — | Not keyboard focusable — informational element |
+
+Typically associated with a form control via `aria-describedby` on the control.
+
+## Screen reader behavior
+
+Default/info/success/warning: Announced politely (`role="status"`). Error variant: Announced immediately (`role="alert"` / `aria-live="assertive"`).
+
+## Color contrast
+
+Verified via `jest-axe` against the `original` flavor in light and dark modes. All pairs meet WCAG 2.1 AA.
+
+## Tested with
+
+- jest-axe (automated, runs in `sando-help-text.a11y.test.ts`)
+- VoiceOver (macOS Sequoia, Safari 18)
+- NVDA (Windows 11, Firefox 130)
+
+## Known limitations
+
+None identified.
+
+---
+
+[Back to Accessibility Statement](?path=/docs/accessibility-statement--docs)

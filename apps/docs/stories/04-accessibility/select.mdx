@@ -1,0 +1,62 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Accessibility/Select" />
+
+# Accessibility — sando-select
+
+> Source: [`packages/components/src/components/select/ACCESSIBILITY.md`](https://github.com/rodrigolagodev/SandoDesignSystem/blob/master/packages/components/src/components/select/ACCESSIBILITY.md)
+
+## ARIA pattern
+
+Follows the [WAI-ARIA Combobox](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/) pattern with a listbox popup.
+
+| Attribute | Value | Purpose |
+|---|---|---|
+| `role` | `combobox` | On the trigger button |
+| `aria-haspopup` | `"listbox"` | Indicates the popup type |
+| `aria-expanded` | `"true"` / `"false"` | Communicates whether the listbox is open |
+| `aria-controls` | Listbox element ID | Associates trigger with its listbox |
+| `aria-activedescendant` | Highlighted option ID | Tracks the highlighted option |
+| `aria-required` | `"true"` | Marks the select as required |
+| `aria-invalid` | `"true"` / `"false"` | Marks invalid state |
+| `aria-disabled` | `"true"` | Marks non-interactive state |
+| `aria-busy` | `"true"` | Set during loading state |
+| `aria-describedby` | Description element ID | Links helper/error text |
+| `role` | `listbox` | On the dropdown container |
+| `aria-multiselectable` | `"true"` | Set when `multiple=true` |
+
+## Keyboard map
+
+| Key | Behavior |
+|---|---|
+| Tab | Move focus to/from the select trigger |
+| Shift+Tab | Move focus backward |
+| Enter / Space | Open the dropdown or select highlighted option |
+| ArrowDown | Open dropdown or move highlight to next option |
+| ArrowUp | Move highlight to previous option |
+| Home | Move highlight to first option |
+| End | Move highlight to last option |
+| Escape | Close the dropdown without selecting |
+| Printable characters | Type-ahead to jump to matching option |
+
+## Screen reader behavior
+
+Closed: "Country, combobox, collapsed". Open: "Country, combobox, expanded". Navigating: "France, 5 of 10". Selected: "France, selected".
+
+## Color contrast
+
+Verified via `jest-axe` against the `original` flavor in light and dark modes. Disabled state uses intentional reduced contrast.
+
+## Tested with
+
+- jest-axe (automated, runs in `sando-select.a11y.test.ts`)
+- VoiceOver (macOS Sequoia, Safari 18)
+- NVDA (Windows 11, Firefox 130)
+
+## Known limitations
+
+None identified.
+
+---
+
+[Back to Accessibility Statement](?path=/docs/accessibility-statement--docs)

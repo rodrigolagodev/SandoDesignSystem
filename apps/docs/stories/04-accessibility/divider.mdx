@@ -1,0 +1,47 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Accessibility/Divider" />
+
+# Accessibility — sando-divider
+
+> Source: [`packages/components/src/components/divider/ACCESSIBILITY.md`](https://github.com/rodrigolagodev/SandoDesignSystem/blob/master/packages/components/src/components/divider/ACCESSIBILITY.md)
+
+## ARIA pattern
+
+Follows the [WAI-ARIA Separator](https://www.w3.org/WAI/ARIA/apg/patterns/) pattern.
+
+| Attribute | Value | Purpose |
+|---|---|---|
+| `role` | `separator` (implicit on `<hr>`) | Marks the element as a thematic separator |
+| `aria-label` | Label text | Set when a text label is present |
+| `aria-orientation` | `"vertical"` | Set on vertical dividers |
+
+Three rendering modes: native `<hr>` (horizontal, no label), `<div role="separator" aria-label>` (horizontal with label), `<div role="separator" aria-orientation="vertical">` (vertical).
+
+## Keyboard map
+
+| Key | Behavior |
+|---|---|
+| — | Not keyboard focusable — structural/decorative element |
+
+## Screen reader behavior
+
+Without label: "separator" (NVDA skips or announces minimally). With label: "Section name, separator".
+
+## Color contrast
+
+Verified via `jest-axe` against the `original` flavor in light and dark modes. All pairs meet WCAG 2.1 AA.
+
+## Tested with
+
+- jest-axe (automated, runs in `sando-divider.a11y.test.ts`)
+- VoiceOver (macOS Sequoia, Safari 18)
+- NVDA (Windows 11, Firefox 130)
+
+## Known limitations
+
+None identified.
+
+---
+
+[Back to Accessibility Statement](?path=/docs/accessibility-statement--docs)

@@ -1,0 +1,47 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Accessibility/Spinner" />
+
+# Accessibility — sando-spinner
+
+> Source: [`packages/components/src/components/spinner/ACCESSIBILITY.md`](https://github.com/rodrigolagodev/SandoDesignSystem/blob/master/packages/components/src/components/spinner/ACCESSIBILITY.md)
+
+## ARIA pattern
+
+Follows the [WAI-ARIA Live Region](https://www.w3.org/WAI/ARIA/apg/patterns/) pattern using `role="status"`.
+
+| Attribute | Value | Purpose |
+|---|---|---|
+| `role` | `status` | Marks the spinner as a polite live region |
+| `aria-label` | `"Loading"` (default) or custom | Provides the accessible name announced to screen readers |
+| `aria-hidden` | `"true"` | On the `<svg>` element — the SVG animation is decorative |
+
+The spinner constant (`SPINNER_ROLE = 'status'`) is defined in `sando-spinner.a11y.ts` and imported by the component. The actual a11y tests live in `sando-spinner.a11y.test.ts`.
+
+## Keyboard map
+
+| Key | Behavior |
+|---|---|
+| — | Not keyboard focusable — non-interactive loading indicator |
+
+## Screen reader behavior
+
+Default: "Loading" (polite, via `role="status"`). Custom label: "Processing payment" (when `label="Processing payment"`). The SVG animation is hidden via `aria-hidden="true"` on the `<svg>`.
+
+## Color contrast
+
+Verified via `jest-axe` against the `original` flavor in light and dark modes. Both `default` and `inverted` variants meet WCAG 2.1 AA.
+
+## Tested with
+
+- jest-axe (automated, runs in `sando-spinner.a11y.test.ts`)
+- VoiceOver (macOS Sequoia, Safari 18)
+- NVDA (Windows 11, Firefox 130)
+
+## Known limitations
+
+`sando-spinner.a11y.ts` (without `.test`) is a constants file — it is not a test file. Tests are in `sando-spinner.a11y.test.ts`.
+
+---
+
+[Back to Accessibility Statement](?path=/docs/accessibility-statement--docs)

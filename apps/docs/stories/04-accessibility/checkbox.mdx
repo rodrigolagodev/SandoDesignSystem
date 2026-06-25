@@ -1,0 +1,51 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Accessibility/Checkbox" />
+
+# Accessibility — sando-checkbox
+
+> Source: [`packages/components/src/components/checkbox/ACCESSIBILITY.md`](https://github.com/rodrigolagodev/SandoDesignSystem/blob/master/packages/components/src/components/checkbox/ACCESSIBILITY.md)
+
+## ARIA pattern
+
+Follows the [WAI-ARIA Checkbox](https://www.w3.org/WAI/ARIA/apg/patterns/checkbox/) pattern.
+
+| Attribute | Value | Purpose |
+|---|---|---|
+| `aria-checked` | `"true"` / `"false"` / `"mixed"` | Communicates checked, unchecked, and indeterminate states |
+| `aria-invalid` | `"true"` / `"false"` | Marks the field as invalid when `error=true` |
+| `aria-describedby` | Helper/error text element ID | Associates helper or error text with the input |
+| `required` | Native attribute | Marks the input as required for form validation |
+
+Uses a native `<input type="checkbox">` inside a shadow `<label>`.
+
+## Keyboard map
+
+| Key | Behavior |
+|---|---|
+| Tab | Move focus to/from the checkbox |
+| Shift+Tab | Move focus backward |
+| Space | Toggle the checked state |
+| Enter | Toggle the checked state |
+
+## Screen reader behavior
+
+Unchecked: "Accept terms, checkbox, unchecked". Checked: "Accept terms, checkbox, checked". Indeterminate: "Select all, checkbox, mixed". Error: "This field is required, error" (via `role="alert"` on help text).
+
+## Color contrast
+
+Verified via `jest-axe` against the `original` flavor in light and dark modes. Disabled state uses intentional reduced contrast.
+
+## Tested with
+
+- jest-axe (automated, runs in `sando-checkbox.a11y.test.ts`)
+- VoiceOver (macOS Sequoia, Safari 18)
+- NVDA (Windows 11, Firefox 130)
+
+## Known limitations
+
+None identified.
+
+---
+
+[Back to Accessibility Statement](?path=/docs/accessibility-statement--docs)

@@ -1,0 +1,51 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Accessibility/Radio" />
+
+# Accessibility — sando-radio
+
+> Source: [`packages/components/src/components/radio/ACCESSIBILITY.md`](https://github.com/rodrigolagodev/SandoDesignSystem/blob/master/packages/components/src/components/radio/ACCESSIBILITY.md)
+
+## ARIA pattern
+
+Follows the [WAI-ARIA Radio Button](https://www.w3.org/WAI/ARIA/apg/patterns/radio/) pattern via native `<input type="radio">`.
+
+| Attribute | Value | Purpose |
+|---|---|---|
+| `aria-checked` | `"true"` / `"false"` | Communicates the checked state |
+| `aria-invalid` | `"true"` / `"false"` | Marks the radio as invalid when `error=true` |
+| `aria-describedby` | Error/helper text ID | Links error or helper text to the input |
+
+Uses a native `<input type="radio">` inside a shadow `<label>`. The visual radio box uses `role="presentation"`.
+
+## Keyboard map
+
+| Key | Behavior |
+|---|---|
+| Tab | Move focus to the radio group (first or selected radio) |
+| Shift+Tab | Move focus backward |
+| ArrowRight / ArrowDown | Select the next radio in the group |
+| ArrowLeft / ArrowUp | Select the previous radio in the group |
+| Space | Select the focused radio |
+
+## Screen reader behavior
+
+Unfocused: "Option A, radio button, 1 of 3". Checked: "Option A, selected, radio button". Error: "Please select an option, invalid entry".
+
+## Color contrast
+
+Verified via `jest-axe` against the `original` flavor in light and dark modes. Disabled state uses intentional reduced contrast.
+
+## Tested with
+
+- jest-axe (automated, runs in `sando-radio.a11y.test.ts`)
+- VoiceOver (macOS Sequoia, Safari 18)
+- NVDA (Windows 11, Firefox 130)
+
+## Known limitations
+
+None identified.
+
+---
+
+[Back to Accessibility Statement](?path=/docs/accessibility-statement--docs)

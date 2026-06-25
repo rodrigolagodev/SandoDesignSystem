@@ -1,0 +1,44 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Accessibility/Badge" />
+
+# Accessibility — sando-badge
+
+> Source: [`packages/components/src/components/badge/ACCESSIBILITY.md`](https://github.com/rodrigolagodev/SandoDesignSystem/blob/master/packages/components/src/components/badge/ACCESSIBILITY.md)
+
+## ARIA pattern
+
+Follows the [WAI-ARIA Status](https://www.w3.org/WAI/ARIA/apg/patterns/) pattern.
+
+| Attribute | Value | Purpose |
+|---|---|---|
+| `role` | `status` | Marks the badge as a polite live region |
+| `aria-label` | Optional, from `label` property | Additional context when visual text alone is ambiguous |
+
+## Keyboard map
+
+| Key | Behavior |
+|---|---|
+| — | Not keyboard focusable — the badge is a purely informational element |
+
+## Screen reader behavior
+
+In browse mode: announces the badge text content. When content changes dynamically, announced politely via `role="status"`.
+
+## Color contrast
+
+Verified via `jest-axe` against the `original` flavor in light and dark modes. All pairs meet WCAG 2.1 AA.
+
+## Tested with
+
+- jest-axe (automated, runs in `sando-badge.a11y.test.ts`)
+- VoiceOver (macOS Sequoia, Safari 18)
+- NVDA (Windows 11, Firefox 130)
+
+## Known limitations
+
+None identified.
+
+---
+
+[Back to Accessibility Statement](?path=/docs/accessibility-statement--docs)

@@ -1,0 +1,52 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Accessibility/Tag" />
+
+# Accessibility — sando-tag
+
+> Source: [`packages/components/src/components/tag/ACCESSIBILITY.md`](https://github.com/rodrigolagodev/SandoDesignSystem/blob/master/packages/components/src/components/tag/ACCESSIBILITY.md)
+
+## ARIA pattern
+
+Follows the [WAI-ARIA Button](https://www.w3.org/WAI/ARIA/apg/patterns/button/) pattern for interactive tags; uses generic `<span>` for static tags.
+
+| Attribute | Value | Purpose |
+|---|---|---|
+| `aria-label` | Remove/action label | On the action button — context (e.g., "Remove JavaScript") |
+| `aria-disabled` | `"true"` / `"false"` | On the action button when the tag is disabled |
+| `tabindex` | `0` / `-1` | On the action button — `-1` when disabled |
+| `aria-hidden` | `"true"` | On the divider separator and icon wrapper — decorative |
+
+Three modes: **Static** (`<span>`, not interactive), **Removable** (contains `<button aria-label="Remove <tag-text>">`), **Clickable** (contains `<button aria-label="<tag-text>">`).
+
+## Keyboard map
+
+| Key | Behavior |
+|---|---|
+| Tab | Move focus to the action button (removable/clickable tags only) |
+| Shift+Tab | Move focus backward |
+| Enter / Space | Activate the action (remove or click) |
+
+Static tags are not keyboard focusable.
+
+## Screen reader behavior
+
+Static: "JavaScript" (text read inline in browse mode). Removable button: "Remove JavaScript, button". Clickable button: "JavaScript, button".
+
+## Color contrast
+
+Verified via `jest-axe` against the `original` flavor in light and dark modes. Disabled state uses intentional reduced contrast.
+
+## Tested with
+
+- jest-axe (automated, runs in `sando-tag.a11y.test.ts`)
+- VoiceOver (macOS Sequoia, Safari 18)
+- NVDA (Windows 11, Firefox 130)
+
+## Known limitations
+
+None identified.
+
+---
+
+[Back to Accessibility Statement](?path=/docs/accessibility-statement--docs)
