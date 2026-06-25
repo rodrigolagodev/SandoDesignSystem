@@ -1,6 +1,6 @@
 {
   "name": "@sando-ds/components",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Web Components library for Sando Design System built with Lit",
   "type": "module",
   "main": "./dist/index.js",
@@ -35,8 +35,18 @@
       "types": "./dist/components/*/sando-*.d.ts"
     }
   },
-  "files": ["dist", "custom-elements.json", "README.md", "LICENSE", "CHANGELOG.md"],
-  "sideEffects": ["./dist/components/**/sando-*.js", "./dist/index.js", "**/*.css"],
+  "files": [
+    "dist",
+    "custom-elements.json",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "sideEffects": [
+    "./dist/components/**/sando-*.js",
+    "./dist/index.js",
+    "**/*.css"
+  ],
   "engines": {
     "node": ">=20.0.0"
   },
@@ -66,7 +76,13 @@
     "analyze": "custom-elements-manifest analyze",
     "clean": "rm -rf dist coverage .turbo"
   },
-  "keywords": ["web-components", "lit", "design-system", "ui-components", "custom-elements"],
+  "keywords": [
+    "web-components",
+    "lit",
+    "design-system",
+    "ui-components",
+    "custom-elements"
+  ],
   "author": "Sando Design System Team",
   "license": "MIT",
   "dependencies": {
