@@ -520,7 +520,8 @@ export class SandoTbColorsPanel extends LitElement {
       if (!entry) return;
       const { l, c, h } = entry.oklch;
       steps[step] = {
-        value: h !== undefined ? `oklch(${l} ${c} ${h})` : `oklch(${l} ${c})`,
+        value:
+          h !== undefined ? `oklch(${l} ${c} ${h})` : `oklch(${l} ${c} none)`,
         type: "color",
         description: `${palette.name} ${step}`,
       };
@@ -541,7 +542,7 @@ export class SandoTbColorsPanel extends LitElement {
           if (!entry) return "";
           const { l, c, h } = entry.oklch;
           const val =
-            h !== undefined ? `oklch(${l} ${c} ${h})` : `oklch(${l} ${c})`;
+            h !== undefined ? `oklch(${l} ${c} ${h})` : `oklch(${l} ${c} none)`;
           return `  --sando-color-${this._neutralResult!.name}-${step}: ${val};`;
         }).filter(Boolean)
       : [];
@@ -773,7 +774,9 @@ export class SandoTbColorsPanel extends LitElement {
             if (!entry) return html``;
             const { l, c, h } = entry.oklch;
             const oklchStr =
-              h !== undefined ? `oklch(${l} ${c} ${h})` : `oklch(${l} ${c})`;
+              h !== undefined
+                ? `oklch(${l} ${c} ${h})`
+                : `oklch(${l} ${c} none)`;
             return html`
               <div class="palette-swatch">
                 <div
