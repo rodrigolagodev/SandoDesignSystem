@@ -1,5 +1,8 @@
-import { join, dirname } from "path";
+import { join, dirname, resolve } from "path";
 import remarkGfm from "remark-gfm";
+import { createRequire } from "module";
+
+const require = createRequire(import.meta.url);
 
 /**
  * Sando Design System Storybook Configuration
@@ -11,6 +14,8 @@ const config = {
     "../stories/Welcome.mdx",
     "../stories/**/*.mdx",
     "../../../packages/components/src/components/**/*.stories.@(js|jsx|ts|tsx)",
+    "../stories/tools/**/*.stories.@(js|jsx|ts|tsx)",
+    "../stories/tools/**/*.mdx",
   ],
 
   // Static assets directory
@@ -70,6 +75,16 @@ const config = {
       "components",
       "src",
     );
+    const generatorsPath = join(
+      dirname(dirname(dirname(__dirname))),
+      "packages",
+      "tokens",
+      "scripts",
+      "generators",
+    );
+
+    // Resolve culori from root node_modules (it is hoisted as a dependency of @sando-ds/tokens)
+    const culoriPath = resolve(dirname(dirname(dirname(__dirname))), "node_modules", ".pnpm", "culori@4.0.2", "node_modules", "culori", "bundled", "culori.min.mjs");
 
     return {
       ...config,
@@ -81,6 +96,8 @@ const config = {
           { find: "@sando-ds/tokens/dist", replacement: tokensDistPath },
           { find: "@sando-ds/tokens", replacement: tokensPath },
           { find: "@sando-ds/components", replacement: componentsPath },
+          { find: "@sando-tokens/generators", replacement: generatorsPath },
+          { find: "culori", replacement: culoriPath },
           ...(Array.isArray(config.resolve?.alias) ? config.resolve.alias : []),
         ],
       },
@@ -97,6 +114,7 @@ const config = {
           "lit",
           "lit/decorators.js",
           "@lit/reactive-element",
+          "culori",
         ],
       },
     };

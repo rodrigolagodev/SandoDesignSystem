@@ -1,0 +1,412 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Tools/Flavor Workshop/Guide" />
+
+# Flavor Workshop
+
+The Flavor Workshop is an interactive tool in Storybook for crafting the foundational ingredient tokens of a custom Sando Design System flavor. Configure five dimensions of your design language — color, typography, shape, motion, and elevation — and export production-ready JSON files for the token pipeline.
+
+## What it does
+
+- **Colors** — generates an 11-step OKLCH palette from any brand color, with WCAG AA validation
+- **Typography** — configures heading, body, and code font families from the system's curated collection
+- **Shape** — defines the border-radius personality (sharp → expressive) and default border width
+- **Motion** — sets the animation character (subtle, standard, or expressive) with duration and easing values per tier
+- **Elevation** — customizes shadow hue and intensity across 6 elevation levels
+
+**Download All** bundles every configured tab into a single ZIP (`{flavor-name}-ingredients.zip`) ready to drop into the token pipeline.
+
+---
+
+## Tab 1 — Colors
+
+Generates an 11-step perceptually uniform color palette in OKLCH color space.
+
+**Controls:**
+- Flavor name (used as the palette key and ZIP filename)
+- Brand color — any valid CSS color (hex, rgb, oklch, hsl, named). The tool extracts the OKLCH hue and chroma as the palette identity.
+
+**How it works:** The tool converts your input to OKLCH, extracts `H` (hue) and `C` (chroma), and generates steps 50–950 using the same lightness curve as all Sando system palettes. WCAG AA contrast (4.5:1) is validated across 7 text/background pairs.
+
+**Export files:** `color.json` + `color.css`
+
+The JSON matches the exact shape of `packages/tokens/src/ingredients/color.json`:
+
+```json
+{
+  "color": {
+    "matcha": {
+      "50": { "value": "oklch(0.98 0.008 145)", "type": "color", "description": "matcha 50" },
+      "100": { "value": "oklch(0.95 0.016 145)", "type": "color", "description": "matcha 100" }
+    }
+  }
+}
+```
+
+**To use the export:**
+1. Merge into `packages/tokens/src/ingredients/color.json` under the existing `"color"` key
+2. Run `pnpm tokens:build`
+3. Reference the new palette in a Flavor file: `"{color.matcha.500.value}"`
+
+### OKLCH color space
+
+<table>
+  <thead>
+    <tr>
+      <th>Component</th>
+      <th>Range</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`L` (lightness)</td>
+      <td>`0–1`</td>
+      <td>Perceptual brightness — equidistant steps look equidistant visually</td>
+    </tr>
+    <tr>
+      <td>`C` (chroma)</td>
+      <td>`0–0.4`</td>
+      <td>Color saturation/intensity</td>
+    </tr>
+    <tr>
+      <td>`H` (hue)</td>
+      <td>`0–360°`</td>
+      <td>Color angle on the wheel</td>
+    </tr>
+  </tbody>
+</table>
+
+### Reserved flavor names
+
+<table>
+  <thead>
+    <tr>
+      <th>Reserved name</th>
+      <th>Identity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`sando`</td>
+      <td>Default — the classic sando identity</td>
+    </tr>
+    <tr>
+      <td>`original`</td>
+      <td>Clean, foundational — the baseline theme</td>
+    </tr>
+    <tr>
+      <td>`strawberry`</td>
+      <td>Warm reds and pinks</td>
+    </tr>
+    <tr>
+      <td>`nori`</td>
+      <td>High contrast, bold and graphic</td>
+    </tr>
+    <tr>
+      <td>`egg-salad`</td>
+      <td>Soft yellows — warm and approachable</td>
+    </tr>
+    <tr>
+      <td>`kiwi`</td>
+      <td>Fresh greens</td>
+    </tr>
+    <tr>
+      <td>`tonkatsu`</td>
+      <td>Deep browns/neutrals</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+## Tab 2 — Typography
+
+Selects font families for the three typographic roles: heading, body, and code.
+
+**Controls:**
+- **Heading Family** — display and title text (default: `outfit`)
+- **Body Family** — paragraph and UI text (default: `source-sans`)
+- **Code Family** — monospace / code snippets (default: `fira-code`)
+
+The preview updates live as you select — no Generate button required. It shows heading scale (Display → H3), body scale (Large → Caption), and a code specimen, all rendered in the chosen families.
+
+**Export file:** `font.json`
+
+```json
+{
+  "font": {
+    "family": {
+      "heading": { "value": "'Outfit', system-ui, sans-serif", "type": "fontFamily" },
+      "body": { "value": "'Source Sans 3', system-ui, sans-serif", "type": "fontFamily" },
+      "code": { "value": "'Fira Code', Consolas, monospace", "type": "fontFamily" }
+    }
+  }
+}
+```
+
+**To use the export:** Replace `packages/tokens/src/ingredients/font.json` with the exported file (or merge only the `family` keys), then run `pnpm tokens:build`. Note: the exported file covers only family assignments — size, weight, line-height, and letter-spacing scales are structural and remain unchanged.
+
+> Font loading is your responsibility. Add `@import` or `@font-face` declarations for any non-system font before using the token output.
+
+---
+
+## Tab 3 — Shape
+
+Defines the border-radius personality and default border width of your flavor.
+
+**Controls:**
+- **Shape Personality** — segmented control with 4 presets
+- **Fine-tune radii** — disclosure section to override individual slots (xs / sm / md / lg)
+- **Border Width** — default stroke width for bordered UI elements
+
+### Shape presets
+
+<table>
+  <thead>
+    <tr>
+      <th>Preset</th>
+      <th>xs (inline)</th>
+      <th>sm (controls)</th>
+      <th>md (containers)</th>
+      <th>lg (large panels)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>**Sharp**</td>
+      <td>`0rem`</td>
+      <td>`0.125rem`</td>
+      <td>`0.25rem`</td>
+      <td>`0.25rem`</td>
+    </tr>
+    <tr>
+      <td>**Precise** (default)</td>
+      <td>`0.125rem`</td>
+      <td>`0.25rem`</td>
+      <td>`0.5rem`</td>
+      <td>`0.75rem`</td>
+    </tr>
+    <tr>
+      <td>**Rounded**</td>
+      <td>`0.25rem`</td>
+      <td>`0.5rem`</td>
+      <td>`0.75rem`</td>
+      <td>`1rem`</td>
+    </tr>
+    <tr>
+      <td>**Expressive**</td>
+      <td>`0.5rem`</td>
+      <td>`1rem`</td>
+      <td>`1.25rem`</td>
+      <td>`9999px` (pill)</td>
+    </tr>
+  </tbody>
+</table>
+
+**Export file:** `border.json`
+
+```json
+{
+  "border": {
+    "radius": {
+      "xs": { "value": "0.125rem", "type": "dimension" },
+      "sm": { "value": "0.25rem", "type": "dimension" },
+      "md": { "value": "0.5rem", "type": "dimension" },
+      "lg": { "value": "0.75rem", "type": "dimension" }
+    },
+    "width": {
+      "default": { "value": "1px", "type": "dimension" }
+    }
+  }
+}
+```
+
+**To use the export:** Merge into `packages/tokens/src/ingredients/border.json`, then run `pnpm tokens:build`.
+
+---
+
+## Tab 4 — Motion
+
+Sets the animation character of your flavor across three semantic tiers: micro (hover/toggle), standard (transitions), and expressive (delight moments).
+
+**Controls:**
+- **Motion Preset** — segmented control: Subtle / Standard / Expressive
+- **Fine-tune motion** — disclosure section to override duration and easing per tier independently
+- **Preview with prefers-reduced-motion** — checkbox that simulates OS-level motion reduction in the demo cards
+
+### Motion presets
+
+<table>
+  <thead>
+    <tr>
+      <th>Preset</th>
+      <th>Micro</th>
+      <th>Standard</th>
+      <th>Expressive</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>**Subtle**</td>
+      <td>`100ms / gentle`</td>
+      <td>`200ms / ease-out`</td>
+      <td>`300ms / smooth`</td>
+    </tr>
+    <tr>
+      <td>**Standard** (default)</td>
+      <td>`100ms / ease-out`</td>
+      <td>`300ms / ease-in-out`</td>
+      <td>`500ms / energetic`</td>
+    </tr>
+    <tr>
+      <td>**Expressive**</td>
+      <td>`200ms / energetic`</td>
+      <td>`500ms / organic`</td>
+      <td>`700ms / bounce`</td>
+    </tr>
+  </tbody>
+</table>
+
+The preview shows three animated demo cards — one per tier — with a **Replay** button to re-trigger each animation.
+
+**Export file:** `animation.json`
+
+```json
+{
+  "animation": {
+    "duration": {
+      "micro": { "value": "100ms", "type": "duration" },
+      "standard": { "value": "300ms", "type": "duration" },
+      "expressive": { "value": "500ms", "type": "duration" }
+    },
+    "easing": {
+      "micro": { "value": "cubic-bezier(0, 0, 0.2, 1)", "type": "cubicBezier" },
+      "standard": { "value": "cubic-bezier(0.4, 0, 0.2, 1)", "type": "cubicBezier" },
+      "expressive": { "value": "cubic-bezier(0.2, 0.8, 0.2, 1)", "type": "cubicBezier" }
+    }
+  }
+}
+```
+
+**To use the export:** Merge into `packages/tokens/src/ingredients/animation.json`, then run `pnpm tokens:build`.
+
+---
+
+## Tab 5 — Elevation
+
+Customizes the shadow system across 6 elevation levels by adjusting hue and intensity.
+
+**Controls:**
+- **Shadow Hue** — range slider 0–360° (OKLCH hue angle). Default: `60` (warm amber). A hue of `250` gives cool blue shadows; `120` gives organic green-tinted shadows.
+- **Shadow Intensity** — Light (0.65×) / Default (1×) / Deep (1.5×, capped at 0.35 opacity)
+
+The preview updates live. Six cards from elevation-0 (flat) to elevation-500 (dramatic) are rendered on a warm near-white background so shadow tones are clearly visible.
+
+**Export file:** `elevation.json`
+
+```json
+{
+  "elevation": {
+    "0": { "value": "none", "type": "shadow" },
+    "100": { "value": "0 1px 2px oklch(0.25 0.02 60 / 0.06), 0 1px 3px oklch(0.3 0.02 60 / 0.08)", "type": "shadow" },
+    "200": { "value": "0 2px 4px oklch(0.25 0.02 60 / 0.06), 0 4px 8px oklch(0.3 0.02 60 / 0.10)", "type": "shadow" },
+    "300": { "value": "0 4px 8px oklch(0.2 0.02 60 / 0.08), 0 12px 24px oklch(0.25 0.02 60 / 0.12)", "type": "shadow" },
+    "400": { "value": "0 8px 16px oklch(0.2 0.02 60 / 0.10), 0 20px 40px oklch(0.2 0.02 60 / 0.14)", "type": "shadow" },
+    "500": { "value": "0 12px 24px oklch(0.18 0.02 60 / 0.12), 0 32px 64px oklch(0.18 0.02 60 / 0.18)", "type": "shadow" }
+  }
+}
+```
+
+**To use the export:** Replace `packages/tokens/src/ingredients/elevation.json`, then run `pnpm tokens:build`.
+
+---
+
+## Download All
+
+Once the **Colors** tab has a generated palette (required), the **Download All** button becomes active. It produces a single ZIP file named `{flavor-name}-ingredients.zip` containing one JSON file per configured tab.
+
+<table>
+  <thead>
+    <tr>
+      <th>File in ZIP</th>
+      <th>Tab</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`color.json`</td>
+      <td>Colors</td>
+      <td>Yes — gates Download All</td>
+    </tr>
+    <tr>
+      <td>`font.json`</td>
+      <td>Typography</td>
+      <td>No — included if tab was opened</td>
+    </tr>
+    <tr>
+      <td>`border.json`</td>
+      <td>Shape</td>
+      <td>No — included if tab was opened</td>
+    </tr>
+    <tr>
+      <td>`animation.json`</td>
+      <td>Motion</td>
+      <td>No — included if tab was opened</td>
+    </tr>
+    <tr>
+      <td>`elevation.json`</td>
+      <td>Elevation</td>
+      <td>No — included if tab was opened</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+## Full workflow
+
+1. Open **Tools / Flavor Workshop** in Storybook
+2. **Colors tab** — enter your flavor name and brand color, click Generate
+3. **Typography tab** — select heading, body, and code families
+4. **Shape tab** — choose a shape personality preset
+5. **Motion tab** — choose a motion preset
+6. **Elevation tab** — adjust shadow hue and intensity if needed
+7. Click **Download All** to get the ZIP
+8. Extract the ZIP and place each JSON into `packages/tokens/src/ingredients/`:
+   - Merge `color.json` into the existing file (add your palette key under `"color"`)
+   - Replace or merge `font.json`, `border.json`, `animation.json`, `elevation.json`
+9. Run `pnpm tokens:build` to regenerate all CSS output
+10. Create a new Flavor file in `packages/tokens/src/flavors/` referencing your new ingredient tokens
+
+---
+
+## V1 scope
+
+<table>
+  <thead>
+    <tr>
+      <th>In V1</th>
+      <th>Planned for V2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Light mode palette generation</td>
+      <td>Dark mode palette output (`flavor-dark.json`)</td>
+    </tr>
+    <tr>
+      <td>Color, Typography, Shape, Motion, Elevation tabs</td>
+      <td>Spacing scale customization</td>
+    </tr>
+    <tr>
+      <td>Download All as ZIP</td>
+      <td>Full Flavor file export (L2, not just L1)</td>
+    </tr>
+    <tr>
+      <td>WCAG AA contrast validation (Colors tab)</td>
+      <td>Cross-tab contrast validation (color meets elevation)</td>
+    </tr>
+  </tbody>
+</table>
