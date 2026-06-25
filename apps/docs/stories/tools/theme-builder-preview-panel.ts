@@ -34,8 +34,7 @@ function buildOverrideVars(state: BuilderState): string {
     if (p) {
       const v = (step: string) => p[step]?.value;
       if (v("50")) vars.push(`--sando-color-focus-background: ${v("50")}`);
-      if (v("400"))
-        vars.push(`--sando-color-border-on-solid: ${v("400")}`);
+      if (v("400")) vars.push(`--sando-color-border-on-solid: ${v("400")}`);
       if (v("500"))
         vars.push(`--sando-color-text-selection-default: ${v("500")}`);
       if (v("600")) {
@@ -44,16 +43,12 @@ function buildOverrideVars(state: BuilderState): string {
         vars.push(`--sando-color-icon-interactive: ${v("600")}`);
       }
       if (v("700")) {
-        vars.push(
-          `--sando-color-action-solid-background-default: ${v("700")}`,
-        );
+        vars.push(`--sando-color-action-solid-background-default: ${v("700")}`);
         vars.push(`--sando-color-border-brandEmphasis: ${v("700")}`);
         vars.push(`--sando-color-text-link-default: ${v("700")}`);
       }
       if (v("800")) {
-        vars.push(
-          `--sando-color-action-solid-background-hover: ${v("800")}`,
-        );
+        vars.push(`--sando-color-action-solid-background-hover: ${v("800")}`);
         vars.push(`--sando-color-text-link-hover: ${v("800")}`);
       }
       if (v("900")) {
@@ -95,14 +90,11 @@ function buildOverrideVars(state: BuilderState): string {
   if (shapeData?.border) {
     const r = shapeData.border.radius;
     const w = shapeData.border.width;
-    if (r?.xs?.value)
-      vars.push(`--sando-border-radius-muted: ${r.xs.value}`);
-    if (r?.sm?.value)
-      vars.push(`--sando-border-radius-default: ${r.sm.value}`);
+    if (r?.xs?.value) vars.push(`--sando-border-radius-muted: ${r.xs.value}`);
+    if (r?.sm?.value) vars.push(`--sando-border-radius-default: ${r.sm.value}`);
     if (r?.md?.value)
       vars.push(`--sando-border-radius-emphasis: ${r.md.value}`);
-    if (r?.lg?.value)
-      vars.push(`--sando-border-radius-full: ${r.lg.value}`);
+    if (r?.lg?.value) vars.push(`--sando-border-radius-full: ${r.lg.value}`);
     if (w?.default?.value) {
       vars.push(`--sando-border-width-default: ${w.default.value}`);
       vars.push(`--sando-border-width-stroke: ${w.default.value}`);
@@ -144,16 +136,11 @@ function buildOverrideVars(state: BuilderState): string {
   if (elevData?.elevation) {
     const e = elevData.elevation;
     if (e["0"]?.value) vars.push(`--sando-elevation-0: ${e["0"].value}`);
-    if (e["100"]?.value)
-      vars.push(`--sando-elevation-100: ${e["100"].value}`);
-    if (e["200"]?.value)
-      vars.push(`--sando-elevation-200: ${e["200"].value}`);
-    if (e["300"]?.value)
-      vars.push(`--sando-elevation-300: ${e["300"].value}`);
-    if (e["400"]?.value)
-      vars.push(`--sando-elevation-400: ${e["400"].value}`);
-    if (e["500"]?.value)
-      vars.push(`--sando-elevation-500: ${e["500"].value}`);
+    if (e["100"]?.value) vars.push(`--sando-elevation-100: ${e["100"].value}`);
+    if (e["200"]?.value) vars.push(`--sando-elevation-200: ${e["200"].value}`);
+    if (e["300"]?.value) vars.push(`--sando-elevation-300: ${e["300"].value}`);
+    if (e["400"]?.value) vars.push(`--sando-elevation-400: ${e["400"].value}`);
+    if (e["500"]?.value) vars.push(`--sando-elevation-500: ${e["500"].value}`);
   }
 
   return vars.join("; ");
@@ -379,7 +366,8 @@ export class SandoTbPreviewPanel extends LitElement {
       <!-- Status bar -->
       <div class="status-bar">
         <span class="status-label">Applied</span>
-        ${this._pill("Colors", "colors")} ${this._pill("Typography", "typography")}
+        ${this._pill("Colors", "colors")}
+        ${this._pill("Typography", "typography")}
         ${this._pill("Shape", "shape")} ${this._pill("Motion", "motion")}
         ${this._pill("Elevation", "elevation")}
       </div>
@@ -390,8 +378,9 @@ export class SandoTbPreviewPanel extends LitElement {
           ? html`
               <div class="canvas-hint">
                 <strong>Nothing to preview yet</strong>
-                Configure at least one ingredient tab (Colors, Typography, Shape,
-                Motion, or Elevation) and come back here to see the live result.
+                Configure at least one ingredient tab (Colors, Typography,
+                Shape, Motion, or Elevation) and come back here to see the live
+                result.
               </div>
             `
           : html`
@@ -400,15 +389,15 @@ export class SandoTbPreviewPanel extends LitElement {
                 <div class="section">
                   <p class="section-label">Typography</p>
                   <div class="type-specimen">
-                    <span class="specimen-display"
-                      >Crafted with care.</span
-                    >
+                    <span class="specimen-display">Crafted with care.</span>
                     <span class="specimen-body"
                       >A design system built on warmth, precision, and
                       deliberate craft. Every token is a decision.
                       <span class="specimen-link">Learn more →</span></span
                     >
-                    <pre class="specimen-code">import "@sando-ds/components";</pre>
+                    <pre class="specimen-code">
+import "@sando-ds/components";</pre
+                    >
                   </div>
                 </div>
 
@@ -420,7 +409,9 @@ export class SandoTbPreviewPanel extends LitElement {
                     <sando-button variant="outline">Secondary</sando-button>
                     <sando-button variant="ghost">Ghost</sando-button>
                     <sando-button variant="solid" size="sm">Small</sando-button>
-                    <sando-button variant="solid" disabled>Disabled</sando-button>
+                    <sando-button variant="solid" disabled
+                      >Disabled</sando-button
+                    >
                     <sando-badge>New</sando-badge>
                     <sando-badge variant="success">Active</sando-badge>
                     <sando-tag>Design System</sando-tag>
@@ -460,7 +451,9 @@ export class SandoTbPreviewPanel extends LitElement {
                       class="form-field"
                       style="justify-content:flex-end;padding-top:8px;"
                     >
-                      <sando-checkbox label="I agree to the terms"></sando-checkbox>
+                      <sando-checkbox
+                        label="I agree to the terms"
+                      ></sando-checkbox>
                     </div>
                   </div>
                 </div>
@@ -469,7 +462,10 @@ export class SandoTbPreviewPanel extends LitElement {
                 <div class="section">
                   <p class="section-label">Cards</p>
                   <div class="card-row">
-                    <sando-card variant="elevated" style="flex:1;min-width:240px;">
+                    <sando-card
+                      variant="elevated"
+                      style="flex:1;min-width:240px;"
+                    >
                       <div slot="header">
                         <strong
                           style="font-family:var(--sando-font-family-heading,inherit);font-size:1rem;"
