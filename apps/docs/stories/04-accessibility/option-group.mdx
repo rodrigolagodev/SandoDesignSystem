@@ -10,19 +10,51 @@ import { Meta } from "@storybook/blocks";
 
 Follows the [WAI-ARIA Group](https://www.w3.org/WAI/ARIA/apg/patterns/) pattern for grouping options within a listbox.
 
-| Attribute | Value | Purpose |
-|---|---|---|
-| `role` | `group` | Groups related options under a common label |
-| `aria-label` | Group label text | Names the group for screen readers |
-| `aria-disabled` | `"true"` / `"false"` | Marks all options in the group as non-interactive when disabled |
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Value</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`role`</td>
+      <td>`group`</td>
+      <td>Groups related options under a common label</td>
+    </tr>
+    <tr>
+      <td>`aria-label`</td>
+      <td>Group label text</td>
+      <td>Names the group for screen readers</td>
+    </tr>
+    <tr>
+      <td>`aria-disabled`</td>
+      <td>`"true"` / `"false"`</td>
+      <td>Marks all options in the group as non-interactive when disabled</td>
+    </tr>
+  </tbody>
+</table>
 
 The options container inside the group uses `role="presentation"`. Designed to be used inside `sando-select`.
 
 ## Keyboard map
 
-| Key | Behavior |
-|---|---|
-| ArrowUp / ArrowDown | Navigate through options across groups (managed by parent `sando-select`) |
+<table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Behavior</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ArrowUp / ArrowDown</td>
+      <td>Navigate through options across groups (managed by parent `sando-select`)</td>
+    </tr>
+  </tbody>
+</table>
 
 The group heading itself is not focusable.
 

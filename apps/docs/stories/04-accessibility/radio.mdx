@@ -10,23 +10,67 @@ import { Meta } from "@storybook/blocks";
 
 Follows the [WAI-ARIA Radio Button](https://www.w3.org/WAI/ARIA/apg/patterns/radio/) pattern via native `<input type="radio">`.
 
-| Attribute | Value | Purpose |
-|---|---|---|
-| `aria-checked` | `"true"` / `"false"` | Communicates the checked state |
-| `aria-invalid` | `"true"` / `"false"` | Marks the radio as invalid when `error=true` |
-| `aria-describedby` | Error/helper text ID | Links error or helper text to the input |
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Value</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`aria-checked`</td>
+      <td>`"true"` / `"false"`</td>
+      <td>Communicates the checked state</td>
+    </tr>
+    <tr>
+      <td>`aria-invalid`</td>
+      <td>`"true"` / `"false"`</td>
+      <td>Marks the radio as invalid when `error=true`</td>
+    </tr>
+    <tr>
+      <td>`aria-describedby`</td>
+      <td>Error/helper text ID</td>
+      <td>Links error or helper text to the input</td>
+    </tr>
+  </tbody>
+</table>
 
 Uses a native `<input type="radio">` inside a shadow `<label>`. The visual radio box uses `role="presentation"`.
 
 ## Keyboard map
 
-| Key | Behavior |
-|---|---|
-| Tab | Move focus to the radio group (first or selected radio) |
-| Shift+Tab | Move focus backward |
-| ArrowRight / ArrowDown | Select the next radio in the group |
-| ArrowLeft / ArrowUp | Select the previous radio in the group |
-| Space | Select the focused radio |
+<table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Behavior</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Tab</td>
+      <td>Move focus to the radio group (first or selected radio)</td>
+    </tr>
+    <tr>
+      <td>Shift+Tab</td>
+      <td>Move focus backward</td>
+    </tr>
+    <tr>
+      <td>ArrowRight / ArrowDown</td>
+      <td>Select the next radio in the group</td>
+    </tr>
+    <tr>
+      <td>ArrowLeft / ArrowUp</td>
+      <td>Select the previous radio in the group</td>
+    </tr>
+    <tr>
+      <td>Space</td>
+      <td>Select the focused radio</td>
+    </tr>
+  </tbody>
+</table>
 
 ## Screen reader behavior
 

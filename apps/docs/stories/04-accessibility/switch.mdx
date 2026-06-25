@@ -10,23 +10,68 @@ import { Meta } from "@storybook/blocks";
 
 Follows the [WAI-ARIA Switch](https://www.w3.org/WAI/ARIA/apg/patterns/switch/) pattern.
 
-| Attribute | Value | Purpose |
-|---|---|---|
-| `role` | `switch` | Distinguishes a toggle switch from `role="checkbox"` |
-| `aria-checked` | `"true"` / `"false"` | Communicates the on/off state |
-| `aria-invalid` | `"true"` / `"false"` | Marks invalid state when `error=true` |
-| `aria-describedby` | Description element ID | Links helper or error text to the switch |
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Value</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`role`</td>
+      <td>`switch`</td>
+      <td>Distinguishes a toggle switch from `role="checkbox"`</td>
+    </tr>
+    <tr>
+      <td>`aria-checked`</td>
+      <td>`"true"` / `"false"`</td>
+      <td>Communicates the on/off state</td>
+    </tr>
+    <tr>
+      <td>`aria-invalid`</td>
+      <td>`"true"` / `"false"`</td>
+      <td>Marks invalid state when `error=true`</td>
+    </tr>
+    <tr>
+      <td>`aria-describedby`</td>
+      <td>Description element ID</td>
+      <td>Links helper or error text to the switch</td>
+    </tr>
+  </tbody>
+</table>
 
 Uses a native `<input type="checkbox" role="switch">`. Track and thumb are decorative (`role="presentation"`).
 
 ## Keyboard map
 
-| Key | Behavior |
-|---|---|
-| Tab | Move focus to/from the switch |
-| Shift+Tab | Move focus backward |
-| Space | Toggle the switch on/off |
-| Enter | Toggle the switch on/off |
+<table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Behavior</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Tab</td>
+      <td>Move focus to/from the switch</td>
+    </tr>
+    <tr>
+      <td>Shift+Tab</td>
+      <td>Move focus backward</td>
+    </tr>
+    <tr>
+      <td>Space</td>
+      <td>Toggle the switch on/off</td>
+    </tr>
+    <tr>
+      <td>Enter</td>
+      <td>Toggle the switch on/off</td>
+    </tr>
+  </tbody>
+</table>
 
 ## Screen reader behavior
 

@@ -10,22 +10,64 @@ import { Meta } from "@storybook/blocks";
 
 Follows the [WAI-ARIA Button](https://www.w3.org/WAI/ARIA/apg/patterns/button/) pattern for interactive tags; uses generic `<span>` for static tags.
 
-| Attribute | Value | Purpose |
-|---|---|---|
-| `aria-label` | Remove/action label | On the action button — context (e.g., "Remove JavaScript") |
-| `aria-disabled` | `"true"` / `"false"` | On the action button when the tag is disabled |
-| `tabindex` | `0` / `-1` | On the action button — `-1` when disabled |
-| `aria-hidden` | `"true"` | On the divider separator and icon wrapper — decorative |
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Value</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`aria-label`</td>
+      <td>Remove/action label</td>
+      <td>On the action button — context (e.g., "Remove JavaScript")</td>
+    </tr>
+    <tr>
+      <td>`aria-disabled`</td>
+      <td>`"true"` / `"false"`</td>
+      <td>On the action button when the tag is disabled</td>
+    </tr>
+    <tr>
+      <td>`tabindex`</td>
+      <td>`0` / `-1`</td>
+      <td>On the action button — `-1` when disabled</td>
+    </tr>
+    <tr>
+      <td>`aria-hidden`</td>
+      <td>`"true"`</td>
+      <td>On the divider separator and icon wrapper — decorative</td>
+    </tr>
+  </tbody>
+</table>
 
 Three modes: **Static** (`<span>`, not interactive), **Removable** (contains `<button aria-label="Remove <tag-text>">`), **Clickable** (contains `<button aria-label="<tag-text>">`).
 
 ## Keyboard map
 
-| Key | Behavior |
-|---|---|
-| Tab | Move focus to the action button (removable/clickable tags only) |
-| Shift+Tab | Move focus backward |
-| Enter / Space | Activate the action (remove or click) |
+<table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Behavior</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Tab</td>
+      <td>Move focus to the action button (removable/clickable tags only)</td>
+    </tr>
+    <tr>
+      <td>Shift+Tab</td>
+      <td>Move focus backward</td>
+    </tr>
+    <tr>
+      <td>Enter / Space</td>
+      <td>Activate the action (remove or click)</td>
+    </tr>
+  </tbody>
+</table>
 
 Static tags are not keyboard focusable.
 

@@ -10,23 +10,67 @@ import { Meta } from "@storybook/blocks";
 
 Follows the [WAI-ARIA Textbox (multiline)](https://www.w3.org/WAI/ARIA/apg/patterns/textbox/) pattern via native `<textarea>`.
 
-| Attribute | Value | Purpose |
-|---|---|---|
-| `aria-invalid` | `"true"` / `"false"` | Communicates validation error state |
-| `aria-required` | `"true"` / `"false"` | Communicates required state |
-| `aria-describedby` | Helper/error element ID | Links helper or error text to the textarea |
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Value</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`aria-invalid`</td>
+      <td>`"true"` / `"false"`</td>
+      <td>Communicates validation error state</td>
+    </tr>
+    <tr>
+      <td>`aria-required`</td>
+      <td>`"true"` / `"false"`</td>
+      <td>Communicates required state</td>
+    </tr>
+    <tr>
+      <td>`aria-describedby`</td>
+      <td>Helper/error element ID</td>
+      <td>Links helper or error text to the textarea</td>
+    </tr>
+  </tbody>
+</table>
 
 Label association uses a `<label>` element linked via `for`/`id`.
 
 ## Keyboard map
 
-| Key | Behavior |
-|---|---|
-| Tab | Move focus to/from the textarea |
-| Shift+Tab | Move focus backward |
-| Type | Enter text |
-| Enter | Insert new line |
-| Escape | Deselect text / release focus (browser default) |
+<table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Behavior</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Tab</td>
+      <td>Move focus to/from the textarea</td>
+    </tr>
+    <tr>
+      <td>Shift+Tab</td>
+      <td>Move focus backward</td>
+    </tr>
+    <tr>
+      <td>Type</td>
+      <td>Enter text</td>
+    </tr>
+    <tr>
+      <td>Enter</td>
+      <td>Insert new line</td>
+    </tr>
+    <tr>
+      <td>Escape</td>
+      <td>Deselect text / release focus (browser default)</td>
+    </tr>
+  </tbody>
+</table>
 
 ## Screen reader behavior
 

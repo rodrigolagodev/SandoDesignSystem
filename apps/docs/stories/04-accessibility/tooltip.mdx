@@ -10,23 +10,67 @@ import { Meta } from "@storybook/blocks";
 
 Follows the [WAI-ARIA Tooltip](https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/) pattern.
 
-| Attribute | Value | Purpose |
-|---|---|---|
-| `role` | `tooltip` | Marks the tooltip bubble as a tooltip |
-| `aria-hidden` | `"true"` (closed) / `"false"` (open) | Hides the tooltip from AT when not visible |
-| `aria-describedby` | Tooltip element ID | Injected onto the slotted trigger element to associate the tooltip |
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Value</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`role`</td>
+      <td>`tooltip`</td>
+      <td>Marks the tooltip bubble as a tooltip</td>
+    </tr>
+    <tr>
+      <td>`aria-hidden`</td>
+      <td>`"true"` (closed) / `"false"` (open)</td>
+      <td>Hides the tooltip from AT when not visible</td>
+    </tr>
+    <tr>
+      <td>`aria-describedby`</td>
+      <td>Tooltip element ID</td>
+      <td>Injected onto the slotted trigger element to associate the tooltip</td>
+    </tr>
+  </tbody>
+</table>
 
 Injects `aria-describedby` onto the first slotted trigger element. Implements WCAG 1.4.13 (Content on Hover or Focus).
 
 ## Keyboard map
 
-| Key | Behavior |
-|---|---|
-| Tab | Move focus to the trigger element (tooltip appears) |
-| Shift+Tab | Move focus backward (tooltip hides) |
-| Escape | Hide the tooltip |
-| Mouse hover | Show the tooltip |
-| Mouse move to tooltip | Tooltip remains visible (WCAG 1.4.13) |
+<table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Behavior</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Tab</td>
+      <td>Move focus to the trigger element (tooltip appears)</td>
+    </tr>
+    <tr>
+      <td>Shift+Tab</td>
+      <td>Move focus backward (tooltip hides)</td>
+    </tr>
+    <tr>
+      <td>Escape</td>
+      <td>Hide the tooltip</td>
+    </tr>
+    <tr>
+      <td>Mouse hover</td>
+      <td>Show the tooltip</td>
+    </tr>
+    <tr>
+      <td>Mouse move to tooltip</td>
+      <td>Tooltip remains visible (WCAG 1.4.13)</td>
+    </tr>
+  </tbody>
+</table>
 
 ## Screen reader behavior
 

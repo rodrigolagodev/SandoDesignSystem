@@ -10,18 +10,46 @@ import { Meta } from "@storybook/blocks";
 
 Follows the [WAI-ARIA Live Region](https://www.w3.org/WAI/ARIA/apg/patterns/alert/) pattern.
 
-| Attribute | Value | Purpose |
-|---|---|---|
-| `role` | `status` (default/info/warning/success) / `alert` (error) | Determines announcement urgency |
-| `aria-live` | `polite` / `assertive` | Matches `role` — `error` variant uses `assertive` |
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Value</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`role`</td>
+      <td>`status` (default/info/warning/success) / `alert` (error)</td>
+      <td>Determines announcement urgency</td>
+    </tr>
+    <tr>
+      <td>`aria-live`</td>
+      <td>`polite` / `assertive`</td>
+      <td>Matches `role` — `error` variant uses `assertive`</td>
+    </tr>
+  </tbody>
+</table>
 
 The inner `<div>` carries the role and live region attributes.
 
 ## Keyboard map
 
-| Key | Behavior |
-|---|---|
-| — | Not keyboard focusable — informational element |
+<table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Behavior</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>—</td>
+      <td>Not keyboard focusable — informational element</td>
+    </tr>
+  </tbody>
+</table>
 
 Typically associated with a form control via `aria-describedby` on the control.
 

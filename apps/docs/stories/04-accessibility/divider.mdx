@@ -10,19 +10,51 @@ import { Meta } from "@storybook/blocks";
 
 Follows the [WAI-ARIA Separator](https://www.w3.org/WAI/ARIA/apg/patterns/) pattern.
 
-| Attribute | Value | Purpose |
-|---|---|---|
-| `role` | `separator` (implicit on `<hr>`) | Marks the element as a thematic separator |
-| `aria-label` | Label text | Set when a text label is present |
-| `aria-orientation` | `"vertical"` | Set on vertical dividers |
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Value</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`role`</td>
+      <td>`separator` (implicit on `<hr>`)</td>
+      <td>Marks the element as a thematic separator</td>
+    </tr>
+    <tr>
+      <td>`aria-label`</td>
+      <td>Label text</td>
+      <td>Set when a text label is present</td>
+    </tr>
+    <tr>
+      <td>`aria-orientation`</td>
+      <td>`"vertical"`</td>
+      <td>Set on vertical dividers</td>
+    </tr>
+  </tbody>
+</table>
 
 Three rendering modes: native `<hr>` (horizontal, no label), `<div role="separator" aria-label>` (horizontal with label), `<div role="separator" aria-orientation="vertical">` (vertical).
 
 ## Keyboard map
 
-| Key | Behavior |
-|---|---|
-| — | Not keyboard focusable — structural/decorative element |
+<table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Behavior</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>—</td>
+      <td>Not keyboard focusable — structural/decorative element</td>
+    </tr>
+  </tbody>
+</table>
 
 ## Screen reader behavior
 

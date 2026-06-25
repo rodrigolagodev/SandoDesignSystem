@@ -10,21 +10,58 @@ import { Meta } from "@storybook/blocks";
 
 Follows the [WAI-ARIA Button](https://www.w3.org/WAI/ARIA/apg/patterns/button/) pattern.
 
-| Attribute | Value | Purpose |
-|---|---|---|
-| `aria-disabled` | `"true"` / `"false"` | Communicates disabled state without removing from tab order |
-| `aria-busy` | `"true"` / `"false"` | Communicates loading state to screen readers |
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Value</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`aria-disabled`</td>
+      <td>`"true"` / `"false"`</td>
+      <td>Communicates disabled state without removing from tab order</td>
+    </tr>
+    <tr>
+      <td>`aria-busy`</td>
+      <td>`"true"` / `"false"`</td>
+      <td>Communicates loading state to screen readers</td>
+    </tr>
+  </tbody>
+</table>
 
 Uses a native `<button>` element — no custom role needed. Accessible name comes from slotted text content.
 
 ## Keyboard map
 
-| Key | Behavior |
-|---|---|
-| Tab | Move focus to/from the button |
-| Shift+Tab | Move focus backward |
-| Enter | Activate the button |
-| Space | Activate the button |
+<table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Behavior</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Tab</td>
+      <td>Move focus to/from the button</td>
+    </tr>
+    <tr>
+      <td>Shift+Tab</td>
+      <td>Move focus backward</td>
+    </tr>
+    <tr>
+      <td>Enter</td>
+      <td>Activate the button</td>
+    </tr>
+    <tr>
+      <td>Space</td>
+      <td>Activate the button</td>
+    </tr>
+  </tbody>
+</table>
 
 ## Screen reader behavior
 

@@ -27,34 +27,174 @@ If you find an accessibility issue in any Sando component, please open an issue 
 
 The following 26 components have documented accessibility statements. Each links to a dedicated Storybook page with the full ARIA pattern, keyboard map, screen reader behavior, and known limitations.
 
-| Component | WAI-ARIA Pattern | Keyboard | Page |
-|---|---|---|---|
-| Alert | Live Region (status / alert) | Escape to dismiss | [View](?path=/docs/accessibility-alert--docs) |
-| Avatar | Image (img) | Tab when clickable | [View](?path=/docs/accessibility-avatar--docs) |
-| Badge | Status live region | Not focusable | [View](?path=/docs/accessibility-badge--docs) |
-| Button | Button | Enter, Space | [View](?path=/docs/accessibility-button--docs) |
-| Card | Article / generic | Tab when clickable | [View](?path=/docs/accessibility-card--docs) |
-| Checkbox | Checkbox | Space, Enter | [View](?path=/docs/accessibility-checkbox--docs) |
-| Dialog | Dialog / alertdialog | Tab (trapped), Escape | [View](?path=/docs/accessibility-dialog--docs) |
-| Divider | Separator | Not focusable | [View](?path=/docs/accessibility-divider--docs) |
-| Form | Form | Tab between fields, Enter to submit | [View](?path=/docs/accessibility-form--docs) |
-| Form Group | Group | Inherited from slotted control | [View](?path=/docs/accessibility-form-group--docs) |
-| Help Text | Status / Alert live region | Not focusable | [View](?path=/docs/accessibility-help-text--docs) |
-| Icon | Image / Presentation | Not focusable | [View](?path=/docs/accessibility-icon--docs) |
-| Input | Textbox | Tab, type | [View](?path=/docs/accessibility-input--docs) |
-| Label | Label | Not focusable | [View](?path=/docs/accessibility-label--docs) |
-| Option | Option (in listbox) | Managed by Select | [View](?path=/docs/accessibility-option--docs) |
-| Option Group | Group | Managed by Select | [View](?path=/docs/accessibility-option-group--docs) |
-| Radio | Radio button | Tab, Arrow keys | [View](?path=/docs/accessibility-radio--docs) |
-| Radio Group | Radiogroup | Tab in, Arrow keys within | [View](?path=/docs/accessibility-radio-group--docs) |
-| Select | Combobox + Listbox | Tab, Arrow keys, Enter, Escape | [View](?path=/docs/accessibility-select--docs) |
-| Skeleton | Presentation (decorative) | Not focusable | [View](?path=/docs/accessibility-skeleton--docs) |
-| Skeleton Paragraph | Presentation (decorative) | Not focusable | [View](?path=/docs/accessibility-skeleton-paragraph--docs) |
-| Spinner | Status live region | Not focusable | [View](?path=/docs/accessibility-spinner--docs) |
-| Switch | Switch | Tab, Space, Enter | [View](?path=/docs/accessibility-switch--docs) |
-| Tag | Button (when interactive) | Tab, Enter, Space | [View](?path=/docs/accessibility-tag--docs) |
-| Textarea | Textbox (multiline) | Tab, type, Enter for newline | [View](?path=/docs/accessibility-textarea--docs) |
-| Tooltip | Tooltip | Tab to trigger, Escape to hide | [View](?path=/docs/accessibility-tooltip--docs) |
+<table>
+  <thead>
+    <tr>
+      <th>Component</th>
+      <th>WAI-ARIA Pattern</th>
+      <th>Keyboard</th>
+      <th>Page</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Alert</td>
+      <td>Live Region (status / alert)</td>
+      <td>Escape to dismiss</td>
+      <td>[View](?path=/docs/accessibility-alert--docs)</td>
+    </tr>
+    <tr>
+      <td>Avatar</td>
+      <td>Image (img)</td>
+      <td>Tab when clickable</td>
+      <td>[View](?path=/docs/accessibility-avatar--docs)</td>
+    </tr>
+    <tr>
+      <td>Badge</td>
+      <td>Status live region</td>
+      <td>Not focusable</td>
+      <td>[View](?path=/docs/accessibility-badge--docs)</td>
+    </tr>
+    <tr>
+      <td>Button</td>
+      <td>Button</td>
+      <td>Enter, Space</td>
+      <td>[View](?path=/docs/accessibility-button--docs)</td>
+    </tr>
+    <tr>
+      <td>Card</td>
+      <td>Article / generic</td>
+      <td>Tab when clickable</td>
+      <td>[View](?path=/docs/accessibility-card--docs)</td>
+    </tr>
+    <tr>
+      <td>Checkbox</td>
+      <td>Checkbox</td>
+      <td>Space, Enter</td>
+      <td>[View](?path=/docs/accessibility-checkbox--docs)</td>
+    </tr>
+    <tr>
+      <td>Dialog</td>
+      <td>Dialog / alertdialog</td>
+      <td>Tab (trapped), Escape</td>
+      <td>[View](?path=/docs/accessibility-dialog--docs)</td>
+    </tr>
+    <tr>
+      <td>Divider</td>
+      <td>Separator</td>
+      <td>Not focusable</td>
+      <td>[View](?path=/docs/accessibility-divider--docs)</td>
+    </tr>
+    <tr>
+      <td>Form</td>
+      <td>Form</td>
+      <td>Tab between fields, Enter to submit</td>
+      <td>[View](?path=/docs/accessibility-form--docs)</td>
+    </tr>
+    <tr>
+      <td>Form Group</td>
+      <td>Group</td>
+      <td>Inherited from slotted control</td>
+      <td>[View](?path=/docs/accessibility-form-group--docs)</td>
+    </tr>
+    <tr>
+      <td>Help Text</td>
+      <td>Status / Alert live region</td>
+      <td>Not focusable</td>
+      <td>[View](?path=/docs/accessibility-help-text--docs)</td>
+    </tr>
+    <tr>
+      <td>Icon</td>
+      <td>Image / Presentation</td>
+      <td>Not focusable</td>
+      <td>[View](?path=/docs/accessibility-icon--docs)</td>
+    </tr>
+    <tr>
+      <td>Input</td>
+      <td>Textbox</td>
+      <td>Tab, type</td>
+      <td>[View](?path=/docs/accessibility-input--docs)</td>
+    </tr>
+    <tr>
+      <td>Label</td>
+      <td>Label</td>
+      <td>Not focusable</td>
+      <td>[View](?path=/docs/accessibility-label--docs)</td>
+    </tr>
+    <tr>
+      <td>Option</td>
+      <td>Option (in listbox)</td>
+      <td>Managed by Select</td>
+      <td>[View](?path=/docs/accessibility-option--docs)</td>
+    </tr>
+    <tr>
+      <td>Option Group</td>
+      <td>Group</td>
+      <td>Managed by Select</td>
+      <td>[View](?path=/docs/accessibility-option-group--docs)</td>
+    </tr>
+    <tr>
+      <td>Radio</td>
+      <td>Radio button</td>
+      <td>Tab, Arrow keys</td>
+      <td>[View](?path=/docs/accessibility-radio--docs)</td>
+    </tr>
+    <tr>
+      <td>Radio Group</td>
+      <td>Radiogroup</td>
+      <td>Tab in, Arrow keys within</td>
+      <td>[View](?path=/docs/accessibility-radio-group--docs)</td>
+    </tr>
+    <tr>
+      <td>Select</td>
+      <td>Combobox + Listbox</td>
+      <td>Tab, Arrow keys, Enter, Escape</td>
+      <td>[View](?path=/docs/accessibility-select--docs)</td>
+    </tr>
+    <tr>
+      <td>Skeleton</td>
+      <td>Presentation (decorative)</td>
+      <td>Not focusable</td>
+      <td>[View](?path=/docs/accessibility-skeleton--docs)</td>
+    </tr>
+    <tr>
+      <td>Skeleton Paragraph</td>
+      <td>Presentation (decorative)</td>
+      <td>Not focusable</td>
+      <td>[View](?path=/docs/accessibility-skeleton-paragraph--docs)</td>
+    </tr>
+    <tr>
+      <td>Spinner</td>
+      <td>Status live region</td>
+      <td>Not focusable</td>
+      <td>[View](?path=/docs/accessibility-spinner--docs)</td>
+    </tr>
+    <tr>
+      <td>Switch</td>
+      <td>Switch</td>
+      <td>Tab, Space, Enter</td>
+      <td>[View](?path=/docs/accessibility-switch--docs)</td>
+    </tr>
+    <tr>
+      <td>Tag</td>
+      <td>Button (when interactive)</td>
+      <td>Tab, Enter, Space</td>
+      <td>[View](?path=/docs/accessibility-tag--docs)</td>
+    </tr>
+    <tr>
+      <td>Textarea</td>
+      <td>Textbox (multiline)</td>
+      <td>Tab, type, Enter for newline</td>
+      <td>[View](?path=/docs/accessibility-textarea--docs)</td>
+    </tr>
+    <tr>
+      <td>Tooltip</td>
+      <td>Tooltip</td>
+      <td>Tab to trigger, Escape to hide</td>
+      <td>[View](?path=/docs/accessibility-tooltip--docs)</td>
+    </tr>
+  </tbody>
+</table>
 
 ## Testing Methodology
 

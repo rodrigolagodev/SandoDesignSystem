@@ -10,23 +10,68 @@ import { Meta } from "@storybook/blocks";
 
 Follows the [WAI-ARIA Checkbox](https://www.w3.org/WAI/ARIA/apg/patterns/checkbox/) pattern.
 
-| Attribute | Value | Purpose |
-|---|---|---|
-| `aria-checked` | `"true"` / `"false"` / `"mixed"` | Communicates checked, unchecked, and indeterminate states |
-| `aria-invalid` | `"true"` / `"false"` | Marks the field as invalid when `error=true` |
-| `aria-describedby` | Helper/error text element ID | Associates helper or error text with the input |
-| `required` | Native attribute | Marks the input as required for form validation |
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Value</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`aria-checked`</td>
+      <td>`"true"` / `"false"` / `"mixed"`</td>
+      <td>Communicates checked, unchecked, and indeterminate states</td>
+    </tr>
+    <tr>
+      <td>`aria-invalid`</td>
+      <td>`"true"` / `"false"`</td>
+      <td>Marks the field as invalid when `error=true`</td>
+    </tr>
+    <tr>
+      <td>`aria-describedby`</td>
+      <td>Helper/error text element ID</td>
+      <td>Associates helper or error text with the input</td>
+    </tr>
+    <tr>
+      <td>`required`</td>
+      <td>Native attribute</td>
+      <td>Marks the input as required for form validation</td>
+    </tr>
+  </tbody>
+</table>
 
 Uses a native `<input type="checkbox">` inside a shadow `<label>`.
 
 ## Keyboard map
 
-| Key | Behavior |
-|---|---|
-| Tab | Move focus to/from the checkbox |
-| Shift+Tab | Move focus backward |
-| Space | Toggle the checked state |
-| Enter | Toggle the checked state |
+<table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Behavior</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Tab</td>
+      <td>Move focus to/from the checkbox</td>
+    </tr>
+    <tr>
+      <td>Shift+Tab</td>
+      <td>Move focus backward</td>
+    </tr>
+    <tr>
+      <td>Space</td>
+      <td>Toggle the checked state</td>
+    </tr>
+    <tr>
+      <td>Enter</td>
+      <td>Toggle the checked state</td>
+    </tr>
+  </tbody>
+</table>
 
 ## Screen reader behavior
 

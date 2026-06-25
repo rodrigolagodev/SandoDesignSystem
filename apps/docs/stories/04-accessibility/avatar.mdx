@@ -10,19 +10,57 @@ import { Meta } from "@storybook/blocks";
 
 Follows the [WAI-ARIA Image](https://www.w3.org/WAI/ARIA/apg/patterns/) pattern.
 
-| Attribute | Value | Purpose |
-|---|---|---|
-| `role` | `img` | Exposes the avatar as an image to assistive technology |
-| `aria-label` | `name` property | Provides the accessible name for the avatar |
-| `aria-hidden` | `true` | On the initials span and presence indicator — decorative |
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Value</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`role`</td>
+      <td>`img`</td>
+      <td>Exposes the avatar as an image to assistive technology</td>
+    </tr>
+    <tr>
+      <td>`aria-label`</td>
+      <td>`name` property</td>
+      <td>Provides the accessible name for the avatar</td>
+    </tr>
+    <tr>
+      <td>`aria-hidden`</td>
+      <td>`true`</td>
+      <td>On the initials span and presence indicator — decorative</td>
+    </tr>
+  </tbody>
+</table>
 
 ## Keyboard map
 
-| Key | Behavior |
-|---|---|
-| Tab | Move focus to/from the avatar (when `clickable=true`) |
-| Shift+Tab | Move focus backward |
-| Enter / Space | Activate (when clickable) |
+<table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Behavior</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Tab</td>
+      <td>Move focus to/from the avatar (when `clickable=true`)</td>
+    </tr>
+    <tr>
+      <td>Shift+Tab</td>
+      <td>Move focus backward</td>
+    </tr>
+    <tr>
+      <td>Enter / Space</td>
+      <td>Activate (when clickable)</td>
+    </tr>
+  </tbody>
+</table>
 
 Non-clickable avatars (default) are not keyboard focusable.
 

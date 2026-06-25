@@ -10,20 +10,54 @@ import { Meta } from "@storybook/blocks";
 
 Follows the [WAI-ARIA Form](https://www.w3.org/WAI/ARIA/apg/patterns/) pattern via the native `<form>` element.
 
-| Attribute | Value | Purpose |
-|---|---|---|
-| `aria-busy` | `"true"` / `"false"` | Marks the form as busy during async submission (`loading=true`) |
-| `aria-hidden` | `"true"` | On the loading overlay — decorative spinner hidden from AT |
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Value</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`aria-busy`</td>
+      <td>`"true"` / `"false"`</td>
+      <td>Marks the form as busy during async submission (`loading=true`)</td>
+    </tr>
+    <tr>
+      <td>`aria-hidden`</td>
+      <td>`"true"`</td>
+      <td>On the loading overlay — decorative spinner hidden from AT</td>
+    </tr>
+  </tbody>
+</table>
 
 The component wraps a native `<form>` element. Individual form controls manage their own ARIA attributes.
 
 ## Keyboard map
 
-| Key | Behavior |
-|---|---|
-| Tab | Move focus between form fields |
-| Shift+Tab | Move focus backward |
-| Enter | Submit the form (when focus is on an input or submit button) |
+<table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Behavior</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Tab</td>
+      <td>Move focus between form fields</td>
+    </tr>
+    <tr>
+      <td>Shift+Tab</td>
+      <td>Move focus backward</td>
+    </tr>
+    <tr>
+      <td>Enter</td>
+      <td>Submit the form (when focus is on an input or submit button)</td>
+    </tr>
+  </tbody>
+</table>
 
 During `loading=true`, the submit button is disabled to prevent double-submission.
 
