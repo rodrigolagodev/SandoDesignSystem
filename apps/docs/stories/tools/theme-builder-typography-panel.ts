@@ -357,7 +357,7 @@ export class SandoTbTypographyPanel extends LitElement {
     return html`
       <div class="field">
         <label for="${id}">${label}</label>
-        <select id="${id}" .value="${value}" @change="${onChange}">
+        <select id="${id}" @change="${onChange}">
           ${Object.entries(groups).map(
             ([groupLabel, entries]: [string, FontEntry[]]) => {
               const filtered: FontEntry[] = monoFilter
@@ -370,7 +370,7 @@ export class SandoTbTypographyPanel extends LitElement {
                 <optgroup label="${groupLabel}">
                   ${filtered.map(
                     ([key, entry]: [string, FontFamilyEntry]) => html`
-                      <option value="${key}" ?selected="${key === value}">
+                      <option value="${key}" .selected="${key === value}">
                         ${key}${entry.description
                           ? ` — ${entry.description}`
                           : ""}

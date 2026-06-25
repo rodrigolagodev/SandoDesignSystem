@@ -491,7 +491,7 @@ export class SandoTbShapePanel extends LitElement {
                     (opt) =>
                       html`<option
                         value="${opt}"
-                        ?selected="${opt ===
+                        .selected="${opt ===
                         this[`_${key}` as `_${typeof key}`]}"
                       >
                         ${opt}
@@ -514,7 +514,7 @@ export class SandoTbShapePanel extends LitElement {
             (opt) => html`
               <option
                 value="${opt.value}"
-                ?selected="${opt.value === this._borderWidth}"
+                .selected="${opt.value === this._borderWidth}"
               >
                 ${opt.label}
               </option>
@@ -555,11 +555,14 @@ export class SandoTbShapePanel extends LitElement {
             <span class="shape-caption">sm: ${sm}</span>
           </div>
 
-          <!-- 2. Button pill -->
+          <!-- 2. Dialog / panel -->
           <div class="shape-item">
-            <span class="shape-label">Pill Button</span>
-            <div class="silhouette-button" style="border-radius: ${lg};">
-              Button
+            <span class="shape-label">Dialog</span>
+            <div
+              class="silhouette-card"
+              style="border-radius: ${lg}; border: ${bw} solid #e5e5e5; box-shadow: 0 8px 24px rgba(0,0,0,0.12); width: 160px; height: 100px;"
+            >
+              Dialog
             </div>
             <span class="shape-caption">lg: ${lg}</span>
           </div>

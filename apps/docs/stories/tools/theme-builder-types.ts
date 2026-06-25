@@ -399,12 +399,14 @@ export function buildShadowValue(
   level: ElevationLevel,
   hue: number,
   multiplier: number,
+  chroma?: number,
 ): string {
   if (level.layers.length === 0) return "none";
   return level.layers
     .map((layer) => {
       const opacity = Math.min(layer.baseOpacity * multiplier, 0.35);
-      return `0 ${layer.offsetY} ${layer.blur} oklch(${layer.lightness} ${layer.chroma} ${hue} / ${opacity.toFixed(3)})`;
+      const c = chroma ?? layer.chroma;
+      return `0 ${layer.offsetY} ${layer.blur} oklch(${layer.lightness} ${c} ${hue} / ${opacity.toFixed(3)})`;
     })
     .join(", ");
 }

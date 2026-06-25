@@ -22,16 +22,17 @@ import {
 function buildElevationJson(
   hue: number,
   intensity: ShadowIntensity,
+  chroma: number,
 ): Record<string, unknown> {
   const multiplier = SHADOW_INTENSITY_MULTIPLIER[intensity];
-  const shadow: Record<string, unknown> = {};
+  const elevation: Record<string, unknown> = {};
   ELEVATION_LEVELS.forEach((level) => {
-    shadow[level.key] = {
-      value: buildShadowValue(level, hue, multiplier),
+    elevation[level.key] = {
+      value: buildShadowValue(level, hue, multiplier, chroma),
       type: "shadow",
     };
   });
-  return { shadow };
+  return { elevation };
 }
 
 // ---------------------------------------------------------------------------
@@ -252,10 +253,11 @@ export class SandoTbElevationPanel extends LitElement {
   `;
 
   @state() private _hue = 60;
+  @state() private _chroma = 0.02;
   @state() private _intensity: ShadowIntensity = "default";
 
   private _emitChange() {
-    const json = buildElevationJson(this._hue, this._intensity);
+    const json = buildElevationJson(this._hue, this._intensity, this._chroma);
     this.dispatchEvent(
       new CustomEvent<PanelChangeDetail>("tb-panel-change", {
         bubbles: true,
@@ -278,6 +280,19 @@ export class SandoTbElevationPanel extends LitElement {
     }
   }
 
+  private _onChromaSlider(e: Event) {
+    this._chroma = parseFloat((e.target as HTMLInputElement).value);
+    this._emitChange();
+  }
+
+  private _onChromaNumber(e: Event) {
+    const val = parseFloat((e.target as HTMLInputElement).value);
+    if (!isNaN(val) && val >= 0 && val <= 0.08) {
+      this._chroma = val;
+      this._emitChange();
+    }
+  }
+
   private _onIntensity(intensity: ShadowIntensity) {
     this._intensity = intensity;
     this._emitChange();
@@ -285,7 +300,11 @@ export class SandoTbElevationPanel extends LitElement {
 
   private _buildJsonContent(): string {
     return (
-      JSON.stringify(buildElevationJson(this._hue, this._intensity), null, 2) +
+      JSON.stringify(
+        buildElevationJson(this._hue, this._intensity, this._chroma),
+        null,
+        2,
+      ) +
       "\n"
     );
   }
@@ -338,6 +357,34 @@ export class SandoTbElevationPanel extends LitElement {
             title="${hueSwatch}"
           ></div>
         </div>
+      </div>
+
+      <!-- Shadow Chroma -->
+      <div>
+        <span class="field-label">Shadow Chroma</span>
+        <div class="slider-row">
+          <input
+            type="range"
+            min="0"
+            max="0.08"
+            step="0.005"
+            .value="${String(this._chroma)}"
+            @input="${this._onChromaSlider}"
+            aria-label="Shadow chroma"
+          />
+          <input
+            type="number"
+            min="0"
+            max="0.08"
+            step="0.005"
+            .value="${String(this._chroma)}"
+            @change="${this._onChromaNumber}"
+            aria-label="Shadow chroma value"
+          />
+        </div>
+        <p style="font-size:11px;color:#aaa;margin:4px 0 0;">
+          0 = neutral gray shadows · 0.08 = tinted shadows
+        </p>
       </div>
 
       <!-- Shadow Intensity -->
