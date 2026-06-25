@@ -1,0 +1,50 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Accessibility/Form Group" />
+
+# Accessibility — sando-form-group
+
+> Source: [`packages/components/src/components/form-group/ACCESSIBILITY.md`](https://github.com/rodrigolagodev/SandoDesignSystem/blob/master/packages/components/src/components/form-group/ACCESSIBILITY.md)
+
+## ARIA pattern
+
+Follows the [WAI-ARIA Group](https://www.w3.org/WAI/ARIA/apg/patterns/) pattern for grouping form controls.
+
+| Attribute | Value | Purpose |
+|---|---|---|
+| `aria-describedby` | Description element ID | Injected onto the slotted form control to link helper/error text |
+| `aria-invalid` | `"true"` / `"false"` | Injected onto the slotted form control when `error=true` |
+| `role` | `"alert"` | On the error message container for assertive announcements |
+
+The form-group injects `aria-describedby` and `aria-invalid` directly onto slotted inputs, selects, textareas, or elements with `role="textbox"`, `role="combobox"`, or `role="listbox"`.
+
+## Keyboard map
+
+| Key | Behavior |
+|---|---|
+| Tab | Move focus to/from the slotted form control |
+| Shift+Tab | Move focus backward |
+
+The form-group itself is not focusable.
+
+## Screen reader behavior
+
+When the slotted input receives focus: "Email address, edit text" followed by helper text via `aria-describedby`. Error: "Please enter a valid email, invalid entry" + error text via `role="alert"`.
+
+## Color contrast
+
+Verified via `jest-axe` against the `original` flavor in light and dark modes. All pairs meet WCAG 2.1 AA.
+
+## Tested with
+
+- jest-axe (automated, runs in `sando-form-group.a11y.test.ts`)
+- VoiceOver (macOS Sequoia, Safari 18)
+- NVDA (Windows 11, Firefox 130)
+
+## Known limitations
+
+None identified.
+
+---
+
+[Back to Accessibility Statement](?path=/docs/accessibility-statement--docs)

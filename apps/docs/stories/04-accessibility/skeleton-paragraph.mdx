@@ -1,0 +1,52 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Accessibility/Skeleton Paragraph" />
+
+# Accessibility — sando-skeleton-paragraph
+
+> Source: [`packages/components/src/components/skeleton-paragraph/ACCESSIBILITY.md`](https://github.com/rodrigolagodev/SandoDesignSystem/blob/master/packages/components/src/components/skeleton-paragraph/ACCESSIBILITY.md)
+
+## ARIA pattern
+
+Follows the presentation/none pattern — the skeleton paragraph is a loading placeholder hidden from AT.
+
+| Attribute | Value | Purpose |
+|---|---|---|
+| `role` | `presentation` | On each `sando-skeleton` child — removes from the accessibility tree |
+| `aria-hidden` | `"true"` | On each `sando-skeleton` child — invisible to AT |
+
+`sando-skeleton-paragraph` composes multiple `sando-skeleton` instances.
+
+## Keyboard map
+
+| Key | Behavior |
+|---|---|
+| — | Not keyboard focusable — decorative loading placeholder |
+
+## Screen reader behavior
+
+All skeleton lines are invisible to AT. Recommended pattern:
+
+```html
+<div aria-busy="true" aria-label="Loading article">
+  <sando-skeleton-paragraph lines="4"></sando-skeleton-paragraph>
+</div>
+```
+
+## Color contrast
+
+Decorative — hidden from AT. Contrast not applicable for accessibility purposes.
+
+## Tested with
+
+- jest-axe (automated, runs in `sando-skeleton-paragraph.a11y.test.ts`)
+- VoiceOver (macOS Sequoia, Safari 18)
+- NVDA (Windows 11, Firefox 130)
+
+## Known limitations
+
+None identified.
+
+---
+
+[Back to Accessibility Statement](?path=/docs/accessibility-statement--docs)

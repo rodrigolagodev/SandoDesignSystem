@@ -1,0 +1,54 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Accessibility/Radio Group" />
+
+# Accessibility — sando-radio-group
+
+> Source: [`packages/components/src/components/radio-group/ACCESSIBILITY.md`](https://github.com/rodrigolagodev/SandoDesignSystem/blob/master/packages/components/src/components/radio-group/ACCESSIBILITY.md)
+
+## ARIA pattern
+
+Follows the [WAI-ARIA Radio Group](https://www.w3.org/WAI/ARIA/apg/patterns/radio/) pattern.
+
+| Attribute | Value | Purpose |
+|---|---|---|
+| `role` | `radiogroup` | Groups related radio buttons under a common label |
+| `aria-labelledby` | Label element ID | Associates the group label with the radiogroup |
+| `aria-describedby` | Helper/error element ID | Links helper or error text to the group |
+| `aria-required` | `"true"` | Marks the group as required |
+| `aria-disabled` | `"true"` | Marks all radios as non-interactive when group is disabled |
+| `aria-invalid` | `"true"` | Marks the group as invalid when `error=true` |
+
+The options container uses `role="presentation"`. Error container uses `role="alert"`.
+
+## Keyboard map
+
+| Key | Behavior |
+|---|---|
+| Tab | Move focus into the radio group (first or selected radio) |
+| Shift+Tab | Move focus out of the radio group |
+| ArrowRight / ArrowDown | Select the next radio |
+| ArrowLeft / ArrowUp | Select the previous radio |
+| Space | Select the focused radio |
+
+## Screen reader behavior
+
+On focus entry: "Choose a color, group". Navigating: "Red, radio button, 1 of 3". Error: announced assertively via `role="alert"`.
+
+## Color contrast
+
+Verified via `jest-axe` against the `original` flavor in light and dark modes. Disabled state uses intentional reduced contrast.
+
+## Tested with
+
+- jest-axe (automated, runs in `sando-radio-group.a11y.test.ts`)
+- VoiceOver (macOS Sequoia, Safari 18)
+- NVDA (Windows 11, Firefox 130)
+
+## Known limitations
+
+None identified.
+
+---
+
+[Back to Accessibility Statement](?path=/docs/accessibility-statement--docs)

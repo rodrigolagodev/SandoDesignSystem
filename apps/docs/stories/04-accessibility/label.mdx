@@ -1,0 +1,48 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Accessibility/Label" />
+
+# Accessibility — sando-label
+
+> Source: [`packages/components/src/components/label/ACCESSIBILITY.md`](https://github.com/rodrigolagodev/SandoDesignSystem/blob/master/packages/components/src/components/label/ACCESSIBILITY.md)
+
+## ARIA pattern
+
+Follows the [WAI-ARIA Label](https://www.w3.org/WAI/ARIA/apg/patterns/) pattern via native `<label>` element.
+
+| Attribute | Value | Purpose |
+|---|---|---|
+| `for` | Form control ID | Associates the label with a form control |
+| `aria-hidden` | `"true"` | On the required asterisk `*` — decorative; required state is communicated via the control's `required` attribute |
+
+When `sr-only=true`, the label is visually hidden but remains accessible to screen readers.
+
+## Keyboard map
+
+| Key | Behavior |
+|---|---|
+| — | Not keyboard focusable — labels are non-interactive |
+
+Clicking the label moves focus to the associated form control (native browser behavior).
+
+## Screen reader behavior
+
+The label text becomes the associated control's accessible name: "Email address, edit text" (announced when the control receives focus).
+
+## Color contrast
+
+Verified via `jest-axe` against the `original` flavor in light and dark modes. All pairs meet WCAG 2.1 AA.
+
+## Tested with
+
+- jest-axe (automated, runs in `sando-label.a11y.test.ts`)
+- VoiceOver (macOS Sequoia, Safari 18)
+- NVDA (Windows 11, Firefox 130)
+
+## Known limitations
+
+None identified.
+
+---
+
+[Back to Accessibility Statement](?path=/docs/accessibility-statement--docs)

@@ -1,0 +1,50 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Accessibility/Form" />
+
+# Accessibility — sando-form
+
+> Source: [`packages/components/src/components/form/ACCESSIBILITY.md`](https://github.com/rodrigolagodev/SandoDesignSystem/blob/master/packages/components/src/components/form/ACCESSIBILITY.md)
+
+## ARIA pattern
+
+Follows the [WAI-ARIA Form](https://www.w3.org/WAI/ARIA/apg/patterns/) pattern via the native `<form>` element.
+
+| Attribute | Value | Purpose |
+|---|---|---|
+| `aria-busy` | `"true"` / `"false"` | Marks the form as busy during async submission (`loading=true`) |
+| `aria-hidden` | `"true"` | On the loading overlay — decorative spinner hidden from AT |
+
+The component wraps a native `<form>` element. Individual form controls manage their own ARIA attributes.
+
+## Keyboard map
+
+| Key | Behavior |
+|---|---|
+| Tab | Move focus between form fields |
+| Shift+Tab | Move focus backward |
+| Enter | Submit the form (when focus is on an input or submit button) |
+
+During `loading=true`, the submit button is disabled to prevent double-submission.
+
+## Screen reader behavior
+
+Loading state: `aria-busy="true"` may be announced as "busy" by some screen readers. Validation errors: browser-native announcements for required fields and format errors.
+
+## Color contrast
+
+Verified via `jest-axe` against the `original` flavor in light and dark modes. All pairs meet WCAG 2.1 AA.
+
+## Tested with
+
+- jest-axe (automated, runs in `sando-form.a11y.test.ts`)
+- VoiceOver (macOS Sequoia, Safari 18)
+- NVDA (Windows 11, Firefox 130)
+
+## Known limitations
+
+None identified.
+
+---
+
+[Back to Accessibility Statement](?path=/docs/accessibility-statement--docs)

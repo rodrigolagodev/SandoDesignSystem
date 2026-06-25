@@ -1,0 +1,49 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Accessibility/Avatar" />
+
+# Accessibility — sando-avatar
+
+> Source: [`packages/components/src/components/avatar/ACCESSIBILITY.md`](https://github.com/rodrigolagodev/SandoDesignSystem/blob/master/packages/components/src/components/avatar/ACCESSIBILITY.md)
+
+## ARIA pattern
+
+Follows the [WAI-ARIA Image](https://www.w3.org/WAI/ARIA/apg/patterns/) pattern.
+
+| Attribute | Value | Purpose |
+|---|---|---|
+| `role` | `img` | Exposes the avatar as an image to assistive technology |
+| `aria-label` | `name` property | Provides the accessible name for the avatar |
+| `aria-hidden` | `true` | On the initials span and presence indicator — decorative |
+
+## Keyboard map
+
+| Key | Behavior |
+|---|---|
+| Tab | Move focus to/from the avatar (when `clickable=true`) |
+| Shift+Tab | Move focus backward |
+| Enter / Space | Activate (when clickable) |
+
+Non-clickable avatars (default) are not keyboard focusable.
+
+## Screen reader behavior
+
+Static avatar: announced as "Jane Doe, image" in browse mode. Clickable avatar: "Jane Doe, image" with focus announcement.
+
+## Color contrast
+
+Verified via `jest-axe` against the `original` flavor in light and dark modes. All pairs meet WCAG 2.1 AA.
+
+## Tested with
+
+- jest-axe (automated, runs in `sando-avatar.a11y.test.ts`)
+- VoiceOver (macOS Sequoia, Safari 18)
+- NVDA (Windows 11, Firefox 130)
+
+## Known limitations
+
+None identified.
+
+---
+
+[Back to Accessibility Statement](?path=/docs/accessibility-statement--docs)

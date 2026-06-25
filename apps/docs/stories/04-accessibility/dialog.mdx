@@ -1,0 +1,52 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Accessibility/Dialog" />
+
+# Accessibility — sando-dialog
+
+> Source: [`packages/components/src/components/dialog/ACCESSIBILITY.md`](https://github.com/rodrigolagodev/SandoDesignSystem/blob/master/packages/components/src/components/dialog/ACCESSIBILITY.md)
+
+## ARIA pattern
+
+Follows the [WAI-ARIA Dialog (Modal)](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/) pattern.
+
+| Attribute | Value | Purpose |
+|---|---|---|
+| `role` | `dialog` / `alertdialog` | Standard modal vs. confirmation requiring acknowledgment |
+| `aria-modal` | `"true"` | Tells AT that content behind the dialog is inert |
+| `aria-labelledby` | `"dialog-title"` | Associates the dialog title as its accessible name |
+| `aria-describedby` | Description element ID | Associates optional description text |
+
+When `no-header=true`, an `aria-label` must be provided on the element.
+
+## Keyboard map
+
+| Key | Behavior |
+|---|---|
+| Tab | Move focus to the next focusable element within the dialog (trapped) |
+| Shift+Tab | Move focus to the previous focusable element (trapped) |
+| Escape | Close the dialog (when `dismissible=true`) |
+
+Focus is trapped within the dialog. Focus returns to the previously focused element on close.
+
+## Screen reader behavior
+
+On open: "Dialog title, dialog" followed by the dialog description (if present). `alertdialog` announces immediately without waiting for user navigation.
+
+## Color contrast
+
+Verified via `jest-axe` against the `original` flavor in light and dark modes. All pairs meet WCAG 2.1 AA.
+
+## Tested with
+
+- jest-axe (automated, runs in `sando-dialog.a11y.test.ts`)
+- VoiceOver (macOS Sequoia, Safari 18)
+- NVDA (Windows 11, Firefox 130)
+
+## Known limitations
+
+Focus trap uses the `inert` attribute on sibling elements. Browsers without `inert` support may allow focus to escape the dialog.
+
+---
+
+[Back to Accessibility Statement](?path=/docs/accessibility-statement--docs)

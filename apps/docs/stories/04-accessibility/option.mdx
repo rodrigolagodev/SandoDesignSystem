@@ -1,0 +1,52 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Accessibility/Option" />
+
+# Accessibility — sando-option
+
+> Source: [`packages/components/src/components/option/ACCESSIBILITY.md`](https://github.com/rodrigolagodev/SandoDesignSystem/blob/master/packages/components/src/components/option/ACCESSIBILITY.md)
+
+## ARIA pattern
+
+Follows the [WAI-ARIA Listbox](https://www.w3.org/WAI/ARIA/apg/patterns/listbox/) pattern — the `option` role within a `listbox`.
+
+| Attribute | Value | Purpose |
+|---|---|---|
+| `role` | `option` | Marks the element as a selectable option in a listbox |
+| `aria-selected` | `"true"` / `"false"` | Communicates the selected state |
+| `aria-disabled` | `"true"` | Marks the option as non-interactive when disabled |
+
+Designed to be used inside `sando-select`. Not intended for standalone use outside a listbox context.
+
+## Keyboard map
+
+| Key | Behavior |
+|---|---|
+| ArrowUp / ArrowDown | Navigate between options (managed by parent `sando-select`) |
+| Enter / Space | Select the highlighted option (managed by parent) |
+| Home | Move highlight to first option (managed by parent) |
+| End | Move highlight to last option (managed by parent) |
+
+Keyboard navigation uses `aria-activedescendant` managed by the parent `sando-select`.
+
+## Screen reader behavior
+
+When highlighted: "Option label, 3 of 10". Selected: "Option label, selected". Disabled: "Option label, dimmed".
+
+## Color contrast
+
+Verified via `jest-axe` against the `original` flavor in light and dark modes. Disabled state uses intentional reduced contrast.
+
+## Tested with
+
+- jest-axe (automated, runs in `sando-option.a11y.test.ts`)
+- VoiceOver (macOS Sequoia, Safari 18)
+- NVDA (Windows 11, Firefox 130)
+
+## Known limitations
+
+None identified.
+
+---
+
+[Back to Accessibility Statement](?path=/docs/accessibility-statement--docs)

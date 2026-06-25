@@ -1,0 +1,50 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Accessibility/Skeleton" />
+
+# Accessibility — sando-skeleton
+
+> Source: [`packages/components/src/components/skeleton/ACCESSIBILITY.md`](https://github.com/rodrigolagodev/SandoDesignSystem/blob/master/packages/components/src/components/skeleton/ACCESSIBILITY.md)
+
+## ARIA pattern
+
+Follows the presentation/none pattern — the skeleton is a loading placeholder hidden from AT.
+
+| Attribute | Value | Purpose |
+|---|---|---|
+| `role` | `presentation` | Removes the element from the accessibility tree |
+| `aria-hidden` | `"true"` | Ensures the animated placeholder is invisible to AT |
+
+## Keyboard map
+
+| Key | Behavior |
+|---|---|
+| — | Not keyboard focusable — decorative loading placeholder |
+
+## Screen reader behavior
+
+The skeleton element is invisible to AT. Wrap in a container with `aria-busy="true"` to communicate loading state:
+
+```html
+<div aria-busy="true" aria-label="Loading content">
+  <sando-skeleton></sando-skeleton>
+</div>
+```
+
+## Color contrast
+
+The skeleton is decorative and hidden from AT — contrast is not applicable for accessibility purposes.
+
+## Tested with
+
+- jest-axe (automated, runs in `sando-skeleton.a11y.test.ts`)
+- VoiceOver (macOS Sequoia, Safari 18)
+- NVDA (Windows 11, Firefox 130)
+
+## Known limitations
+
+None identified.
+
+---
+
+[Back to Accessibility Statement](?path=/docs/accessibility-statement--docs)

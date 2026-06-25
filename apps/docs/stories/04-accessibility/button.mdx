@@ -1,0 +1,49 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Accessibility/Button" />
+
+# Accessibility — sando-button
+
+> Source: [`packages/components/src/components/button/ACCESSIBILITY.md`](https://github.com/rodrigolagodev/SandoDesignSystem/blob/master/packages/components/src/components/button/ACCESSIBILITY.md)
+
+## ARIA pattern
+
+Follows the [WAI-ARIA Button](https://www.w3.org/WAI/ARIA/apg/patterns/button/) pattern.
+
+| Attribute | Value | Purpose |
+|---|---|---|
+| `aria-disabled` | `"true"` / `"false"` | Communicates disabled state without removing from tab order |
+| `aria-busy` | `"true"` / `"false"` | Communicates loading state to screen readers |
+
+Uses a native `<button>` element — no custom role needed. Accessible name comes from slotted text content.
+
+## Keyboard map
+
+| Key | Behavior |
+|---|---|
+| Tab | Move focus to/from the button |
+| Shift+Tab | Move focus backward |
+| Enter | Activate the button |
+| Space | Activate the button |
+
+## Screen reader behavior
+
+Default: "Submit, button". Loading state: "Submit, button" (some screen readers append "busy" for `aria-busy="true"`). Disabled: "Submit, dimmed, button".
+
+## Color contrast
+
+Verified via `jest-axe` against the `original` flavor in light and dark modes. Disabled state uses intentional reduced contrast.
+
+## Tested with
+
+- jest-axe (automated, runs in `sando-button.a11y.test.ts`)
+- VoiceOver (macOS Sequoia, Safari 18)
+- NVDA (Windows 11, Firefox 130)
+
+## Known limitations
+
+None identified.
+
+---
+
+[Back to Accessibility Statement](?path=/docs/accessibility-statement--docs)

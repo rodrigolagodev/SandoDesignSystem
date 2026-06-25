@@ -1,0 +1,50 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Accessibility/Input" />
+
+# Accessibility — sando-input
+
+> Source: [`packages/components/src/components/input/ACCESSIBILITY.md`](https://github.com/rodrigolagodev/SandoDesignSystem/blob/master/packages/components/src/components/input/ACCESSIBILITY.md)
+
+## ARIA pattern
+
+Follows the [WAI-ARIA Textbox](https://www.w3.org/WAI/ARIA/apg/patterns/textbox/) pattern via native `<input>`.
+
+| Attribute | Value | Purpose |
+|---|---|---|
+| `aria-invalid` | `"true"` / `"false"` | Communicates validation error state |
+| `aria-describedby` | Helper/error element ID | Links helper or error text to the input |
+| `type` | `text`, `email`, `password`, etc. | Configures input semantics and mobile keyboard type |
+
+Label association uses a `<label>` element linked via `for`/`id`.
+
+## Keyboard map
+
+| Key | Behavior |
+|---|---|
+| Tab | Move focus to/from the input |
+| Shift+Tab | Move focus backward |
+| Type | Enter text |
+| Escape | Clear focus (browser default) |
+
+## Screen reader behavior
+
+Default: "Email address, edit text". With helper text: "Email address, edit text. Must be a valid email address." Error: "Email address, invalid data, edit text. Please enter a valid email."
+
+## Color contrast
+
+Verified via `jest-axe` against the `original` flavor in light and dark modes. Disabled state uses intentional reduced contrast.
+
+## Tested with
+
+- jest-axe (automated, runs in `sando-input.a11y.test.ts`)
+- VoiceOver (macOS Sequoia, Safari 18)
+- NVDA (Windows 11, Firefox 130)
+
+## Known limitations
+
+None identified.
+
+---
+
+[Back to Accessibility Statement](?path=/docs/accessibility-statement--docs)

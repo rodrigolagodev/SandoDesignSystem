@@ -1,0 +1,86 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Accessibility/Statement" />
+
+# Accessibility Statement
+
+Sando Design System is committed to meeting **WCAG 2.1 Level AA** standards across all components. Every component ships with automated accessibility tests (`jest-axe`), manual keyboard and screen reader testing, and a colocated `ACCESSIBILITY.md` file documenting its ARIA pattern, keyboard map, and known limitations.
+
+## Our Commitment
+
+- **WCAG 2.1 AA**: All components meet or exceed Level AA criteria
+- **Automated testing**: `jest-axe` runs on every component in CI via `pnpm test`
+- **Manual testing**: VoiceOver (macOS Sequoia, Safari 18) and NVDA (Windows 11, Firefox 130)
+- **Keyboard accessibility**: Every interactive component is fully operable without a mouse
+- **Color contrast**: OKLCH color space ensures perceptual uniformity across all flavors
+
+## Reporting an Accessibility Issue
+
+If you find an accessibility issue in any Sando component, please open an issue on GitHub and add the `a11y` label. Include:
+
+1. Which component and which state/variant exhibits the issue
+2. Which assistive technology you tested with (screen reader, browser, OS version)
+3. The WCAG criterion that is violated
+4. Steps to reproduce
+
+## Component Accessibility Index
+
+The following 26 components have documented accessibility statements. Each links to a dedicated Storybook page with the full ARIA pattern, keyboard map, screen reader behavior, and known limitations.
+
+| Component | WAI-ARIA Pattern | Keyboard | Page |
+|---|---|---|---|
+| Alert | Live Region (status / alert) | Escape to dismiss | [View](?path=/docs/accessibility-alert--docs) |
+| Avatar | Image (img) | Tab when clickable | [View](?path=/docs/accessibility-avatar--docs) |
+| Badge | Status live region | Not focusable | [View](?path=/docs/accessibility-badge--docs) |
+| Button | Button | Enter, Space | [View](?path=/docs/accessibility-button--docs) |
+| Card | Article / generic | Tab when clickable | [View](?path=/docs/accessibility-card--docs) |
+| Checkbox | Checkbox | Space, Enter | [View](?path=/docs/accessibility-checkbox--docs) |
+| Dialog | Dialog / alertdialog | Tab (trapped), Escape | [View](?path=/docs/accessibility-dialog--docs) |
+| Divider | Separator | Not focusable | [View](?path=/docs/accessibility-divider--docs) |
+| Form | Form | Tab between fields, Enter to submit | [View](?path=/docs/accessibility-form--docs) |
+| Form Group | Group | Inherited from slotted control | [View](?path=/docs/accessibility-form-group--docs) |
+| Help Text | Status / Alert live region | Not focusable | [View](?path=/docs/accessibility-help-text--docs) |
+| Icon | Image / Presentation | Not focusable | [View](?path=/docs/accessibility-icon--docs) |
+| Input | Textbox | Tab, type | [View](?path=/docs/accessibility-input--docs) |
+| Label | Label | Not focusable | [View](?path=/docs/accessibility-label--docs) |
+| Option | Option (in listbox) | Managed by Select | [View](?path=/docs/accessibility-option--docs) |
+| Option Group | Group | Managed by Select | [View](?path=/docs/accessibility-option-group--docs) |
+| Radio | Radio button | Tab, Arrow keys | [View](?path=/docs/accessibility-radio--docs) |
+| Radio Group | Radiogroup | Tab in, Arrow keys within | [View](?path=/docs/accessibility-radio-group--docs) |
+| Select | Combobox + Listbox | Tab, Arrow keys, Enter, Escape | [View](?path=/docs/accessibility-select--docs) |
+| Skeleton | Presentation (decorative) | Not focusable | [View](?path=/docs/accessibility-skeleton--docs) |
+| Skeleton Paragraph | Presentation (decorative) | Not focusable | [View](?path=/docs/accessibility-skeleton-paragraph--docs) |
+| Spinner | Status live region | Not focusable | [View](?path=/docs/accessibility-spinner--docs) |
+| Switch | Switch | Tab, Space, Enter | [View](?path=/docs/accessibility-switch--docs) |
+| Tag | Button (when interactive) | Tab, Enter, Space | [View](?path=/docs/accessibility-tag--docs) |
+| Textarea | Textbox (multiline) | Tab, type, Enter for newline | [View](?path=/docs/accessibility-textarea--docs) |
+| Tooltip | Tooltip | Tab to trigger, Escape to hide | [View](?path=/docs/accessibility-tooltip--docs) |
+
+## Testing Methodology
+
+### Automated Testing
+
+Every component has a `sando-<name>.a11y.test.ts` file that runs as part of `pnpm test`. These tests use:
+
+- **`jest-axe`**: Runs `axe-core` rules against the component in all relevant states (default, disabled, error, loading, etc.)
+- **`@open-wc/testing`**: Renders components in a real DOM environment (JSDOM)
+- **Color contrast**: `axe-core` validates color contrast ratios against WCAG 2.1 AA thresholds
+
+### Manual Testing
+
+In addition to automated tests, components are manually tested with:
+
+- **VoiceOver + Safari** (macOS Sequoia): Focus announcement, state changes, group navigation
+- **NVDA + Firefox** (Windows 11): Form field associations, live region announcements, keyboard patterns
+
+### Test Scope
+
+Tests cover:
+1. Default state — no violations
+2. All relevant variants (size, appearance, status)
+3. Interactive states (checked, selected, expanded, loading, disabled, error)
+4. All supported flavors (original, strawberry, chocolate)
+
+## Last Reviewed
+
+2026-06-19 — Reviewed against WCAG 2.1 Level AA (ISO/IEC 40500:2012)
