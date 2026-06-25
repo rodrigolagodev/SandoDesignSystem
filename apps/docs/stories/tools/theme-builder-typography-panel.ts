@@ -109,6 +109,8 @@ export class SandoTbTypographyPanel extends LitElement {
       box-sizing: border-box;
       outline: none;
       background: #fff;
+      color: #1a1a1a;
+      color-scheme: light;
       cursor: pointer;
       transition: border-color 0.15s;
     }

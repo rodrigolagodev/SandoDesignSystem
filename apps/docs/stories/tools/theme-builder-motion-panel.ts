@@ -225,6 +225,8 @@ export class SandoTbMotionPanel extends LitElement {
       border-radius: 6px;
       font-size: 12px;
       background: #fff;
+      color: #1a1a1a;
+      color-scheme: light;
       outline: none;
       cursor: pointer;
     }
