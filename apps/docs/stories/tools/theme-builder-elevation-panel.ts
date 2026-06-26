@@ -304,8 +304,7 @@ export class SandoTbElevationPanel extends LitElement {
         buildElevationJson(this._hue, this._intensity, this._chroma),
         null,
         2,
-      ) +
-      "\n"
+      ) + "\n"
     );
   }
 
