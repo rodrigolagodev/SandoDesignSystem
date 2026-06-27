@@ -11,7 +11,7 @@
  */
 
 import { LitElement, html, css } from "lit";
-import { property } from "lit/decorators.js";
+import { property, state } from "lit/decorators.js";
 import type { BuilderState } from "./theme-builder-types.js";
 
 // Register all Sando custom elements so they're available in the canvas.
@@ -177,7 +177,6 @@ export class SandoTbPreviewPanel extends LitElement {
       display: block;
       width: 100%;
       min-height: calc(100vh - 52px);
-      background: #f8f8f8;
     }
 
     /* ---- Status bar ---- */
@@ -258,8 +257,8 @@ export class SandoTbPreviewPanel extends LitElement {
     }
 
     /* ---- Themed canvas wrapper ---- */
+    /* background set inline via JS — color-mode-aware */
     .canvas {
-      background: var(--sando-color-background-base, #fafaf9);
       border-radius: 12px;
       overflow: hidden;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
@@ -359,6 +358,52 @@ export class SandoTbPreviewPanel extends LitElement {
   `;
 
   @property({ attribute: false }) builderState: BuilderState = {};
+  @state() private _colorMode: "light" | "dark" = "light";
+
+  private _modeObserver: MutationObserver | null = null;
+
+  override connectedCallback() {
+    super.connectedCallback();
+    this._colorMode =
+      (document.documentElement.getAttribute("data-color-mode") as
+        | "light"
+        | "dark") ?? "light";
+    this._modeObserver = new MutationObserver(() => {
+      const mode =
+        (document.documentElement.getAttribute("data-color-mode") as
+          | "light"
+          | "dark") ?? "light";
+      if (mode !== this._colorMode) this._colorMode = mode;
+    });
+    this._modeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-color-mode"],
+    });
+  }
+
+  override disconnectedCallback() {
+    super.disconnectedCallback();
+    this._modeObserver?.disconnect();
+    this._modeObserver = null;
+  }
+
+  private _canvasBackground(): string {
+    const isDark = this._colorMode === "dark";
+    const colorsData = this.builderState.colors?.json as
+      | { color?: Record<string, Record<string, { value: string }>> }
+      | undefined;
+    if (colorsData?.color) {
+      for (const [key, palette] of Object.entries(colorsData.color)) {
+        if (NEUTRAL_KEYS.has(key)) {
+          const step = isDark ? "950" : "50";
+          const val = palette[step]?.value;
+          if (val) return val;
+        }
+      }
+    }
+    // Sando default neutralWarm fallbacks
+    return isDark ? "oklch(0.22 0.012 70)" : "oklch(0.98 0.02 70)";
+  }
 
   private get _hasAnyState(): boolean {
     return (
@@ -382,10 +427,15 @@ export class SandoTbPreviewPanel extends LitElement {
 
   override render() {
     const overrideStyle = buildOverrideVars(this.builderState);
+    const canvasBg = this._canvasBackground();
+    const isDark = this._colorMode === "dark";
 
     return html`
       <!-- Status bar -->
-      <div class="status-bar">
+      <div
+        class="status-bar"
+        style="${isDark ? "background:#1a1a1a;border-color:#333;" : ""}"
+      >
         <span class="status-label">Applied</span>
         ${this._pill("Colors", "colors")}
         ${this._pill("Typography", "typography")}
@@ -394,7 +444,10 @@ export class SandoTbPreviewPanel extends LitElement {
       </div>
 
       <!-- Canvas -->
-      <div class="canvas-outer">
+      <div
+        class="canvas-outer"
+        style="${isDark ? "background:#111;" : "background:#f8f8f8;"}"
+      >
         ${!this._hasAnyState
           ? html`
               <div class="canvas-hint">
@@ -405,7 +458,11 @@ export class SandoTbPreviewPanel extends LitElement {
               </div>
             `
           : html`
-              <div class="canvas" data-flavor="sando" style="${overrideStyle}">
+              <div
+                class="canvas"
+                data-flavor="sando"
+                style="${overrideStyle}; background: ${canvasBg};"
+              >
                 <!-- 1. Typography specimen -->
                 <div class="section">
                   <p class="section-label">Typography</p>
