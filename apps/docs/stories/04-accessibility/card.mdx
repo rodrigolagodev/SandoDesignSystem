@@ -10,22 +10,64 @@ import { Meta } from "@storybook/blocks";
 
 Follows the [WAI-ARIA Article](https://www.w3.org/WAI/ARIA/apg/patterns/) pattern for content containers.
 
-| Attribute | Value | Purpose |
-|---|---|---|
-| `aria-labelledby` | Heading element ID | Associates the card heading as its accessible name |
-| `aria-label` | Optional override | Replaces `aria-labelledby` when set |
-| `aria-disabled` | `"true"` / `"false"` | Marks the card as non-interactive without removing from browse mode |
-| `aria-busy` | `"true"` / `"false"` | Set during loading skeleton state |
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Value</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`aria-labelledby`</td>
+      <td>Heading element ID</td>
+      <td>Associates the card heading as its accessible name</td>
+    </tr>
+    <tr>
+      <td>`aria-label`</td>
+      <td>Optional override</td>
+      <td>Replaces `aria-labelledby` when set</td>
+    </tr>
+    <tr>
+      <td>`aria-disabled`</td>
+      <td>`"true"` / `"false"`</td>
+      <td>Marks the card as non-interactive without removing from browse mode</td>
+    </tr>
+    <tr>
+      <td>`aria-busy`</td>
+      <td>`"true"` / `"false"`</td>
+      <td>Set during loading skeleton state</td>
+    </tr>
+  </tbody>
+</table>
 
 The `heading-level` property controls the rendered heading element (`h1`–`h6`) for correct document outline.
 
 ## Keyboard map
 
-| Key | Behavior |
-|---|---|
-| Tab | Move focus to the card (when `clickable=true`) or to interactive children |
-| Shift+Tab | Move focus backward |
-| Enter / Space | Activate the card (when `clickable=true`) |
+<table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Behavior</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Tab</td>
+      <td>Move focus to the card (when `clickable=true`) or to interactive children</td>
+    </tr>
+    <tr>
+      <td>Shift+Tab</td>
+      <td>Move focus backward</td>
+    </tr>
+    <tr>
+      <td>Enter / Space</td>
+      <td>Activate the card (when `clickable=true`)</td>
+    </tr>
+  </tbody>
+</table>
 
 Non-clickable cards are not keyboard focusable themselves.
 

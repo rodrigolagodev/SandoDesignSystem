@@ -10,34 +10,126 @@ import { Meta } from "@storybook/blocks";
 
 Follows the [WAI-ARIA Combobox](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/) pattern with a listbox popup.
 
-| Attribute | Value | Purpose |
-|---|---|---|
-| `role` | `combobox` | On the trigger button |
-| `aria-haspopup` | `"listbox"` | Indicates the popup type |
-| `aria-expanded` | `"true"` / `"false"` | Communicates whether the listbox is open |
-| `aria-controls` | Listbox element ID | Associates trigger with its listbox |
-| `aria-activedescendant` | Highlighted option ID | Tracks the highlighted option |
-| `aria-required` | `"true"` | Marks the select as required |
-| `aria-invalid` | `"true"` / `"false"` | Marks invalid state |
-| `aria-disabled` | `"true"` | Marks non-interactive state |
-| `aria-busy` | `"true"` | Set during loading state |
-| `aria-describedby` | Description element ID | Links helper/error text |
-| `role` | `listbox` | On the dropdown container |
-| `aria-multiselectable` | `"true"` | Set when `multiple=true` |
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Value</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`role`</td>
+      <td>`combobox`</td>
+      <td>On the trigger button</td>
+    </tr>
+    <tr>
+      <td>`aria-haspopup`</td>
+      <td>`"listbox"`</td>
+      <td>Indicates the popup type</td>
+    </tr>
+    <tr>
+      <td>`aria-expanded`</td>
+      <td>`"true"` / `"false"`</td>
+      <td>Communicates whether the listbox is open</td>
+    </tr>
+    <tr>
+      <td>`aria-controls`</td>
+      <td>Listbox element ID</td>
+      <td>Associates trigger with its listbox</td>
+    </tr>
+    <tr>
+      <td>`aria-activedescendant`</td>
+      <td>Highlighted option ID</td>
+      <td>Tracks the highlighted option</td>
+    </tr>
+    <tr>
+      <td>`aria-required`</td>
+      <td>`"true"`</td>
+      <td>Marks the select as required</td>
+    </tr>
+    <tr>
+      <td>`aria-invalid`</td>
+      <td>`"true"` / `"false"`</td>
+      <td>Marks invalid state</td>
+    </tr>
+    <tr>
+      <td>`aria-disabled`</td>
+      <td>`"true"`</td>
+      <td>Marks non-interactive state</td>
+    </tr>
+    <tr>
+      <td>`aria-busy`</td>
+      <td>`"true"`</td>
+      <td>Set during loading state</td>
+    </tr>
+    <tr>
+      <td>`aria-describedby`</td>
+      <td>Description element ID</td>
+      <td>Links helper/error text</td>
+    </tr>
+    <tr>
+      <td>`role`</td>
+      <td>`listbox`</td>
+      <td>On the dropdown container</td>
+    </tr>
+    <tr>
+      <td>`aria-multiselectable`</td>
+      <td>`"true"`</td>
+      <td>Set when `multiple=true`</td>
+    </tr>
+  </tbody>
+</table>
 
 ## Keyboard map
 
-| Key | Behavior |
-|---|---|
-| Tab | Move focus to/from the select trigger |
-| Shift+Tab | Move focus backward |
-| Enter / Space | Open the dropdown or select highlighted option |
-| ArrowDown | Open dropdown or move highlight to next option |
-| ArrowUp | Move highlight to previous option |
-| Home | Move highlight to first option |
-| End | Move highlight to last option |
-| Escape | Close the dropdown without selecting |
-| Printable characters | Type-ahead to jump to matching option |
+<table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Behavior</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Tab</td>
+      <td>Move focus to/from the select trigger</td>
+    </tr>
+    <tr>
+      <td>Shift+Tab</td>
+      <td>Move focus backward</td>
+    </tr>
+    <tr>
+      <td>Enter / Space</td>
+      <td>Open the dropdown or select highlighted option</td>
+    </tr>
+    <tr>
+      <td>ArrowDown</td>
+      <td>Open dropdown or move highlight to next option</td>
+    </tr>
+    <tr>
+      <td>ArrowUp</td>
+      <td>Move highlight to previous option</td>
+    </tr>
+    <tr>
+      <td>Home</td>
+      <td>Move highlight to first option</td>
+    </tr>
+    <tr>
+      <td>End</td>
+      <td>Move highlight to last option</td>
+    </tr>
+    <tr>
+      <td>Escape</td>
+      <td>Close the dropdown without selecting</td>
+    </tr>
+    <tr>
+      <td>Printable characters</td>
+      <td>Type-ahead to jump to matching option</td>
+    </tr>
+  </tbody>
+</table>
 
 ## Screen reader behavior
 

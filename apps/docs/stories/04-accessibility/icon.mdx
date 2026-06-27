@@ -10,19 +10,51 @@ import { Meta } from "@storybook/blocks";
 
 Follows the [WAI-ARIA Image](https://www.w3.org/WAI/ARIA/apg/patterns/) pattern — either `img` (semantic) or `presentation` (decorative).
 
-| Attribute | Value | Purpose |
-|---|---|---|
-| `role` | `img` (default) / `presentation` (when `decorative=true`) | Semantic: exposed as image; Decorative: hidden from AT |
-| `aria-label` | Icon name or custom label | Provides the accessible name for semantic icons |
-| `aria-hidden` | `"true"` (when `decorative=true`) | Completely hides decorative icons from AT |
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Value</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`role`</td>
+      <td>`img` (default) / `presentation` (when `decorative=true`)</td>
+      <td>Semantic: exposed as image; Decorative: hidden from AT</td>
+    </tr>
+    <tr>
+      <td>`aria-label`</td>
+      <td>Icon name or custom label</td>
+      <td>Provides the accessible name for semantic icons</td>
+    </tr>
+    <tr>
+      <td>`aria-hidden`</td>
+      <td>`"true"` (when `decorative=true`)</td>
+      <td>Completely hides decorative icons from AT</td>
+    </tr>
+  </tbody>
+</table>
 
 Use `decorative` attribute when the icon is accompanied by visible text. Provide `aria-label` for semantic icons without text context.
 
 ## Keyboard map
 
-| Key | Behavior |
-|---|---|
-| — | Not keyboard focusable — non-interactive presentational element |
+<table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Behavior</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>—</td>
+      <td>Not keyboard focusable — non-interactive presentational element</td>
+    </tr>
+  </tbody>
+</table>
 
 ## Screen reader behavior
 

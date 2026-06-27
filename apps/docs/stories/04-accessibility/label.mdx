@@ -10,18 +10,46 @@ import { Meta } from "@storybook/blocks";
 
 Follows the [WAI-ARIA Label](https://www.w3.org/WAI/ARIA/apg/patterns/) pattern via native `<label>` element.
 
-| Attribute | Value | Purpose |
-|---|---|---|
-| `for` | Form control ID | Associates the label with a form control |
-| `aria-hidden` | `"true"` | On the required asterisk `*` — decorative; required state is communicated via the control's `required` attribute |
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Value</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`for`</td>
+      <td>Form control ID</td>
+      <td>Associates the label with a form control</td>
+    </tr>
+    <tr>
+      <td>`aria-hidden`</td>
+      <td>`"true"`</td>
+      <td>On the required asterisk `*` — decorative; required state is communicated via the control's `required` attribute</td>
+    </tr>
+  </tbody>
+</table>
 
 When `sr-only=true`, the label is visually hidden but remains accessible to screen readers.
 
 ## Keyboard map
 
-| Key | Behavior |
-|---|---|
-| — | Not keyboard focusable — labels are non-interactive |
+<table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Behavior</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>—</td>
+      <td>Not keyboard focusable — labels are non-interactive</td>
+    </tr>
+  </tbody>
+</table>
 
 Clicking the label moves focus to the associated form control (native browser behavior).
 

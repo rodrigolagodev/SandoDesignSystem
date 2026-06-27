@@ -10,19 +10,51 @@ import { Meta } from "@storybook/blocks";
 
 Follows the [WAI-ARIA Live Region](https://www.w3.org/WAI/ARIA/apg/patterns/) pattern using `role="status"`.
 
-| Attribute | Value | Purpose |
-|---|---|---|
-| `role` | `status` | Marks the spinner as a polite live region |
-| `aria-label` | `"Loading"` (default) or custom | Provides the accessible name announced to screen readers |
-| `aria-hidden` | `"true"` | On the `<svg>` element — the SVG animation is decorative |
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Value</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`role`</td>
+      <td>`status`</td>
+      <td>Marks the spinner as a polite live region</td>
+    </tr>
+    <tr>
+      <td>`aria-label`</td>
+      <td>`"Loading"` (default) or custom</td>
+      <td>Provides the accessible name announced to screen readers</td>
+    </tr>
+    <tr>
+      <td>`aria-hidden`</td>
+      <td>`"true"`</td>
+      <td>On the `<svg>` element — the SVG animation is decorative</td>
+    </tr>
+  </tbody>
+</table>
 
 The spinner constant (`SPINNER_ROLE = 'status'`) is defined in `sando-spinner.a11y.ts` and imported by the component. The actual a11y tests live in `sando-spinner.a11y.test.ts`.
 
 ## Keyboard map
 
-| Key | Behavior |
-|---|---|
-| — | Not keyboard focusable — non-interactive loading indicator |
+<table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Behavior</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>—</td>
+      <td>Not keyboard focusable — non-interactive loading indicator</td>
+    </tr>
+  </tbody>
+</table>
 
 ## Screen reader behavior
 

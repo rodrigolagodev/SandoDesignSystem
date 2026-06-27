@@ -10,20 +10,55 @@ import { Meta } from "@storybook/blocks";
 
 Follows the [WAI-ARIA Group](https://www.w3.org/WAI/ARIA/apg/patterns/) pattern for grouping form controls.
 
-| Attribute | Value | Purpose |
-|---|---|---|
-| `aria-describedby` | Description element ID | Injected onto the slotted form control to link helper/error text |
-| `aria-invalid` | `"true"` / `"false"` | Injected onto the slotted form control when `error=true` |
-| `role` | `"alert"` | On the error message container for assertive announcements |
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Value</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`aria-describedby`</td>
+      <td>Description element ID</td>
+      <td>Injected onto the slotted form control to link helper/error text</td>
+    </tr>
+    <tr>
+      <td>`aria-invalid`</td>
+      <td>`"true"` / `"false"`</td>
+      <td>Injected onto the slotted form control when `error=true`</td>
+    </tr>
+    <tr>
+      <td>`role`</td>
+      <td>`"alert"`</td>
+      <td>On the error message container for assertive announcements</td>
+    </tr>
+  </tbody>
+</table>
 
 The form-group injects `aria-describedby` and `aria-invalid` directly onto slotted inputs, selects, textareas, or elements with `role="textbox"`, `role="combobox"`, or `role="listbox"`.
 
 ## Keyboard map
 
-| Key | Behavior |
-|---|---|
-| Tab | Move focus to/from the slotted form control |
-| Shift+Tab | Move focus backward |
+<table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Behavior</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Tab</td>
+      <td>Move focus to/from the slotted form control</td>
+    </tr>
+    <tr>
+      <td>Shift+Tab</td>
+      <td>Move focus backward</td>
+    </tr>
+  </tbody>
+</table>
 
 The form-group itself is not focusable.
 

@@ -10,22 +10,63 @@ import { Meta } from "@storybook/blocks";
 
 Follows the [WAI-ARIA Listbox](https://www.w3.org/WAI/ARIA/apg/patterns/listbox/) pattern — the `option` role within a `listbox`.
 
-| Attribute | Value | Purpose |
-|---|---|---|
-| `role` | `option` | Marks the element as a selectable option in a listbox |
-| `aria-selected` | `"true"` / `"false"` | Communicates the selected state |
-| `aria-disabled` | `"true"` | Marks the option as non-interactive when disabled |
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Value</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`role`</td>
+      <td>`option`</td>
+      <td>Marks the element as a selectable option in a listbox</td>
+    </tr>
+    <tr>
+      <td>`aria-selected`</td>
+      <td>`"true"` / `"false"`</td>
+      <td>Communicates the selected state</td>
+    </tr>
+    <tr>
+      <td>`aria-disabled`</td>
+      <td>`"true"`</td>
+      <td>Marks the option as non-interactive when disabled</td>
+    </tr>
+  </tbody>
+</table>
 
 Designed to be used inside `sando-select`. Not intended for standalone use outside a listbox context.
 
 ## Keyboard map
 
-| Key | Behavior |
-|---|---|
-| ArrowUp / ArrowDown | Navigate between options (managed by parent `sando-select`) |
-| Enter / Space | Select the highlighted option (managed by parent) |
-| Home | Move highlight to first option (managed by parent) |
-| End | Move highlight to last option (managed by parent) |
+<table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Behavior</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ArrowUp / ArrowDown</td>
+      <td>Navigate between options (managed by parent `sando-select`)</td>
+    </tr>
+    <tr>
+      <td>Enter / Space</td>
+      <td>Select the highlighted option (managed by parent)</td>
+    </tr>
+    <tr>
+      <td>Home</td>
+      <td>Move highlight to first option (managed by parent)</td>
+    </tr>
+    <tr>
+      <td>End</td>
+      <td>Move highlight to last option (managed by parent)</td>
+    </tr>
+  </tbody>
+</table>
 
 Keyboard navigation uses `aria-activedescendant` managed by the parent `sando-select`.
 

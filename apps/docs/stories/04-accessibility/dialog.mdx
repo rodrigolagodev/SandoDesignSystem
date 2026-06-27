@@ -10,22 +10,64 @@ import { Meta } from "@storybook/blocks";
 
 Follows the [WAI-ARIA Dialog (Modal)](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/) pattern.
 
-| Attribute | Value | Purpose |
-|---|---|---|
-| `role` | `dialog` / `alertdialog` | Standard modal vs. confirmation requiring acknowledgment |
-| `aria-modal` | `"true"` | Tells AT that content behind the dialog is inert |
-| `aria-labelledby` | `"dialog-title"` | Associates the dialog title as its accessible name |
-| `aria-describedby` | Description element ID | Associates optional description text |
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Value</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`role`</td>
+      <td>`dialog` / `alertdialog`</td>
+      <td>Standard modal vs. confirmation requiring acknowledgment</td>
+    </tr>
+    <tr>
+      <td>`aria-modal`</td>
+      <td>`"true"`</td>
+      <td>Tells AT that content behind the dialog is inert</td>
+    </tr>
+    <tr>
+      <td>`aria-labelledby`</td>
+      <td>`"dialog-title"`</td>
+      <td>Associates the dialog title as its accessible name</td>
+    </tr>
+    <tr>
+      <td>`aria-describedby`</td>
+      <td>Description element ID</td>
+      <td>Associates optional description text</td>
+    </tr>
+  </tbody>
+</table>
 
 When `no-header=true`, an `aria-label` must be provided on the element.
 
 ## Keyboard map
 
-| Key | Behavior |
-|---|---|
-| Tab | Move focus to the next focusable element within the dialog (trapped) |
-| Shift+Tab | Move focus to the previous focusable element (trapped) |
-| Escape | Close the dialog (when `dismissible=true`) |
+<table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Behavior</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Tab</td>
+      <td>Move focus to the next focusable element within the dialog (trapped)</td>
+    </tr>
+    <tr>
+      <td>Shift+Tab</td>
+      <td>Move focus to the previous focusable element (trapped)</td>
+    </tr>
+    <tr>
+      <td>Escape</td>
+      <td>Close the dialog (when `dismissible=true`)</td>
+    </tr>
+  </tbody>
+</table>
 
 Focus is trapped within the dialog. Focus returns to the previously focused element on close.
 
